@@ -20,9 +20,58 @@ export class AppMenuComponent implements OnInit {
                     { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
                 ]
             },
+            
             {
-                label: 'UI Components',
+                label: 'TRANG CHỦ',
                 items: [
+                    {
+                        label: 'Danh mục',
+                        icon: 'pi pi-fw pi-server',
+                        items: [
+                            {
+                                label: 'Chức danh',
+                                icon: 'pi pi-fw pi-user',
+                                outerLink: ['/danhmuc/chucdanh']
+                            },
+                            {
+                                label: 'Lĩnh vực',
+                                icon: 'pi pi-fw pi-circle',
+                                outerLink: ['/danhmuc/linhvuc']
+                            },
+                        ]
+                    },
+                    {
+                        label: 'Hệ thống',
+                        icon: 'pi pi-fw pi-wrench',
+                        items: [
+                            {
+                                label: 'Quản trị tài khoản',
+                                icon: 'pi pi-fw pi-user',
+                                outerLink: ['/hethong/quantritaikhoan']
+                            },
+                            {
+                                label: 'Nhóm quyền',
+                                icon: 'pi pi-fw pi-plus-circle',
+                                outerLink: ['/hethong/nhomquyen']
+                            },
+                        ]
+                    },
+                    {
+                        label: 'Văn bản đi',
+                        icon: 'pi pi-fw pi-book',
+                        items: [
+                            {
+                                label: 'Cập nhật mới',
+                                icon: 'pi pi-fw pi-file-edit',
+                                outerLink: ['/hethong/quantritaikhoan']
+                            },
+                            // {
+                            //     label: 'Nhóm quyền',
+                            //     icon: 'pi pi-fw pi-user',
+                            //     outerLink: ['/hethong/nhomquyen']
+                            // },
+                        ]
+                    },
                     { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
                     { label: 'Input', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
                     { label: 'Float Label', icon: 'pi pi-fw pi-bookmark', routerLink: ['/uikit/floatlabel'] },
@@ -38,7 +87,8 @@ export class AppMenuComponent implements OnInit {
                     { label: 'Message', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message'] },
                     { label: 'File', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file'] },
                     { label: 'Chart', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts'] },
-                    { label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] }
+                    { label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] },
+                    
                 ]
             },
             {

@@ -63,11 +63,10 @@
     }
 
     .layout-t-center {
-        height: 0;
-        margin-right: 0;
+        height: 4.5rem !important;
         display: block;
         margin-left: auto;
-        margin-right: auto;
+        margin-right: auto !important;
         width: 21%;
     }
 

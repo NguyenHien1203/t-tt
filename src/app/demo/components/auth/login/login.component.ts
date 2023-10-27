@@ -45,9 +45,9 @@ export class LoginComponent {
     ) { }
 
     ngOnInit(): void {
-        this.returnUrl = '/trang-chu';
+        this.returnUrl = '/';
         if (this.authenService.CheckLogin())
-            this.router.navigate(['/trang-chu']);
+            this.router.navigate(['/']);
         else
             this.router.navigate(['/auth/login']);
     }

@@ -490,7 +490,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Danh bạ',
                                 icon: 'pi pi-fw pi-align-justify',
-                                outerLink: ['/danhmuc/linhvuc']
+                                outerLink: ['/danhmuc/danhba']
                             },
                             {
                                 label: 'Danh mục liên kết',

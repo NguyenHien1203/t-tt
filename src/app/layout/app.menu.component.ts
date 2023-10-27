@@ -39,7 +39,7 @@ export class AppMenuComponent implements OnInit {
                                 icon: 'pi pi-fw pi-verified',
                                 outerLink: ['/hethong/nhomquyen']
                             },
-                            {
+                            { 
                                 label: 'Quản trị văn bản',
                                 icon: 'pi pi-fw pi-box',
                                 outerLink: ['/hethong/nhomquyen']

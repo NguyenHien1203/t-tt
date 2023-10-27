@@ -15,7 +15,8 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                     { path: 'documentation', loadChildren: () => import('./demo/components/documentation/documentation.module').then(m => m.DocumentationModule) },
                     { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
-                    { path: 'danh-muc', loadChildren: () => import('./demo/components/danh-muc/danh-muc.module').then(m => m.DanhMucModule) }
+                    { path: 'danh-muc', loadChildren: () => import('./demo/components/danh-muc/danh-muc.module').then(m => m.DanhMucModule) },
+                    { path: 'he-thong', loadChildren: () => import('./demo/components/he-thong/he-thong.module').then(m => m.HeThongModule) }
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },

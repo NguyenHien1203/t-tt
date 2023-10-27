@@ -540,7 +540,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản trị tài khoản',
                                 icon: 'pi pi-fw pi-user-plus',
-                                routerLink: ['/hethong/nhomquyen']
+                                routerLink: ['/he-thong/tai-khoan']
                             },
                             {
                                 label: 'Quản lý nhãn',

@@ -11,12 +11,10 @@ import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
-import { LinhVucComponent } from './demo/components/danh-muc/linh-vuc/linh-vuc.component';
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent, LinhVucComponent
-    ],
+        AppComponent, NotfoundComponent],
     imports: [
         AppRoutingModule,
         AppLayoutModule

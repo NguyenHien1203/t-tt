@@ -1,6 +1,6 @@
 <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="">
-        <img src="assets/layout/images/sfb.png" alt="logo" class="layout-t-centernter">
+        <img src="assets/layout/images/sfb.png" alt="logo" class="layout-t-center">
     </a>
 
     <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
@@ -14,7 +14,8 @@
     <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
         <button class="p-link layout-topbar-button" (click)="mail.toggle($event)">
             <i class="pi pi-envelope"></i>
-            <p-overlayPanel #mail [showCloseIcon]="true" [style]="{width: '450px'}">
+            <span>Hộp thư đến</span>
+            <p-overlayPanel #mail [showCloseIcon]="false" [style]="{width: '400px'}">
                 <ng-template pTemplate>
                     <p-table [value]="mails" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="op2.hide()" responsiveLayout="scroll">
                         <ng-template pTemplate="body" let-rowData let-mail>
@@ -28,8 +29,9 @@
             </p-overlayPanel>
         </button>
         <button class="p-link layout-topbar-button" (click)="notifi.toggle($event)">
-            <i class="pi pi-gift"></i>
-            <p-overlayPanel #notifi [showCloseIcon]="true" [style]="{width: '450px'}">
+            <i class="pi pi-bell"></i>
+            <span>Thông báo</span>
+            <p-overlayPanel #notifi [showCloseIcon]="false" [style]="{width: '400px'}">
                 <ng-template pTemplate>
                     <p-table [value]="notifis" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="op2.hide()" responsiveLayout="scroll">
                         <ng-template pTemplate="body" let-rowData let-notifi>
@@ -44,7 +46,8 @@
         </button>
         <button class="p-link layout-topbar-button" (click)="clock.toggle($event)">
             <i class="pi pi-clock"></i>
-            <p-overlayPanel #clock [showCloseIcon]="true" [style]="{width: '450px'}">
+            <span>Hoạt động sắp tới</span>
+            <p-overlayPanel #clock [showCloseIcon]="false" [style]="{width: '400px'}">
                 <ng-template pTemplate>
                     <p-table [value]="clocks" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="op2.hide()" responsiveLayout="scroll">
                         <ng-template pTemplate="body" let-rowData let-clock>
@@ -59,13 +62,24 @@
         </button>
         <button class="p-link layout-topbar-button" (click)="calender.toggle($event)">
             <i class="pi pi-calendar"></i>
-            <p-overlayPanel #calender [showCloseIcon]="true" [style]="{width: '450px'}">
+            <p-overlayPanel #calender [showCloseIcon]="false" [style]="{width: '400px'}">
                 <img src="assets/demo/images/nature/nature1.jpg" alt="Nature 1" style="width:100%"/>
             </p-overlayPanel>
         </button>
-        <button class="p-link layout-topbar-button">
+        <button class="p-link layout-topbar-button"  (click)="profile.toggle($event)">
             <i class="pi pi-user"></i>
-            <span>Profile</span>
+            <span>Thông tin người dùng</span>
+            <p-overlayPanel #profile [showCloseIcon]="false" [style]="{width: '220px'}">
+                <ng-template pTemplate>
+                    <p-table [value]="profiles" selectionMode="single" [(selection)]="selectedProduct" [paginator]="false" [rows]="3" (onRowSelect)="op2.hide()" responsiveLayout="scroll">
+                        <ng-template pTemplate="body" let-rowData let-profile>
+                            <tr [pSelectableRow]="rowData">
+                                <td routerLink={{profile.routerLink}}><i class={{profile.icon}}></i>&nbsp;&nbsp;{{profile.label}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </ng-template>
+            </p-overlayPanel>
         </button>
         <!-- <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
             <i class="pi pi-cog"></i>

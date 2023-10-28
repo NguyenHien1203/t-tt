@@ -8,5 +8,12 @@ export interface TaiKhoan {
     HoTen?: string;
     PhongBan?: string;
     ChucDanh?: number;
-    TrangThai?: InventoryStatus;
+    TrangThai?: string;
 }
+export interface TaiKhoanTimKiem {
+    id?: number;
+    TuKhoa: string;
+    TenPhongBan: string;
+    TenChucDanh: string
+}
+

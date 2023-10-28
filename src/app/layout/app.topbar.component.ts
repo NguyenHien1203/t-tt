@@ -4,6 +4,7 @@ import { LayoutService } from "./service/app.layout.service";
 import { Mail } from '../demo/models/mail';
 import { Notifi } from '../demo/models/notifi';
 import { Clock } from '../demo/models/clock';
+import { Profile } from '../demo/models/profile';
 @Component({
     selector: 'app-topbar',
     templateUrl: './app.topbar.component.html'
@@ -14,7 +15,8 @@ export class AppTopBarComponent implements OnInit {
     items!: MenuItem[];
     mails: Mail[] = [];
     notifis: Notifi[] = [];
-    clocks: Clock[] = [];
+    clocks: Clock[] = []; 
+    profiles: Profile[] = [];
     @ViewChild('menubutton') menuButton!: ElementRef;
 
     @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
@@ -27,6 +29,12 @@ export class AppTopBarComponent implements OnInit {
         this.mails = [
             { label: 'Nhận thông báo', createdDate: new Date(1901,10,10) },
             { label: 'Nhân viên (Bảo vệ)', createdDate: new Date(1901,1,10) }
+        ];
+
+        this.profiles = [
+            { label: 'Thông tin tài khoản', icon: "pi pi-fw pi-user-edit", routerLink : ['/he-thong/thong-tin-nguoi-dung'] },
+            { label: 'Đổi mật khẩu', icon: "pi pi-fw pi-pencil", routerLink : ['/he-thong/doi-mat-khau'] },
+            { label: 'Đăng xuất', icon: "pi pi-fw pi-sign-out", routerLink : ['/logout'] }
         ];
 
         this.notifis = [

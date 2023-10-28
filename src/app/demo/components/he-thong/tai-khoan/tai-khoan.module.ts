@@ -16,6 +16,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import { FormsModule } from '@angular/forms';
     DropdownModule,
     RadioButtonModule,
     InputNumberModule,
-    DialogModule
+    DialogModule,
+    ReactiveFormsModule,
+    BreadcrumbModule
   ],
   declarations: [TaiKhoanComponent]
 })

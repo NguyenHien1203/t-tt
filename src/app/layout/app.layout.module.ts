@@ -18,6 +18,10 @@ import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { DialogModule } from 'primeng/dialog';
+import {DropdownModule} from 'primeng/dropdown';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
     declarations: [
@@ -29,6 +33,10 @@ import { SplitButtonModule } from 'primeng/splitbutton';
         AppLayoutComponent,
     ],
     imports: [
+        TableModule,
+        OverlayPanelModule,
+        DropdownModule,
+        DialogModule,
         SplitButtonModule,
         BrowserModule,
         FormsModule,

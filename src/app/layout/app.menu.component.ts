@@ -1,18 +1,27 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
-
+import { SelectItem } from 'primeng/api';
 @Component({
     selector: 'app-menu',
     templateUrl: './app.menu.component.html'
 })
 export class AppMenuComponent implements OnInit {
-
+    selectedDrop: SelectItem = { value: '' };
+    cities: SelectItem[] = [];
     model: any[] = [];
-
+     DonViDangNhap = "Văn thư (CNTT) ";
     constructor(public layoutService: LayoutService) { }
-
+    display: boolean = false;
     ngOnInit() {
+        this.cities = [
+            { label: 'Văn thư (CNTT)', value: { id: 1, name: 'New York', code: 'NY' } },
+            { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
+            { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
+            { label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
+            { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } }
+        ];
+
         this.model = [
             {
                 label: 'Home',
@@ -214,7 +223,7 @@ export class AppMenuComponent implements OnInit {
                             },
                             {
                                 label: 'Hộp thư đến',
-                                icon: 'pi pi-fw pi-verified',
+                                icon: 'pi pi-fw pi-envelope',
                                 routerLink: ['/hethong/nhomquyen']
                             },
                             {
@@ -531,7 +540,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản trị tài khoản',
                                 icon: 'pi pi-fw pi-user-plus',
-                                routerLink: ['/hethong/nhomquyen']
+                                routerLink: ['/he-thong/tai-khoan']
                             },
                             {
                                 label: 'Quản lý nhãn',

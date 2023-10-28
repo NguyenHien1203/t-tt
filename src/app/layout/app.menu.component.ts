@@ -502,9 +502,9 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/danhmuc/linhvuc']
                             },
                             {
-                                label: 'Danh mục liên kết',
+                                label: 'Liên kết',
                                 icon: 'pi pi-fw pi-arrow-right-arrow-left',
-                                routerLink: ['/danhmuc/linhvuc']
+                                routerLink: ['/danh-muc/lien-ket']
                             },
                             {
                                 label: 'Loại nhiệm vụ',

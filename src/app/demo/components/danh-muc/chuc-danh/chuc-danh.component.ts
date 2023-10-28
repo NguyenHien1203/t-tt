@@ -2,9 +2,10 @@ import { ChucDanhService } from './../../../service/danh-muc/chuc-danh/chuc-danh
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Product } from 'src/app/demo/api/product';
-import { MessageService } from 'primeng/api';
+// import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
+import { Message, MessageService } from 'primeng/api';
 
 @Component({
   templateUrl: './chuc-danh.component.html',
@@ -43,6 +44,7 @@ export class ChucDanhComponent implements OnInit {
   };
 
   listField: any = [];
+  msgs: Message[] = [];
 
   constructor(private productService: ProductService, private messageService: MessageService, private chucDanhService: ChucDanhService) { }
 
@@ -51,10 +53,10 @@ export class ChucDanhComponent implements OnInit {
     this.breadcrumbItems.push({ label: 'Danh mục' });
     this.breadcrumbItems.push({ label: 'Quản trị chức danh' });
 
-    this.productService.getProducts().then(data => {
-      this.products = data
-      console.log(data);
-    });
+    // this.productService.getProducts().then(data => {
+    //   this.products = data
+    //   console.log(data);
+    // });
 
     this.cols = [
       { field: 'product', header: 'Product' },
@@ -74,11 +76,33 @@ export class ChucDanhComponent implements OnInit {
   }
 
   LoadListField() {
-    this.chucDanhService.getListFields(this.search).subscribe(data => {
-      console.log(data);
-      this.listField = data;
-    });
+
+    this.chucDanhService.getListFields(this.search)
+      .subscribe(data => {
+        if (data.isError) {
+          this.msgs = [];
+          this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
+        } else {
+          console.log(data);
+          this.listField = data
+        };
+      }, (error) => {
+        console.log('Error', error);
+      })
   }
+
+
+  // this.taikhoanService.GetDanhSachTaiKhoan(this.taikhoantimkiem).subscribe(data => {
+  //   if (data.isError) {
+  //     this.msgs = [];
+  //     this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
+  //   } else {
+  //     console.log(data.objData);
+  //     this.taikhoans = data.objData;
+  //   }
+  // }, (error) => {
+  //   console.log('Error', error);
+  // })
 
   openNew() {
     this.product = {};

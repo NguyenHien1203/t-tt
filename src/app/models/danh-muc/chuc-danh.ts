@@ -4,5 +4,10 @@ interface InventoryStatus {
 }
 
 export interface ChucDanh {
-    
+    id?: number,
+    TenChucDanh?: string;
+    ThuTu?: number;
+    GhiChu?: string;
+    DonViId?: number;
+    inventoryStatus?: InventoryStatus;
 }

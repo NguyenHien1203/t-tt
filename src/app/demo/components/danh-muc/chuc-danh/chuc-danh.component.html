@@ -19,10 +19,7 @@
                 </ng-template>
 
                 <ng-template pTemplate="left">
-                    <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import"
-                        chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
-                        (click)="dt.exportCSV()"></button> -->
+
                     <h1 class="size-tag-h1">Thêm mới chức danh</h1>
                 </ng-template>
             </p-toolbar>
@@ -47,8 +44,8 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
-                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="id">Code <p-sortIcon field="id"></p-sortIcon></th>
+                        <th pSortableColumn="tenLinhVuc">Name <p-sortIcon field="tenLinhVuc"></p-sortIcon></th>
                         <th>Image</th>
                         <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
                         <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
@@ -68,12 +65,12 @@
                         </td>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Name</span>
-                            {{product.name}}
+                            {{product.tenLinhVuc}}
                         </td>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
+                        <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
                             <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" width="100"
                                 class="shadow-4" />
-                        </td>
+                        </td> -->
                         <td style="width:14%; min-width:8rem;">
                             <span class="p-column-title">Price</span>
                             {{product.price | currency:'USD'}}

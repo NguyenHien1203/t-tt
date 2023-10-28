@@ -38,7 +38,7 @@
                 [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                [(selection)]="selectedTaiKhoans" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Danh sách tài khoản</h5>
@@ -56,12 +56,12 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="TenDangNhap">Tên đăng nhập <p-sortIcon field="TenDangNhap"></p-sortIcon>
+                        <th pSortableColumn="tenDangNhap">Tên đăng nhập <p-sortIcon field="tenDangNhap"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="HoVaTen">Họ và tên <p-sortIcon field="HoVaTen"></p-sortIcon></th>
-                        <th pSortableColumn="PhongBan">Phòng ban <p-sortIcon field="PhongBan"></p-sortIcon></th>
-                        <th pSortableColumn="ChucDanh">Chức danh <p-sortIcon field="ChucDanh"></p-sortIcon></th>
-                        <th pSortableColumn="TrangThai">Trạng thái <p-sortIcon field="TrangThai"></p-sortIcon></th>
+                        <th pSortableColumn="hoVaTen">Họ và tên <p-sortIcon field="HoVaTen"></p-sortIcon></th>
+                        <th pSortableColumn="phongBan">Phòng ban <p-sortIcon field="phongBan"></p-sortIcon></th>
+                        <th pSortableColumn="chucDanh">Chức danh <p-sortIcon field="chucDanh"></p-sortIcon></th>
+                        <th pSortableColumn="trangThai">Trạng thái <p-sortIcon field="trangThai"></p-sortIcon></th>
                         <th></th>
                     </tr>
                 </ng-template>
@@ -109,7 +109,7 @@
             </p-table>
         </div>
 
-        <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+        <p-dialog [(visible)]="taikhoanDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
             class="p-fluid">
             <ng-template pTemplate="content">
                 <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.image" width="150"
@@ -186,20 +186,20 @@
             </ng-template>
         </p-dialog>
 
-        <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+        <p-dialog [(visible)]="deleteTaiKhoanDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="product">Are you sure you want to delete <b>{{product.name}}</b>?</span>
+                <span *ngIf="taikhoan">Are you sure you want to delete <b>{{taikhoan.tenDangNhap}}</b>?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                    (click)="deleteProductDialog = false"></button>
+                    (click)="deleteTaiKhoanDialog = false"></button>
                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
                     (click)="confirmDelete()"></button>
             </ng-template>
         </p-dialog>
 
-        <p-dialog [(visible)]="deleteProductsDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+        <p-dialog [(visible)]="deleteTaiKhoansDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
                 <span>Are you sure you want to delete selected products?</span>

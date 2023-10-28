@@ -34,7 +34,7 @@ export class AppTopBarComponent implements OnInit {
         this.profiles = [
             { label: 'Thông tin tài khoản', icon: "pi pi-fw pi-user-edit", routerLink : ['/he-thong/thong-tin-nguoi-dung'] },
             { label: 'Đổi mật khẩu', icon: "pi pi-fw pi-pencil", routerLink : ['/he-thong/doi-mat-khau'] },
-            { label: 'Đăng xuất', icon: "pi pi-fw pi-sign-out", routerLink : ['/logout'] }
+            { label: 'Đăng xuất', icon: "pi pi-fw pi-sign-out", routerLink : ['/auth/logout'] }
         ];
 
         this.notifis = [

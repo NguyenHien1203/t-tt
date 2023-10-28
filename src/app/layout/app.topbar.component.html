@@ -12,17 +12,78 @@
     </button>
 
     <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <button class="p-link layout-topbar-button">
+        <button class="p-link layout-topbar-button" (click)="mail.toggle($event)">
+            <i class="pi pi-envelope"></i>
+            <span>Hộp thư đến</span>
+            <p-overlayPanel #mail [showCloseIcon]="false" [style]="{width: '400px'}">
+                <ng-template pTemplate>
+                    <p-table [value]="mails" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="op2.hide()" responsiveLayout="scroll">
+                        <ng-template pTemplate="body" let-rowData let-mail>
+                            <tr [pSelectableRow]="rowData">
+                                <td>{{mail.label}}</td>
+                                <td>{{mail.createdDate |  date:'yyyy-MM-dd '}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </ng-template>
+            </p-overlayPanel>
+        </button>
+        <button class="p-link layout-topbar-button" (click)="notifi.toggle($event)">
+            <i class="pi pi-bell"></i>
+            <span>Thông báo</span>
+            <p-overlayPanel #notifi [showCloseIcon]="false" [style]="{width: '400px'}">
+                <ng-template pTemplate>
+                    <p-table [value]="notifis" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="op2.hide()" responsiveLayout="scroll">
+                        <ng-template pTemplate="body" let-rowData let-notifi>
+                            <tr [pSelectableRow]="rowData">
+                                <td>{{notifi.label}}</td>
+                                <td>{{notifi.createdDate |  date:'yyyy-MM-dd'}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </ng-template>
+            </p-overlayPanel>
+        </button>
+        <button class="p-link layout-topbar-button" (click)="clock.toggle($event)">
+            <i class="pi pi-clock"></i>
+            <span>Hoạt động sắp tới</span>
+            <p-overlayPanel #clock [showCloseIcon]="false" [style]="{width: '400px'}">
+                <ng-template pTemplate>
+                    <p-table [value]="clocks" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="op2.hide()" responsiveLayout="scroll">
+                        <ng-template pTemplate="body" let-rowData let-clock>
+                            <tr [pSelectableRow]="rowData">
+                                <td>{{clock.label}}</td>
+                                <td>{{clock.createdDate |  date:'yyyy-MM-dd'}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </ng-template>
+            </p-overlayPanel>
+        </button>
+        <button class="p-link layout-topbar-button" (click)="calender.toggle($event)">
             <i class="pi pi-calendar"></i>
-            <span>Calendar</span>
+            <p-overlayPanel #calender [showCloseIcon]="false" [style]="{width: '400px'}">
+                <img src="assets/demo/images/nature/nature1.jpg" alt="Nature 1" style="width:100%"/>
+            </p-overlayPanel>
         </button>
-        <button class="p-link layout-topbar-button">
+        <button class="p-link layout-topbar-button"  (click)="profile.toggle($event)">
             <i class="pi pi-user"></i>
-            <span>Profile</span>
+            <span>Thông tin người dùng</span>
+            <p-overlayPanel #profile [showCloseIcon]="false" [style]="{width: '220px'}">
+                <ng-template pTemplate>
+                    <p-table [value]="profiles" selectionMode="single" [(selection)]="selectedProduct" [paginator]="false" [rows]="3" (onRowSelect)="op2.hide()" responsiveLayout="scroll">
+                        <ng-template pTemplate="body" let-rowData let-profile>
+                            <tr [pSelectableRow]="rowData">
+                                <td routerLink={{profile.routerLink}}><i class={{profile.icon}}></i>&nbsp;&nbsp;{{profile.label}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </ng-template>
+            </p-overlayPanel>
         </button>
-        <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
+        <!-- <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
             <i class="pi pi-cog"></i>
             <span>Settings</span>
-        </button>
+        </button> -->
     </div>
 </div>

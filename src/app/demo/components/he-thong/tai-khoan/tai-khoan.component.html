@@ -1,41 +1,53 @@
-<div class="card card-w-title">
-    <h2>Quản trị chức danh</h2>
-    <p-breadcrumb [model]="breadcrumbItems" [home]="{icon: 'pi pi-home'}" routerLink="/"></p-breadcrumb>
-</div>
-
 <div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+            </div>
+        </div>
+    </div>
     <div class="col-12">
         <div class="card px-6 py-6">
             <p-toast></p-toast>
             <p-toolbar styleClass="mb-4">
-                <ng-template pTemplate="right">
-                    <div class="my-2">
-                        <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
-                            (click)="openNew()"></button>
-                        <button pButton pRipple label="Xóa" icon="pi pi-trash" class="p-button-danger"
-                            (click)="deleteSelectedProducts()"
-                            [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                <h5 class="m-0">Tìm kiếm</h5>
+                <div class="col-12">
+                    <div class="formgroup-inline flex justify-content-between">
+                        <div class="field">
+                            <input [(ngModel)]="TuKhoa" pInputText type="text" placeholder="Từ khóa"
+                                class="w-full sm:w-auto" />
+                        </div>
+                        <div class="field">
+                            <input [(ngModel)]="TenPhongBan" pInputText type="text" placeholder="Phòng ban"
+                                class="w-full sm:w-auto" />
+                        </div>
+                        <div class="field">
+                            <input [(ngModel)]="TenChucDanh" pInputText type="text" placeholder="Chức danh"
+                                class="w-full sm:w-auto" />
+                        </div>
+                        <div class="field">
+                            <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-success mr-2"
+                                (click)="GetDanhSachTaiKhoan()"></button>
+                        </div>
                     </div>
-                </ng-template>
+                </div>
 
-                <ng-template pTemplate="left">
-
-                    <h1 class="size-tag-h1">Thêm mới chức danh</h1>
-                </ng-template>
             </p-toolbar>
 
-            <p-table #dt [value]="listField" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+            <p-table #dt [value]="taikhoans" [columns]="cols" responsiveLayout="scroll" [rows]="10"
                 [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                [(selection)]="selectedTaiKhoans" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Manage Products</h5>
+                        <h5 class="m-0">Danh sách tài khoản</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
-                                class="w-full sm:w-auto" />
+                            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                                (click)="openNew()"></button>
+                            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+                                (click)="deleteSelectedProducts()"
+                                [disabled]="!selectedProducts || !selectedProducts.length"></button>
                         </span>
                     </div>
                 </ng-template>
@@ -44,55 +56,52 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="id">Code <p-sortIcon field="id"></p-sortIcon></th>
-                        <th pSortableColumn="tenLinhVuc">Name <p-sortIcon field="tenLinhVuc"></p-sortIcon></th>
-                        <th>Image</th>
-                        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                        <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                        <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                        <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon>
+                        <th pSortableColumn="tenDangNhap">Tên đăng nhập <p-sortIcon field="tenDangNhap"></p-sortIcon>
                         </th>
+                        <th pSortableColumn="hoVaTen">Họ và tên <p-sortIcon field="HoVaTen"></p-sortIcon></th>
+                        <th pSortableColumn="phongBan">Phòng ban <p-sortIcon field="phongBan"></p-sortIcon></th>
+                        <th pSortableColumn="chucDanh">Chức danh <p-sortIcon field="chucDanh"></p-sortIcon></th>
+                        <th pSortableColumn="trangThai">Trạng thái <p-sortIcon field="trangThai"></p-sortIcon></th>
                         <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-product>
+                <ng-template pTemplate="body" let-taikhoan>
                     <tr>
                         <td>
-                            <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                            <p-tableCheckbox [value]="taikhoan"></p-tableCheckbox>
                         </td>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
-                            {{product.code || product.id}}
-                        </td>
+
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Name</span>
-                            {{product.tenLinhVuc}}
+                            {{taikhoan.tenDangNhap}}
                         </td>
-                        <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
-                            <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" width="100"
-                                class="shadow-4" />
-                        </td> -->
+
                         <td style="width:14%; min-width:8rem;">
-                            <span class="p-column-title">Price</span>
-                            {{product.price | currency:'USD'}}
+                            <span class="p-column-title">HoVaTen</span>
+                            {{taikhoan.hoVaTen}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Category</span>
-                            {{product.category}}
+                            <span class="p-column-title">PhongBan</span>
+                            {{taikhoan.phongBan}}
                         </td>
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Reviews</span>
-                            <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">ChucDanh</span>
+                            {{taikhoan.chucDanh}}
                         </td>
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
-                            <span
-                                [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span>
+
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">TrangThai</span>
+                            {{taikhoan.trangThai == true? "Kích hoạt":"Khóa" }}
+
                         </td>
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"
-                                    (click)="editProduct(product)"></button>
+                                    (click)="editProduct(taikhoan)"></button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                                    (click)="deleteProduct(product)"></button>
+                                    (click)="deleteProduct(taikhoan)"></button>
                             </div>
                         </td>
                     </tr>
@@ -100,44 +109,23 @@
             </p-table>
         </div>
 
-        <p-dialog [(visible)]="productDialog" [style]="{width: '960px'}" header="Thêm mới chức danh" [modal]="true"
+        <p-dialog [(visible)]="taikhoanDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
             class="p-fluid">
             <ng-template pTemplate="content">
-
-                <div class="formgrid grid">
-                    <div class="field col">
-                        <label for="name">Tên chức danh</label>
-                        <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus
-                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}" />
-                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
-                    </div>
-                    <div class="field col">
-                        <label for="quantity">Thứ tự hiển thị</label>
-                        <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
-                    </div>
-                </div>
-
-
-                <!-- <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.image" width="150"
-                    class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="product.image"> -->
-                <!-- <div class="field">
-                    <label for="name">Tên chức danh</label>
+                <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.image" width="150"
+                    class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="product.image">
+                <div class="field">
+                    <label for="name">Name</label>
                     <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus
                         [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}" />
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
                 </div>
-
-                <div class="field col">
-                    <label for="quantity">Thứ tự hiển thị</label>
-                    <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
-                </div> -->
-
                 <div class="field">
-                    <label for="description">Ghi chú</label>
+                    <label for="description">Description</label>
                     <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3"
                         cols="20"></textarea>
                 </div>
-                <!-- <div class="field">
+                <div class="field">
                     <label for="status">Inventory Status</label>
                     <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" optionValue="label"
                         [options]="statuses" placeholder="Select">
@@ -187,7 +175,7 @@
                         <label for="quantity">Quantity</label>
                         <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
                     </div>
-                </div> -->
+                </div>
             </ng-template>
 
             <ng-template pTemplate="footer">
@@ -198,20 +186,20 @@
             </ng-template>
         </p-dialog>
 
-        <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+        <p-dialog [(visible)]="deleteTaiKhoanDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="product">Are you sure you want to delete <b>{{product.name}}</b>?</span>
+                <span *ngIf="taikhoan">Are you sure you want to delete <b>{{taikhoan.tenDangNhap}}</b>?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                    (click)="deleteProductDialog = false"></button>
+                    (click)="deleteTaiKhoanDialog = false"></button>
                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
                     (click)="confirmDelete()"></button>
             </ng-template>
         </p-dialog>
 
-        <p-dialog [(visible)]="deleteProductsDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+        <p-dialog [(visible)]="deleteTaiKhoansDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
                 <span>Are you sure you want to delete selected products?</span>

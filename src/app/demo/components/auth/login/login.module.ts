@@ -8,7 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 @NgModule({
     imports: [
         CommonModule,
@@ -18,7 +20,10 @@ import { ReactiveFormsModule } from '@angular/forms';
         InputTextModule,
         FormsModule,
         PasswordModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ToastModule,
+        MessageModule,
+        MessagesModule
     ],
     declarations: [LoginComponent]
 })

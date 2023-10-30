@@ -1,3 +1,23 @@
+<p-dialog header="CHỌN VAI TRÒ" appendTo="body" [(visible)]="display" [modal]="true" showEffect="fade"
+    [style]="{width: '20vw'} " [breakpoints]="{'960px': '75vw'}">
+    <div class="col-12 div-center">
+        <p-dropdown [options]="cities" appendTo="body" [(ngModel)]="selectedDrop" placeholder="Select a City"
+            [showClear]="true">
+        </p-dropdown>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="col-12 div-center">
+            <button pButton (click)="display=false" label="OK" class="p-button-outlined"></button>
+            <button pButton (click)="display=false" label="CLOSE" class="p-button-outlined"></button>
+        </div>
+    </ng-template>
+</p-dialog>
+<div class="grid">
+    <div class="col-12">
+        <button (click)="display=true" [style.width.px]="242" pButton class="p-button-info" icon="pi pi-replay"
+            label={{DonViDangNhap}}></button>
+    </div>
+</div>
 <ul class="layout-menu">
     <ng-container *ngFor="let item of model; let i = index;">
         <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
@@ -5,7 +25,8 @@
     </ng-container>
     <li>
         <a href="https://www.primefaces.org/primeblocks-ng/#/">
-            <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'banner-primeblocks' : 'banner-primeblocks-dark'}}.png" alt="Prime Blocks" class="w-full mt-3"/>
+            <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'banner-primeblocks' : 'banner-primeblocks-dark'}}.png"
+                alt="Prime Blocks" class="w-full mt-3" />
         </a>
     </li>
 </ul>

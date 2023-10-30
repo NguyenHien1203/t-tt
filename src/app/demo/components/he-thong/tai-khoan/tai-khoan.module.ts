@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChucDanhRoutingModule } from './chuc-danh-routing.module';
-import { ChucDanhComponent } from './chuc-danh.component';
-
-import { FormsModule } from '@angular/forms';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { TaiKhoanRoutingModule } from './tai-khoan-routing.module';
+import { TaiKhoanComponent } from './tai-khoan.component';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -18,13 +15,14 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
   imports: [
     CommonModule,
-    ChucDanhRoutingModule,
-    BreadcrumbModule,
+    TaiKhoanRoutingModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -38,8 +36,10 @@ import { DialogModule } from 'primeng/dialog';
     DropdownModule,
     RadioButtonModule,
     InputNumberModule,
-    DialogModule
+    DialogModule,
+    ReactiveFormsModule,
+    BreadcrumbModule
   ],
-  declarations: [ChucDanhComponent]
+  declarations: [TaiKhoanComponent]
 })
-export class ChucDanhModule { }
+export class TaiKhoanModule { }

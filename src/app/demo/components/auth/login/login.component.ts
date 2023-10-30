@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/common/auth.services';
 import { Router } from '@angular/router';
 import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
 import { Message, MessageService } from 'primeng/api';
-
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-login',
@@ -43,7 +43,8 @@ export class LoginComponent {
         private router: Router,
         private authenService: AuthService,
         private formBuilder: FormBuilder,
-        private service: MessageService
+        private service: MessageService,
+        private cookieService: CookieService
     ) { }
 
     ngOnInit(): void {
@@ -69,8 +70,11 @@ export class LoginComponent {
                     this.msgs = [];
                     this.msgs.push({ severity: 'error', detail: "Thông tin đăng nhập không hợp lệ" });
                 } else {
-                    localStorage.setItem('isLoggedIn', "true");
-                    localStorage.setItem('token', data.objData);
+                    this.cookieService.set('isLoggedIn', "true");
+                    this.cookieService.set('token', data.objData);
+
+                    // localStorage.setItem('isLoggedIn', "true");
+                    // localStorage.setItem('token', data.objData);
                     this.router.navigate([this.returnUrl])
                 }
             }, (error) => {

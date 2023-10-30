@@ -1,21 +1,21 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { CookieService } from 'ngx-cookie-service';
 @Injectable({
     providedIn: 'root'
   })
   export class AuthService {
-    constructor(private router: Router) { }
+    constructor(private router: Router,private cookieService: CookieService) { }
 
     public CheckLogin(): boolean {
         let status = false;
-        if (localStorage.getItem('isLoggedIn') == "true") {
-          var abc = this.GetToken();
+
+        if (this.cookieService.get('isLoggedIn') == "true") {
           if (this.CheckTokenExpired(this.GetToken())) {
             status = false;
-            localStorage.setItem('isLoggedIn', 'false');
-            localStorage.removeItem('token');
+            this.cookieService.set('isLoggedIn', 'false');
+            this.cookieService.delete('token');
           } else {
             status = true;
           }
@@ -23,6 +23,20 @@ import { Router } from '@angular/router';
         else {
           status = false;
         }
+ 
+        //Dùng localStorrage
+        // if (localStorage.getItem('isLoggedIn') == "true") {
+        //   if (this.CheckTokenExpired(this.GetToken())) {
+        //     status = false;
+        //     localStorage.setItem('isLoggedIn', 'false');
+        //     localStorage.removeItem('token');
+        //   } else {
+        //     status = true;
+        //   }
+        // }
+        // else {
+        //   status = false;
+        // }
         return status;
       }
 

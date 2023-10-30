@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LienKetRoutingModule } from './lien-ket-routing.module';
 import { DropdownModule } from 'primeng/dropdown';
 import { LienKetComponent } from './lien-ket.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormLayoutDemoRoutingModule } from '../../uikit/formlayout/formlayoutdemo-routing.module';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
@@ -16,12 +16,24 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TableModule } from 'primeng/table';
+import { ToolbarModule } from 'primeng/toolbar';
+import { DialogModule } from 'primeng/dialog';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ThemMoiComponent } from './them-moi/them-moi.component';
+import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { ToastModule } from 'primeng/toast';
 
 
 
 @NgModule({
-  declarations: [LienKetComponent],
+  declarations: [LienKetComponent, ThemMoiComponent, CapNhatComponent],
   imports: [
+    ToastModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CheckboxModule,
+    DialogModule,
+    ToolbarModule,
     TableModule,
     BreadcrumbModule,
     CommonModule,

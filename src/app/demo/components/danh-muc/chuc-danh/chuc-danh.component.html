@@ -16,12 +16,11 @@
                 </ng-template>
 
                 <ng-template pTemplate="left">
-
                     <h1 class="size-tag-h1">Thêm mới chức danh</h1>
                 </ng-template>
             </p-toolbar>
 
-            <div class="card pb-0 pl-4 pr-4">
+            <div class="card pb-0 pl-4 pr-4 my-background">
                 <div class="p-fluid p-formgrid grid">
                     <div class="field col-12 md:col-4">
                         <span class="p-float-label">
@@ -50,7 +49,7 @@
             </div>
 
             <p-table #dt [value]="listFields" [columns]="cols" responsiveLayout="scroll" [rows]="10"
-                [globalFilterFields]="['tenChucDanh']" [paginator]="true"
+                [globalFilterFields]="['tenChucDanh', 'ghiChu', 'thuTu']" [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
@@ -59,7 +58,7 @@
                         <h5 class="m-0">Danh sách chức danh</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Tìm kiếm"
                                 class="w-full sm:w-auto" />
                         </span>
                     </div>
@@ -71,8 +70,11 @@
                         </th>
                         <th pSortableColumn="id">STT <p-sortIcon field="id"></p-sortIcon></th>
                         <th pSortableColumn="tenChucDanh">Tên chức danh <p-sortIcon field="tenChucDanh"></p-sortIcon></th>
+                        <th></th>
                         <th>Ghi chú</th>
+                        <th></th>
                         <th pSortableColumn="thuTu">Thứ tự <p-sortIcon field="thuTu"></p-sortIcon></th>
+                        <th></th>
                         <th>Chức năng
                         </th>
                     </tr>
@@ -89,14 +91,17 @@
                             <span class="p-column-title">Tên chức danh</span>
                             {{listField.tenChucDanh}}
                         </td>
+                        <td></td>
                         <td style="width:14%; min-width:8rem;">
                             <span class="p-column-title">Ghi chú</span>
                             {{listField.ghiChu}}
                         </td>
+                        <td></td>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Thứ tự</span>
                             {{listField.thuTu}}
                         </td>
+                        <td></td>
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil"
@@ -118,18 +123,18 @@
                 <div class="formgrid grid">
                     <div class="field col">
                         <label for="name">Tên chức danh</label>
-                        <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus
-                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}" />
-                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                        <input type="text" pInputText id="tenChucDanh" [(ngModel)]="listField.tenChucDanh" required autofocus
+                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !listField.tenChucDanhe}" />
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !listField.tenChucDanh">Name is required.</small>
                     </div>
                     <div class="field col">
                         <label for="quantity">Thứ tự hiển thị</label>
-                        <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
+                        <p-inputNumber id="quantity" [(ngModel)]="listField.thuTU"></p-inputNumber>
                     </div>
                 </div>
                 <div class="field">
                     <label for="description">Ghi chú</label>
-                    <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3"
+                    <textarea id="description" pInputTextarea [(ngModel)]="listField.ghiChu" required rows="3"
                         cols="20"></textarea>
                 </div>
             </ng-template>

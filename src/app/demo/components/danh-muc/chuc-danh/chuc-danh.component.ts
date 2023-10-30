@@ -2,7 +2,7 @@ import { ChucDanhService } from './../../../service/danh-muc/chuc-danh/chuc-danh
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Product } from 'src/app/demo/api/product';
-// import { MessageService } from 'primeng/api';
+
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { Message, MessageService } from 'primeng/api';
@@ -18,21 +18,38 @@ export class ChucDanhComponent implements OnInit {
 
   breadcrumbItems: MenuItem[] = [];
 
+  listField: ChucDanh = {};
+
+  listFields: ChucDanh[] = [];
+
+  search: Search = {};
+
+  dataSearch = {
+    "keyWord": "",
+    "nam": 0,
+    "tuNgay": new Date(),
+    "denNgay": new Date()
+  };
+
+  productDialog: boolean = false;
+
+
+
   deleteProductDialog: boolean = false;
 
   deleteProductsDialog: boolean = false;
 
   products: Product[] = [];
 
-  listFields: ChucDanh[] = [];
+  
 
-  listField: ChucDanh = {};
+  
 
-  search: Search = {};
+  
 
   product: Product = {};
 
-  productDialog: boolean = false;
+  
 
   submitted: boolean = false;
 
@@ -48,12 +65,6 @@ export class ChucDanhComponent implements OnInit {
 
   valCheck: string[] = [];
 
-  dataSearch = {
-    "keyWord": this.search.keyWord ?? "",
-    "nam": 0,
-    "tuNgay": new Date(),
-    "denNgay": new Date()
-  };
 
   msgs: Message[] = [];
 
@@ -92,6 +103,17 @@ export class ChucDanhComponent implements OnInit {
     this.LoadListField();
   }
 
+  openNew() {
+    this.listField = {};
+    this.submitted = false;
+    this.productDialog = true;
+  }
+
+  hideDialog() {
+    this.productDialog = false;
+    this.submitted = false;
+}
+
 
   // this.taikhoanService.GetDanhSachTaiKhoan(this.taikhoantimkiem).subscribe(data => {
   //   if (data.isError) {
@@ -105,11 +127,6 @@ export class ChucDanhComponent implements OnInit {
   //   console.log('Error', error);
   // })
 
-  openNew() {
-    this.product = {};
-    this.submitted = false;
-    this.productDialog = true;
-  }
 
   editProduct(product: Product) {
     this.product = { ...product };

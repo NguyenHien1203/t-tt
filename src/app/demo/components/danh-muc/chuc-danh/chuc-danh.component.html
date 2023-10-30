@@ -21,7 +21,7 @@
                 </ng-template>
             </p-toolbar>
 
-            <div class="card pb-0 pl-4 pr-4">
+            <div class="card pb-0 pl-4 pr-4 my-background">
                 <div class="p-fluid p-formgrid grid">
                     <div class="field col-12 md:col-4">
                         <span class="p-float-label">
@@ -50,7 +50,7 @@
             </div>
 
             <p-table #dt [value]="listFields" [columns]="cols" responsiveLayout="scroll" [rows]="10"
-                [globalFilterFields]="['tenChucDanh']" [paginator]="true"
+                [globalFilterFields]="['tenChucDanh', 'ghiChu', 'thuTu']" [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
@@ -71,8 +71,11 @@
                         </th>
                         <th pSortableColumn="id">STT <p-sortIcon field="id"></p-sortIcon></th>
                         <th pSortableColumn="tenChucDanh">Tên chức danh <p-sortIcon field="tenChucDanh"></p-sortIcon></th>
+                        <th></th>
                         <th>Ghi chú</th>
+                        <th></th>
                         <th pSortableColumn="thuTu">Thứ tự <p-sortIcon field="thuTu"></p-sortIcon></th>
+                        <th></th>
                         <th>Chức năng
                         </th>
                     </tr>
@@ -89,14 +92,17 @@
                             <span class="p-column-title">Tên chức danh</span>
                             {{listField.tenChucDanh}}
                         </td>
+                        <td></td>
                         <td style="width:14%; min-width:8rem;">
                             <span class="p-column-title">Ghi chú</span>
                             {{listField.ghiChu}}
                         </td>
+                        <td></td>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Thứ tự</span>
                             {{listField.thuTu}}
                         </td>
+                        <td></td>
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil"

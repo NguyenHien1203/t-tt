@@ -2,7 +2,6 @@ import { ChucDanhService } from './../../../service/danh-muc/chuc-danh/chuc-danh
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Product } from 'src/app/demo/api/product';
-// import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { Message, MessageService } from 'primeng/api';

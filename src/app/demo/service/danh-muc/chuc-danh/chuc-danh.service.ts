@@ -27,10 +27,22 @@ export class ChucDanhService {
       )
   }
 
-  // getListFields(fields: any): Observable<any> {
-  //   return this.http.post<any>(this.url + 'GetDanhSachLinhVuc', fields)
-  //     .pipe(
-  //       map((response: any) => response.objData)
-  //     );
-  // }
+  public getIdField(id: any): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + `GetChucDanhById/${id}`)
+      .pipe(
+        map((response: any) => response.objData as ChucDanh[])
+      );
+  }
+
+  public createField(field: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'ThemMoiChucDanh', field, this.httpOptions)
+  }
+
+  public updateField(field: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'CapNhatChucDanh', field, this.httpOptions)
+  }
+  
+  public deleteField(id: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `DeleteChucDanh/${id}`, this.httpOptions)
+  }
 }

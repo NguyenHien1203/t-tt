@@ -6,6 +6,8 @@ import { Product } from 'src/app/demo/api/product';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { Message, MessageService } from 'primeng/api';
+import { ChucDanh } from 'src/app/models/danh-muc/chuc-danh';
+import { Search } from 'src/app/models/danh-muc/search.model';
 
 @Component({
   templateUrl: './chuc-danh.component.html',
@@ -22,6 +24,12 @@ export class ChucDanhComponent implements OnInit {
 
   products: Product[] = [];
 
+  listFields: ChucDanh[] = [];
+
+  listField: ChucDanh = {};
+
+  search: Search = {};
+
   product: Product = {};
 
   productDialog: boolean = false;
@@ -36,14 +44,17 @@ export class ChucDanhComponent implements OnInit {
 
   rowsPerPageOptions = [5, 10, 20];
 
-  search = {
-    "keyWord": "",
+  value1: any;
+
+  valCheck: string[] = [];
+
+  dataSearch = {
+    "keyWord": this.search.keyWord ?? "",
     "nam": 0,
     "tuNgay": new Date(),
     "denNgay": new Date()
   };
 
-  listField: any = [];
   msgs: Message[] = [];
 
   constructor(private productService: ProductService, private messageService: MessageService, private chucDanhService: ChucDanhService) { }
@@ -53,42 +64,32 @@ export class ChucDanhComponent implements OnInit {
     this.breadcrumbItems.push({ label: 'Danh mục' });
     this.breadcrumbItems.push({ label: 'Quản trị chức danh' });
 
-    // this.productService.getProducts().then(data => {
-    //   this.products = data
-    //   console.log(data);
-    // });
-
     this.cols = [
-      { field: 'product', header: 'Product' },
-      { field: 'price', header: 'Price' },
-      { field: 'category', header: 'Category' },
-      { field: 'rating', header: 'Reviews' },
-      { field: 'inventoryStatus', header: 'Status' }
-    ];
-
-    this.statuses = [
-      { label: 'INSTOCK', value: 'instock' },
-      { label: 'LOWSTOCK', value: 'lowstock' },
-      { label: 'OUTOFSTOCK', value: 'outofstock' }
+      { field: 'tenChucDanh', header: 'tenChucDanh' },
+      { field: 'thuTu', header: 'thuTu' },
     ];
 
     this.LoadListField();
   }
 
   LoadListField() {
-
-    this.chucDanhService.getListFields(this.search)
+    this.chucDanhService.getListFields(this.dataSearch)
       .subscribe(data => {
         if (data.isError) {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
         } else {
           console.log(data);
-          this.listField = data
+          this.listFields = data
         };
       }, (error) => {
         console.log('Error', error);
       })
+  }
+
+  SearchField() {
+    this.dataSearch.keyWord = this.search.keyWord ?? "";
+    this.LoadListField();
   }
 
 

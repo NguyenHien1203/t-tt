@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChucDanhRoutingModule } from './chuc-danh-routing.module';
-import { ChucDanhComponent } from './chuc-danh.component';
-
+import { DanhBaRoutingModule } from './danh-ba-routing.module';
+import { DanhBaComponent } from './danh-ba.component';
 import { FormsModule } from '@angular/forms';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -18,14 +16,11 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { CheckboxModule } from 'primeng/checkbox';
-
 
 @NgModule({
   imports: [
     CommonModule,
-    ChucDanhRoutingModule,
-    BreadcrumbModule,
+    DanhBaRoutingModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -39,9 +34,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     DropdownModule,
     RadioButtonModule,
     InputNumberModule,
-    DialogModule,
-    CheckboxModule
+    DialogModule
   ],
-  declarations: [ChucDanhComponent]
+  declarations: [DanhBaComponent]
 })
-export class ChucDanhModule { }
+export class DanhBaModule { }

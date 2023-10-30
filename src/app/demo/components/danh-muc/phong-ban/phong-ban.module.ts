@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChucDanhRoutingModule } from './chuc-danh-routing.module';
-import { ChucDanhComponent } from './chuc-danh.component';
-
+import { PhongBanRoutingModule } from './phong-ban-routing.module';
+import { PhongBanComponent } from './phong-ban.component';
 import { FormsModule } from '@angular/forms';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -18,14 +16,14 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { CheckboxModule } from 'primeng/checkbox';
-
-
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { BrowserModule } from '@angular/platform-browser';
+// import { DropdownSearchComponent } from './hello.component';
+// import { SearchDropdown } from './search-dropdown/search-dropdown';
 @NgModule({
   imports: [
     CommonModule,
-    ChucDanhRoutingModule,
-    BreadcrumbModule,
+    PhongBanRoutingModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -40,8 +38,9 @@ import { CheckboxModule } from 'primeng/checkbox';
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
-    CheckboxModule
+    BreadcrumbModule,
+    BrowserModule,
   ],
-  declarations: [ChucDanhComponent]
+  declarations: [PhongBanComponent]
 })
-export class ChucDanhModule { }
+export class PhongBanModule { }

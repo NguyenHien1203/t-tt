@@ -494,12 +494,12 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Phòng ban',
                                 icon: 'pi pi-fw pi-users',
-                                routerLink: ['/danhmuc/linhvuc']
+                                routerLink: ['/danh-muc/phong-ban']
                             },
                             {
                                 label: 'Danh bạ',
                                 icon: 'pi pi-fw pi-align-justify',
-                                routerLink: ['/danhmuc/linhvuc']
+                                routerLink: ['/danh-muc/danh-ba']
                             },
                             {
                                 label: 'Liên kết',

@@ -7,9 +7,6 @@ import { LienKetComponent } from './lien-ket/lien-ket.component';
   imports: [
     CommonModule,
     DanhMucRoutingModule
-  ],
-  declarations: [
-    
   ]
 })
 export class DanhMucModule { }

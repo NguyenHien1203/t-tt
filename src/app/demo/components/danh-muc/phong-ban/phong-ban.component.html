@@ -1,18 +1,29 @@
+<div class="col-12 pb-0">
+    <div class="p-fluid p-formgrid grid">
+        <div class="field col-12 md:col-12 mb-0 pb-0">
+            <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+        </div>
+    </div>
+</div>
+
 <div class="grid">
     <div class="col-12">
         <div class="card px-6 py-6">
             <p-toast></p-toast>
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
-                    <h2 style="text-transform: uppercase; text-align: center; margin-top: 1vw;" class="">Quản trị danh bạ</h2>
-                </ng-template>
-                <ng-template pTemplate="right">
                     <div class="my-2">
-                       
+                        <h2 style="text-transform: uppercase; margin-top: 2vw;">Phòng ban</h2>
                     </div>
                 </ng-template>
 
-
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                        (click)="openNew()"></button>
+                    <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+                        (click)="deleteSelectedProducts()"
+                        [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                </ng-template>
             </p-toolbar>
 
             <p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll" [rows]="10"
@@ -22,65 +33,73 @@
                 [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Danh sách danh bạ</h5>
+                        <h5 class="m-0">Danh sách phòng ban</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
-                                class="w-full sm:w-auto" />
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)"
+                                placeholder="Mã phòng ban" class="w-full sm:w-auto" />
+                            &nbsp;
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)"
+                                placeholder="Tên phòng ban" class="w-full sm:w-auto" />
+                            &nbsp;
+                            <search-dropdown [items]="items" [size]="'small'" [img]="'product'" [label]="'artName'"
+                                [uid]="'productId'" [(ngModel)]="item">
+                            </search-dropdown>
                         </span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="STT">STT <p-sortIcon field="STT"></p-sortIcon></th>
-                        <th pSortableColumn="hoten">Họ và tên <p-sortIcon field="hoten"></p-sortIcon></th>
-                        <th pSortableColumn="tendonvi">Phòng ban <p-sortIcon field="tendonvi"></p-sortIcon></th>
-                        <th pSortableColumn="chucvu">Chức vụ <p-sortIcon field="chucvu"></p-sortIcon></th>
-                        <th pSortableColumn="phonecq">Điện thoại cơ quan <p-sortIcon field="phonecq"></p-sortIcon></th>
-                        <th pSortableColumn="phonedd">Điện thoại di động <p-sortIcon field="phonedd"></p-sortIcon></th>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th>STT</th>
+                        <th pSortableColumn="tenphongban">Tên phòng ban <p-sortIcon field="tenphongban"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="donvichuquan">Đơn vị chủ quản <p-sortIcon
+                                field="donvichuquan"></p-sortIcon></th>
+                        <th pSortableColumn="dienthoai">Điện thoại <p-sortIcon field="dienthoai"></p-sortIcon></th>
+                        <th pSortableColumn="fax">Fax <p-sortIcon field="fax"></p-sortIcon></th>
+                        <th pSortableColumn="ghichu">Ghi chú <p-sortIcon field="ghichu"></p-sortIcon></th>
+                        <th pSortableColumn="thutu">Thứ tự <p-sortIcon field="thutu"></p-sortIcon></th>
                         <th>Chức năng</th>
-                        <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body">
-                    <tr *ngFor="let danhba of newDanhBa">
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                        </td>
                         <td style="width:14%; min-width:10rem;"><span class="p-column-title">STT</span>
-                            {{danhba.id}}
+                            {{product.code || product.id}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Họ và tên</span>
-                            {{danhba.hoTen}}
+                            <span class="p-column-title">tenphongban</span>
+                            {{product.name}}
                         </td>
-                        <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
-                            <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" width="100"
-                                class="shadow-4" />
-                        </td> -->
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">donvichuquan</span>
+                            {{product.name}}
+                        </td>
                         <td style="width:14%; min-width:8rem;">
-                            <span class="p-column-title">Phòng ban</span>
-                            <!-- {{product.price | currency:'USD'}} -->
-                            {{danhba.tenPhongBan}}
+                            <span class="p-column-title">dienthoai</span>
+                            {{product.price}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Chức vụ</span>
-                            {{product.tenChucDanh}}
+                            <span class="p-column-title">fax</span>
+                            {{product.category}}
                         </td>
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Điện thoại cơ quan</span>
-                            <!-- <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
-                            {{product.soDienThoaiCoQuan}}
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">ghichu</span>
+                            {{product.category}}
                         </td>
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Điện thoại di động</span>
-                            <!-- <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
-                            {{product.soDienThoaiDiDong}}
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">thutu</span>
+                            {{product.category}}
                         </td>
-                        <!-- <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
-                            <span
-                                [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span>
-                        </td> -->
                         <td>
                             <div class="flex">
-                                <button pButton pRipple icon="pi 
-                                pi-eye" class="p-button-rounded p-button-Primary"
-                                    (click)="XemChiTiet(danhba.id)"></button>
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2"
+                                    (click)="editProduct(product)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                                    (click)="deleteProduct(product)"></button>
                             </div>
                         </td>
                     </tr>
@@ -88,7 +107,7 @@
             </p-table>
         </div>
 
-        <p-dialog [(visible)]="productDialog" [style]="{width: '66vw'}" header="Product Details" [modal]="true"
+        <p-dialog [(visible)]="productDialog" [style]="{width: '60vw'}" header="Thêm mới phòng ban" [modal]="true"
             class="p-fluid">
             <ng-template pTemplate="content">
                 <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.image" width="150"

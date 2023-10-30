@@ -3,33 +3,16 @@ import { Product } from 'src/app/demo/api/product';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
-import { DanhbaService } from 'src/app/demo/service/danh-muc/danh-ba/danhba.service';
-import { DmDanhBa, TimKiemModel } from 'src/app/demo/api/danh-muc/danh-ba/danhba';
 
 @Component({
-    selector: 'app-danh-ba',
-    templateUrl: './danh-ba.component.html',
-    styleUrls: ['./danh-ba.component.scss'],
+    templateUrl: './phong-ban.component.html',
+    styleUrls: ["./phong-ban.component.scss"],
     providers: [MessageService]
 })
-export class DanhBaComponent implements OnInit {
+export class PhongBanComponent implements OnInit {
+    items: any[] = [];
 
-    newDanhBa: DmDanhBa = {
-        id: 0,
-        hoTen: '',
-        tenDonVi: '',
-        tenChucDanh: '',
-        donViId: 0,
-        tenPhongBan: '',
-        soDienThoaiCoQuan: '',
-        soDienThoaiDiDong: ''
-    };
-
-    timkiems: TimKiemModel ={
-        keyWord: '',
-        phongBanId: 0,
-        donviId: 0
-    };
+    home: any;
 
     productDialog: boolean = false;
 
@@ -51,18 +34,13 @@ export class DanhBaComponent implements OnInit {
 
     rowsPerPageOptions = [5, 10, 20];
 
-    constructor(private productService: ProductService, private messageService: MessageService, private danhbaService: DanhbaService) { }
+    constructor(private productService: ProductService, private messageService: MessageService) { }
 
     ngOnInit(): void {
-        
-        //Lấy ra danh sách danh bạ ở đây
-        this.danhbaService.getDanhSachDanhBa(this.timkiems).subscribe({
-            next: (danhbas) => {
-              this.newDanhBa = danhbas;
-            }
-          });
-          
-        //Code mẫu
+
+        this.items = [{ label: 'Hệ thống' }, { label: 'Người dùng' }];
+        this.home = { icon: 'pi pi-home', routerLink: '/' };
+
         this.productService.getProducts().then(data => this.products = data);
 
         this.cols = [

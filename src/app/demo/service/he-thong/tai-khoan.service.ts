@@ -25,8 +25,20 @@ export class TaiKhoanService {
         return this.httpClient.post<TaiKhoanTimKiem>(url, timkiem, this.httpOption);
     }
 
+    /**
+     * Lấy dữ liệu đơn vị tree
+     */
     public GetDataDonVi(): Observable<any> {
-        const url = `${this.baseUrl}/NguoiDung/GetDanhSachNguoiDung`;
-        return this.httpClient.post<TaiKhoanTimKiem>(url, this.httpOption);
+        const url = `${this.baseUrl}/NguoiDung/GetDataDonVi`;
+        return this.httpClient.get(url);
+    }
+
+    /**
+     * lấy dữ liệu phòng ban theo đơn vị đã chọn
+     * 
+     */
+    public GetDataPhongBanByDvi(id:string):Observable<any> {
+        const url = this.baseUrl+'/NguoiDung/GetDataPhongBanByDvi?id='+id;
+        return this.httpClient.get<any>(url);
     }
 }

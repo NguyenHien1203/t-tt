@@ -22,6 +22,10 @@ export class TaiKhoanComponent implements OnInit {
     TenChucDanh: '',
   }
 
+  hienThiThemMoi: boolean = false;
+  hienThiCapNhat: boolean = false;
+
+  valGioiTinh: string = '';
   TuKhoa: string = '';
   TenPhongBan: string = '';
   TenChucDanh: string = '';
@@ -37,12 +41,6 @@ export class TaiKhoanComponent implements OnInit {
   deleteTaiKhoansDialog: boolean = false;
 
   deleteTaiKhoanDialog: boolean = false;
-
-  // products: Product[] = [];
-
-  // product: Product = {};
-
-  // selectedProducts: Product[] = [];
 
   submitted: boolean = false;
 
@@ -75,12 +73,23 @@ export class TaiKhoanComponent implements OnInit {
         this.msgs = [];
         this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
       } else {
-        console.log(data.objData);
         this.taikhoans = data.objData;
       }
     }, (error) => {
       console.log('Error', error);
     })
+  }
+
+  public ThemMoi(): void{
+    this.hienThiThemMoi = true;
+  }
+
+  public Thoat(itemHt: any, loai: string): void{
+    if(loai === 'T')
+      this.hienThiThemMoi = false;
+    else
+      this.hienThiCapNhat = false;
+    this.GetDanhSachTaiKhoan();
   }
 
   public openNew() {

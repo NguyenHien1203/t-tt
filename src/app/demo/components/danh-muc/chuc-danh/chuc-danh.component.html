@@ -123,18 +123,18 @@
                 <div class="formgrid grid">
                     <div class="field col">
                         <label for="name">Tên chức danh</label>
-                        <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus
-                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}" />
-                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                        <input type="text" pInputText id="tenChucDanh" [(ngModel)]="listField.tenChucDanh" required autofocus
+                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !listField.tenChucDanhe}" />
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !listField.tenChucDanh">Name is required.</small>
                     </div>
                     <div class="field col">
                         <label for="quantity">Thứ tự hiển thị</label>
-                        <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
+                        <p-inputNumber id="quantity" [(ngModel)]="listField.thuTU"></p-inputNumber>
                     </div>
                 </div>
                 <div class="field">
                     <label for="description">Ghi chú</label>
-                    <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3"
+                    <textarea id="description" pInputTextarea [(ngModel)]="listField.ghiChu" required rows="3"
                         cols="20"></textarea>
                 </div>
             </ng-template>

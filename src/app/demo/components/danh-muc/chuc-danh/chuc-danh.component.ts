@@ -18,6 +18,10 @@ export class ChucDanhComponent implements OnInit {
 
   breadcrumbItems: MenuItem[] = [];
 
+  cols: any[] = [];
+
+  rowsPerPageOptions = [5, 10, 20];
+
   listField: ChucDanh = {};
 
   listFields: ChucDanh[] = [];
@@ -31,40 +35,41 @@ export class ChucDanhComponent implements OnInit {
     "denNgay": new Date()
   };
 
+  dataField = {
+    "id": 0,
+    "tenChucDanh": "",
+    "thuTu": 0,
+    "ghiChu": "",
+    "hienThi": true,
+    "donViId": 0,
+    "created": new Date(),
+    "createdBy": 0,
+    "lastModified": new Date(),
+    "lastModifiedBy": 0,
+  }
+
   productDialog: boolean = false;
-
-
-
-  deleteProductDialog: boolean = false;
-
-  deleteProductsDialog: boolean = false;
-
-  products: Product[] = [];
-
-  
-
-  
-
-  
-
-  product: Product = {};
-
-  
 
   submitted: boolean = false;
 
-  selectedProducts: Product[] = [];
+  deleteProductDialog: boolean = false;
 
-  cols: any[] = [];
+  idField: number;
+
+  header: string;
+
+
+
+
+  products: Product[] = [];
+
+  product: Product = {};
+
+  selectedProducts: Product[] = [];
 
   statuses: any[] = [];
 
-  rowsPerPageOptions = [5, 10, 20];
-
-  value1: any;
-
   valCheck: string[] = [];
-
 
   msgs: Message[] = [];
 
@@ -90,15 +95,14 @@ export class ChucDanhComponent implements OnInit {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
         } else {
-          console.log(data);
-          this.listFields = data
+          this.listFields = data;
         };
       }, (error) => {
         console.log('Error', error);
       })
   }
 
-  SearchField() {
+  searchField() {
     this.dataSearch.keyWord = this.search.keyWord ?? "";
     this.LoadListField();
   }
@@ -107,99 +111,79 @@ export class ChucDanhComponent implements OnInit {
     this.listField = {};
     this.submitted = false;
     this.productDialog = true;
+    this.header = "Thêm mới chức danh";
   }
 
   hideDialog() {
     this.productDialog = false;
     this.submitted = false;
-}
+  }
 
+  saveField() {
+    this.submitted = true;
 
-  // this.taikhoanService.GetDanhSachTaiKhoan(this.taikhoantimkiem).subscribe(data => {
-  //   if (data.isError) {
-  //     this.msgs = [];
-  //     this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
-  //   } else {
-  //     console.log(data.objData);
-  //     this.taikhoans = data.objData;
-  //   }
-  // }, (error) => {
-  //   console.log('Error', error);
-  // })
+    if (this.listField.tenChucDanh?.trim()) {
+      this.dataField.tenChucDanh = this.listField.tenChucDanh;
+      this.dataField.thuTu = this.listField.thuTu;
+      this.dataField.ghiChu = this.listField.ghiChu;
 
+      if (this.listField.id) {
+        this.dataField.lastModified = new Date();
+        this.dataField.lastModifiedBy = 0;
+        console.log(this.listField);
 
-  editProduct(product: Product) {
-    this.product = { ...product };
+        // this.chucDanhService.updateField(this.listField).subscribe(data => {
+        //   console.log(data);
+        //   this.LoadListField();
+        //   if (data.code == 200) {
+        //     this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật thành công', life: 3000 });
+        //   } else {
+        //     this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật không thành công', life: 3000 });
+        //   }
+        // })
+      } else {
+        this.chucDanhService.createField(this.dataField).subscribe(data => {
+          console.log(data);
+          this.LoadListField();
+          if (data.code == 200) {
+            this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Tạo mới thành công', life: 3000 });
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Tạo mới không thành công', life: 3000 });
+          }
+        });
+        this.productDialog = false;
+        this.product = {};
+      }
+    }
+  }
+
+  editField(id: number) {
+    this.header = "Cập nhật chức danh"
+    this.submitted = false;
     this.productDialog = true;
+    this.chucDanhService.getIdField(id).subscribe(data => {
+      this.listField = data;
+      console.log(data);
+    });
   }
 
-  deleteSelectedProducts() {
-    this.deleteProductsDialog = true;
-  }
-
-  deleteProduct(product: Product) {
+  deleteField(id: number) {
     this.deleteProductDialog = true;
-    this.product = { ...product };
-  }
-
-  confirmDeleteSelected() {
-    this.deleteProductsDialog = false;
-    this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-    this.selectedProducts = [];
+    this.idField = id;
   }
 
   confirmDelete() {
     this.deleteProductDialog = false;
-    this.products = this.products.filter(val => val.id !== this.product.id);
-    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-    this.product = {};
-  }
-
-  saveProduct() {
-    this.submitted = true;
-
-    if (this.product.name?.trim()) {
-      if (this.product.id) {
-        // @ts-ignore
-        this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
-        this.products[this.findIndexById(this.product.id)] = this.product;
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+    this.chucDanhService.deleteField(this.idField).subscribe(data => {
+      console.log(data)
+      this.LoadListField();
+      if (data.code == 200) {
+        this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Xóa bản ghi thành công', life: 3000 });
       } else {
-        this.product.id = this.createId();
-        this.product.code = this.createId();
-        this.product.image = 'product-placeholder.svg';
-        // @ts-ignore
-        this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
-        this.products.push(this.product);
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Không thể xóa bản ghi', life: 3000 });
       }
-
-      this.products = [...this.products];
-      this.productDialog = false;
-      this.product = {};
-    }
-  }
-
-  findIndexById(id: string): number {
-    let index = -1;
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === id) {
-        index = i;
-        break;
-      }
-    }
-
-    return index;
-  }
-
-  createId(): string {
-    let id = '';
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
+    });
+    this.listField = {};
   }
 
   onGlobalFilter(table: Table, event: Event) {

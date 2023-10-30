@@ -19,8 +19,6 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
-import { ThemMoiComponent } from './them-moi/them-moi.component';
-
 
 @NgModule({
   imports: [
@@ -43,6 +41,6 @@ import { ThemMoiComponent } from './them-moi/them-moi.component';
     DialogModule,
     CheckboxModule
   ],
-  declarations: [ChucDanhComponent, ThemMoiComponent]
+  declarations: [ChucDanhComponent]
 })
 export class ChucDanhModule { }

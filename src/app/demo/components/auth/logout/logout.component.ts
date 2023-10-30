@@ -12,6 +12,7 @@ export class LogoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    alert("123")
     this.DangXuat();
   }
 

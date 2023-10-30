@@ -32,13 +32,23 @@ export class ThemMoiComponent {
     sdtCoQuan: ["", []],
   });
 
+  dvThucHienDialog: boolean = false;
+
   //Khai báo đơn vị tree
   DonViTree: DMJsonModel[] = [];
   selectedDonVi: '';
 
-  //Khai báo đơn vị tree
+  //Khai báo phòng ban option
   PhongBan = [];
   selectedPhongBan: '';
+
+  //Khai báo nhóm quyền option
+  NhomQuyen = [];
+  selectedNhomQuyen: '';
+
+  //Khai báo chức danh option
+  ChucDanh = [];
+  selectedChucDanh: '';
 
   constructor(
     private taikhoanService: TaiKhoanService,
@@ -49,6 +59,8 @@ export class ThemMoiComponent {
 
   ngOnInit(): void {
     this.GetDataDonVi();
+    this.GetChucDanh();
+    this.GetNhomQuyen();
   }
 
   public ThemMoiTaiKhoan(): void {
@@ -61,7 +73,31 @@ export class ThemMoiComponent {
         console.log("Dữ liệu không hợp lệ")
       } else {
         this.DonViTree = this.transformJsonToCustomStructure(data.objData)
-        console.log(this.DonViTree);
+      }
+    }, (error) => {
+      console.log('Error', error);
+    })
+  }
+
+  public GetNhomQuyen() {
+    this.taikhoanService.GetNhomQuyen().subscribe(data => {
+      if (data.isError) {
+        console.log("Dữ liệu không hợp lệ")
+      } else {
+        this.NhomQuyen = data.objData;
+        console.log(this.NhomQuyen);
+      }
+    }, (error) => {
+      console.log('Error', error);
+    })
+  }
+
+  public GetChucDanh() {
+    this.taikhoanService.GetChucDanh().subscribe(data => {
+      if (data.isError) {
+        console.log("Dữ liệu không hợp lệ")
+      } else {
+        this.ChucDanh = data.objData;
       }
     }, (error) => {
       console.log('Error', error);
@@ -76,17 +112,23 @@ export class ThemMoiComponent {
         console.log("Dữ liệu không hợp lệ")
       } else {
         this.PhongBan = data.objData;
+        console.log(this.PhongBan);
       }
     }, (error) => {
       console.log('Error', error);
     })
   }
 
-
-
   public Thoat(): void {
     this.hienThi = false;
     this.tatPopup.emit(this.hienThi);
+  }
+
+  public ThoatDvThucHien(itemHt: any, loai: string): void{
+    if(loai === 'T')
+      this.dvThucHienDialog = false;
+    else
+      this.dvThucHienDialog = false;
   }
 
   transformJsonToCustomStructure(jsonData: any): DMJsonModel[] {

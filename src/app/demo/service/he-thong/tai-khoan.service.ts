@@ -41,4 +41,20 @@ export class TaiKhoanService {
         const url = this.baseUrl+'/NguoiDung/GetDataPhongBanByDvi?id='+id;
         return this.httpClient.get<any>(url);
     }
+
+    /**
+     * Lấy dữ liệu nhóm quyền
+     */
+    public GetNhomQuyen(): Observable<any> {
+        const url = `${this.baseUrl}/NguoiDung/GetDataNhomQuyen`;
+        return this.httpClient.get<any>(url);
+    }
+
+    /**
+     * Lấy dữ liệu chức danh
+     */
+    public GetChucDanh(): Observable<any>  {
+        const url = `${this.baseUrl}/NguoiDung/GetDataChucDanh`;
+        return this.httpClient.get<any>(url);
+    }
 }

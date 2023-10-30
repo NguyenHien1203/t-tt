@@ -21,6 +21,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
+import { ThemDvThucHienComponent } from './them-moi/them-dv-thuc-hien.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -44,6 +45,6 @@ import { TreeSelectModule } from 'primeng/treeselect';
     TreeModule,
     TreeSelectModule
   ],
-  declarations: [TaiKhoanComponent, ThemMoiComponent]
+  declarations: [TaiKhoanComponent, ThemMoiComponent, ThemDvThucHienComponent]
 })
 export class TaiKhoanModule { }

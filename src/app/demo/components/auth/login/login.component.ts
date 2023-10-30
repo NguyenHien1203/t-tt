@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NguoiDungLogin } from 'src/app/models/he-thong/nguoi-dung';
 import { DangNhapService } from 'src/app/demo/service/he-thong/dang-nhap.service';
@@ -40,7 +39,6 @@ export class LoginComponent {
     });
 
     constructor(
-        public layoutService: LayoutService,
         private dangNhapService: DangNhapService,
         private router: Router,
         private authenService: AuthService,
@@ -49,11 +47,11 @@ export class LoginComponent {
     ) { }
 
     ngOnInit(): void {
-        this.returnUrl = '/';
+        this.returnUrl = '/dashboard';
         if (this.authenService.CheckLogin())
-            this.router.navigate(['/']);
+            this.router.navigate(['/dashboard']);
         else
-            this.router.navigate(['/auth/login']);
+            this.router.navigate(['/login']);
     }
 
     get dangNhapFormControl() {

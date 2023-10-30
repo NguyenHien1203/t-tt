@@ -54,15 +54,80 @@
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-6 mb-0">
                 <label htmlfor="phongBan">Phòng ban <span class="p-error">(*)</span></label>
-                <p-dropdown [options]="PhongBan" formControlName="phongBan" optionLabel="name"></p-dropdown>
+                <p-dropdown [options]="PhongBan" formControlName="phongBan" optionLabel="name"  placeholder="Chọn phòng ban"></p-dropdown>
                
             </div>
             <div class="field col-12 md:col-6 mb-0">
                 <label htmlfor="donvi">Nhóm quyền <span class="p-error">(*)</span></label>
-                <input pinputtext="" id="phongBan" type="text" class="p-inputtext p-component p-element"
-                formControlName="phongBan">
+                <p-dropdown [options]="NhomQuyen" formControlName="nhomQuyen" optionLabel="name" placeholder="Chọn nhóm quyền"></p-dropdown>
             </div>
         </div>
-    </p-dialog>
 
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="chucDanh">Chức danh <span class="p-error">(*)</span></label>
+                <p-dropdown [options]="ChucDanh" formControlName="chucDanh" optionLabel="name" placeholder="Chọn chức danh"></p-dropdown>
+               
+            </div>
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="sdtNhaRieng">Số điện thoại nhà riêng </label>
+                <input pinputtext="" id="sdtNhaRieng" type="text" class="p-inputtext p-component p-element"
+                formControlName="sdtNhaRieng">
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="sdtCoQuan">Số điện thoại cơ quan </label>
+                <input pinputtext="" id="sdtCoQuan" type="text" class="p-inputtext p-component p-element"
+                formControlName="sdtCoQuan">
+            </div>
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="sdtDiDong">Số điện thoại di động </label>
+                <input pinputtext="" id="sdtDiDong" type="text" class="p-inputtext p-component p-element"
+                formControlName="sdtDiDong">
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6 mb-0">
+                <b>Đơn vị thực hiện:</b> 
+                <button style="margin-top:20px ;" pButton pRipple label="" icon="pi pi-plus" class="p-button-success mr-2"></button>
+            </div>
+        </div>
+
+        <p-table [value]="" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="mt-3" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:200px" pFrozenColumn>Stt</th>
+                    <th style="width:200px">Phòng ban</th>
+                    <th style="width:200px">Nhóm quyền</th>
+                    <th style="width:200px">Chức năng</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td style="width:200px" class="font-bold"></td>
+                    <td style="width:200px"></td>
+                    <td style="width:200px"></td>
+                    <td style="width:200px"></td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <ng-template pTemplate="footer">
+            <button type="submit" pbutton="" pripple="" label="Tìm kiếm" icon="pi pi-bookmark"  class="p-element p-ripple p-button p-component">
+                <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+                <span class="p-button-label">Lưu</span>
+                <span class="p-ink"></span>
+            </button>
+            <button pbutton="" pripple="" label="Tìm kiếm" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-danger" (click)="Thoat()">
+                <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+                <span class="p-button-label">Thoát</span>
+                <span class="p-ink"></span>
+            </button>
+        </ng-template>
+    </p-dialog>
 </form>
+<app-them-dv-thuc-hien [hienThi]="dvThucHienDialog" (tatPopup)="ThoatDvThucHien($event, 'T')"></app-them-dv-thuc-hien>
+

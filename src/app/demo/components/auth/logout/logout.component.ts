@@ -11,15 +11,14 @@ export class LogoutComponent {
     private router: Router,
   ) { }
 
-  ngOnInit() {
-    alert("123")
+  ngOnInit(): void {
     this.DangXuat();
   }
 
   public DangXuat(): void {
     localStorage.setItem('isLoggedIn', 'false');
     localStorage.removeItem('token');
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/login']);
   }
 
 }

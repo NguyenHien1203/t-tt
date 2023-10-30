@@ -22,6 +22,7 @@ import { DialogModule } from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { TableModule } from 'primeng/table';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { TableModule } from 'primeng/table';
         InputSwitchModule,
         RippleModule,
         RouterModule,
-        AppConfigModule
+        AppConfigModule,
+        MenuModule
     ],
     exports: [AppLayoutComponent]
 })

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NguoiDungLogin } from 'src/app/models/he-thong/nguoi-dung';
 import { DangNhapService } from 'src/app/demo/service/he-thong/dang-nhap.service';
@@ -7,7 +6,7 @@ import { AuthService } from 'src/app/common/auth.services';
 import { Router } from '@angular/router';
 import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
 import { Message, MessageService } from 'primeng/api';
-
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-login',
@@ -40,20 +39,20 @@ export class LoginComponent {
     });
 
     constructor(
-        public layoutService: LayoutService,
         private dangNhapService: DangNhapService,
         private router: Router,
         private authenService: AuthService,
         private formBuilder: FormBuilder,
-        private service: MessageService
+        private service: MessageService,
+        private cookieService: CookieService
     ) { }
 
     ngOnInit(): void {
-        this.returnUrl = '/';
+        this.returnUrl = '/dashboard';
         if (this.authenService.CheckLogin())
-            this.router.navigate(['/']);
+            this.router.navigate(['/dashboard']);
         else
-            this.router.navigate(['/auth/login']);
+            this.router.navigate(['/login']);
     }
 
     get dangNhapFormControl() {
@@ -71,8 +70,11 @@ export class LoginComponent {
                     this.msgs = [];
                     this.msgs.push({ severity: 'error', detail: "Thông tin đăng nhập không hợp lệ" });
                 } else {
-                    localStorage.setItem('isLoggedIn', "true");
-                    localStorage.setItem('token', data.objData);
+                    this.cookieService.set('isLoggedIn', "true");
+                    this.cookieService.set('token', data.objData);
+
+                    // localStorage.setItem('isLoggedIn', "true");
+                    // localStorage.setItem('token', data.objData);
                     this.router.navigate([this.returnUrl])
                 }
             }, (error) => {

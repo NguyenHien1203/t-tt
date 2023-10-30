@@ -10,7 +10,7 @@ import { ChucDanh } from 'src/app/models/danh-muc/chuc-danh';
 })
 export class ChucDanhService {
 
-  url = '/DanhMuc/LinhVuc/';
+  url = '/DanhMuc/ChucDanh/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -21,9 +21,9 @@ export class ChucDanhService {
   constructor(private http: HttpClient) { }
 
   public getListFields(fields: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachLinhVuc', fields, this.httpOptions)
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachChucDanh', fields, this.httpOptions)
       .pipe(
-        map((res: any) => res.objData)
+        map((res: any) => res.objData as ChucDanh[])
       )
   }
 

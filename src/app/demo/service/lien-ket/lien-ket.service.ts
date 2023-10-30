@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { LienKet } from 'src/app/models/danh-muc/lien-ket/lien-ket';
-import {TimKiemDanhSach } from 'src/app/models/danh-muc/lien-ket/lien-ket';
+import { TimKiemDanhSach } from 'src/app/models/danh-muc/lien-ket/lien-ket';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,9 +15,23 @@ export class LienKetService {
   }
   constructor(private http: HttpClient) { }
 
-  getDanhSachDmLienKet(timKiemDanhSach : TimKiemDanhSach) {
-    return this.http.post<any>(environment.baseUrlApi +'/DanhMuc/DanhMucLienKet/GetDanhSach', timKiemDanhSach, this.httpOption)
-        .toPromise()
-        .then(res => res.objData.listDanhSach as LienKet[]);
-}
+  getDanhSachDmLienKet(timKiemDanhSach: TimKiemDanhSach) {
+    return this.http.post<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/GetDanhSach', timKiemDanhSach, this.httpOption)
+      .toPromise()
+      .then(res => res.objData.listDanhSach as LienKet[]);
+  }
+  getDmLienKetById(id: string) {
+    return this.http.get<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/GetDanhMucLienKetById/' + id)
+      .pipe(
+        map((response: any) => response.objData)
+      );
+  }
+
+  themMoiLienKet(modelLienKet: any) {
+    return this.http.post<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/ThemMoiDanhMucLienKet', modelLienKet, this.httpOption)
+  }
+
+  capNhatLienKet(modelLienKet: any) {
+    return this.http.post<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/CapNhatDanhMucLienKet', modelLienKet, this.httpOption)
+  }
 }

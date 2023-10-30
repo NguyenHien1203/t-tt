@@ -22,8 +22,8 @@ import { MessagesModule } from 'primeng/messages';
         PasswordModule,
         ReactiveFormsModule,
         ToastModule,
-        MessageModule,
-        MessagesModule
+        MessageModule,  
+        MessagesModule, 
     ],
     declarations: [LoginComponent]
 })

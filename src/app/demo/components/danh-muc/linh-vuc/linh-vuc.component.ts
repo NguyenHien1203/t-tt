@@ -12,7 +12,7 @@ import { Search } from 'src/app/models/danh-muc/search.model';
   providers: [MessageService]
 })
 
-export class LinhVucComponent {
+export class LinhVucComponent implements OnInit {
 
   breadcrumbItems: MenuItem[] = [];
 
@@ -66,6 +66,8 @@ export class LinhVucComponent {
 
   msgs: Message[] = [];
 
+  showCreated: boolean = false;
+
   constructor(private messageService: MessageService, private linhVucService: LinhVucService) { }
 
   ngOnInit() {
@@ -103,16 +105,21 @@ export class LinhVucComponent {
   }
 
   openNew() {
-    this.listField = {};
-    this.submitted = false;
-    this.productDialog = true;
-    this.header = "Thêm mới chức danh";
+    this.showCreated = true;
   }
 
-  hideDialog() {
-    this.productDialog = false;
-    this.submitted = false;
+  public closePopup(item: any, type: string): void {
+    if (type === 'C')
+      this.showCreated = false;
+    else
+      this.showCreated = false;
+    this.LoadListFields();
   }
+
+  // hideDialog() {
+  //   this.productDialog = false;
+  //   this.submitted = false;
+  // }
 
   saveField() {
     this.submitted = true;

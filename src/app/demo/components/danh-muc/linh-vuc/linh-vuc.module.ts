@@ -19,13 +19,13 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ThemMoiComponent } from './them-moi/them-moi.component';
 
-
 @NgModule({
   declarations: [
-    LinhVucComponent
+    LinhVucComponent, ThemMoiComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +45,8 @@ import { ThemMoiComponent } from './them-moi/them-moi.component';
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
-    CheckboxModule
+    CheckboxModule,
+    ReactiveFormsModule
   ]
 })
 export class LinhVucModule { }

@@ -103,7 +103,9 @@
             </p-table>
         </div>
 
-        <p-dialog [(visible)]="productDialog" [style]="{width: '960px'}" header={{header}} [modal]="true"
+        <app-them-moi [show]="showCreated" (close)="closePopup($event, 'C')"></app-them-moi>
+
+        <!-- <p-dialog [(visible)]="productDialog" [style]="{width: '960px'}" header={{header}} [modal]="true"
             class="p-fluid">
             <ng-template pTemplate="content">
 
@@ -136,7 +138,7 @@
                 <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger"
                     (click)="hideDialog()"></button>
             </ng-template>
-        </p-dialog>
+        </p-dialog> -->
 
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">

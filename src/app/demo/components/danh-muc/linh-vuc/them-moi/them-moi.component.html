@@ -1,0 +1,52 @@
+<form [formGroup]="formThemMoi">
+    <p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới lĩnh vực" [modal]="true" class="p-fluid"
+        (onHide)="closePopup()">
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="tenChucDanh">Tên lĩnh vực</label>
+                <input type="text" pInputText id="tenChucDanh" required autofocus />
+                <small class="ng-dirty ng-invalid">Vui lòng không
+                    được để trống.</small>
+            </div>
+            <div class="field col">
+                <label for="tenChucDanh">Mã lĩnh vực</label>
+                <input type="text" pInputText id="tenChucDanh" required autofocus />
+                <small class="ng-dirty ng-invalid">Vui lòng không
+                    được để trống.</small>
+            </div>
+            <div class="field col">
+                <label for="thuTu">Thứ tự hiển thị</label>
+                <p-inputNumber id="thuTu" required autofocus></p-inputNumber>
+                <small class="ng-dirty ng-invalid">Vui lòng không được để
+                    trống.</small>
+            </div>
+        </div>
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="tenChucDanh">Chọn tên đơn vị</label>
+                <p-dropdown [options]="cities" [(ngModel)]="selectedDrop" placeholder="Chọn tên đơn vị"
+                    [showClear]="true"></p-dropdown>
+            </div>
+            <div class="field col">
+                <label for="tenChucDanh">Chọn phòng ban</label>
+                <p-dropdown [options]="cities" [(ngModel)]="selectedDrop" placeholder="Chọn phòng ban"
+                    [showClear]="true"></p-dropdown>
+            </div>
+            <div class="field col">
+                <div style="display: grid;">
+                    <label for="ny">Hiển thị</label>
+                    <p-checkbox class="mt-4" name="group1" value="New York" [(ngModel)]="valCheck" id="ny"></p-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="ghiChu">Ghi chú</label>
+            <textarea id="ghiChu" pInputTextarea required rows="3" cols="20"></textarea>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-info" (click)="saveTitle()"></button>
+            <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger"
+                (click)="closePopup()"></button>
+        </ng-template>
+    </p-dialog>
+</form>

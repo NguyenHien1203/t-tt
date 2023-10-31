@@ -130,17 +130,15 @@ export class ChucDanhComponent implements OnInit {
       if (this.listField.id) {
         this.dataField.lastModified = new Date();
         this.dataField.lastModifiedBy = 0;
-        console.log(this.listField);
-
-        // this.chucDanhService.updateField(this.listField).subscribe(data => {
-        //   console.log(data);
-        //   this.LoadListField();
-        //   if (data.code == 200) {
-        //     this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật thành công', life: 3000 });
-        //   } else {
-        //     this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật không thành công', life: 3000 });
-        //   }
-        // })
+        this.chucDanhService.updateField(this.dataField, this.listField.id).subscribe(data => {
+          console.log(data);
+          this.LoadListField();
+          if (data.code == 200) {
+            this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật thành công', life: 3000 });
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật không thành công', life: 3000 });
+          }
+        })
       } else {
         this.chucDanhService.createField(this.dataField).subscribe(data => {
           console.log(data);
@@ -151,9 +149,9 @@ export class ChucDanhComponent implements OnInit {
             this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Tạo mới không thành công', life: 3000 });
           }
         });
-        this.productDialog = false;
-        this.product = {};
       }
+      this.productDialog = false;
+      this.product = {};
     }
   }
 

@@ -17,6 +17,11 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CalendarModule } from "primeng/calendar";
+import { ThemMoiPhongBanComponent } from './them-moi-phong-ban/them-moi-phong-ban.component';
+import { CheckboxModule } from 'primeng/checkbox';
+
 // import { DropdownSearchComponent } from './hello.component';
 // import { SearchDropdown } from './search-dropdown/search-dropdown';
 @NgModule({
@@ -37,8 +42,11 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    ReactiveFormsModule,
+    CalendarModule,
+    CheckboxModule
   ],
-  declarations: [PhongBanComponent]
+  declarations: [PhongBanComponent, ThemMoiPhongBanComponent]
 })
 export class PhongBanModule { }

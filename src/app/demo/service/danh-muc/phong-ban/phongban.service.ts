@@ -20,4 +20,9 @@ private httpOption = {
   getDanhSachPhongBan(timkiem: TimKiemModel){
     return this.http.post<any>(this.baseApiUrl+'/DanhMuc/PhongBan/GetDanhSachPhongBan/', timkiem, this.httpOption).toPromise().then(response => response.objData.listPhongBan as DmPhongBan[])
   }
+
+  addPhongBan(addPhongBan: DmPhongBan): Observable<DmPhongBan>{
+    return this.http.post<any>(this.baseApiUrl+'/DanhMuc/ChucDanh/ThemMoiChucDanh/', addPhongBan);
+
+  }
 }

@@ -12,6 +12,7 @@ export interface DmPhongBan{
     fax: string,
     website: string,
     email: string,
+    uRL: string,
     thuTu: number,
     trangThai: boolean,
     tenDonViTrenTruc: string,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/demo/api/product';
-import { MessageService } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { DmPhongBan, TimKiemModel } from 'src/app/demo/api/danh-muc/phong-ban';
@@ -14,13 +14,18 @@ import { PhongbanService } from 'src/app/demo/service/danh-muc/phong-ban/phongba
 export class PhongBanComponent implements OnInit {
     danhmuc: DmPhongBan[] = [];
     phongBans: DmPhongBan[] = [];
-
+    msgs: Message[] = [];
     timkiems: TimKiemModel = {
         keyWord: "",
         Nam: 0,
         TuNgay: new Date(),
         DenNgay: new Date()
     };
+
+    hienThiThemMoi: boolean = false;
+    hienThiCapNhat: boolean = false;
+
+    TuKhoa: string = '';
 
     items: any[] = [];
 
@@ -54,9 +59,8 @@ export class PhongBanComponent implements OnInit {
         this.home = { icon: 'pi pi-home', routerLink: '/' };
         //#region 
         // Get List Phong Ban
-        this.dmPhongBanService.getDanhSachPhongBan(this.timkiems).then(data => {this.phongBans = data;console.log(data)}
-          );
-
+        this.dmPhongBanService.getDanhSachPhongBan(this.timkiems).then(data => { this.phongBans = data; console.log(data) }
+        );
         //#endregion
 
 
@@ -76,6 +80,28 @@ export class PhongBanComponent implements OnInit {
             { label: 'OUTOFSTOCK', value: 'outofstock' }
         ];
     }
+
+    //#region 
+    //Thêm mới phòng ban
+    public ThemMoi(): void {
+        this.hienThiThemMoi = true;
+    }
+
+    public Thoat(itemHt: any, loai: string): void {
+        if (loai === 'T')
+            this.hienThiThemMoi = false;
+        else
+            this.hienThiCapNhat = false;
+        this.getDanhSachPhongBan();
+    }
+    //#endregion
+
+    public getDanhSachPhongBan() {
+        this.timkiems.keyWord = this.TuKhoa;
+        this.dmPhongBanService.getDanhSachPhongBan(this.timkiems).then(data => { this.phongBans = data; console.log(data) }
+        )
+    };
+
 
     openNew() {
         this.product = {};

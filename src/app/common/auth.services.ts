@@ -2,6 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { mUserInfo } from '../models/common/mUserInfo';
 @Injectable({
     providedIn: 'root'
   })
@@ -10,14 +11,13 @@ import { CookieService } from 'ngx-cookie-service';
 
     public CheckLogin(): boolean {
         let status = false;
-
         if (this.cookieService.get('isLoggedIn') == "true") {
           if (this.CheckTokenExpired(this.GetToken())) {
             status = false;
             this.cookieService.set('isLoggedIn', 'false');
             this.cookieService.delete('token');
             this.cookieService.delete('mUserInfo');
-
+            this.cookieService.delete('idDonViLamViec');
           } else {
             status = true;
           }
@@ -25,20 +25,6 @@ import { CookieService } from 'ngx-cookie-service';
         else {
           status = false;
         }
- 
-        //Dùng localStorrage
-        // if (localStorage.getItem('isLoggedIn') == "true") {
-        //   if (this.CheckTokenExpired(this.GetToken())) {
-        //     status = false;
-        //     localStorage.setItem('isLoggedIn', 'false');
-        //     localStorage.removeItem('token');
-        //   } else {
-        //     status = true;
-        //   }
-        // }
-        // else {
-        //   status = false;
-        // }
         return status;
       }
 
@@ -48,11 +34,22 @@ import { CookieService } from 'ngx-cookie-service';
       }
 
       public GetToken(): string {
-        let token = localStorage.getItem('token');
+        let token = this.cookieService.get('token');
         if (token != null) {
           return token;
         } else {
           return "";
         }
       }
+
+      public GetmUserInfo() : mUserInfo {
+        const mUser : mUserInfo = JSON.parse(this.cookieService.get('mUserInfo'));
+        return mUser;
+      }
+
+      public GetDonViLamViec() : string {
+        const DonViLamViec  = this.cookieService.get('idDonViLamViec');
+        return DonViLamViec;
+      }
+      
   }

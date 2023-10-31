@@ -34,4 +34,8 @@ export class LienKetService {
   capNhatLienKet(modelLienKet: any) {
     return this.http.post<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/CapNhatDanhMucLienKet', modelLienKet, this.httpOption)
   }
+
+  xoaLienKet(id : string) {
+    return this.http.get<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/XoaDanhMucLienKet/'+ id)
+  }
 }

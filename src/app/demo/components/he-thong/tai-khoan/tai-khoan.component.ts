@@ -6,6 +6,8 @@ import { Product } from 'src/app/demo/api/product';
 import { TaiKhoanService } from 'src/app/demo/service/he-thong/tai-khoan.service';
 import { TaiKhoan, TaiKhoanTimKiem } from 'src/app/models/he-thong/tai-khoan';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/common/auth.services';
 
 @Component({
   selector: 'app-tai-khoan',
@@ -54,12 +56,17 @@ export class TaiKhoanComponent implements OnInit {
     private productService: ProductService,
     private messageService: MessageService,
     private taikhoanService: TaiKhoanService,
+    private cookieService: CookieService,
+    private authenService: AuthService
   ) { }
-
+  mUserInfo: any;
   ngOnInit() {
+    console.log(this.authenService.GetmUserInfo());
+    console.log(this.authenService.GetDonViLamViec());
+
     this.items = [{ label: 'Hệ thống' }, { label: 'Quản trị tài khoản' }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
-
+    ``
     this.GetDanhSachTaiKhoan();
   }
 
@@ -80,12 +87,12 @@ export class TaiKhoanComponent implements OnInit {
     })
   }
 
-  public ThemMoi(): void{
+  public ThemMoi(): void {
     this.hienThiThemMoi = true;
   }
 
-  public Thoat(itemHt: any, loai: string): void{
-    if(loai === 'T')
+  public Thoat(itemHt: any, loai: string): void {
+    if (loai === 'T')
       this.hienThiThemMoi = false;
     else
       this.hienThiCapNhat = false;
@@ -181,3 +188,5 @@ export class TaiKhoanComponent implements OnInit {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 }
+
+

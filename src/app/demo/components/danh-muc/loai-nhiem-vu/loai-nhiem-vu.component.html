@@ -1,0 +1,112 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <h2>TÌM KIẾM</h2>
+            <div class="field grid">
+                <label htmlFor="name3" class="col-12 mb-2 md:col-1 md:mb-0">Tên nhiệm vụ:</label>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText id="name3" class="form-control" type="text"
+                        [(ngModel)]="timKiemDanhSach.keyWord" />
+                </div>
+                <label htmlFor="name3" class="col-12 mb-2 md:col-1 md:mb-0">Mô tả:</label>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText id="name3" class="form-control" type="text"
+                        [(ngModel)]="timKiemDanhSach.moTa" />
+                </div>
+                <label htmlFor="name3" class="col-12 mb-2 md:col-1 md:mb-0"></label>
+                <label class="col-12 md:col-3 fl-wr">
+                    <p-checkbox name="hienThi" id="hienThi" [(ngModel)]="timKiemDanhSach.timChinhXac"  (click)="CheckedHt()" value="true" label="Tìm chính xác"></p-checkbox>
+                </label>
+            </div>
+            <div class="div-center">
+                <button pButton pRipple type="button" (click)="(LoadDanhSach(timKiemDanhSach))" label="Tìm kiếm"
+                    class="p-button-info"></button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="wrapper">
+                <h2>DANH SÁCH LOẠI NHIỆM VỤ</h2>
+                <div class="icon-cls">
+                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
+                        (click)="ThemMoi()">
+                    </button>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-12">
+                    <p-table #dt1 [value]="loaiNhiemVus" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
+                        styleClass="p-datatable-gridlines" [paginator]="false" responsiveLayout="scroll">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 2%;">
+                                    <div class="flex justify-content-between align-items-center">
+                                        STT
+                                    </div>
+                                </th>
+                                <th style="min-width: 12rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Tên loại nhiệm vụ
+                                    </div>
+                                </th>
+                                <th style="min-width: 14rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Mô tả
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Chức năng
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-loaiNhiemVu let-rowIndex="rowIndex">
+                            <tr>
+                                <td style="text-align: center;">
+                                    {{ rowIndex + 1 }}
+                                </td>
+                                <td>
+                                    {{loaiNhiemVu.tenNhiemVu}}
+                                </td>
+                                <td>
+                                    {{loaiNhiemVu.moTa}}
+                                </td>
+                                <td>
+                                    <div class="div-center">
+                                        <button pButton pRipple icon="pi pi-pencil"
+                                            class="p-button-rounded p-button-success mr-2"
+                                            (click)="CapNhat(loaiNhiemVu.id)"></button>
+                                        <button pButton pRipple icon="pi pi-trash"
+                                            class="p-button-rounded p-button-warning"
+                                            (click)="Xoa(loaiNhiemVu.id)"></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="8">No record found.</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="loadingbody">
+                            <tr>
+                                <td colspan="8">Loading record data. Please wait.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
+                        [totalRecords]="totalRecords" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-them-moi [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
+    <app-cap-nhat [hienThi]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat>

@@ -1,0 +1,24 @@
+<p-dialog [(visible)]="hienThi" [formGroup]="formThemMoi" (onHide)="Thoat()" [style]="{width: '750px'}" header="Thêm mới loại nhiệm vụ" [modal]="true"
+    class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+                <label htmlfor="tenLoaiNhiemVu">Tên loại nhiệm vụ<span class="p-error"> (*)</span>:</label>
+                <input pinputtext="" id="tenLoaiNhiemVu" type="text" class="p-inputtext p-component p-element" formControlName="tenLoaiNhiemVu">
+                <span class="p-error" *ngIf="!formThemMoi.controls.tenLoaiNhiemVu.valid && (formThemMoi.controls.tenLoaiNhiemVu.touched || submitted)">Vui lòng nhập tên loại nhiệm vụ</span>
+        </div>
+        <div class="field">
+            <label for="ghiChu">Ghi chú:</label>
+            <textarea id="ghiChu" formControlName="moTa" pInputTextarea  rows="3" cols="20"></textarea>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pbutton="" pripple="" type="submit" label="Info"
+            class="p-element p-ripple p-button-info p-button p-component" ng-reflect-label="Info"
+            (click)="ThemMoi()"><span class="p-button-label">Lưu</span><span class="p-ink"></span></button>
+        <button pbutton="" pripple="" type="button" label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component" ng-reflect-label="Danger"
+            (click)="Thoat()"><span class="p-button-label">Hủy</span><span class="p-ink"></span></button>
+    </ng-template>
+</p-dialog>
+<p-toast></p-toast>

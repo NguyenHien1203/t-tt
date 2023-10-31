@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { LienKetService } from 'src/app/demo/service/lien-ket/lien-ket.service';
 import { LienKet, TimKiemDanhSach } from 'src/app/models/danh-muc/lien-ket/lien-ket';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-lien-ket',
   templateUrl: './lien-ket.component.html',
   styleUrls: ['./lien-ket.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 
 
 export class LienKetComponent implements OnInit {
 
-  constructor(private service: LienKetService, private messageService: MessageService) { }
+  constructor(private service: LienKetService
+    , private messageService: MessageService,
+    private confirmationService: ConfirmationService) { }
 
   hienThiThemMoi: boolean = false;
   hienThiCapNhat: boolean = false;
@@ -49,22 +51,28 @@ export class LienKetComponent implements OnInit {
     this.hienThiCapNhat = true;
     this.id = id;
   }
-  saveProduct() {
-    // this.submitted = true;
-    // if (this.lienKet.tenHienThi?.trim()) {
-    //   if (this.lienKet.id) {
-    //     this.lienKets[this.findIndexById(this.lienKet.id)] = this.lienKet;
-    //     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-    //   } else {
-    //     this.lienKets.push(this.lienKet);
-    //     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
-    //   }
-
-    //   this.lienKets = [...this.lienKets];
-    //   this.lienKetDialog = false;
-    //   this.lienKet = {};
-    // }
-  }
+ public Xoa(id : string){
+  this.confirmationService.confirm({
+    message: 'Bạn có chắc chắn xá tài khoản?',
+    header: 'Xác nhận',
+    icon: 'pi pi-info-circle',
+    accept: () => {
+      this.service.xoaLienKet(id).subscribe(data => {
+        if(data.isError){
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+        }else{
+          this.LoadDanhSach(this.timKiemDanhSach);
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+        }
+      }, (error) => {
+        console.log('Error', error);
+      })
+    },
+    reject: () => {
+        
+    }
+});
+ }
 
   public Thoat(itemHt: any, loai: string): void {
     if (loai === 'T')

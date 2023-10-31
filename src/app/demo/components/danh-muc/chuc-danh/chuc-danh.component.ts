@@ -1,10 +1,6 @@
 import { ChucDanhService } from './../../../service/danh-muc/chuc-danh/chuc-danh.service';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Product } from 'src/app/demo/api/product';
-
-import { Table } from 'primeng/table';
-import { ProductService } from 'src/app/demo/service/product.service';
 import { Message, MessageService } from 'primeng/api';
 import { ChucDanh } from 'src/app/models/danh-muc/chuc-danh';
 import { Search } from 'src/app/models/danh-muc/search.model';
@@ -22,9 +18,9 @@ export class ChucDanhComponent implements OnInit {
 
   rowsPerPageOptions = [5, 10, 20];
 
-  listField: ChucDanh = {};
+  listTitle: ChucDanh = {};
 
-  listFields: ChucDanh[] = [];
+  listTitles: ChucDanh[] = [];
 
   search: Search = {};
 
@@ -35,7 +31,7 @@ export class ChucDanhComponent implements OnInit {
     "denNgay": new Date()
   };
 
-  dataField = {
+  dataTitle = {
     "id": 0,
     "tenChucDanh": "",
     "thuTu": 0,
@@ -54,26 +50,15 @@ export class ChucDanhComponent implements OnInit {
 
   deleteProductDialog: boolean = false;
 
-  idField: number;
+  idTitle: number;
 
   header: string;
-
-
-
-
-  products: Product[] = [];
-
-  product: Product = {};
-
-  selectedProducts: Product[] = [];
-
-  statuses: any[] = [];
 
   valCheck: string[] = [];
 
   msgs: Message[] = [];
 
-  constructor(private productService: ProductService, private messageService: MessageService, private chucDanhService: ChucDanhService) { }
+  constructor(private messageService: MessageService, private chucDanhService: ChucDanhService) { }
 
   ngOnInit() {
     this.breadcrumbItems = [];
@@ -85,30 +70,30 @@ export class ChucDanhComponent implements OnInit {
       { field: 'thuTu', header: 'thuTu' },
     ];
 
-    this.LoadListField();
+    this.LoadListTitles();
   }
 
-  LoadListField() {
-    this.chucDanhService.getListFields(this.dataSearch)
+  LoadListTitles() {
+    this.chucDanhService.getListTitles(this.dataSearch)
       .subscribe(data => {
         if (data.isError) {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
         } else {
-          this.listFields = data;
+          this.listTitles = data;
         };
       }, (error) => {
         console.log('Error', error);
       })
   }
 
-  searchField() {
+  searchTitle() {
     this.dataSearch.keyWord = this.search.keyWord ?? "";
-    this.LoadListField();
+    this.LoadListTitles();
   }
 
   openNew() {
-    this.listField = {};
+    this.listTitle = {};
     this.submitted = false;
     this.productDialog = true;
     this.header = "Thêm mới chức danh";
@@ -119,74 +104,67 @@ export class ChucDanhComponent implements OnInit {
     this.submitted = false;
   }
 
-  saveField() {
+  saveTitle() {
     this.submitted = true;
 
-    if (this.listField.tenChucDanh?.trim()) {
-      this.dataField.tenChucDanh = this.listField.tenChucDanh;
-      this.dataField.thuTu = this.listField.thuTu;
-      this.dataField.ghiChu = this.listField.ghiChu;
+    if (this.listTitle.tenChucDanh?.trim()) {
+      this.dataTitle.tenChucDanh = this.listTitle.tenChucDanh;
+      this.dataTitle.thuTu = this.listTitle.thuTu;
+      this.dataTitle.ghiChu = this.listTitle.ghiChu;
 
-      if (this.listField.id) {
-        this.dataField.lastModified = new Date();
-        this.dataField.lastModifiedBy = 0;
-        console.log(this.listField);
-
-        // this.chucDanhService.updateField(this.listField).subscribe(data => {
-        //   console.log(data);
-        //   this.LoadListField();
-        //   if (data.code == 200) {
-        //     this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật thành công', life: 3000 });
-        //   } else {
-        //     this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật không thành công', life: 3000 });
-        //   }
-        // })
-      } else {
-        this.chucDanhService.createField(this.dataField).subscribe(data => {
+      if (this.listTitle.id) {
+        this.dataTitle.lastModified = new Date();
+        this.dataTitle.lastModifiedBy = 0;
+        this.chucDanhService.updateTitle(this.dataTitle, this.listTitle.id).subscribe(data => {
           console.log(data);
-          this.LoadListField();
+          this.LoadListTitles();
+          if (data.code == 200) {
+            this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật thành công', life: 3000 });
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật không thành công', life: 3000 });
+          }
+        })
+      } else {
+        this.chucDanhService.createTitle(this.dataTitle).subscribe(data => {
+          console.log(data);
+          this.LoadListTitles();
           if (data.code == 200) {
             this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Tạo mới thành công', life: 3000 });
           } else {
             this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Tạo mới không thành công', life: 3000 });
           }
         });
-        this.productDialog = false;
-        this.product = {};
       }
+      this.productDialog = false;
+      this.listTitle = {};
     }
   }
 
-  editField(id: number) {
+  editTitle(id: number) {
     this.header = "Cập nhật chức danh"
     this.submitted = false;
     this.productDialog = true;
-    this.chucDanhService.getIdField(id).subscribe(data => {
-      this.listField = data;
-      console.log(data);
+    this.chucDanhService.getIdTitle(id).subscribe(data => {
+      this.listTitle = data;
     });
   }
 
-  deleteField(id: number) {
+  deleteTitle(id: number) {
     this.deleteProductDialog = true;
-    this.idField = id;
+    this.idTitle = id;
   }
 
   confirmDelete() {
     this.deleteProductDialog = false;
-    this.chucDanhService.deleteField(this.idField).subscribe(data => {
+    this.chucDanhService.deleteTitle(this.idTitle).subscribe(data => {
       console.log(data)
-      this.LoadListField();
+      this.LoadListTitles();
       if (data.code == 200) {
         this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Xóa bản ghi thành công', life: 3000 });
       } else {
         this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Không thể xóa bản ghi', life: 3000 });
       }
     });
-    this.listField = {};
-  }
-
-  onGlobalFilter(table: Table, event: Event) {
-    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    this.listTitle = {};
   }
 }

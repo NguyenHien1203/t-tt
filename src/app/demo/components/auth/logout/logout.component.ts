@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-logout',
@@ -9,6 +10,7 @@ export class LogoutComponent {
 
   constructor(
     private router: Router,
+    private cookieService: CookieService
   ) { }
 
   ngOnInit(): void {
@@ -16,9 +18,15 @@ export class LogoutComponent {
   }
 
   public DangXuat(): void {
-    localStorage.setItem('isLoggedIn', 'false');
-    localStorage.removeItem('token');
+    this.cookieService.set('isLoggedIn', 'false');
+    this.cookieService.delete('token');
+    this.cookieService.delete('mUserInfo');
+    this.cookieService.delete('idDonViLamViec');
     this.router.navigate(['/login']);
+
+    // localStorage.setItem('isLoggedIn', 'false');
+    // localStorage.removeItem('token');
+    // this.router.navigate(['/login']);
   }
 
 }

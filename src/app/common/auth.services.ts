@@ -16,6 +16,8 @@ import { CookieService } from 'ngx-cookie-service';
             status = false;
             this.cookieService.set('isLoggedIn', 'false');
             this.cookieService.delete('token');
+            this.cookieService.delete('mUserInfo');
+
           } else {
             status = true;
           }

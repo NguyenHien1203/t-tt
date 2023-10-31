@@ -449,7 +449,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Lĩnh vực',
                                 icon: 'pi pi-fw pi-list',
-                                routerLink: ['/danhmuc/linhvuc']
+                                routerLink: ['/danh-muc/linh-vuc']
                             },
                             {
                                 label: 'Loại hồ sơ',

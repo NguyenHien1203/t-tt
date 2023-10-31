@@ -20,29 +20,29 @@ export class ChucDanhService {
 
   constructor(private http: HttpClient) { }
 
-  public getListFields(fields: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachChucDanh', fields, this.httpOptions)
+  public getListTitles(titles: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachChucDanh', titles, this.httpOptions)
       .pipe(
         map((res: any) => res.objData as ChucDanh[])
       )
-  }
+  } 
 
-  public getIdField(id: any): Observable<any> {
+  public getIdTitle(id: any): Observable<any> {
     return this.http.get<any>(`${environment.baseUrlApi}` + this.url + `GetChucDanhById/${id}`)
       .pipe(
         map((response: any) => response.objData as ChucDanh[])
       );
   }
 
-  public createField(field: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'ThemMoiChucDanh', field, this.httpOptions)
+  public createTitle(title: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'ThemMoiChucDanh', title, this.httpOptions)
   }
 
-  public updateField(field: any, id: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhatChucDanh?id=${id}`, field, this.httpOptions)
+  public updateTitle(title: any, id: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhatChucDanh?id=${id}`, title, this.httpOptions)
   }
   
-  public deleteField(id: any): Observable<any> {
+  public deleteTitle(id: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `DeleteChucDanh/${id}`, this.httpOptions)
   }
 }

@@ -72,8 +72,9 @@ export class LoginComponent {
                 } else {
                     console.log(data.objNguoiDung);
                     this.cookieService.set('isLoggedIn', "true");
-                    this.cookieService.set('token', data.objData);
-                    this.cookieService.set('mUserInfo', data.objNguoiDung);
+                    this.cookieService.set('token', JSON.stringify(data.objData));
+                    this.cookieService.set('mUserInfo', JSON.stringify(data.objNguoiDung));
+                    this.cookieService.set('idDonViLamViec', data.objNguoiDung.donViId);
 
                     // localStorage.setItem('isLoggedIn', "true");
                     // localStorage.setItem('token', data.objData);

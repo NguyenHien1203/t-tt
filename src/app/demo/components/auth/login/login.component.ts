@@ -48,9 +48,9 @@ export class LoginComponent {
     ) { }
 
     ngOnInit(): void {
-        this.returnUrl = '/dashboard';
+        this.returnUrl = '/';
         if (this.authenService.CheckLogin())
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/']);
         else
             this.router.navigate(['/login']);
     }
@@ -70,8 +70,10 @@ export class LoginComponent {
                     this.msgs = [];
                     this.msgs.push({ severity: 'error', detail: "Thông tin đăng nhập không hợp lệ" });
                 } else {
+                    console.log(data.objNguoiDung);
                     this.cookieService.set('isLoggedIn', "true");
                     this.cookieService.set('token', data.objData);
+                    this.cookieService.set('mUserInfo', data.objNguoiDung);
 
                     // localStorage.setItem('isLoggedIn', "true");
                     // localStorage.setItem('token', data.objData);

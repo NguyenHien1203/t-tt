@@ -37,8 +37,17 @@ export class TaiKhoanService {
      * lấy dữ liệu phòng ban theo đơn vị đã chọn
      * 
      */
-    public GetDataPhongBanByDvi(id:string):Observable<any> {
-        const url = this.baseUrl+'/NguoiDung/GetDataPhongBanByDvi?id='+id;
+    public GetDataPhongBanByDvi(id: string): Observable<any> {
+        const url = this.baseUrl + '/NguoiDung/GetDataPhongBanByDvi?id=' + id;
+        return this.httpClient.get<any>(url);
+    }
+
+    /**
+     * lấy dữ liệu phòng ban theo đơn vị đã chọn
+     * 
+     */
+    public GetDataMenu(UserId: string): Observable<any> {
+        const url = this.baseUrl + '/Membership/Membership/GetDataMenu?Userid=' + UserId;
         return this.httpClient.get<any>(url);
     }
 
@@ -53,7 +62,7 @@ export class TaiKhoanService {
     /**
      * Lấy dữ liệu chức danh
      */
-    public GetChucDanh(): Observable<any>  {
+    public GetChucDanh(): Observable<any> {
         const url = `${this.baseUrl}/NguoiDung/GetDataChucDanh`;
         return this.httpClient.get<any>(url);
     }

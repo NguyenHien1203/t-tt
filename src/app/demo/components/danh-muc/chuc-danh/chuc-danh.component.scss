@@ -1,5 +1,19 @@
 .size-tag-h1 {
-    font-size: 3vw;
+    font-size: 2vw;
     margin: 0;
     // font-weight: 600;
+}
+
+.my-check-box {
+    outline: 2px solid #ced4da;
+    background: #ffffff;
+    width: 22px;
+    height: 22px;
+    color: #495057;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.my-background {
+    background-color: #f8f9fa;
 }

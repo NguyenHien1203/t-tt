@@ -44,7 +44,7 @@
                         <h5 class="m-0">Danh sách tài khoản</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
-                                (click)="openNew()"></button>
+                                (click)="ThemMoi()"></button>
                             <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
                                 (click)="deleteSelectedProducts()"
                                 [disabled]="!selectedProducts || !selectedProducts.length"></button>
@@ -108,12 +108,50 @@
                 </ng-template>
             </p-table>
         </div>
+        <app-them-moi [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
+        <!-- <app-them-moi [hienThi]="hienThiCapNhat" (tatPopup)="Thoat($event, 'T')"></app-them-moi> -->
 
-        <p-dialog [(visible)]="taikhoanDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+        
+        <p-dialog [(visible)]="taikhoanDialog" [style]="{width: '1000px'}" header="Thêm mới tài khoản" [modal]="true"
             class="p-fluid">
             <ng-template pTemplate="content">
-                <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.image" width="150"
-                    class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="product.image">
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="hovaten">Họ và tên</label>
+                        <input type="text" pInputText id="hovaten" [(ngModel)]="taikhoan.hoVaTen" required autofocus
+                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !taikhoan.hoVaTen}" />
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !taikhoan.hoVaTen">Bạn chưa điền họ và
+                            tên</small>
+                    </div>
+                    <div class="field col">
+                        <label for="gioitinh1">Giới tính</label>
+                        <div id="gioitinh1">
+                            <div class="grid formgrid">
+                                <div class="col-12 md:col-4">
+                                    <div class="field-radiobutton">
+                                      <input type="radio" name="gioitinh" value="1" [(ngModel)]="taikhoan.gioiTinh">&nbsp;Nam&nbsp;&nbsp;&nbsp;
+                                      <input type="radio" name="gioitinh" value="2" [(ngModel)]="taikhoan.gioiTinh">&nbsp;Nữ
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="tendangnhap">Tên đăng nhập</label>
+                        <input type="text" pInputText id="tendangnhap" [(ngModel)]="taikhoan.tenDangNhap" required autofocus
+                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !taikhoan.tenDangNhap}" />
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !taikhoan.tenDangNhap">Bạn chưa điền tên đăng nhập</small>
+                    </div>
+
+                    <div class="field col">
+                        <label for="tendangnhap">Mật khẩu</label>
+                        <p-password formControlName="password" id="password1" placeholder="Password" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
+                    </div>
+                </div>
+
                 <div class="field">
                     <label for="name">Name</label>
                     <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus

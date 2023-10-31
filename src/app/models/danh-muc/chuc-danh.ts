@@ -5,9 +5,13 @@ interface InventoryStatus {
 
 export interface ChucDanh {
     id?: number,
-    TenChucDanh?: string;
-    ThuTu?: number;
-    GhiChu?: string;
-    DonViId?: number;
+    tenChucDanh?: string;
+    thuTu?: number;
+    ghiChu?: string;
+    donViId?: number;
+    created?: string;
+    createdBy?: string;
+    lastModified?: string;
+    lastModifiedBy?: string;
     inventoryStatus?: InventoryStatus;
 }

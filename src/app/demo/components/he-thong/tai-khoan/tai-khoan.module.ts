@@ -18,7 +18,10 @@ import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-
+import { ThemMoiComponent } from './them-moi/them-moi.component';
+import { TreeModule } from 'primeng/tree';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { ThemDvThucHienComponent } from './them-moi/them-dv-thuc-hien.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -38,8 +41,10 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     InputNumberModule,
     DialogModule,
     ReactiveFormsModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    TreeModule,
+    TreeSelectModule
   ],
-  declarations: [TaiKhoanComponent]
+  declarations: [TaiKhoanComponent, ThemMoiComponent, ThemDvThucHienComponent]
 })
 export class TaiKhoanModule { }

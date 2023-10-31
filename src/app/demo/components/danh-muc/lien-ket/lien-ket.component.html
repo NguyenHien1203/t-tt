@@ -13,21 +13,32 @@
                 <label htmlFor="name3" class="col-12 mb-2 md:col-2 md:mb-0">Tên liên kết:</label>
                 <div class="col-12 md:col-10 fl-wr">
                     <input pInputText id="name3" type="text" [(ngModel)]="timKiemDanhSach.keyWord" />
-                    <button pButton pRipple type="button" (click)="(LoadListDefault(timKiemDanhSach))" label="TÌM KIẾM"
+                    <button pButton pRipple type="button" (click)="(LoadDanhSach(timKiemDanhSach))" label="TÌM KIẾM"
                         class="p-button-info"></button>
                 </div>
             </div>
         </div>
+        <p-toolbar styleClass="mb-4">
+            <ng-template pTemplate="right">
+                <div class="my-2">
+                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
+                        (click)="ThemMoi()"></button>
+                    <button pButton pRipple label="Xóa nhiều" icon="pi pi-trash" class="p-button-danger"
+                        (click)="XoaNhieu()"
+                        [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                </div>
+            </ng-template>
+        </p-toolbar>
 
         <div class="card p-fluid">
-            <h5>Danh sách liên kết</h5>
+            <h5>DANH SÁCH LIÊN KẾT</h5>
             <div class="grid">
                 <div class="col-12">
                     <p-table #dt1 [value]="lienKets" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
                         styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="min-width: 12rem">
+                                <th style="width: 2%;">
                                     <div class="flex justify-content-between align-items-center">
                                         STT
                                     </div>
@@ -54,25 +65,29 @@
                                 </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-lienket let-rowIndex="rowIndex">
+                        <ng-template pTemplate="body" let-lienKet let-rowIndex="rowIndex">
                             <tr>
-                                <td>
+                                <td style="text-align: center;">
                                     {{ rowIndex + 1 }}
                                 </td>
                                 <td>
-                                    {{lienket.tenLienKet}}
+                                    {{lienKet.tenLienKet}}
                                 </td>
                                 <td>
-                                    {{lienket.ghiChu}}
+                                    {{lienKet.ghiChu}}
                                 </td>
                                 <td class="text-center">
                                     <i class="pi"
-                                        [ngClass]="{'true-icon pi-check-circle text-green-500': lienket.hienThi, 'false-icon pi-times-circle text-pink-500': !lienket.hienThi}"></i>
+                                        [ngClass]="{'true-icon pi-check-circle text-green-500': lienKet.hienThi, 'false-icon pi-times-circle text-pink-500': !lienKet.hienThi}"></i>
                                 </td>
                                 <td>
                                     <div class="div-center">
-                                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editLienKet(product)"></button>
-                                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteLienket(product)"></button>
+                                        <button pButton pRipple icon="pi pi-pencil"
+                                            class="p-button-rounded p-button-success mr-2"
+                                            (click)="CapNhat(lienKet.id)"></button>
+                                        <button pButton pRipple icon="pi pi-trash"
+                                            class="p-button-rounded p-button-warning"
+                                            (click)="Xoa(lienKet.id)"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -92,3 +107,10 @@
             </div>
         </div>
     </div>
+
+    <app-them-moi [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
+    <app-cap-nhat [hienThi]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat>
+
+  
+
+    

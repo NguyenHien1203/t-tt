@@ -58,17 +58,6 @@ export class ChucDanhComponent implements OnInit {
 
   header: string;
 
-
-
-
-  products: Product[] = [];
-
-  product: Product = {};
-
-  selectedProducts: Product[] = [];
-
-  statuses: any[] = [];
-
   valCheck: string[] = [];
 
   msgs: Message[] = [];
@@ -151,7 +140,7 @@ export class ChucDanhComponent implements OnInit {
         });
       }
       this.productDialog = false;
-      this.product = {};
+      this.listField = {};
     }
   }
 
@@ -161,7 +150,6 @@ export class ChucDanhComponent implements OnInit {
     this.productDialog = true;
     this.chucDanhService.getIdField(id).subscribe(data => {
       this.listField = data;
-      console.log(data);
     });
   }
 

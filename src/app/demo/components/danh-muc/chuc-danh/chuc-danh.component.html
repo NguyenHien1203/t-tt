@@ -7,33 +7,31 @@
     <div class="col-12">
         <div class="card px-6 py-6">
             <p-toast></p-toast>
-            <p-toolbar styleClass="mb-4">
+            <!-- <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="right">
-                    <div class="my-2">
-                        <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
-                            (click)="openNew()"></button>
-                    </div>
+
                 </ng-template>
 
                 <ng-template pTemplate="left">
-                    <h1 class="size-tag-h1">Thêm mới chức danh</h1>
+                    <h3 class="size-tag-h1">Quản trị chức danh</h3>
                 </ng-template>
-            </p-toolbar>
+            </p-toolbar> -->
 
             <div class="card pb-0 pl-4 pr-4 my-background">
+                <h2>Tìm kiếm chức danh</h2>
                 <div class="p-fluid p-formgrid grid">
-                    <div class="field col-12 md:col-4">
+                    <div class="field col-12 md:col-8">
                         <span class="p-float-label">
                             <input id="search-name-title" type="text" pInputText [(ngModel)]="search.keyWord">
                             <label for="search-name-title">Tên chức danh</label>
                         </span>
                     </div>
-                    <div class="field col-12 md:col-4">
+                    <!-- <div class="field col-12 md:col-4">
                         <span class="p-float-label">
                             <input id="keyWord" type="text" pInputText>
                             <label for="keyWord">Ghi chú</label>
                         </span>
-                    </div>
+                    </div> -->
                     <div class="field col-12 md:col-2 mt-2">
                         <div class="field-checkbox">
                             <p-checkbox name="vehicle1" value="New York" [(ngModel)]="valCheck"
@@ -48,63 +46,69 @@
                 </div>
             </div>
 
-            <p-table #dt [value]="listFields" [columns]="cols" responsiveLayout="scroll" [rows]="10"
-                [globalFilterFields]="['tenChucDanh', 'ghiChu', 'thuTu']" [paginator]="true"
-                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
+            <p-table styleClass="p-datatable-gridlines" #dt [value]="listFields" [columns]="cols"
+                responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['tenChucDanh', 'ghiChu', 'thuTu']"
+                [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Danh sách chức danh</h5>
+                        <h2 class="m-0">Danh sách chức danh</h2>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Tìm kiếm"
-                                class="w-full sm:w-auto" />
+                            <!-- <i class="pi pi-search"></i> -->
+                            <!-- <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Tìm kiếm"
+                                class="w-full sm:w-auto" /> -->
+                            <div class="my-2">
+                                <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
+                                    (click)="openNew()"></button>
+                            </div>
                         </span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem">
+                        <!-- <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th> -->
+                        <th style="text-align: center;" pSortableColumn="id">STT <p-sortIcon field="id"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="id">STT <p-sortIcon field="id"></p-sortIcon></th>
                         <th pSortableColumn="tenChucDanh">Tên chức danh <p-sortIcon field="tenChucDanh"></p-sortIcon>
                         </th>
-                        <th></th>
+                        <!-- <th></th> -->
                         <th>Ghi chú</th>
-                        <th></th>
-                        <th pSortableColumn="thuTu">Thứ tự <p-sortIcon field="thuTu"></p-sortIcon></th>
-                        <th></th>
-                        <th>Chức năng
-                        </th>
+                        <!-- <th></th> -->
+                        <th style="text-align: center;" pSortableColumn="thuTu">Thứ tự <p-sortIcon
+                                field="thuTu"></p-sortIcon></th>
+                        <!-- <th></th> -->
+                        <th style="text-align: center;">Chức năng
+                            <!-- </th> -->
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-listField>
+                <ng-template pTemplate="body" let-listField let-rowIndex="rowIndex">
                     <tr>
-                        <td>
+                        <!-- <td>
                             <p-tableCheckbox [value]="listField"></p-tableCheckbox>
+                        </td> -->
+                        <td style="width:8%; min-width:10rem; text-align: center;"><span
+                                class="p-column-title">STT</span>
+                            {{rowIndex + 1}}
                         </td>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">STT</span>
-                            {{listField.id}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;">
+                        <td style="width:20%; min-width:10rem;">
                             <span class="p-column-title">Tên chức danh</span>
                             {{listField.tenChucDanh}}
                         </td>
-                        <td></td>
-                        <td style="width:14%; min-width:8rem;">
+                        <!-- <td></td> -->
+                        <td style="width:30%; min-width:8rem;">
                             <span class="p-column-title">Ghi chú</span>
                             {{listField.ghiChu}}
                         </td>
-                        <td></td>
-                        <td style="width:14%; min-width:10rem;">
+                        <!-- <td></td> -->
+                        <td style="width:14%; min-width:10rem; text-align: center;">
                             <span class="p-column-title">Thứ tự</span>
                             {{listField.thuTu}}
                         </td>
-                        <td></td>
-                        <td>
-                            <div class="flex">
+                        <!-- <td></td> -->
+                        <td style="width:14%; min-width:10rem;">
+                            <div class="flex justify-content-center">
                                 <button pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"
                                     (click)="editField(listField.id)"></button>
@@ -145,23 +149,23 @@
             </ng-template>
 
             <ng-template pTemplate="footer">
-                <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-text"
-                    (click)="hideDialog()"></button>
-                <button pButton pRipple label="Xác nhận" icon="pi pi-check" class="p-button-text"
+                <button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-info"
                     (click)="saveField()"></button>
+                <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger"
+                    (click)="hideDialog()"></button>
             </ng-template>
         </p-dialog>
 
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="product">Bạn muốn xóa bản ghi này ?</span>
+                <span *ngIf="listField">Bạn muốn xóa bản ghi này ?</span>
             </div>
             <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Hủy"
-                    (click)="deleteProductDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Xác nhận"
+                <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Lưu"
                     (click)="confirmDelete()"></button>
+                <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
+                    (click)="deleteProductDialog = false"></button>
             </ng-template>
         </p-dialog>
     </div>

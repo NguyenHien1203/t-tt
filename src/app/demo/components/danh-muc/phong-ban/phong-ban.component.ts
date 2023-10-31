@@ -3,6 +3,8 @@ import { Product } from 'src/app/demo/api/product';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
+import { DmPhongBan, TimKiemModel } from 'src/app/demo/api/danh-muc/phong-ban';
+import { PhongbanService } from 'src/app/demo/service/danh-muc/phong-ban/phongban.service';
 
 @Component({
     templateUrl: './phong-ban.component.html',
@@ -10,6 +12,16 @@ import { ProductService } from 'src/app/demo/service/product.service';
     providers: [MessageService]
 })
 export class PhongBanComponent implements OnInit {
+    danhmuc: DmPhongBan[] = [];
+    phongBans: DmPhongBan[] = [];
+
+    timkiems: TimKiemModel = {
+        keyWord: "",
+        Nam: 0,
+        TuNgay: new Date(),
+        DenNgay: new Date()
+    };
+
     items: any[] = [];
 
     home: any;
@@ -34,14 +46,21 @@ export class PhongBanComponent implements OnInit {
 
     rowsPerPageOptions = [5, 10, 20];
 
-    constructor(private productService: ProductService, private messageService: MessageService) { }
+    constructor(private productService: ProductService, private messageService: MessageService, private dmPhongBanService: PhongbanService) { }
 
     ngOnInit(): void {
 
-        this.items = [{ label: 'Hệ thống' }, { label: 'Người dùng' }];
+        this.items = [{ label: 'Danh mục' }, { label: 'Phòng ban' }];
         this.home = { icon: 'pi pi-home', routerLink: '/' };
+        //#region 
+        // Get List Phong Ban
+        this.dmPhongBanService.getDanhSachPhongBan(this.timkiems).then(data => {this.phongBans = data;console.log(data)}
+          );
 
-        this.productService.getProducts().then(data => this.products = data);
+        //#endregion
+
+
+        //this.productService.getProducts().then(data => this.products = data);
 
         this.cols = [
             { field: 'product', header: 'Product' },

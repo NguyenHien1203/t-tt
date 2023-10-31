@@ -17,7 +17,6 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { BrowserModule } from '@angular/platform-browser';
 // import { DropdownSearchComponent } from './hello.component';
 // import { SearchDropdown } from './search-dropdown/search-dropdown';
 @NgModule({
@@ -38,8 +37,7 @@ import { BrowserModule } from '@angular/platform-browser';
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
-    BreadcrumbModule,
-    BrowserModule,
+    BreadcrumbModule
   ],
   declarations: [PhongBanComponent]
 })

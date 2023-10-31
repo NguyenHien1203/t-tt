@@ -1,6 +1,6 @@
-<div class="col-12 pb-0">
+<div class="col-12">
     <div class="p-fluid p-formgrid grid">
-        <div class="field col-12 md:col-12 mb-0 pb-0">
+        <div class="col-12">
             <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
         </div>
     </div>
@@ -13,7 +13,7 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <h2 style="text-transform: uppercase; margin-top: 2vw;">Phòng ban</h2>
+                        <h2 style="text-transform: uppercase; margin-top: 1vw;">Phòng ban</h2>
                     </div>
                 </ng-template>
 
@@ -26,7 +26,35 @@
                 </ng-template>
             </p-toolbar>
 
-            <p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+            <div class="card pb-0 pl-4 pr-4">
+                <h5 style="margin-bottom: 1vw;">Tìm kiếm</h5>
+                <div class="p-fluid p-formgrid grid">
+                    <div class="field col-12 md:col-4">
+                        <span class="p-float-label">
+                            <input id="search-name-title" type="text" pInputText [(ngModel)]="timkiems.keyWord">
+                            <label for="search-name-title">Tên chức danh</label>
+                        </span>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <span class="p-float-label">
+                            <input id="keyWord" type="text" pInputText>
+                            <label for="keyWord">Ghi chú</label>
+                        </span>
+                    </div>
+                    <!-- <div class="field col-12 md:col-2 mt-2">
+                            <div class="field-checkbox">
+                                <p-checkbox name="vehicle1" value="New York" [(ngModel)]="valCheck"
+                                    id="vehicle1"></p-checkbox>
+                                <label for="vehicle1">Tìm chính xác</label>
+                            </div>
+                        </div> -->
+                    <div class="field col-12 md:col-2">
+                        <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2"></button>
+                    </div>
+                </div>
+            </div>
+
+            <p-table #dt [value]="phongBans" [columns]="cols" responsiveLayout="scroll" [rows]="10"
                 [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -34,24 +62,10 @@
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Danh sách phòng ban</h5>
-                        <span class="block mt-2 md:mt-0 p-input-icon-left">
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)"
-                                placeholder="Mã phòng ban" class="w-full sm:w-auto" />
-                            &nbsp;
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)"
-                                placeholder="Tên phòng ban" class="w-full sm:w-auto" />
-                            &nbsp;
-                            <search-dropdown [items]="items" [size]="'small'" [img]="'product'" [label]="'artName'"
-                                [uid]="'productId'" [(ngModel)]="item">
-                            </search-dropdown>
-                        </span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
                         <th>STT</th>
                         <th pSortableColumn="tenphongban">Tên phòng ban <p-sortIcon field="tenphongban"></p-sortIcon>
                         </th>
@@ -64,42 +78,39 @@
                         <th>Chức năng</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-product>
+                <ng-template pTemplate="body" let-DmPhongBan>
                     <tr>
-                        <td>
-                            <p-tableCheckbox [value]="product"></p-tableCheckbox>
-                        </td>
                         <td style="width:14%; min-width:10rem;"><span class="p-column-title">STT</span>
-                            {{product.code || product.id}}
+                            {{DmPhongBan.id}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">tenphongban</span>
-                            {{product.name}}
+                            {{DmPhongBan.tenDonVi}}
                         </td>
                         <td style="width:14%; min-width:10rem;"><span class="p-column-title">donvichuquan</span>
-                            {{product.name}}
+                            {{DmPhongBan.parentId}}
                         </td>
                         <td style="width:14%; min-width:8rem;">
                             <span class="p-column-title">dienthoai</span>
-                            {{product.price}}
+                            {{DmPhongBan.sdt}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">fax</span>
-                            {{product.category}}
+                            {{DmPhongBan.fax}}
                         </td>
                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">ghichu</span>
-                            {{product.category}}
+                            {{DmPhongBan.ghiChu}}
                         </td>
                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">thutu</span>
-                            {{product.category}}
+                            {{DmPhongBan.thuTu}}
                         </td>
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"
-                                    (click)="editProduct(product)"></button>
+                                    (click)="editProduct(dmphongban)"></button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                                    (click)="deleteProduct(product)"></button>
+                                    (click)="deleteProduct(dmphongban)"></button>
                             </div>
                         </td>
                     </tr>

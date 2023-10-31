@@ -4,7 +4,8 @@ import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { DanhbaService } from 'src/app/demo/service/danh-muc/danh-ba/danhba.service';
-import { DmDanhBa, TimKiemModel } from 'src/app/demo/api/danh-muc/danh-ba/danhba';
+import { DmDanhBa, TimKiemModel } from 'src/app/demo/api/danh-muc/danh-ba';
+
 
 @Component({
     selector: 'app-danh-ba',

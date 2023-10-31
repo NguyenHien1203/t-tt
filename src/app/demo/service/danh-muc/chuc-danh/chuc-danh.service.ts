@@ -38,8 +38,8 @@ export class ChucDanhService {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'ThemMoiChucDanh', field, this.httpOptions)
   }
 
-  public updateField(field: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'CapNhatChucDanh', field, this.httpOptions)
+  public updateField(field: any, id: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhatChucDanh?id=${id}`, field, this.httpOptions)
   }
   
   public deleteField(id: any): Observable<any> {

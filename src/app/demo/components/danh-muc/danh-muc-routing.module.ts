@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
     { path: 'phong-ban', data: { breadcrumb: 'Button' }, loadChildren: () => import('./phong-ban/phong-ban.module').then(m => m.PhongBanModule) },
     { path: 'lien-ket', data: { breadcrumb: 'Liên Kết' }, loadChildren: () => import('./lien-ket/lien-ket.module').then(m => m.LienKetModule) },
     { path: 'linh-vuc', data: { breadcrumb: 'Lĩnh Vực' }, loadChildren: () => import('./linh-vuc/linh-vuc.module').then(m => m.LinhVucModule) },
+    { path: 'loai-nhiem-vu', data: { breadcrumb: 'Loại nhiệm vụ' }, loadChildren: () => import('./loai-nhiem-vu/loai-nhiem-vu.module').then(m => m.LoaiNhiemVuModule) },
   ])],
   exports: [RouterModule]
 })

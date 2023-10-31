@@ -7,38 +7,38 @@
         </div>
     </div>
     <div class="col-12">
-        <div class="card ">
-            <h5>TÌM KIẾM</h5>
+        <div class="card">
+            <h2>TÌM KIẾM</h2>
             <div class="field grid">
-                <label htmlFor="name3" class="col-12 mb-2 md:col-2 md:mb-0">Tên liên kết:</label>
-                <div class="col-12 md:col-4 fl-wr">
-                    <input pInputText id="name3" class="form-control" type="text" [(ngModel)]="timKiemDanhSach.keyWord" />
-                </div> 
-                <label htmlFor="name3" class="col-12 mb-2 md:col-2 md:mb-0">Mô tả:</label>
-                <div class="col-12 md:col-4 fl-wr">
-                    <input pInputText id="name3" class="form-control" type="text" [(ngModel)]="timKiemDanhSach.keyWord" />
-                </div> 
-                <div class="div-center">
-                    <button pButton pRipple type="button" (click)="(LoadDanhSach(timKiemDanhSach))" label="TÌM KIẾM"
-                    class="p-button-info"></button>
+                <label htmlFor="name3" class="col-12 mb-2 md:col-1 md:mb-0">Tên nhiệm vụ:</label>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText id="name3" class="form-control" type="text"
+                        [(ngModel)]="timKiemDanhSach.keyWord" />
                 </div>
-                  
+                <label htmlFor="name3" class="col-12 mb-2 md:col-1 md:mb-0">Mô tả:</label>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText id="name3" class="form-control" type="text"
+                        [(ngModel)]="timKiemDanhSach.moTa" />
+                </div>
+                <label htmlFor="name3" class="col-12 mb-2 md:col-1 md:mb-0"></label>
+                <label class="col-12 md:col-3 fl-wr">
+                    <p-checkbox name="hienThi" id="hienThi" [(ngModel)]="timKiemDanhSach.timChinhXac"  (click)="CheckedHt()" value="true" label="Tìm chính xác"></p-checkbox>
+                </label>
+            </div>
+            <div class="div-center">
+                <button pButton pRipple type="button" (click)="(LoadDanhSach(timKiemDanhSach))" label="Tìm kiếm"
+                    class="p-button-info"></button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="wrapper">
+                <h2>DANH SÁCH LOẠI NHIỆM VỤ</h2>
+                <div class="icon-cls">
+                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
+                        (click)="ThemMoi()">
+                    </button>
                 </div>
             </div>
-        <p-toolbar styleClass="mb-4">
-            <ng-template pTemplate="left">
-                <div class="my-2">
-                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
-                        (click)="ThemMoi()"></button>
-                    <!-- <button pButton pRipple label="Xóa nhiều" icon="pi pi-trash" class="p-button-danger"
-                        (click)="XoaNhieu()"
-                        [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
-                </div>
-            </ng-template>
-        </p-toolbar>
-
-        <div class="card p-fluid">
-            <h5>DANH SÁCH LIÊN KẾT</h5>
             <div class="grid">
                 <div class="col-12">
                     <p-table #dt1 [value]="loaiNhiemVus" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
@@ -82,10 +82,10 @@
                                     <div class="div-center">
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
-                                            (click)="CapNhat(lienKet.id)"></button>
+                                            (click)="CapNhat(loaiNhiemVu.id)"></button>
                                         <button pButton pRipple icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"
-                                            (click)="Xoa(lienKet.id)"></button>
+                                            (click)="Xoa(loaiNhiemVu.id)"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -101,15 +101,12 @@
                             </tr>
                         </ng-template>
                     </p-table>
-                    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+                    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
+                        [totalRecords]="totalRecords" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- <app-them-moi [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
-    <app-cap-nhat [hienThi]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat> -->
-
-  
-
-    
+    <app-them-moi [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
+    <app-cap-nhat [hienThi]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat>

@@ -7,31 +7,27 @@
         </div>
     </div>
     <div class="col-12">
-        <div class="card ">
-            <h5>TÌM KIẾM</h5>
+        <div class="card">
+            <h2>TÌM KIẾM</h2>
             <div class="field grid">
                 <label htmlFor="name3" class="col-12 mb-2 md:col-2 md:mb-0">Tên liên kết:</label>
-                <div class="col-12 md:col-10 fl-wr">
-                    <input pInputText id="name3" type="text" [(ngModel)]="timKiemDanhSach.keyWord" />
-                    <button pButton pRipple type="button" (click)="(LoadDanhSach(timKiemDanhSach))" label="TÌM KIẾM"
-                        class="p-button-info"></button>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText id="name3" type="text" class="form-control" [(ngModel)]="timKiemDanhSach.keyWord" />
                 </div>
+                <button pButton pRipple type="button" (click)="(LoadDanhSach(timKiemDanhSach))" label="Tìm kiếm"
+                        class="p-button-info"></button>
             </div>
         </div>
-        <p-toolbar styleClass="mb-4">
-            <ng-template pTemplate="right">
-                <div class="my-2">
-                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
-                        (click)="ThemMoi()"></button>
-                    <button pButton pRipple label="Xóa nhiều" icon="pi pi-trash" class="p-button-danger"
-                        (click)="XoaNhieu()"
-                        [disabled]="!selectedProducts || !selectedProducts.length"></button>
-                </div>
-            </ng-template>
-        </p-toolbar>
 
-        <div class="card p-fluid">
-            <h5>DANH SÁCH LIÊN KẾT</h5>
+        <div class="card">
+            <div class="wrapper">
+                <h2>DANH SÁCH LIÊN KẾT</h2>
+                <div class="icon-cls">
+                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
+                        (click)="ThemMoi()">
+                    </button>
+                </div>
+            </div>
             <div class="grid">
                 <div class="col-12">
                     <p-table #dt1 [value]="lienKets" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
@@ -111,6 +107,16 @@
     <app-them-moi [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
     <app-cap-nhat [hienThi]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat>
 
+    <!-- <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+        <div class="flex align-items-center justify-content-center">
+            <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+            <span *ngIf="product">Are you sure you want to delete <b>{{product.name}}</b>?</span>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProductDialog = false"></button>
+            <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+        </ng-template>
+    </p-dialog> -->
   
 
     

@@ -20,7 +20,7 @@ import { CapNhatComponent } from './demo/components/thong-tin-khac/quan-ly-thong
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent, CapNhatComponent,],
+        AppComponent, NotfoundComponent],
     imports: [
         AppRoutingModule,
         AppLayoutModule,

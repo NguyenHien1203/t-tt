@@ -431,7 +431,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý thông báo',
                                 icon: 'pi pi-fw pi-circle-fill',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/thong-tin-khac/quan-ly-thong-bao'],
                                 code: '006002'
                             },
                             {

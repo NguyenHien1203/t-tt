@@ -18,7 +18,8 @@ import { LoginComponent } from './demo/components/auth/login/login.component';
                     { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
                     { path: 'danh-muc', loadChildren: () => import('./demo/components/danh-muc/danh-muc.module').then(m => m.DanhMucModule) },
-                    { path: 'he-thong', loadChildren: () => import('./demo/components/he-thong/he-thong.module').then(m => m.HeThongModule) }
+                    { path: 'he-thong', loadChildren: () => import('./demo/components/he-thong/he-thong.module').then(m => m.HeThongModule) },
+                    { path: 'thong-tin-khac', loadChildren: () => import('./demo/components/thong-tin-khac/thong-tin-khac.module').then(m => m.ThongTinKhacModule) }
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },

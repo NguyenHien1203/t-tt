@@ -10,29 +10,37 @@
         <div class="card">
             <h2>TÌM KIẾM</h2>
             <div class="field grid">
-                <label htmlFor="name3" class="col-12 mb-2 md:col-1 md:mb-0">Tên nhiệm vụ:</label>
-                <div class="col-12 md:col-3 fl-wr">
-                    <input pInputText id="name3" class="form-control" type="text"
+                <label class="col-12 md:col-2 fl-wr">
+                    <input pInputText id="name3" class="form-control" type="text" placeholder="Tiêu đề"
                         [(ngModel)]="timKiemDanhSach.keyWord" />
-                </div>
-                <label htmlFor="name3" class="col-12 mb-2 md:col-1 md:mb-0">Mô tả:</label>
-                <div class="col-12 md:col-3 fl-wr">
-                    <input pInputText id="name3" class="form-control" type="text"
-                        [(ngModel)]="timKiemDanhSach.moTa" />
-                </div>
-                <label htmlFor="name3" class="col-12 mb-2 md:col-1 md:mb-0"></label>
-                <label class="col-12 md:col-3 fl-wr">
-                    <p-checkbox name="hienThi" id="hienThi"   (click)="CheckedHt()" value="true" label="Tìm chính xác"></p-checkbox>
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
+                    <p-dropdown [options]="lstThongBao" [(ngModel)]="timKiemDanhSach.trangThai"
+                        placeholder="--Chọn trạng thái--" [showClear]="false"></p-dropdown>
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
+                    <p-dropdown [options]="lstHienThi" [(ngModel)]="timKiemDanhSach.hienThi"
+                        placeholder="--Chọn hình thức--" [showClear]="false"></p-dropdown>
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
+                        <p-calendar [(ngModel)]="timKiemDanhSach.tuNgay"  dateFormat="dd/mm/yy"  placeholder="Từ ngày"></p-calendar>
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
+                    <p-calendar [(ngModel)]="timKiemDanhSach.denNgay"  dateFormat="dd/mm/yy"  placeholder="Đến ngày"></p-calendar>
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
+                    <p-checkbox name="timChinhXac" id="timChinhXac" (click)="CheckedHt()" value="true"
+                        label="Tìm chính xác"></p-checkbox>
                 </label>
             </div>
             <div class="div-center">
-                <button pButton pRipple type="button" (click)="(LoadDanhSach(timKiemDanhSach))" icon="pi pi-search" label="Tìm kiếm"
-                    class="p-button-info"></button>
+                <button pButton pRipple type="button" icon="pi pi-search" (click)="(LoadDanhSach(timKiemDanhSach))"
+                    label="Tìm kiếm" class="p-button-info"></button>
             </div>
         </div>
         <div class="card">
             <div class="wrapper">
-                <h2>DANH SÁCH LOẠI NHIỆM VỤ</h2>
+                <h2>DANH SÁCH THÔNG BÁO</h2>
                 <div class="icon-cls">
                     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
                         (click)="ThemMoi()">
@@ -41,8 +49,9 @@
             </div>
             <div class="grid">
                 <div class="col-12">
-                    <p-table #dt1 [value]="loaiNhiemVus" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
-                        styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
+                    <p-table #dt1 [value]="quanLyThongBaos" dataKey="id" [rows]="10" [loading]="loading"
+                        [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+                        responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: 2%;">
@@ -50,36 +59,65 @@
                                         STT
                                     </div>
                                 </th>
-                                <th style="min-width: 12rem">
+                                <th style="min-width: 15rem">
                                     <div class="flex justify-content-between align-items-center">
-                                        Tên loại nhiệm vụ
+                                        Tiêu đề
                                     </div>
                                 </th>
-                                <th style="min-width: 14rem">
+                                <th style="min-width: 12rem">
                                     <div class="flex justify-content-between align-items-center">
-                                        Mô tả
+                                      Ngày bắt đầu
+                                    </div>
+                                </th>
+                                <th style="min-width: 12rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                      Ngày kết thúc
                                     </div>
                                 </th>
                                 <th style="min-width: 10rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                      Hiển thị
+                                    </div>
+                                </th>
+                                <th style="min-width: 8rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                     Còn hiệu lực
+                                    </div>
+                                </th>
+                                <th style="min-width: 8rem">
                                     <div class="flex justify-content-between align-items-center">
                                         Chức năng
                                     </div>
                                 </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-loaiNhiemVu let-rowIndex="rowIndex">
+                        <ng-template pTemplate="body" let-quanLyThongBao let-rowIndex="rowIndex">
                             <tr>
                                 <td style="text-align: center;">
                                     {{ rowIndex + 1 }}
                                 </td>
                                 <td>
-                                    {{loaiNhiemVu.tenNhiemVu}}
+                                    {{quanLyThongBao.tieuDe}}
                                 </td>
                                 <td>
-                                    {{loaiNhiemVu.moTa}}
+                                    {{quanLyThongBao.ngayBatDau | date: 'dd-MM-yyyy'}}
+                                </td>
+                                <td>
+                                    {{quanLyThongBao.ngayKetThuc | date: 'dd-MM-yyyy'}}
+                                </td>
+                                <td class="text-center">
+                                    <i class="pi"
+                                        [ngClass]="{'true-icon pi-check-circle text-green-500': quanLyThongBao.hienThi, 'false-icon pi-times-circle text-pink-500': !quanLyThongBao.hienThi}"></i>
+                                </td>
+                                <td class="text-center">
+                                    <i class="pi"
+                                        [ngClass]="{'true-icon pi-check-circle text-green-500': quanLyThongBao.trangThai, 'false-icon pi-times-circle text-pink-500': !quanLyThongBao.trangThai}"></i>
                                 </td>
                                 <td>
                                     <div class="div-center">
+                                        <button pButton pRipple icon="pi pi-send"
+                                            class="p-button-rounded p-button-info mr-2"
+                                            (click)="Gui(loaiNhiemVu.id)"></button>
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
                                             (click)="CapNhat(loaiNhiemVu.id)"></button>
@@ -107,6 +145,7 @@
     </div>
 
     <app-them-moi [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
+    <!-- 
     <app-cap-nhat [hienThi]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat>
     <p-confirmDialog #cd [style]="{width: '30vw'}">
         <ng-template pTemplate="header">
@@ -124,6 +163,5 @@
             <span class="p-ink"></span>
           </button>
         </ng-template>
-      </p-confirmDialog>
-      <p-toast></p-toast>
-      
+      </p-confirmDialog> -->
+    <p-toast></p-toast>

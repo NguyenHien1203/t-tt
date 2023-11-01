@@ -43,36 +43,37 @@ export class LienKetComponent implements OnInit {
     this.service.getDanhSachDmLienKet(timKiemDanhSach).then(data => { this.lienKets = data })
   }
 
-  public ThemMoi(): void{
+  public ThemMoi(): void {
     this.hienThiThemMoi = true;
   }
 
-  public CapNhat(id: string): void{
+  public CapNhat(id: string): void {
     this.hienThiCapNhat = true;
     this.id = id;
   }
- public Xoa(id : string){
-  this.confirmationService.confirm({
-    message: 'Bạn có chắc chắn xá tài khoản?',
-    header: 'Xác nhận',
-    icon: 'pi pi-info-circle',
-    accept: () => {
-      this.service.xoaLienKet(id).subscribe(data => {
-        if(data.isError){
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
-        }else{
-          this.LoadDanhSach(this.timKiemDanhSach);
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
-        }
-      }, (error) => {
-        console.log('Error', error);
-      })
-    },
-    reject: () => {
-        
-    }
-});
- }
+  public Xoa(id: string) {
+    console.log("123")
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn xác nhận xóa liên kết?',
+      header: 'Xác nhận',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.service.xoaLienKet(id).subscribe(data => {
+          if (data.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+          } else {
+            this.LoadDanhSach(this.timKiemDanhSach);
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+          }
+        }, (error) => {
+          console.log('Error', error);
+        })
+      },
+      reject: () => {
+
+      }
+    });
+  }
 
   public Thoat(itemHt: any, loai: string): void {
     if (loai === 'T')

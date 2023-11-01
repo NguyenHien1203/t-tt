@@ -112,7 +112,6 @@ export class ThemMoiComponent {
         console.log("Dữ liệu không hợp lệ")
       } else {
         this.PhongBan = data.objData;
-        console.log(this.PhongBan);
       }
     }, (error) => {
       console.log('Error', error);

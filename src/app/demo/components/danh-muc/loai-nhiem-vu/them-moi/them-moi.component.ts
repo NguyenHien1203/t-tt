@@ -18,14 +18,13 @@ export class ThemMoiComponent {
   public submitted : boolean  = false;
   public formThemMoi = this.fb.group({
     id: [0, []],
-    tenLoaiNhiemVu: ["", [Validators.required]],
+    tenNhiemVu: ["", [Validators.required]],
     moTa: ["", []],
     donViId: [0, ''],
     ngayTao: [new Date(), ''],
     createdBy: [0, ''],
     tenNguoiTao : ["", ''],
-    DonViId : [0, ''],
-    TenDonVi : ["", ''],
+    tenDonVi : ["", ''],
   });
   constructor(private fb: FormBuilder
     , private service : LoaiNhiemVuService

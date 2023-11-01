@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DmDanhBa, TimKiemModel } from 'src/app/demo/api/danh-muc/danh-ba/danhba';
+import { DmDanhBa, TimKiemModel } from 'src/app/demo/api/danh-muc/danh-ba';
 import { Observable, map } from 'rxjs';
 
 @Injectable({
@@ -13,10 +13,11 @@ export class DanhbaService {
   constructor(private http: HttpClient) { }
 
   getDanhSachDanhBa(timkiem: TimKiemModel): Observable<any>{
-    return this.http.post<any>(this.baseApiUrl+'/DanhMuc/ChucDanh/GetDanhSachChucDanh/', timkiem)
+    return this.http.post<any>(this.baseApiUrl+'/DanhMuc/Danhba/GetDanhSach/', timkiem)
     .pipe(
       map((response: any) => response.objData)
     );
   }
 
 }
+

@@ -61,8 +61,6 @@ export class TaiKhoanComponent implements OnInit {
   ) { }
   mUserInfo: any;
   ngOnInit() {
-    console.log(this.authenService.GetmUserInfo());
-    console.log(this.authenService.GetDonViLamViec());
 
     this.items = [{ label: 'Hệ thống' }, { label: 'Quản trị tài khoản' }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };

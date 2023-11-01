@@ -1,1 +1,17 @@
-<p>them-dv-thuc-hien works!</p>
+<form [formGroup]="formThemMoidvth" (ngSubmit)="SubmitDvth()">
+    <p-dialog appendTo="body" header="Thêm mới người dùng" (onHide)="ThoatDvThucHien()" [(visible)]="hienThidvth"
+        [modal]="true" [style]="{ width: '65vw' }" [draggable]="true" [resizable]="false">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="tenDangNhap">Đơn vị <span class="p-error">(*)</span></label>
+                <input pinputtext="" id="tenDangNhap" type="text" class="p-inputtext p-component p-element"
+                   >
+            </div>
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="gioiTinh">Nhóm quyền</label>
+                <p-dropdown [options]="[{id: '1', ten: 'Nam'},{id: '0', ten: 'Nữ'}]" optionValue="id" optionLabel="ten"
+                    ></p-dropdown>
+            </div>
+        </div>
+    </p-dialog>
+</form>

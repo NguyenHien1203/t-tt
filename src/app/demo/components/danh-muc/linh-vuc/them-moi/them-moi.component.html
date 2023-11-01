@@ -1,50 +1,60 @@
-<form [formGroup]="formThemMoi">
+<form [formGroup]="formCreate" (ngSubmit)="createField()">
     <p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới lĩnh vực" [modal]="true" class="p-fluid"
         (onHide)="closePopup()">
         <div class="formgrid grid">
             <div class="field col">
-                <label for="tenChucDanh">Tên lĩnh vực</label>
-                <input type="text" pInputText id="tenChucDanh" required autofocus />
-                <small class="ng-dirty ng-invalid">Vui lòng không
-                    được để trống.</small>
+                <label for="tenLinhVuc">Tên lĩnh vực <span class="p-error"></span></label>
+                <input type="text" pInputText id="tenLinhVuc" formControlName="tenLinhVuc">
+                <span class="p-error"
+                    *ngIf="!formCreate.controls.tenLinhVuc.valid && (formCreate.controls.tenLinhVuc.touched || submitted)">Vui
+                    lòng nhập tên lĩnh vực</span>
             </div>
             <div class="field col">
-                <label for="tenChucDanh">Mã lĩnh vực</label>
-                <input type="text" pInputText id="tenChucDanh" required autofocus />
-                <small class="ng-dirty ng-invalid">Vui lòng không
-                    được để trống.</small>
+                <label for="vietTat">Mã lĩnh vực <span class="p-error"></span></label>
+                <input type="text" pInputText id="vietTat" formControlName="vietTat" />
+                <span class="p-error"
+                    *ngIf="!formCreate.controls.vietTat.valid && (formCreate.controls.vietTat.touched || submitted)">Vui
+                    lòng nhập mã lĩnh vực</span>
             </div>
             <div class="field col">
                 <label for="thuTu">Thứ tự hiển thị</label>
-                <p-inputNumber id="thuTu" required autofocus></p-inputNumber>
-                <small class="ng-dirty ng-invalid">Vui lòng không được để
-                    trống.</small>
+                <p-inputNumber id="thuTu" formControlName="thuTu"></p-inputNumber>
             </div>
         </div>
         <div class="formgrid grid">
             <div class="field col">
-                <label for="tenChucDanh">Chọn tên đơn vị</label>
-                <p-dropdown [options]="cities" [(ngModel)]="selectedDrop" placeholder="Chọn tên đơn vị"
-                    [showClear]="true"></p-dropdown>
+                <label for="donVi">Chọn tên đơn vị</label>
+                <p-treeSelect appendTo="body" [filterInputAutoFocus]="true" [filter]="true"
+                    (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViId" [options]="unitTree"
+                    placeholder="Chọn đơn vị"></p-treeSelect>
             </div>
             <div class="field col">
-                <label for="tenChucDanh">Chọn phòng ban</label>
-                <p-dropdown [options]="cities" [(ngModel)]="selectedDrop" placeholder="Chọn phòng ban"
+                <label for="phongBanId">Chọn phòng ban</label>
+                <p-dropdown appendTo="body" [options]="department" formControlName="phongBanId" optionLabel="name"
+                    (ngModelChange)="onSelectChangePhongBan($event)" placeholder="Chọn phòng ban"
                     [showClear]="true"></p-dropdown>
             </div>
-            <div class="field col">
+            <!-- <div class="field col">
                 <div style="display: grid;">
                     <label for="ny">Hiển thị</label>
-                    <p-checkbox class="mt-4" name="group1" value="New York" [(ngModel)]="valCheck" id="ny"></p-checkbox>
+                    <p-checkbox class="mt-4" name="hienThi" formControlName="hienThi" value="true"  
+                        (click)="change()"></p-checkbox>
+                </div>
+            </div> -->
+            <div class="field col">
+                <div style="display: grid;">
+                    <label for="hienThi">Hiển thị</label>
+                    <p-checkbox [binary]="true" inputId="checkbox" class="mt-4" name="hienThi" formControlName="hienThi" value="true"  
+                        [(ngModel)]="checked"></p-checkbox>
                 </div>
             </div>
         </div>
         <div class="field">
             <label for="ghiChu">Ghi chú</label>
-            <textarea id="ghiChu" pInputTextarea required rows="3" cols="20"></textarea>
+            <textarea id="ghiChu" formControlName="ghiChu" pInputTextarea required rows="3" cols="20"></textarea>
         </div>
         <ng-template pTemplate="footer">
-            <button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-info" (click)="saveTitle()"></button>
+            <button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-info"></button>
             <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger"
                 (click)="closePopup()"></button>
         </ng-template>

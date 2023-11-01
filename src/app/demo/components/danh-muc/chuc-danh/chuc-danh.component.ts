@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
 import { ChucDanh } from 'src/app/models/danh-muc/chuc-danh';
 import { Search } from 'src/app/models/danh-muc/search.model';
+import { AuthService } from 'src/app/common/auth.services';
 
 @Component({
   templateUrl: './chuc-danh.component.html',
@@ -58,7 +59,7 @@ export class ChucDanhComponent implements OnInit {
 
   msgs: Message[] = [];
 
-  constructor(private messageService: MessageService, private chucDanhService: ChucDanhService) { }
+  constructor(private messageService: MessageService, private chucDanhService: ChucDanhService, private authService: AuthService) { }
 
   ngOnInit() {
     this.breadcrumbItems = [];
@@ -71,6 +72,8 @@ export class ChucDanhComponent implements OnInit {
     ];
 
     this.LoadListTitles();
+    console.log(this.authService.GetmUserInfo());
+    console.log(this.authService.GetDonViLamViec());
   }
 
   LoadListTitles() {

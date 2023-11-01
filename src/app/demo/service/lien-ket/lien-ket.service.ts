@@ -36,6 +36,6 @@ export class LienKetService {
   }
 
   xoaLienKet(id : string) {
-    return this.http.get<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/XoaDanhMucLienKet/'+ id)
+    return this.http.get<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/DeleteDanhMucLienKet/'+ id)
   }
 }

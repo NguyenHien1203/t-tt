@@ -2,17 +2,17 @@
     [style]="{width: '750px'}" header="Thêm mới loại nhiệm vụ" [modal]="true" class="p-fluid">
     <ng-template pTemplate="content">
         <div class="field">
-            <label htmlfor="tenLoaiNhiemVu">Tên liên kết <span class="p-error">(*)</span>:</label>
-            <input pinputtext="" id="tenLoaiNhiemVu" type="text" class="p-inputtext p-component p-element"
-                formControlName="tenLoaiNhiemVu">
+            <label htmlfor="tenNhiemVu">Tên liên kết <span class="p-error">(*)</span>:</label>
+            <input pinputtext="" id="tenNhiemVu" type="text" class="p-inputtext p-component p-element"
+                formControlName="tenNhiemVu">
             <span class="p-error"
-                *ngIf="!formCapNhat.controls.tenLoaiNhiemVu.valid && (formCapNhat.controls.tenLoaiNhiemVu.touched || submitted)">Vui
+                *ngIf="!formCapNhat.controls.tenNhiemVu.valid && (formCapNhat.controls.tenNhiemVu.touched || submitted)">Vui
                 lòng
                 nhập tên loại nhiệm vụ</span>
         </div>
         <div class="field">
-            <label for="ghiChu">Ghi chú:</label>
-            <textarea id="ghiChu" formControlName="ghiChu" pInputTextarea rows="3" cols="20"></textarea>
+            <label for="moTa">Ghi chú:</label>
+            <textarea id="moTa" formControlName="moTa" pInputTextarea rows="3" cols="20"></textarea>
         </div>
     </ng-template>
 

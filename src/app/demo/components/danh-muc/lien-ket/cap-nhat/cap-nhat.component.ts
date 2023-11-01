@@ -29,8 +29,7 @@ export class CapNhatComponent {
 
   public BindDataDialog(): void{
     this.service.getDmLienKetById(this.id).subscribe(data =>{
-      let itemData = data;
-      this.checked = itemData?.hienThi;
+      this.checked = data?.hienThi;
       this.formCapNhat.setValue(data);
     })
   }

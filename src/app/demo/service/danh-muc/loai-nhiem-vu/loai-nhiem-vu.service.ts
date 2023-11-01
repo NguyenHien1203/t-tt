@@ -34,4 +34,8 @@ export class LoaiNhiemVuService {
   capNhatLoaiNhiemVu(modelLienKet: any) {
     return this.http.post<any>(environment.baseUrlApi + '/DanhMuc/LoaiNhiemVu/CapNhatLoaiNhiemVu', modelLienKet, this.httpOption)
   }
+
+  xoaLoaiNhiemVu(id: string) {
+    return this.http.get<any>(environment.baseUrlApi + '/DanhMuc/LoaiNhiemVu/DeleteLoaiNhiemVu/' + id)
+  }
 }

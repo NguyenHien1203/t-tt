@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { LoaiNhiemVuService } from 'src/app/demo/service/danh-muc/loai-nhiem-vu/loai-nhiem-vu.service';
 import { TimKiemDanhSach } from 'src/app/models/danh-muc/loai-nhiem-vu/loai-nhiem-vu';
 
 @Component({
   selector: 'app-loai-nhiem-vu',
   templateUrl: './loai-nhiem-vu.component.html',
-  styleUrls: ['./loai-nhiem-vu.component.scss']
+  styleUrls: ['./loai-nhiem-vu.component.scss'],
+  providers: [ConfirmationService, MessageService]
 })
 export class LoaiNhiemVuComponent implements OnInit {
-  first: number = 1;
-  rows: number = 10;
-  totalRecords: number = 0;
-  constructor(private service: LoaiNhiemVuService) { }
+  constructor(private service: LoaiNhiemVuService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService) { }
   ngOnInit(): void {
     this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.items = [{ label: 'Danh mục' }, { label: 'Loại nhiệm vụ' }];
@@ -23,8 +24,6 @@ export class LoaiNhiemVuComponent implements OnInit {
     keyWord: "",
     moTa: "",
     timChinhXac: 0,
-    pageSize: 15,
-    pageNumber: 1,
     donViId: 0
   };
   hienThiThemMoi: boolean = false;
@@ -36,11 +35,10 @@ export class LoaiNhiemVuComponent implements OnInit {
   id: string = "";
 
   LoadDanhSach(timKiemDanhSach: TimKiemDanhSach) {
-    this.timKiemDanhSach.pageNumber = Math.floor(this.first/this.rows) + 1;
-    this.timKiemDanhSach.pageSize = this.rows;
     this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
-    console.log(this.timKiemDanhSach)
-    this.service.getDanhSachLoaiNhiemVu(timKiemDanhSach).then(data => { this.loaiNhiemVus = data; this.totalRecords = Object.keys(data).length })
+    console.log(this.timKiemDanhSach.timChinhXac)
+
+    this.service.getDanhSachLoaiNhiemVu(timKiemDanhSach).then(data => { this.loaiNhiemVus = data })
   }
 
   public Thoat(itemHt: any, loai: string): void {
@@ -51,22 +49,39 @@ export class LoaiNhiemVuComponent implements OnInit {
     this.LoadDanhSach(this.timKiemDanhSach);
   }
 
-  public onPageChange(event: any) {
-    this.first = event.first;
-    this.rows = event.rows;
-    this.LoadDanhSach(this.timKiemDanhSach);
-  }
-
   public ThemMoi(): void {
     this.hienThiThemMoi = true;
   }
 
-  public CapNhat(id : string): void {
+  public CapNhat(id: string): void {
     this.hienThiCapNhat = true;
     this.id = id;
   }
 
   public CheckedHt(): void {
     this.timChinhXac = !this.timChinhXac;
+  }
+
+  public Xoa(id: string) {
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn xác nhận xóa loại nhiệm vụ?',
+      header: 'Xác nhận',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.service.xoaLoaiNhiemVu(id).subscribe(data => {
+          if (data.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+          } else {
+            this.LoadDanhSach(this.timKiemDanhSach);
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+          }
+        }, (error) => {
+          console.log('Error', error);
+        })
+      },
+      reject: () => {
+
+      }
+    });
   }
 }

@@ -26,7 +26,7 @@ export class DanhBaComponent implements OnInit {
         soDienThoaiDiDong: ''
     };
 
-    timkiems: TimKiemModel ={
+    timkiems: TimKiemModel = {
         keyWord: '',
         phongBanId: 0,
         donviId: 0
@@ -59,10 +59,10 @@ export class DanhBaComponent implements OnInit {
         //Lấy ra danh sách danh bạ ở đây
         this.danhbaService.getDanhSachDanhBa(this.timkiems).subscribe({
             next: (danhbas) => {
-              this.newDanhBa = danhbas;
+                this.newDanhBa = danhbas;
             }
-          });
-          
+        });
+
         //Code mẫu
         this.productService.getProducts().then(data => this.products = data);
 

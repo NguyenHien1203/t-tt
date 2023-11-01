@@ -20,6 +20,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TreeModule } from 'primeng/tree';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 import { ThemMoiComponent } from './them-moi/them-moi.component';
 
@@ -46,7 +48,9 @@ import { ThemMoiComponent } from './them-moi/them-moi.component';
     InputNumberModule,
     DialogModule,
     CheckboxModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TreeModule,
+    TreeSelectModule
   ]
 })
 export class LinhVucModule { }

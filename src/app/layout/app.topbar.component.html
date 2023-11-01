@@ -73,8 +73,8 @@
                 <ng-template pTemplate>
                     <p-table [value]="profiles" selectionMode="single" [(selection)]="selectedProduct" [paginator]="false" [rows]="3" (onRowSelect)="profile.hide()" responsiveLayout="scroll">
                         <ng-template pTemplate="body" let-rowData let-profile>
-                            <tr >
-                                <td routerLink={{profile.routerLink}}><i class={{profile.icon}}></i>&nbsp;&nbsp;{{profile.label}}</td>
+                            <tr class="pointer">
+                                <td  routerLink={{profile.routerLink}}><i class={{profile.icon}}></i>&nbsp;&nbsp;{{profile.label}}</td>
                             </tr>
                         </ng-template>
                     </p-table>

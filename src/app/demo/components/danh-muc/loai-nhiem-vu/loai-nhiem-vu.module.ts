@@ -23,11 +23,13 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import {  ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
   declarations: [LoaiNhiemVuComponent, ThemMoiComponent, CapNhatComponent, ],
   imports: [
+    ConfirmDialogModule,
     PaginatorModule,
     CommonModule,
     LoaiNhiemVuRoutingModule,

@@ -3,6 +3,7 @@ import { Product } from 'src/app/demo/api/product';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     templateUrl: './phong-ban.component.html',
@@ -10,6 +11,9 @@ import { ProductService } from 'src/app/demo/service/product.service';
     providers: [MessageService]
 })
 export class PhongBanComponent implements OnInit {
+
+    breadcrumbItems: MenuItem[] = [];
+
     items: any[] = [];
 
     home: any;

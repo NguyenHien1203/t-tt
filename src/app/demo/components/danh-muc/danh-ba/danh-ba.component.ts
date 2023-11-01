@@ -5,6 +5,7 @@ import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { DanhbaService } from 'src/app/demo/service/danh-muc/danh-ba/danhba.service';
 import { DmDanhBa, TimKiemModel } from 'src/app/demo/api/danh-muc/danh-ba/danhba';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-danh-ba',
@@ -13,6 +14,9 @@ import { DmDanhBa, TimKiemModel } from 'src/app/demo/api/danh-muc/danh-ba/danhba
     providers: [MessageService]
 })
 export class DanhBaComponent implements OnInit {
+
+
+    breadcrumbItems: MenuItem[] = [];
 
     newDanhBa: DmDanhBa = {
         id: 0,
@@ -25,7 +29,7 @@ export class DanhBaComponent implements OnInit {
         soDienThoaiDiDong: ''
     };
 
-    timkiems: TimKiemModel ={
+    timkiems: TimKiemModel = {
         keyWord: '',
         phongBanId: 0,
         donviId: 0
@@ -54,14 +58,18 @@ export class DanhBaComponent implements OnInit {
     constructor(private productService: ProductService, private messageService: MessageService, private danhbaService: DanhbaService) { }
 
     ngOnInit(): void {
-        
+
+        this.breadcrumbItems = [];
+        this.breadcrumbItems.push({ label: 'Danh mục' });
+        this.breadcrumbItems.push({ label: 'Quản trị danh bạ' });
+
         //Lấy ra danh sách danh bạ ở đây
         this.danhbaService.getDanhSachDanhBa(this.timkiems).subscribe({
             next: (danhbas) => {
-              this.newDanhBa = danhbas;
+                this.newDanhBa = danhbas;
             }
-          });
-          
+        });
+
         //Code mẫu
         this.productService.getProducts().then(data => this.products = data);
 

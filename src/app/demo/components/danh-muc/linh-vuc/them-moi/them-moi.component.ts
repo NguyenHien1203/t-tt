@@ -1,7 +1,9 @@
 import { LinhVucService } from './../../../../service/danh-muc/linh-vuc/linh-vuc.service';
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { SelectItem } from 'primeng/api';
+import { DMJsonModel } from 'src/app/models/common/DMJsonModel';
+import { AuthService } from 'src/app/common/auth.services';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-them-moi',
@@ -13,71 +15,118 @@ export class ThemMoiComponent implements OnInit {
   @Input() show: boolean = false;
   @Output() close = new EventEmitter<boolean>();
 
-  constructor(private linhVucService: LinhVucService, private formBuilder: FormBuilder) { }
+  unitTree: DMJsonModel[] = [];
+  selectedUnit: '';
 
-  cities: SelectItem[] = [];
-  selectedDrop: SelectItem = { value: '' };
-  valCheck: string[] = [];
+  department = [];
+  selectedDepart: '';
 
-  public formThemMoi = this.formBuilder.group({
-    id: ["", []],
-    tenDangNhap: ["", [Validators.required]],
-    matKhau: ["", [Validators.required]],
-    hoVaTen: ["", [Validators.required]],
-    gioiTinh: ["", []],
-    email: ["", []],
-    trangThai: ["Y", []],
-    donVi: ["", []],
-    phongBan: ["", []],
-    chucDanh: ["", []],
-    nhomQuyen: ["", []],
-    sdtNhaRieng: ["", []],
-    sdtDiDong: ["", []],
-    sdtCoQuan: ["", []],
+  constructor(private linhVucService: LinhVucService, private formBuilder: FormBuilder, private authService: AuthService, private messageService: MessageService) { }
+
+  checkboxValue: boolean = false;
+
+  submitted = false;
+  public formCreate = this.formBuilder.group({
+    id: [0, []],
+    tenLinhVuc: ["", [Validators.required]],
+    vietTat: ["", [Validators.required]],
+    ghiChu: ["", []],
+    thuTu: ["", []],
+    hienThi: ["", []],
+    donViIdPhongban: ["", []], //don vi
+    parentId: ["", []], // nhuw duowis
+    donViId: ["", []], //don-viid admin
+    phongBanId: ["", []], //phong-ban
+    created: [new Date(), []],
+    createdBy: [0, []],
+    lastModified: [new Date(), []],
+    lastModifiedBy: [0, []],
   });
 
+  idDonVi: any;
+  idPhongBan: any;
+  checked: boolean = false;
+
   ngOnInit() {
-    this.cities = [
-      { label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } },
-      { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
-      { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
-      { label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
-      { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } },
-      { label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } },
-      { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
-      { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
-      { label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
-      { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } },
-      { label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } },
-      { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
-      { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
-      { label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
-      { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } },
-      { label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } },
-      { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
-      { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
-      { label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
-      { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } },
-      { label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } },
-      { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
-      { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
-      { label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
-      { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } },
-      { label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } },
-      { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
-      { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
-      { label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
-      { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } },
-      { label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } },
-      { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
-      { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
-      { label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
-      { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } },
-    ];
+    // this.change();
+    this.GetDataUnit();
+    console.log(this.authService.GetmUserInfo());
+    console.log(this.authService.GetDonViLamViec());
   }
 
   public closePopup() {
     this.show = false;
     this.close.emit(this.show);
+  }
+
+  // change() {
+  //   this.checkboxValue = !this.checkboxValue;
+  // }
+
+  public GetDataUnit() {
+    this.linhVucService.getTreeUnits(this.authService.GetmUserInfo().name, this.authService.GetDonViLamViec()).subscribe(data => {
+      if (data.isError) {
+        console.log("Dữ liệu này không hợp lệ.");
+      } else {
+        this.unitTree = this.transformJsonCustomStructure(data.objData)
+        console.log(this.unitTree);
+
+      }
+    }, (error) => {
+      console.log("Lỗi", error);
+    })
+  }
+
+  onSelectChangeDonVi(event: any) {
+    this.idDonVi = event.id;
+    this.linhVucService.getDataDepart(this.idDonVi).subscribe(data => {
+      if (data.isError) {
+        console.log("Dự liệu không hợp lệ");
+      } else {
+        this.department = data.objData;
+        console.log(this.department);
+      }
+    }, (error) => {
+      console.log('Lỗi', error);
+    })
+  }
+
+  onSelectChangePhongBan(event: any) {
+    this.idPhongBan = event.code;
+  }
+
+  transformJsonCustomStructure(jsonData: any): DMJsonModel[] {
+    const customData: DMJsonModel[] = [];
+
+    for (const item of jsonData) {
+      const customModel: DMJsonModel = {
+        id: item.id,
+        label: item.title,
+        children: []
+      }
+
+      if (item.subs && item.subs.length > 0) {
+        customModel.children = this.transformJsonCustomStructure(item.subs);
+      }
+      customData.push(customModel);
+    }
+    return customData;
+  }
+
+  createField() {
+    this.formCreate.value.donViId = this.authService.GetmUserInfo().donViId;
+    this.formCreate.value.donViIdPhongban = this.idDonVi;
+    this.formCreate.value.parentId = this.authService.GetmUserInfo().donViId;
+    this.formCreate.value.phongBanId = this.idPhongBan;
+    console.log(this.formCreate.value);
+    this.linhVucService.createField(this.formCreate.value).subscribe(data => {
+      console.log(data);
+      if (data.code == 200) {
+        this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Tạo mới thành công', life: 3000 });
+      } else {
+        this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Tạo mới không thành công', life: 3000 });
+      }
+    });
+    this.closePopup();
   }
 }

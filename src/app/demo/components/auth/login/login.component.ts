@@ -70,7 +70,6 @@ export class LoginComponent {
                     this.msgs = [];
                     this.msgs.push({ severity: 'error', detail: "Thông tin đăng nhập không hợp lệ" });
                 } else {
-                    console.log(data.objNguoiDung);
                     this.cookieService.set('isLoggedIn', "true");
                     this.cookieService.set('token', JSON.stringify(data.objData));
                     this.cookieService.set('mUserInfo', JSON.stringify(data.objNguoiDung));

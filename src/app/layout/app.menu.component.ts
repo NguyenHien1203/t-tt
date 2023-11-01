@@ -1685,7 +1685,6 @@ export class AppMenuComponent implements OnInit {
                 console.log("Dữ liệu không hợp lệ")
             } else {
                 this.LstMenuCon = data.objData;
-                console.log('model',this.model);
                 const filteredItems = this.filterItems(menu);
                 const objHome = {
                     label: '',

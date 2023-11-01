@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/demo/api/product';
-import { Message, MessageService } from 'primeng/api';
+import { MenuItem, Message, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { DmPhongBan, TimKiemModel } from 'src/app/demo/api/danh-muc/phong-ban';
@@ -12,6 +12,7 @@ import { PhongbanService } from 'src/app/demo/service/danh-muc/phong-ban/phongba
     providers: [MessageService]
 })
 export class PhongBanComponent implements OnInit {
+    breadcrumbItems: MenuItem[] = [];
     danhmuc: DmPhongBan[] = [];
     phongBans: DmPhongBan[] = [];
     msgs: Message[] = [];

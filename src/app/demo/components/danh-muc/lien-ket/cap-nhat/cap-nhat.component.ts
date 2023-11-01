@@ -43,7 +43,6 @@ export class CapNhatComponent {
     this.submitted = true;
     if(this.formCapNhat.valid){
       this.lienKet = this.formCapNhat.value;
-      console.log(this.lienKet)
       this.service.capNhatLienKet(this.lienKet).subscribe(
         data => {
           console.log('data', data);

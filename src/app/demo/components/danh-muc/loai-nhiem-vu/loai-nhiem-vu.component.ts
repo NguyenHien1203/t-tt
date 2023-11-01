@@ -7,15 +7,13 @@ import { TimKiemDanhSach } from 'src/app/models/danh-muc/loai-nhiem-vu/loai-nhie
   selector: 'app-loai-nhiem-vu',
   templateUrl: './loai-nhiem-vu.component.html',
   styleUrls: ['./loai-nhiem-vu.component.scss'],
-  providers: [ConfirmationService, MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class LoaiNhiemVuComponent implements OnInit {
   constructor(private service: LoaiNhiemVuService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) { }
   ngOnInit(): void {
-    this.home = { icon: 'pi pi-home', routerLink: '/' };
-    this.items = [{ label: 'Danh mục' }, { label: 'Loại nhiệm vụ' }];
     this.loading = false;
     this.LoadDanhSach(this.timKiemDanhSach);
   }
@@ -30,8 +28,8 @@ export class LoaiNhiemVuComponent implements OnInit {
   hienThiCapNhat: boolean = false;
   loading: boolean = true;
   loaiNhiemVus: any[] = [];
-  home: any;
-  items: any[] = [];
+  home: any = { icon: 'pi pi-home', routerLink: '/' };
+  items: any[] = [{ label: 'Danh mục' }, { label: 'Loại nhiệm vụ' }];
   id: string = "";
 
   LoadDanhSach(timKiemDanhSach: TimKiemDanhSach) {

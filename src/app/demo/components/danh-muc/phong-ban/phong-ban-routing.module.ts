@@ -4,7 +4,10 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [RouterModule.forChild([
-      {path: '', component: PhongBanComponent} 
+      {path: '', component: PhongBanComponent} ,
+
+      {path: 'phong-ban/cap-nhat-phong-ban/:id', component: PhongBanComponent} 
+      
     ])],
     exports: [RouterModule]
 })

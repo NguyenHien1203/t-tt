@@ -22,10 +22,10 @@
 
                 <ng-template pTemplate="right">
                     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
-                    (click)="ThemMoi()"></button>
-                <button pButton pRipple label="Xóa" icon="pi pi-trash" class="p-button-danger"
-                    (click)="deleteSelectedProducts()"
-                    [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                        (click)="ThemMoi()"></button>
+                    <button pButton pRipple label="Xóa" icon="pi pi-trash" class="p-button-danger"
+                        (click)="deleteSelectedProducts()"
+                        [disabled]="!selectedProducts || !selectedProducts.length"></button>
                 </ng-template>
             </p-toolbar>
 
@@ -38,10 +38,10 @@
                             <label for="search-name-title">Từ khóa</label>
                         </span>
                     </div>
-             
+
                     <div class="field col-12 md:col-2">
                         <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-primary mr-2"
-                        (click)="getDanhSachPhongBan()"></button>
+                            (click)="getDanhSachPhongBan()"></button>
                     </div>
                 </div>
             </div>
@@ -70,9 +70,9 @@
                         <th>Chức năng</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-DmPhongBan let-rowIndex = "rowIndex">
+                <ng-template pTemplate="body" let-DmPhongBan let-rowIndex="rowIndex">
                     <tr>
-                        <td style="width:14%; min-width:10rem;" ><span class="p-column-title">STT</span>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">STT</span>
                             {{rowIndex + 1}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
@@ -100,7 +100,7 @@
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"
-                                    (click)="editProduct(dmphongban)"></button>
+                                    (click)="CapNhatPhongBan(DmPhongBan.id)"></button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
                                     (click)="deleteProduct(dmphongban)"></button>
                             </div>
@@ -110,8 +110,9 @@
             </p-table>
         </div>
         <app-them-moi-phong-ban [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi-phong-ban>
+        <app-cap-nhat-phong-ban [hienThi]="hienThiCapNhat" (tatPopup)="Thoat($event, 'C')" [id]="id"></app-cap-nhat-phong-ban>
 
-       
+
 
         <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">

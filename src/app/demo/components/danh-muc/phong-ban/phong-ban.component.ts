@@ -23,6 +23,8 @@ export class PhongBanComponent implements OnInit {
         DenNgay: new Date()
     };
 
+    id: string = "";
+    
     hienThiThemMoi: boolean = false;
     hienThiCapNhat: boolean = false;
 
@@ -86,6 +88,11 @@ export class PhongBanComponent implements OnInit {
     //Thêm mới phòng ban
     public ThemMoi(): void {
         this.hienThiThemMoi = true;
+    }
+
+    public CapNhatPhongBan(id : string): void {
+        this.id = id;
+        this.hienThiCapNhat = true;
     }
 
     public Thoat(itemHt: any, loai: string): void {

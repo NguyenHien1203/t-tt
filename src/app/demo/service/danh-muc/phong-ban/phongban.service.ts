@@ -38,4 +38,11 @@ export class PhongbanService {
     const url = `${this.baseApiUrl}/DanhMuc/PhongBan/GetDataDonVi`;
     return this.http.get(url);
   }
+
+  /**
+   * Lấy dữ liệu phòng ban
+   */
+  GetPhongBanById(id : string): Observable<any> {
+    return this.http.get<any>(this.baseApiUrl + '/DanhMuc/PhongBan/GetPhongBanById/' + id);
+  }
 }

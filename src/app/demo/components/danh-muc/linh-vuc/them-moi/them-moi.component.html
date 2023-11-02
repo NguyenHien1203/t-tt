@@ -1,4 +1,4 @@
-<form [formGroup]="formCreate" (ngSubmit)="createField()">
+<form [formGroup]="formCreate">
     <p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới lĩnh vực" [modal]="true" class="p-fluid"
         (onHide)="closePopup()">
         <div class="formgrid grid">
@@ -54,7 +54,7 @@
             <textarea id="ghiChu" formControlName="ghiChu" pInputTextarea required rows="3" cols="20"></textarea>
         </div>
         <ng-template pTemplate="footer">
-            <button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-info"></button>
+            <button pButton pRipple label="Lưu" (click)="createField()" icon="pi pi-check" class="p-button-info"></button>
             <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger"
                 (click)="closePopup()"></button>
         </ng-template>

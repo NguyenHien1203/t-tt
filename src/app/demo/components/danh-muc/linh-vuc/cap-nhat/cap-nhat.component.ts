@@ -1,19 +1,20 @@
-import { LinhVucService } from './../../../../service/danh-muc/linh-vuc/linh-vuc.service';
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { DMJsonModel } from 'src/app/models/common/DMJsonModel';
-import { AuthService } from 'src/app/common/auth.services';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/common/auth.services';
+import { LinhVucService } from './../../../../service/danh-muc/linh-vuc/linh-vuc.service';
+import { DMJsonModel } from 'src/app/models/common/DMJsonModel';
 
 @Component({
-  selector: 'app-them-moi',
-  templateUrl: './them-moi.component.html',
-  styleUrls: ['./them-moi.component.scss']
+  selector: 'app-cap-nhat',
+  templateUrl: './cap-nhat.component.html',
+  styleUrls: ['./cap-nhat.component.scss']
 })
-export class ThemMoiComponent implements OnInit {
 
+export class CapNhatComponent implements OnInit {
   @Input() show: boolean = false;
   @Output() close = new EventEmitter<boolean>();
+  @Input() id: string = '';
 
   unitTree: DMJsonModel[] = [];
   selectedUnit: '';
@@ -23,29 +24,28 @@ export class ThemMoiComponent implements OnInit {
 
   constructor(private linhVucService: LinhVucService, private formBuilder: FormBuilder, private authService: AuthService, private messageService: MessageService) { }
 
-  checkboxValue: boolean = false;
-
-  submitted = false;
-  public formCreate = this.formBuilder.group({
+  public formUpdate = this.formBuilder.group({
     id: [0, []],
     tenLinhVuc: ["", [Validators.required]],
     vietTat: ["", [Validators.required]],
     ghiChu: ["", []],
     thuTu: ["", []],
     hienThi: ["", []],
-    donViIdPhongban: ["", []], //don vi
-    parentId: ["", []], // nhuw duowis
-    donViId: ["", []], //don-viid admin
-    phongBanId: ["", []], //phong-ban
+    donViIdPhongban: ["", []],
+    parentId: ["", []],
+    donViId: ["", []],
+    phongBanId: ["", []],
     created: [new Date(), []],
     createdBy: [0, []],
     lastModified: [new Date(), []],
     lastModifiedBy: [0, []],
   });
 
+  submitted = false;
   idDonVi: any;
   idPhongBan: any;
   checked: boolean = false;
+  dataUpdate: any = {};
 
   ngOnInit() {
     this.GetDataUnit();
@@ -105,18 +105,30 @@ export class ThemMoiComponent implements OnInit {
     return customData;
   }
 
-  public createField() {
-    this.formCreate.value.donViId = this.authService.GetmUserInfo().donViId;
-    this.formCreate.value.donViIdPhongban = this.idDonVi;
-    this.formCreate.value.parentId = this.authService.GetmUserInfo().donViId;
-    this.formCreate.value.phongBanId = this.idPhongBan;
-    this.linhVucService.createField(this.formCreate.value).subscribe(data => {
-      if (data.code == 200) {
-        this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Tạo mới thành công', life: 3000 });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Tạo mới không thành công', life: 3000 });
-      }
-    });
+  getDataField() {
+    this.linhVucService.getIdField(this.id).subscribe(data => {
+      console.log(data);
+      this.formUpdate.setValue(data);
+      console.log(this.formUpdate.value);
+    })
+  }
+
+  updatedField() {
+    this.formUpdate.value.donViId = this.authService.GetmUserInfo().donViId;
+    this.formUpdate.value.donViIdPhongban = this.idDonVi;
+    this.formUpdate.value.parentId = this.authService.GetmUserInfo().donViId;
+    this.formUpdate.value.phongBanId = this.idPhongBan ?? 0;
+    if (this.formUpdate.valid) {
+      this.submitted = true;
+      this.linhVucService.updateField(this.formUpdate.value, this.id).subscribe(data => {
+        if (data.code == 200) {
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật thành công', life: 3000 });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật không thành công', life: 3000 });
+        }
+      });
+    }
     this.closePopup();
   }
 }
+

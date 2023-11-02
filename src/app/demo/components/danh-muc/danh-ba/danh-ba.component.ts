@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/demo/api/product';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { DanhbaService } from 'src/app/demo/service/danh-muc/danh-ba/danhba.service';
@@ -14,7 +14,8 @@ import { DmDanhBa, TimKiemModel } from 'src/app/demo/api/danh-muc/danh-ba';
     providers: [MessageService]
 })
 export class DanhBaComponent implements OnInit {
-
+    
+    breadcrumbItems: MenuItem[] = [];
     newDanhBa: DmDanhBa = {
         id: 0,
         hoTen: '',
@@ -26,7 +27,7 @@ export class DanhBaComponent implements OnInit {
         soDienThoaiDiDong: ''
     };
 
-    timkiems: TimKiemModel ={
+    timkiems: TimKiemModel = {
         keyWord: '',
         phongBanId: 0,
         donviId: 0
@@ -59,10 +60,10 @@ export class DanhBaComponent implements OnInit {
         //Lấy ra danh sách danh bạ ở đây
         this.danhbaService.getDanhSachDanhBa(this.timkiems).subscribe({
             next: (danhbas) => {
-              this.newDanhBa = danhbas;
+                this.newDanhBa = danhbas;
             }
-          });
-          
+        });
+
         //Code mẫu
         this.productService.getProducts().then(data => this.products = data);
 

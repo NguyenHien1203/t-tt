@@ -1,0 +1,11 @@
+.formgrid.grid > label{
+    margin-bottom: 0.5rem;
+}
+
+.formgrid.grid {
+    margin-bottom: 1rem;
+  }
+
+  :host ::ng-deep .ck-editor__editable_inline {
+    min-height: 250px;
+}

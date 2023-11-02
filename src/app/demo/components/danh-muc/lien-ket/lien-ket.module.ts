@@ -22,12 +22,14 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
 @NgModule({
   declarations: [LienKetComponent, ThemMoiComponent, CapNhatComponent],
   imports: [
+    ConfirmDialogModule,
     ToastModule,
     ReactiveFormsModule,
     FormsModule,

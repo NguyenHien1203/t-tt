@@ -22,11 +22,11 @@
                 </div>
                 <label htmlFor="name3" class="col-12 mb-2 md:col-1 md:mb-0"></label>
                 <label class="col-12 md:col-3 fl-wr">
-                    <p-checkbox name="hienThi" id="hienThi" [(ngModel)]="timKiemDanhSach.timChinhXac"  (click)="CheckedHt()" value="true" label="Tìm chính xác"></p-checkbox>
+                    <p-checkbox name="hienThi" id="hienThi"   (click)="CheckedHt()" value="true" label="Tìm chính xác"></p-checkbox>
                 </label>
             </div>
             <div class="div-center">
-                <button pButton pRipple type="button" (click)="(LoadDanhSach(timKiemDanhSach))" label="Tìm kiếm"
+                <button pButton pRipple type="button" (click)="(LoadDanhSach(timKiemDanhSach))" icon="pi pi-search" label="Tìm kiếm"
                     class="p-button-info"></button>
             </div>
         </div>
@@ -42,7 +42,7 @@
             <div class="grid">
                 <div class="col-12">
                     <p-table #dt1 [value]="loaiNhiemVus" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
-                        styleClass="p-datatable-gridlines" [paginator]="false" responsiveLayout="scroll">
+                        styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: 2%;">
@@ -101,8 +101,6 @@
                             </tr>
                         </ng-template>
                     </p-table>
-                    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
-                        [totalRecords]="totalRecords" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
                 </div>
             </div>
         </div>
@@ -110,3 +108,22 @@
 
     <app-them-moi [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
     <app-cap-nhat [hienThi]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat>
+    <p-confirmDialog #cd [style]="{width: '30vw'}">
+        <ng-template pTemplate="header">
+          <h3>Xác nhận</h3>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-info">
+            <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+            <span class="p-button-label">Đồng ý</span>
+            <span class="p-ink"></span>
+          </button>
+          <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-danger">
+            <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+            <span class="p-button-label">Hủy</span>
+            <span class="p-ink"></span>
+          </button>
+        </ng-template>
+      </p-confirmDialog>
+      <p-toast></p-toast>
+      

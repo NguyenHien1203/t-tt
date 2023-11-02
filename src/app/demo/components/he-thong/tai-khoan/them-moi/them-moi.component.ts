@@ -79,13 +79,14 @@ export class ThemMoiComponent {
     })
   }
 
+
+
   public GetNhomQuyen() {
     this.taikhoanService.GetNhomQuyen().subscribe(data => {
       if (data.isError) {
         console.log("Dữ liệu không hợp lệ")
       } else {
         this.NhomQuyen = data.objData;
-        console.log(this.NhomQuyen);
       }
     }, (error) => {
       console.log('Error', error);
@@ -112,7 +113,6 @@ export class ThemMoiComponent {
         console.log("Dữ liệu không hợp lệ")
       } else {
         this.PhongBan = data.objData;
-        console.log(this.PhongBan);
       }
     }, (error) => {
       console.log('Error', error);
@@ -124,8 +124,12 @@ export class ThemMoiComponent {
     this.tatPopup.emit(this.hienThi);
   }
 
-  public ThoatDvThucHien(itemHt: any, loai: string): void{
-    if(loai === 'T')
+  public ThemMoiDvth(): void {
+    this.dvThucHienDialog = true;
+  }
+
+  public ThoatDvThucHien(itemHt: any, loai: string): void {
+    if (loai === 'T')
       this.dvThucHienDialog = false;
     else
       this.dvThucHienDialog = false;

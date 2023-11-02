@@ -11,6 +11,4 @@ export interface TimKiemDanhSach {
     moTa?: string,
     timChinhXac? : number,
     donViId? : number,
-    pageNumber? : number,
-    pageSize? : number
 }

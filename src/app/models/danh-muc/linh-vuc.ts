@@ -8,6 +8,7 @@ export interface LinhVuc {
     vietTat?: string,
     tenLinhVuc?: string,
     thuTu?: number,
+    hienThi?: string,
     ghiChu?: string,
     donViId?: number,
     phongBanId?: number,

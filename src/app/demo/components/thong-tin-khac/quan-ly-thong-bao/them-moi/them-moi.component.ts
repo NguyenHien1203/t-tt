@@ -4,6 +4,9 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { LoaiNhiemVuService } from 'src/app/demo/service/danh-muc/loai-nhiem-vu/loai-nhiem-vu.service';
 import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { UploadFileService } from 'src/app/demo/service/upload-file.service';
+
 
 @Component({
   selector: 'app-them-moi',
@@ -11,6 +14,8 @@ import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
   styleUrls: ['./them-moi.component.scss']
 })
 export class ThemMoiComponent {
+  uploadFiles : any = [];
+  public Editor = ClassicEditor;
   @Input() hienThi: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
   public loaiNhiemvu: any = {};
@@ -19,20 +24,30 @@ export class ThemMoiComponent {
     id: [0, []],
     tieuDe: ["", [Validators.required]],
     tuNgay: ["", []],
-    denNgay: ["", ''],
-    donViId: [0, ''],
-    noiDung : ["", ''],
+    denNgay: ["", []],
+    donViId: [0, []],
+    noiDung : ["", []],
+    hienThi : [false, []]
   });
   constructor(private fb: FormBuilder
     , private service : LoaiNhiemVuService
     ,private messageService: MessageService
-    ,private authService : AuthService){ }
+    ,private authService : AuthService
+    ,private fileService: UploadFileService){ }
 
   public Thoat(): void {
   this.hienThi = false;
   this.formThemMoi.reset();
   this.tatPopup.emit(this.hienThi);
 }
+
+onUpload(event) {
+  for (let file of event.files) {
+    this.uploadFiles = file;
+  }
+  this.messageService.add({severity: 'info', summary : 'Tệp đã tải lên' , detail : ''});
+}
+
 
 public ThemMoi(): void {
   this.submitted = true;
@@ -58,4 +73,21 @@ public ThemMoi(): void {
       })
   }
 }
+
+public getToolBar(): any {
+  const toolbar: any = {
+    items: [
+      'undo', 'redo',
+      '|', 'heading',
+      '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+      '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+      '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
+      '|', 'alignment',
+      '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+    ],
+    shouldNotGroupWhenFull: true
+  }
+  return toolbar;
+}
+
 }

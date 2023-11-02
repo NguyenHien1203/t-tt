@@ -22,10 +22,12 @@ import { Select2Module } from 'ng-select2-component';
 import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 import { DialogModule } from 'primeng/dialog';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [QuanLyThongBaoComponent, ThemMoiComponent, CapNhatComponent],
   imports: [
+    FileUploadModule,
     DialogModule,
     FormsModule,
     Select2Module,

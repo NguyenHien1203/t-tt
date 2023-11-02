@@ -1,89 +1,88 @@
 <form [formGroup]="formThemMoi">
-    <p-dialog appendTo="body" header="Thêm mới người dùng" (onHide)="Thoat()" [(visible)]="hienThi" [modal]="true"
+    <p-dialog appendTo="body" header="Thêm mới phòng ban" (onHide)="Thoat()" [(visible)]="hienThi" [modal]="true"
         [style]="{ width: '65vw' }" [draggable]="true" [resizable]="false">
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-3 mb-0">
-                <label htmlfor="maPhongBan">Mã phòng ban <span class="p-error">(*)</span></label>
-                <input pinputtext="" id="maPhongBan" type="text" class="p-inputtext p-component p-element"
-                    formControlName="maPhongBan">
+                <label htmlfor="MaDonVi">Mã phòng ban <span class="p-error">(*)</span></label>
+                <input pinputtext="" id="MaDonVi" type="text" class="p-inputtext p-component p-element"
+                    formControlName="MaDonVi">
                 <span class="p-error"
-                    *ngIf="!formThemMoi.controls.maPhongBan.valid && (formThemMoi.controls.maPhongBan.touched || submitted)">Vui
+                    *ngIf="!formThemMoi.controls.MaDonVi.valid && (formThemMoi.controls.MaDonVi.touched || submitted)">Vui
                     lòng nhập mã phòng ban</span>
             </div>
 
             <div class="field col-12 md:col-3 mb-0">
-                <label htmlfor="tenPhongBan">Tên phòng ban <span class="p-error">(*)</span></label>
-                <input pinputtext="" id="tenPhongBan" type="text" class="p-inputtext p-component p-element"
-                    formControlName="tenPhongBan">
+                <label htmlfor="TenDonVi">Tên phòng ban <span class="p-error">(*)</span></label>
+                <input pinputtext="" id="TenDonVi" type="text" class="p-inputtext p-component p-element"
+                    formControlName="TenDonVi">
                 <span class="p-error"
-                    *ngIf="!formThemMoi.controls.tenPhongBan.valid && (formThemMoi.controls.tenPhongBan.touched || submitted)">Vui
+                    *ngIf="!formThemMoi.controls.TenDonVi.valid && (formThemMoi.controls.TenDonVi.touched || submitted)">Vui
                     lòng nhập tên phòng ban</span>
             </div>
 
             <div class="field col-12 md:col-6 mb-0">
                 <label htmlfor="donvi">Đơn vị <span class="p-error">(*)</span></label>
-                <!-- <p-treeSelect [filterInputAutoFocus]="true" [filter]="true" (ngModelChange)="onSelectChange($event)" class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="donVi"
-                    [options]="DonViTree" placeholder="Chọn đơn vị"></p-treeSelect> -->
+                <p-treeSelect appendTo="body" (ngModelChange)="onSelectChange($event)" [filterInputAutoFocus]="true"  formControlName="ParentId" id="ParentId" [filter]="true" class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="ParentId"
+                    [options]="DonViTree" placeholder="Chọn đơn vị"></p-treeSelect>
             </div>
         </div>
 
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-3 mb-0">
-                <label htmlfor="uRL">URL</label>
-                <input pinputtext="" id="uRL" type="text" class="p-inputtext p-component p-element"
-                    formControlName="uRL">
+                <label htmlfor="Url">URL</label>
+                <input pinputtext="" id="Url" type="text" class="p-inputtext p-component p-element"
+                    formControlName="Url">
             </div>
             <div class="field col-12 md:col-3 mb-0">
-                <label htmlfor="soDienThoai">Số điện thoại</label>
-                <input pinputtext="" id="soDienThoai" type="text" class="p-inputtext p-component p-element"
-                    formControlName="soDienThoai">
+                <label htmlfor="SDT">Số điện thoại</label>
+                <input pinputtext="" id="SDT" type="text" class="p-inputtext p-component p-element"
+                    formControlName="SDT">
             </div>
             <div class="field col-12 md:col-3 mb-0">
-                <label htmlfor="fax">Fax</label>
-                <input pinputtext="" id="fax" type="text" class="p-inputtext p-component p-element"
-                    formControlName="fax">
+                <label htmlfor="Fax">Fax</label>
+                <input pinputtext="" id="Fax" type="text" class="p-inputtext p-component p-element"
+                    formControlName="Fax">
             </div>
             <div class="field col-12 md:col-3 mb-0">
-                <label htmlfor="ngayTruyenThong">Ngày truyền thống</label>
-                <p-calendar appendTo="body" id="ngayTruyenThong" dataType="string" dateFormat="dd/mm/yy" formControlName="ngayTruyenThong" type="text" [showIcon]="true" [readonlyInput]="true" inputId="icon"></p-calendar>
+                <label htmlfor="NgayTruyenThong">Ngày truyền thống</label>
+                <p-calendar appendTo="body" id="NgayTruyenThong" dataType="string" formControlName="NgayTruyenThong" type="text" [showIcon]="true" [readonlyInput]="true" inputId="icon"></p-calendar>
 
-            </div>
-        </div>
-
-        <div class="p-fluid p-formgrid grid">
-            <div class="field col-12 md:col-6 mb-0">
-                <label htmlfor="diaChi">Địa chỉ</label>
-                <input pinputtext="" id="diaChi" type="text" class="p-inputtext p-component p-element"
-                    formControlName="diaChi">
-            </div>
-            <div class="field col-12 md:col-3 mb-0">
-                <label htmlfor="email">Email</label>
-                <input pinputtext="" id="email" type="text" class="p-inputtext p-component p-element"
-                    formControlName="email">
-            </div>
-            <div class="field col-12 md:col-3 mb-0">
-                <label htmlfor="website">Website</label>
-                <input pinputtext="" id="website" type="text" class="p-inputtext p-component p-element"
-                    formControlName="website">
             </div>
         </div>
 
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-6 mb-0">
-                <label htmlfor="ghiChu">Ghi chú <span class="p-error">(*)</span></label>
-                <textarea rows="5" type="text" cols="30" id="ghiChu" formControlName="ghiChu" placeholder="nhập ghi chú" pInputTextarea></textarea>
+                <label htmlfor="DiaChi">Địa chỉ</label>
+                <input pinputtext="" id="DiaChi" type="text" class="p-inputtext p-component p-element"
+                    formControlName="DiaChi">
             </div>
             <div class="field col-12 md:col-3 mb-0">
-                <label htmlfor="soThuTu">Số thứ tự</label>
-                <input pinputtext="" id="soThuTu" type="text" class="p-inputtext p-component p-element"
-                    formControlName="soThuTu">
+                <label htmlfor="Email">Email</label>
+                <input pinputtext="" id="Email" type="text" class="p-inputtext p-component p-element"
+                    formControlName="Email">
             </div>
             <div class="field col-12 md:col-3 mb-0">
-                <label htmlfor="trangThai">Trạng thái</label>
+                <label htmlfor="Website">Website</label>
+                <input pinputtext="" id="Website" type="text" class="p-inputtext p-component p-element"
+                    formControlName="Website">
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="GhiChu">Ghi chú</label>
+                <textarea rows="5" type="text" cols="30" id="GhiChu" formControlName="GhiChu" placeholder="nhập ghi chú" pInputTextarea></textarea>
+            </div>
+            <div class="field col-12 md:col-3 mb-0">
+                <label htmlfor="ThuTu">Số thứ tự</label>
+                <input pinputtext="" id="ThuTu" type="text" class="p-inputtext p-component p-element"
+                    formControlName="ThuTu">
+            </div>
+            <div class="field col-12 md:col-3 mb-0">
+                <label htmlfor="TrangThai">Trạng thái</label>
                
                 <div class="field-checkbox">
-                    <p-checkbox id="hienThi" value="Y" formControlName="hienThi"  id="hienThi"></p-checkbox>
-                    <label for="hienThi">Hiển thị</label>
+                    <p-checkbox name="TrangThai" formControlName="TrangThai" id="TrangThai"  (click)="CheckHienThi()" class="mg-t-25" value="true" label="Hiển thị"></p-checkbox>
                 </div>
             </div>
         </div>

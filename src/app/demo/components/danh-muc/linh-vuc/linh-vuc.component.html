@@ -105,40 +105,7 @@
 
         <app-them-moi [show]="showCreated" (close)="closePopup($event, 'C')"></app-them-moi>
 
-        <!-- <p-dialog [(visible)]="productDialog" [style]="{width: '960px'}" header={{header}} [modal]="true"
-            class="p-fluid">
-            <ng-template pTemplate="content">
-
-                <div class="formgrid grid">
-                    <div class="field col">
-                        <label for="tenChucDanh">Tên chức danh</label>
-                        <input type="text" pInputText id="tenChucDanh" [(ngModel)]="listTitle.tenChucDanh" required
-                            autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !listTitle.tenChucDanh}" />
-                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !listTitle.tenChucDanh">Vui lòng không
-                            được để trống.</small>
-                    </div>
-                    <div class="field col">
-                        <label for="thuTu">Thứ tự hiển thị</label>
-                        <p-inputNumber id="thuTu" [(ngModel)]="listTitle.thuTu" required autofocus
-                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !listTitle.thuTu}"></p-inputNumber>
-                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !listTitle.thuTu">Vui lòng không được để
-                            trống.</small>
-                    </div>
-                </div>
-                <div class="field">
-                    <label for="ghiChu">Ghi chú</label>
-                    <textarea id="ghiChu" pInputTextarea [(ngModel)]="listTitle.ghiChu" required rows="3"
-                        cols="20"></textarea>
-                </div>
-            </ng-template>
-
-            <ng-template pTemplate="footer">
-                <button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-info"
-                    (click)="saveTitle()"></button>
-                <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger"
-                    (click)="hideDialog()"></button>
-            </ng-template>
-        </p-dialog> -->
+        <app-cap-nhat [show]="showUpdated" (close)="closePopup($event, 'U')" [id]="idField"></app-cap-nhat>
 
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
@@ -146,7 +113,7 @@
                 <span *ngIf="listField">Bạn muốn xóa bản ghi này ?</span>
             </div>
             <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Lưu"
+                <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"
                     (click)="confirmDelete()"></button>
                 <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
                     (click)="deleteProductDialog = false"></button>

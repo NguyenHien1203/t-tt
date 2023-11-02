@@ -17,3 +17,11 @@ export interface TaiKhoanTimKiem {
     TenChucDanh: string
 }
 
+export interface DonViThucHien {
+    id?: string;
+    IdDonVi: string;
+    IdPhongBan: string;
+    TenDonVi: string;
+    TenPhongBan: string;
+}
+

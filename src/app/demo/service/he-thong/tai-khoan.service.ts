@@ -92,5 +92,12 @@ export class TaiKhoanService {
         return this.httpClient.get<any>(url);
     }
 
+    /**
+     * Lấy dữ liệu đơn vị thực hiện tree
+     */
+    public GetDataDonViThucHien(IdDonVi : string): Observable<any> {
+        const url = `${this.baseUrl}/NguoiDung/GetDataDonViThucHien?IdDonVi=` + IdDonVi;
+        return this.httpClient.get(url);
+    }
 
 }

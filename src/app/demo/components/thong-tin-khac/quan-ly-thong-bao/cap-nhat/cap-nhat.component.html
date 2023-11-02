@@ -1,1 +1,53 @@
-<p>cap-nhat works!</p>
+<p-dialog [(visible)]="hienThi" [formGroup]="formCapNhat" (onShow)="BindDataDialog()" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
+    [style]="{width: '950px'}" [modal]="true" header="Thêm mới thông báo" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label htmlfor="tieuDe">Tiêu đề<span class="p-error"> (*)</span>:</label>
+            <input pinputtext="" id="tieuDe" type="text" class="p-inputtext p-component p-element"
+                formControlName="tieuDe">
+            <span class="p-error"
+                *ngIf="!formThemMoi.controls.tieuDe.valid && (formThemMoi.controls.tieuDe.touched || submitted)">Vui
+                lòng nhập tiêu đề</span>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-6" for="tuNgay">
+                <label htmlfor="tuNgay">Từ ngày:</label>
+                <p-calendar id="tuNgay" formControlName="ngayBatDau" appendTo="body" [showIcon]="true"
+                    dateFormat="dd/mm/yy" for inputId="icon"></p-calendar>
+            </div>
+            <div class="col-12 md:col-6" for="denNgay">
+                <label htmlfor="denNgay">Đến ngày:</label>
+                <p-calendar id="denNgay" formControlName="ngayKetThuc" appendTo="body" [showIcon]="true"
+                    dateFormat="dd/mm/yy" for inputId="icon"></p-calendar>
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-6">
+                <label htmlfor="tieuDe">File đính kèm<span class="p-error"> (*)</span>:</label>
+                <!-- <p-fileUpload mode="basic" name="demo[]" accept="image/*" maxFileSize="1000000"
+                    (onUpload)="onUpload($event)" [auto]="true" chooseLabel="File"></p-fileUpload> -->
+                <p-fileUpload name="myfile[]" customUpload="true"  (uploadHandler)="onUpload($event)" accept="application/*"></p-fileUpload>
+            </div>
+            <div class="col-12 md:col-6">
+                <p-checkbox name="hienThi" formControlName="hienThi" (click)="CheckedHt()" class="mg-t-25" value="true"
+                    label="Hiển thị"></p-checkbox>
+            </div>
+        </div>
+        <div class="field">
+            <ckeditor id="editor" [editor]="Editor" row [config]="getToolBar()" data=""></ckeditor>
+        </div>
+
+    </ng-template>
+
+
+
+    <ng-template pTemplate="footer">
+        <button pbutton="" pripple="" type="submit" label="Info"
+            class="p-element p-ripple p-button-info p-button p-component" ng-reflect-label="Info"
+            (click)="ThemMoi()"><span class="p-button-label">Lưu</span><span class="p-ink"></span></button>
+        <button pbutton="" pripple="" type="button" label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component" ng-reflect-label="Danger"
+            (click)="Thoat()"><span class="p-button-label">Hủy</span><span class="p-ink"></span></button>
+    </ng-template>
+</p-dialog>
+<p-toast></p-toast>

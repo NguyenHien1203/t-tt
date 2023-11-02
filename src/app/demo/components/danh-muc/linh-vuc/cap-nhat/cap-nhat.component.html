@@ -1,0 +1,59 @@
+<p-dialog [formGroup]="formUpdate" [(visible)]="show" [style]="{width: '960px'}" header="Cập nhật lĩnh vực" [modal]="true" class="p-fluid"
+    (onHide)="closePopup()" (onShow)="getDataField()">
+    <div class="formgrid grid">
+        <div class="field col">
+            <label for="tenLinhVuc">Tên lĩnh vực <span class="p-error"></span></label>
+            <input type="text" pInputText id="tenLinhVuc" formControlName="tenLinhVuc">
+            <span class="p-error"
+                *ngIf="!formUpdate.controls.tenLinhVuc.valid && (formUpdate.controls.tenLinhVuc.touched || submitted)">Vui
+                lòng nhập tên lĩnh vực</span>
+        </div>
+        <div class="field col">
+            <label for="vietTat">Mã lĩnh vực <span class="p-error"></span></label>
+            <input type="text" pInputText id="vietTat" formControlName="vietTat" />
+            <span class="p-error"
+                *ngIf="!formUpdate.controls.vietTat.valid && (formUpdate.controls.vietTat.touched || submitted)">Vui
+                lòng nhập mã lĩnh vực</span>
+        </div>
+        <div class="field col">
+            <label for="thuTu">Thứ tự hiển thị</label>
+            <p-inputNumber id="thuTu" formControlName="thuTu"></p-inputNumber>
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <div class="field col">
+            <label for="donViIdPhongban">Chọn tên đơn vị</label>
+            <p-treeSelect appendTo="body" [filterInputAutoFocus]="true" [filter]="true"
+                (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViIdPhongban" [options]="unitTree"
+                placeholder="Chọn đơn vị"></p-treeSelect>
+        </div>
+        <div class="field col">
+            <label for="phongBanId">Chọn phòng ban</label>
+            <p-dropdown appendTo="body" [options]="department" formControlName="phongBanId" optionLabel="name"
+                (ngModelChange)="onSelectChangePhongBan($event)" placeholder="Chọn phòng ban"
+                [showClear]="true"></p-dropdown>
+        </div>
+        <!-- <div class="field col">
+                <div style="display: grid;">
+                    <label for="ny">Hiển thị</label>
+                    <p-checkbox class="mt-4" name="hienThi" formControlName="hienThi" value="true"  
+                        (click)="change()"></p-checkbox>
+                </div>
+            </div> -->
+        <div class="field col">
+            <div style="display: grid;">
+                <label for="hienThi">Hiển thị</label>
+                <p-checkbox [binary]="true" inputId="checkbox" class="mt-4" name="hienThi" formControlName="hienThi"
+                    value="true" [(ngModel)]="checked"></p-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label for="ghiChu">Ghi chú</label>
+        <textarea id="ghiChu" formControlName="ghiChu" pInputTextarea required rows="3" cols="20"></textarea>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu"  icon="pi pi-check" class="p-button-info" (click)="updatedField()"></button>
+        <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="closePopup()"></button>
+    </ng-template>
+</p-dialog>

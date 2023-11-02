@@ -18,6 +18,10 @@ export interface DmPhongBan{
     tenDonViTrenTruc: string,
 }
 
+export interface DmPhongBan{
+    
+}
+
 export class  TimKiemModel {
     keyWord?: string;
     Nam?: number;

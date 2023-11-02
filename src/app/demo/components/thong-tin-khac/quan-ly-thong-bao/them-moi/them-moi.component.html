@@ -1,22 +1,45 @@
-<p-dialog [(visible)]="hienThi" [formGroup]="formThemMoi" (onHide)="Thoat()" [style]="{width: '750px'}" header="Thêm mới thông báo" [modal]="true"
-    class="p-fluid">
+<p-dialog [(visible)]="hienThi" [formGroup]="formThemMoi" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
+    [style]="{width: '950px'}" [modal]="true" header="Thêm mới thông báo" class="p-fluid">
     <ng-template pTemplate="content">
         <div class="field">
-                <label htmlfor="tieuDe">Tiêu đề<span class="p-error"> (*)</span>:</label>
-                <input pinputtext="" id="tieuDe" type="text" class="p-inputtext p-component p-element" formControlName="tieuDe">
-                <span class="p-error" *ngIf="!formThemMoi.controls.tieuDe.valid && (formThemMoi.controls.tieuDe.touched || submitted)">Vui lòng nhập tiêu đề</span>
+            <label htmlfor="tieuDe">Tiêu đề<span class="p-error"> (*)</span>:</label>
+            <input pinputtext="" id="tieuDe" type="text" class="p-inputtext p-component p-element"
+                formControlName="tieuDe">
+            <span class="p-error"
+                *ngIf="!formThemMoi.controls.tieuDe.valid && (formThemMoi.controls.tieuDe.touched || submitted)">Vui
+                lòng nhập tiêu đề</span>
         </div>
         <div class="grid formgrid">
             <div class="col-12 md:col-6" for="tuNgay">
                 <label htmlfor="tuNgay">Từ ngày:</label>
-                <p-calendar id="tuNgay" appendTo="body" [showIcon]="true" dateFormat="dd/MM/yy" for inputId="icon"></p-calendar>
+                <p-calendar id="tuNgay" formControlName="ngayBatDau" appendTo="body" [showIcon]="true"
+                    dateFormat="dd/mm/yy" for inputId="icon"></p-calendar>
             </div>
             <div class="col-12 md:col-6" for="denNgay">
                 <label htmlfor="denNgay">Đến ngày:</label>
-                <p-calendar id="denNgay" appendTo="body" [showIcon]="true" dateFormat="dd/MM/yy" for inputId="icon"></p-calendar>
+                <p-calendar id="denNgay" formControlName="ngayKetThuc" appendTo="body" [showIcon]="true"
+                    dateFormat="dd/mm/yy" for inputId="icon"></p-calendar>
             </div>
         </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-6">
+                <label htmlfor="tieuDe">File đính kèm<span class="p-error"> (*)</span>:</label>
+                <!-- <p-fileUpload mode="basic" name="demo[]" accept="image/*" maxFileSize="1000000"
+                    (onUpload)="onUpload($event)" [auto]="true" chooseLabel="File"></p-fileUpload> -->
+                <p-fileUpload name="myfile[]" customUpload="true"  (uploadHandler)="onUpload($event)" accept="application/*"></p-fileUpload>
+            </div>
+            <div class="col-12 md:col-6">
+                <p-checkbox name="hienThi" formControlName="hienThi" (click)="CheckedHt()" class="mg-t-25" value="true"
+                    label="Hiển thị"></p-checkbox>
+            </div>
+        </div>
+        <div class="field">
+            <ckeditor id="editor" [editor]="Editor" row [config]="getToolBar()" data=""></ckeditor>
+        </div>
+
     </ng-template>
+
+
 
     <ng-template pTemplate="footer">
         <button pbutton="" pripple="" type="submit" label="Info"

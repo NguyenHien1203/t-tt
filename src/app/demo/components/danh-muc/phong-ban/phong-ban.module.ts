@@ -19,8 +19,10 @@ import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from "primeng/calendar";
+import { TreeSelectModule } from 'primeng/treeselect';
 import { ThemMoiPhongBanComponent } from './them-moi-phong-ban/them-moi-phong-ban.component';
 import { CheckboxModule } from 'primeng/checkbox';
+import { CapNhatPhongBanComponent } from './cap-nhat-phong-ban/cap-nhat-phong-ban.component';
 
 // import { DropdownSearchComponent } from './hello.component';
 // import { SearchDropdown } from './search-dropdown/search-dropdown';
@@ -45,8 +47,9 @@ import { CheckboxModule } from 'primeng/checkbox';
     BreadcrumbModule,
     ReactiveFormsModule,
     CalendarModule,
-    CheckboxModule
+    CheckboxModule,
+    TreeSelectModule
   ],
-  declarations: [PhongBanComponent, ThemMoiPhongBanComponent]
+  declarations: [PhongBanComponent, ThemMoiPhongBanComponent, CapNhatPhongBanComponent]
 })
 export class PhongBanModule { }

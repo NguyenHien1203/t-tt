@@ -58,7 +58,9 @@ export class LinhVucComponent implements OnInit {
 
   deleteProductDialog: boolean = false;
 
-  idField: number;
+  idField: string = '1';
+
+  idDelete: Number;
 
   header: string;
 
@@ -67,6 +69,8 @@ export class LinhVucComponent implements OnInit {
   msgs: Message[] = [];
 
   showCreated: boolean = false;
+
+  showUpdated: boolean = false;
 
   constructor(private messageService: MessageService, private linhVucService: LinhVucService) { }
 
@@ -90,8 +94,6 @@ export class LinhVucComponent implements OnInit {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
         } else {
-          console.log(data);
-          
           this.listFields = data;
         };
       }, (error) => {
@@ -108,73 +110,27 @@ export class LinhVucComponent implements OnInit {
     this.showCreated = true;
   }
 
+  editField(id: string) {
+    this.showUpdated = true;
+    this.idField = id;
+  }
+
   public closePopup(item: any, type: string): void {
     if (type === 'C')
       this.showCreated = false;
     else
-      this.showCreated = false;
+      this.showUpdated = false;
     this.LoadListFields();
-  }
-
-  // hideDialog() {
-  //   this.productDialog = false;
-  //   this.submitted = false;
-  // }
-
-  saveField() {
-    this.submitted = true;
-
-    if (this.listField.tenLinhVuc?.trim()) {
-      this.dataField.tenLinhVuc = this.listField.tenLinhVuc;
-      this.dataField.thuTu = this.listField.thuTu;
-      this.dataField.ghiChu = this.listField.ghiChu;
-
-      if (this.listField.id) {
-        this.dataField.lastModified = new Date();
-        this.dataField.lastModifiedBy = 0;
-        this.linhVucService.updateField(this.dataField, this.listField.id).subscribe(data => {
-          console.log(data);
-          this.LoadListFields();
-          if (data.code == 200) {
-            this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật thành công', life: 3000 });
-          } else {
-            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật không thành công', life: 3000 });
-          }
-        })
-      } else {
-        this.linhVucService.createField(this.dataField).subscribe(data => {
-          console.log(data);
-          this.LoadListFields();
-          if (data.code == 200) {
-            this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Tạo mới thành công', life: 3000 });
-          } else {
-            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Tạo mới không thành công', life: 3000 });
-          }
-        });
-      }
-      this.productDialog = false;
-      this.listField = {};
-    }
-  }
-
-  editField(id: number) {
-    this.header = "Cập nhật chức danh"
-    this.submitted = false;
-    this.productDialog = true;
-    this.linhVucService.getIdField(id).subscribe(data => {
-      this.listField = data;
-    });
   }
 
   deleteField(id: number) {
     this.deleteProductDialog = true;
-    this.idField = id;
+    this.idDelete = id;
   }
 
   confirmDelete() {
     this.deleteProductDialog = false;
-    this.linhVucService.deleteField(this.idField).subscribe(data => {
-      console.log(data)
+    this.linhVucService.deleteField(this.idDelete).subscribe(data => {
       this.LoadListFields();
       if (data.code == 200) {
         this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Xóa bản ghi thành công', life: 3000 });

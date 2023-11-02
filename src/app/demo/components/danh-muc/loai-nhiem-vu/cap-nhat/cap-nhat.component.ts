@@ -34,7 +34,7 @@ export class CapNhatComponent {
     tenDonVi : ["", ''],
   });
 
-  public BindDataDialog(): void {
+  public BindDataDialog(): void {    
     this.service.getLoaiNhiemVuId(this.id).subscribe(data => {
       this.formCapNhat.setValue(data);
     })

@@ -24,10 +24,11 @@ import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 
 import { ThemMoiComponent } from './them-moi/them-moi.component';
+import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 
 @NgModule({
   declarations: [
-    LinhVucComponent, ThemMoiComponent
+    LinhVucComponent, ThemMoiComponent, CapNhatComponent
   ],
   imports: [
     CommonModule,

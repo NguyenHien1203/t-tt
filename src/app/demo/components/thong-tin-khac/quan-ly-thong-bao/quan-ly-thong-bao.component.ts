@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { QuanLyThongBaoService } from 'src/app/demo/service/thong-tin-khac/quan-ly-thong-bao.service';
 import { TimKiemDanhSach } from 'src/app/models/thong-tin-khac/quan-ly-thong-bao';
@@ -37,7 +36,6 @@ export class QuanLyThongBaoComponent implements OnInit {
     this.loading = false;
     this.LoadDanhSach(this.timKiemDanhSach);
   }
-  public Editor = ClassicEditor;
 
   public ThemMoi(): void {
     this.hienThiThemMoi = true;
@@ -65,22 +63,7 @@ export class QuanLyThongBaoComponent implements OnInit {
     this.service.getDanhSachQuanLyThongBao(timKiemDanhSach).then(data => { this.quanLyThongBaos = data })
   }
 
-  public getToolBar(): any {
-    const toolbar: any = {
-      items: [
-        'undo', 'redo',
-        '|', 'heading',
-        '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
-        '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
-        '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
-        '|', 'alignment',
-        '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
-      ],
-      shouldNotGroupWhenFull: true
-    }
-    return toolbar;
-  }
-
+ 
   public CheckedHt(): void {
 
   }

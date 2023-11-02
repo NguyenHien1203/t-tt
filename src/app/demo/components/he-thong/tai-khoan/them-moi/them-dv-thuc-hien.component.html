@@ -1,17 +1,29 @@
-<form [formGroup]="formThemMoidvth" (ngSubmit)="SubmitDvth()">
-    <p-dialog appendTo="body" header="Thêm mới người dùng" (onHide)="ThoatDvThucHien()" [(visible)]="hienThidvth"
+<form [formGroup]="formThemMoidvth" >
+    <p-dialog appendTo="body" header="Thêm mới đơn vị làm việc" (onShow)="BindDataDVTH()" (onHide)="ThoatDvThucHien()" [(visible)]="hienThidvth"
         [modal]="true" [style]="{ width: '65vw' }" [draggable]="true" [resizable]="false">
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-6 mb-0">
                 <label htmlfor="tenDangNhap">Đơn vị <span class="p-error">(*)</span></label>
-                <input pinputtext="" id="tenDangNhap" type="text" class="p-inputtext p-component p-element"
-                   >
+                <p-treeSelect appendTo="body" [filterInputAutoFocus]="true" [filter]="true"  class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="donViTh"
+                [options]="DonViTHTree" placeholder="Chọn đơn vị" (ngModelChange)="onSelectChangeDvth($event)"></p-treeSelect>
             </div>
             <div class="field col-12 md:col-6 mb-0">
                 <label htmlfor="gioiTinh">Nhóm quyền</label>
-                <p-dropdown [options]="[{id: '1', ten: 'Nam'},{id: '0', ten: 'Nữ'}]" optionValue="id" optionLabel="ten"
-                    ></p-dropdown>
+                <p-dropdown appendTo="body" [options]="NhomQuyenTHOption" formControlName="nhomQuyenTh" optionLabel="name" placeholder="Chọn nhóm quyền" (ngModelChange)="onSelectChangeNhomQuyen($event)"></p-dropdown>
             </div>
         </div>
+
+        <ng-template pTemplate="footer">
+            <button (click)="SubmitDvth()" type="submit" pbutton="" pripple="" label="Tìm kiếm" icon="pi pi-bookmark"  class="p-element p-ripple p-button p-component">
+                <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+                <span class="p-button-label">Lưu</span>
+                <span class="p-ink"></span>
+            </button>
+            <button pbutton="" pripple="" label="Tìm kiếm" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-danger" (click)="ThoatDvThucHien()">
+                <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+                <span class="p-button-label">Thoát</span>
+                <span class="p-ink"></span>
+            </button>
+        </ng-template>
     </p-dialog>
 </form>

@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
 import { Tree, TreeModule } from 'primeng/tree';
 import { TaiKhoanService } from 'src/app/demo/service/he-thong/tai-khoan.service';
 import { DMJsonModel } from 'src/app/models/common/DMJsonModel';
-
+import { Message, MessageService } from 'primeng/api';
+import { CookieService } from 'ngx-cookie-service';
+import { DonViThucHien } from 'src/app/models/he-thong/tai-khoan';
 @Component({
   selector: 'app-them-moi',
   templateUrl: './them-moi.component.html',
@@ -14,6 +15,8 @@ export class ThemMoiComponent {
   @Output() tatPopup = new EventEmitter<boolean>();
 
   submitted = false;
+
+  DonViThucHien: DonViThucHien[] = [];
 
   public formThemMoi = this.formBuilder.group({
     id: ["", []],
@@ -31,6 +34,10 @@ export class ThemMoiComponent {
     sdtDiDong: ["", []],
     sdtCoQuan: ["", []],
   });
+
+  msgs: Message[] = [];
+
+  DonViId: "";
 
   dvThucHienDialog: boolean = false;
 
@@ -54,6 +61,8 @@ export class ThemMoiComponent {
     private taikhoanService: TaiKhoanService,
     private messageService: MessageService,
     private formBuilder: FormBuilder,
+    private service: MessageService,
+    private cookieService: CookieService
   ) {
   }
 
@@ -64,7 +73,8 @@ export class ThemMoiComponent {
   }
 
   public ThemMoiTaiKhoan(): void {
-
+    this.submitted = true;
+    console.log("dqw")
   }
 
   public GetDataDonVi() {
@@ -78,8 +88,6 @@ export class ThemMoiComponent {
       console.log('Error', error);
     })
   }
-
-
 
   public GetNhomQuyen() {
     this.taikhoanService.GetNhomQuyen().subscribe(data => {
@@ -108,6 +116,7 @@ export class ThemMoiComponent {
   onSelectChange(event: any) {
     let IdDonVi = '';
     IdDonVi = event.id;
+    this.DonViId = event.id;
     this.taikhoanService.GetDataPhongBanByDvi(IdDonVi).subscribe(data => {
       if (data.isError) {
         console.log("Dữ liệu không hợp lệ")
@@ -125,7 +134,11 @@ export class ThemMoiComponent {
   }
 
   public ThemMoiDvth(): void {
-    this.dvThucHienDialog = true;
+    if (this.DonViId !== undefined) {
+      this.dvThucHienDialog = true;
+    } else {
+      this.service.add({ key: 'tst', severity: 'error', summary: 'Error Message', detail: 'Bạn cần chọn đơn vị' });
+    }
   }
 
   public ThoatDvThucHien(itemHt: any, loai: string): void {
@@ -133,6 +146,15 @@ export class ThemMoiComponent {
       this.dvThucHienDialog = false;
     else
       this.dvThucHienDialog = false;
+
+    if (this.cookieService.get('lstDonViThucHien') !== '') {
+      const LstDonViThucHien: DonViThucHien[] = JSON.parse(this.cookieService.get('lstDonViThucHien'));
+      this.DonViThucHien = LstDonViThucHien;
+    }
+  }
+
+  public LoadThemMoi() {
+    this.cookieService.delete('lstDonViThucHien');
   }
 
   transformJsonToCustomStructure(jsonData: any): DMJsonModel[] {

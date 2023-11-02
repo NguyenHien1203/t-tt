@@ -29,12 +29,12 @@
                 <p-fileUpload name="myfile[]" customUpload="true"  (uploadHandler)="onUpload($event)" accept="application/*"></p-fileUpload>
             </div>
             <div class="col-12 md:col-6">
-                <p-checkbox name="hienThi" formControlName="hienThi" (click)="CheckedHt()" class="mg-t-25" value="true"
+                <p-checkbox name="hienThi"  formControlName="hienThi" (click)="CheckedHt()" class="mg-t-25" value="true"
                     label="Hiển thị"></p-checkbox>
             </div>
         </div>
         <div class="field">
-            <ckeditor id="editor" [editor]="Editor" row [config]="getToolBar()" data=""></ckeditor>
+            <ckeditor #myEditor id="editor" [editor]="Editor"  row [config]="getToolBar()" data=""></ckeditor>
         </div>
 
     </ng-template>

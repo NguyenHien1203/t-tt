@@ -16,10 +16,10 @@
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
                     <p-dropdown [options]="lstThongBao" [(ngModel)]="timKiemDanhSach.trangThai"
-                        placeholder="--Chọn trạng thái--" [showClear]="false"></p-dropdown>
+                        placeholder="--Chọn trạng thái--" (ngModelChange)="SelectedTrangThai($event)" [showClear]="false"></p-dropdown>
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
-                    <p-dropdown [options]="lstHienThi" [(ngModel)]="timKiemDanhSach.hienThi"
+                    <p-dropdown [options]="lstHienThi" (ngModelChange)="SelectedHienThi($event)" [(ngModel)]="timKiemDanhSach.hienThi"
                         placeholder="--Chọn hình thức--" [showClear]="false"></p-dropdown>
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
@@ -34,7 +34,7 @@
                 </label>
             </div>
             <div class="div-center">
-                <button pButton pRipple type="button" icon="pi pi-search" (click)="(LoadDanhSach(timKiemDanhSach))"
+                <button pButton pRipple type="button" icon="pi pi-search" (click)="(LoadDanhSach())"
                     label="Tìm kiếm" class="p-button-info"></button>
             </div>
         </div>
@@ -117,13 +117,13 @@
                                     <div class="div-center">
                                         <button pButton pRipple icon="pi pi-send"
                                             class="p-button-rounded p-button-info mr-2"
-                                            (click)="Gui(loaiNhiemVu.id)"></button>
+                                            (click)="Gui(quanLyThongBao.id)"></button>
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
-                                            (click)="CapNhat(loaiNhiemVu.id)"></button>
+                                            (click)="CapNhat(quanLyThongBao.id)"></button>
                                         <button pButton pRipple icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"
-                                            (click)="Xoa(loaiNhiemVu.id)"></button>
+                                            (click)="Xoa(quanLyThongBao.id)"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -145,8 +145,9 @@
     </div>
 
     <app-them-moi [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
-    <!-- 
     <app-cap-nhat [hienThi]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat>
+    <!-- 
+    
     <p-confirmDialog #cd [style]="{width: '30vw'}">
         <ng-template pTemplate="header">
           <h3>Xác nhận</h3>

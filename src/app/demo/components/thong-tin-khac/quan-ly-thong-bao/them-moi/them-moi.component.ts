@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
-import { LoaiNhiemVuService } from 'src/app/demo/service/danh-muc/loai-nhiem-vu/loai-nhiem-vu.service';
 import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { UploadFileService } from 'src/app/demo/service/upload-file.service';
+import { QuanLyThongBaoService } from 'src/app/demo/service/thong-tin-khac/quan-ly-thong-bao.service';
 
 
 @Component({
@@ -15,12 +15,12 @@ import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 })
 export class ThemMoiComponent {
   uploadFiles: any;
-  pathFileUpload: string = '';
-  public checkHienThi : boolean = false;
+  public checkHienThi: boolean = false;
   public Editor = ClassicEditor;
+  @ViewChild('myEditor') myEditor: any;
   @Input() hienThi: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
-  public loaiNhiemvu: any = {};
+  public quanLyThongBao: any = {};
   public submitted: boolean = false;
   public formThemMoi = this.fb.group({
     id: [0, []],
@@ -29,10 +29,12 @@ export class ThemMoiComponent {
     ngayKetThuc: ["", []],
     donViId: [0, []],
     noiDung: ["", []],
-    hienThi: [false, []]
+    hienThi: [false, []],
+    fileName: ["", []],
+    filePath: ["", []],
   });
   constructor(private fb: FormBuilder
-    , private service: LoaiNhiemVuService
+    , private service: QuanLyThongBaoService
     , private messageService: MessageService
     , private authService: AuthService
     , private fileService: UploadFileService) { }
@@ -51,7 +53,8 @@ export class ThemMoiComponent {
       if (data.isError) {
         this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title });
       } else {
-        this.pathFileUpload = data.data;
+        this.formThemMoi.value.filePath = data.objData.filePath;
+        this.formThemMoi.value.fileName = data.objData.fileName;
         this.messageService.add({ severity: 'info', summary: 'Thành công', detail: data.title });
       }
     }, error => {
@@ -63,11 +66,14 @@ export class ThemMoiComponent {
   public ThemMoi(): void {
     this.submitted = true;
     if (this.formThemMoi.valid) {
-      this.loaiNhiemvu = this.formThemMoi.value;
-      this.loaiNhiemvu.donViId = this.authService.GetDonViLamViec();
-      this.loaiNhiemvu.createdBy = this.authService.GetmUserInfo()?.userId;
+      this.quanLyThongBao = this.formThemMoi.value;
+      this.quanLyThongBao.donViId = this.authService.GetDonViLamViec();
+      this.quanLyThongBao.userId = this.authService.GetmUserInfo()?.userId;
+      this.quanLyThongBao.hienThi = this.checkHienThi ? 1 : 0;
+      this.quanLyThongBao.noiDung = this.myEditor.editorInstance.getData();
+      console.log(this.formThemMoi)
 
-      this.service.themMoiLoaiNhiemVu(this.loaiNhiemvu).subscribe(
+      this.service.themMoiQuanLyThongBao(this.quanLyThongBao).subscribe(
         data => {
           console.log('data', data);
           let resData = data as ResponeMessage;

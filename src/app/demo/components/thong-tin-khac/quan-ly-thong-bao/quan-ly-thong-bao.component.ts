@@ -15,7 +15,7 @@ export class QuanLyThongBaoComponent implements OnInit {
     , private confirmService: ConfirmationService) { }
   public hienThiThemMoi: boolean = false;
   public hienThiCapNhat: boolean = false;
-  public id : string = "1";
+  public id: string = "1";
   public loading: boolean = true;
   public home = { icon: 'pi pi-home', routerLink: '/' };
   public items = [{ label: 'Thông tin khác' }, { label: 'Quản lý thông báo' }];
@@ -34,7 +34,7 @@ export class QuanLyThongBaoComponent implements OnInit {
   quanLyThongBaos: any[] = [];
   ngOnInit(): void {
     this.loading = false;
-    this.LoadDanhSach(this.timKiemDanhSach);
+    this.LoadDanhSach();
   }
 
   public ThemMoi(): void {
@@ -45,12 +45,21 @@ export class QuanLyThongBaoComponent implements OnInit {
     this.hienThiCapNhat = true;
     this.id = id;
   }
+
+  public SelectedTrangThai(event): void {
+    this.timKiemDanhSach.isHieuLuc = event;
+  }
+
+  public SelectedHienThi(event): void {
+    this.timKiemDanhSach.hienThi = event;
+  }
+
   public Thoat(itemHt: any, loai: string): void {
     if (loai === 'T')
       this.hienThiThemMoi = false;
     else
       this.hienThiCapNhat = false;
-    this.LoadDanhSach(this.timKiemDanhSach);
+    this.LoadDanhSach();
   }
 
   public onSelectMethod(event) {
@@ -58,14 +67,14 @@ export class QuanLyThongBaoComponent implements OnInit {
     this.timKiemDanhSach.tuNgay = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
   }
 
-  public LoadDanhSach(timKiemDanhSach: any): void {
+  public LoadDanhSach(): void {
     this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
-    this.service.getDanhSachQuanLyThongBao(timKiemDanhSach).then(data => { this.quanLyThongBaos = data })
+    this.service.getDanhSachQuanLyThongBao(this.timKiemDanhSach).then(data => { this.quanLyThongBaos = data })
   }
 
- 
-  public CheckedHt(): void {
 
+  public CheckedHt(): void {
+    this.timChinhXac = !this.timChinhXac;
   }
 
 }

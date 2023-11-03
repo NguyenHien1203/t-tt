@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { QuanLyThongBao, TimKiemDanhSach } from 'src/app/models/thong-tin-khac/quan-ly-thong-bao';
 import { environment } from 'src/environments/environment.development';
 import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,21 +22,25 @@ export class QuanLyThongBaoService {
       .then(res => res.objData as QuanLyThongBao[]);
   }
   getQuanLyThongBaoId(id: string) {
-    return this.http.get<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/GetQuanLyThongBaoById/' + id)
+    return this.http.get<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/GetThongBaoById/' + id)
       .pipe(
         map((response: any) => response.objData)
       );
   }
 
-  themMoiQuanLyThongBao(modelLienKet: any) {
-    return this.http.post<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/ThemMoiQuanLyThongBao', modelLienKet, this.httpOption)
+  getFile(id: string): Observable<any> {
+    return this.http.get(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/getFile/' + id);
   }
 
-  capNhatQuanLyThongBao(modelLienKet: any) {
-    return this.http.post<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/CapNhatQuanLyThongBao', modelLienKet, this.httpOption)
+  themMoiQuanLyThongBao(modelThongBao: any) {
+    return this.http.post<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/ThemMoiThongBao', modelThongBao, this.httpOption)
+  }
+
+  capNhatQuanLyThongBao(modelThongBao: any) {
+    return this.http.post<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/CapNhatThongBao', modelThongBao, this.httpOption)
   }
 
   xoaQuanLyThongBao(id: string) {
-    return this.http.get<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/DeleteQuanLyThongBao/' + id)
+    return this.http.get<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/DeleteThongBao/' + id)
   }
 }

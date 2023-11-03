@@ -1,3 +1,4 @@
+import { PhongBan } from './../../../../../models/danh-muc/phong-ban';
 import { DMJsonModel } from './../../../../../models/common/DMJsonModel';
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -15,6 +16,7 @@ export class CapNhatComponent implements OnInit {
   @Input() show: boolean = false;
   @Output() close = new EventEmitter<boolean>();
   @Input() id: string = '';
+  selectedPhongBan : string = '';
 
   unitTree: DMJsonModel[] = [];
   selectedUnit: '';
@@ -32,6 +34,9 @@ export class CapNhatComponent implements OnInit {
     thuTu: ["", []],
     hienThi: ["", []],
     donViIdPhongban: ["", []],
+    soHshienTai:  ["", []],
+    soHstruoc:  ["", []],
+
     parentId: ["", []],
     donViId: ["", []],
     phongBanId: ["", []],
@@ -46,6 +51,8 @@ export class CapNhatComponent implements OnInit {
   idPhongBan: any;
   checked: boolean = false;
   dataUpdate: any = {};
+  getIdDonVi: any;
+  getIdPhongBan: any;
   // DonViTree = DMJsonModel[] = [];
 
   ngOnInit() {
@@ -73,11 +80,28 @@ export class CapNhatComponent implements OnInit {
 
   onSelectChangeDonVi(event: any) {
     this.idDonVi = event.id;
+    // console.log(this.idDonVi);
     this.linhVucService.getDataDepart(this.idDonVi).subscribe(data => {
       if (data.isError) {
         console.log("Dự liệu không hợp lệ");
       } else {
         this.department = data.objData;
+        console.log("department", this.department);
+
+      }
+    }, (error) => {
+      console.log('Lỗi', error);
+    })
+  }
+
+  onSelectDepart(id: any) {
+    this.linhVucService.getDataDepart(id).subscribe(data => {
+      if (data.isError) {
+        console.log("Dự liệu không hợp lệ");
+      } else {
+        this.department = data.objData;
+        console.log("department11111", this.department);
+
       }
     }, (error) => {
       console.log('Lỗi', error);
@@ -86,18 +110,31 @@ export class CapNhatComponent implements OnInit {
 
   getDataField() {
     this.linhVucService.getIdField(this.id).subscribe(data => {
+
       const objDonViSl = this.filterItems(this.unitTree)
-      console.log(data);
-      data.donViId = objDonViSl;
+      this.getIdDonVi = data.donViIdPhongban;
+      console.log("getIdDonVi", this.getIdDonVi);
+      this.onSelectDepart(this.getIdDonVi);
+      // const objDepart = this.filterDepartItems(this.department)
+      this.getIdPhongBan = data.phongBanId;
+      // console.log("objDonVi", objDepart);
+      data.donViId = objDonViSl;          
+      // data.phongBanId = objDepart;
       this.formUpdate.setValue(data);
+      this.formUpdate.value.phongBanId = data.phongBanId;
+      this.selectedPhongBan = data.phongBanId;
+      console.log(  this.formUpdate.value.phongBanId)
+
     })
   }
 
   public filterItems(unitTree: DMJsonModel[]) {
     let filteredItems = [];
 
+    // console.log("unit tree", unitTree);
+
     unitTree.forEach(item => {
-      if (item.id === 159) {
+      if (item.id === this.getIdDonVi) {
         filteredItems.push(item);
       }
 
@@ -110,8 +147,25 @@ export class CapNhatComponent implements OnInit {
     return filteredItems;
   }
 
+  // public filterDepartItems(department: DMJsonModel[]) {
+  //   let filteredItems = [];
+
+  //   department.forEach(item => {
+  //     if (item.code === this.getIdPhongBan) {
+  //       filteredItems.push(item);
+  //     }
+
+  //     if (item.code) {
+  //       const nestedItems = this.filterDepartItems(item.children);
+  //       filteredItems = filteredItems.concat(nestedItems);
+  //     }
+  //   });
+
+  //   return filteredItems;
+  // }
+
   onSelectChangePhongBan(event: any) {
-    this.idPhongBan = event.code;
+    this.idPhongBan = event;
   }
 
   transformJsonCustomStructure(jsonData: any): DMJsonModel[] {

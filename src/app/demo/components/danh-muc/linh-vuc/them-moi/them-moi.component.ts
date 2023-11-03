@@ -33,10 +33,10 @@ export class ThemMoiComponent implements OnInit {
     ghiChu: ["", []],
     thuTu: ["", []],
     hienThi: ["", []],
-    donViIdPhongban: ["", []], //don vi
-    parentId: ["", []], // nhuw duowis
-    donViId: ["", []], //don-viid admin
-    phongBanId: ["", []], //phong-ban
+    donViIdPhongban: ["", []], 
+    parentId: ["", []], 
+    donViId: ["", []], 
+    phongBanId: ["", []], 
     created: [new Date(), []],
     createdBy: [0, []],
     lastModified: [new Date(), []],
@@ -70,17 +70,21 @@ export class ThemMoiComponent implements OnInit {
     })
   }
 
-  onSelectChangeDonVi(event: any) {
-    this.idDonVi = event.id;
-    this.linhVucService.getDataDepart(this.idDonVi).subscribe(data => {
-      if (data.isError) {
-        console.log("Dự liệu không hợp lệ");
-      } else {
-        this.department = data.objData;
-      }
-    }, (error) => {
-      console.log('Lỗi', error);
-    })
+  onSelectChangeDonVi() {
+    this.idDonVi = this.formCreate.value;
+    const ida = this.idDonVi.donViIdPhongban.id;
+    console.log(ida);
+    
+    // this.idDonVi = event.id;
+    // this.linhVucService.getDataDepart(ida).subscribe(data => {
+    //   if (data.isError) {
+    //     console.log("Dự liệu không hợp lệ");
+    //   } else {
+    //     this.department = data.objData;
+    //   }
+    // }, (error) => {
+    //   console.log('Lỗi', error);
+    // })
   }
 
   onSelectChangePhongBan(event: any) {
@@ -117,6 +121,7 @@ export class ThemMoiComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Tạo mới không thành công', life: 3000 });
       }
     });
+    this.formCreate.reset();
     this.closePopup();
   }
 }

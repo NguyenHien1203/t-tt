@@ -29,7 +29,7 @@
         </div>
         <div class="field col">
             <label for="phongBanId">Chọn phòng ban</label>
-            <p-dropdown appendTo="body" [options]="department" formControlName="phongBanId" optionLabel="name"
+            <p-dropdown appendTo="body" [options]="department" [(ngModel)]="selectedPhongBan"  formControlName="phongBanId" optionLabel="name"
                 (ngModelChange)="onSelectChangePhongBan($event)" placeholder="Chọn phòng ban"
                 [showClear]="true"></p-dropdown>
         </div>

@@ -1,9 +1,9 @@
+import { DMJsonModel } from './../../../../../models/common/DMJsonModel';
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { LinhVucService } from './../../../../service/danh-muc/linh-vuc/linh-vuc.service';
-import { DMJsonModel } from 'src/app/models/common/DMJsonModel';
 
 @Component({
   selector: 'app-cap-nhat',
@@ -46,6 +46,7 @@ export class CapNhatComponent implements OnInit {
   idPhongBan: any;
   checked: boolean = false;
   dataUpdate: any = {};
+  // DonViTree = DMJsonModel[] = [];
 
   ngOnInit() {
     this.GetDataUnit();
@@ -83,6 +84,32 @@ export class CapNhatComponent implements OnInit {
     })
   }
 
+  getDataField() {
+    this.linhVucService.getIdField(this.id).subscribe(data => {
+      const objDonViSl = this.filterItems(this.unitTree)
+      console.log(data);
+      data.donViId = objDonViSl;
+      this.formUpdate.setValue(data);
+    })
+  }
+
+  public filterItems(unitTree: DMJsonModel[]) {
+    let filteredItems = [];
+
+    unitTree.forEach(item => {
+      if (item.id === 159) {
+        filteredItems.push(item);
+      }
+
+      if (item.id) {
+        const nestedItems = this.filterItems(item.children);
+        filteredItems = filteredItems.concat(nestedItems);
+      }
+    });
+
+    return filteredItems;
+  }
+
   onSelectChangePhongBan(event: any) {
     this.idPhongBan = event.code;
   }
@@ -103,14 +130,6 @@ export class CapNhatComponent implements OnInit {
       customData.push(customModel);
     }
     return customData;
-  }
-
-  getDataField() {
-    this.linhVucService.getIdField(this.id).subscribe(data => {
-      console.log(data);
-      this.formUpdate.setValue(data);
-      console.log(this.formUpdate.value);
-    })
   }
 
   updatedField() {

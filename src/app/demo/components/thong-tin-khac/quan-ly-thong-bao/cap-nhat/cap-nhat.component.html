@@ -24,9 +24,7 @@
         <div class="grid formgrid">
             <div class="col-12 md:col-6">
                 <label htmlfor="tieuDe">File đính kèm<span class="p-error"> (*)</span>:</label>
-                <!-- <p-fileUpload mode="basic" name="demo[]" accept="image/*" maxFileSize="1000000"
-                    (onUpload)="onUpload($event)" [auto]="true" chooseLabel="File"></p-fileUpload> -->
-                <p-fileUpload name="myfile[]" customUpload="true"  (uploadHandler)="onUpload($event)" accept="application/*"></p-fileUpload>
+                <input type="file" class="file-input" (change)="onChange($event)" #fileUpload />
             </div>
             <div class="col-12 md:col-6">
                 <p-checkbox name="hienthi" formControlName="hienthi" (click)="CheckedHt()" class="mg-t-25" value="true"

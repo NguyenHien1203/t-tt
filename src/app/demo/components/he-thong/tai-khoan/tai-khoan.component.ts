@@ -1,18 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Message, MessageService } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { ProductService } from 'src/app/demo/service/product.service';
-import { Product } from 'src/app/demo/api/product';
-import { TaiKhoanService } from 'src/app/demo/service/he-thong/tai-khoan.service';
-import { TaiKhoan, TaiKhoanTimKiem } from 'src/app/models/he-thong/tai-khoan';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthService } from 'src/app/common/auth.services';
+import { Message, MessageService, ConfirmationService } from 'primeng/api';
+import { TaiKhoanService } from '../../../service/he-thong/tai-khoan.service';
+import { TaiKhoan, TaiKhoanTimKiem } from '../../../../models/he-thong/tai-khoan';
 
 @Component({
   selector: 'app-tai-khoan',
   templateUrl: './tai-khoan.component.html',
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class TaiKhoanComponent implements OnInit {
   msgs: Message[] = [];
@@ -53,11 +47,10 @@ export class TaiKhoanComponent implements OnInit {
   rowsPerPageOptions = [5, 10, 20];
 
   constructor(
-    private productService: ProductService,
+
     private messageService: MessageService,
     private taikhoanService: TaiKhoanService,
-    private cookieService: CookieService,
-    private authenService: AuthService
+    private confirmationService: ConfirmationService
   ) { }
   mUserInfo: any;
   ngOnInit() {
@@ -103,88 +96,43 @@ export class TaiKhoanComponent implements OnInit {
     this.taikhoanDialog = true;
   }
 
-  deleteSelectedProducts() {
-    this.deleteTaiKhoansDialog = true;
-  }
-
-  // editProduct(product: Product) {
-  //     this.product = { ...product };
-  //     this.productDialog = true;
+  // public editTaiKhoan(id: string): void {
+  //   this.hienThiCapNhat = true;
+  //   this.id = id;
   // }
 
-  // deleteProduct(product: Product) {
-  //     this.deleteProductDialog = true;
-  //     this.product = { ...product };
-  // }
 
-  confirmDeleteSelected() {
-    this.deleteTaiKhoansDialog = false;
-    this.taikhoans = this.taikhoans.filter(val => !this.selectedTaiKhoans.includes(val));
-    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-    this.selectedTaiKhoans = [];
-  }
-
-  confirmDelete() {
-    this.deleteTaiKhoanDialog = false;
-    this.taikhoans = this.taikhoans.filter(val => val.id !== this.taikhoan.id);
-    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-    this.taikhoan = {};
-  }
 
   hideDialog() {
     this.taikhoanDialog = false;
     this.submitted = false;
   }
 
-  // saveProduct() {
-  //   this.submitted = true;
 
-  //   if (this.product.name?.trim()) {
-  //     if (this.product.id) {
-  //       // @ts-ignore
-  //       this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
-  //       this.products[this.findIndexById(this.product.id)] = this.product;
-  //       this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-  //     } else {
-  //       this.product.id = this.createId();
-  //       this.product.code = this.createId();
-  //       this.product.image = 'product-placeholder.svg';
-  //       // @ts-ignore
-  //       this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
-  //       this.products.push(this.product);
-  //       this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
-  //     }
+  public deleteTaiKhoan(id: string) {
 
-  //     this.products = [...this.products];
-  //     this.productDialog = false;
-  //     this.product = {};
-  //   }
-  // }
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn muốn xóa tài khoản?',
+      header: 'Xác nhận',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.taikhoanService.DeleteTaiKhoan(id).subscribe(data => {
+          if (data.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+          } else {
+            this.GetDanhSachTaiKhoan();
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+          }
+        }, (error) => {
+          console.log('Error', error);
+        })
+      },
+      reject: () => {
 
-  // findIndexById(id: string): number {
-  //   let index = -1;
-  //   for (let i = 0; i < this.products.length; i++) {
-  //     if (this.products[i].id === id) {
-  //       index = i;
-  //       break;
-  //     }
-  //   }
-
-  //   return index;
-  // }
-
-  createId(): string {
-    let id = '';
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
+      }
+    });
   }
 
-  onGlobalFilter(table: Table, event: Event) {
-    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-  }
 }
 
 

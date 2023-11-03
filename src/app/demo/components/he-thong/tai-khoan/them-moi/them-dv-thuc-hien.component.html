@@ -5,11 +5,11 @@
             <div class="field col-12 md:col-6 mb-0">
                 <label htmlfor="tenDangNhap">Đơn vị <span class="p-error">(*)</span></label>
                 <p-treeSelect appendTo="body" [filterInputAutoFocus]="true" [filter]="true"  class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="donViTh"
-                [options]="DonViTHTree" placeholder="Chọn đơn vị" (ngModelChange)="onSelectChangeDvth($event)"></p-treeSelect>
+                [options]="DonViTHTree" placeholder="Chọn đơn vị" ></p-treeSelect>
             </div>
             <div class="field col-12 md:col-6 mb-0">
                 <label htmlfor="gioiTinh">Nhóm quyền</label>
-                <p-dropdown appendTo="body" [options]="NhomQuyenTHOption" formControlName="nhomQuyenTh" optionLabel="name" placeholder="Chọn nhóm quyền" (ngModelChange)="onSelectChangeNhomQuyen($event)"></p-dropdown>
+                <p-dropdown appendTo="body" [options]="NhomQuyenTHOption" formControlName="nhomQuyenTh" optionLabel="name" placeholder="Chọn nhóm quyền"></p-dropdown>
             </div>
         </div>
 

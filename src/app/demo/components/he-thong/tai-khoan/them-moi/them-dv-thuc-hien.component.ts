@@ -12,16 +12,17 @@ import { DIR_DOCUMENT } from '@angular/cdk/bidi';
 })
 export class ThemDvThucHienComponent {
   @Input() hienThidvth: boolean = false;
-  @Output() tatPopup = new EventEmitter<boolean>();
   @Input() DonViThId: string = '1';
+  @Output() tatPopup = new EventEmitter<boolean>();
+  @Output() luuDonVi = new EventEmitter<any>();
 
-  lstDonViThucHien: DonViThucHien[] = [];
+  // lstDonViThucHien: DonViThucHien[] = [];
 
   DonViThucHien: DonViThucHien = {
     IdDonVi: '',
-    IdPhongBan: '',
+    IdNhomQuyen: '',
     TenDonVi: '',
-    TenPhongBan: ''
+    TenNhomQuyen: ''
   };
 
   DonViTHTree: DMJsonModel[] = [];
@@ -39,29 +40,7 @@ export class ThemDvThucHienComponent {
   });
 
   public SubmitDvth(): void {
-    console.log(this.DonViThucHien);
-    let exists = false;
-    debugger;
-    if (this.cookieService.get('lstDonViThucHien') !== '') {
-      const lstDvth_TonTai: DonViThucHien[] = JSON.parse(this.cookieService.get('lstDonViThucHien'));
-      for (const item of lstDvth_TonTai) {
-        if (item.IdDonVi === this.DonViThucHien.IdDonVi && item.IdPhongBan == this.DonViThucHien.IdPhongBan) {
-          exists = true;
-          break;
-        }
-      }
-    } else {
-      this.lstDonViThucHien = [];
-    }
-
-    if (exists) {
-      console.log("Đối tượng tồn tại trong mảng.");
-    } else {
-      this.lstDonViThucHien.push(this.DonViThucHien);
-      this.cookieService.set('lstDonViThucHien', JSON.stringify(this.lstDonViThucHien));
-    }
-    console.log(this.lstDonViThucHien);
-
+    this.luuDonVi.emit(this.formThemMoidvth.value);
     this.ThoatDvThucHien();
   }
 
@@ -74,6 +53,8 @@ export class ThemDvThucHienComponent {
   public BindDataDVTH(): void {
     this.GetTreeDonViThucHien();
     this.GetNhomQuyen();
+
+
   }
 
   public GetTreeDonViThucHien() {
@@ -99,27 +80,6 @@ export class ThemDvThucHienComponent {
       console.log('Error', error);
     })
   }
-
-  /**
-   * name
-   */
-  public onSelectChangeDvth(event) {
-    if (event != undefined) {
-      this.DonViThucHien.IdDonVi = event.id;
-      this.DonViThucHien.TenDonVi = event.label;
-    }
-  }
-
-  /**
-   * lấy giá trị select
-   */
-  public onSelectChangeNhomQuyen(event) {
-    if (event != undefined) {
-      this.DonViThucHien.IdPhongBan = event.code;
-      this.DonViThucHien.TenPhongBan = event.name;
-    }
-  }
-
 
   transformJsonToCustomStructure(jsonData: any): DMJsonModel[] {
     const customData: DMJsonModel[] = [];

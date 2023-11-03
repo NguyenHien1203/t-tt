@@ -3,7 +3,7 @@ export interface mUserInfo{
     userId :string;
     userAdmin : string;
     userName : string
-    lstNhom : any[];
+    // lstNhom : any[];
     quyenQuanTri : boolean;
     localIP : string;
     isAuthenticated : boolean;
@@ -19,10 +19,10 @@ export interface mUserInfo{
     maPhanCapDonVi :string;
     tenDonVi:string;
     curentSession:string;
-    lstMenuInRoles : any[];
-    menuCha : any[];
-    menuCon :any[];
-    nut : any[];
+    // lstMenuInRoles : any[];
+    // menuCha : any[];
+    // menuCon :any[];
+    // nut : any[];
     nhomQuyenId :string;
     loai :string;
     name:string;

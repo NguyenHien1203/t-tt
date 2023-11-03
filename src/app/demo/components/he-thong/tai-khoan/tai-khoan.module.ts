@@ -22,6 +22,8 @@ import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ThemDvThucHienComponent } from './them-moi/them-dv-thuc-hien.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -43,8 +45,9 @@ import { ThemDvThucHienComponent } from './them-moi/them-dv-thuc-hien.component'
     ReactiveFormsModule,
     BreadcrumbModule,
     TreeModule,
-    TreeSelectModule
+    TreeSelectModule,
+    ConfirmDialogModule
   ],
-  declarations: [TaiKhoanComponent, ThemMoiComponent, ThemDvThucHienComponent]
+  declarations: [TaiKhoanComponent, ThemMoiComponent, ThemDvThucHienComponent, CapNhatComponent]
 })
 export class TaiKhoanModule { }

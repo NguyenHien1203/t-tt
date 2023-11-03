@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { DonViThucHien, TaiKhoan, TaiKhoanTimKiem } from 'src/app/models/he-thong/tai-khoan';
 import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/common/auth.services';
-import { JsonPipe } from '@angular/common';
+import { AuthService } from '../../../common/auth.services';
 
 @Injectable({
     providedIn: 'root'

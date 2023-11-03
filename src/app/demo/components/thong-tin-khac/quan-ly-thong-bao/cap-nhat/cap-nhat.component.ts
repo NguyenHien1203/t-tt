@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -17,7 +18,7 @@ export class CapNhatComponent {
   uploadedFile: Blob;
   public Editor = ClassicEditor;
   @ViewChild('myEditor') myEditor: any;
-  @Input() hienThi: boolean = false;
+  @Input() show: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
   @Input() id: string = '1';
   submitted: boolean = false;
@@ -27,20 +28,19 @@ export class CapNhatComponent {
   public formCapNhat = this.fb.group({
     id: [0, []],
     tieuDe: ["", [Validators.required]],
-    ngayBatDau: ["", []],
-    ngayKetThuc: ["", []],
+    ngayBatDau: [[''], []],
+    ngayKetThuc: [[''], []],
     donViId: [0, []],
     noiDung: ["", []],
-    hienThi: [0, []],
+    hienthi: [0, []],
     created: [0, []],
     trangThai: [0, []],
   });
 
   public BindDataDialog(): void {
     this.service.getQuanLyThongBaoId(this.id).subscribe(data => {
-      // this.checked = data?.hienThi;
-      console.log(data)
-      this.formCapNhat.value.hienThi  = data?.hienThi;
+      data.ngayBatDau = formatDate(data.ngayBatDau, 'dd/MM/yyyy', 'en_US');
+      data.ngayKetThuc = formatDate(data.ngayKetThuc, 'dd/MM/yyyy', 'en_US');
       this.formCapNhat.setValue(data);
     })
 
@@ -66,8 +66,8 @@ export class CapNhatComponent {
   }
 
   public Thoat(): void {
-    this.hienThi = false;
-    this.tatPopup.emit(this.hienThi);
+    this.show = false;
+    this.tatPopup.emit(this.show);
   }
 
   public CapNhat(): void {

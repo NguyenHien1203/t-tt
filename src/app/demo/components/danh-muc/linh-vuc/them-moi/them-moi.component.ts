@@ -21,41 +21,42 @@ export class ThemMoiComponent implements OnInit {
   department = [];
   selectedDepart: '';
 
-  constructor(private linhVucService: LinhVucService, private formBuilder: FormBuilder, private authService: AuthService, private messageService: MessageService) { }
-
-  checkboxValue: boolean = false;
-
-  submitted = false;
   public formCreate = this.formBuilder.group({
     id: [0, []],
-    tenLinhVuc: ["", [Validators.required]],
     vietTat: ["", [Validators.required]],
-    ghiChu: ["", []],
+    tenLinhVuc: ["", [Validators.required]],
     thuTu: ["", []],
     hienThi: ["", []],
-    donViIdPhongban: ["", []], 
-    parentId: ["", []], 
-    donViId: ["", []], 
-    phongBanId: ["", []], 
+    ghiChu: ["", []],
+    donViId: ["", []],
+    phongBanId: ["", []],
+    parentId: ["", []],
+    soHshientai: [0, []],
+    soHstruoc: [0, []],
     created: [new Date(), []],
     createdBy: [0, []],
     lastModified: [new Date(), []],
     lastModifiedBy: [0, []],
+    donViIdPhongban: ["", []],
   });
 
-  idDonVi: any;
-  idPhongBan: any;
+  valueFormCreate: any;
+
   checked: boolean = false;
+
+  submitted = false;
+
+  constructor(private linhVucService: LinhVucService, private formBuilder: FormBuilder, private authService: AuthService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.GetDataUnit();
-    // console.log(this.authService.GetmUserInfo());
-    // console.log(this.authService.GetDonViLamViec());
   }
 
   public closePopup() {
+    this.submitted = false;
     this.show = false;
     this.close.emit(this.show);
+    this.formCreate.reset();
   }
 
   public GetDataUnit() {
@@ -70,25 +71,19 @@ export class ThemMoiComponent implements OnInit {
     })
   }
 
-  onSelectChangeDonVi() {
-    this.idDonVi = this.formCreate.value;
-    const ida = this.idDonVi.donViIdPhongban.id;
-    console.log(ida);
-    
-    // this.idDonVi = event.id;
-    // this.linhVucService.getDataDepart(ida).subscribe(data => {
-    //   if (data.isError) {
-    //     console.log("Dự liệu không hợp lệ");
-    //   } else {
-    //     this.department = data.objData;
-    //   }
-    // }, (error) => {
-    //   console.log('Lỗi', error);
-    // })
-  }
-
-  onSelectChangePhongBan(event: any) {
-    this.idPhongBan = event.code;
+  onSelectChangeDonVi(event: any) {
+    if (event) {
+      const id = event.id;
+      this.linhVucService.getDataDepart(id).subscribe(data => {
+        if (data.isError) {
+          console.log("Dự liệu không hợp lệ");
+        } else {
+          this.department = data.objData;
+        }
+      }, (error) => {
+        console.log('Lỗi', error);
+      })
+    }
   }
 
   transformJsonCustomStructure(jsonData: any): DMJsonModel[] {
@@ -110,18 +105,25 @@ export class ThemMoiComponent implements OnInit {
   }
 
   public createField() {
+    this.submitted = true;
+    this.valueFormCreate = this.formCreate.value;
+
     this.formCreate.value.donViId = this.authService.GetmUserInfo().donViId;
-    this.formCreate.value.donViIdPhongban = this.idDonVi;
     this.formCreate.value.parentId = this.authService.GetmUserInfo().donViId;
-    this.formCreate.value.phongBanId = this.idPhongBan;
-    this.linhVucService.createField(this.formCreate.value).subscribe(data => {
-      if (data.code == 200) {
-        this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Tạo mới thành công', life: 3000 });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Tạo mới không thành công', life: 3000 });
-      }
-    });
-    this.formCreate.reset();
-    this.closePopup();
+    
+    this.formCreate.value.phongBanId = this.valueFormCreate.phongBanId.code ?? 0;
+    this.formCreate.value.donViIdPhongban = this.valueFormCreate.donViIdPhongban.id ?? 0;
+
+    if (this.formCreate.valid) {
+      this.linhVucService.createField(this.formCreate.value).subscribe(data => {
+        if (data.code == 200) {
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Tạo mới thành công', life: 3000 });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Tạo mới không thành công', life: 3000 });
+        }
+      });
+      this.closePopup();
+      this.formCreate.reset();
+    }
   }
 }

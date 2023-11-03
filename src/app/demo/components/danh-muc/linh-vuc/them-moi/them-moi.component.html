@@ -25,22 +25,15 @@
             <div class="field col">
                 <label for="donVi">Chọn tên đơn vị</label>
                 <p-treeSelect appendTo="body" [filterInputAutoFocus]="true" [filter]="true"
-                    (ngModelChange)="onSelectChangeDonVi()" formControlName="donViId" [options]="unitTree"
+                    (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViIdPhongban" [options]="unitTree"
                     placeholder="Chọn đơn vị"></p-treeSelect>
             </div>
             <div class="field col">
                 <label for="phongBanId">Chọn phòng ban</label>
                 <p-dropdown appendTo="body" [options]="department" formControlName="phongBanId" optionLabel="name"
-                    (ngModelChange)="onSelectChangePhongBan($event)" placeholder="Chọn phòng ban"
+                     placeholder="Chọn phòng ban"
                     [showClear]="true"></p-dropdown>
             </div>
-            <!-- <div class="field col">
-                <div style="display: grid;">
-                    <label for="ny">Hiển thị</label>
-                    <p-checkbox class="mt-4" name="hienThi" formControlName="hienThi" value="true"  
-                        (click)="change()"></p-checkbox>
-                </div>
-            </div> -->
             <div class="field col">
                 <div style="display: grid;">
                     <label for="hienThi">Hiển thị</label>
@@ -51,7 +44,7 @@
         </div>
         <div class="field">
             <label for="ghiChu">Ghi chú</label>
-            <textarea id="ghiChu" formControlName="ghiChu" pInputTextarea required rows="3" cols="20"></textarea>
+            <textarea id="ghiChu" formControlName="ghiChu" pInputTextarea rows="3" cols="20"></textarea>
         </div>
         <ng-template pTemplate="footer">
             <button pButton pRipple label="Lưu" (click)="createField()" icon="pi pi-check" class="p-button-info"></button>

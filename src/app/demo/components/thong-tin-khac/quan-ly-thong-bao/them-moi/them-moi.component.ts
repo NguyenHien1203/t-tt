@@ -6,6 +6,7 @@ import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { QuanLyThongBaoService } from 'src/app/demo/service/thong-tin-khac/quan-ly-thong-bao.service';
+import { throwError } from 'rxjs';
 
 
 @Component({
@@ -14,11 +15,11 @@ import { QuanLyThongBaoService } from 'src/app/demo/service/thong-tin-khac/quan-
   styleUrls: ['./them-moi.component.scss']
 })
 export class ThemMoiComponent {
-  uploadFiles: any;
+  file: File | null = null; // Variable to store file
   public checkHienThi: boolean = false;
   public Editor = ClassicEditor;
   @ViewChild('myEditor') myEditor: any;
-  @Input() hienThi: boolean = false;
+  @Input() show: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
   public quanLyThongBao: any = {};
   public submitted: boolean = false;
@@ -40,27 +41,26 @@ export class ThemMoiComponent {
     , private fileService: UploadFileService) { }
 
   public Thoat(): void {
-    this.hienThi = false;
+    this.show = false;
     this.formThemMoi.reset();
-    this.tatPopup.emit(this.hienThi);
+    this.tatPopup.emit(this.show);
   }
 
-  onUpload(event) {
-    for (let file of event.files) {
-      this.uploadFiles = file;
-    }
-    this.fileService.postFile(this.uploadFiles).subscribe(data => {
-      if (data.isError) {
-        this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title });
-      } else {
-        this.formThemMoi.value.filePath = data.objData.filePath;
-        this.formThemMoi.value.fileName = data.objData.fileName;
-        this.messageService.add({ severity: 'info', summary: 'Thành công', detail: data.title });
-      }
-    }, error => {
-      console.log(error);
-    });
+  onChange(event: any) {
+    const file: File = event.target.files[0];
 
+    if (file) {
+      this.file = file;
+      this.fileService.uploadFile(this.file).subscribe({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Tải lên thành công' });
+        },
+        error: (error: any) => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Tải lên thất bại' });
+          return throwError(() => error);
+        },
+      });;
+    }
   }
 
   public ThemMoi(): void {
@@ -71,7 +71,6 @@ export class ThemMoiComponent {
       this.quanLyThongBao.userId = this.authService.GetmUserInfo()?.userId;
       this.quanLyThongBao.hienThi = this.checkHienThi ? 1 : 0;
       this.quanLyThongBao.noiDung = this.myEditor.editorInstance.getData();
-      console.log(this.formThemMoi)
 
       this.service.themMoiQuanLyThongBao(this.quanLyThongBao).subscribe(
         data => {
@@ -109,5 +108,4 @@ export class ThemMoiComponent {
   public CheckedHt(): void {
     this.checkHienThi = !this.checkHienThi;
   }
-
 }

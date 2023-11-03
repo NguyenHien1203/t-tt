@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="hienThi" [formGroup]="formThemMoi" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
+<p-dialog [(visible)]="show" [formGroup]="formThemMoi" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
     [style]="{width: '950px'}" [modal]="true" header="Thêm mới thông báo" class="p-fluid">
     <ng-template pTemplate="content">
         <div class="field">
@@ -24,23 +24,34 @@
         <div class="grid formgrid">
             <div class="col-12 md:col-6">
                 <label htmlfor="tieuDe">File đính kèm<span class="p-error"> (*)</span>:</label>
-                <!-- <p-fileUpload mode="basic" name="demo[]" accept="image/*" maxFileSize="1000000"
-                    (onUpload)="onUpload($event)" [auto]="true" chooseLabel="File"></p-fileUpload> -->
-                <p-fileUpload name="myfile[]" customUpload="true"  (uploadHandler)="onUpload($event)" accept="application/*"></p-fileUpload>
+                &nbsp;<label for="fileUpload" class="custom-file-upload">
+                    <i class="pi pi-upload"></i> Chọn tệp
+                  </label>
+                  <input
+                    type="file"
+                    id="fileUpload"
+                    class="file-input"
+                    (change)="onChange($event)"
+                    #fileUpload
+                    style="display: none;"
+                  />
+                <div *ngIf="file">
+                    <section class="file-info">
+                        <ul>
+                            <li>Tên file: {{file.name}} | {{(file.size/1000).toFixed(2)}} MB<a href="" >&nbsp;<i class="pi pi-trash"></i></a></li>
+                        </ul>
+                    </section>
+                </div>
             </div>
             <div class="col-12 md:col-6">
-                <p-checkbox name="hienThi"  formControlName="hienThi" (click)="CheckedHt()" class="mg-t-25" value="true"
+                <p-checkbox name="hienThi" formControlName="hienThi" (click)="CheckedHt()" class="mg-t-25" value="true"
                     label="Hiển thị"></p-checkbox>
             </div>
         </div>
         <div class="field">
-            <ckeditor #myEditor id="editor" [editor]="Editor"  row [config]="getToolBar()" data=""></ckeditor>
+            <ckeditor #myEditor id="editor" [editor]="Editor" row [config]="getToolBar()" data=""></ckeditor>
         </div>
-
     </ng-template>
-
-
-
     <ng-template pTemplate="footer">
         <button pbutton="" pripple="" type="submit" label="Info"
             class="p-element p-ripple p-button-info p-button p-component" ng-reflect-label="Info"

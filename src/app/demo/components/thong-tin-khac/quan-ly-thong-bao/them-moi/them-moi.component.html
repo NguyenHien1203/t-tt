@@ -10,21 +10,21 @@
                 lòng nhập tiêu đề</span>
         </div>
         <div class="grid formgrid">
-            <div class="col-12 md:col-6" for="tuNgay">
-                <label htmlfor="tuNgay">Từ ngày:</label>
+            <div class="col-12 md:col-6" for="ngayBatDau">
+                <label htmlfor="ngayBatDau">Từ ngày:</label>
                 <p-calendar id="tuNgay" formControlName="ngayBatDau" appendTo="body" [showIcon]="true"
-                    dateFormat="dd/mm/yy" for inputId="icon"></p-calendar>
+                    dateFormat="dd/mm/yy"  inputId="icon"></p-calendar>
             </div>
-            <div class="col-12 md:col-6" for="denNgay">
-                <label htmlfor="denNgay">Đến ngày:</label>
+            <div class="col-12 md:col-6" for="ngayKetThuc">
+                <label htmlfor="ngayKetThuc">Đến ngày:</label>
                 <p-calendar id="denNgay" formControlName="ngayKetThuc" appendTo="body" [showIcon]="true"
-                    dateFormat="dd/mm/yy" for inputId="icon"></p-calendar>
+                    dateFormat="dd/mm/yy"  inputId="icon"></p-calendar>
             </div>
         </div>
         <div class="grid formgrid">
             <div class="col-12 md:col-6">
                 <label htmlfor="tieuDe">File đính kèm<span class="p-error"> (*)</span>:</label>
-                &nbsp;<label for="fileUpload" class="custom-file-upload">
+                &nbsp;<label for="fileUpload" class="custom-file-upload" *ngIf="!file">
                     <i class="pi pi-upload"></i> Chọn tệp
                   </label>
                   <input
@@ -38,7 +38,7 @@
                 <div *ngIf="file">
                     <section class="file-info">
                         <ul>
-                            <li>Tên file: {{file.name}} | {{(file.size/1000).toFixed(2)}} MB<a href="" >&nbsp;<i class="pi pi-trash"></i></a></li>
+                            <li>Tên file: <a href="{{relativePath}}" target="_blank">{{file.name}}</a><a href="javascript:;" (click)="XoaFile()">&nbsp;<i class="pi pi-trash"></i></a></li>
                         </ul>
                     </section>
                 </div>
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="field">
-            <ckeditor #myEditor id="editor" [editor]="Editor" row [config]="getToolBar()" data=""></ckeditor>
+            <ckeditor #myEditor id="editor" formControlName="noiDung" [editor]="Editor" row [config]="getToolBar()" data=""></ckeditor>
         </div>
     </ng-template>
     <ng-template pTemplate="footer">

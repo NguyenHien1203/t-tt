@@ -23,16 +23,33 @@
         </div>
         <div class="grid formgrid">
             <div class="col-12 md:col-6">
-                <label htmlfor="tieuDe">File đính kèm<span class="p-error"> (*)</span>:</label>
-                <input type="file" class="file-input" (change)="onChange($event)" #fileUpload />
+                <label htmlfor="tieuDe">File đính kèm:</label>
+                &nbsp;<label for="fileUpload" class="custom-file-upload" *ngIf="!file">
+                    <i class="pi pi-upload"></i> Chọn tệp
+                  </label>
+                  <input
+                    type="file"
+                    id="fileUpload"
+                    class="file-input"
+                    (change)="onChange($event)"
+                    #fileUpload
+                    style="display: none;"
+                  />
+                <div *ngIf="file">
+                    <section class="file-info">
+                        <ul>
+                            <li>Tên file: <a href="{{relativePath}}" target="_blank">{{file.name}}</a><a href="javascript:;" (click)="XoaFile()">&nbsp;<i class="pi pi-trash"></i></a></li>
+                        </ul>
+                    </section>
+                </div>
             </div>
             <div class="col-12 md:col-6">
-                <p-checkbox name="hienthi" formControlName="hienthi" (click)="CheckedHt()" class="mg-t-25" value="true"
+                    <p-checkbox name="hienThi" binary="true" [(ngModel)]="checked" formControlName="hienThi"  (click)="CheckedHt()" class="mg-t-25" value="true"
                     label="Hiển thị"></p-checkbox>
             </div>
         </div>
         <div class="field">
-            <ckeditor id="editor" [editor]="Editor" row [config]="getToolBar()" data=""></ckeditor>
+            <ckeditor id="editor" [editor]="Editor" formControlName="noiDung" row [config]="getToolBar()" data=""></ckeditor>
         </div>
 
     </ng-template>
@@ -42,7 +59,7 @@
     <ng-template pTemplate="footer">
         <button pbutton="" pripple="" type="submit" label="Info"
             class="p-element p-ripple p-button-info p-button p-component" ng-reflect-label="Info"
-            (click)="ThemMoi()"><span class="p-button-label">Lưu</span><span class="p-ink"></span></button>
+            (click)="CapNhat()"><span class="p-button-label">Lưu</span><span class="p-ink"></span></button>
         <button pbutton="" pripple="" type="button" label="Info"
             class="p-element p-ripple p-button-danger p-button p-component" ng-reflect-label="Danger"
             (click)="Thoat()"><span class="p-button-label">Hủy</span><span class="p-ink"></span></button>

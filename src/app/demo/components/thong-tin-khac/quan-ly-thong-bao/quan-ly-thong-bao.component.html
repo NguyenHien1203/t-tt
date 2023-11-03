@@ -15,15 +15,15 @@
                         [(ngModel)]="timKiemDanhSach.keyWord" />
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
-                    <p-dropdown [options]="lstThongBao" [(ngModel)]="timKiemDanhSach.trangThai"
-                        placeholder="--Chọn trạng thái--" (ngModelChange)="SelectedTrangThai($event)" [showClear]="false"></p-dropdown>
+                    <p-dropdown [options]="lstHienThi" optionValue="value"  [(ngModel)]="timKiemDanhSach.hienThi"
+                        placeholder="Chọn hình thức" [showClear]="false"></p-dropdown>
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
-                    <p-dropdown [options]="lstHienThi" (ngModelChange)="SelectedHienThi($event)" [(ngModel)]="timKiemDanhSach.hienThi"
-                        placeholder="--Chọn hình thức--" [showClear]="false"></p-dropdown>
+                    <p-dropdown [options]="lstThongBao" optionValue="value" [(ngModel)]="timKiemDanhSach.isHieuLuc"
+                        placeholder="Chọn trạng thái"  [showClear]="false"></p-dropdown>
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
-                        <p-calendar [(ngModel)]="timKiemDanhSach.tuNgay"  dateFormat="dd/mm/yy"  placeholder="Từ ngày"></p-calendar>
+                        <p-calendar [(ngModel)]="timKiemDanhSach.tuNgay" dateFormat="dd/mm/yy"  placeholder="Từ ngày"></p-calendar>
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
                     <p-calendar [(ngModel)]="timKiemDanhSach.denNgay"  dateFormat="dd/mm/yy"  placeholder="Đến ngày"></p-calendar>
@@ -146,8 +146,6 @@
 
     <app-them-moi [show]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
     <app-cap-nhat [show]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat>
-    <!-- 
-    
     <p-confirmDialog #cd [style]="{width: '30vw'}">
         <ng-template pTemplate="header">
           <h3>Xác nhận</h3>
@@ -164,5 +162,5 @@
             <span class="p-ink"></span>
           </button>
         </ng-template>
-      </p-confirmDialog> -->
+      </p-confirmDialog> 
     <p-toast></p-toast>

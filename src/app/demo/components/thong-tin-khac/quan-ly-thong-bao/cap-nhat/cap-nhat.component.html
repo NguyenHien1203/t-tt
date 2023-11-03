@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="hienThi" [formGroup]="formCapNhat" (onShow)="BindDataDialog()" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
+<p-dialog [(visible)]="show" [formGroup]="formCapNhat" (onShow)="BindDataDialog()" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
     [style]="{width: '950px'}" [modal]="true" header="Thêm mới thông báo" class="p-fluid">
     <ng-template pTemplate="content">
         <div class="field">
@@ -29,7 +29,7 @@
                 <p-fileUpload name="myfile[]" customUpload="true"  (uploadHandler)="onUpload($event)" accept="application/*"></p-fileUpload>
             </div>
             <div class="col-12 md:col-6">
-                <p-checkbox name="hienThi" formControlName="hienThi" (click)="CheckedHt()" class="mg-t-25" value="true"
+                <p-checkbox name="hienthi" formControlName="hienthi" (click)="CheckedHt()" class="mg-t-25" value="true"
                     label="Hiển thị"></p-checkbox>
             </div>
         </div>

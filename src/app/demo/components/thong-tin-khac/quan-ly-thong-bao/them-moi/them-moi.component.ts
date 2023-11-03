@@ -18,7 +18,7 @@ export class ThemMoiComponent {
   public checkHienThi: boolean = false;
   public Editor = ClassicEditor;
   @ViewChild('myEditor') myEditor: any;
-  @Input() hienThi: boolean = false;
+  @Input() show: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
   public quanLyThongBao: any = {};
   public submitted: boolean = false;
@@ -40,9 +40,9 @@ export class ThemMoiComponent {
     , private fileService: UploadFileService) { }
 
   public Thoat(): void {
-    this.hienThi = false;
+    this.show = false;
     this.formThemMoi.reset();
-    this.tatPopup.emit(this.hienThi);
+    this.tatPopup.emit(this.show);
   }
 
   onUpload(event) {

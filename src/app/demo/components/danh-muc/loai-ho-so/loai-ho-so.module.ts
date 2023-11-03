@@ -23,10 +23,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { LoaiHoSoComponent } from './loai-ho-so.component';
+import { ThemMoiComponent } from './them-moi/them-moi.component';
+import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 
 
 @NgModule({
-  declarations: [LoaiHoSoComponent],
+  declarations: [LoaiHoSoComponent, ThemMoiComponent, CapNhatComponent],
   imports: [
     CommonModule,
     LoaiHoSoRoutingModule,

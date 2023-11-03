@@ -23,4 +23,14 @@ export class UploadFileService {
 
     return this.http.post(environment.baseUrlApi + "/ThongTinKhac/QuanLyThongBao/UploadFile", formData);
   }
+
+  uploadFile(file : any) : any {
+    if (file) {
+      const formData = new FormData();
+  
+      formData.append('file', file, file.name);
+  
+      return this.http.post("https://httpbin.org/post", formData);
+    }
+  }
 }

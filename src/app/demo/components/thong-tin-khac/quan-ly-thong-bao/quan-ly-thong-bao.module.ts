@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { QuanLyThongBaoRoutingModule } from './quan-ly-thong-bao-routing.module';
@@ -50,5 +50,6 @@ import { FileUploadModule } from 'primeng/fileupload';
     CommonModule,
     QuanLyThongBaoRoutingModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class QuanLyThongBaoModule { }

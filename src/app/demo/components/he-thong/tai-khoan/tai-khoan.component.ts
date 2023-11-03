@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Message, MessageService, ConfirmationService } from 'primeng/api';
-import { TaiKhoanService } from 'src/app/demo/service/he-thong/tai-khoan.service';
-import { TaiKhoan, TaiKhoanTimKiem } from 'src/app/models/he-thong/tai-khoan';
+import { TaiKhoanService } from '../../../service/he-thong/tai-khoan.service';
+import { TaiKhoan, TaiKhoanTimKiem } from '../../../../models/he-thong/tai-khoan';
 
 @Component({
   selector: 'app-tai-khoan',
@@ -47,7 +47,7 @@ export class TaiKhoanComponent implements OnInit {
   rowsPerPageOptions = [5, 10, 20];
 
   constructor(
-    
+
     private messageService: MessageService,
     private taikhoanService: TaiKhoanService,
     private confirmationService: ConfirmationService
@@ -101,7 +101,7 @@ export class TaiKhoanComponent implements OnInit {
   //   this.id = id;
   // }
 
- 
+
 
   hideDialog() {
     this.taikhoanDialog = false;

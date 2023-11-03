@@ -19,13 +19,15 @@ export class CapNhatPhongBanComponent implements OnInit {
   IdDonVi: any;
   Cap: any;
   MaDVPC: any;
+  checked: boolean = false;
+  parentId?: number;
   checkHt: boolean = false;
 
   public formCapNhat = this.formBuilder.group({
     id: [0, []],
     maDonVi: ["", []],
     tenDonVi: ["", []],
-    parentId: [0, []],
+    parentId: [[], []],
     url: ["", []],
     ngayTruyenThong: [new Date, []],
     diaChi: ["", []],
@@ -49,11 +51,34 @@ export class CapNhatPhongBanComponent implements OnInit {
 
   public BindDataDialog(): void {
     this.phongbanService.GetPhongBanById(this.id).subscribe(data => {
-      console.log(data)
-      let iteam = data;
-      this.formCapNhat.setValue(iteam);
+      this.parentId = data.objData.parentId;
+      this.checked = data.objData.trangThai;
+      const objDonViSl = this.filterItems(this.DonViTree)
+      data.objData.parentId = objDonViSl;
+      data.objData.ngayTruyenThong = new Date(data.objData.ngayTruyenThong);
+      this.formCapNhat.setValue(data.objData);
+      console.log(this.formCapNhat)
     })
   }
+
+  public filterItems(DonViTree: DMJsonModel[]) {
+    let filteredItems = [];
+
+    DonViTree.forEach(item => {
+      if (item.id === this.parentId) {
+        filteredItems.push(item);
+      }
+
+      if (item.id) {
+        const nestedItems = this.filterItems(item.children);
+        filteredItems = filteredItems.concat(nestedItems);
+      }
+    });
+
+    return filteredItems;
+  }
+
+
 
   public Thoat(): void {
     this.hienThi = false;

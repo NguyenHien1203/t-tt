@@ -13,10 +13,12 @@ export class LoaiNhiemVuComponent implements OnInit {
   constructor(private service: LoaiNhiemVuService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) { }
+
   ngOnInit(): void {
     this.loading = false;
     this.LoadDanhSach(this.timKiemDanhSach);
   }
+
   timChinhXac: boolean = false;
   timKiemDanhSach: TimKiemDanhSach = {
     keyWord: "",
@@ -34,8 +36,6 @@ export class LoaiNhiemVuComponent implements OnInit {
 
   LoadDanhSach(timKiemDanhSach: TimKiemDanhSach) {
     this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
-    console.log(this.timKiemDanhSach.timChinhXac)
-
     this.service.getDanhSachLoaiNhiemVu(timKiemDanhSach).then(data => { this.loaiNhiemVus = data })
   }
 

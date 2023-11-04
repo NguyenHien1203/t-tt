@@ -12,14 +12,15 @@ import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
   providers: [MessageService]
 })
 export class CapNhatComponent {
-  constructor(private service: LoaiNhiemVuService
-    , private messageService: MessageService
-    , private fb: FormBuilder
-    , private authService : AuthService) { };
-
   @Input() hienThi: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
   @Input() id: string = '1';
+
+  constructor(private service: LoaiNhiemVuService
+    , private messageService: MessageService
+    , private fb: FormBuilder
+    , private authService: AuthService) { };
+
   submitted: boolean = false;
   loaiNhiemVu: any = {};
 
@@ -30,11 +31,11 @@ export class CapNhatComponent {
     donViId: [0, ''],
     ngayTao: [new Date(), ''],
     createdBy: [0, ''],
-    tenNguoiTao : ["", ''],
-    tenDonVi : ["", ''],
+    tenNguoiTao: ["", ''],
+    tenDonVi: ["", ''],
   });
 
-  public BindDataDialog(): void {    
+  public BindDataDialog(): void {
     this.service.getLoaiNhiemVuId(this.id).subscribe(data => {
       this.formCapNhat.setValue(data);
     })
@@ -52,7 +53,6 @@ export class CapNhatComponent {
       this.loaiNhiemVu.donViId = this.authService.GetDonViLamViec();
       this.service.capNhatLoaiNhiemVu(this.loaiNhiemVu).subscribe(
         data => {
-          console.log('data', data);
           let resData = data as ResponeMessage;
           if (resData.isError) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });

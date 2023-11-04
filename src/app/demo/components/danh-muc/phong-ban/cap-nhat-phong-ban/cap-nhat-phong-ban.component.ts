@@ -13,7 +13,9 @@ import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
   styleUrls: ['./cap-nhat-phong-ban.component.scss']
 })
 export class CapNhatPhongBanComponent implements OnInit {
-
+  @Input() id: string = '';
+  @Input() hienThi: boolean = false;
+  @Output() tatPopup = new EventEmitter<boolean>();
 
   PhongBan: any = {};
   submitted = false;
@@ -45,9 +47,7 @@ export class CapNhatPhongBanComponent implements OnInit {
   });
 
   constructor(private route: ActivatedRoute, private phongbanService: PhongbanService, private formBuilder: FormBuilder, private messageService: MessageService) { }
-  @Input() id: string = '';
-  @Input() hienThi: boolean = false;
-  @Output() tatPopup = new EventEmitter<boolean>();
+  
 
   ngOnInit(): void {
     this.GetDataDonVi();

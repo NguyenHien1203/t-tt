@@ -117,7 +117,7 @@ export class ThemMoiComponent implements OnInit {
     if (this.formCreate.valid) {
       this.linhVucService.createField(this.formCreate.value).subscribe(data => {
         if (data.code == 200) {
-          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Tạo mới thành công', life: 3000 });
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
         } else {
           this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Tạo mới không thành công', life: 3000 });
         }

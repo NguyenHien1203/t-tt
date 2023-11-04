@@ -10,7 +10,7 @@ import { LoaiHoSo } from 'src/app/models/danh-muc/loai-ho-so';
 })
 export class LoaiHoSoService {
 
-  url = 'DanhMuc/LoaiHoSo/';
+  url = '/DanhMuc/LoaiHoSo/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -22,7 +22,7 @@ export class LoaiHoSoService {
 
   public getListRecords(records: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachLoaiHoSo', records).pipe(
-      map((response: any) => response.objData as LoaiHoSo[])
+      map((response: any) => response.objData.listLoaiHoSo as LoaiHoSo[])
     )
   }
 
@@ -36,8 +36,8 @@ export class LoaiHoSoService {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'ThemMoiLoaiHoSo', record, this.httpOptions)
   }
 
-  public updateRecord(record: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'CapNhatLoaiHoSo', record, this.httpOptions)
+  public updateRecord(record: any, id: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhatLoaiHoSo/${id}`, record, this.httpOptions)
   }
 
   public deleteRecord(id: any): Observable<any> {

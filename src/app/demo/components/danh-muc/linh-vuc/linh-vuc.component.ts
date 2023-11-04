@@ -52,8 +52,6 @@ export class LinhVucComponent implements OnInit {
     "donViIdPhongban": 0
   }
 
-  productDialog: boolean = false;
-
   submitted: boolean = false;
 
   deleteProductDialog: boolean = false;

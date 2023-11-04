@@ -80,14 +80,12 @@ export class CapNhatComponent implements OnInit {
 
   onSelectChangeDonVi(event: any) {
     this.idDonVi = event.id;
-    // console.log(this.idDonVi);
     this.linhVucService.getDataDepart(this.idDonVi).subscribe(data => {
       if (data.isError) {
         console.log("Dự liệu không hợp lệ");
       } else {
         this.department = data.objData;
         console.log("department", this.department);
-
       }
     }, (error) => {
       console.log('Lỗi', error);
@@ -100,8 +98,6 @@ export class CapNhatComponent implements OnInit {
         console.log("Dự liệu không hợp lệ");
       } else {
         this.department = data.objData;
-        console.log("department11111", this.department);
-
       }
     }, (error) => {
       console.log('Lỗi', error);
@@ -110,28 +106,26 @@ export class CapNhatComponent implements OnInit {
 
   getDataField() {
     this.linhVucService.getIdField(this.id).subscribe(data => {
-
+      
       const objDonViSl = this.filterItems(this.unitTree)
       this.getIdDonVi = data.donViIdPhongban;
-      console.log("getIdDonVi", this.getIdDonVi);
+
       this.onSelectDepart(this.getIdDonVi);
-      // const objDepart = this.filterDepartItems(this.department)
+
       this.getIdPhongBan = data.phongBanId;
-      // console.log("objDonVi", objDepart);
+ 
       data.donViId = objDonViSl;          
-      // data.phongBanId = objDepart;
       this.formUpdate.setValue(data);
+      console.log(data);
+      
       this.formUpdate.value.phongBanId = data.phongBanId;
       this.selectedPhongBan = data.phongBanId;
-      console.log(  this.formUpdate.value.phongBanId)
-
+      console.log(this.formUpdate.value.phongBanId)
     })
   }
 
   public filterItems(unitTree: DMJsonModel[]) {
     let filteredItems = [];
-
-    // console.log("unit tree", unitTree);
 
     unitTree.forEach(item => {
       if (item.id === this.getIdDonVi) {
@@ -146,23 +140,6 @@ export class CapNhatComponent implements OnInit {
 
     return filteredItems;
   }
-
-  // public filterDepartItems(department: DMJsonModel[]) {
-  //   let filteredItems = [];
-
-  //   department.forEach(item => {
-  //     if (item.code === this.getIdPhongBan) {
-  //       filteredItems.push(item);
-  //     }
-
-  //     if (item.code) {
-  //       const nestedItems = this.filterDepartItems(item.children);
-  //       filteredItems = filteredItems.concat(nestedItems);
-  //     }
-  //   });
-
-  //   return filteredItems;
-  // }
 
   onSelectChangePhongBan(event: any) {
     this.idPhongBan = event;

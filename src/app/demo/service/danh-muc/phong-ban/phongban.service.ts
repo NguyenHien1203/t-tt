@@ -42,7 +42,17 @@ export class PhongbanService {
   /**
    * Lấy dữ liệu phòng ban
    */
-  GetPhongBanById(id : string): Observable<any> {
-    return this.http.get<any>(this.baseApiUrl + '/DanhMuc/PhongBan/GetPhongBanById/' + id);
+  GetPhongBanById(id: string): Observable<any> {
+    return this.http.get<any>(this.baseApiUrl + '/DanhMuc/PhongBan/GetPhongBanById/' + id).pipe(
+      map((response: any) => response.objData)
+    );
+  }
+
+  CapNhatPhongBan(modelLienKet: any) {
+    return this.http.post<any>(this.baseApiUrl + '/DanhMuc/PhongBan/CapNhatPhongBan', modelLienKet, this.httpOption)
+  }
+
+  xoaPhongBan(id: string) {
+    return this.http.post<any>(this.baseApiUrl + '/DanhMuc/PhongBan/DeletePhongBan/' + id, this.httpOption)
   }
 }

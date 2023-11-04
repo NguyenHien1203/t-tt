@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { DmPhongBan } from 'src/app/demo/api/danh-muc/phong-ban';
 import { PhongbanService } from 'src/app/demo/service/danh-muc/phong-ban/phongban.service';
 import { DMJsonModel } from 'src/app/models/common/DMJsonModel';
+import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
 
 @Component({
   selector: 'app-cap-nhat-phong-ban',
@@ -12,6 +14,8 @@ import { DMJsonModel } from 'src/app/models/common/DMJsonModel';
 })
 export class CapNhatPhongBanComponent implements OnInit {
 
+
+  PhongBan: any = {};
   submitted = false;
   DonViTree: DMJsonModel[] = [];
   selectedDonVi: '';
@@ -40,7 +44,7 @@ export class CapNhatPhongBanComponent implements OnInit {
     trangThai: [false, []],
   });
 
-  constructor(private route: ActivatedRoute, private phongbanService: PhongbanService, private formBuilder: FormBuilder) { }
+  constructor(private route: ActivatedRoute, private phongbanService: PhongbanService, private formBuilder: FormBuilder, private messageService: MessageService) { }
   @Input() id: string = '';
   @Input() hienThi: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
@@ -51,16 +55,18 @@ export class CapNhatPhongBanComponent implements OnInit {
 
   public BindDataDialog(): void {
     this.phongbanService.GetPhongBanById(this.id).subscribe(data => {
-      this.parentId = data.objData.parentId;
-      this.checked = data.objData.trangThai;
+      this.parentId = data.parentId;
+      this.checked = data.trangThai;
       const objDonViSl = this.filterItems(this.DonViTree)
-      data.objData.parentId = objDonViSl;
-      data.objData.ngayTruyenThong = new Date(data.objData.ngayTruyenThong);
-      this.formCapNhat.setValue(data.objData);
+      data.parentId = objDonViSl;
+      data.ngayTruyenThong = new Date(data.ngayTruyenThong);
+      this.formCapNhat.setValue(data);
       console.log(this.formCapNhat)
     })
   }
 
+
+  //Hàm bind ra dữ liệu selected sau khi sửa
   public filterItems(DonViTree: DMJsonModel[]) {
     let filteredItems = [];
 
@@ -97,7 +103,6 @@ export class CapNhatPhongBanComponent implements OnInit {
   public GetDataDonVi() {
     this.phongbanService.GetDataDonVi().subscribe(data => {
       if (data.isError) {
-        console.log("Dữ liệu không hợp lệ")
       } else {
         this.DonViTree = this.transformJsonToCustomStructure(data.objData)
       }
@@ -130,4 +135,26 @@ export class CapNhatPhongBanComponent implements OnInit {
     return customData;
   }
 
+  public CapNhatPhongBan(): void {
+    this.submitted = true;
+    if (this.formCapNhat.valid) {
+      this.PhongBan = this.formCapNhat.value;
+      this.parentId = this.PhongBan.parentId.id;
+      this.PhongBan.parentId = this.parentId;
+      this.phongbanService.CapNhatPhongBan(this.PhongBan).subscribe(
+        data => {
+          console.log('data', data);
+          let resData = data as ResponeMessage;
+          if (resData.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
+          } else {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
+            this.Thoat();
+          }
+        },
+        error => {
+          console.log('Error', error);
+        })
+    }
+  }
 }

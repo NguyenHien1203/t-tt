@@ -23,10 +23,12 @@ import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [QuanLyThongBaoComponent, ThemMoiComponent, CapNhatComponent],
   imports: [
+    ConfirmDialogModule,
     FileUploadModule,
     DialogModule,
     FormsModule,

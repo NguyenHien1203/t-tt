@@ -1,10 +1,12 @@
 import { formatDate } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
+import { throwError } from 'rxjs';
 import { QuanLyThongBaoService } from 'src/app/demo/service/thong-tin-khac/quan-ly-thong-bao.service';
+import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
 
 @Component({
@@ -14,39 +16,76 @@ import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
   // providers: [IDbAsyncQueryProvider]
 })
 export class CapNhatComponent {
-  constructor(private service: QuanLyThongBaoService, private messageService: MessageService, private fb: FormBuilder) { };
-  uploadedFile: Blob;
+  constructor(private service: QuanLyThongBaoService
+    , private messageService: MessageService
+    , private fb: FormBuilder
+    , private fileService: UploadFileService
+    , private cd: ChangeDetectorRef) { };
+  file: File | null = null; // Variable to store file
   public Editor = ClassicEditor;
   @ViewChild('myEditor') myEditor: any;
   @Input() show: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
   @Input() id: string = '1';
   submitted: boolean = false;
-  checked: boolean = false;
-  lienKet: any = {};
+  checked: boolean = true;
+  relativePath : string = "";
+  quanLyThongBao: any = {};
   public checkedValue: boolean = false;
   public formCapNhat = this.fb.group({
     id: [0, []],
     tieuDe: ["", [Validators.required]],
-    ngayBatDau: [[''], []],
-    ngayKetThuc: [[''], []],
+    ngayBatDau: [, []],
+    ngayKetThuc: [, []],
     donViId: [0, []],
     noiDung: ["", []],
-    hienthi: [0, []],
+    hienThi: [, []],
     created: [0, []],
     trangThai: [0, []],
+    fileName: [0, []],
+    filePath: [0, []],
   });
 
   public BindDataDialog(): void {
     this.service.getQuanLyThongBaoId(this.id).subscribe(data => {
-      data.ngayBatDau = formatDate(data.ngayBatDau, 'dd/MM/yyyy', 'en_US');
-      data.ngayKetThuc = formatDate(data.ngayKetThuc, 'dd/MM/yyyy', 'en_US');
+      if(data.fileName !== "")
+      {
+        this.file = new File([], data.fileName, { type: 'text/plain' });
+      this.relativePath = data.filePath as string;
+      }
+      data.ngayBatDau = new Date(data.ngayBatDau);
+      data.ngayKetThuc = new Date(data.ngayKetThuc);
+      data.hienThi = data.hienThi == 1 ? true : false;
+      this.checked = data.hienThi;
+      data.fileName = "";
+      data.filePath = "";
+      console.log(data)
       this.formCapNhat.setValue(data);
     })
+  }
 
-    // this.service.getFile(this.id).subscribe(data => {
-    //   this.uploadedFile = <Blob>data;
-    // })
+  onChange(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.file = file;
+      this.fileService.uploadFile(this.file).subscribe({
+        next: (data) => {
+          if (data.isError)
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Tải lên thất bại' });
+          else {
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Tải lên thành công' });
+            this.formCapNhat.value.fileName = data.objData.fileName;
+            this.formCapNhat.value.filePath = data.objData.filePath;
+            this.relativePath = data.objData.filePath;
+          }
+        },
+        error: (error: any) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra' });
+          return throwError(() => error);
+        },
+      });;
+    }
   }
 
   public getToolBar(): any {
@@ -67,16 +106,21 @@ export class CapNhatComponent {
 
   public Thoat(): void {
     this.show = false;
+    this.formCapNhat.reset();
     this.tatPopup.emit(this.show);
+    this.cd.detectChanges();
   }
 
   public CapNhat(): void {
     this.submitted = true;
     if (this.formCapNhat.valid) {
-      this.lienKet = this.formCapNhat.value;
-      this.service.capNhatQuanLyThongBao(this.lienKet).subscribe(
+      this.quanLyThongBao = this.formCapNhat.value;
+      this.quanLyThongBao.hienThi = this.checkedValue ? 1 : 0;
+      console.log(this.quanLyThongBao)
+      this.service.capNhatQuanLyThongBao(this.quanLyThongBao).subscribe(
         data => {
           console.log('data', data);
+          this.XoaFile();
           let resData = data as ResponeMessage;
           if (resData.isError) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
@@ -93,5 +137,9 @@ export class CapNhatComponent {
 
   public CheckedHt() {
     this.checkedValue = !this.checkedValue;
+  }
+
+  public XoaFile(): void {
+    this.file = null;
   }
 }

@@ -29,8 +29,8 @@ export class QuanLyThongBaoComponent implements OnInit {
     isHieuLuc: 3,
     timChinhXac: 0
   }
-  lstThongBao: SelectItem[] = [{ label: '--Toàn bộ thông báo--', value: 3 }, { label: 'Còn hiệu lực', value: 2 }, { label: 'Không còn hiệu lực', value: 1 }];
-  lstHienThi: SelectItem[] = [{ label: '--Chọn hình thức--', value: 3 }, { label: 'Hiển thị', value: 1 }, { label: 'Không hiển thị', value: 0 }];
+  lstThongBao: SelectItem[] = [{ label: 'Chọn trạng thái', value: 3 }, { label: 'Còn hiệu lực', value: 2 }, { label: 'Không còn hiệu lực', value: 1 }];
+  lstHienThi: SelectItem[] = [{ label: 'Chọn hình thức', value: 3 }, { label: 'Hiển thị', value: 1 }, { label: 'Không hiển thị', value: 0 }];
   quanLyThongBaos: any[] = [];
   ngOnInit(): void {
     this.loading = false;
@@ -46,12 +46,27 @@ export class QuanLyThongBaoComponent implements OnInit {
     this.id = id;
   }
 
-  public SelectedTrangThai(event): void {
-    this.timKiemDanhSach.isHieuLuc = event;
-  }
-
-  public SelectedHienThi(event): void {
-    this.timKiemDanhSach.hienThi = event;
+  public Xoa(id: string) {
+    console.log("123")
+    this.confirmService.confirm({
+      message: 'Bạn có chắc chắn xác nhận xóa thông báo?',
+      header: 'Xác nhận',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.service.xoaQuanLyThongBao(id).subscribe(data => {
+          if (data.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+          } else {
+            this.LoadDanhSach();
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+          }
+        }, (error) => {
+          console.log('Error', error);
+        })
+      },
+      reject: () => {
+      }
+    });
   }
 
   public Thoat(itemHt: any, loai: string): void {
@@ -69,12 +84,10 @@ export class QuanLyThongBaoComponent implements OnInit {
 
   public LoadDanhSach(): void {
     this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
-    this.service.getDanhSachQuanLyThongBao(this.timKiemDanhSach).then(data => { this.quanLyThongBaos = data })
+    this.service.getDanhSachQuanLyThongBao(this.timKiemDanhSach).then(data => { this.quanLyThongBaos = data;})
   }
-
 
   public CheckedHt(): void {
     this.timChinhXac = !this.timChinhXac;
   }
-
 }

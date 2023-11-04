@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { QuanLyThongBaoRoutingModule } from './quan-ly-thong-bao-routing.module';
@@ -23,10 +23,12 @@ import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [QuanLyThongBaoComponent, ThemMoiComponent, CapNhatComponent],
   imports: [
+    ConfirmDialogModule,
     FileUploadModule,
     DialogModule,
     FormsModule,
@@ -50,5 +52,6 @@ import { FileUploadModule } from 'primeng/fileupload';
     CommonModule,
     QuanLyThongBaoRoutingModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class QuanLyThongBaoModule { }

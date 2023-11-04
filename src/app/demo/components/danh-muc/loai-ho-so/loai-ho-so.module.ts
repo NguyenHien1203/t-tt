@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaiKhoanRoutingModule } from './tai-khoan-routing.module';
-import { TaiKhoanComponent } from './tai-khoan.component';
+
+import { LoaiHoSoRoutingModule } from './loai-ho-so-routing.module';
+
+import { FormsModule } from '@angular/forms';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -15,19 +18,21 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
-import { ThemDvThucHienComponent } from './them-moi/them-dv-thuc-hien.component';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { LoaiHoSoComponent } from './loai-ho-so.component';
+import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+
+
 @NgModule({
+  declarations: [LoaiHoSoComponent, ThemMoiComponent, CapNhatComponent],
   imports: [
     CommonModule,
-    TaiKhoanRoutingModule,
+    LoaiHoSoRoutingModule,
+    BreadcrumbModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -42,12 +47,10 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
+    CheckboxModule,
     ReactiveFormsModule,
-    BreadcrumbModule,
     TreeModule,
-    TreeSelectModule,
-    ConfirmDialogModule
-  ],
-  declarations: [TaiKhoanComponent, ThemMoiComponent, ThemDvThucHienComponent, CapNhatComponent]
+    TreeSelectModule
+  ]
 })
-export class TaiKhoanModule { }
+export class LoaiHoSoModule { }

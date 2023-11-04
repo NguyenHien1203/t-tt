@@ -12,3 +12,8 @@ export interface TimKiemDanhSach{
     isHieuLuc : number,
     timChinhXac? : number
 }
+
+export interface FileModel{
+    fileModel : File,
+    id : string
+}

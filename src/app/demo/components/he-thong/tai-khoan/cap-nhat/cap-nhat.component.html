@@ -1,5 +1,5 @@
-<form [formGroup]="formThemMoi">
-    <p-dialog appendTo="body" header="Thêm mới người dùng" (onHide)="Thoat()" (onShow)="LoadThemMoi()" [(visible)]="hienThi" [modal]="true"
+<form [formGroup]="formCapNhat">
+    <p-dialog appendTo="body" header="Thêm mới người dùng" (onHide)="Thoat()" (onShow)="BindDataDialog()" [(visible)]="hienThi" [modal]="true"
         [style]="{ width: '65vw' }" [draggable]="true" [resizable]="false">
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-6 mb-0">
@@ -7,7 +7,7 @@
                 <input pinputtext="" id="tenDangNhap" type="text" class="p-inputtext p-component p-element"
                     formControlName="tenDangNhap">
                 <span class="p-error"
-                    *ngIf="!formThemMoi.controls.tenDangNhap.valid && (formThemMoi.controls.tenDangNhap.touched || submitted)">Vui
+                    *ngIf="!formCapNhat.controls.tenDangNhap.valid && (formCapNhat.controls.tenDangNhap.touched || submitted)">Vui
                     lòng nhập tên đăng nhập</span>
             </div>
             <div class="field col-12 md:col-6 mb-0">
@@ -23,14 +23,14 @@
                 <input pinputtext="" id="hoVaTen" type="text" class="p-inputtext p-component p-element"
                     formControlName="hoVaTen">
                 <span class="p-error"
-                    *ngIf="!formThemMoi.controls.hoVaTen.valid && (formThemMoi.controls.hoVaTen.touched || submitted)">Vui
+                    *ngIf="!formCapNhat.controls.hoVaTen.valid && (formCapNhat.controls.hoVaTen.touched || submitted)">Vui
                     lòng nhập họ và tên</span>
             </div>
             <div class="field col-12 md:col-6 mb-0">
                 <label htmlfor="matKhau">Mật khẩu <span class="p-error">(*)</span></label>
                 <input type="password" id="matKhau" class="p-inputtext p-component p-element" formControlName="matKhau">
                 <span class="p-error"
-                    *ngIf="!formThemMoi.controls.matKhau.valid && (formThemMoi.controls.matKhau.touched || submitted)">Vui
+                    *ngIf="!formCapNhat.controls.matKhau.valid && (formCapNhat.controls.matKhau.touched || submitted)">Vui
                     lòng nhập mật khẩu</span>
             </div>
         </div>
@@ -41,7 +41,7 @@
                 <input pinputtext="" id="email" type="text" class="p-inputtext p-component p-element"
                     formControlName="email">
                 <span class="p-error"
-                    *ngIf="!formThemMoi.controls.email.valid && (formThemMoi.controls.email.touched || submitted)">Vui
+                    *ngIf="!formCapNhat.controls.email.valid && (formCapNhat.controls.email.touched || submitted)">Vui
                     lòng nhập họ và tên</span>
             </div>
             <div class="field col-12 md:col-6 mb-0">
@@ -50,7 +50,7 @@
                     [options]="DonViTree" placeholder="Chọn đơn vị"></p-treeSelect>
 
                     <span class="p-error"
-                    *ngIf="!formThemMoi.controls.donVi.valid && (formThemMoi.controls.donVi.touched || submitted)">Vui lòng chọn đơn vị</span>
+                    *ngIf="!formCapNhat.controls.donVi.valid && (formCapNhat.controls.donVi.touched || submitted)">Vui lòng chọn đơn vị</span>
             </div>
         </div>
 
@@ -59,13 +59,13 @@
                 <label htmlfor="phongBan">Phòng ban <span class="p-error">(*)</span></label>
                 <p-dropdown [options]="PhongBan" formControlName="phongBan" optionLabel="name"  placeholder="Chọn phòng ban"></p-dropdown>
                 <span class="p-error"
-                    *ngIf="!formThemMoi.controls.phongBan.valid && (formThemMoi.controls.phongBan.touched || submitted)">Vui lòng chọn phòng ban</span>
+                    *ngIf="!formCapNhat.controls.phongBan.valid && (formCapNhat.controls.phongBan.touched || submitted)">Vui lòng chọn phòng ban</span>
             </div>
             <div class="field col-12 md:col-6 mb-0">
                 <label htmlfor="donvi">Nhóm quyền <span class="p-error">(*)</span></label>
                 <p-dropdown appendTo="body" [options]="NhomQuyen" formControlName="nhomQuyen" optionLabel="name" placeholder="Chọn nhóm quyền"></p-dropdown>
                 <span class="p-error"
-                *ngIf="!formThemMoi.controls.nhomQuyen.valid && (formThemMoi.controls.nhomQuyen.touched || submitted)">Vui lòng chọn nhóm quyền</span>
+                *ngIf="!formCapNhat.controls.nhomQuyen.valid && (formCapNhat.controls.nhomQuyen.touched || submitted)">Vui lòng chọn nhóm quyền</span>
             </div>
         </div>
 
@@ -80,7 +80,7 @@
                 <input pinputtext="" id="sdtNhaRieng" type="text" class="p-inputtext p-component p-element"
                 formControlName="sdtNhaRieng">
                 <span class="p-error"
-                *ngIf="!formThemMoi.controls.sdtNhaRieng.valid && (formThemMoi.controls.sdtNhaRieng.touched || submitted)">Vui lòng nhập đúng kiểu số điện thoại</span>
+                *ngIf="!formCapNhat.controls.sdtNhaRieng.valid && (formCapNhat.controls.sdtNhaRieng.touched || submitted)">Vui lòng nhập đúng kiểu số điện thoại</span>
                
             </div>
         </div>
@@ -91,14 +91,14 @@
                 <input pinputtext="" id="sdtCoQuan" type="text" class="p-inputtext p-component p-element"
                 formControlName="sdtCoQuan">
                 <span class="p-error"
-                *ngIf="!formThemMoi.controls.sdtCoQuan.valid && (formThemMoi.controls.sdtCoQuan.touched || submitted)">Vui lòng nhập đúng kiểu số điện thoại</span>
+                *ngIf="!formCapNhat.controls.sdtCoQuan.valid && (formCapNhat.controls.sdtCoQuan.touched || submitted)">Vui lòng nhập đúng kiểu số điện thoại</span>
             </div>
             <div class="field col-12 md:col-6 mb-0">
                 <label htmlfor="sdtDiDong">Số điện thoại di động </label>
                 <input pinputtext="" id="sdtDiDong" type="text" class="p-inputtext p-component p-element"
                 formControlName="sdtDiDong">
                 <span class="p-error"
-                *ngIf="!formThemMoi.controls.sdtDiDong.valid && (formThemMoi.controls.sdtDiDong.touched || submitted)">Vui lòng nhập đúng kiểu số điện thoại</span>
+                *ngIf="!formCapNhat.controls.sdtDiDong.valid && (formCapNhat.controls.sdtDiDong.touched || submitted)">Vui lòng nhập đúng kiểu số điện thoại</span>
             </div>
         </div>
 
@@ -106,11 +106,11 @@
             <div class="field col-12 md:col-6 mb-0">
                 <b>Đơn vị thực hiện:</b> 
                 <button pButton pRipple icon="pi pi-plus" class="p-button-success mr-2"
-                (click)="ThemMoiDvth()"></button>
+                ></button>
             </div>
         </div>
 
-        <p-table [value]="donViThucHien" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="mt-3" responsiveLayout="scroll">
+        <p-table [value]="" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="mt-3" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width:200px" pFrozenColumn>Stt</th>
@@ -121,25 +121,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-donViThucHien let-rowIndex="rowIndex">
                 <tr>
-                    <td style="text-align: center;">
-                        {{ rowIndex + 1 }}
-                    </td>
-                    <td>
-                        {{donViThucHien.TenDonVi}}
-                    </td>
-                    <td>
-                        {{donViThucHien.TenNhomQuyen}}
-                    </td>
-                    <td>
-                        <div class="div-center">
-                            <button pButton pRipple icon="pi pi-pencil"
-                                class="p-button-rounded p-button-success mr-2"
-                                ></button>
-                            <button pButton pRipple icon="pi pi-trash"
-                                class="p-button-rounded p-button-warning"
-                                ></button>
-                        </div>
-                    </td>
+                    
                 </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
@@ -167,7 +149,7 @@
             </button>
         </ng-template>
     </p-dialog>
-<app-them-dv-thuc-hien (luuDonVi)="LuuDonVi($event)" [hienThidvth]="dvThucHienDialog" [DonViThId]="DonViId" (tatPopup)="ThoatDvThucHien($event, 'T')"></app-them-dv-thuc-hien>
+<!-- <app-them-dv-thuc-hien (luuDonVi)="LuuDonVi($event)" [hienThidvth]="dvThucHienDialog" [DonViThId]="DonViId" (tatPopup)="ThoatDvThucHien($event, 'T')"></app-them-dv-thuc-hien> -->
 </form>
 <p-toast key="tst"></p-toast>
 

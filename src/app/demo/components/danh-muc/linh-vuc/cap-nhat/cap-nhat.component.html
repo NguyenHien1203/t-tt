@@ -22,24 +22,17 @@
     </div>
     <div class="formgrid grid">
         <div class="field col">
-            <label for="donViIdPhongban">Chọn tên đơn vị</label>
+            <label for="donViId">Chọn tên đơn vị</label>
             <p-treeSelect appendTo="body" [filterInputAutoFocus]="true" [filter]="true"
-                (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViIdPhongban" [options]="unitTree"
+                (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViIdPhongban" id="donViIdPhongban" [options]="unitTree"
                 placeholder="Chọn đơn vị"></p-treeSelect>
         </div>
         <div class="field col">
             <label for="phongBanId">Chọn phòng ban</label>
-            <p-dropdown appendTo="body" [options]="department" formControlName="phongBanId" optionLabel="name"
+            <p-dropdown appendTo="body"  [options]="department" [(ngModel)]="selectedPhongBan"  formControlName="phongBanId" optionLabel="name"
                 (ngModelChange)="onSelectChangePhongBan($event)" placeholder="Chọn phòng ban"
                 [showClear]="true"></p-dropdown>
         </div>
-        <!-- <div class="field col">
-                <div style="display: grid;">
-                    <label for="ny">Hiển thị</label>
-                    <p-checkbox class="mt-4" name="hienThi" formControlName="hienThi" value="true"  
-                        (click)="change()"></p-checkbox>
-                </div>
-            </div> -->
         <div class="field col">
             <div style="display: grid;">
                 <label for="hienThi">Hiển thị</label>

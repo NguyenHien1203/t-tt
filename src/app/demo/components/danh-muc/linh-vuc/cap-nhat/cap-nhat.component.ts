@@ -1,9 +1,10 @@
+import { PhongBan } from './../../../../../models/danh-muc/phong-ban';
+import { DMJsonModel } from './../../../../../models/common/DMJsonModel';
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { LinhVucService } from './../../../../service/danh-muc/linh-vuc/linh-vuc.service';
-import { DMJsonModel } from 'src/app/models/common/DMJsonModel';
 
 @Component({
   selector: 'app-cap-nhat',
@@ -15,6 +16,7 @@ export class CapNhatComponent implements OnInit {
   @Input() show: boolean = false;
   @Output() close = new EventEmitter<boolean>();
   @Input() id: string = '';
+  selectedPhongBan : string = '';
 
   unitTree: DMJsonModel[] = [];
   selectedUnit: '';
@@ -32,6 +34,9 @@ export class CapNhatComponent implements OnInit {
     thuTu: ["", []],
     hienThi: ["", []],
     donViIdPhongban: ["", []],
+    soHshienTai:  ["", []],
+    soHstruoc:  ["", []],
+
     parentId: ["", []],
     donViId: ["", []],
     phongBanId: ["", []],
@@ -46,6 +51,9 @@ export class CapNhatComponent implements OnInit {
   idPhongBan: any;
   checked: boolean = false;
   dataUpdate: any = {};
+  getIdDonVi: any;
+  getIdPhongBan: any;
+  // DonViTree = DMJsonModel[] = [];
 
   ngOnInit() {
     this.GetDataUnit();
@@ -77,14 +85,64 @@ export class CapNhatComponent implements OnInit {
         console.log("Dự liệu không hợp lệ");
       } else {
         this.department = data.objData;
+        console.log("department", this.department);
       }
     }, (error) => {
       console.log('Lỗi', error);
     })
   }
 
+  onSelectDepart(id: any) {
+    this.linhVucService.getDataDepart(id).subscribe(data => {
+      if (data.isError) {
+        console.log("Dự liệu không hợp lệ");
+      } else {
+        this.department = data.objData;
+      }
+    }, (error) => {
+      console.log('Lỗi', error);
+    })
+  }
+
+  getDataField() {
+    this.linhVucService.getIdField(this.id).subscribe(data => {
+      
+      const objDonViSl = this.filterItems(this.unitTree)
+      this.getIdDonVi = data.donViIdPhongban;
+
+      this.onSelectDepart(this.getIdDonVi);
+
+      this.getIdPhongBan = data.phongBanId;
+ 
+      data.donViId = objDonViSl;          
+      this.formUpdate.setValue(data);
+      console.log(data);
+      
+      this.formUpdate.value.phongBanId = data.phongBanId;
+      this.selectedPhongBan = data.phongBanId;
+      console.log(this.formUpdate.value.phongBanId)
+    })
+  }
+
+  public filterItems(unitTree: DMJsonModel[]) {
+    let filteredItems = [];
+
+    unitTree.forEach(item => {
+      if (item.id === this.getIdDonVi) {
+        filteredItems.push(item);
+      }
+
+      if (item.id) {
+        const nestedItems = this.filterItems(item.children);
+        filteredItems = filteredItems.concat(nestedItems);
+      }
+    });
+
+    return filteredItems;
+  }
+
   onSelectChangePhongBan(event: any) {
-    this.idPhongBan = event.code;
+    this.idPhongBan = event;
   }
 
   transformJsonCustomStructure(jsonData: any): DMJsonModel[] {
@@ -103,14 +161,6 @@ export class CapNhatComponent implements OnInit {
       customData.push(customModel);
     }
     return customData;
-  }
-
-  getDataField() {
-    this.linhVucService.getIdField(this.id).subscribe(data => {
-      console.log(data);
-      this.formUpdate.setValue(data);
-      console.log(this.formUpdate.value);
-    })
   }
 
   updatedField() {

@@ -5,6 +5,7 @@ import { Mail } from '../demo/models/mail';
 import { Notifi } from '../demo/models/notifi';
 import { Clock } from '../demo/models/clock';
 import { Profile } from '../demo/models/profile';
+import { AuthService } from '../common/auth.services';
 @Component({
     selector: 'app-topbar',
     templateUrl: './app.topbar.component.html'
@@ -23,15 +24,17 @@ export class AppTopBarComponent implements OnInit {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService,
+        private authService : AuthService) { }
     ngOnInit(): void {
-        
+        const fullName = this.authService.GetmUserInfo()?.fullName;
         this.mails = [
             { label: 'Nhận thông báo', createdDate: new Date(1901,10,10) },
             { label: 'Nhân viên (Bảo vệ)', createdDate: new Date(1901,1,10) }
         ];
 
         this.profiles = [
+            { label: fullName, icon: "", routerLink : [''] },
             { label: 'Thông tin tài khoản', icon: "pi pi-fw pi-user-edit", routerLink : ['/he-thong/thong-tin-nguoi-dung'] },
             { label: 'Đổi mật khẩu', icon: "pi pi-fw pi-pencil", routerLink : ['/he-thong/doi-mat-khau'] },
             { label: 'Đăng xuất', icon: "pi pi-fw pi-sign-out",  routerLink : ['/auth/logout'] },

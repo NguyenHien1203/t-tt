@@ -41,7 +41,7 @@ export class LinhVucService {
   public updateField(field: any, id: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhatLinhVuc?id=${id}`, field, this.httpOptions)
   }
-  
+
   public deleteField(id: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `DeleteLinhVuc/${id}`, this.httpOptions)
   }

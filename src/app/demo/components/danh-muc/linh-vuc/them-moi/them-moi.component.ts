@@ -37,7 +37,7 @@ export class ThemMoiComponent implements OnInit {
     createdBy: [0, []],
     lastModified: [new Date(), []],
     lastModifiedBy: [0, []],
-    donViIdPhongban: ["", []],
+    donViIdPhongban: ["", [Validators.required]],
   });
 
   valueFormCreate: any;

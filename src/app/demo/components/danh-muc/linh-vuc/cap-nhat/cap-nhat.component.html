@@ -2,14 +2,14 @@
     (onHide)="closePopup()" (onShow)="getDataField()">
     <div class="formgrid grid">
         <div class="field col">
-            <label for="tenLinhVuc">Tên lĩnh vực <span class="p-error"></span></label>
+            <label for="tenLinhVuc">Tên lĩnh vực <span class="p-error">*</span></label>
             <input type="text" pInputText id="tenLinhVuc" formControlName="tenLinhVuc">
             <span class="p-error"
                 *ngIf="!formUpdate.controls.tenLinhVuc.valid && (formUpdate.controls.tenLinhVuc.touched || submitted)">Vui
                 lòng nhập tên lĩnh vực</span>
         </div>
         <div class="field col">
-            <label for="vietTat">Mã lĩnh vực <span class="p-error"></span></label>
+            <label for="vietTat">Mã lĩnh vực <span class="p-error">*</span></label>
             <input type="text" pInputText id="vietTat" formControlName="vietTat" />
             <span class="p-error"
                 *ngIf="!formUpdate.controls.vietTat.valid && (formUpdate.controls.vietTat.touched || submitted)">Vui
@@ -22,10 +22,13 @@
     </div>
     <div class="formgrid grid">
         <div class="field col">
-            <label for="donViId">Chọn tên đơn vị</label>
+            <label for="donViId">Chọn tên đơn vị <span class="p-error">*</span></label>
             <p-treeSelect appendTo="body" [filterInputAutoFocus]="true" [filter]="true"
                 (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViIdPhongban" id="donViIdPhongban" [options]="unitTree"
                 placeholder="Chọn đơn vị"></p-treeSelect>
+                <span class="p-error"
+                    *ngIf="!formUpdate.controls.vietTat.valid && (formUpdate.controls.vietTat.touched || submitted)">Vui
+                    lòng nhập chọn đơn vị</span>
         </div>
         <div class="field col">
             <label for="phongBanId">Chọn phòng ban</label>

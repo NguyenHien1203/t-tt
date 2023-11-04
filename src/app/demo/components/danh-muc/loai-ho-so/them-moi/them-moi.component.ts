@@ -21,7 +21,7 @@ export class ThemMoiComponent implements OnInit {
     id: [0, []],
     maHs: ["", [Validators.required]],
     tenLoaiHoSo: ["", [Validators.required]],
-    donViId: ["", []],
+    donViId: ["", [Validators.required]],
     phongBanId: ["", []],
     soHshienTai: ["", []],
     soHstruoc: ["", []],

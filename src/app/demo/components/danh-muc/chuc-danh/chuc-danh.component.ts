@@ -66,11 +66,6 @@ export class ChucDanhComponent implements OnInit {
     this.breadcrumbItems.push({ label: 'Danh mục' });
     this.breadcrumbItems.push({ label: 'Quản trị chức danh' });
 
-    this.cols = [
-      { field: 'tenChucDanh', header: 'tenChucDanh' },
-      { field: 'thuTu', header: 'thuTu' },
-    ];
-
     this.LoadListTitles();
     console.log(this.authService.GetmUserInfo());
     console.log(this.authService.GetDonViLamViec());

@@ -36,7 +36,6 @@ export class CapNhatComponent implements OnInit {
     donViIdPhongban: ["", []],
     soHshienTai:  ["", []],
     soHstruoc:  ["", []],
-
     parentId: ["", []],
     donViId: ["", []],
     phongBanId: ["", []],
@@ -165,20 +164,22 @@ export class CapNhatComponent implements OnInit {
 
   updatedField() {
     this.formUpdate.value.donViId = this.authService.GetmUserInfo().donViId;
-    this.formUpdate.value.donViIdPhongban = this.idDonVi;
+    this.formUpdate.value.donViIdPhongban = this.idDonVi ?? 0;
     this.formUpdate.value.parentId = this.authService.GetmUserInfo().donViId;
     this.formUpdate.value.phongBanId = this.idPhongBan ?? 0;
-    if (this.formUpdate.valid) {
-      this.submitted = true;
-      this.linhVucService.updateField(this.formUpdate.value, this.id).subscribe(data => {
-        if (data.code == 200) {
-          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật thành công', life: 3000 });
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật không thành công', life: 3000 });
-        }
-      });
-    }
-    this.closePopup();
+    console.log(this.formUpdate.value);
+    
+    // if (this.formUpdate.valid) {
+    //   this.submitted = true;
+    //   this.linhVucService.updateField(this.formUpdate.value, this.id).subscribe(data => {
+    //     if (data.code == 200) {
+    //       this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật thành công', life: 3000 });
+    //     } else {
+    //       this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật không thành công', life: 3000 });
+    //     }
+    //   });
+    // }
+    // this.closePopup();
   }
 }
 

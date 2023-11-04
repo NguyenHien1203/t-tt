@@ -47,7 +47,7 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="text-align: center;" pSortableColumn="id">STT <p-sortIcon field="id"></p-sortIcon>
+                        <th style="text-align: center;">STT
                         </th>
                         <th pSortableColumn="tenChucDanh">Tên chức danh <p-sortIcon field="tenChucDanh"></p-sortIcon>
                         </th>
@@ -131,7 +131,7 @@
                 <span *ngIf="listTitle">Bạn muốn xóa bản ghi này ?</span>
             </div>
             <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Lưu"
+                <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"
                     (click)="confirmDelete()"></button>
                 <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
                     (click)="deleteProductDialog = false"></button>

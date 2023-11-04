@@ -4,7 +4,7 @@ import { DonViThucHien, TaiKhoan, TaiKhoanTimKiem } from 'src/app/models/he-thon
 import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../common/auth.services';
-
+import { map } from 'rxjs/operators';
 @Injectable({
     providedIn: 'root'
 })
@@ -120,8 +120,18 @@ export class TaiKhoanService {
      * Xóa tài khoản
      */
     public DeleteTaiKhoan(idUser: string): Observable<any> {
-        const url = `${this.baseUrl}/NguoiDung/DeleteTaiKhoan?idUser=` + idUser;;
+        const url = `${this.baseUrl}/NguoiDung/DeleteTaiKhoan?idUser=` + idUser;
         return this.httpClient.post<any>(url, this.httpOption)
+    }
+
+    /**
+     * lấy dữ liệu bản ghi cần cập nhật
+     */
+    public GetDataByIdTaiKhoan(id: string) {
+        return this.httpClient.get<any>(environment.baseUrlApi + '/NguoiDung/GetDataByIdTaiKhoan/' + id)
+            .pipe(
+                map((response: any) => response.objData)
+            );
     }
 
 }

@@ -9,6 +9,7 @@ import { TaiKhoan, TaiKhoanTimKiem } from '../../../../models/he-thong/tai-khoan
   providers: [MessageService, ConfirmationService]
 })
 export class TaiKhoanComponent implements OnInit {
+  id: any = "";
   msgs: Message[] = [];
   items: any[] = [];
   home: any;

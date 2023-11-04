@@ -22,7 +22,7 @@
 
             <div class="field col-12 md:col-6 mb-0">
                 <label htmlfor="donvi">Đơn vị <span class="p-error">(*)</span></label>
-                <p-treeSelect appendTo="body" (ngModelChange)="onSelectChange($event)" [filterInputAutoFocus]="true" formControlName="parentId" id="ParentId" [filter]="true" class="md:w-20rem w-full" containerStyleClass="w-full"
+                <p-treeSelect appendTo="body" (ngModelChange)="onSelectChange($event)" [filterInputAutoFocus]="true" formControlName="parentId" id="parentId" [filter]="true" class="md:w-20rem w-full" containerStyleClass="w-full"
                     [options]="DonViTree" placeholder="Chọn đơn vị"></p-treeSelect>
             </div>
         </div>

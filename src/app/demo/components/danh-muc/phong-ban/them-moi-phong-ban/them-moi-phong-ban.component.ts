@@ -140,11 +140,14 @@ export class ThemMoiPhongBanComponent {
   }
 
   public GetDataDonVi() {
+    alert("Vao")
     this.dmPhongBanService.GetDataDonVi().subscribe(data => {
+      console.log(data)
       if (data.isError) {
         console.log("Dữ liệu không hợp lệ")
       } else {
         this.DonViTree = this.transformJsonToCustomStructure(data.objData)
+        console.log(this.DonViTree)
       }
     }, (error) => {
       console.log('Error', error);

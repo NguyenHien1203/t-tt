@@ -16,17 +16,19 @@ import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
   // providers: [IDbAsyncQueryProvider]
 })
 export class CapNhatComponent {
+  @ViewChild('myEditor') myEditor: any;
+  @Input() show: boolean = false;
+  @Output() tatPopup = new EventEmitter<boolean>();
+  @Input() id: string = '1';
+
   constructor(private service: QuanLyThongBaoService
     , private messageService: MessageService
     , private fb: FormBuilder
     , private fileService: UploadFileService
     , private cd: ChangeDetectorRef) { };
+
   file: File | null = null; // Variable to store file
   public Editor = ClassicEditor;
-  @ViewChild('myEditor') myEditor: any;
-  @Input() show: boolean = false;
-  @Output() tatPopup = new EventEmitter<boolean>();
-  @Input() id: string = '1';
   submitted: boolean = false;
   checked: boolean = true;
   relativePath : string = "";
@@ -116,10 +118,8 @@ export class CapNhatComponent {
     if (this.formCapNhat.valid) {
       this.quanLyThongBao = this.formCapNhat.value;
       this.quanLyThongBao.hienThi = this.checkedValue ? 1 : 0;
-      console.log(this.quanLyThongBao)
       this.service.capNhatQuanLyThongBao(this.quanLyThongBao).subscribe(
         data => {
-          console.log('data', data);
           this.XoaFile();
           let resData = data as ResponeMessage;
           if (resData.isError) {

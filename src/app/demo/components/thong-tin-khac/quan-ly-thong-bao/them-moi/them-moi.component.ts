@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
@@ -8,6 +8,7 @@ import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { QuanLyThongBaoService } from 'src/app/demo/service/thong-tin-khac/quan-ly-thong-bao.service';
 import { throwError } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 
 @Component({
@@ -16,12 +17,22 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./them-moi.component.scss']
 })
 export class ThemMoiComponent {
-  file: File | null = null; // Variable to store file
-   checkHienThi: boolean = false;
-   Editor = ClassicEditor;
   @ViewChild('myEditor') myEditor: any;
   @Input() show: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
+
+  constructor(private fb: FormBuilder
+    , private service: QuanLyThongBaoService
+    , private messageService: MessageService
+    , private authService: AuthService
+    , private fileService: UploadFileService
+    , private cd: ChangeDetectorRef
+    ,@Inject(DOCUMENT) private document: Document) { }
+
+  file: File | null = null; // Variable to store file
+   checkHienThi: boolean = false;
+   Editor = ClassicEditor;
+
    quanLyThongBao: any = {};
    submitted: boolean = false;
    relativePath : string = "";
@@ -36,13 +47,7 @@ export class ThemMoiComponent {
     fileName: ["", []],
     filePath: ["", []],
   });
-  constructor(private fb: FormBuilder
-    , private service: QuanLyThongBaoService
-    , private messageService: MessageService
-    , private authService: AuthService
-    , private fileService: UploadFileService
-    , private cd: ChangeDetectorRef) { }
-
+  
   public Thoat(): void {
     this.show = false;
     this.formThemMoi.reset();
@@ -74,6 +79,10 @@ export class ThemMoiComponent {
     }
   }
 
+  openFileFromAPI(relativePath: string) {
+    // window.open('/api' + relativePath, '_blank');
+  }
+  
   public ThemMoi(): void {
     this.submitted = true;
     if (this.formThemMoi.valid) {

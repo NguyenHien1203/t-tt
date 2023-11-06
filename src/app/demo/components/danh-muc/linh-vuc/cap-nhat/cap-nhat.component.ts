@@ -1,4 +1,3 @@
-import { PhongBan } from './../../../../../models/danh-muc/phong-ban';
 import { DMJsonModel } from './../../../../../models/common/DMJsonModel';
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -16,7 +15,7 @@ export class CapNhatComponent implements OnInit {
   @Input() show: boolean = false;
   @Output() close = new EventEmitter<boolean>();
   @Input() id: string = '';
-  selectedPhongBan : string = '';
+  selectedPhongBan: string = '';
 
   unitTree: DMJsonModel[] = [];
   selectedUnit: '';
@@ -34,9 +33,8 @@ export class CapNhatComponent implements OnInit {
     thuTu: ["", []],
     hienThi: ["", []],
     donViIdPhongban: ["", []],
-    soHshienTai:  ["", []],
-    soHstruoc:  ["", []],
-
+    soHshienTai: ["", []],
+    soHstruoc: ["", []],
     parentId: ["", []],
     donViId: ["", []],
     phongBanId: ["", []],
@@ -47,13 +45,13 @@ export class CapNhatComponent implements OnInit {
   });
 
   submitted = false;
-  idDonVi: any;
-  idPhongBan: any;
+
   checked: boolean = false;
-  dataUpdate: any = {};
-  getIdDonVi: any;
-  getIdPhongBan: any;
-  // DonViTree = DMJsonModel[] = [];
+
+  phongBanId?: number;
+  donViIdPhongban?: number;
+
+  valueFormUpdate: any;
 
   ngOnInit() {
     this.GetDataUnit();
@@ -64,10 +62,13 @@ export class CapNhatComponent implements OnInit {
   public closePopup() {
     this.show = false;
     this.close.emit(this.show);
+    this.submitted = false;
+    this.formUpdate.reset();
+    this.department = [];
   }
 
   public GetDataUnit() {
-    this.linhVucService.getTreeUnits(this.authService.GetmUserInfo().name, this.authService.GetDonViLamViec()).subscribe(data => {
+    this.linhVucService.getTreeUnits().subscribe(data => {
       if (data.isError) {
         console.log("Dữ liệu này không hợp lệ.");
       } else {
@@ -79,17 +80,19 @@ export class CapNhatComponent implements OnInit {
   }
 
   onSelectChangeDonVi(event: any) {
-    this.idDonVi = event.id;
-    this.linhVucService.getDataDepart(this.idDonVi).subscribe(data => {
-      if (data.isError) {
-        console.log("Dự liệu không hợp lệ");
-      } else {
-        this.department = data.objData;
-        console.log("department", this.department);
-      }
-    }, (error) => {
-      console.log('Lỗi', error);
-    })
+    if (event) {
+      const id = event.id;
+      this.linhVucService.getDataDepart(id).subscribe(data => {
+        if (data.isError) {
+          console.log("Dự liệu không hợp lệ");
+        } else {
+          this.department = data.objData;
+          console.log("department", this.department);
+        }
+      }, (error) => {
+        console.log('Lỗi', error);
+      })
+    }
   }
 
   onSelectDepart(id: any) {
@@ -98,6 +101,7 @@ export class CapNhatComponent implements OnInit {
         console.log("Dự liệu không hợp lệ");
       } else {
         this.department = data.objData;
+        console.log(this.department);
       }
     }, (error) => {
       console.log('Lỗi', error);
@@ -106,21 +110,17 @@ export class CapNhatComponent implements OnInit {
 
   getDataField() {
     this.linhVucService.getIdField(this.id).subscribe(data => {
-      
+
+      this.donViIdPhongban = data.donViIdPhongban;
       const objDonViSl = this.filterItems(this.unitTree)
-      this.getIdDonVi = data.donViIdPhongban;
 
-      this.onSelectDepart(this.getIdDonVi);
+      data.donViIdPhongban = objDonViSl;
 
-      this.getIdPhongBan = data.phongBanId;
- 
-      data.donViId = objDonViSl;          
+      this.phongBanId = data.phongBanId;
+
+      this.onSelectDepart(this.donViIdPhongban);
+
       this.formUpdate.setValue(data);
-      console.log(data);
-      
-      this.formUpdate.value.phongBanId = data.phongBanId;
-      this.selectedPhongBan = data.phongBanId;
-      console.log(this.formUpdate.value.phongBanId)
     })
   }
 
@@ -128,7 +128,7 @@ export class CapNhatComponent implements OnInit {
     let filteredItems = [];
 
     unitTree.forEach(item => {
-      if (item.id === this.getIdDonVi) {
+      if (item.id === this.donViIdPhongban) {
         filteredItems.push(item);
       }
 
@@ -139,10 +139,6 @@ export class CapNhatComponent implements OnInit {
     });
 
     return filteredItems;
-  }
-
-  onSelectChangePhongBan(event: any) {
-    this.idPhongBan = event;
   }
 
   transformJsonCustomStructure(jsonData: any): DMJsonModel[] {
@@ -164,20 +160,37 @@ export class CapNhatComponent implements OnInit {
   }
 
   updatedField() {
-    this.formUpdate.value.donViId = this.authService.GetmUserInfo().donViId;
-    this.formUpdate.value.donViIdPhongban = this.idDonVi;
+    this.valueFormUpdate = this.formUpdate.value;
+
+    this.submitted = true;
+
     this.formUpdate.value.parentId = this.authService.GetmUserInfo().donViId;
-    this.formUpdate.value.phongBanId = this.idPhongBan ?? 0;
+    this.formUpdate.value.donViId = this.authService.GetmUserInfo().donViId;
+
+    if (this.valueFormUpdate.donViIdPhongban.id) {
+      this.formUpdate.value.donViIdPhongban = this.valueFormUpdate.donViIdPhongban.id;
+    } else if (this.valueFormUpdate.donViIdPhongban[0].id) {
+      this.formUpdate.value.donViIdPhongban = this.valueFormUpdate.donViIdPhongban[0].id;
+    }
+
+    // this.formUpdate.value.donViIdPhongban = this.valueFormUpdate.donViIdPhongban.id ?? 0;
+    this.formUpdate.value.phongBanId = this.valueFormUpdate.phongBanId ?? 0;
+
+    console.log("origin:", this.formUpdate.value);
+    console.log("value", this.valueFormUpdate);
+    // console.log("this.valueFormUpdate.donViIdPhongban.id", this.valueFormUpdate.donViIdPhongban[0].id);
+
     if (this.formUpdate.valid) {
       this.submitted = true;
       this.linhVucService.updateField(this.formUpdate.value, this.id).subscribe(data => {
-        if (data.code == 200) {
-          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật thành công', life: 3000 });
+        if (data.isError) {
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
         } else {
-          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật không thành công', life: 3000 });
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
         }
       });
     }
+    // this.department = [];
     this.closePopup();
   }
 }

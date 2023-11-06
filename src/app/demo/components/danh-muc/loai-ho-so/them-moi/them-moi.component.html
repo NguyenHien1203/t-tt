@@ -24,6 +24,9 @@
             <p-treeSelect appendTo="body" [filterInputAutoFocus]="true" [filter]="true"
                 (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViId" [options]="unitTree"
                 placeholder="Chọn đơn vị"></p-treeSelect>
+            <span class="p-error"
+                *ngIf="!formCreate.controls.donViId.valid && (formCreate.controls.donViId.touched || submitted)">Vui lòng
+                chọn đơn vị</span>
         </div>
         <div class="field col">
             <label for="phongBanId">Chọn phòng ban</label>

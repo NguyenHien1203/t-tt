@@ -8,6 +8,8 @@ import { throwError } from 'rxjs';
 import { QuanLyThongBaoService } from 'src/app/demo/service/thong-tin-khac/quan-ly-thong-bao.service';
 import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-cap-nhat',
@@ -25,13 +27,14 @@ export class CapNhatComponent {
     , private messageService: MessageService
     , private fb: FormBuilder
     , private fileService: UploadFileService
-    , private cd: ChangeDetectorRef) { };
-
+    , private cd: ChangeDetectorRef
+    , private sanitizer: DomSanitizer) { };
+  trustUrl: any;
   file: File | null = null; // Variable to store file
   public Editor = ClassicEditor;
   submitted: boolean = false;
   checked: boolean = true;
-  relativePath : string = "";
+  relativePath: string = "";
   quanLyThongBao: any = {};
   public checkedValue: boolean = false;
   public formCapNhat = this.fb.group({
@@ -49,21 +52,26 @@ export class CapNhatComponent {
   });
 
   public BindDataDialog(): void {
+    this.service.getFile(this.id).subscribe(data => { this.handleFileResponse(data) })
+
     this.service.getQuanLyThongBaoId(this.id).subscribe(data => {
-      if(data.fileName !== "")
-      {
+      if (data.fileName !== "") {
         this.file = new File([], data.fileName, { type: 'text/plain' });
-      this.relativePath = data.filePath as string;
+        this.relativePath = data.filePath as string;
       }
       data.ngayBatDau = new Date(data.ngayBatDau);
       data.ngayKetThuc = new Date(data.ngayKetThuc);
-      data.hienThi = data.hienThi == 1 ? true : false;
-      this.checked = data.hienThi;
+      data.hienThi = this.checked = data.hienThi == 1 ? true : false;
       data.fileName = "";
       data.filePath = "";
-      console.log(data)
       this.formCapNhat.setValue(data);
     })
+  }
+
+  handleFileResponse(blob: Blob) {
+    // Xử lý blob ở đây, ví dụ: hiển thị hoặc tải tệp
+    const url = URL.createObjectURL(blob); // Tạo URL từ blob
+    this.trustUrl = this.sanitizer.bypassSecurityTrustUrl(url); // An toàn cho việc hiển thị trong giao diện
   }
 
   onChange(event: any) {

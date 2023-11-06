@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { QuanLyThongBao, TimKiemDanhSach } from 'src/app/models/thong-tin-khac/quan-ly-thong-bao';
 import { environment } from 'src/environments/environment.development';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,8 @@ export class QuanLyThongBaoService {
       'Content-Type': 'application/json'
     })
   }
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient
+  ) { }
 
   getDanhSachQuanLyThongBao(timKiemDanhSach: TimKiemDanhSach) {
     return this.http.post<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/GetDanhSach', timKiemDanhSach, this.httpOption)
@@ -28,9 +30,12 @@ export class QuanLyThongBaoService {
       );
   }
 
-  getFile(id: string): Observable<any> {
-    return this.http.get(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/getFile/' + id);
+  getFile(id: string) {
+    // Gửi yêu cầu GET để lấy tệp từ API
+    return this.http.get(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/GetFile/' + id, { responseType: 'blob' });
   }
+
+
 
   themMoiQuanLyThongBao(modelThongBao: any) {
     return this.http.post<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/ThemMoiThongBao', modelThongBao, this.httpOption)

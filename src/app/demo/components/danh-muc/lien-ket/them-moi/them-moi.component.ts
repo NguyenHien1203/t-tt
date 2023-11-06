@@ -14,9 +14,11 @@ import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
 export class ThemMoiComponent {
   @Input() hienThi: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
+
   constructor(private fb: FormBuilder
     , private service: LienKetService
     , private messageService: MessageService) { };
+    
   public lienKet: any = {};
   public checkedValue : boolean = false;
   submitted: boolean = false;
@@ -35,13 +37,11 @@ export class ThemMoiComponent {
 
   public ThemMoi(): void {
     this.submitted = true;
-    console.log(this.formThemMoi.value)
     if (this.formThemMoi.valid) {
       this.lienKet = this.formThemMoi.value;
       this.lienKet.hienThi = this.checkedValue;
       this.service.themMoiLienKet(this.lienKet).subscribe(
         data => {
-          console.log('data', data);
           let resData = data as ResponeMessage;
           if (resData.isError) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });

@@ -19,9 +19,9 @@ export class LienKetComponent implements OnInit {
 
   hienThiThemMoi: boolean = false;
   hienThiCapNhat: boolean = false;
-  items: any[] = [];
+  items: any[] = [{ label: 'Danh mục' }, { label: 'Liên kết' }];
   id: any = "";
-  home: any;
+  home: any = { icon: 'pi pi-home', routerLink: '/' };
   lienKetDialog: boolean = false;
   timKiemDanhSach: TimKiemDanhSach = {
     keyWord: "",
@@ -34,8 +34,6 @@ export class LienKetComponent implements OnInit {
   loading: boolean = true;
 
   ngOnInit(): void {
-    this.items = [{ label: 'Danh mục' }, { label: 'Liên kết' }];
-    this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.loading = false;
     this.LoadDanhSach(this.timKiemDanhSach);
   }
@@ -51,8 +49,8 @@ export class LienKetComponent implements OnInit {
     this.hienThiCapNhat = true;
     this.id = id;
   }
+
   public Xoa(id: string) {
-    console.log("123")
     this.confirmationService.confirm({
       message: 'Bạn có chắc chắn xác nhận xóa liên kết?',
       header: 'Xác nhận',

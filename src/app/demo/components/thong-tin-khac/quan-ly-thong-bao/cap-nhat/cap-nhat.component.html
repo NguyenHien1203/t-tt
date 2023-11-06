@@ -38,7 +38,7 @@
                 <div *ngIf="file">
                     <section class="file-info">
                         <ul>
-                            <li>Tên file: <a href="{{relativePath}}" target="_blank">{{file.name}}</a><a href="javascript:;" (click)="XoaFile()">&nbsp;<i class="pi pi-trash"></i></a></li>
+                            <li>Tên file: <a [href]="trustUrl">{{file.name}}</a><a href="javascript:;" (click)="XoaFile()">&nbsp;<i class="pi pi-trash"></i></a></li>
                         </ul>
                     </section>
                 </div>

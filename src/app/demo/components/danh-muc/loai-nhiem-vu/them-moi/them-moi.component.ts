@@ -14,6 +14,12 @@ import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
 export class ThemMoiComponent {
   @Input() hienThi: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
+
+  constructor(private fb: FormBuilder
+    , private service : LoaiNhiemVuService
+    ,private messageService: MessageService
+    ,private authService : AuthService){ }
+
   public loaiNhiemvu: any = {};
   public submitted : boolean  = false;
   public formThemMoi = this.fb.group({
@@ -26,10 +32,6 @@ export class ThemMoiComponent {
     tenNguoiTao : ["", ''],
     tenDonVi : ["", ''],
   });
-  constructor(private fb: FormBuilder
-    , private service : LoaiNhiemVuService
-    ,private messageService: MessageService
-    ,private authService : AuthService){ }
 
   public Thoat(): void {
   this.hienThi = false;
@@ -42,11 +44,9 @@ public ThemMoi(): void {
     this.loaiNhiemvu = this.formThemMoi.value;
     this.loaiNhiemvu.donViId = this.authService.GetDonViLamViec();
     this.loaiNhiemvu.createdBy = this.authService.GetmUserInfo()?.userId;
-    console.log(this.loaiNhiemvu)
 
     this.service.themMoiLoaiNhiemVu(this.loaiNhiemvu).subscribe(
       data => {
-        console.log('data', data);
         let resData = data as ResponeMessage;
         if (resData.isError) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });

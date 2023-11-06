@@ -3,14 +3,14 @@
         (onHide)="closePopup()">
         <div class="formgrid grid">
             <div class="field col">
-                <label for="tenLinhVuc">Tên lĩnh vực <span class="p-error"></span></label>
+                <label for="tenLinhVuc">Tên lĩnh vực <span class="p-error">*</span></label>
                 <input type="text" pInputText id="tenLinhVuc" formControlName="tenLinhVuc">
                 <span class="p-error"
                     *ngIf="!formCreate.controls.tenLinhVuc.valid && (formCreate.controls.tenLinhVuc.touched || submitted)">Vui
                     lòng nhập tên lĩnh vực</span>
             </div>
             <div class="field col">
-                <label for="vietTat">Mã lĩnh vực <span class="p-error"></span></label>
+                <label for="vietTat">Mã lĩnh vực <span class="p-error">*</span></label>
                 <input type="text" pInputText id="vietTat" formControlName="vietTat" />
                 <span class="p-error"
                     *ngIf="!formCreate.controls.vietTat.valid && (formCreate.controls.vietTat.touched || submitted)">Vui
@@ -23,22 +23,24 @@
         </div>
         <div class="formgrid grid">
             <div class="field col">
-                <label for="donVi">Chọn tên đơn vị</label>
+                <label for="donVi">Chọn tên đơn vị <span class="p-error">*</span></label>
                 <p-treeSelect appendTo="body" [filterInputAutoFocus]="true" [filter]="true"
                     (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViIdPhongban" [options]="unitTree"
                     placeholder="Chọn đơn vị"></p-treeSelect>
+                <span class="p-error"
+                    *ngIf="!formCreate.controls.donViIdPhongban.valid && (formCreate.controls.donViIdPhongban.touched || submitted)">Vui
+                    lòng nhập chọn đơn vị</span>
             </div>
             <div class="field col">
                 <label for="phongBanId">Chọn phòng ban</label>
                 <p-dropdown appendTo="body" [options]="department" formControlName="phongBanId" optionLabel="name"
-                     placeholder="Chọn phòng ban"
-                    [showClear]="true"></p-dropdown>
+                    placeholder="Chọn phòng ban" [showClear]="true"></p-dropdown>
             </div>
             <div class="field col">
                 <div style="display: grid;">
                     <label for="hienThi">Hiển thị</label>
-                    <p-checkbox [binary]="true" inputId="checkbox" class="mt-4" name="hienThi" formControlName="hienThi" value="true"  
-                        [(ngModel)]="checked"></p-checkbox>
+                    <p-checkbox [binary]="true" inputId="checkbox" class="mt-4" name="hienThi" formControlName="hienThi"
+                        value="true" [(ngModel)]="checked"></p-checkbox>
                 </div>
             </div>
         </div>
@@ -47,7 +49,8 @@
             <textarea id="ghiChu" formControlName="ghiChu" pInputTextarea rows="3" cols="20"></textarea>
         </div>
         <ng-template pTemplate="footer">
-            <button pButton pRipple label="Lưu" (click)="createField()" icon="pi pi-check" class="p-button-info"></button>
+            <button pButton pRipple label="Lưu" (click)="createField()" icon="pi pi-check"
+                class="p-button-info"></button>
             <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger"
                 (click)="closePopup()"></button>
         </ng-template>

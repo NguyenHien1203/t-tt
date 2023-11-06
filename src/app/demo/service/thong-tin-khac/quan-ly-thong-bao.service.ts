@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { QuanLyThongBao, TimKiemDanhSach } from 'src/app/models/thong-tin-khac/quan-ly-thong-bao';
+import { PhongBanModel, QuanLyThongBao, TimKiemDanhSach } from 'src/app/models/thong-tin-khac/quan-ly-thong-bao';
 import { environment } from 'src/environments/environment.development';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -31,11 +31,12 @@ export class QuanLyThongBaoService {
   }
 
   getFile(id: string) {
-    // Gửi yêu cầu GET để lấy tệp từ API
-    return this.http.get(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/GetFile/' + id, { responseType: 'blob' });
+    const headers = new HttpHeaders().set('Accept', 'application/octet-stream');
+    return this.http.get(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/GetFile/' + id, {
+      headers,
+      responseType: 'blob', // Xác định responseType là 'blob'.
+    });
   }
-
-
 
   themMoiQuanLyThongBao(modelThongBao: any) {
     return this.http.post<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/ThemMoiThongBao', modelThongBao, this.httpOption)
@@ -47,5 +48,32 @@ export class QuanLyThongBaoService {
 
   xoaQuanLyThongBao(id: string) {
     return this.http.get<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/DeleteThongBao/' + id)
+  }
+
+  getDanhSachPhongBan(donViId : string, userName : string) {
+    return this.http.get<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/GetDanhSachPhongBan?donViId=' + donViId + "&userName=" + userName)
+    .toPromise()
+    .then(data => data.objData as PhongBanModel[])
+  }
+
+  getDanhSachNhomNguoiDung(donViId : string, phongBanId: string, userId: string) {
+    return this.http.get<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/GetDanhSachNhomNguoiDung?donViId=' + donViId+ "&phongBanId=" + phongBanId + "&userId=" +userId)
+    .toPromise()
+    .then(data => data.objData)
+  }
+
+  changePhongBan(phongBanId: string)
+  {
+    return this.http.get<any>(environment.baseUrlApi + '/VanBanDi/CapNhatMoi/ChangePhongBan/' + phongBanId)
+    .toPromise()
+    .then(data => data.objData)
+  }
+
+  
+  changeNhomNguoiDung(nhomNguoiDungId: string)
+  {
+    return this.http.get<any>(environment.baseUrlApi + '/VanBanDi/CapNhatMoi/ChangeNhomNguoiDung/' + nhomNguoiDungId)
+    .toPromise()
+    .then(data => data.objData)
   }
 }

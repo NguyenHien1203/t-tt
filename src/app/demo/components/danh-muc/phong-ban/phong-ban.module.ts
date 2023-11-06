@@ -23,6 +23,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { ThemMoiPhongBanComponent } from './them-moi-phong-ban/them-moi-phong-ban.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CapNhatPhongBanComponent } from './cap-nhat-phong-ban/cap-nhat-phong-ban.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 // import { DropdownSearchComponent } from './hello.component';
 // import { SearchDropdown } from './search-dropdown/search-dropdown';
@@ -48,7 +49,8 @@ import { CapNhatPhongBanComponent } from './cap-nhat-phong-ban/cap-nhat-phong-ba
     ReactiveFormsModule,
     CalendarModule,
     CheckboxModule,
-    TreeSelectModule
+    TreeSelectModule,
+    ConfirmDialogModule
   ],
   declarations: [PhongBanComponent, ThemMoiPhongBanComponent, CapNhatPhongBanComponent]
 })

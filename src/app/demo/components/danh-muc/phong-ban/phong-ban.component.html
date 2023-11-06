@@ -1,143 +1,128 @@
-<div class="col-12">
-    <div class="p-fluid p-formgrid grid">
-        <div class="col-12">
-            <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
-        </div>
-    </div>
-</div>
-
 <div class="grid">
-    <div class="col-12">
-        <!-- <p-breadcrumb [model]="breadcrumbItems" [home]="{icon: 'pi pi-home'}" routerLink="/"></p-breadcrumb> -->
-    </div>
-    <div class="col-12">
-        <div class="card px-6 py-6">
-            <p-toast></p-toast>
-            <p-toolbar styleClass="mb-4">
-                <ng-template pTemplate="left">
-                    <div class="my-2">
-                        <h2 style="text-transform: uppercase; margin-top: 1vw;">Phòng ban</h2>
-                    </div>
-                </ng-template>
-
-                <ng-template pTemplate="right">
-                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
-                        (click)="ThemMoi()"></button>
-                    <button pButton pRipple label="Xóa" icon="pi pi-trash" class="p-button-danger"
-                        (click)="deleteSelectedProducts()"
-                        [disabled]="!selectedProducts || !selectedProducts.length"></button>
-                </ng-template>
-            </p-toolbar>
-
-            <div class="card pb-0 pl-4 pr-4">
-                <h3 style="margin-bottom: 1vw;">Tìm kiếm</h3>
-                <div class="p-fluid p-formgrid grid">
-                    <div class="field col-12 md:col-10">
-                        <span class="p-float-label">
-                            <input id="search-name-title" type="text" pInputText [(ngModel)]="timkiems.keyWord">
-                            <label for="search-name-title">Từ khóa</label>
-                        </span>
-                    </div>
-
-                    <div class="field col-12 md:col-2">
-                        <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-primary mr-2"
-                            (click)="getDanhSachPhongBan()"></button>
-                    </div>
-                </div>
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
             </div>
-
-            <p-table #dt [value]="phongBans" [columns]="cols" responsiveLayout="scroll" [rows]="10"
-                [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true"
-                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
-                <ng-template pTemplate="caption">
-                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h2 class="m-0">Danh sách phòng ban</h2>
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>STT</th>
-                        <th pSortableColumn="tenphongban">Tên phòng ban <p-sortIcon field="tenphongban"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="donvichuquan">Đơn vị chủ quản <p-sortIcon
-                                field="donvichuquan"></p-sortIcon></th>
-                        <th pSortableColumn="dienthoai">Điện thoại <p-sortIcon field="dienthoai"></p-sortIcon></th>
-                        <th pSortableColumn="fax">Fax <p-sortIcon field="fax"></p-sortIcon></th>
-                        <th pSortableColumn="ghichu">Ghi chú <p-sortIcon field="ghichu"></p-sortIcon></th>
-                        <th pSortableColumn="thutu">Thứ tự <p-sortIcon field="thutu"></p-sortIcon></th>
-                        <th>Chức năng</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-DmPhongBan let-rowIndex="rowIndex">
-                    <tr>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">STT</span>
-                            {{rowIndex + 1}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">tenphongban</span>
-                            {{DmPhongBan.tenDonVi}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">donvichuquan</span>
-                            {{DmPhongBan.parentId}}
-                        </td>
-                        <td style="width:14%; min-width:8rem;">
-                            <span class="p-column-title">dienthoai</span>
-                            {{DmPhongBan.sdt}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">fax</span>
-                            {{DmPhongBan.fax}}
-                        </td>
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">ghichu</span>
-                            {{DmPhongBan.ghiChu}}
-                        </td>
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">thutu</span>
-                            {{DmPhongBan.thuTu}}
-                        </td>
-                        <td>
-                            <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-success mr-2"
-                                    (click)="CapNhatPhongBan(DmPhongBan.id)"></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                                    (click)="Xoa(DmPhongBan.id)"></button>
-                            </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
         </div>
-        <app-them-moi-phong-ban [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi-phong-ban>
-        <app-cap-nhat-phong-ban [hienThi]="hienThiCapNhat" (tatPopup)="Thoat($event, 'C')" [id]="id"></app-cap-nhat-phong-ban>
-
-
-
-        <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="product">Are you sure you want to delete <b>{{product.name}}</b>?</span>
-            </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                    (click)="deleteProductDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                    (click)="confirmDelete()"></button>
-            </ng-template>
-        </p-dialog>
-
-        <p-dialog [(visible)]="deleteProductsDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span>Are you sure you want to delete selected products?</span>
-            </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                    (click)="deleteProductsDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                    (click)="confirmDeleteSelected()"></button>
-            </ng-template>
-        </p-dialog>
     </div>
+
+    <div class="col-12">
+
+        <div class="card">
+            <h2>TÌM KIẾM</h2>
+            <div class="field grid">
+                <label htmlFor="name3" class="col-12 mb-2 md:col-1 md:mb-0">Mã phòng ban:</label>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText id="name3" type="text" placeholder="Nhập mã phòng ban" class="form-control"
+                        [(ngModel)]="timkiems.MaPhongBan" />
+                </div>
+                <label htmlFor="name3" class="col-12 mb-2 md:col-1 md:mb-0">Tên phòng ban:</label>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText id="name3" type="text" placeholder="Nhập tên phòng ban" class="form-control"
+                        [(ngModel)]="timkiems.TenPhongBan" />
+                </div>
+                <label class="col-12 md:col-2 fl-wr">
+                    <p-checkbox name="hienThi" id="hienThi" (click)="CheckChinhXac()" value="true"
+                        label="Tìm chính xác"></p-checkbox>
+                </label>
+                <button pButton pRipple type="button" icon="pi pi-search" (click)="(getDanhSachPhongBan(timkiems))"
+                    label="Tìm kiếm" class="p-button-info"></button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="col-12">
+                <p-table #dt [value]="phongBans" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+                    [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true"
+                    [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Hiển thị từ {first} đến {last} của {totalRecords} bản gghi"
+                    [rowHover]="true" dataKey="id">
+                    <ng-template pTemplate="caption">
+                        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                            <h2 class="m-0">Danh sách phòng ban</h2>
+                            <span class="block mt-2 md:mt-0 p-input-icon-left">
+                                <div class="my-2">
+                                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus"
+                                        class="p-button-success mr-2" (click)="ThemMoi()"></button>
+                                </div>
+                            </span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="right">
+                        <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
+                            (click)="ThemMoi()"></button>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>STT</th>
+                            <th pSortableColumn="tenphongban">Tên phòng ban <p-sortIcon
+                                    field="tenphongban"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="donvichuquan">Đơn vị chủ quản <p-sortIcon
+                                    field="donvichuquan"></p-sortIcon></th>
+                            <th pSortableColumn="dienthoai">Điện thoại <p-sortIcon field="dienthoai"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="fax">Fax <p-sortIcon field="fax"></p-sortIcon></th>
+                            <th pSortableColumn="ghichu">Ghi chú <p-sortIcon field="ghichu"></p-sortIcon></th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-DmPhongBan let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="width:2%; min-width:5rem; text-align: center;"><span
+                                    class="p-column-title">STT</span>
+                                {{rowIndex + 1}}
+                            </td>
+                            <td style="width:20%; min-width:20rem;">
+                                <span class="p-column-title">tenphongban</span>
+                                {{DmPhongBan.tenDonVi}}
+                            </td>
+                            <td style="width:20%; min-width:20rem;"><span class="p-column-title">donvichuquan</span>
+                                {{DmPhongBan.TenDonviChuQuan}}
+                            </td>
+                            <td style="width:14%; min-width:8rem;">
+                                <span class="p-column-title">dienthoai</span>
+                                {{DmPhongBan.sdt}}
+                            </td>
+                            <td style="width:10%; min-width:10rem;">
+                                <span class="p-column-title">fax</span>
+                                {{DmPhongBan.fax}}
+                            </td>
+                            <td style="width:10%; min-width: 10rem;"><span class="p-column-title">ghichu</span>
+                                {{DmPhongBan.ghiChu}}
+                            </td>
+                            <!-- <td class="text-center">
+                                <i class="pi"
+                                    [ngClass]="{'true-icon pi-check-circle text-green-500': DmPhongBan.hienThi, 'false-icon pi-times-circle text-pink-500': !DmPhongBan.hienThi}"></i>
+                            </td> -->
+                            <td>
+                                <div class="flex">
+                                    <button pButton pRipple icon="pi pi-pencil"
+                                        class="p-button-rounded p-button-success mr-2"
+                                        (click)="CapNhatPhongBan(DmPhongBan.id)"></button>
+                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                                        (click)="Xoa(DmPhongBan.id)"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8">No record found.</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="loadingbody">
+                        <tr>
+                            <td colspan="8">Loading record data. Please wait.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+
+    <app-them-moi-phong-ban [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi-phong-ban>
+    <app-cap-nhat-phong-ban [hienThi]="hienThiCapNhat" (tatPopup)="Thoat($event, 'C')"
+        [id]="id"></app-cap-nhat-phong-ban>
 </div>

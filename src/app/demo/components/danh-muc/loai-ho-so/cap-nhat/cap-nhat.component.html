@@ -1,1 +1,60 @@
-<p>cap-nhat works!</p>
+<p-dialog [formGroup]="formCapNhat" [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới loại hồ sơ công việc"
+    [modal]="true" class="p-fluid" (onHide)="tatPopup()" (onShow)="DuLieuMotLoaiHoSo()">
+    <div class="formgrid grid">
+        <div class="field col">
+            <label for="tenLoaiHoSo">Tên loại hồ sơ công việc <span class="p-error">*</span></label>
+            <input type="text" pInputText id="tenLoaiHoSo" formControlName="tenLoaiHoSo">
+            <span class="p-error"
+                *ngIf="!formCapNhat.controls.tenLoaiHoSo.valid && (formCapNhat.controls.tenLoaiHoSo.touched || submitted)">Vui
+                lòng nhập tên loại hồ sơ</span>
+
+        </div>
+        <div class="field col">
+            <label for="maHs">Mã loại hồ sơ công việc <span class="p-error">*</span></label>
+            <input type="text" pInputText id="maHs" formControlName="maHs" />
+            <span class="p-error"
+                *ngIf="!formCapNhat.controls.maHs.valid && (formCapNhat.controls.maHs.touched || submitted)">Vui
+                lòng nhập mã loại hồ sơ</span>
+
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <div class="field col">
+            <label for="donViId">Chọn tên đơn vị <span class="p-error">*</span></label>
+            <p-treeSelect appendTo="body" [filterInputAutoFocus]="true" [filter]="true"
+                (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViId" [options]="donViTree"
+                placeholder="Chọn đơn vị"></p-treeSelect>
+            <span class="p-error"
+                *ngIf="!formCapNhat.controls.donViId.valid && (formCapNhat.controls.donViId.touched || submitted)">Vui
+                lòng
+                chọn đơn vị</span>
+        </div>
+        <div class="field col">
+            <label for="phongBanId">Chọn phòng ban</label>
+            <p-dropdown appendTo="body" [options]="phongBan" formControlName="phongBanId" optionLabel="name"
+                placeholder="Chọn phòng ban" [showClear]="true" optionValue="code"></p-dropdown>
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <div class="field col">
+            <label for="soHshienTai">Số hiện tại <span class="p-error"></span></label>
+            <p-inputNumber id="soHshienTai" formControlName="soHshienTai"></p-inputNumber>
+        </div>
+        <div class="field col">
+            <label for="soHstruoc">Số năm trước <span class="p-error"></span></label>
+            <p-inputNumber id="soHstruoc" formControlName="soHstruoc"></p-inputNumber>
+        </div>
+        <div class="field col">
+            <label for="thuTu">Thứ tự hiển thị</label>
+            <p-inputNumber id="thuTu" formControlName="thuTu"></p-inputNumber>
+        </div>
+    </div>
+    <div class="field">
+        <label for="ghiChu">Ghi chú</label>
+        <textarea id="ghiChu" formControlName="ghiChu" pInputTextarea rows="3" cols="20"></textarea>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" (click)="capNhatLoaiHoSo()" icon="pi pi-check" class="p-button-info"></button>
+        <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="tatPopup()"></button>
+    </ng-template>
+</p-dialog>

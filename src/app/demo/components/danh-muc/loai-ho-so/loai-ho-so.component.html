@@ -101,7 +101,7 @@
 
         <app-them-moi [show]="showCreated" (close)="closePopup($event, 'C')"></app-them-moi>
 
-        <!-- <app-cap-nhat [show]="showUpdated" (close)="closePopup($event, 'U')" [id]="idField"></app-cap-nhat> -->
+        <app-cap-nhat [show]="hienThiCapNhat" (close)="closePopup($event, 'U')" [id]="idLoaiHoSo"></app-cap-nhat>
 
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">

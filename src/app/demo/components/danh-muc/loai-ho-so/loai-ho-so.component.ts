@@ -37,6 +37,10 @@ export class LoaiHoSoComponent implements OnInit {
 
   showCreated: boolean = false;
 
+  hienThiCapNhat: boolean = false;
+
+  idLoaiHoSo: string = '1';
+
   constructor(private messageService: MessageService, private loaiHoSoService: LoaiHoSoService) { }
 
   ngOnInit() {
@@ -53,6 +57,8 @@ export class LoaiHoSoComponent implements OnInit {
   closePopup(item: any, type: string) {
     if (type === 'C') {
       this.showCreated = false;
+    } else {
+      this.hienThiCapNhat = false;
     }
     this.ListRecords();
   }
@@ -66,6 +72,11 @@ export class LoaiHoSoComponent implements OnInit {
     if (event.key === "Enter") {
       this.searchRecord();
     }
+  }
+
+  editRecord(id: string) {
+    this.hienThiCapNhat = true;
+    this.idLoaiHoSo = id;
   }
 
   deleteRecord(id: any) {

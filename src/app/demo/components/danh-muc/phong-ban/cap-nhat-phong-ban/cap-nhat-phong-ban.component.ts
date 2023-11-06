@@ -55,7 +55,11 @@ export class CapNhatPhongBanComponent implements OnInit {
 
   public BindDataDialog(): void {
     this.phongbanService.GetPhongBanById(this.id).subscribe(data => {
+      console.log("data:  " ,data);
+      
       this.parentId = data.parentId;
+      console.log("data parent ID",data.parentId);
+      
       this.checked = data.trangThai;
       const objDonViSl = this.filterItems(this.DonViTree)
       data.parentId = objDonViSl;

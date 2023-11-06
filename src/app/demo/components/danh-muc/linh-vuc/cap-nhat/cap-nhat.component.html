@@ -1,5 +1,5 @@
-<p-dialog [formGroup]="formUpdate" [(visible)]="show" [style]="{width: '960px'}" header="Cập nhật lĩnh vực" [modal]="true" class="p-fluid"
-    (onHide)="closePopup()" (onShow)="getDataField()">
+<p-dialog [formGroup]="formUpdate" [(visible)]="show" [style]="{width: '960px'}" header="Cập nhật lĩnh vực"
+    [modal]="true" class="p-fluid" (onHide)="closePopup()" (onShow)="getDataField()">
     <div class="formgrid grid">
         <div class="field col">
             <label for="tenLinhVuc">Tên lĩnh vực <span class="p-error">*</span></label>
@@ -24,16 +24,16 @@
         <div class="field col">
             <label for="donViId">Chọn tên đơn vị <span class="p-error">*</span></label>
             <p-treeSelect appendTo="body" [filterInputAutoFocus]="true" [filter]="true"
-                (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViIdPhongban" id="donViIdPhongban" [options]="unitTree"
-                placeholder="Chọn đơn vị"></p-treeSelect>
-                <span class="p-error"
-                    *ngIf="!formUpdate.controls.vietTat.valid && (formUpdate.controls.vietTat.touched || submitted)">Vui
-                    lòng nhập chọn đơn vị</span>
+                (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViIdPhongban" id="donViIdPhongban"
+                [options]="unitTree" placeholder="Chọn đơn vị"></p-treeSelect>
+            <span class="p-error"
+                *ngIf="!formUpdate.controls.donViIdPhongban.valid && (formUpdate.controls.donViIdPhongban.touched || submitted)">Vui
+                lòng nhập chọn đơn vị</span>
         </div>
         <div class="field col">
             <label for="phongBanId">Chọn phòng ban</label>
-            <p-dropdown appendTo="body"  [options]="department" [(ngModel)]="selectedPhongBan"  formControlName="phongBanId" optionLabel="name"
-                (ngModelChange)="onSelectChangePhongBan($event)" placeholder="Chọn phòng ban"
+            <p-dropdown appendTo="body" [options]="department" [(ngModel)]="selectedPhongBan"
+                formControlName="phongBanId" optionLabel="name" placeholder="Chọn phòng ban" optionValue="code"
                 [showClear]="true"></p-dropdown>
         </div>
         <div class="field col">
@@ -49,7 +49,7 @@
         <textarea id="ghiChu" formControlName="ghiChu" pInputTextarea required rows="3" cols="20"></textarea>
     </div>
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Lưu"  icon="pi pi-check" class="p-button-info" (click)="updatedField()"></button>
+        <button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-info" (click)="updatedField()"></button>
         <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="closePopup()"></button>
     </ng-template>
 </p-dialog>

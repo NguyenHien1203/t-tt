@@ -28,7 +28,7 @@
                     (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViIdPhongban" [options]="unitTree"
                     placeholder="Chọn đơn vị"></p-treeSelect>
                 <span class="p-error"
-                    *ngIf="!formCreate.controls.vietTat.valid && (formCreate.controls.vietTat.touched || submitted)">Vui
+                    *ngIf="!formCreate.controls.donViIdPhongban.valid && (formCreate.controls.donViIdPhongban.touched || submitted)">Vui
                     lòng nhập chọn đơn vị</span>
             </div>
             <div class="field col">

@@ -1,3 +1,4 @@
+import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { ChucDanhService } from './../../../service/danh-muc/chuc-danh/chuc-danh.service';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
@@ -19,30 +20,30 @@ export class ChucDanhComponent implements OnInit {
 
   rowsPerPageOptions = [5, 10, 20];
 
-  listTitle: ChucDanh = {};
+  chucDanh: ChucDanh = {};
 
-  listTitles: ChucDanh[] = [];
+  cacChucDanh: ChucDanh[] = [];
 
-  search: Search = {};
+  timKiem: Search = {};
 
-  dataSearch = {
+  dauVaoTimKiem = {
     "keyWord": "",
     "nam": 0,
     "tuNgay": new Date(),
     "denNgay": new Date()
   };
 
-  dataTitle = {
+  duLieuNhapChucDanh = {
     "id": 0,
     "tenChucDanh": "",
     "thuTu": 0,
     "ghiChu": "",
     "hienThi": true,
-    "donViId": 0,
+    "donViId": "",
     "created": new Date(),
-    "createdBy": 0,
+    "createdBy": "",
     "lastModified": new Date(),
-    "lastModifiedBy": 0,
+    "lastModifiedBy": "",
   }
 
   productDialog: boolean = false;
@@ -51,7 +52,7 @@ export class ChucDanhComponent implements OnInit {
 
   deleteProductDialog: boolean = false;
 
-  idTitle: number;
+  idChucDanh: number;
 
   header: string;
 
@@ -66,103 +67,104 @@ export class ChucDanhComponent implements OnInit {
     this.breadcrumbItems.push({ label: 'Danh mục' });
     this.breadcrumbItems.push({ label: 'Quản trị chức danh' });
 
-    this.LoadListTitles();
+    this.TaiDuLieuCacChucDanh();
     console.log(this.authService.GetmUserInfo());
     console.log(this.authService.GetDonViLamViec());
   }
 
-  LoadListTitles() {
-    this.chucDanhService.getListTitles(this.dataSearch)
+  TaiDuLieuCacChucDanh() {
+    this.chucDanhService.layCacBanGhi(this.dauVaoTimKiem)
       .subscribe(data => {
         if (data.isError) {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
         } else {
-          this.listTitles = data;
+          this.cacChucDanh = data;
         };
       }, (error) => {
         console.log('Error', error);
       })
   }
 
-  searchTitle() {
-    this.dataSearch.keyWord = this.search.keyWord ?? "";
-    this.LoadListTitles();
+  TimKiemChucDanh() {
+    this.dauVaoTimKiem.keyWord = this.dauVaoTimKiem.keyWord ?? "";
+    this.TaiDuLieuCacChucDanh();
   }
 
-  openNew() {
-    this.listTitle = {};
+  ThemMoiChucDanh() {
+    this.chucDanh = {};
     this.submitted = false;
     this.productDialog = true;
     this.header = "Thêm mới chức danh";
   }
 
-  hideDialog() {
+  TatPopup() {
     this.productDialog = false;
     this.submitted = false;
   }
 
-  saveTitle() {
+  LuuDuLieuChucDanh() {
     this.submitted = true;
 
-    if (this.listTitle.tenChucDanh?.trim()) {
-      this.dataTitle.tenChucDanh = this.listTitle.tenChucDanh;
-      this.dataTitle.thuTu = this.listTitle.thuTu;
-      this.dataTitle.ghiChu = this.listTitle.ghiChu;
+    if (this.chucDanh.tenChucDanh?.trim()) {
+      this.duLieuNhapChucDanh.tenChucDanh = this.chucDanh.tenChucDanh;
+      this.duLieuNhapChucDanh.thuTu = this.chucDanh.thuTu;
+      this.duLieuNhapChucDanh.ghiChu = this.chucDanh.ghiChu;
 
-      if (this.listTitle.id) {
-        this.dataTitle.lastModified = new Date();
-        this.dataTitle.lastModifiedBy = 0;
-        this.chucDanhService.updateTitle(this.dataTitle, this.listTitle.id).subscribe(data => {
+      if (this.chucDanh.id) {
+        this.duLieuNhapChucDanh.lastModified = new Date();
+        this.duLieuNhapChucDanh.lastModifiedBy = this.authService.GetDonViLamViec();
+        this.chucDanhService.capNhat(this.duLieuNhapChucDanh, this.chucDanh.id).subscribe(data => {
           console.log(data);
-          this.LoadListTitles();
-          if (data.code == 200) {
-            this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật thành công', life: 3000 });
+          this.TaiDuLieuCacChucDanh();
+          if (data.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
           } else {
-            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật không thành công', life: 3000 });
+            this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
           }
         })
       } else {
-        this.chucDanhService.createTitle(this.dataTitle).subscribe(data => {
-          console.log(data);
-          this.LoadListTitles();
-          if (data.code == 200) {
-            this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Tạo mới thành công', life: 3000 });
+        this.duLieuNhapChucDanh.donViId = this.authService.GetDonViLamViec();
+        this.duLieuNhapChucDanh.createdBy = this.authService.GetDonViLamViec();
+        this.chucDanhService.themMoi(this.duLieuNhapChucDanh).subscribe(data => {
+          this.TaiDuLieuCacChucDanh();
+          if (data.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
           } else {
-            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Tạo mới không thành công', life: 3000 });
+            this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
           }
         });
       }
       this.productDialog = false;
-      this.listTitle = {};
+      this.chucDanh = {};
     }
   }
 
-  editTitle(id: number) {
+  CapNhatChucDanh(id: number) {
     this.header = "Cập nhật chức danh"
     this.submitted = false;
     this.productDialog = true;
-    this.chucDanhService.getIdTitle(id).subscribe(data => {
-      this.listTitle = data;
+    this.chucDanhService.layMotBanGhi(id).subscribe(data => {
+      this.chucDanh = data;
     });
   }
 
-  deleteTitle(id: number) {
+  XoaChucDanh(id: number) {
     this.deleteProductDialog = true;
-    this.idTitle = id;
+    this.idChucDanh = id;
   }
 
-  confirmDelete() {
+  XacNhanXoaChucDanh() {
     this.deleteProductDialog = false;
-    this.chucDanhService.deleteTitle(this.idTitle).subscribe(data => {
+    this.chucDanhService.xoa(this.idChucDanh).subscribe(data => {
       console.log(data)
-      this.LoadListTitles();
-      if (data.code == 200) {
-        this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Xóa bản ghi thành công', life: 3000 });
+      this.TaiDuLieuCacChucDanh();
+      if (data.isError) {
+        this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
       } else {
-        this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Không thể xóa bản ghi', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
       }
     });
-    this.listTitle = {};
+    this.chucDanh = {};
   }
 }

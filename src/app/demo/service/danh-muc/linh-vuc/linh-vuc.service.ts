@@ -46,8 +46,8 @@ export class LinhVucService {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `DeleteLinhVuc/${id}`, this.httpOptions)
   }
 
-  public getTreeUnits(name: any, id: any): Observable<any> {
-    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + `GetDataDonViTree/${name},${id}`, this.httpOptions)
+  public getTreeUnits(): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + `GetDataDonViTree`, this.httpOptions)
   }
 
   public getDataDepart(id: string): Observable<any> {

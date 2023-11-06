@@ -12,7 +12,7 @@
                 <div class="p-fluid p-formgrid grid">
                     <div class="field col-12 md:col-8">
                         <span class="p-float-label">
-                            <input id="search-name-title" type="text" pInputText [(ngModel)]="search.keyWord">
+                            <input id="search-name-title" type="text" pInputText [(ngModel)]="timKiem.keyWord">
                             <label for="search-name-title">Tên chức danh</label>
                         </span>
                     </div>
@@ -25,12 +25,12 @@
                     </div>
                     <div class="field col-12 md:col-2">
                         <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2"
-                            (click)="searchTitle()"></button>
+                            (click)="TimKiemChucDanh()"></button>
                     </div>
                 </div>
             </div>
 
-            <p-table styleClass="p-datatable-gridlines" #dt [value]="listTitles" [columns]="cols"
+            <p-table styleClass="p-datatable-gridlines" #dt [value]="cacChucDanh" [columns]="cols"
                 responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]"
                 [showCurrentPageReport]="true"
                 currentPageReportTemplate="Hiển thị {first} đến {last} của {totalRecords} bản ghi">
@@ -40,7 +40,7 @@
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <div class="my-2">
                                 <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
-                                    (click)="openNew()"></button>
+                                    (click)="ThemMoiChucDanh()"></button>
                             </div>
                         </span>
                     </div>
@@ -57,7 +57,7 @@
                         <th style="text-align: center;">Chức năng
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-listTitle let-rowIndex="rowIndex">
+                <ng-template pTemplate="body" let-chucDanh let-rowIndex="rowIndex">
                     <tr>
                         <td style="width:8%; min-width:10rem; text-align: center;"><span
                                 class="p-column-title">STT</span>
@@ -65,24 +65,24 @@
                         </td>
                         <td style="width:20%; min-width:10rem;">
                             <span class="p-column-title">Tên chức danh</span>
-                            {{listTitle.tenChucDanh}}
+                            {{chucDanh.tenChucDanh}}
                         </td>
                         <td style="width:30%; min-width:8rem;">
                             <span class="p-column-title">Ghi chú</span>
-                            {{listTitle.ghiChu}}
+                            {{chucDanh.ghiChu}}
                         </td>
 
                         <td style="width:14%; min-width:10rem; text-align: center;">
                             <span class="p-column-title">Thứ tự</span>
-                            {{listTitle.thuTu}}
+                            {{chucDanh.thuTu}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
                             <div class="flex justify-content-center">
                                 <button pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"
-                                    (click)="editTitle(listTitle.id)"></button>
+                                    (click)="CapNhatChucDanh(chucDanh.id)"></button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                                    (click)="deleteTitle(listTitle.id)"></button>
+                                    (click)="XoaChucDanh(chucDanh.id)"></button>
                             </div>
                         </td>
                     </tr>
@@ -97,22 +97,22 @@
                 <div class="formgrid grid">
                     <div class="field col">
                         <label for="tenChucDanh">Tên chức danh</label>
-                        <input type="text" pInputText id="tenChucDanh" [(ngModel)]="listTitle.tenChucDanh" required
-                            autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !listTitle.tenChucDanh}" />
-                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !listTitle.tenChucDanh">Vui lòng không
+                        <input type="text" pInputText id="tenChucDanh" [(ngModel)]="chucDanh.tenChucDanh" required
+                            autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !chucDanh.tenChucDanh}" />
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !chucDanh.tenChucDanh">Vui lòng không
                             được để trống.</small>
                     </div>
                     <div class="field col">
                         <label for="thuTu">Thứ tự hiển thị</label>
-                        <p-inputNumber id="thuTu" [(ngModel)]="listTitle.thuTu" required autofocus
-                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !listTitle.thuTu}"></p-inputNumber>
-                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !listTitle.thuTu">Vui lòng không được để
+                        <p-inputNumber id="thuTu" [(ngModel)]="chucDanh.thuTu" required autofocus
+                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !chucDanh.thuTu}"></p-inputNumber>
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !chucDanh.thuTu">Vui lòng không được để
                             trống.</small>
                     </div>
                 </div>
                 <div class="field">
                     <label for="ghiChu">Ghi chú</label>
-                    <textarea id="ghiChu" pInputTextarea [(ngModel)]="listTitle.ghiChu" required rows="3"
+                    <textarea id="ghiChu" pInputTextarea [(ngModel)]="chucDanh.ghiChu" required rows="3"
                         cols="20"></textarea>
                 </div>
             </ng-template>
@@ -128,11 +128,11 @@
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="listTitle">Bạn muốn xóa bản ghi này ?</span>
+                <span *ngIf="chucDanh">Bạn muốn xóa bản ghi này ?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"
-                    (click)="confirmDelete()"></button>
+                    (click)="XacNhanXoaChucDanh()"></button>
                 <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
                     (click)="deleteProductDialog = false"></button>
             </ng-template>

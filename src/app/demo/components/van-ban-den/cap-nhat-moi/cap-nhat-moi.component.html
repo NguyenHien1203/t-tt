@@ -1,1 +1,64 @@
-<p>cap-nhat-moi works!</p>
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <p-toast></p-toast>
+            <h2>TÌM KIẾM</h2>
+            <div class="field grid">
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" placeholder="Từ khóa" class="form-control" />
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [options]="[{id: '1', ten: 'Nam'},{id: '0', ten: 'Nữ'}]" optionValue="id"
+                        optionLabel="ten" placeholder="Chọn sổ văn bản"></p-dropdown>
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [options]="[{id: '1', ten: 'Nam'},{id: '0', ten: 'Nữ'}]" optionValue="id"
+                        optionLabel="ten" placeholder="Chọn loại văn bản"></p-dropdown>
+                </div>
+                <label class="col-12 md:col-3 fl-wr">
+                    <p-checkbox name="hienThi" id="hienThi" value="true" label="Tìm chính xác"></p-checkbox>
+                </label>
+            </div>
+            <div class="field grid">
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" placeholder="Ngày nhận văn bản" class="form-control" />
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" placeholder="Ngày ban hành văn bản" class="form-control" />
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [options]="[{id: '1', ten: 'Nam'},{id: '0', ten: 'Nữ'}]" optionValue="id"
+                        optionLabel="ten" placeholder="Chọn năm"></p-dropdown>
+                </div>
+                <label class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" placeholder="Số đến" class="form-control" />
+                </label>
+            </div>
+            <div class="field grid">
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" placeholder="Số ký hiệu" class="form-control" />
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" placeholder="Lãnh đạo ký" class="form-control" />
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [options]="[{id: '1', ten: 'Nam'},{id: '0', ten: 'Nữ'}]" optionValue="id"
+                        optionLabel="ten" placeholder="Chọn cơ quan ban hành"></p-dropdown>
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-success mr-2"></button>
+                </div>
+              
+            </div>
+           
+        </div>
+    </div>
+</div>

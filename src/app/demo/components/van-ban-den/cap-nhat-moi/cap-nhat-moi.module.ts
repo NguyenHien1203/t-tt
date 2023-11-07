@@ -20,9 +20,11 @@ import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CapNhatMoiRoutingModule } from './cap-nhat-moi-routing.module';
+import { CapNhatMoiComponent } from './cap-nhat-moi.component';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
-  declarations: [],
+  declarations: [CapNhatMoiComponent],
   imports: [
     CommonModule,
     CapNhatMoiRoutingModule,
@@ -44,7 +46,8 @@ import { CapNhatMoiRoutingModule } from './cap-nhat-moi-routing.module';
     BreadcrumbModule,
     TreeModule,
     TreeSelectModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CheckboxModule
   ]
 })
 export class CapNhatMoiModule { }

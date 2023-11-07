@@ -1,0 +1,123 @@
+<form [formGroup]="formThemMoi">
+    <p-dialog appendTo="body" header="Thêm mới đơn vị" (onHide)="Thoat()" [(visible)]="hienThi" [modal]="true"
+        [style]="{ width: '60vw' }" [draggable]="true" [resizable]="false">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="MaDonVi">Mã đơn vị <span class="p-error">(*)</span></label>
+                <input pinputtext="" id="MaDonVi" type="text" class="p-inputtext p-component p-element"
+                    formControlName="MaDonVi">
+                <span class="p-error"
+                    *ngIf="!formThemMoi.controls.MaDonVi.valid && (formThemMoi.controls.MaDonVi.touched || submitted)">Vui
+                    lòng nhập mã đơn vị</span>
+            </div>
+
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="TenDonVi">Tên đơn vị <span class="p-error">(*)</span></label>
+                <input pinputtext="" id="TenDonVi" type="text" class="p-inputtext p-component p-element"
+                    formControlName="TenDonVi">
+                <span class="p-error"
+                    *ngIf="!formThemMoi.controls.TenDonVi.valid && (formThemMoi.controls.TenDonVi.touched || submitted)">Vui
+                    lòng nhập tên đơn vị</span>
+            </div>
+
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="donvi">Đơn vị <span class="p-error">(*)</span></label>
+                <p-dropdown inputId="inventoryStatus" optionValue="label" placeholder="Select">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="product && product.inventoryStatus" [class]="'product-badge status-' + product.inventoryStatus.toString().toLowerCase()">{{product.inventoryStatus}}</span>
+                    </ng-template>
+                    <ng-template let-option pTemplate="item">
+                        <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="MaDinhDanh">Mã định danh</label>
+                <input pinputtext="" id="MaDinhDanh" type="text" class="p-inputtext p-component p-element"
+                    formControlName="MaDinhDanh">
+            </div>
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="TenDonViTrenTruc">Tên đơn vị trên trục</label>
+                <input pinputtext="" id="TenDonViTrenTruc" type="text" class="p-inputtext p-component p-element"
+                    formControlName="TenDonViTrenTruc">
+            </div>
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="NgayTruyenThong">Ngày truyền thống</label>
+                <p-calendar appendTo="body" id="NgayTruyenThong" dataType="string" formControlName="NgayTruyenThong"
+                    type="text" [showIcon]="true" [readonlyInput]="true" inputId="icon"></p-calendar>
+
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="DiaChi">Địa chỉ</label>
+                <textarea rows="5" type="text" cols="30" id="DiaChi" formControlName="DiaChi" placeholder="nhập địa chỉ"
+                    pInputTextarea></textarea>
+            </div>
+
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="GhiChu">Ghi chú</label>
+                <textarea rows="5" type="text" cols="30" id="GhiChu" formControlName="GhiChu" placeholder="nhập ghi chú"
+                    pInputTextarea></textarea>
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="SDT">Số điện thoại</label>
+                <input pinputtext="" id="SDT" type="text" class="p-inputtext p-component p-element"
+                    formControlName="SDT">
+            </div>
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="Fax">Fax</label>
+                <input pinputtext="" id="Fax" type="text" class="p-inputtext p-component p-element"
+                    formControlName="Fax">
+            </div>
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="Website">Website</label>
+                <input pinputtext="" id="Website" type="text" class="p-inputtext p-component p-element"
+                    formControlName="Website">
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="Email">Email</label>
+                <input pinputtext="" id="Email" type="text" class="p-inputtext p-component p-element"
+                    formControlName="Email">
+            </div>
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="ThuTu">Số thứ tự</label>
+                <input pinputtext="" id="ThuTu" type="text" class="p-inputtext p-component p-element"
+                    formControlName="ThuTu">
+            </div>
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="TrangThai">Trạng thái</label>
+
+                <div class="field-checkbox">
+                    <p-checkbox name="TrangThai" formControlName="TrangThai" id="TrangThai" (click)="CheckHienThi()"
+                        class="mg-t-25" value="true" label="Hiển thị"></p-checkbox>
+                </div>
+            </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+            <button type="submit" pbutton="" pripple="" label="Tìm kiếm" icon="pi pi-bookmark"
+                class="p-element p-ripple p-button p-component">
+                <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+                <span class="p-button-label">Lưu</span>
+                <span class="p-ink"></span>
+            </button>
+            <button pbutton="" pripple="" label="Tìm kiếm" icon="pi pi-bookmark"
+                class="p-element p-ripple p-button p-component p-button-danger" (click)="Thoat()">
+                <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+                <span class="p-button-label">Thoát</span>
+                <span class="p-ink"></span>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

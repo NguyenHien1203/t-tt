@@ -1,20 +1,21 @@
 <div class="grid">
-    <div class="col-12">
-        <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+            </div>
+        </div>
     </div>
-
-    <div class="col-12 pt-0">
-        <p-toast></p-toast>
-        <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
+    <div class="col-12">
+        <div class="card">
             <h2>TÌM KIẾM</h2>
             <div class="field grid">
-                <label htmlFor="name3" class="col-12 mb-2 md:col-2 md:mb-0">Tên liên kết</label>
+                <label htmlFor="name3" class="col-12 mb-2 md:col-2 md:mb-0">Tên liên kết:</label>
                 <div class="col-12 md:col-3 fl-wr">
-                    <input pInputText id="name3" type="text" class="form-control"
-                        [(ngModel)]="timKiemDanhSach.keyWord" />
+                    <input pInputText id="name3" type="text" class="form-control" [(ngModel)]="timKiemDanhSach.keyWord" />
                 </div>
-                <button pButton pRipple type="button" icon="pi pi-search" (click)="(LoadDanhSach(timKiemDanhSach))"
-                    label="Tìm kiếm" class="p-button-info"></button>
+                <button pButton pRipple type="button" icon="pi pi-search" (click)="(LoadDanhSach(timKiemDanhSach))" label="Tìm kiếm"
+                        class="p-button-info"></button>
             </div>
         </div>
 
@@ -106,23 +107,24 @@
     <app-them-moi [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
     <app-cap-nhat [hienThi]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat>
 
-    <p-confirmDialog #cd [style]="{width: '30vw'}">
-        <ng-template pTemplate="header">
-            <h3>Xác nhận</h3>
-        </ng-template>
-        <ng-template pTemplate="footer">
-            <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark"
-                class="p-element p-ripple p-button p-component p-button-info">
-                <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
-                <span class="p-button-label">Đồng ý</span>
-                <span class="p-ink"></span>
-            </button>
-            <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark"
-                class="p-element p-ripple p-button p-component p-button-danger">
-                <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
-                <span class="p-button-label">Hủy</span>
-                <span class="p-ink"></span>
-            </button>
-        </ng-template>
-    </p-confirmDialog>
-    <p-toast></p-toast>
+   <p-confirmDialog #cd [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+      <h3>Xác nhận</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-info">
+        <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+        <span class="p-button-label">Đồng ý</span>
+        <span class="p-ink"></span>
+      </button>
+      <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-danger">
+        <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+        <span class="p-button-label">Hủy</span>
+        <span class="p-ink"></span>
+      </button>
+    </ng-template>
+  </p-confirmDialog>
+  <p-toast></p-toast>
+  
+
+    

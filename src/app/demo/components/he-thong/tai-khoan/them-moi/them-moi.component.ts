@@ -48,19 +48,15 @@ export class ThemMoiComponent {
 
   //Khai báo đơn vị tree
   DonViTree: DMJsonModel[] = [];
-  selectedDonVi: '';
 
   //Khai báo phòng ban option
   PhongBan = [];
-  selectedPhongBan: '';
 
   //Khai báo nhóm quyền option
   NhomQuyen = [];
-  selectedNhomQuyen: '';
 
   //Khai báo chức danh option
   ChucDanh = [];
-  selectedChucDanh: '';
 
   constructor(
     private taikhoanService: TaiKhoanService,

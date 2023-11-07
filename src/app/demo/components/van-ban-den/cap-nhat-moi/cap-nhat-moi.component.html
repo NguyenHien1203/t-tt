@@ -16,12 +16,12 @@
                     <input pInputText type="text" placeholder="Từ khóa" class="form-control" />
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
-                    <p-dropdown [options]="[{id: '1', ten: 'Nam'},{id: '0', ten: 'Nữ'}]" optionValue="id"
-                        optionLabel="ten" placeholder="Chọn sổ văn bản"></p-dropdown>
+                    <p-dropdown [options]="SoVanBan" (ngModelChange)="onChangeLoaiVanBan($event)" optionValue="id"
+                        optionLabel="tenSo" placeholder="Chọn sổ văn bản"></p-dropdown>
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
-                    <p-dropdown [options]="[{id: '1', ten: 'Nam'},{id: '0', ten: 'Nữ'}]" optionValue="id"
-                        optionLabel="ten" placeholder="Chọn loại văn bản"></p-dropdown>
+                    <p-dropdown [options]="LoaiVanBan" optionValue="loaiVbId"
+                        optionLabel="tenLoaiVb" placeholder="Chọn loại văn bản"></p-dropdown>
                 </div>
                 <label class="col-12 md:col-3 fl-wr">
                     <p-checkbox name="hienThi" id="hienThi" value="true" label="Tìm chính xác"></p-checkbox>

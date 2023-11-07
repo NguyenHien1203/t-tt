@@ -571,7 +571,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Cơ quan',
                                 icon: 'pi pi-fw pi-building',
-                                routerLink: ['/danh-muc/'],
+                                routerLink: ['/danh-muc/don-vi'],
                                 code: '009006'
                             },
                             {
@@ -1379,13 +1379,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Lĩnh vực',
                                 icon: 'pi pi-fw pi-list',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/danh-muc/linh-vuc'],
                                 code: '009002'
                             },
                             {
                                 label: 'Loại hồ sơ',
                                 icon: 'pi pi-fw pi-folder',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/danh-muc/loai-ho-so'],
                                 code: '009003'
                             },
                             {

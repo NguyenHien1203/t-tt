@@ -14,6 +14,13 @@
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 
-.my-background {
-    background-color: #f8f9fa;
+.my-font {
+    font-family: Roboto, sans-serif;
+    font-size: 18px;
+    line-height: 10px;
+    padding-top: 10px;
+}
+
+.my-background-color .ng-star-inserted {
+    background-color: #ffffff;
 }

@@ -108,7 +108,7 @@ export class ThemMoiComponent implements OnInit {
     console.log(this.formCreate.value);
 
     if (this.formCreate.valid) {
-      this.loaiHoSoService.createRecord(this.formCreate.value).subscribe(data => {
+      this.loaiHoSoService.themMoiLoaiHoSo(this.formCreate.value).subscribe(data => {
         if (data.isError) {
           this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
         } else {

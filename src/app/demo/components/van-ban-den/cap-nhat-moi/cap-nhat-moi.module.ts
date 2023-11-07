@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaiKhoanRoutingModule } from './tai-khoan-routing.module';
-import { TaiKhoanComponent } from './tai-khoan.component';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -18,17 +16,18 @@ import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
-import { ThemDvThucHienComponent } from './them-moi/them-dv-thuc-hien.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
-import { CapNhatDvThucHienComponent } from './cap-nhat/cap-nhat-dv-thuc-hien.component';
+import { CapNhatMoiRoutingModule } from './cap-nhat-moi-routing.module';
+import { CapNhatMoiComponent } from './cap-nhat-moi.component';
+import { CheckboxModule } from 'primeng/checkbox';
+
 @NgModule({
+  declarations: [CapNhatMoiComponent],
   imports: [
     CommonModule,
-    TaiKhoanRoutingModule,
+    CapNhatMoiRoutingModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -47,8 +46,8 @@ import { CapNhatDvThucHienComponent } from './cap-nhat/cap-nhat-dv-thuc-hien.com
     BreadcrumbModule,
     TreeModule,
     TreeSelectModule,
-    ConfirmDialogModule
-  ],
-  declarations: [TaiKhoanComponent, ThemMoiComponent, ThemDvThucHienComponent, CapNhatComponent, CapNhatDvThucHienComponent]
+    ConfirmDialogModule,
+    CheckboxModule
+  ]
 })
-export class TaiKhoanModule { }
+export class CapNhatMoiModule { }

@@ -1,122 +1,124 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/demo/api/product';
 import { ConfirmationService, MenuItem, Message, MessageService } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { ProductService } from 'src/app/demo/service/product.service';
 import { DmPhongBan, TimKiemModel } from 'src/app/demo/api/danh-muc/phong-ban';
 import { PhongbanService } from 'src/app/demo/service/danh-muc/phong-ban/phongban.service';
 
 @Component({
-    templateUrl: './phong-ban.component.html',
-    styleUrls: ["./phong-ban.component.scss"],
-    providers: [MessageService, ConfirmationService]
+  templateUrl: './phong-ban.component.html',
+  styleUrls: ["./phong-ban.component.scss"],
+  providers: [MessageService, ConfirmationService]
 })
 export class PhongBanComponent implements OnInit {
-    breadcrumbItems: MenuItem[] = [];
-    danhmuc: DmPhongBan[] = [];
-    phongBans: DmPhongBan[] = [];
-    msgs: Message[] = [];
-    timkiems: TimKiemModel = {
-        keyWord: "",
-        Nam: 0,
-        TuNgay: new Date(),
-        DenNgay: new Date()
-    };
 
-    id: string = "";
-    
-    hienThiThemMoi: boolean = false;
-    hienThiCapNhat: boolean = false;
+  //Trả ra thanh trang chủ
+  breadcrumbItems: MenuItem[] = [];
+  items: any[] = [];
+  home: any;
+  loading: boolean = true;
+  // hết
 
-    TuKhoa: string = '';
+  danhmuc: DmPhongBan[] = [];
+  phongBans: DmPhongBan[] = [];
+  msgs: Message[] = [];
 
-    items: any[] = [];
+  //Dữ liệu truyền để tìm kiếm 
+  timChinhXac: boolean = false;
+  timkiems: TimKiemModel = {
+    MaPhongBan: "",
+    TenPhongBan: "",
+    DonViId: 0,
+    chkTimChinhXac: 0
+  };
+  // hết
+  id: string = "";
 
-    home: any;
+  hienThiThemMoi: boolean = false;
+  hienThiCapNhat: boolean = false;
 
-    productDialog: boolean = false;
+  //Angular thực hiện phân trang
+  cols: any[] = [];
 
-    deleteProductDialog: boolean = false;
+  statuses: any[] = [];
 
-    deleteProductsDialog: boolean = false;
+  rowsPerPageOptions = [5, 10, 20];
+  //Hết 
 
-    products: Product[] = [];
+  constructor(private messageService: MessageService, private dmPhongBanService: PhongbanService, private confirmationService: ConfirmationService) { }
 
-    product: Product = {};
+  ngOnInit(): void {
 
-    selectedProducts: Product[] = [];
+    this.items = [{ label: 'Danh mục' }, { label: 'Phòng ban' }];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+    this.loading = false;
+    //Trỏ đến get danh sách
+    this.getDanhSachPhongBan(this.timkiems);
+  }
 
-    submitted: boolean = false;
+  //Thay đổi giá trị checkbox tìm kiếm
+  public CheckChinhXac(): void {
+    this.timChinhXac = !this.timChinhXac;
+  }
 
-    cols: any[] = [];
+  //#region 
+  //Thêm mới phòng ban
+  public ThemMoi(): void {
+    this.hienThiThemMoi = true;
+  }
+ //#endregion
 
-    statuses: any[] = [];
+  //#region 
+  //Cập nhật phòng ban
+  public CapNhatPhongBan(id: string): void {
+    this.id = id;
+    this.hienThiCapNhat = true;
+  }
+  //#endregion
 
-    rowsPerPageOptions = [5, 10, 20];
+  //#region 
+  //Nút thoát
+  public Thoat(itemHt: any, loai: string): void {
+    if (loai === 'T')
+      this.hienThiThemMoi = false;
+    else
+      this.hienThiCapNhat = false;
+  }
+  //#endregion
 
-    constructor(private productService: ProductService, private messageService: MessageService, private dmPhongBanService: PhongbanService, private confirmationService: ConfirmationService,) { }
+  //#region 
+  // Get List Phong Ban
+  public getDanhSachPhongBan(timkiems: TimKiemModel) {
+    this.timkiems.chkTimChinhXac = this.timChinhXac ? 1 : 0;
+    this.dmPhongBanService.getDanhSachPhongBan(timkiems).then(data => { this.phongBans = data; console.log(data) }
+    )
+  };
 
-    ngOnInit(): void {
+  // public GetTenDonVi(Id: string){
+  //   this.dmPhongBanService.getDanhSachPhongBan(timkiems).then(data => { this.phongBans = data }
+  // }
 
-        this.items = [{ label: 'Danh mục' }, { label: 'Phòng ban' }];
-        this.home = { icon: 'pi pi-home', routerLink: '/' };
-        //#region 
-        // Get List Phong Ban
-        this.dmPhongBanService.getDanhSachPhongBan(this.timkiems).then(data => { this.phongBans = data; console.log(data) }
-        );
-        //#endregion
+  //#endregion
 
-        
-        //this.productService.getProducts().then(data => this.products = data);
-    }
-
-    //#region 
-    //Thêm mới phòng ban
-    public ThemMoi(): void {
-        this.hienThiThemMoi = true;
-    }
-
-    public CapNhatPhongBan(id : string): void {
-        this.id = id;
-        this.hienThiCapNhat = true;
-    }
-
-    public Thoat(itemHt: any, loai: string): void {
-        if (loai === 'T')
-            this.hienThiThemMoi = false;
-        else
-            this.hienThiCapNhat = false;
-        this.getDanhSachPhongBan();
-    }
-    //#endregion
-
-    public getDanhSachPhongBan() {
-        this.timkiems.keyWord = this.TuKhoa;
-        this.dmPhongBanService.getDanhSachPhongBan(this.timkiems).then(data => { this.phongBans = data; console.log(data) }
-        )
-    };
-
-
-    public Xoa(id: string) {
-        this.confirmationService.confirm({
-          message: 'Bạn có chắc chắn xác nhận xóa liên kết?',
-          header: 'Xác nhận',
-          icon: 'pi pi-info-circle',
-          accept: () => {
-            this.dmPhongBanService.xoaPhongBan(id).subscribe(data => {
-              if (data.isError) {
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
-              } else {
-                this.getDanhSachPhongBan();
-                this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
-              }
-            }, (error) => {
-              console.log('Error', error);
-            })
-          },
-          reject: () => {
-    
+ //#region 
+  // Xóa du lieu Phong Ban
+  public Xoa(id: string) {
+    this.confirmationService.confirm({
+      message: 'Đồng ý xóa phòng ban?',
+      header: 'Xác nhận',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.dmPhongBanService.xoaPhongBan(id).subscribe(data => {
+          if (data.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+          } else {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
           }
-        });
+        }, (error) => {
+          console.log('Error', error);
+        })
+      },
+      reject: () => {
       }
+    });
+  }
+   //#endregion 
 }

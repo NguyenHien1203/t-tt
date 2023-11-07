@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [];
+import { DonViComponent } from './don-vi.component';
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild([
+    {path: '', component: DonViComponent}
+  ])],
   exports: [RouterModule]
 })
 export class DonViRoutingModule { }

@@ -86,28 +86,6 @@ export class ThemMoiComponent implements OnInit {
     }
   }
 
-  createRecord() {
-    this.submitted = true;
-    this.valueFormCreate = this.formCreate.value;
-
-    this.formCreate.value.phongBanId = this.valueFormCreate.phongBanId.code ?? 0;
-    this.formCreate.value.donViId = this.valueFormCreate.donViId.id ?? 0;
-
-    console.log(this.formCreate.value);
-
-    if (this.formCreate.valid) {
-      this.loaiHoSoService.createRecord(this.formCreate.value).subscribe(data => {
-        if (data.isError) {
-          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
-        } else {
-          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
-        }
-      });
-      this.closePopup();
-      this.formCreate.reset();
-    }
-  }
-
   public GetDataUnit() {
     this.linhVucService.getTreeUnits().subscribe(data => {
       if (data.isError) {
@@ -118,5 +96,27 @@ export class ThemMoiComponent implements OnInit {
     }, (error) => {
       console.log("Lỗi", error);
     })
+  }
+
+  createRecord() {
+    this.submitted = true;
+    this.valueFormCreate = this.formCreate.value;
+
+    this.formCreate.value.phongBanId = this.valueFormCreate.phongBanId.code ?? 0;
+    this.formCreate.value.donViId = this.valueFormCreate.donViId.id ?? 0;
+
+    console.log(this.formCreate.value);
+
+    if (this.formCreate.valid) {
+      this.loaiHoSoService.themMoiLoaiHoSo(this.formCreate.value).subscribe(data => {
+        if (data.isError) {
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
+        } else {
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
+        }
+      });
+      this.closePopup();
+      this.formCreate.reset();
+    }
   }
 }

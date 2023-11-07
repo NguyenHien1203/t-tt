@@ -17,12 +17,7 @@ export class ThemMoiPhongBanComponent {
   @Input() hienThi: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
   checkHt: boolean = false;
-  timkiems: TimKiemModel = {
-    keyWord: "",
-    Nam: 0,
-    TuNgay: new Date(),
-    DenNgay: new Date()
-  };
+  
 
   submitted = false;
   phongBan: any;
@@ -140,7 +135,6 @@ export class ThemMoiPhongBanComponent {
   }
 
   public GetDataDonVi() {
-    alert("Vao")
     this.dmPhongBanService.GetDataDonVi().subscribe(data => {
       console.log(data)
       if (data.isError) {

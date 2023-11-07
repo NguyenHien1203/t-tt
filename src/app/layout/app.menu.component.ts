@@ -59,7 +59,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Cập nhật mới',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/van-ban-den/cap-nhat-moi'],
                                 code: '001001'
                             },
                             {
@@ -571,7 +571,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Cơ quan',
                                 icon: 'pi pi-fw pi-building',
-                                routerLink: ['/danh-muc/'],
+                                routerLink: ['/danh-muc/don-vi'],
                                 code: '009006'
                             },
                             {
@@ -891,7 +891,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Cập nhật mới',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/van-ban-den/cap-nhat-moi'],
                                 code: '001001'
                             },
                             {
@@ -1263,7 +1263,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý thông báo',
                                 icon: 'pi pi-fw pi-circle-fill',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/thong-tin-khac/quan-ly-thong-bao'],
                                 code: '006002'
                             },
                             {
@@ -1379,13 +1379,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Lĩnh vực',
                                 icon: 'pi pi-fw pi-list',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/danh-muc/linh-vuc'],
                                 code: '009002'
                             },
                             {
                                 label: 'Loại hồ sơ',
                                 icon: 'pi pi-fw pi-folder',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/danh-muc/loai-ho-so'],
                                 code: '009003'
                             },
                             {

@@ -17,3 +17,8 @@ export interface FileModel{
     fileModel : File,
     id : string
 }
+
+export interface PhongBanModel{
+    id? : number,
+    tenDonVi? : string
+}

@@ -24,9 +24,10 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { GuiThongBaoComponent } from './gui-thong-bao/gui-thong-bao.component';
 
 @NgModule({
-  declarations: [QuanLyThongBaoComponent, ThemMoiComponent, CapNhatComponent],
+  declarations: [QuanLyThongBaoComponent, ThemMoiComponent, CapNhatComponent, GuiThongBaoComponent],
   imports: [
     ConfirmDialogModule,
     FileUploadModule,

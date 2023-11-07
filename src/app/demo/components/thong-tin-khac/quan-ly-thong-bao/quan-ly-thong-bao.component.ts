@@ -15,6 +15,7 @@ export class QuanLyThongBaoComponent implements OnInit {
     , private confirmService: ConfirmationService) { }
   public hienThiThemMoi: boolean = false;
   public hienThiCapNhat: boolean = false;
+  public hienThiGuiThongBao: boolean = false;
   public id: string = "1";
   public loading: boolean = true;
   public home = { icon: 'pi pi-home', routerLink: '/' };
@@ -46,8 +47,12 @@ export class QuanLyThongBaoComponent implements OnInit {
     this.id = id;
   }
 
+  public GuiThongBao(id: string): void {
+    this.hienThiGuiThongBao = true;
+    this.id = id;
+  }
+
   public Xoa(id: string) {
-    console.log("123")
     this.confirmService.confirm({
       message: 'Bạn có chắc chắn xác nhận xóa thông báo?',
       header: 'Xác nhận',
@@ -75,11 +80,6 @@ export class QuanLyThongBaoComponent implements OnInit {
     else
       this.hienThiCapNhat = false;
     this.LoadDanhSach();
-  }
-
-  public onSelectMethod(event) {
-    let d = new Date(Date.parse(event));
-    this.timKiemDanhSach.tuNgay = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
   }
 
   public LoadDanhSach(): void {

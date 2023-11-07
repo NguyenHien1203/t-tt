@@ -5,6 +5,7 @@ export interface DmPhongBan{
     parentId: number,
     maDinhDanh: string,
     ngayTruyenThong: Date,
+    TenDonviChuQuan: string,
     phanLoai: number,
     diaChi: string,
     ghiChu: string,
@@ -18,14 +19,9 @@ export interface DmPhongBan{
     tenDonViTrenTruc: string,
 }
 
-export interface DmPhongBan{
-    
-}
-
 export class  TimKiemModel {
-    keyWord?: string;
-    Nam?: number;
-    TuNgay?: Date;
-    DenNgay?: Date;
-
+    MaPhongBan?: string;
+    TenPhongBan?: string;
+    DonViId?: number;
+    chkTimChinhXac?: number;
 }

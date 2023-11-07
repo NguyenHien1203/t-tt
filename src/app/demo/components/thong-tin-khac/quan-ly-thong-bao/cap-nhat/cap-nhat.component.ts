@@ -9,7 +9,7 @@ import { QuanLyThongBaoService } from 'src/app/demo/service/thong-tin-khac/quan-
 import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-cap-nhat',
@@ -30,6 +30,7 @@ export class CapNhatComponent {
     , private cd: ChangeDetectorRef
     , private sanitizer: DomSanitizer) { };
   trustUrl: any;
+  dataFile : any;
   file: File | null = null; // Variable to store file
   public Editor = ClassicEditor;
   submitted: boolean = false;
@@ -52,8 +53,10 @@ export class CapNhatComponent {
   });
 
   public BindDataDialog(): void {
-    this.service.getFile(this.id).subscribe(data => { this.handleFileResponse(data) })
-
+    //hiển thị file lên mẫu cập nhật
+    this.service.getFile(this.id).subscribe((data) => {
+      this.dataFile = data;
+    });
     this.service.getQuanLyThongBaoId(this.id).subscribe(data => {
       if (data.fileName !== "") {
         this.file = new File([], data.fileName, { type: 'text/plain' });
@@ -68,15 +71,18 @@ export class CapNhatComponent {
     })
   }
 
-  handleFileResponse(blob: Blob) {
-    // Xử lý blob ở đây, ví dụ: hiển thị hoặc tải tệp
-    const url = URL.createObjectURL(blob); // Tạo URL từ blob
-    this.trustUrl = this.sanitizer.bypassSecurityTrustUrl(url); // An toàn cho việc hiển thị trong giao diện
+  //tải xuống tệp
+  public downloadFile() {
+    const blob = new Blob([this.dataFile], { type: 'application/octet-stream' });
+
+  // Sử dụng saveAs để tải tệp xuống với tên cụ thể.
+  saveAs(blob, this.file.name);
   }
 
+  //function upload file
   onChange(event: any) {
     const file: File = event.target.files[0];
-
+    this.dataFile = file;//lấy dữ liệu file hiện tại chuẩn bị cho việc tải xuống
     if (file) {
       this.file = file;
       this.fileService.uploadFile(this.file).subscribe({
@@ -87,7 +93,6 @@ export class CapNhatComponent {
             this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Tải lên thành công' });
             this.formCapNhat.value.fileName = data.objData.fileName;
             this.formCapNhat.value.filePath = data.objData.filePath;
-            this.relativePath = data.objData.filePath;
           }
         },
         error: (error: any) => {
@@ -98,6 +103,7 @@ export class CapNhatComponent {
     }
   }
 
+  //hàm cấu hình tool bar của CKEDITOR
   public getToolBar(): any {
     const toolbar: any = {
       items: [
@@ -115,8 +121,9 @@ export class CapNhatComponent {
   }
 
   public Thoat(): void {
-    this.show = false;
+    this.file = null;
     this.formCapNhat.reset();
+    this.show = false;
     this.tatPopup.emit(this.show);
     this.cd.detectChanges();
   }
@@ -143,10 +150,12 @@ export class CapNhatComponent {
     }
   }
 
+  //hàm lấy giá trị checkbox
   public CheckedHt() {
     this.checkedValue = !this.checkedValue;
   }
 
+  //hàm xóa tệp
   public XoaFile(): void {
     this.file = null;
   }

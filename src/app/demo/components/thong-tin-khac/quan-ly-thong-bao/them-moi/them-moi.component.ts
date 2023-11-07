@@ -9,7 +9,7 @@ import { QuanLyThongBaoService } from 'src/app/demo/service/thong-tin-khac/quan-
 import { throwError } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-them-moi',
@@ -27,37 +27,38 @@ export class ThemMoiComponent {
     , private authService: AuthService
     , private fileService: UploadFileService
     , private cd: ChangeDetectorRef
-    ,@Inject(DOCUMENT) private document: Document) { }
-
+    , @Inject(DOCUMENT) private document: Document) { }
+  dataFile: any;
   file: File | null = null; // Variable to store file
-   checkHienThi: boolean = false;
-   Editor = ClassicEditor;
+  checkHienThi: boolean = false;
+  Editor = ClassicEditor;
 
-   quanLyThongBao: any = {};
-   submitted: boolean = false;
-   relativePath : string = "";
-   formThemMoi = this.fb.group({
+  quanLyThongBao: any = {};
+  submitted: boolean = false;
+  relativePath: string = "";
+  formThemMoi = this.fb.group({
     id: [0, []],
     tieuDe: ["", [Validators.required]],
     ngayBatDau: [, []],
-    ngayKetThuc:[, []],
+    ngayKetThuc: [, []],
     donViId: [0, []],
     noiDung: ["", []],
     hienThi: [, []],
     fileName: ["", []],
     filePath: ["", []],
   });
-  
+
   public Thoat(): void {
-    this.show = false;
     this.formThemMoi.reset();
+    this.show = false;
+    this.file = null;
     this.tatPopup.emit(this.show);
     this.cd.detectChanges();
   }
 
   onChange(event: any) {
     const file: File = event.target.files[0];
-
+    this.dataFile = file;
     if (file) {
       this.file = file;
       this.fileService.uploadFile(this.file).subscribe({
@@ -79,10 +80,14 @@ export class ThemMoiComponent {
     }
   }
 
-  openFileFromAPI(relativePath: string) {
-    // window.open('/api' + relativePath, '_blank');
+  public downloadFile() {
+    const blob = new Blob([this.dataFile], { type: 'application/octet-stream' });
+
+    // Sử dụng saveAs để tải tệp xuống với tên cụ thể.
+    saveAs(blob, this.file.name);
   }
-  
+
+
   public ThemMoi(): void {
     this.submitted = true;
     if (this.formThemMoi.valid) {

@@ -25,7 +25,8 @@
                 (ngModelChange)="onSelectChangeDonVi($event)" formControlName="donViId" [options]="unitTree"
                 placeholder="Chọn đơn vị"></p-treeSelect>
             <span class="p-error"
-                *ngIf="!formCreate.controls.donViId.valid && (formCreate.controls.donViId.touched || submitted)">Vui lòng
+                *ngIf="!formCreate.controls.donViId.valid && (formCreate.controls.donViId.touched || submitted)">Vui
+                lòng
                 chọn đơn vị</span>
         </div>
         <div class="field col">
@@ -37,11 +38,11 @@
     <div class="formgrid grid">
         <div class="field col">
             <label for="soHshienTai">Số hiện tại <span class="p-error"></span></label>
-            <input type="text" pInputText id="soHshienTai" formControlName="soHshienTai">
+            <p-inputNumber id="soHshienTai" formControlName="soHshienTai"></p-inputNumber>
         </div>
         <div class="field col">
             <label for="soHstruoc">Số năm trước <span class="p-error"></span></label>
-            <input type="text" pInputText id="soHstruoc" formControlName="soHstruoc" />
+            <p-inputNumber id="soHstruoc" formControlName="soHstruoc"></p-inputNumber>
         </div>
         <div class="field col">
             <label for="thuTu">Thứ tự hiển thị</label>

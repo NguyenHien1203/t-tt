@@ -86,6 +86,18 @@ export class ThemMoiComponent implements OnInit {
     }
   }
 
+  public GetDataUnit() {
+    this.linhVucService.getTreeUnits().subscribe(data => {
+      if (data.isError) {
+        console.log("Dữ liệu này không hợp lệ.");
+      } else {
+        this.unitTree = this.transformJsonCustomStructure(data.objData);
+      }
+    }, (error) => {
+      console.log("Lỗi", error);
+    })
+  }
+
   createRecord() {
     this.submitted = true;
     this.valueFormCreate = this.formCreate.value;
@@ -106,17 +118,5 @@ export class ThemMoiComponent implements OnInit {
       this.closePopup();
       this.formCreate.reset();
     }
-  }
-
-  public GetDataUnit() {
-    this.linhVucService.getTreeUnits().subscribe(data => {
-      if (data.isError) {
-        console.log("Dữ liệu này không hợp lệ.");
-      } else {
-        this.unitTree = this.transformJsonCustomStructure(data.objData);
-      }
-    }, (error) => {
-      console.log("Lỗi", error);
-    })
   }
 }

@@ -16,7 +16,6 @@ import { PhotoService } from './demo/service/photo.service';
 
 // import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CapNhatComponent } from './demo/components/thong-tin-khac/quan-ly-thong-bao/cap-nhat/cap-nhat.component';
 
 @NgModule({
     declarations: [

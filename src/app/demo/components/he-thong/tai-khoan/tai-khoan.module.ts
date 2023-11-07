@@ -24,6 +24,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { ThemDvThucHienComponent } from './them-moi/them-dv-thuc-hien.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { CapNhatDvThucHienComponent } from './cap-nhat/cap-nhat-dv-thuc-hien.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -48,6 +49,6 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
     TreeSelectModule,
     ConfirmDialogModule
   ],
-  declarations: [TaiKhoanComponent, ThemMoiComponent, ThemDvThucHienComponent, CapNhatComponent]
+  declarations: [TaiKhoanComponent, ThemMoiComponent, ThemDvThucHienComponent, CapNhatComponent, CapNhatDvThucHienComponent]
 })
 export class TaiKhoanModule { }

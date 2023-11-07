@@ -52,7 +52,6 @@
                     <p-table #dt1 [value]="quanLyThongBaos" dataKey="id" [rows]="10" [loading]="loading"
                         [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
                         [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
-                        currentPageReportTemplate="Hiển thị {first} đến {last} của {totalRecords} bản ghi"
                         responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
@@ -145,7 +144,7 @@
             </div>
         </div>
     </div>
-    <app-gui-thong-bao [show]="hienThiGuiThongBao" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-gui-thong-bao>
+    <app-gui-thong-bao [show]="hienThiGuiThongBao" [id]="id" (tatPopup)="Thoat($event, 'G')"></app-gui-thong-bao>
     <app-them-moi [show]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
     <app-cap-nhat [show]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat>
     <p-confirmDialog #cd [style]="{width: '30vw'}">

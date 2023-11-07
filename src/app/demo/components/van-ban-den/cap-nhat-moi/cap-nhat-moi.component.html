@@ -17,11 +17,11 @@
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
                     <p-dropdown [options]="[{id: '1', ten: 'Nam'},{id: '0', ten: 'Nữ'}]" optionValue="id"
-                        optionLabel="ten" placeholder="Chọn sổ văn bản"></p-dropdown>
+                        optionLabel="ten" placeholder="Chọn sổ văn bản" [showClear]="true" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
                     <p-dropdown [options]="[{id: '1', ten: 'Nam'},{id: '0', ten: 'Nữ'}]" optionValue="id"
-                        optionLabel="ten" placeholder="Chọn loại văn bản"></p-dropdown>
+                        optionLabel="ten" placeholder="Chọn loại văn bản" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
                 </div>
                 <label class="col-12 md:col-3 fl-wr">
                     <p-checkbox name="hienThi" id="hienThi" value="true" label="Tìm chính xác"></p-checkbox>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
                     <p-dropdown [options]="[{id: '1', ten: 'Nam'},{id: '0', ten: 'Nữ'}]" optionValue="id"
-                        optionLabel="ten" placeholder="Chọn năm"></p-dropdown>
+                        optionLabel="ten" placeholder="Chọn năm" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
                 </div>
                 <label class="col-12 md:col-3 fl-wr">
                     <input pInputText type="text" placeholder="Số đến" class="form-control" />
@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
                     <p-dropdown [options]="[{id: '1', ten: 'Nam'},{id: '0', ten: 'Nữ'}]" optionValue="id"
-                        optionLabel="ten" placeholder="Chọn cơ quan ban hành"></p-dropdown>
+                        optionLabel="ten" placeholder="Chọn cơ quan ban hành" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
                     <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-success mr-2"></button>
@@ -62,3 +62,4 @@
         </div>
     </div>
 </div>
+

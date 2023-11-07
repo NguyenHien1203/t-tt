@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DmPhongBan, TimKiemModel } from 'src/app/demo/api/danh-muc/phong-ban';
 import { Observable, ObservedValueOf } from 'rxjs';
 import { map } from 'rxjs/operators';
-
+import { AuthService } from 'src/app/common/auth.services';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,10 +21,11 @@ export class PhongbanService {
     })
   }
 
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient, private auth: AuthService) { }
   getDanhSachPhongBan(timkiem: TimKiemModel) {
-    return this.http.post<any>(this.baseApiUrl + '/DanhMuc/PhongBan/GetDanhSachPhongBan/', timkiem, this.httpOption).toPromise().then(response => response.objData.listPhongBan as DmPhongBan[])
+    return this.http.post<any>(this.baseApiUrl + '/DanhMuc/PhongBan/GetDanhSachPhongBan', timkiem, this.httpOption)
+      .toPromise()
+      .then(res => res.objData as DmPhongBan[]);
   }
 
   addPhongBan(addPhongBan: DmPhongBan): Observable<DmPhongBan> {

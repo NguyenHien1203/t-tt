@@ -50,7 +50,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     CalendarModule,
     CheckboxModule,
     TreeSelectModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
   ],
   declarations: [PhongBanComponent, ThemMoiPhongBanComponent, CapNhatPhongBanComponent]
 })

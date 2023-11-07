@@ -43,7 +43,7 @@ export class PhongBanComponent implements OnInit {
   rowsPerPageOptions = [5, 10, 20];
   //Hết 
 
-  constructor(private messageService: MessageService, private dmPhongBanService: PhongbanService, private confirmationService: ConfirmationService,) { }
+  constructor(private messageService: MessageService, private dmPhongBanService: PhongbanService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
 
@@ -88,7 +88,7 @@ export class PhongBanComponent implements OnInit {
   // Get List Phong Ban
   public getDanhSachPhongBan(timkiems: TimKiemModel) {
     this.timkiems.chkTimChinhXac = this.timChinhXac ? 1 : 0;
-    this.dmPhongBanService.getDanhSachPhongBan(timkiems).then(data => { this.phongBans = data }
+    this.dmPhongBanService.getDanhSachPhongBan(timkiems).then(data => { this.phongBans = data; console.log(data) }
     )
   };
 
@@ -102,7 +102,7 @@ export class PhongBanComponent implements OnInit {
   // Xóa du lieu Phong Ban
   public Xoa(id: string) {
     this.confirmationService.confirm({
-      message: 'Bạn có chắc chắn xác nhận xóa liên kết?',
+      message: 'Đồng ý xóa phòng ban?',
       header: 'Xác nhận',
       icon: 'pi pi-info-circle',
       accept: () => {

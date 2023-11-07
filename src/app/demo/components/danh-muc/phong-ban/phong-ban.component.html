@@ -79,7 +79,7 @@
                                 {{DmPhongBan.tenDonVi}}
                             </td>
                             <td style="width:20%; min-width:20rem;"><span class="p-column-title">donvichuquan</span>
-                                {{DmPhongBan.TenDonviChuQuan}}
+                                {{DmPhongBan.tenDonViChuQuan}}
                             </td>
                             <td style="width:14%; min-width:8rem;">
                                 <span class="p-column-title">dienthoai</span>
@@ -125,4 +125,25 @@
     <app-them-moi-phong-ban [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi-phong-ban>
     <app-cap-nhat-phong-ban [hienThi]="hienThiCapNhat" (tatPopup)="Thoat($event, 'C')"
         [id]="id"></app-cap-nhat-phong-ban>
+
+    <p-confirmDialog #cd [style]="{width: '30vw'}">
+        <ng-template pTemplate="header">
+            <h3>Xác nhận</h3>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark"
+                class="p-element p-ripple p-button p-component p-button-info">
+                <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+                <span class="p-button-label">Đồng ý</span>
+                <span class="p-ink"></span>
+            </button>
+            <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark"
+                class="p-element p-ripple p-button p-component p-button-danger">
+                <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+                <span class="p-button-label">Hủy</span>
+                <span class="p-ink"></span>
+            </button>
+        </ng-template>
+    </p-confirmDialog>
+    <p-toast></p-toast>
 </div>

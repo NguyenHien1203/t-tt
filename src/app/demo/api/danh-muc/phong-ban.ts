@@ -19,10 +19,6 @@ export interface DmPhongBan{
     tenDonViTrenTruc: string,
 }
 
-export interface DmPhongBan{
-    
-}
-
 export class  TimKiemModel {
     MaPhongBan?: string;
     TenPhongBan?: string;

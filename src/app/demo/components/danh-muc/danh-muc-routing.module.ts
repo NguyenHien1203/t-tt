@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
     { path: 'linh-vuc', data: { breadcrumb: 'Lĩnh Vực' }, loadChildren: () => import('./linh-vuc/linh-vuc.module').then(m => m.LinhVucModule) },
     { path: 'loai-ho-so', data: { breadcrumb: 'Loại hồ sơ' }, loadChildren: () => import('./loai-ho-so/loai-ho-so.module').then(m => m.LoaiHoSoModule) },
     { path: 'loai-nhiem-vu', data: { breadcrumb: 'Loại nhiệm vụ' }, loadChildren: () => import('./loai-nhiem-vu/loai-nhiem-vu.module').then(m => m.LoaiNhiemVuModule) },
-    { path: 'don-vi', data: { breadcrumb: 'Loại nhiệm vụ' }, loadChildren: () => import('./don-vi/don-vi.module').then(m => m.DonViModule) },
+    { path: 'don-vi', data: { breadcrumb: 'Đơn vị' }, loadChildren: () => import('./don-vi/don-vi.module').then(m => m.DonViModule) },
   ])],
   exports: [RouterModule]
 })

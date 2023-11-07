@@ -81,7 +81,7 @@ export class CapNhatComponent {
   }
 
   DuLieuMotLoaiHoSo() {
-    this.loaiHoSoService.getIdRecord(this.id).subscribe(data => {
+    this.loaiHoSoService.getLoaiHoSo(this.id).subscribe(data => {
       console.log(data);
       this.donViId = data.donViId;
       const objDonVi = this.filterItems(this.donViTree);
@@ -165,7 +165,7 @@ export class CapNhatComponent {
     // console.log("origin:", this.formCapNhat.value);
     if (this.formCapNhat.valid) {
       this.submitted = true;
-      this.loaiHoSoService.updateRecord(this.formCapNhat.value, this.id).subscribe(data => {
+      this.loaiHoSoService.capNhatLoaiHoSo(this.formCapNhat.value, this.id).subscribe(data => {
         if (data.isError) {
           this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
         } else {

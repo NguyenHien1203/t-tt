@@ -126,9 +126,7 @@ export class ChucDanhComponent implements OnInit {
         this.duLieuNhapChucDanh.donViId = Number(this.authService.GetDonViLamViec());
         this.duLieuNhapChucDanh.createdBy = Number(this.authService.GetDonViLamViec());
         this.chucDanhService.themMoi(this.duLieuNhapChucDanh).subscribe(data => {
-          console.log(data.isError);
-          
-          // this.TaiDuLieuCacChucDanh();
+          this.TaiDuLieuCacChucDanh();
           if (data.isError) {
             this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
           } else {

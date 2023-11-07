@@ -437,7 +437,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Xem thông báo',
                                 icon: 'pi pi-fw pi-circle',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/xem-thong-bao'],
                                 code: '006005'
                             },
                             {
@@ -1269,7 +1269,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Xem thông báo',
                                 icon: 'pi pi-fw pi-circle',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/xem-thong-bao'],
                                 code: '006005'
                             },
                             {

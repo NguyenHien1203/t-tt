@@ -45,7 +45,6 @@ import { GuiThongBaoComponent } from './gui-thong-bao/gui-thong-bao.component';
     InputTextareaModule,
     InputTextModule,
     CheckboxModule,
-    FormsModule,
     TableModule,
     ToastModule,
     BreadcrumbModule,

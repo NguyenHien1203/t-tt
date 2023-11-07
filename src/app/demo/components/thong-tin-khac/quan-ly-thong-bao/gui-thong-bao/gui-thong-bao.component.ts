@@ -20,11 +20,8 @@ export class GuiThongBaoComponent {
     , private messageService: MessageService
     , private authService: AuthService
     , private cd: ChangeDetectorRef
-  ) {
+  ) { }
 
-  }
-
-  checkCurrentSelected: boolean = true;
   phongBan: any;
   DsCaNhanDaChon: any[] = [];
   DsCaNhanNhan: any[] = [];
@@ -74,7 +71,7 @@ export class GuiThongBaoComponent {
       .then(data => {
         this.lstUserChange = data;
         const lstUseNhanClone = this.lstUserNhan;
-        var lstUserClone = lstUseNhanClone.map(x => x.value);
+        var lstUserClone = lstUseNhanClone.map(x => x.value);//tương tự như nhóm ngd
         this.lstUserChange = this.lstUserChange.filter(user => !lstUserClone.includes(user.value)).map(user => user);
       });
   }

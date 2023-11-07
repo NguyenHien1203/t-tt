@@ -1,4 +1,3 @@
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { ChucDanhService } from './../../../service/danh-muc/chuc-danh/chuc-danh.service';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
@@ -39,11 +38,11 @@ export class ChucDanhComponent implements OnInit {
     "thuTu": 0,
     "ghiChu": "",
     "hienThi": true,
-    "donViId": "",
+    "donViId": 0,
     "created": new Date(),
-    "createdBy": "",
+    "createdBy": 0,
     "lastModified": new Date(),
-    "lastModifiedBy": "",
+    "lastModifiedBy": 0,
   }
 
   productDialog: boolean = false;
@@ -113,7 +112,7 @@ export class ChucDanhComponent implements OnInit {
 
       if (this.chucDanh.id) {
         this.duLieuNhapChucDanh.lastModified = new Date();
-        this.duLieuNhapChucDanh.lastModifiedBy = this.authService.GetDonViLamViec();
+        this.duLieuNhapChucDanh.lastModifiedBy = Number(this.authService.GetDonViLamViec());
         this.chucDanhService.capNhat(this.duLieuNhapChucDanh, this.chucDanh.id).subscribe(data => {
           console.log(data);
           this.TaiDuLieuCacChucDanh();
@@ -124,8 +123,8 @@ export class ChucDanhComponent implements OnInit {
           }
         })
       } else {
-        this.duLieuNhapChucDanh.donViId = this.authService.GetDonViLamViec();
-        this.duLieuNhapChucDanh.createdBy = this.authService.GetDonViLamViec();
+        this.duLieuNhapChucDanh.donViId = Number(this.authService.GetDonViLamViec());
+        this.duLieuNhapChucDanh.createdBy = Number(this.authService.GetDonViLamViec());
         this.chucDanhService.themMoi(this.duLieuNhapChucDanh).subscribe(data => {
           this.TaiDuLieuCacChucDanh();
           if (data.isError) {

@@ -90,7 +90,7 @@ export class LoaiHoSoComponent implements OnInit {
   }
 
   ListRecords() {
-    this.loaiHoSoService.getListRecords(this.dataSearch)
+    this.loaiHoSoService.getDanhSachLoaiHoSo(this.dataSearch)
       .subscribe(data => {
         if (data.idError) {
           this.msgs = [];

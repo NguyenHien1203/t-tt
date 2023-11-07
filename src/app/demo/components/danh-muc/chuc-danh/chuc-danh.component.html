@@ -5,6 +5,7 @@
     </div>
 
     <div class="col-12 pt-0">
+        <p-toast></p-toast>
         <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
             <h2>Tìm kiếm</h2>
             <div class="p-fluid p-formgrid grid">
@@ -131,9 +132,9 @@
 
                     <ng-template pTemplate="footer">
                         <button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-info"
-                            (click)="saveTitle()"></button>
+                            (click)="LuuDuLieuChucDanh()"></button>
                         <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger"
-                            (click)="hideDialog()"></button>
+                            (click)="TatPopup()"></button>
                     </ng-template>
                 </p-dialog>
 

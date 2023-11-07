@@ -571,7 +571,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Cơ quan',
                                 icon: 'pi pi-fw pi-building',
-                                routerLink: ['/danh-muc/'],
+                                routerLink: ['/danh-muc/don-vi'],
                                 code: '009006'
                             },
                             {

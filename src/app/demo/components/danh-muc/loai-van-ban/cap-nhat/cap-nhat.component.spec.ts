@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DonViComponent } from './don-vi.component';
+import { CapNhatComponent } from './cap-nhat.component';
 
-describe('DonViComponent', () => {
-  let component: DonViComponent;
-  let fixture: ComponentFixture<DonViComponent>;
+describe('CapNhatComponent', () => {
+  let component: CapNhatComponent;
+  let fixture: ComponentFixture<CapNhatComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DonViComponent]
+      declarations: [CapNhatComponent]
     });
-    fixture = TestBed.createComponent(DonViComponent);
+    fixture = TestBed.createComponent(CapNhatComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

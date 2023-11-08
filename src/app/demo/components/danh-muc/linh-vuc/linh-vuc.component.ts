@@ -130,10 +130,10 @@ export class LinhVucComponent implements OnInit {
     this.deleteProductDialog = false;
     this.linhVucService.deleteField(this.idDelete).subscribe(data => {
       this.LoadListFields();
-      if (data.code == 200) {
-        this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Xóa bản ghi thành công', life: 3000 });
+      if (data.isError) {
+        this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
       } else {
-        this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Không thể xóa bản ghi', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
       }
     });
     this.listField = {};

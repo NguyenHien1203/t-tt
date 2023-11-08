@@ -1,5 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { LoaiVanBanRoutingModule } from './loai-van-ban-routing.module';
+import { ThemMoiComponent } from './them-moi/them-moi.component';
+import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { LoaiVanBanComponent } from './loai-van-ban.component';
+
+import { FormsModule } from '@angular/forms';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -13,22 +21,21 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { CapNhatMoiRoutingModule } from './cap-nhat-moi-routing.module';
-import { CapNhatMoiComponent } from './cap-nhat-moi.component';
-import { CheckboxModule } from 'primeng/checkbox';
-import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
-  declarations: [CapNhatMoiComponent],
+  declarations: [
+    LoaiVanBanComponent,
+    ThemMoiComponent,
+    CapNhatComponent
+  ],
   imports: [
     CommonModule,
-    CapNhatMoiRoutingModule,
+    LoaiVanBanRoutingModule,
+    BreadcrumbModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -43,13 +50,10 @@ import { CalendarModule } from 'primeng/calendar';
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
-    ReactiveFormsModule,
-    BreadcrumbModule,
-    TreeModule,
-    TreeSelectModule,
-    ConfirmDialogModule,
     CheckboxModule,
-    CalendarModule
+    ReactiveFormsModule,
+    TreeModule,
+    TreeSelectModule
   ]
 })
-export class CapNhatMoiModule { }
+export class LoaiVanBanModule { }

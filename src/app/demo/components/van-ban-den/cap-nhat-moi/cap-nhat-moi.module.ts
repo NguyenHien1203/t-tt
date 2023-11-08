@@ -22,6 +22,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CapNhatMoiRoutingModule } from './cap-nhat-moi-routing.module';
 import { CapNhatMoiComponent } from './cap-nhat-moi.component';
 import { CheckboxModule } from 'primeng/checkbox';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [CapNhatMoiComponent],
@@ -47,7 +48,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     TreeModule,
     TreeSelectModule,
     ConfirmDialogModule,
-    CheckboxModule
+    CheckboxModule,
+    CalendarModule
   ]
 })
 export class CapNhatMoiModule { }

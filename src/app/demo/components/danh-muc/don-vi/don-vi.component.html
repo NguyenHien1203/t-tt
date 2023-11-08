@@ -1,1 +1,126 @@
-<p>don-vi works!</p>
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+
+        <div class="card">
+            <h2>TÌM KIẾM</h2>
+            <div class="field grid">
+                <div class="col-12 md:col-4 fl-wr">
+                    <input pInputText id="name3" type="text" placeholder="Nhập mã đơn vị" class="form-control"
+                        [(ngModel)]="timkiems.MaDonVi" />
+                </div>
+                <div class="col-12 md:col-4 fl-wr">
+                    <input pInputText id="name3" type="text" placeholder="Nhập tên đơn vị" class="form-control"
+                        [(ngModel)]="timkiems.TenDonVi" />
+                </div>
+                <label class="col-12 md:col-2 fl-wr">
+                    <p-checkbox name="hienThi" id="hienThi" (click)="CheckChinhXac()" value="true"
+                        label="Tìm chính xác"></p-checkbox>
+                </label>
+                <button pButton pRipple type="button" icon="pi pi-search" (click)="(getDanhSachDonVi(timkiems))"
+                    label="Tìm kiếm" class="p-button-info"></button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="col-12">
+                <p-table #dt [value]="phongBans" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+                    [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true"
+                    [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                    currentPageReportTemplate=""
+                    [rowHover]="true" dataKey="id">
+                    <ng-template pTemplate="caption">
+                        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                            <h2 class="m-0">Danh sách đơn vị</h2>
+                            <span class="block mt-2 md:mt-0 p-input-icon-left">
+                                <div class="my-2">
+                                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus"
+                                        class="p-button-success mr-2" (click)="ThemMoi()"></button>
+                                </div>
+                            </span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="right">
+                        <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
+                            (click)="ThemMoi()"></button>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>STT</th>
+                            <th pSortableColumn="tenphongban">Tên đơn vị <p-sortIcon
+                                    field="tenphongban"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="donvichuquan">Đơn vị chủ quản <p-sortIcon
+                                    field="donvichuquan"></p-sortIcon></th>
+                            <th pSortableColumn="dienthoai">Điện thoại <p-sortIcon field="dienthoai"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="fax">Fax <p-sortIcon field="fax"></p-sortIcon></th>
+                            <th pSortableColumn="diachi">Địa chỉ <p-sortIcon field="diachi"></p-sortIcon></th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-DmPhongBan let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="width:2%; min-width:5rem; text-align: center;"><span
+                                    class="p-column-title">STT</span>
+                                {{rowIndex + 1}}
+                            </td>
+                            <td style="width:20%; min-width:20rem;">
+                                <span class="p-column-title">tenphongban</span>
+                                {{DmPhongBan.tenDonVi}}
+                            </td>
+                            <td style="width:20%; min-width:20rem;"><span class="p-column-title">donvichuquan</span>
+                                {{DmPhongBan.tenDonViChuQuan}}
+                            </td>
+                            <td style="width:14%; min-width:8rem;">
+                                <span class="p-column-title">dienthoai</span>
+                                {{DmPhongBan.sdt}}
+                            </td>
+                            <td style="width:10%; min-width:10rem;">
+                                <span class="p-column-title">fax</span>
+                                {{DmPhongBan.fax}}
+                            </td>
+                            <td style="width:10%; min-width: 10rem;"><span class="p-column-title">diachi</span>
+                                {{DmPhongBan.diaChi}}
+                            </td>
+                            <!-- <td class="text-center">
+                                <i class="pi"
+                                    [ngClass]="{'true-icon pi-check-circle text-green-500': DmPhongBan.hienThi, 'false-icon pi-times-circle text-pink-500': !DmPhongBan.hienThi}"></i>
+                            </td> -->
+                            <td>
+                                <div class="flex">
+                                    <button pButton pRipple icon="pi pi-pencil"
+                                        class="p-button-rounded p-button-success mr-2"
+                                        (click)="CapNhatPhongBan(DmPhongBan.id)"></button>
+                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                                        (click)="Xoa(DmPhongBan.id)"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8">No record found.</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="loadingbody">
+                        <tr>
+                            <td colspan="8">Loading record data. Please wait.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+
+     <app-them-moi-don-vi [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi-don-vi>
+    <!-- <app-cap-nhat-phong-ban [hienThi]="hienThiCapNhat" (tatPopup)="Thoat($event, 'C')"
+        [id]="id"></app-cap-nhat-phong-ban> --> 
+</div>

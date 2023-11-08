@@ -89,6 +89,18 @@ export class LoaiHoSoComponent implements OnInit {
     this.idRecord = null;
   }
 
+  confirmDelete() {
+    this.deleteProductDialog = false;
+    this.loaiHoSoService.xoaLoaiHoSo(this.idRecord).subscribe(data => {
+      this.ListRecords();
+      if (data.isError) {
+        this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
+      } else {
+        this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
+      }
+    });
+  }
+
   ListRecords() {
     this.loaiHoSoService.getDanhSachLoaiHoSo(this.dataSearch)
       .subscribe(data => {

@@ -1,17 +1,17 @@
-import { LoaiVanBan } from './../../../../models/danh-muc/loai-van-ban';
-import { LoaiVanBanService } from './../../../service/danh-muc/loai-van-ban/loai-van-ban.service';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
+import { SoVanBanService } from 'src/app/demo/service/danh-muc/so-van-ban/so-van-ban.service';
 import { SearchTheoMa } from 'src/app/models/danh-muc/search.model';
+import { SoVanBan } from 'src/app/models/danh-muc/so-van-ban';
 
 @Component({
-  selector: 'app-loai-van-ban',
-  templateUrl: './loai-van-ban.component.html',
-  styleUrls: ['./loai-van-ban.component.scss'],
+  selector: 'app-so-van-ban',
+  templateUrl: './so-van-ban.component.html',
+  styleUrls: ['./so-van-ban.component.scss'],
   providers: [MessageService]
 })
-export class LoaiVanBanComponent implements OnInit {
+export class SoVanBanComponent implements OnInit {
 
   breadcrumbItems: MenuItem[] = [];
   cols: any[] = [];
@@ -26,38 +26,29 @@ export class LoaiVanBanComponent implements OnInit {
   };
   public timChinhXac: boolean = false;
 
-  danhSachLoaiVanBan: LoaiVanBan[] = [];
-  loaiVanBan: LoaiVanBan = {};
+  danhSachSoVanBan: SoVanBan[] = [];
+  soVanBan: SoVanBan = {};
 
   hienThiThemMoi: boolean = false;
   hienThiCapNhat: boolean = false;
   deleteProductDialog: boolean = false;
 
-  idLoaiVanBan: string = '1';
-  idLoaiVanBanXoa: any;
+  idSoVanBan: string = '1';
+  idSoVanBanXoa: any;
 
   msgs: Message[] = [];
-  constructor(private messageService: MessageService, private loaiVanBanService: LoaiVanBanService) { }
+
+  constructor(private soVanBanService: SoVanBanService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.breadcrumbItems = [];
     this.breadcrumbItems.push({ label: 'Danh mục' });
-    this.breadcrumbItems.push({ label: 'Quản trị loại văn bản' });
-    this.DanhSachLoaiVanBan();
+    this.breadcrumbItems.push({ label: 'Quản trị sổ văn bản' });
+    this.DanhSachSoVanBan();
   }
 
-  DanhSachLoaiVanBan() {
-    this.loaiVanBanService.getDanhSachLoaiVanBan(this.dataSearch)
-      .subscribe(data => {
-        if (data.isError) {
-          this.msgs = [];
-          this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
-        } else {
-          this.danhSachLoaiVanBan = data;
-        };
-      }, (error) => {
-        console.log('Error', error);
-      })
+  public CheckedHt(): void {
+    this.timChinhXac = !this.timChinhXac;
   }
 
   TimKiemLoaiVanBan() {
@@ -65,11 +56,7 @@ export class LoaiVanBanComponent implements OnInit {
     this.dataSearch.ma = this.timKiem.ma ?? "";
     this.dataSearch.phanLoai = this.timKiem.phanLoai ?? 2;
     this.dataSearch.timChinhXac = this.timChinhXac ? 1 : 0;
-    this.DanhSachLoaiVanBan();
-  }
-
-  public CheckedHt(): void {
-    this.timChinhXac = !this.timChinhXac;
+    this.DanhSachSoVanBan();
   }
 
   ThemMoi() {
@@ -78,32 +65,23 @@ export class LoaiVanBanComponent implements OnInit {
 
   CapNhatLoaiVanBan(id: string) {
     this.hienThiCapNhat = true;
-    this.idLoaiVanBan = id;
-  }
-
-  tatPopup(item: any, type: string) {
-    if (type === 'C') {
-      this.hienThiThemMoi = false;
-    } else {
-      this.hienThiCapNhat = false;
-    }
-    this.DanhSachLoaiVanBan();
+    this.idSoVanBan = id;
   }
 
   XoaLoaiVanBan(id: any) {
     this.deleteProductDialog = true;
-    this.idLoaiVanBanXoa = id;
+    this.idSoVanBanXoa = id;
   }
 
   TamDungXoa() {
     this.deleteProductDialog = false;
-    this.idLoaiVanBanXoa = null;
+    this.idSoVanBanXoa = null;
   }
 
   XacNhanXoa() {
     this.deleteProductDialog = false;
-    this.loaiVanBanService.xoaLoaiVanBan(this.idLoaiVanBanXoa).subscribe(data => {
-      this.DanhSachLoaiVanBan();
+    this.soVanBanService.xoaSoVanBan(this.idSoVanBanXoa).subscribe(data => {
+      this.DanhSachSoVanBan();
       if (data.isError) {
         this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
       } else {
@@ -111,5 +89,20 @@ export class LoaiVanBanComponent implements OnInit {
       }
     });
   }
-}
 
+  DanhSachSoVanBan() {
+    this.soVanBanService.getDanhSachSoVanBan(this.dataSearch)
+      .subscribe(data => {
+        if (data.isError) {
+          this.msgs = [];
+          this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
+        } else {
+          console.log(data);
+          
+          this.danhSachSoVanBan = data;
+        };
+      }, (error) => {
+        console.log('Error', error);
+      })
+  }
+}

@@ -2,9 +2,9 @@ export class Search {
     keyWord?: string;
 }
 
-export class SearchLoaiVanBan {
+export class SearchTheoMa {
     keyWord?: string;
-    maLoaiVanBan?: string;
+    ma?: string;
     phanLoai?: number;
     timChinhXac?: number;
 }

@@ -3,7 +3,7 @@ import { LoaiVanBanService } from './../../../service/danh-muc/loai-van-ban/loai
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
-import { SearchLoaiVanBan } from 'src/app/models/danh-muc/search.model';
+import { SearchTheoMa } from 'src/app/models/danh-muc/search.model';
 
 @Component({
   selector: 'app-loai-van-ban',
@@ -17,10 +17,10 @@ export class LoaiVanBanComponent implements OnInit {
   cols: any[] = [];
   rowsPerPageOptions = [5, 10, 20];
 
-  timKiem: SearchLoaiVanBan = {};
+  timKiem: SearchTheoMa = {};
   dataSearch = {
     "keyWord": "",
-    "maLoaiVanBan": "",
+    "ma": "",
     "phanLoai": 2,
     "timChinhXac": 0
   };
@@ -62,7 +62,7 @@ export class LoaiVanBanComponent implements OnInit {
 
   TimKiemLoaiVanBan() {
     this.dataSearch.keyWord = this.timKiem.keyWord ?? "";
-    this.dataSearch.maLoaiVanBan = this.timKiem.maLoaiVanBan ?? "";
+    this.dataSearch.ma = this.timKiem.ma ?? "";
     this.dataSearch.phanLoai = this.timKiem.phanLoai ?? 2;
     this.dataSearch.timChinhXac = this.timChinhXac ? 1 : 0;
     this.DanhSachLoaiVanBan();

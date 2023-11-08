@@ -22,14 +22,9 @@
 
             <div class="field col-12 md:col-4 mb-0">
                 <label htmlfor="donvi">Đơn vị <span class="p-error">(*)</span></label>
-                <p-dropdown inputId="inventoryStatus" optionValue="label" placeholder="Select">
-                    <ng-template pTemplate="selectedItem">
-                        <span *ngIf="product && product.inventoryStatus" [class]="'product-badge status-' + product.inventoryStatus.toString().toLowerCase()">{{product.inventoryStatus}}</span>
-                    </ng-template>
-                    <ng-template let-option pTemplate="item">
-                        <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
-                    </ng-template>
-                </p-dropdown>
+                    <p-dropdown appendTo="body" [options]="DonVi"  formControlName="ParentId" optionLabel="tenDonVi" placeholder="Chọn đơn vị"></p-dropdown>
+                    <span class="p-error"
+                    *ngIf="!formThemMoi.controls.ParentId.valid && (formThemMoi.controls.ParentId.touched || submitted)">Vui lòng chọn đơn vị</span>
             </div>
         </div>
 
@@ -106,7 +101,7 @@
         </div>
 
         <ng-template pTemplate="footer">
-            <button type="submit" pbutton="" pripple="" label="Tìm kiếm" icon="pi pi-bookmark"
+            <button (click)="ThemMoiDonVi()" type="submit" pbutton="" pripple="" label="Tìm kiếm" icon="pi pi-bookmark"
                 class="p-element p-ripple p-button p-component">
                 <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
                 <span class="p-button-label">Lưu</span>

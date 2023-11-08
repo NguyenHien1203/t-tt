@@ -29,16 +29,16 @@ export class DonViService {
       .then(res => res.objData as DmDonVi[]);
   }
 
-  addDonVi(addPhongBan: DmDonVi): Observable<DmDonVi> {
+  addDonVi(addPhongBan: any): Observable<any> {
     return this.http.post<any>(this.baseApiUrl + '/DanhMuc/DonVi/ThemMoiDonVi/', addPhongBan, this.httpOption);
   }
 
   /**
-   * Lấy dữ liệu đơn vị tree
+   * Lấy dữ liệu đơn vị
    */
   public GetDataDonVi(): Observable<any> {
     const url = `${this.baseApiUrl}/DanhMuc/DonVi/GetDataDonVi`;
-    return this.http.get(url);
+    return this.http.get<any>(url);
   }
 
   /**

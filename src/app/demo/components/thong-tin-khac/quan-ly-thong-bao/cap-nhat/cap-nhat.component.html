@@ -3,7 +3,7 @@
     <ng-template pTemplate="content">
         <div class="field">
             <label htmlfor="tieuDe">Tiêu đề<span class="p-error"> (*)</span>:</label>
-            <input pinputtext="" id="tieuDe" type="text" class="p-inputtext p-component p-element"
+            <input pinputtext="" id="tieuDe" type="text" required="" class="p-inputtext p-component p-element"
                 formControlName="tieuDe">
             <span class="p-error"
                 *ngIf="!formCapNhat.controls.tieuDe.valid && (formCapNhat.controls.tieuDe.touched || submitted)">Vui
@@ -38,7 +38,7 @@
                 <div *ngIf="file">
                     <section class="file-info">
                         <ul>
-                            <li>Tên file: <a [href]="trustUrl">{{file.name}}</a><a href="javascript:;" (click)="XoaFile()">&nbsp;<i class="pi pi-trash"></i></a></li>
+                            <li>Tên file: <a href="javascript:;" (click)="downloadFile()">{{file.name}}</a><a href="javascript:;" (click)="XoaFile()">&nbsp;<i class="pi pi-trash"></i></a></li>
                         </ul>
                     </section>
                 </div>

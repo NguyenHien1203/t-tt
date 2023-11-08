@@ -20,27 +20,27 @@ export class LoaiHoSoService {
 
   constructor(private http: HttpClient) { }
 
-  public getListRecords(records: any): Observable<any> {
+  public getDanhSachLoaiHoSo(records: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachLoaiHoSo', records).pipe(
       map((response: any) => response.objData.listLoaiHoSo as LoaiHoSo[])
     )
   }
 
-  public getIdRecord(id: any): Observable<any> {
+  public getLoaiHoSo(id: any): Observable<any> {
     return this.http.get<any>(`${environment.baseUrlApi}` + this.url + `GetLoaiHoSoById/${id}`).pipe(
       map((response: any) => response.objData as LoaiHoSo[])
     )
   }
 
-  public createRecord(record: any): Observable<any> {
+  public themMoiLoaiHoSo(record: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'ThemMoiLoaiHoSo', record, this.httpOptions)
   }
 
-  public updateRecord(record: any, id: any): Observable<any> {
+  public capNhatLoaiHoSo(record: any, id: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhatLoaiHoSo/${id}`, record, this.httpOptions)
   }
 
-  public deleteRecord(id: any): Observable<any> {
+  public xoaLoaiHoSo(id: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'DeleteLoaiHoSo', id, this.httpOptions)
   }
 }

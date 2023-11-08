@@ -116,6 +116,23 @@ export class TaiKhoanService {
         return this.httpClient.post<any>(url, data, this.httpOption);
     }
 
+     /**
+     * Thêm mới tài khoản
+     */
+     public UpdateTaiKhoan(User: TaiKhoan, UserDvth: DonViThucHien[]): Observable<any> {
+        const objUser = this.authService.GetmUserInfo();
+        const data = {
+            User: JSON.stringify(User),
+            UserDvth: JSON.stringify(UserDvth),
+            DonViId: objUser.donViId.toString(),
+            IdUser: objUser.userId.toString(),
+            UserName: objUser.userName.toString(),
+        };
+
+        const url = `${this.baseUrl}/NguoiDung/CapNhatTaiKhoan`;
+        return this.httpClient.post<any>(url, data, this.httpOption);
+    }
+
     /**
      * Xóa tài khoản
      */

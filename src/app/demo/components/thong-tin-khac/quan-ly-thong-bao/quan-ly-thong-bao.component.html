@@ -51,6 +51,7 @@
                 <div class="col-12">
                     <p-table #dt1 [value]="quanLyThongBaos" dataKey="id" [rows]="10" [loading]="loading"
                         [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+                        [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
                         responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
@@ -111,13 +112,13 @@
                                 </td>
                                 <td class="text-center">
                                     <i class="pi"
-                                        [ngClass]="{'true-icon pi-check-circle text-green-500': quanLyThongBao.trangThai, 'false-icon pi-times-circle text-pink-500': !quanLyThongBao.trangThai}"></i>
+                                        [ngClass]="{'true-icon pi-check-circle text-green-500': quanLyThongBao.isHieuLuc == 2 ? true : false, 'false-icon pi-times-circle text-pink-500': quanLyThongBao.isHieuLuc != '2' ? true : false}"></i>
                                 </td>
                                 <td>
                                     <div class="div-center">
                                         <button pButton pRipple icon="pi pi-send"
                                             class="p-button-rounded p-button-info mr-2"
-                                            (click)="Gui(quanLyThongBao.id)"></button>
+                                            (click)="GuiThongBao(quanLyThongBao.id)"></button>
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
                                             (click)="CapNhat(quanLyThongBao.id)"></button>
@@ -143,7 +144,7 @@
             </div>
         </div>
     </div>
-
+    <app-gui-thong-bao [show]="hienThiGuiThongBao" [id]="id" (tatPopup)="Thoat($event, 'G')"></app-gui-thong-bao>
     <app-them-moi [show]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi>
     <app-cap-nhat [show]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat>
     <p-confirmDialog #cd [style]="{width: '30vw'}">

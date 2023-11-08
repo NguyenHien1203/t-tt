@@ -21,7 +21,7 @@ export class ThemMoiComponent implements OnInit {
     id: [0, []],
     maHs: ["", [Validators.required]],
     tenLoaiHoSo: ["", [Validators.required]],
-    donViId: ["", []],
+    donViId: ["", [Validators.required]],
     phongBanId: ["", []],
     soHshienTai: ["", []],
     soHstruoc: ["", []],
@@ -86,6 +86,18 @@ export class ThemMoiComponent implements OnInit {
     }
   }
 
+  public GetDataUnit() {
+    this.linhVucService.getTreeUnits().subscribe(data => {
+      if (data.isError) {
+        console.log("Dữ liệu này không hợp lệ.");
+      } else {
+        this.unitTree = this.transformJsonCustomStructure(data.objData);
+      }
+    }, (error) => {
+      console.log("Lỗi", error);
+    })
+  }
+
   createRecord() {
     this.submitted = true;
     this.valueFormCreate = this.formCreate.value;
@@ -96,27 +108,15 @@ export class ThemMoiComponent implements OnInit {
     console.log(this.formCreate.value);
 
     if (this.formCreate.valid) {
-      this.loaiHoSoService.createRecord(this.formCreate.value).subscribe(data => {
-        if (data.code == 200) {
-          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Tạo mới thành công', life: 3000 });
+      this.loaiHoSoService.themMoiLoaiHoSo(this.formCreate.value).subscribe(data => {
+        if (data.isError) {
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
         } else {
-          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Tạo mới không thành công', life: 3000 });
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
         }
       });
       this.closePopup();
       this.formCreate.reset();
     }
-  }
-
-  public GetDataUnit() {
-    this.linhVucService.getTreeUnits(this.authService.GetmUserInfo().name, this.authService.GetDonViLamViec()).subscribe(data => {
-      if (data.isError) {
-        console.log("Dữ liệu này không hợp lệ.");
-      } else {
-        this.unitTree = this.transformJsonCustomStructure(data.objData);
-      }
-    }, (error) => {
-      console.log("Lỗi", error);
-    })
   }
 }

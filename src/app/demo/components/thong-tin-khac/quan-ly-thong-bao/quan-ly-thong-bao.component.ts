@@ -15,6 +15,7 @@ export class QuanLyThongBaoComponent implements OnInit {
     , private confirmService: ConfirmationService) { }
   public hienThiThemMoi: boolean = false;
   public hienThiCapNhat: boolean = false;
+  public hienThiGuiThongBao: boolean = false;
   public id: string = "1";
   public loading: boolean = true;
   public home = { icon: 'pi pi-home', routerLink: '/' };
@@ -32,6 +33,7 @@ export class QuanLyThongBaoComponent implements OnInit {
   lstThongBao: SelectItem[] = [{ label: 'Chọn trạng thái', value: 3 }, { label: 'Còn hiệu lực', value: 2 }, { label: 'Không còn hiệu lực', value: 1 }];
   lstHienThi: SelectItem[] = [{ label: 'Chọn hình thức', value: 3 }, { label: 'Hiển thị', value: 1 }, { label: 'Không hiển thị', value: 0 }];
   quanLyThongBaos: any[] = [];
+
   ngOnInit(): void {
     this.loading = false;
     this.LoadDanhSach();
@@ -46,8 +48,12 @@ export class QuanLyThongBaoComponent implements OnInit {
     this.id = id;
   }
 
+  public GuiThongBao(id: string): void {
+    this.hienThiGuiThongBao = true;
+    this.id = id;
+  }
+
   public Xoa(id: string) {
-    console.log("123")
     this.confirmService.confirm({
       message: 'Bạn có chắc chắn xác nhận xóa thông báo?',
       header: 'Xác nhận',
@@ -72,14 +78,11 @@ export class QuanLyThongBaoComponent implements OnInit {
   public Thoat(itemHt: any, loai: string): void {
     if (loai === 'T')
       this.hienThiThemMoi = false;
-    else
+    if (loai === 'C')
       this.hienThiCapNhat = false;
+      if (loai === 'G')
+      this.hienThiGuiThongBao = false;
     this.LoadDanhSach();
-  }
-
-  public onSelectMethod(event) {
-    let d = new Date(Date.parse(event));
-    this.timKiemDanhSach.tuNgay = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
   }
 
   public LoadDanhSach(): void {

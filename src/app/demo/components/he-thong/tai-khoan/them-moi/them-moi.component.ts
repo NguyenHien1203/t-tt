@@ -48,19 +48,15 @@ export class ThemMoiComponent {
 
   //Khai báo đơn vị tree
   DonViTree: DMJsonModel[] = [];
-  selectedDonVi: '';
 
   //Khai báo phòng ban option
   PhongBan = [];
-  selectedPhongBan: '';
 
   //Khai báo nhóm quyền option
   NhomQuyen = [];
-  selectedNhomQuyen: '';
 
   //Khai báo chức danh option
   ChucDanh = [];
-  selectedChucDanh: '';
 
   constructor(
     private taikhoanService: TaiKhoanService,
@@ -82,7 +78,6 @@ export class ThemMoiComponent {
     this.submitted = true;
     if (this.formThemMoi.valid) {
       this.formThemMoi_fomat = this.formThemMoi.value;
-
       this.Model_TaiKhoan.tenDangNhap = this.formThemMoi_fomat.tenDangNhap;
       this.Model_TaiKhoan.gioiTinh = this.formThemMoi_fomat.gioiTinh;
       this.Model_TaiKhoan.hoVaTen = this.formThemMoi_fomat.hoVaTen;
@@ -106,9 +101,18 @@ export class ThemMoiComponent {
       }, (error) => {
         console.log('Error', error);
       })
-
     }
+  }
 
+   /**
+   * XoaDvth
+   */
+   public XoaDvth(donvithuchien: any) {
+    this.donViThucHien.forEach((obj, index) => {
+      if (obj.id === donvithuchien.id) {
+        this.donViThucHien.splice(index, 1); // Xóa đối tượng thỏa mãn điều kiện
+      }
+    });
   }
 
   public GetDataDonVi() {

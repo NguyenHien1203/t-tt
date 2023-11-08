@@ -97,12 +97,10 @@ export class TaiKhoanComponent implements OnInit {
     this.taikhoanDialog = true;
   }
 
-  // public editTaiKhoan(id: string): void {
-  //   this.hienThiCapNhat = true;
-  //   this.id = id;
-  // }
-
-
+  public editTaiKhoan(id: string): void {
+    this.hienThiCapNhat = true;
+    this.id = id;
+  }
 
   hideDialog() {
     this.taikhoanDialog = false;

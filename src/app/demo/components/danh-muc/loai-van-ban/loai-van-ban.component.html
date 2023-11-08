@@ -114,9 +114,9 @@
             </div>
         </div>
 
-        <!-- <app-them-moi [show]="showCreated" (close)="closePopup($event, 'C')"></app-them-moi>
+        <app-them-moi [show]="hienThiThemMoi" (close)="tatPopup($event, 'C')"></app-them-moi>
 
-        <app-cap-nhat [show]="hienThiCapNhat" (close)="closePopup($event, 'U')" [id]="idLoaiHoSo"></app-cap-nhat> -->
+        <app-cap-nhat [show]="hienThiCapNhat" (close)="tatPopup($event, 'U')" [id]="idLoaiVanBan"></app-cap-nhat>
 
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">

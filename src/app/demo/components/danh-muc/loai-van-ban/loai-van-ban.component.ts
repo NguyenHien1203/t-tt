@@ -53,7 +53,6 @@ export class LoaiVanBanComponent implements OnInit {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
         } else {
-          console.log(data);
           this.danhSachLoaiVanBan = data;
         };
       }, (error) => {
@@ -80,6 +79,15 @@ export class LoaiVanBanComponent implements OnInit {
   CapNhatLoaiVanBan(id: string) {
     this.hienThiCapNhat = true;
     this.idLoaiVanBan = id;
+  }
+
+  tatPopup(item: any, type: string) {
+    if (type === 'C') {
+      this.hienThiThemMoi = false;
+    } else {
+      this.hienThiCapNhat = false;
+    }
+    this.DanhSachLoaiVanBan();
   }
 
   XoaLoaiVanBan(id: any) {

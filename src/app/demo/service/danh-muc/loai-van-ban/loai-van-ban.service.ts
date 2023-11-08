@@ -39,7 +39,7 @@ export class LoaiVanBanService {
   }
 
   public capNhatLoaiVanBan(danhSach: any, id: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhatLoaiVanBan?id=${id}`, danhSach, this.httpOptions)
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhatLoaiVanBan/${id}`, danhSach, this.httpOptions)
   }
 
   public xoaLoaiVanBan(id: any): Observable<any> {

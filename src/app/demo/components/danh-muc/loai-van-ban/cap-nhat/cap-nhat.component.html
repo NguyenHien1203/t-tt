@@ -1,1 +1,47 @@
-<p>cap-nhat works!</p>
+<p-dialog [formGroup]="formCapNhat" [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới loại hồ sơ công việc"
+    [modal]="true" class="p-fluid" (onHide)="TatPopup()" (onShow)="GetLoaiVanBan()">
+    <div class="formgrid grid">
+        <div class="field col-12 md:col-8">
+            <label for="tenLoaiVB">Tên loại văn bản <span class="p-error">*</span></label>
+            <input type="text" pInputText id="tenLoaiVb" formControlName="tenLoaiVb">
+            <span class="p-error"
+                *ngIf="!formCapNhat.controls.tenLoaiVb.valid && (formCapNhat.controls.tenLoaiVb.touched || submitted)">Vui
+                lòng nhập tên loại văn bản</span>
+
+        </div>
+        <div class="field col-12 md:col-4">
+            <label for="tenLoaiVB">Mã loại văn bản <span class="p-error">*</span></label>
+            <input type="text" pInputText id="maLoaiVb" formControlName="maLoaiVb" />
+            <span class="p-error"
+                *ngIf="!formCapNhat.controls.maLoaiVb.valid && (formCapNhat.controls.maLoaiVb.touched || submitted)">Vui
+                lòng nhập mã loại văn bản</span>
+
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <div class="field col">
+            <label for="thuTu">Số thứ tự</label>
+            <p-inputNumber id="thuTu" formControlName="thuTu"></p-inputNumber>
+        </div>
+        <div class="field col">
+            <label for="thuTu">Loại văn bản</label>
+            <p-dropdown [options]="[{id: 0, loai: 'Văn bản đến'},{id: 1, loai: 'Văn bản đi'}]" optionValue="id"
+                optionLabel="loai" placeholder="Chọn loại văn bản" formControlName="phanLoai"></p-dropdown>
+        </div>
+        <div class="field col">
+            <div style="display: grid;">
+                <label for="hienThi">Hiển thị</label>
+                <p-checkbox [binary]="true" inputId="checkbox" class="mt-4" name="hienThi" formControlName="hienThi"
+                    value="true" [(ngModel)]="checked"></p-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label for="ghiChu">Ghi chú</label>
+        <textarea id="ghiChu" formControlName="ghiChu" pInputTextarea rows="3" cols="20"></textarea>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cập nhật" (click)="CapNhat()" icon="pi pi-check" class="p-button-info"></button>
+        <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="TatPopup()"></button>
+    </ng-template>
+</p-dialog>

@@ -15,32 +15,29 @@
                         [(ngModel)]="timKiemDanhSach.keyWord" />
                 </label>
                 <label class="col-12 md:col-3 fl-wr">
-                    <p-calendar [(ngModel)]="timKiemDanhSach.tuNgay" [style]="{'width':'100%'}" dateFormat="dd/mm/yy"
-                        placeholder="Từ ngày"></p-calendar>
+                    <input pInputText id="name3" class="form-control" type="text" placeholder="Nội dung"
+                        [(ngModel)]="timKiemDanhSach.noiDung" />
                 </label>
-                <label class="col-12 md:col-3 fl-wr">
-                    <p-calendar [(ngModel)]="timKiemDanhSach.denNgay" [style]="{'width':'100%'}" dateFormat="dd/mm/yy"
-                        placeholder="Đến ngày"></p-calendar>
-                </label>
-                <label class="col-12 md:col-3 fl-wr">
+                <label class="col-12 md:col-2 fl-wr">
                     <p-checkbox name="timChinhXac" id="timChinhXac" (click)="CheckedHt()" value="true"
                         label="Tìm chính xác"></p-checkbox>
                 </label>
-            </div>
-            <div class="div-center">
-                <button pButton pRipple type="button" icon="pi pi-search" (click)="(LoadDanhSach())" label="Tìm kiếm"
-                    class="p-button-info"></button>
+                <label class="col-12 md:col-3 fl-wr">
+                    <button pButton pRipple type="button" icon="pi pi-search" (click)="(LoadDanhSach())"
+                    label="Tìm kiếm" class="p-button-info"></button>
+                </label>
             </div>
         </div>
         <div class="card">
             <div class="wrapper">
-                <h2>DANH SÁCH THÔNG BÁO</h2>
+                <h2>DANH SÁCH BẢNG LƯƠNG</h2>
             </div>
             <div class="grid">
                 <div class="col-12">
-                    <p-table #dt1 [value]="xemThongBaos" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
-                        styleClass="p-datatable-gridlines" [paginator]="true" [rowsPerPageOptions]="[10,20,30]"
-                        [showCurrentPageReport]="true" responsiveLayout="scroll">
+                    <p-table #dt1 [value]="quanLyBangLuongs" dataKey="id" [rows]="10" [loading]="loading"
+                        [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+                        [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                        responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: 2%;">
@@ -53,39 +50,39 @@
                                         Tiêu đề
                                     </div>
                                 </th>
-                                <th style="min-width: 15rem">
+                                <th style="min-width: 12rem">
                                     <div class="flex justify-content-between align-items-center">
-                                        Người tạo
+                                     Nội dung
                                     </div>
                                 </th>
                                 <th style="min-width: 12rem">
                                     <div class="flex justify-content-between align-items-center">
-                                        Ngày bắt đầu
+                                      File đính kèm
                                     </div>
                                 </th>
-                                <th style="min-width: 12rem">
+                                <th style="min-width: 8rem">
                                     <div class="flex justify-content-between align-items-center">
-                                        Ngày kết thúc
+                                    Ghi chú
                                     </div>
                                 </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-xemThongBao let-rowIndex="rowIndex">
+                        <ng-template pTemplate="body" let-quanLyBangLuong let-rowIndex="rowIndex">
                             <tr>
                                 <td style="text-align: center;">
                                     {{ rowIndex + 1 }}
                                 </td>
                                 <td>
-                                    <a href="javascript:;" (click)="ChiTiet(xemThongBao.id)">{{xemThongBao.tieuDe}}</a>
+                                    {{quanLyBangLuong.tieuDe}}
                                 </td>
                                 <td>
-                                    {{xemThongBao.tenNguoiTao}}
+                                    {{quanLyBangLuong.noiDung}}
                                 </td>
                                 <td>
-                                    {{xemThongBao.ngayBatDau | date: 'dd-MM-yyyy'}}
+                                   <a href="javascript:;" (click)="downloadFile(quanLyBangLuong.id, quanLyBangLuong.fileName)">{{quanLyBangLuong.fileName}}</a> 
                                 </td>
                                 <td>
-                                    {{xemThongBao.ngayKetThuc | date: 'dd-MM-yyyy'}}
+                                    {{quanLyBangLuong.ghiChu}}
                                 </td>
                             </tr>
                         </ng-template>
@@ -104,5 +101,4 @@
             </div>
         </div>
     </div>
-    <app-chi-tiet [show]="hienThiChiTiet" [id]="id" (tatPopup)="Thoat($event, '')"></app-chi-tiet>
     <p-toast></p-toast>

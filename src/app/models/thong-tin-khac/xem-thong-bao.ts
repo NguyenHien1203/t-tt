@@ -7,5 +7,5 @@ export interface TimKiemDanhSach{
     tuNgay? : string,
     denNgay? : string,
     timChinhXac? : number,
-    xemId? : number,
+    xemId? : string,
 }

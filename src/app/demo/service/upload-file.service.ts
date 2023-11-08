@@ -24,11 +24,11 @@ export class UploadFileService {
     return this.http.post(environment.baseUrlApi + "/ThongTinKhac/QuanLyThongBao/UploadFile", formData);
   }
 
-  uploadFile(file : any) : any {
+  uploadFile(file : any, urlUpload : string) : any {
     if (file) {
       const formData = new FormData();
       formData.append('file', file, file.name);
-      return this.http.post(environment.baseUrlApi + "/ThongTinKhac/QuanLyThongBao/UploadFile", formData);
+      return this.http.post(environment.baseUrlApi + urlUpload, formData);
     }
   }
 }

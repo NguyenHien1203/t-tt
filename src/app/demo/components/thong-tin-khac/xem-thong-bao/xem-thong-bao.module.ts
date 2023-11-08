@@ -12,11 +12,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { ChiTietComponent } from './chi-tiet/chi-tiet.component';
+import { InputDemoModule } from '../../uikit/input/inputdemo.module';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @NgModule({
   declarations: [XemThongBaoComponent, ChiTietComponent],
   imports: [
+    InputTextareaModule,
+    InputTextModule,
+    InputMaskModule,
+    InputNumberModule,
     ReactiveFormsModule,
     DialogModule,
     ToastModule,

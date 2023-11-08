@@ -10,9 +10,10 @@ import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
   templateUrl: './gui-thong-bao.component.html',
   styleUrls: ['./gui-thong-bao.component.scss']
 })
-export class GuiThongBaoComponent implements OnInit {
+export class GuiThongBaoComponent {
   @Input() show: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
+  @Input() id: string = '1';
 
   constructor(private fb: FormBuilder
     , private service: QuanLyThongBaoService
@@ -21,7 +22,27 @@ export class GuiThongBaoComponent implements OnInit {
     , private cd: ChangeDetectorRef
   ) { }
 
-  ngOnInit(): void {
+  phongBan: any;
+  DsCaNhanDaChon: any[] = [];
+  DsCaNhanNhan: any[] = [];
+  nhomNguoiDung: any;
+  lstUserNhanOld: any[];
+  lstUserChange: any[] = [];
+  lstUserChangeUnShow: any[] = [];
+  lstUserNhan: any[] = [];
+  lstPhongBan: any[] = [];
+  lstNhomNguoiDung: any[] = [];
+  submitted: boolean = false;
+
+  public Thoat(): void {
+    this.show = false;
+    this.tatPopup.emit(this.show);
+  }
+
+  public BindDialogData(): void {
+    this.phongBan = null;
+    this.nhomNguoiDung = null;
+    this.lstUserChange = [];
     let idDonViLamViec = this.authService.GetDonViLamViec();
     let userInfo = this.authService.GetmUserInfo();
     this.service.getDanhSachPhongBan(idDonViLamViec, userInfo?.userName)
@@ -31,99 +52,109 @@ export class GuiThongBaoComponent implements OnInit {
 
     this.service.getDanhSachNhomNguoiDung(idDonViLamViec, userInfo?.phongBanId, userInfo?.userId)
       .then(data => {
-        this.lstNhomNguoiDung = data
+        this.lstNhomNguoiDung = data;
       });
-  }
-  phongBan: any;
-  DsCaNhanDaChon: any;
-  DsCaNhanNhan: any;
-  nhomNguoiDung: any;
-  lstUserChange: any;
-  lstUserNhan: any;
-  lstPhongBan: any[] = [];
-  lstNhomNguoiDung: any[] = [];
-  quanLyThongBao: any = {};
-  submitted: boolean = false;
-  formGuiThongBao = this.fb.group({
-    id: [0, []],
-    tieuDe: ["", [Validators.required]],
-    ngayBatDau: [, []],
-    ngayKetThuc: [, []],
-    donViId: [0, []],
-    noiDung: ["", []],
-    hienThi: [, []],
-    fileName: ["", []],
-    filePath: ["", []],
-  });
 
-  public Thoat(): void {
-    this.formGuiThongBao.reset();
-    this.show = false;
-    this.tatPopup.emit(this.show);
-    this.cd.detectChanges();
-  }
-
-  public ThemMoi(): void {
-    this.submitted = true;
-    if (this.formGuiThongBao.valid) {
-      this.quanLyThongBao = this.formGuiThongBao.value;
-      this.quanLyThongBao.donViId = this.authService.GetDonViLamViec();
-      this.quanLyThongBao.userId = this.authService.GetmUserInfo()?.userId;
-
-      this.service.themMoiQuanLyThongBao(this.quanLyThongBao).subscribe(
-        data => {
-          console.log('data', data);
-          let resData = data as ResponeMessage;
-          if (resData.isError) {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
-          } else {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
-            this.Thoat();
-          }
-        },
-        error => {
-          console.log('Error', error);
-        })
-    }
+    this.service.getDanhSachDonViDaGui(this.id, idDonViLamViec)//bind cá nhân phòng ban đã gửi từ db 
+      .then(data => {
+        this.lstUserNhan = data;
+      });
   }
 
   public onChangePhongBan(event): void {
+    if (this.lstUserChangeUnShow)
+      this.lstUserChange = this.lstUserChangeUnShow;
+    this.nhomNguoiDung = null;
     this.lstUserChange = [];
     let phongBanId: string = event;
     this.service.changePhongBan(phongBanId)
       .then(data => {
         this.lstUserChange = data;
-        console.log(this.lstUserChange)
+        const lstUseNhanClone = this.lstUserNhan;
+        var lstUserClone = lstUseNhanClone.map(x => x.value);//tương tự như nhóm ngd
+        this.lstUserChange = this.lstUserChange.filter(user => !lstUserClone.includes(user.value)).map(user => user);
       });
   }
 
   public onChangeNhomNguoiDung(event): void {
+    if (this.lstUserChangeUnShow)
+      this.lstUserChange = this.lstUserChangeUnShow;
+    this.phongBan = null;
     this.lstUserChange = [];
     let nhomNguoiDungId: string = event;
     this.service.changeNhomNguoiDung(nhomNguoiDungId)
       .then(data => {
         this.lstUserChange = data;
-
+        const lstUseNhanClone = this.lstUserNhan;
+        var lstUserClone = lstUseNhanClone.map(x => x.value);//lọc ra những cá nhân không tồn tại bên ds cá nhân nhận
+        this.lstUserChange = this.lstUserChange.filter(user => !lstUserClone.includes(user.value)).map(user => user);
       });
   }
 
   public AddToSelected(): void {
-    var lstCaNhanSelected = this.DsCaNhanDaChon as any[];
-    if (lstCaNhanSelected.length == 0) {
-      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn phải chọn cá nhân" });
+    var lstCaNhanSelected = this.DsCaNhanDaChon as any[];//lấy ds cá nhân đã chọn từ userbind
+    if (lstCaNhanSelected === undefined) {
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Yêu cầu chọn cá nhân" });
       return;
     }
+    if (this.lstUserNhan !== undefined) {
+      this.lstUserNhanOld = this.lstUserNhan;//gán giá trị lst user nhận đang có (nếu có)
+    }
+
     this.lstUserNhan = this.lstUserChange
       .filter(user => lstCaNhanSelected.includes(user.value))
-      .map(user => user);
-    const lstUserOld = this.lstUserNhan;
-    console.log(lstUserOld)
+      .map(user => user); // chuyển đổi options đã chọn từ userbind ra list cá nhân nhận
     this.lstUserChange = this.lstUserChange.filter(user => !lstCaNhanSelected.includes(user.value))
-    if (lstUserOld.length > 0)
-      (this.lstUserNhan as any[]).push(lstUserOld)
+    if (this.lstUserNhanOld !== undefined) {
+      this.lstUserNhan = this.lstUserNhan.concat(this.lstUserNhanOld);//add phần user nhận cũ và phần userchange mới vừa chuyển sang
+    }
   }
 
   public RemoveFromSelected(): void {
+    this.lstUserChangeUnShow = [];
+    var lstselectedOpts = this.DsCaNhanNhan as any[];//Lấy cá nhân đã selected
+    if (lstselectedOpts === undefined) {
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Yêu cầu chọn cá nhân" });
+      return;
+      //trả ra toast lỗi nếu chưa chọn cá nhân
+    }
+    const oldList = this.lstUserNhan; // gán mặc định list user nhận hiện tại để lọc k đổi giá trị
+    const onlListSelected = lstselectedOpts; // gán mặc định list user nhận đã chọn
+    lstselectedOpts = oldList.filter(user => lstselectedOpts.includes(user.value)).map(user => user);//lọc ra nhưng user đã chọn dạng object[]
+    this.lstUserNhan = this.lstUserNhan.filter(user => !onlListSelected.includes(user.value)).map(user => user);// xóa đi những option đã chọn bên lst nhận
+    this.lstUserChange = this.lstUserChange ?? []; //check list userbind từ pb/ngd null or underfine thì khỏi tạo
+    this.lstUserChange = this.lstUserChange.concat(lstselectedOpts); // chuyển những options đã chọn vào list userbind
+    const lstUserChangeConst = this.lstUserChange;
+    this.lstUserChangeUnShow = lstUserChangeConst;
+    let lstTmp: any[] = [];
+    this.lstUserChange.forEach((user) => {//lọc ra những bản ghi thuộc nhóm người dùng hoặc phòng ban đang selected
+      if (user && (user.value.toString().split("%")[3] == this.phongBan || user.value.toString().split("%")[3] == this.nhomNguoiDung)) {
+        lstTmp.push(user);
+      }
+    })
+    this.lstUserChange = lstTmp;
+  }
 
+  public Gui(): void {
+    this.submitted = true;
+    let itemData: any = {
+      thongBaoId: this.id,
+      donViId: this.authService.GetDonViLamViec(),
+      listPhongBanDaChon: this.lstUserNhan
+    }
+
+    this.service.guiThongBao(itemData).subscribe(
+      data => {
+        let resData = data as ResponeMessage;
+        if (resData.isError) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
+        } else {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
+          this.Thoat();
+        }
+      },
+      error => {
+        console.log('Error', error);
+      })
   }
 }

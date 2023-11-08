@@ -1,12 +1,12 @@
-<p-dialog [(visible)]="show"  [draggable]="true" [resizable]="false" (onHide)="Thoat()"
-    [style]="{width: '950px'}" [modal]="true" header="Gửi thông báo" class="p-fluid">
+<p-dialog [(visible)]="show"  [draggable]="true" [resizable]="false" (onShow)="BindDialogData()" (onHide)="Thoat()"
+    [style]="{width: '1150px'}" [modal]="true" header="Gửi thông báo" class="p-fluid">
     <ng-template pTemplate="content">
         <div class="col-12 md:col-6">
             <p-dropdown [options]="lstPhongBan" (ngModelChange)="onChangePhongBan($event)" optionLabel="tenDonVi" optionValue="id" [(ngModel)]="phongBan" placeholder="Chọn phòng ban"
                 [showClear]="false"></p-dropdown>
         </div>
         <div class="col-12 md:col-6">
-            <p-dropdown [options]="lstNhomNguoiDung" optionValue="id"  (ngModelChange)="onChangeNhomNguoiDung($event)" [(ngModel)]="nhomNguoiDung"
+            <p-dropdown [options]="lstNhomNguoiDung" optionValue="id" optionLabel="tenNhomNguoiDung" (ngModelChange)="onChangeNhomNguoiDung($event)" [(ngModel)]="nhomNguoiDung"
                 placeholder="Chọn nhóm người dùng" [showClear]="false"></p-dropdown>
         </div>
         <div class="grid formgrid">
@@ -16,7 +16,7 @@
                     <div class="lstUser selectUser">
                         <select size="4" name="lstUser" [(ngModel)]="DsCaNhanDaChon" class="form-control" id="lstUser" multiple="multiple"
                             style="height: 200px; width: 97%; margin-top: 30px" data-parsley-multiple="lstUser">
-                            <option *ngFor="let obj of lstUserChange" [value]="obj.value">{{ obj.text }}</option>
+                            <option *ngFor="let obj of lstUserChange" [value]="obj.value" >{{ obj.text }}</option>
                         </select>
                         <a id="btnAddMulti" href="javascript:;" (click)="AddToSelected()" class=""
                             style="margin-right: 5px; margin-top: 12px">
@@ -40,7 +40,8 @@
     </ng-template>
     <ng-template pTemplate="footer">
         <button pbutton="" pripple="" type="submit" label="Info"
-            class="p-element p-ripple p-button-info p-button p-component" ng-reflect-label="Info" (click)="Gui()"><span
+            class="p-element p-ripple p-button-info p-button p-component" ng-reflect-label="Info" 
+            (click)="Gui()"><span
                 class="p-button-label">Gửi thông báo</span><span class="p-ink"></span></button>
         <button pbutton="" pripple="" type="button" label="Info"
             class="p-element p-ripple p-button-danger p-button p-component" ng-reflect-label="Danger"

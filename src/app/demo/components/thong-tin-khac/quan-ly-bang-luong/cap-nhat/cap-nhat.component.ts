@@ -1,55 +1,39 @@
-import { formatDate } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { MessageService } from 'primeng/api';
-import { FileUpload } from 'primeng/fileupload';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { throwError } from 'rxjs';
-import { QuanLyThongBaoService } from 'src/app/demo/service/thong-tin-khac/quan-ly-thong-bao.service';
-import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { saveAs } from 'file-saver';
+import { MessageService } from 'primeng/api';
+import { FormBuilder, Validators } from '@angular/forms';
+import { UploadFileService } from 'src/app/demo/service/upload-file.service';
+import { QuanLyBangLuongService } from 'src/app/demo/service/thong-tin-khac/quan-ly-bang-luong.service';
 
 @Component({
   selector: 'app-cap-nhat',
   templateUrl: './cap-nhat.component.html',
-  styleUrls: ['./cap-nhat.component.scss'],
-  // providers: [IDbAsyncQueryProvider]
+  styleUrls: ['./cap-nhat.component.scss']
 })
 export class CapNhatComponent {
-  @ViewChild('myEditor') myEditor: any;
   @Input() show: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
   @Input() id: string = '1';
 
-  constructor(private service: QuanLyThongBaoService
+  constructor(private service: QuanLyBangLuongService
     , private messageService: MessageService
     , private fb: FormBuilder
     , private fileService: UploadFileService
-    , private cd: ChangeDetectorRef
-    , private sanitizer: DomSanitizer) { };
-  trustUrl: any;
+    , private cd: ChangeDetectorRef) { };
   dataFile: any;
   file: File | null = null; // Variable to store file
-  public Editor = ClassicEditor;
   submitted: boolean = false;
-  checked: boolean = true;
-  relativePath: string = "";
-  quanLyThongBao: any = {};
-  public checkedValue: boolean = false;
+  quanLyBangLuong: any = {};
   public formCapNhat = this.fb.group({
     id: [0, []],
     tieuDe: ["", [Validators.required]],
-    ngayBatDau: [, []],
-    ngayKetThuc: [, []],
     donViId: [0, []],
     noiDung: ["", []],
-    hienThi: [, []],
-    created: [0, []],
-    trangThai: [0, []],
-    fileName: [0, []],
-    filePath: [0, []],
+    ghiChu: [, []],
+    fileName: ["", []],
+    filePath: ["", []],
   });
 
   public BindDataDialog(): void {
@@ -57,13 +41,10 @@ export class CapNhatComponent {
     this.service.getFile(this.id).subscribe((data) => {
       this.dataFile = data;
     });
-    this.service.getQuanLyThongBaoId(this.id).subscribe(data => {
+    this.service.getQuanLyBangLuongId(this.id).subscribe(data => {
       if (data.fileName !== "") {
         this.file = new File([], data.fileName, { type: 'text/plain' });
       }
-      data.ngayBatDau = new Date(data.ngayBatDau);
-      data.ngayKetThuc = new Date(data.ngayKetThuc);
-      data.hienThi = this.checkedValue = data.hienThi == 1 ? true : false;
       data.fileName = "";
       data.filePath = "";
       this.formCapNhat.setValue(data);
@@ -84,13 +65,13 @@ export class CapNhatComponent {
     this.dataFile = file;//lấy dữ liệu file hiện tại chuẩn bị cho việc tải xuống
     if (file) {
       this.file = file;
-      let urlUpload = "/ThongTinKhac/QuanLyThongBao/UploadFile";
+      let urlUpload = "/ThongTinKhac/QuanLyBangLuong/UploadFile";
       this.fileService.uploadFile(this.file, urlUpload).subscribe({
         next: (data) => {
           if (data.isError)
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Tải lên thất bại' });
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
           else {
-            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Tải lên thành công' });
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: data.title });
             this.formCapNhat.value.fileName = data.objData.fileName;
             this.formCapNhat.value.filePath = data.objData.filePath;
           }
@@ -101,23 +82,6 @@ export class CapNhatComponent {
         },
       });;
     }
-  }
-
-  //hàm cấu hình tool bar của CKEDITOR
-  public getToolBar(): any {
-    const toolbar: any = {
-      items: [
-        'undo', 'redo',
-        '|', 'heading',
-        '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
-        '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
-        '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
-        '|', 'alignment',
-        '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
-      ],
-      shouldNotGroupWhenFull: true
-    }
-    return toolbar;
   }
 
   public Thoat(): void {
@@ -132,9 +96,8 @@ export class CapNhatComponent {
   public CapNhat(): void {
     this.submitted = true;
     if (this.formCapNhat.valid) {
-      this.quanLyThongBao = this.formCapNhat.value;
-      this.quanLyThongBao.hienThi = this.checkedValue ? 1 : 0;
-      this.service.capNhatQuanLyThongBao(this.quanLyThongBao).subscribe(
+      this.quanLyBangLuong = this.formCapNhat.value;
+      this.service.capNhatQuanLyBangLuong(this.quanLyBangLuong).subscribe(
         data => {
           let resData = data as ResponeMessage;
           if (resData.isError) {
@@ -149,11 +112,6 @@ export class CapNhatComponent {
           console.log('Error', error);
         })
     }
-  }
-
-  //hàm lấy giá trị checkbox
-  public CheckedHt() {
-    this.checkedValue = !this.checkedValue;
   }
 
   //hàm xóa tệp

@@ -35,6 +35,7 @@ export class GuiThongBaoComponent {
   submitted: boolean = false;
 
   public Thoat(): void {
+    this.submitted = false;
     this.show = false;
     this.tatPopup.emit(this.show);
   }
@@ -64,7 +65,7 @@ export class GuiThongBaoComponent {
   public onChangePhongBan(event): void {
     if (this.lstUserChangeUnShow)
       this.lstUserChange = this.lstUserChangeUnShow;
-    this.nhomNguoiDung = null;
+    this.nhomNguoiDung = null;//đổi phòng ban thì reset ngd
     this.lstUserChange = [];
     let phongBanId: string = event;
     this.service.changePhongBan(phongBanId)
@@ -79,9 +80,9 @@ export class GuiThongBaoComponent {
   public onChangeNhomNguoiDung(event): void {
     if (this.lstUserChangeUnShow)
       this.lstUserChange = this.lstUserChangeUnShow;
-    this.phongBan = null;
-    this.lstUserChange = [];
-    let nhomNguoiDungId: string = event;
+    this.phongBan = null;//đổi phòng ban thì reset pb
+    this.lstUserChange = [];//tránh trường hợp undefine
+    let nhomNguoiDungId: string = event;//tránh trường hợp undefine
     this.service.changeNhomNguoiDung(nhomNguoiDungId)
       .then(data => {
         this.lstUserChange = data;
@@ -93,7 +94,7 @@ export class GuiThongBaoComponent {
 
   public AddToSelected(): void {
     var lstCaNhanSelected = this.DsCaNhanDaChon as any[];//lấy ds cá nhân đã chọn từ userbind
-    if (lstCaNhanSelected === undefined) {
+    if (lstCaNhanSelected === undefined || lstCaNhanSelected.length === 0) {
       this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Yêu cầu chọn cá nhân" });
       return;
     }
@@ -113,7 +114,7 @@ export class GuiThongBaoComponent {
   public RemoveFromSelected(): void {
     this.lstUserChangeUnShow = [];
     var lstselectedOpts = this.DsCaNhanNhan as any[];//Lấy cá nhân đã selected
-    if (lstselectedOpts === undefined) {
+    if (lstselectedOpts === undefined || lstselectedOpts.length === 0) {
       this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Yêu cầu chọn cá nhân" });
       return;
       //trả ra toast lỗi nếu chưa chọn cá nhân

@@ -443,13 +443,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý bảng lương',
                                 icon: 'pi pi-fw pi-money-bill',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/quan-ly-bang-luong'],
                                 code: '006003'
                             },
                             {
                                 label: 'Xem bảng lương',
                                 icon: 'pi pi-fw pi-euro',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/xem-bang-luong'],
                                 code: '006004'
                             },
                             {
@@ -1275,13 +1275,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý bảng lương',
                                 icon: 'pi pi-fw pi-money-bill',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/quan-ly-bang-luong'],
                                 code: '006003'
                             },
                             {
                                 label: 'Xem bảng lương',
                                 icon: 'pi pi-fw pi-euro',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/xem-bang-luong'],
                                 code: '006004'
                             },
                             {

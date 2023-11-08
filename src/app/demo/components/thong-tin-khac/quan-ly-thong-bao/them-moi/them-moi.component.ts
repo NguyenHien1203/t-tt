@@ -35,7 +35,6 @@ export class ThemMoiComponent {
 
   quanLyThongBao: any = {};
   submitted: boolean = false;
-  relativePath: string = "";
   formThemMoi = this.fb.group({
     id: [0, []],
     tieuDe: ["", [Validators.required]],
@@ -49,6 +48,7 @@ export class ThemMoiComponent {
   });
 
   public Thoat(): void {
+    this.submitted = false;
     this.formThemMoi.reset();
     this.show = false;
     this.file = null;
@@ -61,7 +61,8 @@ export class ThemMoiComponent {
     this.dataFile = file;
     if (file) {
       this.file = file;
-      this.fileService.uploadFile(this.file).subscribe({
+      let urlUpload = "/ThongTinKhac/QuanLyThongBao/UploadFile";
+      this.fileService.uploadFile(this.file, urlUpload).subscribe({
         next: (data) => {
           if (data.isError)
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Tải lên thất bại' });
@@ -69,7 +70,6 @@ export class ThemMoiComponent {
             this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Tải lên thành công' });
             this.formThemMoi.value.fileName = data.objData.fileName;
             this.formThemMoi.value.filePath = data.objData.filePath;
-            this.relativePath = data.objData.filePath;
           }
         },
         error: (error: any) => {
@@ -100,11 +100,11 @@ export class ThemMoiComponent {
       this.service.themMoiQuanLyThongBao(this.quanLyThongBao).subscribe(
         data => {
           console.log('data', data);
-          this.XoaFile();
           let resData = data as ResponeMessage;
           if (resData.isError) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
           } else {
+          this.XoaFile();
             this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
             this.Thoat();
           }

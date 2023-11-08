@@ -42,6 +42,7 @@ export class CapNhatComponent {
   }
 
   public Thoat(): void {
+    this.submitted = false;
     this.hienThi = false;
     this.tatPopup.emit(this.hienThi);
   }

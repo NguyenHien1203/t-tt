@@ -79,4 +79,13 @@ export class CapNhatMoiService {
         const url = `${this.baseUrl}/VanBanDen/CapNhatMoiVanBanDen/CheckVanBanPhanPhoi?IDVB=` + idvb + "&IDDonViLamViec=" + DviLamViec;
         return this.httpClient.get<any>(url);
     }
+
+    /**
+     * Thêm mới văn bản
+     */
+    public ThemMoiVanBan(modelVanban: any) : Observable<any>{
+        if (!this.auth.CheckLogin())
+        this.router.navigate(['/login']);
+        return this.httpClient.post<any>(environment.baseUrlApi + 'VanBanDen/CapNhatMoiVanBanDen/ThemMoiVanBan', modelVanban, this.httpOption)
+    }
 }

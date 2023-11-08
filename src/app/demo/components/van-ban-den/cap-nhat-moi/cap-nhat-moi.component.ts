@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService, SelectItem } from 'primeng/api';
 import { CapNhatMoiService } from 'src/app/demo/service/van-ban-den/cap-nhat-moi/cap-nhat-moi.service';
 import { TimKiemDanhSach } from 'src/app/models/van-ban-den/cap-nhat-moi';
@@ -57,6 +58,7 @@ export class CapNhatMoiComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private capnhatmoiService: CapNhatMoiService,
+    private router: Router,
   ) { }
 
   public CheckedHt(): void {
@@ -67,13 +69,11 @@ export class CapNhatMoiComponent implements OnInit {
    * lấy dữ liệu bản ghi cập nhật mới
    */
   public GetDanhSachCapNhatMoi() {
-    console.log('this.timKiemDanhSach',this.timKiemDanhSach)
     this.capnhatmoiService.getDanhSachCapNhatMoi(this.timKiemDanhSach).subscribe(data => {
       if (data.isError) {
        
       } else {
         this.LstCapNhatMoi = data.objData;
-        console.log(this.LstCapNhatMoi)
       }
     }, (error) => {
       console.log('Error', error);
@@ -137,7 +137,7 @@ export class CapNhatMoiComponent implements OnInit {
    * ThemMoi
    */
   public ThemMoi() {
-    
+    this.router.navigate(['/van-ban-den/them-moi']);
   }
 
 }

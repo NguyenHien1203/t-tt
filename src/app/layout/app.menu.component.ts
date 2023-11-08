@@ -156,7 +156,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Cập nhật mới',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/van-ban-di/cap-nhat-moi'],
                                 code: '002001'
                             },
                             {
@@ -988,7 +988,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Cập nhật mới',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/van-ban-di/cap-nhat-moi'],
                                 code: '002001'
                             },
                             {

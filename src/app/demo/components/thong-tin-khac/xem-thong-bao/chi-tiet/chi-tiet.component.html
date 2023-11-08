@@ -1,0 +1,44 @@
+<p-dialog [(visible)]="show" [formGroup]="formCapNhat" (onShow)="BindDataDialog()" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
+    [style]="{width: '950px'}" [modal]="true" header="Thêm mới thông báo" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label htmlfor="tieuDe">Tiêu đề<span class="p-error"> (*)</span>:</label>
+            <input pinputtext="" id="tieuDe" type="text" class="p-inputtext p-component p-element"
+                formControlName="tieuDe">
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-6" for="tuNgay">
+                <label htmlfor="tuNgay">Từ ngày:</label>
+                <p-calendar id="tuNgay" formControlName="ngayBatDau" appendTo="body" [showIcon]="true"
+                    dateFormat="dd/mm/yy" for inputId="icon"></p-calendar>
+            </div>
+            <div class="col-12 md:col-6" for="denNgay">
+                <label htmlfor="denNgay">Đến ngày:</label>
+                <p-calendar id="denNgay" formControlName="ngayKetThuc" appendTo="body" [showIcon]="true"
+                    dateFormat="dd/mm/yy" for inputId="icon"></p-calendar>
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-6">
+                <label htmlfor="tieuDe">File đính kèm:</label>
+                <div *ngIf="file">
+                    <section class="file-info">
+                        <ul>
+                            <li>Tên file: <a href="javascript:;" (click)="downloadFile()">{{file.name}}</a><a href="javascript:;" (click)="XoaFile()">&nbsp;<i class="pi pi-trash"></i></a></li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <ckeditor id="editor" [editor]="Editor" formControlName="noiDung" row [config]="getToolBar()" data=""></ckeditor>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+       <button pbutton="" pripple="" type="button" label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component" ng-reflect-label="Danger"
+            (click)="Thoat()"><span class="p-button-label">Hủy</span><span class="p-ink"></span></button>
+    </ng-template>
+</p-dialog>
+<p-toast></p-toast>

@@ -33,6 +33,7 @@ export class QuanLyThongBaoComponent implements OnInit {
   lstThongBao: SelectItem[] = [{ label: 'Chọn trạng thái', value: 3 }, { label: 'Còn hiệu lực', value: 2 }, { label: 'Không còn hiệu lực', value: 1 }];
   lstHienThi: SelectItem[] = [{ label: 'Chọn hình thức', value: 3 }, { label: 'Hiển thị', value: 1 }, { label: 'Không hiển thị', value: 0 }];
   quanLyThongBaos: any[] = [];
+
   ngOnInit(): void {
     this.loading = false;
     this.LoadDanhSach();
@@ -77,8 +78,10 @@ export class QuanLyThongBaoComponent implements OnInit {
   public Thoat(itemHt: any, loai: string): void {
     if (loai === 'T')
       this.hienThiThemMoi = false;
-    else
+    if (loai === 'C')
       this.hienThiCapNhat = false;
+      if (loai === 'G')
+      this.hienThiGuiThongBao = false;
     this.LoadDanhSach();
   }
 

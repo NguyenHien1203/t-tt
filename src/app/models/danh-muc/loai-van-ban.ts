@@ -1,7 +1,7 @@
 export interface LoaiVanBan {
     id?: number,
-    maLoaiVb?: string,
-    tenLoaiVb?: string,
+    maLoaiVB?: string,
+    tenLoaiVB?: string,
     thuTu?: number,
     hienThi?: true,
     phanLoai?: number,

@@ -31,4 +31,12 @@ export class UploadFileService {
       return this.http.post(environment.baseUrlApi + urlUpload, formData);
     }
   }
+
+  uploadMutipleFile(file : any) : any {
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file, file.name);
+      return this.http.post(environment.baseUrlApi + "/VanBanDen/CapNhatMoiVanBanDen/UploadMutipleFile", formData);
+      }
+    }
 }

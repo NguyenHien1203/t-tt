@@ -44,67 +44,65 @@
             </div>
             <div class="grid">
                 <div class="col-12">
-                    <p-table styleClass="p-datatable-gridlines" #dt [value]="danhSachLoaiVanBan" [columns]="cols"
+                    <p-table styleClass="p-datatable-gridlines" #dt [value]="danhSachSoVanBan" [columns]="cols"
                         responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="text-align: center;">STT
                                 </th>
-                                <th>Tên loại văn bản
+                                <th>Mã sổ
                                 </th>
-                                <th>Mã loại văn bản
+                                <th>Tên sổ
                                 </th>
-                                <th style="text-align: center;">Hiển thị
+                                <th>Loại văn bản
                                 </th>
-                                <th style="text-align: center;">Phân loại
+                                <th style="text-align: center;">Số hiện tại
                                 </th>
-                                <th>Ghi chú
+                                <th style="text-align: center;">Số năm trước
                                 </th>
                                 <th style="text-align: center;">Thứ tự
                                 </th>
                                 <th style="text-align: center;">Chức năng
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-loaiVanBan let-rowIndex="rowIndex">
+                        <ng-template pTemplate="body" let-soVanBan let-rowIndex="rowIndex">
                             <tr>
                                 <td style="width:5%; min-width:5rem; text-align: center;"><span
                                         class="p-column-title">STT</span>
                                     {{rowIndex + 1}}
                                 </td>
-                                <td style="width:23%; min-width:10rem;">
-                                    <span class="p-column-title">Tên loại văn bản</span>
-                                    {{loaiVanBan.tenLoaiVB}}
+                                <td style="width:10%; min-width:10rem;">
+                                    <span class="p-column-title">Mã sổ văn bản</span>
+                                    {{soVanBan.maSo}}
                                 </td>
-                                <td style="width:15%; min-width:10rem;">
-                                    <span class="p-column-title">Mã loại văn bản</span>
-                                    {{loaiVanBan.maLoaiVB}}
+                                <td style="width:30%; min-width:10rem;">
+                                    <span class="p-column-title">Tên sổ văn bản</span>
+                                    {{soVanBan.tenSo}}
                                 </td>
-                                <td style="width:8%; min-width:8rem; text-align: center;">
-                                    <span class="p-column-title">Hiển thị</span>
-                                    <i class="pi"
-                                        [ngClass]="{'true-icon pi-check-circle text-green-500 my-font-size-icon-true': loaiVanBan.hienThi, 
-                                        'false-icon pi-times-circle text-pink-500 my-font-size-icon-false': !loaiVanBan.hienThi}"></i>
+                                <td style="width:20%; min-width:8rem;">
+                                    <span class="p-column-title">Loại văn bản</span>
+                                    {{soVanBan.loai === 0 ? 'Văn bản đến' : 'Văn bản đi'}}
                                 </td>
-                                <td style="width:15%; min-width:10rem; text-align: center;">
-                                    <span class="p-column-title">Phân loại</span>
-                                    {{loaiVanBan.phanLoai === 0 ? 'Văn bản đến' : 'Văn bản đi'}}
+                                <td style="width:10%; min-width:10rem; text-align: center;">
+                                    <span class="p-column-title">Số hiện tại</span>
+                                    {{soVanBan.soDiDenHT}}
                                 </td>
-                                <td style="width:20%; min-width:10rem;">
-                                    <span class="p-column-title">Ghi chú</span>
-                                    {{loaiVanBan.ghiChu}}
+                                <td style="width:10%; min-width:10rem; text-align: center;">
+                                    <span class="p-column-title">Số năm trước</span>
+                                    {{soVanBan.soDiDenTruoc}}
                                 </td>
                                 <td style="width:6%; min-width:6rem; text-align: center;">
                                     <span class="p-column-title">Thứ tự</span>
-                                    {{loaiVanBan.thuTu}}
+                                    {{soVanBan.thuTu}}
                                 </td>
                                 <td style="width:14%; min-width:10rem;">
                                     <div class="flex justify-content-center">
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
-                                            (click)="CapNhatLoaiVanBan(loaiVanBan.id)"></button>
+                                            (click)="CapNhatSoVanBan(soVanBan.id)"></button>
                                         <button pButton pRipple icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"
-                                            (click)="XoaLoaiVanBan(loaiVanBan.id)"></button>
+                                            (click)="XoaSoVanBan(soVanBan.id)"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -113,15 +111,15 @@
                 </div>
             </div>
         </div>
-
+<!-- 
         <app-them-moi [show]="hienThiThemMoi" (close)="tatPopup($event, 'C')"></app-them-moi>
 
-        <app-cap-nhat [show]="hienThiCapNhat" (close)="tatPopup($event, 'U')" [id]="idLoaiVanBan"></app-cap-nhat>
+        <app-cap-nhat [show]="hienThiCapNhat" (close)="tatPopup($event, 'U')" [id]="idSoVanBan"></app-cap-nhat> -->
 
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="loaiVanBan">Bạn muốn xóa bản ghi này ?</span>
+                <span *ngIf="soVanBan">Bạn muốn xóa bản ghi này ?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"

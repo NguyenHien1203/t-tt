@@ -156,7 +156,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Cập nhật mới',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/van-ban-di/cap-nhat-moi'],
                                 code: '002001'
                             },
                             {
@@ -443,13 +443,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý bảng lương',
                                 icon: 'pi pi-fw pi-money-bill',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/quan-ly-bang-luong'],
                                 code: '006003'
                             },
                             {
                                 label: 'Xem bảng lương',
                                 icon: 'pi pi-fw pi-euro',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/xem-bang-luong'],
                                 code: '006004'
                             },
                             {
@@ -559,13 +559,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Loại văn bản',
                                 icon: 'pi pi-fw pi-sliders-v',
-                                routerLink: ['/danh-muc/'],
+                                routerLink: ['/danh-muc/loai-van-ban'],
                                 code: '009004'
                             },
                             {
                                 label: 'Sổ văn bản',
                                 icon: 'pi pi-fw pi-book',
-                                routerLink: ['/danh-muc/'],
+                                routerLink: ['/danh-muc/so-van-ban'],
                                 code: '009005'
                             },
                             {
@@ -988,7 +988,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Cập nhật mới',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/van-ban-di/cap-nhat-moi'],
                                 code: '002001'
                             },
                             {
@@ -1275,13 +1275,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý bảng lương',
                                 icon: 'pi pi-fw pi-money-bill',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/quan-ly-bang-luong'],
                                 code: '006003'
                             },
                             {
                                 label: 'Xem bảng lương',
                                 icon: 'pi pi-fw pi-euro',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/xem-bang-luong'],
                                 code: '006004'
                             },
                             {
@@ -1391,13 +1391,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Loại văn bản',
                                 icon: 'pi pi-fw pi-sliders-v',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/danh-muc/loai-van-ban'],
                                 code: '009004'
                             },
                             {
                                 label: 'Sổ văn bản',
                                 icon: 'pi pi-fw pi-book',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/danh-muc/so-van-ban'],
                                 code: '009005'
                             },
                             {

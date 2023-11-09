@@ -9,19 +9,19 @@ import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
   selector: 'app-them-moi',
   templateUrl: './them-moi.component.html',
   styleUrls: ['./them-moi.component.scss'],
-  providers : [MessageService]
+  providers: [MessageService]
 })
 export class ThemMoiComponent {
   @Input() hienThi: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
 
   constructor(private fb: FormBuilder
-    , private service : LoaiNhiemVuService
-    ,private messageService: MessageService
-    ,private authService : AuthService){ }
+    , private service: LoaiNhiemVuService
+    , private messageService: MessageService
+    , private authService: AuthService) { }
 
   public loaiNhiemvu: any = {};
-  public submitted : boolean  = false;
+  public submitted: boolean = false;
   public formThemMoi = this.fb.group({
     id: [0, []],
     tenNhiemVu: ["", [Validators.required]],
@@ -29,36 +29,37 @@ export class ThemMoiComponent {
     donViId: [0, ''],
     ngayTao: [new Date(), ''],
     createdBy: [0, ''],
-    tenNguoiTao : ["", ''],
-    tenDonVi : ["", ''],
+    tenNguoiTao: ["", ''],
+    tenDonVi: ["", ''],
   });
 
   public Thoat(): void {
-  this.hienThi = false;
-  this.tatPopup.emit(this.hienThi);
-}
-
-public ThemMoi(): void {
-  this.submitted = true;
-  if (this.formThemMoi.valid) { 
-    this.loaiNhiemvu = this.formThemMoi.value;
-    this.loaiNhiemvu.donViId = this.authService.GetDonViLamViec();
-    this.loaiNhiemvu.createdBy = this.authService.GetmUserInfo()?.userId;
-
-    this.service.themMoiLoaiNhiemVu(this.loaiNhiemvu).subscribe(
-      data => {
-        let resData = data as ResponeMessage;
-        if (resData.isError) {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
-        } else {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
-          this.Thoat();
-        }
-      },
-      error => {
-        console.log('Error', error);
-      })
+    this.submitted = false;
+    this.hienThi = false;
+    this.tatPopup.emit(this.hienThi);
   }
-}
+
+  public ThemMoi(): void {
+    this.submitted = true;
+    if (this.formThemMoi.valid) {
+      this.loaiNhiemvu = this.formThemMoi.value;
+      this.loaiNhiemvu.donViId = this.authService.GetDonViLamViec();
+      this.loaiNhiemvu.createdBy = this.authService.GetmUserInfo()?.userId;
+
+      this.service.themMoiLoaiNhiemVu(this.loaiNhiemvu).subscribe(
+        data => {
+          let resData = data as ResponeMessage;
+          if (resData.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
+          } else {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
+            this.Thoat();
+          }
+        },
+        error => {
+          console.log('Error', error);
+        })
+    }
+  }
 
 }

@@ -30,7 +30,7 @@ export class CapNhatComponent {
     , private cd: ChangeDetectorRef
     , private sanitizer: DomSanitizer) { };
   trustUrl: any;
-  dataFile : any;
+  dataFile: any;
   file: File | null = null; // Variable to store file
   public Editor = ClassicEditor;
   submitted: boolean = false;
@@ -60,11 +60,10 @@ export class CapNhatComponent {
     this.service.getQuanLyThongBaoId(this.id).subscribe(data => {
       if (data.fileName !== "") {
         this.file = new File([], data.fileName, { type: 'text/plain' });
-        this.relativePath = data.filePath as string;
       }
       data.ngayBatDau = new Date(data.ngayBatDau);
       data.ngayKetThuc = new Date(data.ngayKetThuc);
-      data.hienThi = this.checked = data.hienThi == 1 ? true : false;
+      data.hienThi = this.checkedValue = data.hienThi == 1 ? true : false;
       data.fileName = "";
       data.filePath = "";
       this.formCapNhat.setValue(data);
@@ -75,8 +74,8 @@ export class CapNhatComponent {
   public downloadFile() {
     const blob = new Blob([this.dataFile], { type: 'application/octet-stream' });
 
-  // Sử dụng saveAs để tải tệp xuống với tên cụ thể.
-  saveAs(blob, this.file.name);
+    // Sử dụng saveAs để tải tệp xuống với tên cụ thể.
+    saveAs(blob, this.file.name);
   }
 
   //function upload file
@@ -85,7 +84,8 @@ export class CapNhatComponent {
     this.dataFile = file;//lấy dữ liệu file hiện tại chuẩn bị cho việc tải xuống
     if (file) {
       this.file = file;
-      this.fileService.uploadFile(this.file).subscribe({
+      let urlUpload = "/ThongTinKhac/QuanLyThongBao/UploadFile";
+      this.fileService.uploadFile(this.file, urlUpload).subscribe({
         next: (data) => {
           if (data.isError)
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Tải lên thất bại' });
@@ -121,6 +121,7 @@ export class CapNhatComponent {
   }
 
   public Thoat(): void {
+    this.submitted = false;
     this.file = null;
     this.formCapNhat.reset();
     this.show = false;
@@ -135,11 +136,11 @@ export class CapNhatComponent {
       this.quanLyThongBao.hienThi = this.checkedValue ? 1 : 0;
       this.service.capNhatQuanLyThongBao(this.quanLyThongBao).subscribe(
         data => {
-          this.XoaFile();
           let resData = data as ResponeMessage;
           if (resData.isError) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
           } else {
+            this.XoaFile();
             this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
             this.Thoat();
           }

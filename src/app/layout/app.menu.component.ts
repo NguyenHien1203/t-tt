@@ -583,7 +583,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Loại văn bản đến tại cơ quan',
                                 icon: 'pi pi-fw pi-book',
-                                routerLink: ['/danh-muc/'],
+                                routerLink: ['/danh-muc/loai-van-ban-den'],
                                 code: '009008'
                             },
                             {
@@ -1415,7 +1415,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Loại văn bản đến tại cơ quan',
                                 icon: 'pi pi-fw pi-book',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/danh-muc/loai-van-ban-den'],
                                 code: '009008'
                             },
                             {

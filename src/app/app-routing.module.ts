@@ -20,7 +20,8 @@ import { LoginComponent } from './demo/components/auth/login/login.component';
                     { path: 'danh-muc', loadChildren: () => import('./demo/components/danh-muc/danh-muc.module').then(m => m.DanhMucModule) },
                     { path: 'he-thong', loadChildren: () => import('./demo/components/he-thong/he-thong.module').then(m => m.HeThongModule) },
                     { path: 'van-ban-den', loadChildren: () => import('./demo/components/van-ban-den/van-ban-den.module').then(m => m.VanBanDenModule) },
-                    { path: 'thong-tin-khac', loadChildren: () => import('./demo/components/thong-tin-khac/thong-tin-khac.module').then(m => m.ThongTinKhacModule) }
+                    { path: 'thong-tin-khac', loadChildren: () => import('./demo/components/thong-tin-khac/thong-tin-khac.module').then(m => m.ThongTinKhacModule) },
+                    { path: 'van-ban-di', loadChildren: () => import('./demo/components/van-ban-di/van-ban-di.module').then(m => m.VanBanDiModule) },
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },

@@ -625,7 +625,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Tính chất nhiệm vụ',
                                 icon: 'pi pi-fw pi-angle-double-right',
-                                routerLink: ['/danh-muc/'],
+                                routerLink: ['/danh-muc/tinh-chat-nhiem-vu'],
                                 code: '009016'
                             },
                         ]
@@ -1457,7 +1457,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Tính chất nhiệm vụ',
                                 icon: 'pi pi-fw pi-angle-double-right',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/danh-muc/tinh-chat-nhiem-vu'],
                                 code: '009016'
                             },
                         ]

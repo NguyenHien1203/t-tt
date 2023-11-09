@@ -44,12 +44,9 @@ export class ThemMoiComponent implements OnInit {
   dataFile: any;
   file_fomat: any = [];
   formTT_VB_fomat: any = [];
-
   file: File | null = null; // Variable to store file
-
   checkLuuTru: boolean = false;
   checkXemTatCa: boolean = false;
-
   CoQuanBanHanh = [];
   SoVanBan = [];
   LoaiVanBan = [];
@@ -68,9 +65,11 @@ export class ThemMoiComponent implements OnInit {
     trichYeu: ["", []],
     yKienThamMuu: ["", []],
     mucDoVanBanId: ["", [Validators.required]],
-    chkLuuTru: ["", []],
-    chkXemTatCa: ["", []],
+    chkLuuTru: [false, []],
+    chkXemTatCa: [false, []],
     IdDonViLamViec: ["", []],
+    DonViId: ["", []],
+    UserId: ["", []],
     fileUpLoad: ["", []],
   });
 
@@ -133,7 +132,7 @@ export class ThemMoiComponent implements OnInit {
               path: data.objData.filePath,
             }
             this.file_fomat.push(fileReturn);
-            this.formThongTinVanBan.value.fileUpLoad = this.file_fomat;
+           
             this.selectedFiles.push(FileInput);
           }
         },
@@ -170,17 +169,24 @@ export class ThemMoiComponent implements OnInit {
 
   public ThemMoi() {
     this.submitted_VB = true;
-
     if (this.formThongTinVanBan.valid) {
       this.formThongTinVanBan.value.IdDonViLamViec = this.authenService.GetDonViLamViec();
-      this.formTT_VB_fomat = this.formThongTinVanBan.value;
+      this.formThongTinVanBan.value.DonViId = this.authenService.GetmUserInfo().donViId?.toString();
+      this.formThongTinVanBan.value.UserId = this.authenService.GetmUserInfo().userId?.toString();
 
+      this.formThongTinVanBan.value.fileUpLoad = JSON.stringify(this.file_fomat);
+      this.formTT_VB_fomat = this.formThongTinVanBan.value;
+      this.formTT_VB_fomat.chkLuuTru = this.checkLuuTru;
+      this.formTT_VB_fomat.chkXemTatCa = this.checkXemTatCa;
+      
       this.capnhatmoiService.ThemMoiVanBan(this.formTT_VB_fomat).subscribe(data => {
         if (data.isError) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
         } else {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
-          this.router.navigate(['/van-ban-den/cap-nhat-moi']);
+          setTimeout(() => {
+            this.router.navigate(['/van-ban-den/cap-nhat-moi']);
+          }, 1000);
         }
       }, (error) => {
         console.log('Error', error);

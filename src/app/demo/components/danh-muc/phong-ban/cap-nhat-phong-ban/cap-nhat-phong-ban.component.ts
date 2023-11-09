@@ -56,13 +56,8 @@ export class CapNhatPhongBanComponent implements OnInit {
   public BindDataDialog(): void {
     this.phongbanService.GetPhongBanById(this.id).subscribe(data => {
       console.log("data:  " ,data);
-      
       this.parentId = data.parentId;
-      console.log("data parent ID",data.parentId);
-      
       this.checked = data.trangThai;
-      const objDonViSl = this.filterItems(this.DonViTree)
-      data.parentId = objDonViSl;
       data.ngayTruyenThong = new Date(data.ngayTruyenThong);
       this.formCapNhat.setValue(data);
       console.log(this.formCapNhat)
@@ -71,24 +66,6 @@ export class CapNhatPhongBanComponent implements OnInit {
 
 
   //Hàm bind ra dữ liệu selected sau khi sửa
-  public filterItems(DonViTree: DMJsonModel[]) {
-    let filteredItems = [];
-
-    DonViTree.forEach(item => {
-      if (item.id === this.parentId) {
-        filteredItems.push(item);
-      }
-
-      if (item.id) {
-        const nestedItems = this.filterItems(item.children);
-        filteredItems = filteredItems.concat(nestedItems);
-      }
-    });
-
-    return filteredItems;
-  }
-
-
 
   public Thoat(): void {
     this.hienThi = false;

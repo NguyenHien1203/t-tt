@@ -98,7 +98,7 @@
                                 <div class="flex">
                                     <button pButton pRipple icon="pi pi-pencil"
                                         class="p-button-rounded p-button-success mr-2"
-                                        (click)="CapNhatPhongBan(DmPhongBan.id)"></button>
+                                        (click)="CapNhatDonVi(DmPhongBan.id)"></button>
                                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
                                         (click)="Xoa(DmPhongBan.id)"></button>
                                 </div>
@@ -121,6 +121,6 @@
     </div>
 
      <app-them-moi-don-vi [hienThi]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi-don-vi>
-    <!-- <app-cap-nhat-phong-ban [hienThi]="hienThiCapNhat" (tatPopup)="Thoat($event, 'C')"
-        [id]="id"></app-cap-nhat-phong-ban> --> 
+    <app-cap-nhat-don-vi [hienThi]="hienThiCapNhat" (tatPopup)="Thoat($event, 'C')"
+        [id]="id"></app-cap-nhat-don-vi> 
 </div>

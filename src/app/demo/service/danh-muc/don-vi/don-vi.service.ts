@@ -29,10 +29,9 @@ export class DonViService {
       .then(res => res.objData as DmDonVi[]);
   }
 
-  addDonVi(addPhongBan: any): Observable<any> {
-    return this.http.post<any>(this.baseApiUrl + '/DanhMuc/DonVi/ThemMoiDonVi/', addPhongBan, this.httpOption);
+  addDonVi(addPhongBan: DmDonVi): Observable<any> {
+    return this.http.post<any>(this.baseApiUrl +'/DanhMuc/DonVi/ThemMoiDonVi/', addPhongBan, this.httpOption);
   }
-
   /**
    * Lấy dữ liệu đơn vị
    */
@@ -42,7 +41,7 @@ export class DonViService {
   }
 
   /**
-   * Lấy dữ liệu phòng ban
+   * Lấy dữ liệu đơn vị
    */
   GetDonViById(id: string): Observable<any> {
     return this.http.get<any>(this.baseApiUrl + '/DanhMuc/DonVi/GetDonViById/' + id).pipe(

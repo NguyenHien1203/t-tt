@@ -1,1 +1,20 @@
-<p>cap-nhat works!</p>
+<p-dialog [formGroup]="formCapNhat" [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới tính chất nhiệm vụ"
+    [modal]="true" class="p-fluid" (onHide)="TatPopup()" (onShow)="GetDataTinhChat()">
+    <div class="formgrid grid">
+        <div class="field col">
+            <label for="tenLoaiHoSo">Tên tính chất nhiệm vụ <span class="p-error">*</span></label>
+            <input type="text" pInputText id="ten" formControlName="ten">
+            <span class="p-error"
+                *ngIf="!formCapNhat.controls.ten.valid && (formCapNhat.controls.ten.touched || submitted)">Vui
+                lòng nhập tên tính chất nhiệm vụ</span>
+        </div>
+    </div>
+    <div class="field">
+        <label for="ghiChu">Mô tả</label>
+        <textarea id="moTa" formControlName="moTa" pInputTextarea rows="3" cols="20"></textarea>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" (click)="CapNhat()" icon="pi pi-check" class="p-button-info"></button>
+        <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="TatPopup()"></button>
+    </ng-template>
+</p-dialog>

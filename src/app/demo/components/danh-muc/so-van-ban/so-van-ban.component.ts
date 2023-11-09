@@ -51,6 +51,15 @@ export class SoVanBanComponent implements OnInit {
     this.timChinhXac = !this.timChinhXac;
   }
 
+  TatPopup(item: any, type: string) {
+    if (type === 'C') {
+      this.hienThiThemMoi = false;
+    } else {
+      this.hienThiCapNhat = false;
+    }
+    this.DanhSachSoVanBan();
+  }
+
   TimKiemLoaiVanBan() {
     this.dataSearch.keyWord = this.timKiem.keyWord ?? "";
     this.dataSearch.ma = this.timKiem.ma ?? "";
@@ -63,12 +72,12 @@ export class SoVanBanComponent implements OnInit {
     this.hienThiThemMoi = true;
   }
 
-  CapNhatLoaiVanBan(id: string) {
+  CapNhatSoVanBan(id: string) {
     this.hienThiCapNhat = true;
     this.idSoVanBan = id;
   }
 
-  XoaLoaiVanBan(id: any) {
+  XoaSoVanBan(id: any) {
     this.deleteProductDialog = true;
     this.idSoVanBanXoa = id;
   }
@@ -97,8 +106,6 @@ export class SoVanBanComponent implements OnInit {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
         } else {
-          console.log(data);
-          
           this.danhSachSoVanBan = data;
         };
       }, (error) => {

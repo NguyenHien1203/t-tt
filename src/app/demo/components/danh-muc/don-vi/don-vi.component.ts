@@ -70,7 +70,7 @@ export class DonViComponent  implements OnInit {
 
   //#region 
   //Cập nhật đơn vị
-  public CapNhatPhongBan(id: string): void {
+  public CapNhatDonVi(id: string): void {
     this.id = id;
     this.hienThiCapNhat = true;
   }
@@ -94,7 +94,5 @@ export class DonViComponent  implements OnInit {
     )
   };
   //#endregion
-
-
 }
 

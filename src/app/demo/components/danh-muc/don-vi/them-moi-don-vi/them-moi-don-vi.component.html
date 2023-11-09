@@ -1,6 +1,6 @@
 <form [formGroup]="formThemMoi">
     <p-dialog appendTo="body" header="Thêm mới đơn vị" (onHide)="Thoat()" [(visible)]="hienThi" [modal]="true"
-        [style]="{ width: '60vw' }" [draggable]="true" [resizable]="false">
+        [style]="{ width: '65vw' }" [draggable]="true" [resizable]="false">
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-4 mb-0">
                 <label htmlfor="MaDonVi">Mã đơn vị <span class="p-error">(*)</span></label>
@@ -22,7 +22,7 @@
 
             <div class="field col-12 md:col-4 mb-0">
                 <label htmlfor="donvi">Đơn vị <span class="p-error">(*)</span></label>
-                    <p-dropdown appendTo="body" [options]="DonVi"  formControlName="ParentId" optionLabel="tenDonVi" placeholder="Chọn đơn vị"></p-dropdown>
+                    <p-dropdown appendTo="body" [options]="DonVi"  formControlName="ParentId" optionValue="id" optionLabel="tenDonVi" placeholder="Chọn đơn vị"></p-dropdown>
                     <span class="p-error"
                     *ngIf="!formThemMoi.controls.ParentId.valid && (formThemMoi.controls.ParentId.touched || submitted)">Vui lòng chọn đơn vị</span>
             </div>
@@ -83,7 +83,7 @@
             <div class="field col-12 md:col-4 mb-0">
                 <label htmlfor="Email">Email</label>
                 <input pinputtext="" id="Email" type="text" class="p-inputtext p-component p-element"
-                    formControlName="Email">
+                    formControlName="email">
             </div>
             <div class="field col-12 md:col-4 mb-0">
                 <label htmlfor="ThuTu">Số thứ tự</label>

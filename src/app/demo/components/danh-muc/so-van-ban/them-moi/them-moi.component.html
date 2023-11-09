@@ -1,1 +1,48 @@
-<p>them-moi works!</p>
+<p-dialog [formGroup]="formThemMoi" [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới loại hồ sơ công việc"
+    [modal]="true" class="p-fluid" (onHide)="TatPopup()">
+    <div class="formgrid grid">
+        <div class="field col-12 md:col-8">
+            <label for="tenSo">Tên sổ văn bản <span class="p-error">*</span></label>
+            <input type="text" pInputText id="tenSo" formControlName="tenSo">
+            <span class="p-error"
+                *ngIf="!formThemMoi.controls.tenSo.valid && (formThemMoi.controls.tenSo.touched || submitted)">Vui
+                lòng nhập tên sổ văn bản</span>
+
+        </div>
+        <div class="field col-12 md:col-4">
+            <label for="maSo">Mã sổ văn bản <span class="p-error">*</span></label>
+            <input type="text" pInputText id="maSo" formControlName="maSo" />
+            <span class="p-error"
+                *ngIf="!formThemMoi.controls.maSo.valid && (formThemMoi.controls.maSo.touched || submitted)">Vui
+                lòng nhập mã sổ văn bản</span>
+
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <div class="field col md:col-4">
+            <label for="thuTu">Số thứ tự</label>
+            <p-inputNumber id="thuTu" formControlName="thuTu" placeholder="Số thứ tự"></p-inputNumber>
+        </div>
+        <div class="field col md:col-4">
+            <label for="loai">Loại văn bản</label>
+            <p-dropdown [options]="[{id: 0, loai: 'Văn bản đến'},{id: 1, loai: 'Văn bản đi'}]" optionValue="id"
+                optionLabel="loai" placeholder="Chọn loại văn bản" formControlName="loai" appendTo="body"></p-dropdown>
+        </div>
+        <div class="field col md:col-2">
+            <label for="thuTu">Số hiện tại</label>
+            <p-inputNumber id="soDiDenHt" formControlName="soDiDenHt" placeholder="Số hiện tại"></p-inputNumber>
+        </div>
+        <div class="field col md:col-2">
+            <label for="thuTu">Số năm trước</label>
+            <p-inputNumber id="soDiDenTruoc" formControlName="soDiDenTruoc" placeholder="Số năm trước"></p-inputNumber>
+        </div>
+    </div>
+    <!-- <div class="field">
+        <label for="ghiChu">Ghi chú</label>
+        <textarea id="ghiChu" formControlName="ghiChu" pInputTextarea rows="3" cols="20"></textarea>
+    </div> -->
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" (click)="ThemMoi()" icon="pi pi-check" class="p-button-info"></button>
+        <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="TatPopup()"></button>
+    </ng-template>
+</p-dialog>

@@ -16,12 +16,12 @@
                     <input pInputText type="text"[(ngModel)]="timKiemDanhSach.trichYeu" placeholder="Trích yếu" class="form-control" />
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
-                    <p-dropdown [(ngModel)]="timKiemDanhSach.soVBId" [options]="SoVanBan" appendTo="body" [filter]="true" (onChange)="onChangeLoaiVanBan($event)" optionValue="id"
-                    optionLabel="tenSo" placeholder="Chọn sổ văn bản" [showClear]="true" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
+                    <p-dropdown [(ngModel)]="timKiemDanhSach.soVanBanId" [options]="lstSoVanBan" appendTo="body" [filter]="true" (ngModelChange)="changeSoVanBan($event)" optionValue="value"
+                    optionLabel="text" placeholder="Chọn sổ văn bản" [showClear]="true" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
-                    <p-dropdown [(ngModel)]="timKiemDanhSach.loaiVBId" [options]="LoaiVanBan" optionValue="loaiVbId"
-                    optionLabel="tenLoaiVb" [showClear]="true" [filter]="true" appendTo="body" placeholder="Chọn loại văn bản" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
+                    <p-dropdown [(ngModel)]="timKiemDanhSach.loaiVanBanId" [options]="lstLoaiVanBan" optionValue="value"
+                    optionLabel="text" [showClear]="true" [filter]="true" appendTo="body" placeholder="Chọn loại văn bản" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
                 </div>
                 <label class="col-12 md:col-3 fl-wr">
                     <p-checkbox name="hienThi" (click)="CheckedHt()" id="hienThi" value="true" label="Tìm chính xác"></p-checkbox>
@@ -29,17 +29,17 @@
             </div>
             <div class="field grid">
                 <div class="col-12 md:col-3 fl-wr">
-                    <p-calendar [(ngModel)]="timKiemDanhSach.tuNgay" dateFormat="dd/mm/yy"  placeholder="Ngày nhận văn bản" [style]="{'width': '100%'}" class="my-drop"></p-calendar>
+                    <p-calendar [(ngModel)]="timKiemDanhSach.ngayGuiVanBan" dateFormat="dd/mm/yy"  placeholder="Ngày nhận văn bản" [style]="{'width': '100%'}" class="my-drop"></p-calendar>
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
-                    <p-calendar [(ngModel)]="timKiemDanhSach.denNgay" dateFormat="dd/mm/yy"  placeholder="Ngày ban hành văn bản" [style]="{'width': '100%'}" class="my-drop"></p-calendar>
+                    <p-calendar [(ngModel)]="timKiemDanhSach.ngayBanHanhVanBan" dateFormat="dd/mm/yy"  placeholder="Ngày ban hành văn bản" [style]="{'width': '100%'}" class="my-drop"></p-calendar>
                     
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
                     <p-dropdown [showClear]="true" [(ngModel)]="timKiemDanhSach.nam" [options]="yearOptions" [filter]="true" placeholder="Chọn năm" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
                 </div>
                 <label class="col-12 md:col-3 fl-wr">
-                    <input [(ngModel)]="timKiemDanhSach.soDen" pInputText type="text" placeholder="Số đến" class="form-control" />
+                    <p-inputNumber id="thuTu" mode="decimal" [(ngModel)]="timKiemDanhSach.soDi"  class="form-control" placeholder="Số đi" [style]="{'width' : '100%'}" ></p-inputNumber>
                 </label>
             </div>
             <div class="field grid">
@@ -50,18 +50,14 @@
                     <input [(ngModel)]="timKiemDanhSach.lanhDaoKy" pInputText type="text" placeholder="Lãnh đạo ký" class="form-control" />
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
-                    <p-dropdown [showClear]="true" [(ngModel)]="timKiemDanhSach.coQuanBanHanh" [options]="CoQuanBanHanh" optionValue="id"
-                        optionLabel="tenCoQuan" [filter]="true" placeholder="Chọn cơ quan ban hành" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
-                </div>
-                <div class="col-12 md:col-3 fl-wr">
-                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-success mr-2" (click)="GetDanhSachCapNhatMoi()"></button>
+                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2" (click)="LoadDanhSach()"></button>
                 </div>
             </div>
         </div>
 
         <div class="card">
             <div class="wrapper">
-                <h2>DANH SÁCH LIÊN KẾT</h2>
+                <h2>DANH SÁCH VĂN BẢN ĐI</h2>
                 <div class="icon-cls">
                     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
                         (click)="ThemMoi()">
@@ -70,7 +66,7 @@
             </div>
             <div class="grid">
                 <div class="col-12">
-                    <p-table [paginator]="true" #dt1 [value]="LstCapNhatMoi" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
+                    <p-table [paginator]="true" #dt1 [value]="capNhatMois" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
                         styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
@@ -81,7 +77,7 @@
                                 </th>
                                 <th style="min-width: 2rem">
                                     <div class="flex justify-content-between align-items-center">
-                                        Số đến
+                                        Số đi
                                     </div>
                                 </th>
                                 <th style="min-width: 3rem">
@@ -101,18 +97,17 @@
                                 </th>
                                 <th style="min-width: 10rem">
                                     <div class="flex justify-content-between align-items-center">
-                                        Cơ quan ban hành
-                                    </div>
-                                </th>
-                               
-                                <th style="min-width: 10rem">
-                                    <div class="flex justify-content-between align-items-center">
                                         Trạng thái
                                     </div>
                                 </th>
                                 <th style="min-width: 10rem">
                                     <div class="flex justify-content-between align-items-center">
                                         Trạng thái phân phối
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                       Gửi
                                     </div>
                                 </th>
                                 <th style="min-width: 10rem">
@@ -127,44 +122,55 @@
                                 </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                        <ng-template pTemplate="body" let-capNhatMoi let-rowIndex="rowIndex">
                             <tr>
                                 <td style="text-align: center;">
                                     {{ rowIndex + 1 }}
                                 </td>
                                 <td class="text-center">
-                                    {{item.soDiDen}}
+                                    {{capNhatMoi.soDiDen}}
                                 </td>
                                 <td class="text-center">
-                                    {{item.soKiHieu}}
+                                    {{capNhatMoi.soKiHieu}}
                                 </td>
                                 <td>
-                                    {{item.trichYeu}}
+                                    {{capNhatMoi.trichYeu}}
                                 </td>
 
                                 <td class="text-center">
-                                  {{item.ngayBanHanh}}
+                                  {{capNhatMoi.ngayBanHanh | date: 'dd-MM-yyyy'}}
                                 </td>
                                 <td>
-                                    {{item.coQuanBH}}
+                                    {{capNhatMoi.trangThaiGuiVanBan}}
                                 </td>
                                 <td>
-                                    {{item.trangThaiId == 1 ? "Đã đến" : item.trangThaiId == 2?"Từ chối tiếp nhận" : item.trangThaiId == 3 ?"Đã tiếp nhận" :item.trangThaiId == 4 ?"Phân công" :item.trangThaiId == 5 ?"Đang XL":item.trangThaiId == 7 ?"Hoàn thành" : "Dụ thảo"  }}
-                                </td>
-                                <td>
-                                  {{item.trangThaiPhanPhoi}}
+                                  {{capNhatMoi.trangThaiPhanPhoi}}
                                 </td>
                                 <td class="text-center">
-                                    <button (click)="phanphoiVanBan(item.id)" pButton pRipple icon="pi pi-send"
-                                            class="p-button-rounded p-button-info mr-2"
-                                            ></button>
-                                </td>
+                                    <span *ngIf="capNhatMoi.DieuKienGui == 'Sent'; else allowSection">
+                                        Đã gửi
+                                      </span>
+                                      <ng-template #allowSection>
+                                        <span *ngIf="capNhatMoi.DieuKienGui == 'Allow'">
+                                          <button pButton pRipple icon="pi pi-play" class="p-button-rounded p-button-info mr-2"></button>
+                                        </span>
+                                        <span *ngIf="capNhatMoi.DieuKienGui == 'Required_PDF'">Yêu cầu PDF</span>
+                                        <span *ngIf="capNhatMoi.DieuKienGui == 'Publish_False'">Văn bản lưu thông nội bộ</span>
+                                      </ng-template>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="div-center">
+                                            <button pButton pRipple icon="pi pi-send"
+                                                class="p-button-rounded p-button-info mr-2"
+                                                ></button>
+                                        </div>
+                                    </td>
                                 <td class="text-center">
                                     <div class="div-center">
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
                                             ></button>
-                                        <button pButton pRipple (click)="deleteVanBan(item.id)" icon="pi pi-trash"
+                                        <button pButton pRipple icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"
                                             ></button>
                                     </div>
@@ -181,31 +187,10 @@
                                 <td colspan="10">Loading record data. Please wait.</td>
                             </tr>
                         </ng-template>
-                    </p-table>  
+                    </p-table>
                 </div>
             </div>
         </div>
-        <app-phan-phoi [hienThi]="hienThiPhanPhoi" [id]="id" (tatPopup)="Thoat($event, 'T')"></app-phan-phoi>
-
-        <p-confirmDialog #cd [style]="{width: '30vw'}">
-            <ng-template pTemplate="header">
-                <h3>Xác nhận</h3>
-            </ng-template>
-            <ng-template pTemplate="footer">
-                <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark"
-                    class="p-element p-ripple p-button p-component p-button-info">
-                    <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
-                    <span class="p-button-label">Đồng ý</span>
-                    <span class="p-ink"></span>
-                </button>
-                <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark"
-                    class="p-element p-ripple p-button p-component p-button-danger">
-                    <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
-                    <span class="p-button-label">Hủy</span>
-                    <span class="p-ink"></span>
-                </button>
-            </ng-template>
-        </p-confirmDialog>
     </div>
 </div>
 

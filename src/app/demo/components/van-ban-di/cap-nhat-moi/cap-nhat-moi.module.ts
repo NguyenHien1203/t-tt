@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CapNhatMoiRoutingModule } from './cap-nhat-moi-routing.module';
+import { CapNhatMoiComponent } from './cap-nhat-moi.component';
+import { ThemMoiComponent } from './them-moi/them-moi.component';
+import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { PhanPhoiComponent } from './phan-phoi/phan-phoi.component';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -19,19 +24,18 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { CapNhatMoiRoutingModule } from './cap-nhat-moi-routing.module';
-import { CapNhatMoiComponent } from './cap-nhat-moi.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
-import { PhanPhoiComponent } from './phan-phoi/phan-phoi.component';
-
 
 @NgModule({
-  declarations: [CapNhatMoiComponent, PhanPhoiComponent],
+  declarations: [
+    CapNhatMoiComponent,
+    ThemMoiComponent,
+    CapNhatComponent,
+    PhanPhoiComponent
+  ],
   imports: [
-    CommonModule,
-    CapNhatMoiRoutingModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -53,7 +57,9 @@ import { PhanPhoiComponent } from './phan-phoi/phan-phoi.component';
     ConfirmDialogModule,
     CheckboxModule,
     CalendarModule,
-    TabViewModule
+    TabViewModule,
+    CommonModule,
+    CapNhatMoiRoutingModule
   ]
 })
 export class CapNhatMoiModule { }

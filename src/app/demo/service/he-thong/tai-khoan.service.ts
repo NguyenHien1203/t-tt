@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../common/auth.services';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 @Injectable({
     providedIn: 'root'
 })
@@ -16,12 +17,18 @@ export class TaiKhoanService {
             'Content-Type': 'application/json'
         })
     }
-    constructor(private httpClient: HttpClient, private authService: AuthService) { }
+    constructor(
+        private httpClient: HttpClient,
+        private auth: AuthService,
+        private router: Router) { }
 
     /**
      * Lấy dữ liệu danh sách tài khoản
      */
     public GetDanhSachTaiKhoan(timkiem: TaiKhoanTimKiem): Observable<any> {
+        if (!this.auth.CheckLogin())
+        this.router.navigate(['/login']);
+
         const url = `${this.baseUrl}/NguoiDung/GetDanhSachNguoiDung`;
         return this.httpClient.post<TaiKhoanTimKiem>(url, timkiem, this.httpOption);
     }
@@ -30,6 +37,9 @@ export class TaiKhoanService {
      * Lấy dữ liệu đơn vị tree
      */
     public GetDataDonVi(): Observable<any> {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
         const url = `${this.baseUrl}/NguoiDung/GetDataDonVi`;
         return this.httpClient.get(url);
     }
@@ -39,6 +49,9 @@ export class TaiKhoanService {
      * 
      */
     public GetDataPhongBanByDvi(id: string): Observable<any> {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
         const url = this.baseUrl + '/NguoiDung/GetDataPhongBanByDvi?id=' + id;
         return this.httpClient.get<any>(url);
     }
@@ -48,6 +61,9 @@ export class TaiKhoanService {
      * 
      */
     public GetDataMenu(UserId: string, NhomQuyenId: string, PhongBanId: string): Observable<any> {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
         const url = this.baseUrl + '/Membership/Membership/GetDataMenu?Userid=' + UserId + "&NhomQuyenId=" + NhomQuyenId + "&PhongBanId=" + PhongBanId;
         return this.httpClient.get<any>(url);
     }
@@ -56,6 +72,9 @@ export class TaiKhoanService {
      * Lấy dữ liệu nhóm quyền
      */
     public GetNhomQuyen(): Observable<any> {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
         const url = `${this.baseUrl}/NguoiDung/GetDataNhomQuyen`;
         return this.httpClient.get<any>(url);
     }
@@ -64,6 +83,9 @@ export class TaiKhoanService {
      * Lấy dữ liệu chức danh
      */
     public GetChucDanh(): Observable<any> {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
         const url = `${this.baseUrl}/NguoiDung/GetDataChucDanh`;
         return this.httpClient.get<any>(url);
     }
@@ -72,7 +94,10 @@ export class TaiKhoanService {
      * GetDataNhomQuyen
      */
     public GetDataNhomQuyenMenu(): Observable<any> {
-        const objUser = this.authService.GetmUserInfo();
+        if (!this.auth.CheckLogin())
+        this.router.navigate(['/login']);
+
+        const objUser = this.auth.GetmUserInfo();
         const data = {
             idPhongBan: objUser.phongBanLamViecId.toString(),
             idNhomQuyen: objUser.nhomQuyenId.toString()
@@ -87,7 +112,10 @@ export class TaiKhoanService {
      * GetDataNhomQuyen
      */
     public GetOptionNhomQuyen(): Observable<any> {
-        const objUser = this.authService.GetmUserInfo();
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
+        const objUser = this.auth.GetmUserInfo();
         const url = `${this.baseUrl}/NguoiDung/GetOptionNhomQuyen?UserId=` + objUser.userId.toString();
         return this.httpClient.get<any>(url);
     }
@@ -96,6 +124,9 @@ export class TaiKhoanService {
      * Lấy dữ liệu đơn vị thực hiện tree
      */
     public GetDataDonViThucHien(IdDonVi: string): Observable<any> {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
         const url = `${this.baseUrl}/NguoiDung/GetDataDonViThucHien?IdDonVi=` + IdDonVi;
         return this.httpClient.get(url);
     }
@@ -104,7 +135,10 @@ export class TaiKhoanService {
      * Thêm mới tài khoản
      */
     public AddTaiKhoan(User: TaiKhoan, UserDvth: DonViThucHien[]): Observable<any> {
-        const objUser = this.authService.GetmUserInfo();
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
+        const objUser = this.auth.GetmUserInfo();
         const data = {
             User: JSON.stringify(User),
             UserDvth: JSON.stringify(UserDvth),
@@ -116,11 +150,14 @@ export class TaiKhoanService {
         return this.httpClient.post<any>(url, data, this.httpOption);
     }
 
-     /**
-     * Thêm mới tài khoản
-     */
-     public UpdateTaiKhoan(User: TaiKhoan, UserDvth: DonViThucHien[]): Observable<any> {
-        const objUser = this.authService.GetmUserInfo();
+    /**
+    * cập nhật tài khoản
+    */
+    public UpdateTaiKhoan(User: TaiKhoan, UserDvth: DonViThucHien[]): Observable<any> {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
+        const objUser = this.auth.GetmUserInfo();
         const data = {
             User: JSON.stringify(User),
             UserDvth: JSON.stringify(UserDvth),
@@ -137,6 +174,9 @@ export class TaiKhoanService {
      * Xóa tài khoản
      */
     public DeleteTaiKhoan(idUser: string): Observable<any> {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
         const url = `${this.baseUrl}/NguoiDung/DeleteTaiKhoan?idUser=` + idUser;
         return this.httpClient.post<any>(url, this.httpOption)
     }
@@ -145,6 +185,9 @@ export class TaiKhoanService {
      * lấy dữ liệu bản ghi cần cập nhật
      */
     public GetDataByIdTaiKhoan(id: string) {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
         return this.httpClient.get<any>(environment.baseUrlApi + '/NguoiDung/GetDataByIdTaiKhoan/' + id)
             .pipe(
                 map((response: any) => response.objData)

@@ -18,6 +18,11 @@
             <p-overlayPanel #mail [showCloseIcon]="false" [style]="{width: '400px'}">
                 <ng-template pTemplate>
                     <p-table [value]="mails" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="mail.hide()" responsiveLayout="scroll">
+                        <ng-template pTemplate="caption">
+                            <div class="div-center">
+                               HỘP THƯ ĐẾN
+                            </div>
+                        </ng-template>
                         <ng-template pTemplate="body" let-rowData let-mail>
                             <tr [pSelectableRow]="rowData">
                                 <td>{{mail.label}}</td>
@@ -34,6 +39,11 @@
             <p-overlayPanel #notifi [showCloseIcon]="false" [style]="{width: '400px'}">
                 <ng-template pTemplate>
                     <p-table [value]="notifis" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="notifi.hide()" responsiveLayout="scroll">
+                        <ng-template pTemplate="caption">
+                            <div class="div-center">
+                              THÔNG BÁO
+                            </div>
+                        </ng-template>
                         <ng-template pTemplate="body" let-rowData let-notifi>
                             <tr [pSelectableRow]="rowData">
                                 <td>{{notifi.label}}</td>
@@ -50,6 +60,11 @@
             <p-overlayPanel #clock [showCloseIcon]="false" [style]="{width: '400px'}">
                 <ng-template pTemplate>
                     <p-table [value]="clocks" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="clock.hide()" responsiveLayout="scroll">
+                        <ng-template pTemplate="caption">
+                            <div class="div-center">
+                               HOẠT ĐỘNG SẮP TỚI
+                            </div>
+                        </ng-template>
                         <ng-template pTemplate="body" let-rowData let-clock>
                             <tr [pSelectableRow]="rowData">
                                 <td>{{clock.label}}</td>
@@ -73,6 +88,11 @@
             <p-overlayPanel #profile [showCloseIcon]="false" [style]="{width: '220px'}">
                 <ng-template pTemplate>
                     <p-table [value]="profiles" selectionMode="single" [(selection)]="selectedProduct" [paginator]="false" [rows]="3" (onRowSelect)="profile.hide()" responsiveLayout="scroll">
+                        <ng-template pTemplate="caption">
+                            <div class="div-center">
+                               {{fullName}}
+                            </div>
+                        </ng-template>
                         <ng-template pTemplate="body" let-rowData let-profile>
                             <tr class="pointer">
                                 <td  routerLink={{profile.routerLink}}><i class={{profile.icon}}></i>&nbsp;&nbsp;{{profile.label}}</td>

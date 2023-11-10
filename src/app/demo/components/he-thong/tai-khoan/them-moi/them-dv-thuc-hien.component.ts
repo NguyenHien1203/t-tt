@@ -40,6 +40,7 @@ export class ThemDvThucHienComponent {
   });
 
   public SubmitDvth(): void {
+    
     this.luuDonVi.emit(this.formThemMoidvth.value);
     this.ThoatDvThucHien();
   }

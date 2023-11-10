@@ -143,6 +143,7 @@ export class CapNhatComponent {
   }
 
   public Thoat(): void {
+    this.submitted = false;
     this.hienThi = false;
     this.tatPopup.emit(this.hienThi);
   }
@@ -233,7 +234,6 @@ export class CapNhatComponent {
   public CapNhatTaiKhoan(): void {
     this.submitted = true;
     this.formCapNhat_fomat = this.formCapNhat.value;
-    console.log(this.formCapNhat_fomat);
     if (this.formCapNhat.valid) {
       this.formCapNhat_fomat = this.formCapNhat.value;
       this.Model_TaiKhoan.id = this.formCapNhat_fomat.id.toString();

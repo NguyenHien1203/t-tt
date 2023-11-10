@@ -21,11 +21,26 @@ export class SoVanBanService {
 
   constructor(private http: HttpClient) { }
 
+  public getSoVanBan(id: any): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + `GetSoVanBanById/${id}`)
+      .pipe(
+        map((response: any) => response.objData as SoVanBan[])
+      );
+  }
+
   public getDanhSachSoVanBan(timKiem: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachSoVanBan', timKiem, this.httpOptions)
     .pipe(
       map((res: any) => res.objData as SoVanBan[])
     )
+  }
+
+  public themMoiSoVanBan(danhSach: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'ThemMoiSoVanBan', danhSach, this.httpOptions)
+  }
+
+  public capNhatSoVanBan(danhSach: any, id: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhatSoVanBan/${id}`, danhSach, this.httpOptions)
   }
 
   public xoaSoVanBan(id: any): Observable<any> {

@@ -104,7 +104,7 @@ export class LoaiHoSoComponent implements OnInit {
   ListRecords() {
     this.loaiHoSoService.getDanhSachLoaiHoSo(this.dataSearch)
       .subscribe(data => {
-        if (data.idError) {
+        if (data.isError) {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
         } else {

@@ -1,0 +1,123 @@
+<p-dialog appendTo="body" header="Phân phối văn bản" (onHide)="Thoat()" (onShow)="BindDataDialog()"
+  [(visible)]="hienThi" [modal]="true" [style]="{ width: '80vw' }" [draggable]="true" [resizable]="false">
+  <ng-template pTemplate="content">
+    <div class="grid">
+      <div class="col-12">
+        <p-table styleClass="p-datatable-gridlines" [value]="[ThongTinVanBan]" class="custom-table">
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <td class="custom-rb"><strong>Số ký hiệu:</strong></td>
+              <td class="custom-b">{{item.soKiHieu}}</td>
+              <td class="custom-rb"><strong>Loại văn bản:</strong></td>
+              <td class="custom-b">{{item.tenLoaiVanBan}}</td>
+            </tr>
+            <tr>
+              <td class="custom-rb"><strong>Ngày ban hành:</strong></td>
+              <td class="custom-b">{{item.ngayBanHanh}}</td>
+              <td class="custom-rb"><strong>Ngày gửi văn bản:</strong></td>
+              <td class="custom-b">{{item.ngayNhanGui}}</td>
+            </tr>
+            <tr>
+              <td class="custom-rb"><strong>Sổ văn bản:</strong></td>
+              <td class="custom-b">{{item.tenSoVanBan}}</td>
+              <td class="custom-rb"><strong>Số đến:</strong></td>
+              <td class="custom-b">{{item.soDiDen}}</td>
+            </tr>
+            <tr>
+              <td class="custom-rb"><strong>Cơ quan ban hành:</strong></td>
+              <td class="custom-b">{{item.coQuanBH}}</td>
+              <td class="custom-rb"><strong>File đính kèm:</strong></td>
+              <td class="custom-b">
+                <li *ngFor="let file of ThongTinFile"><a (click)="DownloadFile(file.path,file.name)">{{file.name}}</a>
+                </li>
+              </td>
+            </tr>
+            <tr>
+              <td class="custom-rb"><strong>Trích yếu:</strong></td>
+              <td class="custom-b" colspan="3">{{item.trichYeu}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <div class="p-fluid p-formgrid grid">
+      <div class="field col-12 md:col-6 mb-0">
+        <p-dropdown appendTo="body" [showClear]="true" (ngModelChange)="onChangePhongBan($event)" [filter]="true"
+          [options]="LstPhongBan" [(ngModel)]="phongBan" optionLabel="tenDonVi" optionValue="id"
+          placeholder="Chọn phòng ban"></p-dropdown>
+      </div>
+    </div>
+
+    <div class="p-fluid p-formgrid grid">
+      <div class="field col-12 md:col-6 mb-0">
+        <p-dropdown appendTo="body" [(ngModel)]="nhomNguoiDung" (ngModelChange)="onChangeNhomNguoiDung($event)"
+          [showClear]="true" [filter]="true" [options]="LstNhomNguoiDung" optionLabel="tenNhom" optionValue="id"
+          placeholder="Chọn nhóm quyền" placeholder="Chọn nhóm người dùng"></p-dropdown>
+      </div>
+    </div>
+
+    <div class="grid formgrid">
+      <div class="col-12 row">
+        <div class="col-12 md:col-4">
+          <label class="" for="">Danh sách cá nhân thuộc PB/Nhóm người dùng</label>
+          <div class="lstUser selectUser">
+            <select size="4" name="lstUser" [(ngModel)]="DsCaNhanDaChon" class="form-control" id="lstUser"
+              multiple="multiple" style="height: 200px; width: 97%; margin-top: 30px" data-parsley-multiple="lstUser">
+              <option *ngFor="let obj of lstUserChange" [value]="obj.value">{{ obj.text }}</option>
+            </select>
+            <a id="btnAddMulti" href="javascript:;" (click)="AddToSelected()" class=""
+              style="margin-right: 5px; margin-top: 12px">
+              <i class="pi pi-arrow-right"></i></a>
+            <a id="btnRemoveMulti" href="javascript:;" (click)="RemoveFromSelected()" class=""
+              style="margin-right: 5px; margin-top: 12px">
+              <i class="pi pi-arrow-left"></i></a>
+          </div>
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="form-control-label" for="">Danh sách cá nhân phân phối</label>
+          <div class="lstUserChoise selectUser">
+            <select size="4" name="lstUserChoise" [(ngModel)]="DsCaNhanNhan" class="form-control" id="lstUserChoise"
+              multiple="multiple" style="height: 200px;">
+              <option *ngFor="let obj of lstUserNhan" [value]="obj.value">{{ obj.text }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="form-control-label" for="">Chọn phòng ban phân phối</label>
+          <div class=" selectUser">
+            <p-table [(selection)]="sltPhongBan" styleClass="p-datatable-gridlines" [value]="LstPhongBan" >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="width: 90%">Tên đơn vị</th>
+                  <th style="width: 10%">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-phongban>
+                <tr>
+                  <td>{{ phongban.tenDonVi }}</td>
+                  <td>
+                    <p-tableCheckbox [value]="phongban"></p-tableCheckbox>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pbutton="" pripple="" type="submit" label="Info"
+      class="p-element p-ripple p-button-info p-button p-component" ng-reflect-label="Info" (click)="PhanPhoi()"><span
+        class="p-button-label">Lưu</span><span class="p-ink"></span></button>
+    <button pbutton="" pripple="" type="button" label="Info"
+      class="p-element p-ripple p-button-danger p-button p-component" ng-reflect-label="Danger"><span
+        class="p-button-label">Hủy</span><span class="p-ink"></span></button>
+  </ng-template>
+</p-dialog>

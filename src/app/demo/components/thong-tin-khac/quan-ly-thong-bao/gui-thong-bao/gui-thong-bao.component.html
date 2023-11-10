@@ -2,12 +2,12 @@
     [style]="{width: '1150px'}" [modal]="true" header="Gửi thông báo" class="p-fluid">
     <ng-template pTemplate="content">
         <div class="col-12 md:col-6">
-            <p-dropdown [options]="lstPhongBan" (ngModelChange)="onChangePhongBan($event)" optionLabel="tenDonVi" optionValue="id" [(ngModel)]="phongBan" placeholder="Chọn phòng ban"
+            <p-dropdown [options]="lstPhongBan" filter="true" (ngModelChange)="onChangePhongBan($event)" optionLabel="tenDonVi" optionValue="id" [(ngModel)]="phongBan" placeholder="Chọn phòng ban"
                 [showClear]="false"></p-dropdown>
         </div>
         <div class="col-12 md:col-6">
             <p-dropdown [options]="lstNhomNguoiDung" optionValue="id" optionLabel="tenNhomNguoiDung" (ngModelChange)="onChangeNhomNguoiDung($event)" [(ngModel)]="nhomNguoiDung"
-                placeholder="Chọn nhóm người dùng" [showClear]="false"></p-dropdown>
+                placeholder="Chọn nhóm người dùng" filter="true" [showClear]="false"></p-dropdown>
         </div>
         <div class="grid formgrid">
             <div class="col-12 row">

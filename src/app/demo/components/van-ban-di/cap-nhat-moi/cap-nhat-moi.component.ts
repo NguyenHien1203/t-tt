@@ -20,11 +20,12 @@ export class CapNhatMoiComponent implements OnInit {
     private cd: ChangeDetectorRef) {
   }
 
-
-
   idDonViLamViec: string = this.authService.GetDonViLamViec() ?? "0";
   yearOptions: SelectItem[] = [];
   timChinhXac: boolean = false;
+  public id: string = "1";
+  hienThiPhanPhoi: boolean = false;
+  hienThiCapNhat: boolean = false;
   loading: boolean = false;
   lstLoaiVanBan: any = [];
   lstSoVanBan: any = [];
@@ -92,6 +93,24 @@ export class CapNhatMoiComponent implements OnInit {
 
   public ThemMoi() {
     this.router.navigate(['./van-ban-di/cap-nhat-moi/them-moi']);
+  }
+
+  public CapNhat(id : string) {
+    this.hienThiCapNhat = true;
+    this.id = id;
+  }
+
+  public Thoat(itemHt: any, loai: string): void {
+    if (loai === 'C')
+      this.hienThiCapNhat = false;
+      if (loai === 'P')
+      this.hienThiPhanPhoi = false;
+    this.LoadDanhSach();
+  }
+
+  public PhanPhoi(id : string){
+    this.hienThiPhanPhoi = true;
+    this.id = id;
   }
 
   public CheckedHt() {

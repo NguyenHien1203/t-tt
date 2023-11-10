@@ -99,8 +99,8 @@ export class TaiKhoanService {
 
         const objUser = this.auth.GetmUserInfo();
         const data = {
-            idPhongBan: objUser.phongBanLamViecId.toString(),
-            idNhomQuyen: objUser.nhomQuyenId.toString()
+            idPhongBan: objUser?.phongBanLamViecId.toString(),
+            idNhomQuyen: objUser?.nhomQuyenId.toString()
         };
 
         const url = `${this.baseUrl}/NguoiDung/GetDataNhomQuyenMenu`;
@@ -116,7 +116,7 @@ export class TaiKhoanService {
             this.router.navigate(['/login']);
 
         const objUser = this.auth.GetmUserInfo();
-        const url = `${this.baseUrl}/NguoiDung/GetOptionNhomQuyen?UserId=` + objUser.userId.toString();
+        const url = `${this.baseUrl}/NguoiDung/GetOptionNhomQuyen?UserId=` + objUser?.userId.toString();
         return this.httpClient.get<any>(url);
     }
 
@@ -161,9 +161,9 @@ export class TaiKhoanService {
         const data = {
             User: JSON.stringify(User),
             UserDvth: JSON.stringify(UserDvth),
-            DonViId: objUser.donViId.toString(),
-            IdUser: objUser.userId.toString(),
-            UserName: objUser.userName.toString(),
+            DonViId: objUser?.donViId.toString(),
+            IdUser: objUser?.userId.toString(),
+            UserName: objUser?.userName.toString(),
         };
 
         const url = `${this.baseUrl}/NguoiDung/CapNhatTaiKhoan`;

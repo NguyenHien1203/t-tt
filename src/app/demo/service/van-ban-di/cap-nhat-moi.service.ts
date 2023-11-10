@@ -85,9 +85,38 @@ export class CapNhatMoiService {
     .then(data => data.objData)
   }
 
+  
+  getDanhSachNhomNguoiDung(donViId : string, phongBanId : string, userId : string){
+    return this.http.get<any>(environment.baseUrlApi + '/VanBanDi/CapNhatMoi/GetDanhSachNhomNguoiDung?donViId='+ donViId +"&phongBanId=" +phongBanId + "&userId=" + userId, this.httpOption)
+    .toPromise()
+    .then(data => data.objData)
+  }
+
   getDanhSachLanhDaoKy(idDonViLamViec : string){
     return this.http.get<any>(environment.baseUrlApi + '/VanBanDi/CapNhatMoi/GetDanhSachLanhDaoKy?idDonViLamViec='+ idDonViLamViec, this.httpOption)
     .toPromise()
     .then(data => data.objData)
+  }
+
+  changePhongBan(phongBanId: string) {
+    return this.http.get<any>(environment.baseUrlApi + '/VanBanDi/CapNhatMoi/ChangePhongBan/' + phongBanId)
+      .toPromise()
+      .then(data => data.objData)
+  }
+
+  changeNhomNguoiDung(nhomNguoiDungId: string) {
+    return this.http.get<any>(environment.baseUrlApi + '/VanBanDi/CapNhatMoi/BindUserByNhomNguoiDung/' + nhomNguoiDungId)
+      .toPromise()
+      .then(data => data.objData)
+  }
+
+  getPhongBanSelected(idVanBan: string, idDonViLamViec : string) {
+    return this.http.get<any>(environment.baseUrlApi + '/VanBanDi/CapNhatMoi/GetPhongBanSelected?idVanBan=' + idVanBan + "&idDonViLamViec=" + idDonViLamViec)
+      .toPromise()
+      .then(data => data.objData)
+  }
+
+  PhanPhoi(model: any) {
+    return this.http.post<any>(environment.baseUrlApi + '/VanBanDi/CapNhatMoi/PhanPhoi', model, this.httpOption)
   }
 }

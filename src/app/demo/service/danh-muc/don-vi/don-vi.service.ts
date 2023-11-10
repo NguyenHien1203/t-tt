@@ -16,12 +16,6 @@ export class DonViService {
     })
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }
-
   constructor(private http: HttpClient, private auth: AuthService) { }
   getDanhSachDonVi(timkiem: TimKiemModel) {
     return this.http.post<any>(this.baseApiUrl + '/DanhMuc/DonVi/GetDanhSachDonVi', timkiem, this.httpOption)

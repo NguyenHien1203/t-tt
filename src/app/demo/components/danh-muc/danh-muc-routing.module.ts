@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
     { path: 'don-vi', data: { breadcrumb: 'Đơn vị' }, loadChildren: () => import('./don-vi/don-vi.module').then(m => m.DonViModule) },
     { path: 'loai-van-ban', data: { breadcrumb: 'Loại văn bản' }, loadChildren: () => import('./loai-van-ban/loai-van-ban.module').then(m => m.LoaiVanBanModule) },
     { path: 'so-van-ban', data: { breadcrumb: 'Số văn bản' }, loadChildren: () => import('./so-van-ban/so-van-ban.module').then(m => m.SoVanBanModule) },
+    { path: 'co-quan-ban-hanh', data: { breadcrumb: 'Cơ quan ban hành' }, loadChildren: () => import('./co-quan-ban-hanh/co-quan-ban-hanh.module').then(m => m.CoQuanBanHanhModule) },
   ])],
   exports: [RouterModule]
 })

@@ -1,0 +1,44 @@
+<form [formGroup]="formThemMoi">
+    <p-dialog appendTo="body" header="Thêm mới cơ quan ban hành" (onHide)="Thoat()" [(visible)]="hienThi" [modal]="true"
+        [style]="{ width: '65vw' }" [draggable]="true" [resizable]="false">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-4 mb-0">
+                <label htmlfor="kyHieu">Ký hiệu</label>
+                <input pinputtext="" id="kyHieu" type="text" class="p-inputtext p-component p-element"
+                    formControlName="kyHieu">
+            </div>
+
+            <div class="field col-12 md:col-8 mb-0">
+                <label htmlfor="tenCoQuan">Tên cơ quan ban hành <span class="p-error">(*)</span></label>
+                <input pinputtext="" id="tenCoQuan" type="text" class="p-inputtext p-component p-element"
+                    formControlName="tenCoQuan">
+                <span class="p-error"
+                    *ngIf="!formThemMoi.controls.tenCoQuan.valid && (formThemMoi.controls.tenCoQuan.touched || submitted)">Vui
+                    lòng nhập tên cơ quan</span>
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0">
+                <label htmlfor="ghiChu">Ghi chú</label>
+                <input pinputtext="" id="ghiChu" type="text" class="p-inputtext p-component p-element"
+                    formControlName="ghiChu">
+            </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+            <button (click)="ThemMoiCoQuan()" type="submit" pbutton="" pripple="" label="Tìm kiếm" icon="pi pi-bookmark"
+                class="p-element p-ripple p-button p-component">
+                <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+                <span class="p-button-label">Lưu</span>
+                <span class="p-ink"></span>
+            </button>
+            <button pbutton="" pripple="" label="Tìm kiếm" icon="pi pi-bookmark"
+                class="p-element p-ripple p-button p-component p-button-danger" (click)="Thoat()">
+                <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+                <span class="p-button-label">Thoát</span>
+                <span class="p-ink"></span>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

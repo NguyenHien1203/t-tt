@@ -7,9 +7,5 @@ import { DanhMucRoutingModule } from './danh-muc-routing.module';
     CommonModule,
     DanhMucRoutingModule
   ],
-  declarations: [
-  
-    CoQuanBanHanhComponent
-  ]
 })
 export class DanhMucModule { }

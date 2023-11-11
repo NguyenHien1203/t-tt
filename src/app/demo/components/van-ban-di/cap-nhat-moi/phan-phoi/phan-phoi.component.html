@@ -193,7 +193,6 @@
                     >
                     <div class="selectUser">
                         <p-table
-                            [(selection)]="sltPhongBan"
                             styleClass="p-datatable-gridlines"
                             [value]="phongBans"
                         >
@@ -218,12 +217,10 @@
                                     <td>{{ phongBan.text }}</td>
                                     <td>
                                         <p-checkbox
-                                            name="timChinhXac"
                                             binary="true"
                                             [value]="phongBan.value"
-                                            id="timChinhXac"
                                             [(ngModel)]="phongBan.check"
-                                            (ngModelChange)="checkSingle()"
+                                            (ngModelChange)="checkSingle($event, phongBan.value)"
                                             value="true"
                                             label=""
                                         ></p-checkbox>

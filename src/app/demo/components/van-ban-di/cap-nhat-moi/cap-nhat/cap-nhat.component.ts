@@ -21,11 +21,12 @@ export class CapNhatComponent {
     constructor(
         private formBuilder: FormBuilder,
         private service: CapNhatMoiService,
-        private fileService: UploadFileService,
+        private uploadfileService: UploadFileService,
         private messageService: MessageService,
         private router: Router,
         private authService: AuthService
     ) {}
+
     items: any[] = [
         { label: 'Văn bản đi' },
         { label: 'Cập nhật mới' },
@@ -33,7 +34,7 @@ export class CapNhatComponent {
     ];
     home: any = { icon: 'pi pi-home', routerLink: '/' };
     loading: boolean = true;
-    selectedFiles: File[] = [];
+    selectedFiles: any[] = [];
     submitted: boolean = false;
     dataFile: any;
     file_fomat: any = [];
@@ -75,6 +76,9 @@ export class CapNhatComponent {
         chkVanBanNoiBo: [false, []],
         fileUpLoad: ['', []],
     });
+    oldSoDi: string = '0';
+    oldSoVanBanId: string = '0';
+    oldLoaiVanBanId: string = '';
 
     ngOnInit() {
         this.loading = false;
@@ -83,9 +87,22 @@ export class CapNhatComponent {
         this.LoadLanhDaoKy();
     }
 
-    public BindDialogData() {
-        this.service.GetVanBanById(this.id).subscribe((data) => {
+    public async BindDialogData() {
+        try {
+            const data = await this.service.GetVanBanById(this.id);
+            let fileLoad = data.lstFile;
+            fileLoad.forEach(function (val, key) {
+                val.isNew = false;
+                val.isDelete = false;
+            });
+            this.selectedFiles = data.lstFile;
             let itemData = data.objVanBan;
+            this.oldSoDi = itemData.soDi;
+            this.oldSoVanBanId = itemData.soVanBanId;
+            this.oldLoaiVanBanId = itemData.loaiVanBanId;
+            this.chkHeThong = itemData.chkVanBanHeThong == 1 ? true : false;
+            this.chkLienThong = itemData.chkVanBanLienThong == 1 ? true : false;
+            this.chkNoiBo = itemData.chkVanBanNoiBo == 1 ? true : false;
             this.formThongTinVanBan.patchValue({
                 id: itemData.id,
                 soVanBanId: itemData.soVanBanId,
@@ -96,18 +113,48 @@ export class CapNhatComponent {
                 soBanBanHanh: itemData.soBanBanHanh,
                 ngayBanHanh: new Date(itemData.ngayBanHanh),
                 ngayNhanVanBan: new Date(itemData.ngayNhanVanBan),
-                phongBanSoanThaoId: itemData.phongBanSoanThaoId,
-                lanhDaoKyId: itemData.lanhDaoKyId,
+                phongBanSoanThaoId:
+                    this.lstPhongBan
+                        .filter(
+                            (pbid) =>
+                                pbid.value.split('%')[0] ==
+                                itemData.phongBanSoanThaoId
+                        )
+                        .map((pbid) => pbid.value)
+                        .join(', ') ?? '',
+                lanhDaoKyId:
+                    this.lstLanhDaoKy
+                        .filter(
+                            (ldk) =>
+                                ldk.value.split('%')[0] == itemData.lanhDaoKyId
+                        )
+                        .map((ldk) => ldk.value)
+                        .join(', ') ?? '',
                 trichYeu: itemData.trichYeu,
-                noiNhanKhac: itemData.trichYeu,
+                noiNhanKhac: itemData.noiNhanKhac,
                 mucDoVanBanId: itemData.mucDoVanBanId,
                 donViId: itemData.donViId,
-                chkVanBanLienThong: itemData.chkVanBanLienThong,
-                chkVanBanHeThong: itemData.chkVanBanLienThong,
-                chkVanBanNoiBo: itemData.chkVanBanLienThong,
-                fileUpLoad: itemData.fileUpLoad,
+                chkVanBanLienThong: this.chkLienThong,
+                chkVanBanHeThong: this.chkHeThong,
+                chkVanBanNoiBo: this.chkNoiBo,
+                fileUpLoad: fileLoad,
             });
-        });
+
+            const soKiHieuData = await this.service.getSoKiHieu(
+                this.formThongTinVanBan.value.soVanBanId,
+                this.formThongTinVanBan.value.loaiVanBanId,
+                this.formThongTinVanBan.value.soHienTai
+            );
+            this.formThongTinVanBan.patchValue({
+                soKiHieu: soKiHieuData,
+            });
+        } catch (error) {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Có lỗi xảy ra',
+            });
+        }
     }
 
     public LoadLanhDaoKy() {
@@ -139,57 +186,66 @@ export class CapNhatComponent {
         this.tatPopup.emit(this.show);
     }
 
-    public ChangeSoVanBan(event) {
-        this.service
-            .getSoHienTai(
+    public async ChangeSoVanBan(event) {
+        try {
+            const dataSoHienTai = await this.service.getSoHienTai(
                 event.toString(),
                 this.formThongTinVanBan.value.ngayBanHanh,
-                '0',
+                this.oldSoVanBanId?.toString(),
                 this.formThongTinVanBan.value.soDi,
-                '0'
-            )
-            .then((data) => {
-                this.formThongTinVanBan.patchValue({
-                    soHienTai: data,
-                });
-            })
-            .then(() => {
-                this.service
-                    .getSoKiHieu(
-                        event,
-                        '0',
-                        this.formThongTinVanBan.value.soHienTai
-                    )
-                    .then((data) => {
-                        this.formThongTinVanBan.patchValue({
-                            soKiHieu: data,
-                        });
-                    });
+                this.oldSoDi?.toString()
+            );
+
+            this.formThongTinVanBan.patchValue({
+                soHienTai: dataSoHienTai,
             });
 
-        this.lstLoaiVanBan = [];
-        this.service.changeSoVanBan(event, this.idDonViLamViec).then((data) => {
-            this.lstLoaiVanBan = data;
-        });
+            const dataSoKiHieu = await this.service.getSoKiHieu(
+                event,
+                this.formThongTinVanBan.value.loaiVanBanId,
+                this.formThongTinVanBan.value.soHienTai
+            );
+
+            this.formThongTinVanBan.patchValue({
+                soKiHieu: dataSoKiHieu,
+            });
+
+            this.lstLoaiVanBan = await this.service.changeSoVanBan(
+                event,
+                this.idDonViLamViec
+            );
+        } catch (error) {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Có lỗi xảy ra',
+            });
+        }
     }
 
-    public ChangeLoaiVanBan(event) {
-      if(event != null)
-      {
-      console.log(this.formThongTinVanBan.value)
+    public async ChangeLoaiVanBan(event) {
+        try {
+            if (
+                this.formThongTinVanBan.value.soVanBanId != null &&
+                this.formThongTinVanBan.value.soHienTai
+            ) {
+                const soKiHieu = await this.service.getSoKiHieu(
+                    this.formThongTinVanBan.value.soVanBanId,
+                    event,
+                    this.formThongTinVanBan.value.soHienTai
+                );
 
-        this.service
-        .getSoKiHieu(
-            this.formThongTinVanBan.value.soVanBanId,
-            event,
-            this.formThongTinVanBan.value.soHienTai
-        )
-        .then((data) => {
-            this.formThongTinVanBan.patchValue({
-                soKiHieu: data,
+                this.formThongTinVanBan.patchValue({
+                    soKiHieu: soKiHieu,
+                });
+            }
+        } catch (error) {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Có lỗi xảy ra',
             });
-        });
-      }
+        }
     }
 
     public onFileSelected(event: any) {
@@ -198,7 +254,7 @@ export class CapNhatComponent {
         if (FileInput) {
             this.file = FileInput;
             let urlSave = '/VanBanDi/CapNhatMoi/UpLoadFile';
-            this.fileService.uploadFiles(this.file, urlSave).subscribe({
+            this.uploadfileService.uploadFiles(this.file, urlSave).subscribe({
                 next: (data) => {
                     if (data.isError)
                         this.messageService.add({
@@ -215,6 +271,7 @@ export class CapNhatComponent {
                         const fileReturn = {
                             fileName: data.objData.fileName,
                             filePath: data.objData.filePath,
+                            isNew: true,
                         };
                         this.file_fomat.push(fileReturn);
                         this.selectedFiles.push(FileInput);
@@ -232,19 +289,45 @@ export class CapNhatComponent {
         }
     }
 
-    public downloadFile(file: File) {
-        this.dataFile = file;
-        const blob = new Blob([this.dataFile], {
-            type: 'application/octet-stream',
-        });
-        // Sử dụng saveAs để tải tệp xuống với tên cụ thể.
-        saveAs(blob, file.name);
+    public DownloadFile(filepath: string, filename: string) {
+        let urlDownLoad = '/VanBanDi/CapNhatMoi/DownloadFile';
+        this.uploadfileService
+            .downloadFile(filepath, filename, urlDownLoad)
+            .subscribe(
+                (data) => {
+                    const blob = new Blob([data], {
+                        type: 'application/octet-stream',
+                    });
+                    saveAs(blob, filename);
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Tải tệp thành công',
+                    });
+                },
+                (error: any) => {
+                    if (error.status === 404) {
+                        // Xử lý lỗi 404 (NotFound)
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Không tìm thấy đường dẫn file',
+                        });
+                        // Ví dụ: Hiển thị thông báo lỗi cho người dùng
+                    } else {
+                        // Xử lý các lỗi khác
+                        console.error('Đã xảy ra lỗi', error);
+                        // Thực hiện các hành động tương ứng
+                    }
+                    return throwError(() => error);
+                }
+            );
     }
 
-    public XoaFile(fileName: string): void {
+    public XoaFile(filePath: string): void {
         this.selectedFiles.forEach((obj, index) => {
-            if (obj.name === fileName) {
-                this.selectedFiles.splice(index, 1); // Xóa đối tượng thỏa mãn điều kiện
+            if (obj.filePath === filePath) {
+                obj.isDelete = true;
             }
         });
     }
@@ -261,7 +344,7 @@ export class CapNhatComponent {
         this.chkNoiBo = !this.chkNoiBo;
     }
 
-    public ThemMoi() {
+    public CapNhat() {
         this.submitted = true;
 
         if (this.formThongTinVanBan.valid) {
@@ -286,19 +369,17 @@ export class CapNhatComponent {
                             summary: 'Success',
                             detail: data.title,
                         });
-                        setTimeout(() => {
-                            this.router.navigate(['/van-ban-di/cap-nhat-moi']);
-                        });
+                        this.Thoat();
                     }
                 },
                 (error: any) => {
-                  this.messageService.add({
-                      severity: 'error',
-                      summary: 'Error',
-                      detail: 'Có lỗi xảy ra',
-                  });
-                  return throwError(() => error);
-              },
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: 'Có lỗi xảy ra',
+                    });
+                    return throwError(() => error);
+                }
             );
         }
     }

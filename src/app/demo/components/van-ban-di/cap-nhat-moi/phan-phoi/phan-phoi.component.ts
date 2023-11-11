@@ -32,10 +32,10 @@ export class PhanPhoiComponent {
     ThongTinVanBan: any;
     ThongTinFile: any[] = [];
     lstPhongBan: any = [];
+    lstPhongBanSelected: any = [];
     phongBans: any[] = [];
     lstNhomNguoiDung: [];
     isCheckedAll: boolean = false;
-    sltPhongBan: any[] = [];
     phongBan: any;
     nhomNguoiDung: any;
     DsCaNhanDaChon: any[] = [];
@@ -53,8 +53,8 @@ export class PhanPhoiComponent {
         id: ['', []],
     });
 
-    public BindDataDialog() {
-        this.service.GetVanBanById(this.id).subscribe(
+    public async BindDataDialog() {
+        this.service.GetVanBanById(this.id).then(
             (data) => {
                 if (data.isError) {
                     this.messageService.add({
@@ -72,18 +72,23 @@ export class PhanPhoiComponent {
             }
         );
 
+        const selectedPhongBans = await this.service.getPhongBanSelected(
+            this.id,
+            this.idDonViLamViec
+        );
+
+        this.phongBans = this.phongBans.map((phongBan) => ({
+            ...phongBan,
+            check: selectedPhongBans.includes(Number(phongBan.value)),
+        }));
+        this.isCheckedAll =
+            this.phongBans.filter((x) => x.check == true).length ===
+            this.phongBans.length;
+
         this.service
-            .getPhongBanSelected(this.id, this.idDonViLamViec)
-            .then((response) => {
-                this.sltPhongBan.map((phongBan) => {
-                    if (response.includes(phongBan.value)) {
-                        // If the condition is true, update the 'checked' property
-                        return { ...phongBan, checked: true };
-                    } else {
-                        // If the condition is false, you might want to set 'checked' to false
-                        return { ...phongBan, checked: false };
-                    }
-                });
+            .getDanhSachCaNhanDaPhanPhoi(this.id, this.idDonViLamViec) //bind cá nhân phòng ban đã gửi từ db
+            .then((data) => {
+                this.lstUserNhan = data;
             });
     }
 
@@ -134,7 +139,6 @@ export class PhanPhoiComponent {
             .then((data) => {
                 this.lstPhongBan = data;
                 this.phongBans = data;
-                this.sltPhongBan = data;
             });
     }
 
@@ -252,7 +256,7 @@ export class PhanPhoiComponent {
             idVanBan: this.id?.toString(),
             idDonViLamViec: this.authService.GetDonViLamViec(),
             lstCaNhanPhanPhoi: this.lstUserNhan.map((user) => user.value),
-            lstPhongBanPhanPhoi: this.sltPhongBan
+            lstPhongBanPhanPhoi: this.phongBans
                 .filter((x) => x.check == true)
                 .map((phongBan) => phongBan.value),
         };
@@ -281,14 +285,21 @@ export class PhanPhoiComponent {
     }
 
     public checkAll(event) {
-        this.sltPhongBan.forEach(function (val, key) {
+        this.phongBans.forEach(function (val, key) {
             val.check = event;
         });
     }
 
-    public checkSingle() {
+    public checkSingle(event, idPhongBan) {
+        this.phongBans = this.phongBans.map((phongBan) => {
+            if (idPhongBan === phongBan.value) {
+                return { ...phongBan, check: event };
+            } else {
+                return { ...phongBan };
+            }
+        });
         this.isCheckedAll =
-            this.sltPhongBan.filter((x) => x.check == true).length ===
+            this.phongBans.filter((x) => x.check == true).length ===
             this.phongBans.length;
     }
 }

@@ -23,9 +23,11 @@ export class CapNhatMoiService {
   }
   GetVanBanById(id: string) {
     return this.http.get<any>(environment.baseUrlApi + '/VanBanDi/CapNhatMoi/GetVanBanById/' + id)
-      .pipe(
-        map((response: any) => response.objData)
-      );
+      // .pipe(
+      //   map((response: any) => response.objData)
+      // );
+      .toPromise()
+      .then(data => data.objData)
   }
 
   getFile(id: string) {
@@ -112,6 +114,12 @@ export class CapNhatMoiService {
 
   getPhongBanSelected(idVanBan: string, idDonViLamViec : string) {
     return this.http.get<any>(environment.baseUrlApi + '/VanBanDi/CapNhatMoi/GetPhongBanSelected?idVanBan=' + idVanBan + "&idDonViLamViec=" + idDonViLamViec)
+      .toPromise()
+      .then(data => data.objData as any[])
+  }
+
+  getDanhSachCaNhanDaPhanPhoi(idVanBan: string, idDonViLamViec : string) {
+    return this.http.get<any>(environment.baseUrlApi + '/VanBanDi/CapNhatMoi/LayDanhSachCaNhanDaPhanPhoi?vanBanId=' + idVanBan + "&donViId=" + idDonViLamViec)
       .toPromise()
       .then(data => data.objData)
   }

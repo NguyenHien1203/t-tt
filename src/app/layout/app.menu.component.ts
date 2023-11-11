@@ -577,7 +577,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Cơ quan ban hành',
                                 icon: 'pi pi-fw pi-globe',
-                                routerLink: ['/danh-muc/'],
+                                routerLink: ['/danh-muc/co-quan-ban-hanh'],
                                 code: '009007'
                             },
                             {
@@ -854,12 +854,14 @@ export class AppMenuComponent implements OnInit {
         var PhongBanId = splitted[0];
         var NhomQuyenId = splitted[1];
         const objUser = this.authService.GetmUserInfo();
-        objUser.phongBanLamViecId = PhongBanId.toString();
-        objUser.nhomQuyenId = NhomQuyenId.toString();
+        if(objUser != null){
+            objUser.phongBanLamViecId = PhongBanId.toString();
+            objUser.nhomQuyenId = NhomQuyenId.toString();
+        }
 
         this.cookieService.set('mUserInfo', JSON.stringify(objUser));
-        this.cookieService.set('idDonViLamViec', objUser.phongBanLamViecId);
-        this.GetDataMenu();
+        this.cookieService.set('idDonViLamViec', objUser?.phongBanLamViecId);
+        // this.GetDataMenu();
         this.GetDataNhomQuyen();
 
         this.display = false;
@@ -1409,7 +1411,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Cơ quan ban hành',
                                 icon: 'pi pi-fw pi-globe',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/danh-muc/co-quan-ban-hanh'],
                                 code: '009007'
                             },
                             {
@@ -1680,7 +1682,7 @@ export class AppMenuComponent implements OnInit {
         ];
         this.lstMenu = [];
         const objUser = this.authService.GetmUserInfo();
-        this.taikhoanService.GetDataMenu(objUser.userId, objUser.nhomQuyenId, objUser.phongBanLamViecId).subscribe(data => {
+        this.taikhoanService.GetDataMenu(objUser?.userId, objUser?.nhomQuyenId, objUser?.phongBanLamViecId).subscribe(data => {
             if (data.isError) {
                 console.log("Dữ liệu không hợp lệ")
             } else {

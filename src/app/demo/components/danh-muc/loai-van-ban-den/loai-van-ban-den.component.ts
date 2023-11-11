@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class LoaiVanBanDenComponent {
 
+  Click() {
+    console.log("oce oce"); 
+  }
 }

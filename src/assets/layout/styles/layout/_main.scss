@@ -2,6 +2,48 @@
     box-sizing: border-box;
 }
 
+//minhtd edit tree
+.tree-node {
+    display: flex;
+    align-items: center; /* Đảm bảo các thành phần trong div được căn giữa theo chiều dọc */
+  }
+  
+  .tree-link {
+    position: relative;
+    display: flex;
+    align-items: center; /* Đảm bảo các thành phần trong div được căn giữa theo chiều dọc */
+    cursor: pointer;
+  }
+  
+  .tree-link::before {
+    content: '';
+    position: absolute;
+    top: 50%; /* Đặt ở giữa theo chiều dọc */
+    left: -10px; /* Điều chỉnh khoảng cách giữa đường liên kết và biểu tượng checkbox */
+    transform: translateY(-50%); /* Đảo ngược lại chiều dọc để đảm bảo đường kẻ chạy qua giữa */
+    width: 10px;
+    height: 100%;
+    border-left: 1px solid #000; /* Màu sắc của đường liên kết */
+    z-index: -1;
+  }
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.1125rem + 2px);
+    padding: 0.313rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 20px;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-family: "Roboto";
+    font-size: 14px;
+}
+
 li{
     list-style-type: none;
 }

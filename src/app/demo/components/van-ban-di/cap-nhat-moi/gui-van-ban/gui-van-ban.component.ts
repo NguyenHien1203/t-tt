@@ -1,19 +1,20 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { throwError } from 'rxjs';
-import {saveAs} from 'file-saver';
+import { saveAs } from 'file-saver';
 import { CapNhatMoiService } from 'src/app/demo/service/van-ban-di/cap-nhat-moi.service';
 import { MessageService } from 'primeng/api';
 import { FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/common/auth.services';
 import { UploadFileService } from 'src/app/demo/service/upload-file.service';
+import { options } from '@fullcalendar/core/preact';
 
 @Component({
-  selector: 'app-gui-van-ban',
-  templateUrl: './gui-van-ban.component.html',
-  styleUrls: ['./gui-van-ban.component.scss']
+    selector: 'app-gui-van-ban',
+    templateUrl: './gui-van-ban.component.html',
+    styleUrls: ['./gui-van-ban.component.scss'],
 })
 export class GuiVanBanComponent {
-  @Input() show: boolean = false;
+    @Input() show: boolean = false;
     @Output() tatPopup = new EventEmitter<boolean>();
     @Input() id: string = '1';
 
@@ -27,6 +28,9 @@ export class GuiVanBanComponent {
         this.GetDataNhomDonVi();
         this.GetTreeDonVi();
     }
+
+    iconClass = 'pi pi-plus';
+    checkAllItem = 'checkAllItem';
     showLinkedRisksOnly: any;
     ThongTinVanBan: any;
     treeData: any[] = [];
@@ -36,6 +40,7 @@ export class GuiVanBanComponent {
     phongBans: any[] = [];
     lstNhomNguoiDung: [];
     isCheckedAll: boolean = false;
+    isShowAll: boolean = false;
     phongBan: any;
     nhomNguoiDung: any;
     DsCaNhanDaChon: any[] = [];
@@ -43,7 +48,7 @@ export class GuiVanBanComponent {
     lstUserNhanOld: any[];
     lstUserChange: any[] = [];
     lstUserChangeUnShow: any[] = [];
-    lstUserNhan: any[] = [];
+    lstDonViNhan: any[] = [];
     submitted: boolean = false;
     idDonViLamViec = this.authService.GetDonViLamViec() ?? '0';
     userName = this.authService.GetmUserInfo()?.userName;
@@ -81,17 +86,46 @@ export class GuiVanBanComponent {
             ...phongBan,
             check: selectedPhongBans.includes(Number(phongBan.value)),
         }));
-        this.isCheckedAll =
-            this.phongBans.filter((x) => x.check == true).length ===
-            this.phongBans.length;
+        // this.isCheckedAll =
+        //     this.phongBans.filter((x) => x.check == true).length ===
+        //     this.phongBans.length;
 
         this.service
             .getDanhSachCaNhanDaPhanPhoi(this.id, this.idDonViLamViec) //bind cá nhân phòng ban đã gửi từ db
             .then((data) => {
-                this.lstUserNhan = data;
+                this.lstDonViNhan = data;
             });
     }
 
+    //Chặn hành động click vào input sẽ cle hoặc exp
+    handleCheckboxClick(event: Event): void {
+        event.stopPropagation(); // Ngăn chặn sự kiện lan ra các phần tử cha
+        this.isCheckedAll = !this.isCheckedAll;
+        let checkAll = this.isCheckedAll;
+        this.treeData = this.treeData.map((data) => ({
+            ...data,
+            checked: checkAll,
+        }));
+    }
+
+    toggleNode(id: string): void {
+        if (id === this.checkAllItem) {
+            this.isShowAll = !this.isShowAll;
+            this.iconClass = this.isShowAll ? 'pi pi-minus' : 'pi pi-plus';
+        }
+    }
+
+    toggleAllNodes(): void {
+        // Implement logic to expand/collapse all nodes
+    }
+
+    expandNode(node: any): void {
+        node.expanded = true;
+    }
+
+    collapseNode(node: any): void {
+        node.expanded = false;
+    }
     public Thoat(): void {
         this.submitted = false;
         this.show = false;
@@ -143,43 +177,33 @@ export class GuiVanBanComponent {
     }
 
     public GetTreeDonVi() {
-      this.service
-          .getTreeDonVi("", "")
-          .then((data) => {
-            console.log(data)
-              this.treeData = data;
-          });
-  }
+        this.service.getTreeDonVi('', '').then((data) => {
+            this.treeData = data;
+        });
+    }
 
     public AddToSelected(): void {
-        var lstCaNhanSelected = this.DsCaNhanDaChon as any[]; //lấy ds cá nhân đã chọn từ userbind
-        if (lstCaNhanSelected === undefined || lstCaNhanSelected.length === 0) {
+        const lstSelected = this.treeData
+            .filter((dt) => dt.checked == true)
+            .map((dt) => dt);
+        if (lstSelected === undefined || lstSelected.length === 0) {
             this.messageService.add({
                 severity: 'error',
                 summary: 'Lỗi',
-                detail: 'Yêu cầu chọn cá nhân',
+                detail: 'Yêu cầu chọn đơn vị',
             });
             return;
         }
-        if (this.lstUserNhan !== undefined) {
-            this.lstUserNhanOld = this.lstUserNhan; //gán giá trị lst user nhận đang có (nếu có)
-        }
 
-        this.lstUserNhan = this.lstUserChange
-            .filter((user) => lstCaNhanSelected.includes(user.value))
-            .map((user) => user); // chuyển đổi options đã chọn từ userbind ra list cá nhân nhận
-        this.lstUserChange = this.lstUserChange.filter(
-            (user) => !lstCaNhanSelected.includes(user.value)
-        );
-        if (this.lstUserNhanOld !== undefined) {
-            this.lstUserNhan = this.lstUserNhan.concat(this.lstUserNhanOld); //add phần user nhận cũ và phần userchange mới vừa chuyển sang
-        }
+        this.lstDonViNhan = lstSelected.map((dt) => ({
+            value: dt.id,
+            text: dt.tenDonVi,
+        }));
     }
 
     public RemoveFromSelected(): void {
-        this.lstUserChangeUnShow = [];
-        var lstselectedOpts = this.DsCaNhanNhan as any[]; //Lấy cá nhân đã selected
-        if (lstselectedOpts === undefined || lstselectedOpts.length === 0) {
+        var lstSelectedOpts = this.DsCaNhanNhan as any[]; //Lấy cá nhân đã selected
+        if (lstSelectedOpts === undefined || lstSelectedOpts.length === 0) {
             this.messageService.add({
                 severity: 'error',
                 summary: 'Lỗi',
@@ -188,49 +212,18 @@ export class GuiVanBanComponent {
             return;
             //trả ra toast lỗi nếu chưa chọn cá nhân
         }
-        const oldList = this.lstUserNhan; // gán mặc định list user nhận hiện tại để lọc k đổi giá trị
-        const oldListSelected = lstselectedOpts; // gán mặc định list user nhận đã chọn
-        lstselectedOpts = oldList
-            .filter((user) => lstselectedOpts.includes(user.value))
-            .map((user) => user); //lọc ra nhưng user đã chọn dạng object[]
-        this.lstUserNhan = this.lstUserNhan
-            .filter((user) => !oldListSelected.includes(user.value))
-            .map((user) => user); // xóa đi những option đã chọn bên lst nhận
-        this.lstUserChange = this.lstUserChange ?? []; //check list userbind từ pb/ngd null or underfine thì khỏi tạo
-        this.lstUserChange = this.lstUserChange.concat(lstselectedOpts); // chuyển những options đã chọn vào list userbind
-        const lstUserChangeConst = this.lstUserChange;
-        this.lstUserChangeUnShow = lstUserChangeConst;
-        let lstTmp: any[] = [];
-        this.lstUserChange.forEach((user) => {
-            //lọc ra những bản ghi thuộc nhóm người dùng hoặc phòng ban đang selected
-            if (
-                user &&
-                (user.value.toString().split('%')[3] == this.phongBan ||
-                    user.value.toString().split('%')[3] == this.nhomNguoiDung)
-            ) {
-                lstTmp.push(user);
-            }
-        });
-        this.lstUserChange = lstTmp;
-    }
+        this.treeData = this.treeData.map((dt) => ({
+            ...dt,
+            checked: lstSelectedOpts.includes(Number(dt.id)),
+        }));
+        const tmp = this.lstDonViNhan;
 
-    public onChangePhongBan(event): void {
-        if (this.lstUserChangeUnShow)
-            this.lstUserChange = this.lstUserChangeUnShow;
-        this.nhomNguoiDung = null; //đổi phòng ban thì reset ngd
-        this.lstUserChange = [];
-        let phongBanId: string = event;
-        this.service.changePhongBan(phongBanId).then((data) => {
-            this.lstUserChange = data;
-            const lstUseNhanClone = this.lstUserNhan;
-            var lstUserClone = lstUseNhanClone.map((x) => x.value); //tương tự như nhóm ngd
-            this.lstUserChange = this.lstUserChange
-                .filter((user) => !lstUserClone.includes(user.value))
-                .map((user) => user);
-        });
-    }
+        // this.t =  tmp.filter((dt) => {
+        //         !lstSelectedOpts.includes(dt.value);
+        //     })
+        //     .map((dt) => dt);
 
-    
+    }
 
     public PhanPhoi(): void {
         this.submitted = true;
@@ -238,10 +231,7 @@ export class GuiVanBanComponent {
         let itemData: any = {
             idVanBan: this.id?.toString(),
             idDonViLamViec: this.authService.GetDonViLamViec(),
-            lstCaNhanPhanPhoi: this.lstUserNhan.map((user) => user.value),
-            lstPhongBanPhanPhoi: this.phongBans
-                .filter((x) => x.check == true)
-                .map((phongBan) => phongBan.value),
+            lstDonViNhan: this.DsCaNhanNhan.map((phongBan) => phongBan.value),
         };
 
         this.service.PhanPhoi(itemData).subscribe(
@@ -271,18 +261,5 @@ export class GuiVanBanComponent {
         this.phongBans.forEach(function (val, key) {
             val.check = event;
         });
-    }
-
-    public checkSingle(event, idPhongBan) {
-        this.phongBans = this.phongBans.map((phongBan) => {
-            if (idPhongBan === phongBan.value) {
-                return { ...phongBan, check: event };
-            } else {
-                return { ...phongBan };
-            }
-        });
-        this.isCheckedAll =
-            this.phongBans.filter((x) => x.check == true).length ===
-            this.phongBans.length;
     }
 }

@@ -117,17 +117,19 @@
         </div>
         <div class="p-formgrid grid">
             <div class="field col-12 md:col-3 mb-0">
-                  <button
-                  pbutton=""
-                  pripple=""
-                  type="submit"
-                  label="Info"
-                  class="p-element p-ripple p-button-info p-button p-component"
-                  ng-reflect-label="Info"
-                  (click)="ChonVanBan()"
-              >
-                  <span class="p-button-label" ><i class="pi pi-plus"></i>&nbsp;Chọn văn bản</span>
-              </button>
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="submit"
+                    label="Info"
+                    class="p-element p-ripple p-button-info p-button p-component"
+                    ng-reflect-label="Info"
+                    (click)="ChonVanBan()"
+                >
+                    <span class="p-button-label"
+                        ><i class="pi pi-plus"></i>&nbsp;Chọn văn bản</span
+                    >
+                </button>
             </div>
             <div class="field col-12 md:col-9 mb-0">
                 <p-table
@@ -137,15 +139,9 @@
                 >
                     <ng-template pTemplate="header" let-item>
                         <tr>
-                            <th>
-                               Số ký hiệu
-                            </th>
-                            <th>
-                                Trích yếu
-                            </th>
-                            <th>
-                                Xóa
-                            </th>
+                            <th>Số ký hiệu</th>
+                            <th>Trích yếu</th>
+                            <th>Xóa</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-item>
@@ -206,27 +202,36 @@
         <div class="grid formgrid">
             <div class="col-12 row">
                 <div class="col-12 md:col-6">
-                    <label class="" for="">Danh sách đơn vị/phòng ban</label>
+                    <label class="" for="">Danh sách đơn vị/ phòng ban</label>
                     <div class="listDonVi">
                         <div id="listDonVi" class="scroll-pane listDonVi">
-                        <ul>
-                              <li>
-                                    <span>
-                                          <input type="checkbox" [id]="checkAll" [checked]="isCheckedAll"> Các sở, ban, ngành đơn vị
-                                        </span>
-                                    <ul>
-                                          <li *ngFor="let node of treeData">
-                                                <span>
-                                                  <input type="checkbox" [id]="node.id" [checked]="node.checked">|-{{ node.tenDonVi }}
-                                                </span>
-                                                <ul *ngIf="node.children && node.children.length > 0">
-                                                  <app-tree-node *ngFor="let child of node.children" [node]="child"></app-tree-node>
-                                                </ul>
-                                              </li>
+                            <ul style="padding-left: 10px">
+                                <li>
+                                    <span
+                                        [class]="iconClass"
+                                        (click)="toggleNode(checkAllItem)"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            [id]="checkAllItem"
+                                            [checked]="isCheckedAll"
+                                            (click)="
+                                                handleCheckboxClick($event)
+                                            "
+                                        />
+                                        Các sở, ban, ngành đơn vị
+                                    </span>
+                                    <ul *ngIf="isShowAll">
+                                        <app-tree-node
+                                            *ngFor="let node of treeData"
+                                            [node]="node"
+                                            (expand)="expandNode($event)"
+                                            (collapse)="collapseNode($event)"
+                                        ></app-tree-node>
                                     </ul>
-                              </li>
+                                </li>
                             </ul>
-                            </div>
+                        </div>
                         <a
                             id="btnAdd"
                             href="javascript:;"
@@ -261,6 +266,12 @@
                             multiple="multiple"
                             style="height: 250px"
                         >
+                            <option
+                                *ngFor="let obj of lstDonViNhan"
+                                [value]="obj.value"
+                            >
+                                {{ obj.text }}
+                            </option>
                         </select>
                     </div>
                 </div>

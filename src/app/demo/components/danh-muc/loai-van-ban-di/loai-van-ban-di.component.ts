@@ -2,18 +2,17 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
-import { LoaiVanBanDenService } from 'src/app/demo/service/danh-muc/loai-van-ban-den/loai-van-ban-den.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { LoaiVanBanDen } from 'src/app/models/danh-muc/loai-van-ban-den';
+import { LoaiVanBanDi } from 'src/app/models/danh-muc/loai-van-ban-di';
+import { LoaiVanBanDiService } from 'src/app/demo/service/danh-muc/loai-van-ban-di/loai-van-ban-di.service';
 
 @Component({
-  selector: 'app-loai-van-ban-den',
-  templateUrl: './loai-van-ban-den.component.html',
-  styleUrls: ['./loai-van-ban-den.component.scss'],
+  selector: 'app-loai-van-ban-di',
+  templateUrl: './loai-van-ban-di.component.html',
+  styleUrls: ['./loai-van-ban-di.component.scss'],
   providers: [MessageService]
 })
-export class LoaiVanBanDenComponent implements OnInit {
-
+export class LoaiVanBanDiComponent implements OnInit {
 
   breadcrumbItems: MenuItem[] = [];
   cols: any[] = [];
@@ -22,8 +21,8 @@ export class LoaiVanBanDenComponent implements OnInit {
   soVanBan: {} = {};
   msgs: Message[] = [];
   idSoVB: number;
-  loaiVBDen: LoaiVanBanDen[] = [];
-  loaiVbDen: LoaiVanBanDen = {};
+  loaiVBDi: LoaiVanBanDi[] = [];
+  loaiVbDi: LoaiVanBanDi = {};
   checkId: number;
 
   submitted = false;
@@ -31,15 +30,15 @@ export class LoaiVanBanDenComponent implements OnInit {
   ngOnInit() {
     this.breadcrumbItems = [];
     this.breadcrumbItems.push({ label: 'Danh mục' });
-    this.breadcrumbItems.push({ label: 'Quản trị loại văn bản đến' });
+    this.breadcrumbItems.push({ label: 'Quản trị loại văn bản đi' });
 
     this.GetSoVanBan();
   }
 
-  constructor(private messageService: MessageService, private authService: AuthService, private loaiVBDenService: LoaiVanBanDenService, private fb: FormBuilder) { }
+  constructor(private messageService: MessageService, private authService: AuthService, private loaiVBDiService: LoaiVanBanDiService, private fb: FormBuilder) { }
 
   GetSoVanBan() {
-    this.loaiVBDenService.getSoVanBan(this.authService.GetmUserInfo().donViId).subscribe(data => {
+    this.loaiVBDiService.getSoVanBan(this.authService.GetmUserInfo().donViId).subscribe(data => {
       if (data.isError) {
         this.msgs = [];
         this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
@@ -59,12 +58,12 @@ export class LoaiVanBanDenComponent implements OnInit {
     if (this.idSoVB > 0) {
       this.submitted = true;
       this.checkId = this.idSoVB;
-      this.loaiVBDenService.getLoaiVBDonVi(this.idSoVB).subscribe(data => {
+      this.loaiVBDiService.getLoaiVBDonVi(this.idSoVB).subscribe(data => {
         if (data.isError) {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
         } else {
-          this.loaiVbDen = data;
+          this.loaiVBDi = data;
         };
       }, (error) => {
         console.log('Error', error);
@@ -72,21 +71,20 @@ export class LoaiVanBanDenComponent implements OnInit {
     }
   }
 
-  UpdateLoaiVBDen() {
+  UpdateLoaiVBDi() {
     if (this.idSoVB == this.checkId && this.idSoVB > 0) {
       this.submitted = true;
       if (this.submitted == true) {
-        this.loaiVBDenService.updateDataVBDen(this.loaiVBDen).subscribe(data => {
+        this.loaiVBDiService.updateDataVBDen(this.loaiVBDi).subscribe(data => {
           if (data.isError) {
             this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
           } else {
             this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
           }
-        });
-        this.GetLoaiVBDV();
-      };
-    }
-    else {
+        })
+        this.GetSoVanBan();
+      }
+    } else {
       this.submitted = false;
     }
   }

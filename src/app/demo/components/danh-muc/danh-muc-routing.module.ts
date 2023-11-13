@@ -1,3 +1,4 @@
+import { LoaiVanBanDiModule } from './loai-van-ban-di/loai-van-ban-di.module';
 import { LoaiVanBanDenComponent } from './loai-van-ban-den/loai-van-ban-den.component';
 import { LoaiHoSoComponent } from './loai-ho-so/loai-ho-so.component';
 import { DonViModule } from './don-vi/don-vi.module';
@@ -20,6 +21,7 @@ import { RouterModule } from '@angular/router';
     { path: 'co-quan-ban-hanh', data: { breadcrumb: 'Cơ quan ban hành' }, loadChildren: () => import('./co-quan-ban-hanh/co-quan-ban-hanh.module').then(m => m.CoQuanBanHanhModule) },
     { path: 'tinh-chat-nhiem-vu', data: { breadcrumb: 'Tính chất nhiệm vụ' }, loadChildren: () => import('./tinh-chat-nhiem-vu/tinh-chat-nhiem-vu.module').then(m => m.TinhChatNhiemVuModule) },
     { path: 'loai-van-ban-den', data: { breadcrumb: 'Loại văn bản đến tại cơ quan' }, loadChildren: () => import('./loai-van-ban-den/loai-van-ban-den.module').then(m => m.LoaiVanBanDenModule) },
+    { path: 'loai-van-ban-di', data: { breadcrumb: 'Loại văn bản đi tại cơ quan' }, loadChildren: () => import('./loai-van-ban-di/loai-van-ban-di.module').then(m => m.LoaiVanBanDiModule) },
   ])],
   exports: [RouterModule]
 })

@@ -1,20 +1,19 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { AuthService } from 'src/app/common/auth.services';
-import { CapNhatMoiService } from 'src/app/demo/service/van-ban-di/cap-nhat-moi.service';
-import { saveAs } from 'file-saver';
-import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { throwError } from 'rxjs';
+import {saveAs} from 'file-saver';
+import { CapNhatMoiService } from 'src/app/demo/service/van-ban-di/cap-nhat-moi.service';
+import { MessageService } from 'primeng/api';
+import { FormBuilder } from '@angular/forms';
+import { AuthService } from 'src/app/common/auth.services';
+import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 
 @Component({
-    selector: 'app-phan-phoi',
-    templateUrl: './phan-phoi.component.html',
-    styleUrls: ['./phan-phoi.component.scss'],
-    providers: [MessageService],
+  selector: 'app-gui-van-ban',
+  templateUrl: './gui-van-ban.component.html',
+  styleUrls: ['./gui-van-ban.component.scss']
 })
-export class PhanPhoiComponent {
-    @Input() show: boolean = false;
+export class GuiVanBanComponent {
+  @Input() show: boolean = false;
     @Output() tatPopup = new EventEmitter<boolean>();
     @Input() id: string = '1';
 
@@ -25,11 +24,12 @@ export class PhanPhoiComponent {
         private authService: AuthService,
         private uploadFileService: UploadFileService
     ) {
-        this.GetDataPhongBan();
-        this.GetDataNhomNguoiDung();
+        this.GetDataNhomDonVi();
+        this.GetTreeDonVi();
     }
     showLinkedRisksOnly: any;
     ThongTinVanBan: any;
+    treeData: any[] = [];
     ThongTinFile: any[] = [];
     lstPhongBan: any = [];
     lstPhongBanSelected: any = [];
@@ -133,26 +133,23 @@ export class PhanPhoiComponent {
             );
     }
 
-    public GetDataPhongBan() {
+    public GetDataNhomDonVi() {
         this.service
-            .getDanhSachPhongBan(this.idDonViLamViec, this.userName)
+            .getNhomDonViTheoDinhNghia(this.userId, this.idDonViLamViec)
             .then((data) => {
                 this.lstPhongBan = data;
                 this.phongBans = data;
             });
     }
 
-    public GetDataNhomNguoiDung() {
-        this.service
-            .getDanhSachNhomNguoiDung(
-                this.idDonViLamViec,
-                this.idPhongBan,
-                this.userId
-            )
-            .then((data) => {
-                this.lstNhomNguoiDung = data;
-            });
-    }
+    public GetTreeDonVi() {
+      this.service
+          .getTreeDonVi("", "")
+          .then((data) => {
+            console.log(data)
+              this.treeData = data;
+          });
+  }
 
     public AddToSelected(): void {
         var lstCaNhanSelected = this.DsCaNhanDaChon as any[]; //lấy ds cá nhân đã chọn từ userbind
@@ -233,21 +230,7 @@ export class PhanPhoiComponent {
         });
     }
 
-    public onChangeNhomNguoiDung(event): void {
-        if (this.lstUserChangeUnShow)
-            this.lstUserChange = this.lstUserChangeUnShow;
-        this.phongBan = null; //đổi phòng ban thì reset pb
-        this.lstUserChange = []; //tránh trường hợp undefine
-        let nhomNguoiDungId: string = event; //tránh trường hợp undefine
-        this.service.changeNhomNguoiDung(nhomNguoiDungId).then((data) => {
-            this.lstUserChange = data;
-            const lstUseNhanClone = this.lstUserNhan;
-            var lstUserClone = lstUseNhanClone.map((x) => x.value); //lọc ra những cá nhân không tồn tại bên ds cá nhân nhận
-            this.lstUserChange = this.lstUserChange
-                .filter((user) => !lstUserClone.includes(user.value))
-                .map((user) => user);
-        });
-    }
+    
 
     public PhanPhoi(): void {
         this.submitted = true;

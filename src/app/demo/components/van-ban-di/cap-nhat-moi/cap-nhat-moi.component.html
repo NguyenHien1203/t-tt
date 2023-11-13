@@ -273,7 +273,7 @@
                                 <td class="text-center">
                                     <span
                                         *ngIf="
-                                            capNhatMoi.DieuKienGui == 'Sent';
+                                            capNhatMoi.dieuKienGui == 'Sent';
                                             else allowSection
                                         "
                                     >
@@ -282,7 +282,7 @@
                                     <ng-template #allowSection>
                                         <span
                                             *ngIf="
-                                                capNhatMoi.DieuKienGui ==
+                                                capNhatMoi.dieuKienGui ==
                                                 'Allow'
                                             "
                                         >
@@ -290,19 +290,20 @@
                                                 pButton
                                                 pRipple
                                                 icon="pi pi-play"
+                                                (click)="GuiVanBan(capNhatMoi.id)"
                                                 class="p-button-rounded p-button-info mr-2"
                                             ></button>
                                         </span>
                                         <span
                                             *ngIf="
-                                                capNhatMoi.DieuKienGui ==
+                                                capNhatMoi.dieuKienGui ==
                                                 'Required_PDF'
                                             "
                                             >Yêu cầu PDF</span
                                         >
                                         <span
                                             *ngIf="
-                                                capNhatMoi.DieuKienGui ==
+                                                capNhatMoi.dieuKienGui ==
                                                 'Publish_False'
                                             "
                                             >Văn bản lưu thông nội bộ</span
@@ -367,3 +368,8 @@
     [id]="id"
     (tatPopup)="Thoat($event, 'C')"
 ></app-cap-nhat>
+<app-gui-van-ban
+    [show]="hienThiGuiVanBan"
+    [id]="id"
+    (tatPopup)="Thoat($event, 'G')"
+></app-gui-van-ban>

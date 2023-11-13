@@ -100,8 +100,8 @@ export class CapNhatComponent {
             this.oldSoDi = itemData.soDi;
             this.oldSoVanBanId = itemData.soVanBanId;
             this.oldLoaiVanBanId = itemData.loaiVanBanId;
-            this.chkHeThong = itemData.chkVanBanHeThong == 1 ? true : false;
-            this.chkLienThong = itemData.chkVanBanLienThong == 1 ? true : false;
+            this.chkHeThong = itemData.chkVanBanHeThong == 2 ? true : false;
+            this.chkLienThong = itemData.chkVanBanLienThong == 3 ? true : false;
             this.chkNoiBo = itemData.chkVanBanNoiBo == 1 ? true : false;
             this.formThongTinVanBan.patchValue({
                 id: itemData.id,
@@ -152,7 +152,7 @@ export class CapNhatComponent {
             this.messageService.add({
                 severity: 'error',
                 summary: 'Error',
-                detail: 'Có lỗi xảy ra',
+                detail: 'Có lỗi xảy ra' + error,
             });
         }
     }
@@ -188,37 +188,40 @@ export class CapNhatComponent {
 
     public async ChangeSoVanBan(event) {
         try {
-            const dataSoHienTai = await this.service.getSoHienTai(
-                event.toString(),
-                this.formThongTinVanBan.value.ngayBanHanh,
-                this.oldSoVanBanId?.toString(),
-                this.formThongTinVanBan.value.soDi,
-                this.oldSoDi?.toString()
-            );
-
-            this.formThongTinVanBan.patchValue({
-                soHienTai: dataSoHienTai,
-            });
-
-            const dataSoKiHieu = await this.service.getSoKiHieu(
-                event,
-                this.formThongTinVanBan.value.loaiVanBanId,
-                this.formThongTinVanBan.value.soHienTai
-            );
-
-            this.formThongTinVanBan.patchValue({
-                soKiHieu: dataSoKiHieu,
-            });
-
-            this.lstLoaiVanBan = await this.service.changeSoVanBan(
-                event,
-                this.idDonViLamViec
-            );
+            if(event != null)
+            {
+                const dataSoHienTai = await this.service.getSoHienTai(
+                    event?.toString(),
+                    this.formThongTinVanBan.value.ngayBanHanh,
+                    this.oldSoVanBanId?.toString(),
+                    this.formThongTinVanBan.value.soDi,
+                    this.oldSoDi?.toString()
+                );
+    
+                this.formThongTinVanBan.patchValue({
+                    soHienTai: dataSoHienTai,
+                });
+    
+                const dataSoKiHieu = await this.service.getSoKiHieu(
+                    event,
+                    this.formThongTinVanBan.value.loaiVanBanId,
+                    this.formThongTinVanBan.value.soHienTai
+                );
+    
+                this.formThongTinVanBan.patchValue({
+                    soKiHieu: dataSoKiHieu,
+                });
+    
+                this.lstLoaiVanBan = await this.service.changeSoVanBan(
+                    event,
+                    this.idDonViLamViec
+                );
+            }
         } catch (error) {
             this.messageService.add({
                 severity: 'error',
                 summary: 'Error',
-                detail: 'Có lỗi xảy ra',
+                detail: 'Có lỗi xảy ra' + error,
             });
         }
     }
@@ -272,16 +275,16 @@ export class CapNhatComponent {
                             fileName: data.objData.fileName,
                             filePath: data.objData.filePath,
                             isNew: true,
+                            isDelete: false,
                         };
-                        this.file_fomat.push(fileReturn);
-                        this.selectedFiles.push(FileInput);
+                        this.selectedFiles.push(fileReturn);
                     }
                 },
                 error: (error: any) => {
                     this.messageService.add({
                         severity: 'error',
                         summary: 'Error',
-                        detail: 'Có lỗi xảy ra',
+                        detail: 'Có lỗi xảy ra' + error,
                     });
                     return throwError(() => error);
                 },
@@ -354,8 +357,11 @@ export class CapNhatComponent {
             this.vanBanDi.chkVanBanLienThong = this.chkLienThong ? 1 : 0;
             this.vanBanDi.chkVanBanHeThong = this.chkHeThong ? 1 : 0;
             this.vanBanDi.chkVanBanNoiBo = this.chkNoiBo ? 1 : 0;
-            this.vanBanDi.fileUpLoad = JSON.stringify(this.file_fomat);
-            this.service.themMoiVanBanDi(this.vanBanDi).subscribe(
+            this.vanBanDi.fileUpLoad = JSON.stringify(this.selectedFiles);
+            this.vanBanDi.SoVanBanIdCu = this.oldSoVanBanId?.toString();
+            this.vanBanDi.SoDiCu = this.oldSoDi?.toString();
+            
+            this.service.capNhatVanBanDi(this.vanBanDi).subscribe(
                 (data) => {
                     if (data.isError) {
                         this.messageService.add({
@@ -376,7 +382,7 @@ export class CapNhatComponent {
                     this.messageService.add({
                         severity: 'error',
                         summary: 'Error',
-                        detail: 'Có lỗi xảy ra',
+                        detail: 'Có lỗi xảy ra' ,
                     });
                     return throwError(() => error);
                 }
@@ -385,7 +391,7 @@ export class CapNhatComponent {
     }
 
     public NhapLai() {
-        this.formThongTinVanBan.reset();
+        this.BindDialogData();
         this.submitted = false;
     }
 

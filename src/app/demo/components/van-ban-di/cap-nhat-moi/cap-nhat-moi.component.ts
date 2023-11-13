@@ -26,6 +26,7 @@ export class CapNhatMoiComponent implements OnInit {
   public id: string = "1";
   hienThiPhanPhoi: boolean = false;
   hienThiCapNhat: boolean = false;
+  hienThiGuiVanBan: boolean = false;
   loading: boolean = false;
   lstLoaiVanBan: any = [];
   lstSoVanBan: any = [];
@@ -103,6 +104,8 @@ export class CapNhatMoiComponent implements OnInit {
   public Thoat(itemHt: any, loai: string): void {
     if (loai === 'C')
       this.hienThiCapNhat = false;
+      if (loai === 'G')
+      this.hienThiGuiVanBan = false;
       if (loai === 'P')
       this.hienThiPhanPhoi = false;
     this.LoadDanhSach();
@@ -110,6 +113,11 @@ export class CapNhatMoiComponent implements OnInit {
 
   public PhanPhoi(id : string){
     this.hienThiPhanPhoi = true;
+    this.id = id;
+  }
+
+  public GuiVanBan(id : string){
+    this.hienThiGuiVanBan = true;
     this.id = id;
   }
 

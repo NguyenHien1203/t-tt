@@ -3,7 +3,7 @@ export interface LoaiVanBan {
     maLoaiVB?: string,
     tenLoaiVB?: string,
     thuTu?: number,
-    hienThi?: true,
+    hienThi?: boolean,
     phanLoai?: number,
     ghiChu?: string,
     donViId?: number,

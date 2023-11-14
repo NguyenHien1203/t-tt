@@ -1,0 +1,126 @@
+@import "~primeicons/primeicons.css"; // Import PrimeIcons
+
+.selectUser select {
+    width: 100%;
+    overflow-y: auto;
+}
+
+select,
+optgroup,
+textarea {
+    margin: 0;
+    margin-top: 0px;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.btn,
+.sp-container button {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.41rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 3px;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.selectUser {
+    margin-top: 30px;
+}
+
+.row {
+    display: flex;
+}
+
+.selectUser select option {
+    padding: 5px;
+}
+
+li.custom-li::before {
+    content: "\e956"; /* Unicode của icon pi pi-download trong PrimeIcons */
+    font-family: "PrimeIcons";
+    margin-right: 5px; /* Để tạo khoảng cách giữa icon và nội dung văn bản */
+}
+
+li {
+    font-size: 15px;
+    list-style-type: none;
+
+    &.custom-li {
+        a:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.scrollable-list {
+    max-height: 300px; /* Thiết lập chiều cao tối đa */
+    overflow-y: auto; /* Tạo thanh cuộn theo chiều dọc khi cần thiết */
+}
+
+.listDonVi {
+    padding-right: 35px;
+    background: #eee;
+    border-radius: 0 3px 3px 0;
+    position: relative;
+}
+
+#listDonVi {
+    height: 250px;
+    width: 97%;
+    margin-top: 30px;
+    background-color: #fff !important;
+    border: 1px solid #ccc;
+}
+
+.scroll-pane {
+    overflow-y: scroll;
+}
+
+.p-buttonpp{
+      background: #4F46E5;
+      color: #ffffff;
+      border-color: #4F46E5;
+}
+
+#btnAdd{
+      position: absolute;
+  font-size: 15px;
+  color: #fff;
+  line-height: 30px;
+  padding: 3px 10px;
+  top: 25%;
+  right: 3px;
+}
+
+#btnRemove{
+      position: absolute;
+  font-size: 15px;
+  color: #fff;
+  line-height: 30px;
+  padding: 3px 10px;
+  top: 45%;
+  right: 3px;
+}
+
+span {
+    cursor: pointer;
+  }
+
+  .pi-minus::before {
+    content: '\e930';
+    font-family: 'PrimeIcons';
+  }
+  
+  .pi-plus::before {
+    content: '\e932';
+    font-family: 'PrimeIcons';
+  }

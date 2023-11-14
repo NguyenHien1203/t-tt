@@ -162,7 +162,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản trị văn bản đi',
                                 icon: 'pi pi-fw pi-box',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-di/quan-tri-van-ban-di'],
                                 code: '002002'
                             },
                             {

@@ -52,6 +52,23 @@ export class PhanPhoiComponent {
     this.GetDataPhongBan();
     this.GetDataNhomNguoiDung();
 
+    this.capnhatmoiSevice.GetCaNhanPhanPhoi(this.id).subscribe(data => {
+      if (data.isError) {
+        console.log("Dữ liệu không hợp lệ")
+      } else {
+        this.lstUserNhan = data.objData;
+      }
+    })
+
+
+    this.capnhatmoiSevice.GetPhongBanPhanPhoi(this.id).subscribe(data => {
+      if (data.isError) {
+        console.log("Dữ liệu không hợp lệ")
+      } else {
+        console.log(data.objData);
+        this.sltPhongBan = data.objData;
+      }
+    })
   }
 
   /**
@@ -196,13 +213,9 @@ export class PhanPhoiComponent {
       });
   }
 
+  //Phân phối văn bản
   public PhanPhoi(): void {
     this.submitted = true;
-
-    console.log('lstUserNhan', this.lstUserNhan);
-
-    console.log('sltPhongBan', this.sltPhongBan);
-
     let itemData: any = {
       vanBanId: this.id.toString(),
       lstUser: JSON.stringify(this.lstUserNhan),
@@ -210,16 +223,20 @@ export class PhanPhoiComponent {
       donViLamViec: this.auth.GetDonViLamViec()
     }
 
-    this.capnhatmoiSevice.PhanPhoiVanBan(itemData).subscribe(data => {
-      if (data.isError) {
-        console.log("Dữ liệu không hợp lệ")
-      } else {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
-        this.Thoat();
-      }
-    }, (error) => {
-      console.log('Error', error);
-    })
+    console.log(this.sltPhongBan)
+
+    // this.capnhatmoiSevice.PhanPhoiVanBan(itemData).subscribe(data => {
+    //   if (data.isError) {
+    //     console.log("Dữ liệu không hợp lệ")
+    //   } else {
+    //     this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+    //     this.Thoat();
+    //   }
+    // }, (error) => {
+    //   console.log('Error', error);
+    // })
   }
+
+
 
 }

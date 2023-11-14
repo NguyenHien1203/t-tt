@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
@@ -13,6 +13,9 @@ import { LoaiVanBanDiService } from 'src/app/demo/service/danh-muc/loai-van-ban-
   providers: [MessageService]
 })
 export class LoaiVanBanDiComponent implements OnInit {
+
+  @ViewChild('valueThoiHanXL') valueThoiHanXL:ElementRef;
+  @ViewChild('valueYKienXL') valueYKienXL:ElementRef;
 
   breadcrumbItems: MenuItem[] = [];
   cols: any[] = [];
@@ -58,6 +61,7 @@ export class LoaiVanBanDiComponent implements OnInit {
     if (this.idSoVB > 0) {
       this.submitted = true;
       this.checkId = this.idSoVB;
+
       this.loaiVBDiService.getLoaiVBDonVi(this.idSoVB).subscribe(data => {
         if (data.isError) {
           this.msgs = [];
@@ -72,7 +76,7 @@ export class LoaiVanBanDiComponent implements OnInit {
   }
 
   UpdateLoaiVBDi() {
-    if (this.idSoVB == this.checkId && this.idSoVB > 0) {
+    if (this.idSoVB == this.checkId && this.idSoVB > 0 && this.loaiVBDi.length > 0) {
       this.submitted = true;
       if (this.submitted == true) {
         this.loaiVBDiService.updateDataVBDen(this.loaiVBDi).subscribe(data => {
@@ -88,4 +92,9 @@ export class LoaiVanBanDiComponent implements OnInit {
       this.submitted = false;
     }
   }
+
+  // Clear() {
+  //   this.valueThoiHanXL.nativeElement.value= "";
+  //   this.valueYKienXL.nativeElement.value= "";
+  // }
 }

@@ -67,8 +67,6 @@ export class ChucDanhComponent implements OnInit {
     this.breadcrumbItems.push({ label: 'Quản trị chức danh' });
 
     this.TaiDuLieuCacChucDanh();
-    console.log(this.authService.GetmUserInfo());
-    console.log(this.authService.GetDonViLamViec());
   }
 
   TaiDuLieuCacChucDanh() {
@@ -86,7 +84,7 @@ export class ChucDanhComponent implements OnInit {
   }
 
   TimKiemChucDanh() {
-    this.dauVaoTimKiem.keyWord = this.dauVaoTimKiem.keyWord ?? "";
+    this.dauVaoTimKiem.keyWord = this.timKiem.keyWord ?? "";
     this.TaiDuLieuCacChucDanh();
   }
 

@@ -15,17 +15,13 @@ import { Search } from 'src/app/models/danh-muc/search.model';
 export class LinhVucComponent implements OnInit {
 
   breadcrumbItems: MenuItem[] = [];
-
   cols: any[] = [];
-
   rowsPerPageOptions = [5, 10, 20];
 
-  listField: LinhVuc = {};
+  linhVuc: LinhVuc = {};
+  cacLinhVuc: LinhVuc[] = [];
 
-  listFields: LinhVuc[] = [];
-
-  search: Search = {};
-
+  timKiem: Search = {};
   dataSearch = {
     "keyWord": "",
     "nam": 0,
@@ -33,41 +29,15 @@ export class LinhVucComponent implements OnInit {
     "denNgay": new Date()
   };
 
-  dataField = {
-    "id": 0,
-    "vietTat": "",
-    "tenLinhVuc": "",
-    "thuTu": 0,
-    "hienThi": true,
-    "ghiChu": "",
-    "donViId": 0,
-    "phongBanId": 0,
-    "parentId": 0,
-    "soHshienTai": 0,
-    "soHstruoc": 0,
-    "created": new Date(),
-    "createdBy": 0,
-    "lastModified": new Date(),
-    "lastModifiedBy": 0,
-    "donViIdPhongban": 0
-  }
-
   submitted: boolean = false;
-
   deleteProductDialog: boolean = false;
-
   idField: string = '1';
-
   idDelete: Number;
-
   header: string;
 
   valCheck: string[] = [];
-
   msgs: Message[] = [];
-
   showCreated: boolean = false;
-
   showUpdated: boolean = false;
 
   constructor(private messageService: MessageService, private linhVucService: LinhVucService) { }
@@ -77,31 +47,26 @@ export class LinhVucComponent implements OnInit {
     this.breadcrumbItems.push({ label: 'Danh mục' });
     this.breadcrumbItems.push({ label: 'Quản trị lĩnh vực' });
 
-    this.cols = [
-      { field: 'tenChucDanh', header: 'tenChucDanh' },
-      { field: 'thuTu', header: 'thuTu' },
-    ];
-
-    this.LoadListFields();
+    this.GetDanhSachLinhVuc();
   }
 
-  LoadListFields() {
-    this.linhVucService.getListFields(this.dataSearch)
+  GetDanhSachLinhVuc() {
+    this.linhVucService.getDanhSachLinhVuc(this.dataSearch)
       .subscribe(data => {
         if (data.isError) {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
         } else {
-          this.listFields = data;
+          this.cacLinhVuc = data;
         };
       }, (error) => {
         console.log('Error', error);
       })
   }
 
-  searchField() {
-    this.dataSearch.keyWord = this.search.keyWord ?? "";
-    this.LoadListFields();
+  TimKiemLinhVuc() {
+    this.dataSearch.keyWord = this.timKiem.keyWord ?? "";
+    this.GetDanhSachLinhVuc();
   }
 
   openNew() {
@@ -118,7 +83,7 @@ export class LinhVucComponent implements OnInit {
       this.showCreated = false;
     else
       this.showUpdated = false;
-    this.LoadListFields();
+    this.GetDanhSachLinhVuc();
   }
 
   deleteField(id: number) {
@@ -128,14 +93,14 @@ export class LinhVucComponent implements OnInit {
 
   confirmDelete() {
     this.deleteProductDialog = false;
-    this.linhVucService.deleteField(this.idDelete).subscribe(data => {
-      this.LoadListFields();
+    this.linhVucService.xoa(this.idDelete).subscribe(data => {
+      this.GetDanhSachLinhVuc();
       if (data.isError) {
         this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
       } else {
         this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
       }
     });
-    this.listField = {};
+    this.linhVuc = {};
   }
 }

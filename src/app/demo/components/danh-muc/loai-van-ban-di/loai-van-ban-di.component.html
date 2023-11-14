@@ -34,8 +34,8 @@
                                 <th style="text-align: center;">STT</th>
                                 <th>Tên loại văn bản</th>
                                 <th style="text-align: center;">Mã loại văn bản</th>
-                                <th style="text-align: center;">
-                                    <div>Hiển thị văn bản đến</div>
+                                <th style="text-align: center; padding-left: 0; padding-right: 0;">
+                                    <div style="border-bottom: 1px solid rgb(197, 197, 197); padding-bottom: 10px; margin-bottom: 14px;">Hiển thị văn bản đến</div>
                                     <p-checkbox [binary]="true" inputId="checkbox"></p-checkbox>
                                 </th>
                                 <th style="text-align: center;">Thời gian xử lý</th>
@@ -63,12 +63,12 @@
                                 </td>
                                 <td style="width:14%; min-width:10rem; text-align: center;">
                                     <span class="p-column-title">Thời gian</span>
-                                    <input type="text" pInputText #valueInput id="thoiHanXL"
+                                    <input type="text" pInputText #valueThoiHanXL id="thoiHanXL"
                                         [(ngModel)]="loaiVbDi.thoiHanXL" />
                                 </td>
                                 <td style="width:14%; min-width:10rem; text-align: center;">
                                     <span class="p-column-title">Ý kiến</span>
-                                    <input type="text" pInputText #valueInput id="yKienXL"
+                                    <input type="text" pInputText #valueYKienXL id="yKienXL"
                                         [(ngModel)]="loaiVbDi.yKienXL" />
                                 </td>
                             </tr>
@@ -79,10 +79,10 @@
                             <button pButton pRipple label="Cập Nhật" icon="pi pi-check" class="p-button-info"
                                (click)="UpdateLoaiVBDi()" ></button>
                         </div>
-                        <div class="ml-2">
+                        <!-- <div class="ml-2">
                             <button pButton pRipple label="Nhập Lại" icon="pi pi-replay"
                                 class="p-button-warning"></button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

@@ -41,6 +41,6 @@ export class LoaiHoSoService {
   }
 
   public xoaLoaiHoSo(id: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'DeleteLoaiHoSo', id, this.httpOptions)
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `DeleteLoaiHoSo/${id}`, id, this.httpOptions)
   }
 }

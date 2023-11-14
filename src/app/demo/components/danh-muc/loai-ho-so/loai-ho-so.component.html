@@ -27,7 +27,7 @@
 
         <div class="card pb-0 pl-4 pr-4">
             <div class="wrapper">
-                <h2>DANH SÁCH LĨNH VỰC</h2>
+                <h2>DANH SÁCH LOẠI HỒ SƠ CÔNG VIỆC</h2>
                 <div class="icon-cls">
                     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success"
                         (click)="openNew()">
@@ -40,20 +40,11 @@
                         responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="text-align: center;" pSortableColumn="STT">STT <p-sortIcon
-                                        field="STT"></p-sortIcon>
-                                </th>
-                                <th pSortableColumn="maHs">Mã<p-sortIcon field="maHs"></p-sortIcon>
-                                </th>
-                                <th pSortableColumn="tenLoaiHoSo">Tên loại hồ sơ<p-sortIcon
-                                        field="tenLoaiHoSo"></p-sortIcon>
-                                </th>
-                                <th style="text-align: center;" pSortableColumn="soHshienTai">Số hiện tại<p-sortIcon
-                                        field="soHshienTai"></p-sortIcon>
-                                </th>
-                                <th style="text-align: center;" pSortableColumn="soHstruoc">Số năm trước<p-sortIcon
-                                        field="soHstruoc"></p-sortIcon>
-                                </th>
+                                <th style="text-align: center;">STT</th>
+                                <th >Mã</th>
+                                <th >Tên loại hồ sơ</th>
+                                <th style="text-align: center;" >Số hiện tại</th>
+                                <th style="text-align: center;" >Số năm trước</th>
                                 <th style="text-align: center;">Chức năng
                             </tr>
                         </ng-template>

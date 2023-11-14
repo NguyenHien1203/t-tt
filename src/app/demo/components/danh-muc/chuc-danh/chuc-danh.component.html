@@ -44,18 +44,15 @@
                             <tr>
                                 <th style="text-align: center;">STT
                                 </th>
-                                <th pSortableColumn="tenChucDanh">Tên chức danh <p-sortIcon
-                                        field="tenChucDanh"></p-sortIcon>
-                                </th>
+                                <th>Tên chức danh</th>
                                 <th>Ghi chú</th>
-                                <th style="text-align: center;" pSortableColumn="thuTu">Thứ tự <p-sortIcon
-                                        field="thuTu"></p-sortIcon></th>
+                                <th style="text-align: center;">Thứ tự </th>
                                 <th style="text-align: center;">Chức năng
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-chucDanh let-rowIndex="rowIndex">
                             <tr>
-                                <td style="width:8%; min-width:10rem; text-align: center;"><span
+                                <td style="width:8%; min-width:8rem; text-align: center;"><span
                                         class="p-column-title">STT</span>
                                     {{rowIndex + 1}}
                                 </td>

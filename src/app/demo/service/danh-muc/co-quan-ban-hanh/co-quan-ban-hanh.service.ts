@@ -23,13 +23,6 @@ export class CoQuanBanHanhService {
       .then(res => res.objData.listCoQuanBanHanh as CoQuanBanHanh[]);
   }
 
-  getDmLienKetById(id: string) {
-    return this.http.get<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/GetDanhMucLienKetById/' + id)
-      .pipe(
-        map((response: any) => response.objData)
-      );
-  }
-
    /**
    * Lấy dữ liệu đơn vị
    */

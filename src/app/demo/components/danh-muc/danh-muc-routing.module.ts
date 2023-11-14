@@ -20,6 +20,7 @@ import { RouterModule } from '@angular/router';
     { path: 'so-van-ban', data: { breadcrumb: 'Số văn bản' }, loadChildren: () => import('./so-van-ban/so-van-ban.module').then(m => m.SoVanBanModule) },
     { path: 'co-quan-ban-hanh', data: { breadcrumb: 'Cơ quan ban hành' }, loadChildren: () => import('./co-quan-ban-hanh/co-quan-ban-hanh.module').then(m => m.CoQuanBanHanhModule) },
     { path: 'tinh-chat-nhiem-vu', data: { breadcrumb: 'Tính chất nhiệm vụ' }, loadChildren: () => import('./tinh-chat-nhiem-vu/tinh-chat-nhiem-vu.module').then(m => m.TinhChatNhiemVuModule) },
+    { path: 'nhom-don-vi', data: { breadcrumb: 'Nhóm đơn vị' }, loadChildren: () => import('./nhom-don-vi/nhom-don-vi.module').then(m => m.NhomDonViModule) },
     { path: 'loai-van-ban-den', data: { breadcrumb: 'Loại văn bản đến tại cơ quan' }, loadChildren: () => import('./loai-van-ban-den/loai-van-ban-den.module').then(m => m.LoaiVanBanDenModule) },
     { path: 'loai-van-ban-di', data: { breadcrumb: 'Loại văn bản đi tại cơ quan' }, loadChildren: () => import('./loai-van-ban-di/loai-van-ban-di.module').then(m => m.LoaiVanBanDiModule) },
   ])],

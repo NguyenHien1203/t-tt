@@ -1,0 +1,29 @@
+@import "~primeicons/primeicons.css"; // Import PrimeIcons
+ul {
+    list-style: none;
+  }
+  
+  li {
+    font-family: 'PrimeIcons';
+  }
+  
+  span {
+    cursor: pointer;
+  }
+
+  
+  
+
+  span.mg-l input {
+    margin-left: 18px;
+  }
+  
+  .pi-minus::before {
+    content: '\e930';
+    font-family: 'PrimeIcons';
+  }
+  
+  .pi-plus::before {
+    content: '\e932';
+    font-family: 'PrimeIcons';
+  }

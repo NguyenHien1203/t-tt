@@ -68,8 +68,12 @@ export class ThemMoiComponent {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Tải lên thất bại' });
           else {
             this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Tải lên thành công' });
-            this.formThemMoi.value.fileName = data.objData.fileName;
-            this.formThemMoi.value.filePath = data.objData.filePath;
+            this.formThemMoi.patchValue(
+              {
+                fileName : data.objData.fileName,
+                filePath : data.objData.filePath
+              }
+            )
           }
         },
         error: (error: any) => {
@@ -96,7 +100,7 @@ export class ThemMoiComponent {
       this.quanLyThongBao.userId = this.authService.GetmUserInfo()?.userId;
       this.quanLyThongBao.hienThi = this.checkHienThi ? 1 : 0;
       this.quanLyThongBao.noiDung = this.myEditor.editorInstance.getData();
-
+console.log(this.quanLyThongBao)
       this.service.themMoiQuanLyThongBao(this.quanLyThongBao).subscribe(
         data => {
           console.log('data', data);

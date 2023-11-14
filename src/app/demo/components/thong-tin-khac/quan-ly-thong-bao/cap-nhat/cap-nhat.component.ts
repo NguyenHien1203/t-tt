@@ -91,8 +91,12 @@ export class CapNhatComponent {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Tải lên thất bại' });
           else {
             this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Tải lên thành công' });
-            this.formCapNhat.value.fileName = data.objData.fileName;
-            this.formCapNhat.value.filePath = data.objData.filePath;
+            this.formCapNhat.patchValue(
+              {
+                fileName : data.objData.fileName,
+                filePath : data.objData.filePath
+              }
+            )
           }
         },
         error: (error: any) => {

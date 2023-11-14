@@ -27,14 +27,19 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
+import { GuiVanBanComponent } from './gui-van-ban/gui-van-ban.component';
+import { TreeNodeComponent } from './tree-node/tree-node.component';
 
 @NgModule({
   declarations: [
     CapNhatMoiComponent,
     ThemMoiComponent,
     CapNhatComponent,
-    PhanPhoiComponent
+    PhanPhoiComponent,
+    GuiVanBanComponent,
+    TreeNodeComponent
   ],
+  exports: [TreeNodeComponent],
   imports: [
     TableModule,
     FileUploadModule,

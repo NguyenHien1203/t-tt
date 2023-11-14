@@ -120,9 +120,9 @@ export class GuiThongBaoComponent {
       //trả ra toast lỗi nếu chưa chọn cá nhân
     }
     const oldList = this.lstUserNhan; // gán mặc định list user nhận hiện tại để lọc k đổi giá trị
-    const onlListSelected = lstselectedOpts; // gán mặc định list user nhận đã chọn
+    const oldListSelected = lstselectedOpts; // gán mặc định list user nhận đã chọn
     lstselectedOpts = oldList.filter(user => lstselectedOpts.includes(user.value)).map(user => user);//lọc ra nhưng user đã chọn dạng object[]
-    this.lstUserNhan = this.lstUserNhan.filter(user => !onlListSelected.includes(user.value)).map(user => user);// xóa đi những option đã chọn bên lst nhận
+    this.lstUserNhan = this.lstUserNhan.filter(user => !oldListSelected.includes(user.value)).map(user => user);// xóa đi những option đã chọn bên lst nhận
     this.lstUserChange = this.lstUserChange ?? []; //check list userbind từ pb/ngd null or underfine thì khỏi tạo
     this.lstUserChange = this.lstUserChange.concat(lstselectedOpts); // chuyển những options đã chọn vào list userbind
     const lstUserChangeConst = this.lstUserChange;
@@ -143,7 +143,7 @@ export class GuiThongBaoComponent {
       donViId: this.authService.GetDonViLamViec(),
       listPhongBanDaChon: this.lstUserNhan
     }
-
+console.log(itemData)
     this.service.guiThongBao(itemData).subscribe(
       data => {
         let resData = data as ResponeMessage;

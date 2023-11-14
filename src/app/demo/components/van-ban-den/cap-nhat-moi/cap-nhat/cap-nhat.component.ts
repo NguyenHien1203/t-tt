@@ -1,33 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { MessageService, SelectItem } from 'primeng/api';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MessageService, SelectItem } from 'primeng/api';
+import { AuthService } from 'src/app/common/auth.services';
+import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { CapNhatMoiService } from 'src/app/demo/service/van-ban-den/cap-nhat-moi/cap-nhat-moi.service';
 import { saveAs } from 'file-saver';
 import { throwError } from 'rxjs';
-import { UploadFileService } from 'src/app/demo/service/upload-file.service';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/common/auth.services';
 
 @Component({
-  selector: 'app-them-moi',
-  templateUrl: './them-moi.component.html',
-  styleUrls: ['./them-moi.component.scss'],
-  providers: [MessageService]
+  selector: 'app-cap-nhat',
+  templateUrl: './cap-nhat.component.html',
+  styleUrls: ['./cap-nhat.component.scss']
 })
-export class ThemMoiComponent implements OnInit {
+export class CapNhatComponent {
+  @Input() hienThi: boolean = false;
+  @Output() tatPopup = new EventEmitter<boolean>();
+  @Input() id: string = '1';
+
+
   items: any[] = [];
   home: any;
   loading: boolean = true;
   selectedFiles: File[] = [];
-  ngOnInit() {
-    this.loading = false;
-    this.items = [{ label: 'Văn bản đến' }, { label: 'Thêm mới văn bản' }];
-    this.home = { icon: 'pi pi-home', routerLink: '/' };
 
-    //Load thông tin văn bản
-    this.GetDataCoQuanBanHanh();
-    this.GetDataSoVanBan();
-  }
+  CoQuanBanHanh = [];
+  SoVanBan = [];
+  LoaiVanBan = [];
+  MucDoVanBan: SelectItem[] = [{ label: 'VB thường', value: 1 }, { label: 'VB khẩn, hỏa tốc', value: 2 }, { label: 'VB mật', value: 3 }, { label: 'VB tuyệt mật', value: 4 }, { label: 'VB tối mật', value: 5 }];
+
+  //Khai báo biến tab Thông tin văn bản
+  submitted_VB: boolean = false;
+  dataFile: any;
+  file_fomat: any = [];
+  formTT_VB_fomat: any = [];
+  file: File | null = null; // Variable to store file
+  checkLuuTru: boolean = false;
+  checkXemTatCa: boolean = false;
+
+  submitted: boolean = false;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,19 +50,6 @@ export class ThemMoiComponent implements OnInit {
     private authenService: AuthService
   ) {
   }
-
-  //Khai báo biến tab Thông tin văn bản
-  submitted_VB: boolean = false;
-  dataFile: any;
-  file_fomat: any = [];
-  formTT_VB_fomat: any = [];
-  file: File | null = null; // Variable to store file
-  checkLuuTru: boolean = false;
-  checkXemTatCa: boolean = false;
-  CoQuanBanHanh = [];
-  SoVanBan = [];
-  LoaiVanBan = [];
-  MucDoVanBan: SelectItem[] = [{ label: 'VB thường', value: 1 }, { label: 'VB khẩn, hỏa tốc', value: 2 }, { label: 'VB mật', value: 3 }, { label: 'VB tuyệt mật', value: 4 }, { label: 'VB tối mật', value: 5 }];
 
   public formThongTinVanBan = this.formBuilder.group({
     coQuanBanHanhId: ["", [Validators.required]],
@@ -124,7 +123,6 @@ export class ThemMoiComponent implements OnInit {
         this.LoaiVanBan = data.objData;
       }
     })
-
   }
 
   public onFileSelected(event: any) {
@@ -155,12 +153,34 @@ export class ThemMoiComponent implements OnInit {
     }
   }
 
-  public downloadFile(file: File) {
-    console.log(file);
-    this.dataFile = file;
-    const blob = new Blob([this.dataFile], { type: 'application/octet-stream' });
-    // Sử dụng saveAs để tải tệp xuống với tên cụ thể.
-    saveAs(blob, file.name);
+  public DownloadFile(filepath: string, filename: string) {
+    let urlDownLoad = '/VanBanDen/CapNhatMoiVanBanDen/DownloadFile';
+    this.capnhatmoiService
+      .downloadFile(filepath, filename, urlDownLoad)
+      .subscribe(
+        (data) => {
+          const blob = new Blob([data], {
+            type: 'application/octet-stream',
+          });
+          saveAs(blob, filename);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success', detail: 'Tải lên thành công'
+          });
+        },
+        (error: any) => {
+          if (error.status === 404) {
+            // Xử lý lỗi 404 (NotFound)
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Không tìm thấy đường dẫn file' });
+            // Ví dụ: Hiển thị thông báo lỗi cho người dùng
+          } else {
+            // Xử lý các lỗi khác
+            console.error('Đã xảy ra lỗi', error);
+            // Thực hiện các hành động tương ứng
+          }
+          return throwError(() => error);
+        }
+      );
   }
 
   public XoaFile(fileName: string): void {
@@ -179,7 +199,63 @@ export class ThemMoiComponent implements OnInit {
     this.checkXemTatCa = !this.checkXemTatCa;
   }
 
-  public ThemMoi() {
+
+  public Thoat(): void {
+    this.submitted = false;
+    this.hienThi = false;
+    
+    this.tatPopup.emit(this.hienThi);
+  }
+
+  ngOnInit() {
+    this.loading = false;
+    this.GetDataCoQuanBanHanh()
+    this.GetDataSoVanBan();
+
+  }
+
+  /**
+   * Load khi popub được mở
+   */
+  public async BindDialogData() {
+    try {
+      const data = await this.capnhatmoiService.GetVanBanById(this.id);
+      let itemData = data.objVanBan;
+      this.selectedFiles = data.lstFile;
+      this.file_fomat = data.lstFile;
+
+      await this.capnhatmoiService.GetDataLoaiVanBanByIdSoVanBan(itemData.soVbid).subscribe(data => {
+        this.LoaiVanBan = data.objData;
+      });
+      
+      this.formThongTinVanBan.patchValue({
+        coQuanBanHanhId: itemData.cqbhid,
+        soVanBanId: itemData.soVbid,
+        soKiHieu: itemData.soKiHieu,
+        soHienTai: itemData.soDiDenCustom,
+        soDen: itemData.soDiDen,
+        ngayBanHanh: new Date(itemData.ngayBanHanh),
+        ngayNhanVanBan: new Date(itemData.ngayBanHanh),
+        loaiVanBanId: itemData.loaiVanBanId,
+        lanhDaoKy: itemData.nguoiKy,
+        trichYeu: itemData.trichYeu,
+        yKienThamMuu: itemData.ykienXl,
+        mucDoVanBanId: itemData.mucDoKhan,
+      })
+
+    } catch (error) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Có lỗi xảy ra',
+      });
+    }
+  }
+
+  /**
+   * CapNhat
+   */
+  public CapNhat() {
     this.submitted_VB = true;
     if (this.formThongTinVanBan.valid) {
       this.formThongTinVanBan.value.IdDonViLamViec = this.authenService.GetDonViLamViec();
@@ -188,30 +264,21 @@ export class ThemMoiComponent implements OnInit {
 
       this.formThongTinVanBan.value.fileUpLoad = JSON.stringify(this.file_fomat);
       this.formTT_VB_fomat = this.formThongTinVanBan.value;
+      this.formTT_VB_fomat.id = this.id;
       this.formTT_VB_fomat.chkLuuTru = this.checkLuuTru;
       this.formTT_VB_fomat.chkXemTatCa = this.checkXemTatCa;
 
-      this.capnhatmoiService.ThemMoiVanBan(this.formTT_VB_fomat).subscribe(data => {
+      this.capnhatmoiService.CapNhatVanBan(this.formTT_VB_fomat).subscribe(data => {
         if (data.isError) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
         } else {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
-          setTimeout(() => {
-            this.router.navigate(['/van-ban-den/cap-nhat-moi']);
-          }, 1000);
+          this.Thoat();
         }
       }, (error) => {
         console.log('Error', error);
       })
     }
-  }
-
-  public NhapLai() {
-    this.formThongTinVanBan.reset();
-  }
-
-  public ReturnTrangChu() {
-    this.router.navigate(['/van-ban-den/cap-nhat-moi']);
   }
 
 }

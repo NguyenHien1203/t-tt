@@ -16,6 +16,8 @@ import { TimKiemDanhSach } from 'src/app/models/van-ban-den/cap-nhat-moi';
 export class CapNhatMoiComponent implements OnInit {
   //Khai báo biến cho phần phân phối
   hienThiPhanPhoi: boolean = false;
+  hienThiCapNhat: boolean = false;
+
   id: any = "";
 
 
@@ -148,6 +150,11 @@ export class CapNhatMoiComponent implements OnInit {
     this.router.navigate(['/van-ban-den/them-moi']);
   }
 
+  public updateVanBan(idVanBan: string) {
+    this.hienThiCapNhat = true;
+    this.id = idVanBan;
+  }
+
   /**
    * Xóa văn bản
    */
@@ -174,16 +181,10 @@ export class CapNhatMoiComponent implements OnInit {
     });
   }
 
-
-  //Hàm cho phần phân phối
-  /**
-   * Thoat
-   */
   public Thoat(itemHt: any, loai: string): void {
-    
-    if (loai === 'T')
-      this.hienThiPhanPhoi = false;
-    else
+    if (loai === 'C')
+      this.hienThiCapNhat = false;
+    if (loai === 'P')
       this.hienThiPhanPhoi = false;
     this.GetDanhSachCapNhatMoi();
   }

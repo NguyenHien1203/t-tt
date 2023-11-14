@@ -89,7 +89,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Tra cứu đơn giản',
                                 icon: 'pi pi-fw pi-search',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-di/tra-cuu-don-gian'],
                                 code: '001006'
                             },
                             {
@@ -168,7 +168,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Tra cứu đơn giản',
                                 icon: 'pi pi-fw pi-search',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-di/tra-cuu-don-gian'],
                                 code: '002003'
                             },
                             {
@@ -923,7 +923,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Tra cứu đơn giản',
                                 icon: 'pi pi-fw pi-search',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-di/tra-cuu-don-gian'],
                                 code: '001006'
                             },
                             {
@@ -1002,7 +1002,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Tra cứu đơn giản',
                                 icon: 'pi pi-fw pi-search',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-di/tra-cuu-don-gian'],
                                 code: '002003'
                             },
                             {

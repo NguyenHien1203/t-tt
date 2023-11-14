@@ -1,10 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CapNhatMoiRoutingModule } from './cap-nhat-moi-routing.module';
-import { CapNhatMoiComponent } from './cap-nhat-moi.component';
-import { ThemMoiComponent } from './them-moi/them-moi.component';
-import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
-import { PhanPhoiComponent } from './phan-phoi/phan-phoi.component';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -27,21 +22,13 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
-import { GuiVanBanComponent } from './gui-van-ban/gui-van-ban.component';
-import { TreeNodeComponent } from './tree-node/tree-node.component';
-import { ChonVanBanComponent } from './gui-van-ban/chon-van-ban/chon-van-ban.component';
+
+import { TraCuuDonGianRoutingModule } from './tra-cuu-don-gian-routing.module';
+import { TraCuuDonGianComponent } from './tra-cuu-don-gian.component';
+
 
 @NgModule({
-  declarations: [
-    CapNhatMoiComponent,
-    ThemMoiComponent,
-    CapNhatComponent,
-    PhanPhoiComponent,
-    GuiVanBanComponent,
-    TreeNodeComponent,
-    ChonVanBanComponent
-  ],
-  exports: [TreeNodeComponent],
+  declarations: [TraCuuDonGianComponent],
   imports: [
     TableModule,
     FileUploadModule,
@@ -66,7 +53,7 @@ import { ChonVanBanComponent } from './gui-van-ban/chon-van-ban/chon-van-ban.com
     CalendarModule,
     TabViewModule,
     CommonModule,
-    CapNhatMoiRoutingModule
+    TraCuuDonGianRoutingModule
   ]
 })
-export class CapNhatMoiModule { }
+export class TraCuuDonGianModule { }

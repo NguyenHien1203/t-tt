@@ -30,3 +30,9 @@ export interface SoVanBan{
 export interface LoaiVanBan{
 
 }
+
+export interface TimKiemDanhSachVanBan{
+    soKyHieu? : string,
+    trichYeu? : string ,
+    donViId? : string 
+}

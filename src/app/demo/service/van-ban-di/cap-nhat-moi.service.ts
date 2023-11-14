@@ -7,6 +7,7 @@ import {
     LoaiVanBan,
     SoVanBan,
     TimKiemDanhSach,
+    TimKiemDanhSachVanBan,
 } from 'src/app/models/van-ban-di/cap-nhat-moi';
 @Injectable({
     providedIn: 'root',
@@ -76,9 +77,9 @@ export class CapNhatMoiService {
         );
     }
 
-    xoaVanBanDi(id: string) {
+    xoaVanBanDi(idVanBan: string, idDonViLamViec : string) {
         return this.http.get<any>(
-            environment.baseUrlApi + '/VanBanDi/CapNhatMoi/DeleteVanBanDi/' + id
+            environment.baseUrlApi + '/VanBanDi/CapNhatMoi/XoaVanBanDi?idVanBan=' + idVanBan + "&idDonViLamViec=" + idDonViLamViec
         );
     }
 
@@ -240,7 +241,7 @@ export class CapNhatMoiService {
             .then((data) => data.objData);
     }
 
-    PhanPhoi(model: any) {
+    phanPhoi(model: any) {
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/PhanPhoi',
             model,
@@ -263,16 +264,55 @@ export class CapNhatMoiService {
     }
 
     getTreeDonVi(tenDonVi?: string, donViDaChon?: string) {
-      return this.http
-          .get<any>(
-              environment.baseUrlApi +
-                  '/VanBanDi/CapNhatMoi/GetTreeDonVi?tenDonVi=' +
-                  tenDonVi +
-                  '&donViDaChon=' +
-                  donViDaChon,
-              this.httpOption
-          )
-          .toPromise()
-          .then((data) => data.objData);
-  }
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/VanBanDi/CapNhatMoi/GetTreeDonVi?tenDonVi=' +
+                    tenDonVi +
+                    '&donViDaChon=' +
+                    donViDaChon,
+                this.httpOption
+            )
+            .toPromise()
+            .then((data) => data.objData);
+    }
+
+    changeNhomDonViTuDinhNghia(
+        idNhomNguoiDung?: string,
+        idDonViLamViec?: string
+    ) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/VanBanDi/CapNhatMoi/ChangeNhomDonViTuDinhNghia?idNhomNguoiDung=' +
+                    idNhomNguoiDung +
+                    '&idDonViLamViec=' +
+                    idDonViLamViec,
+                this.httpOption
+            )
+            .toPromise()
+            .then((data) => data.objData);
+    }
+
+    getDanhSachChonVanBan(modelTimKiem: TimKiemDanhSachVanBan) {
+        return this.http
+            .post<any>(
+                environment.baseUrlApi +
+                    '/VanBanDi/CapNhatMoi/GetDanhSachChonVanBan',
+                modelTimKiem,
+                this.httpOption
+            )
+            .toPromise()
+            .then((data) => data.objData);
+    }
+
+    guiVanBan(model: any) {
+        return this.http
+            .post<any>(
+                environment.baseUrlApi +
+                    '/VanBanDi/CapNhatMoi/GuiVanBan',
+                    model,
+                this.httpOption
+            )
+    }
 }

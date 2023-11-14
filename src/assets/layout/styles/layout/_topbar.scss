@@ -10,7 +10,23 @@
     transition: left $transitionDuration;
     display: flex;
     align-items: center;
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, .02), 0px 0px 2px rgba(0, 0, 0, .05), 0px 1px 4px rgba(0, 0, 0, .08);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.02), 0px 0px 2px rgba(0, 0, 0, 0.05),
+        0px 1px 4px rgba(0, 0, 0, 0.08);
+
+    .notification-dot {
+        position: relative;
+        top: -10px; 
+        left: 0px; 
+        width: 10px;
+        height: 10px;
+        background-color: red; 
+        border-radius: 50%;
+        display: none; 
+    }
+
+    .has-notification{
+        display: block; /* Hiển thị chấm đỏ khi có thông báo */
+    }
 
     .layout-topbar-logo {
         display: flex;
@@ -23,7 +39,7 @@
 
         img {
             height: 2.5rem;
-            margin-right: .5rem;
+            margin-right: 0.5rem;
         }
 
         &:focus {
@@ -119,7 +135,8 @@
             position: absolute;
             flex-direction: column;
             background-color: var(--surface-overlay);
-            box-shadow: 0px 3px 5px rgba(0, 0, 0, .02), 0px 0px 2px rgba(0, 0, 0, .05), 0px 1px 4px rgba(0, 0, 0, .08);
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.02),
+                0px 0px 2px rgba(0, 0, 0, 0.05), 0px 1px 4px rgba(0, 0, 0, 0.08);
             border-radius: 12px;
             padding: 1rem;
             right: 2rem;
@@ -130,7 +147,7 @@
             animation: scalein 0.15s linear;
 
             &.layout-topbar-menu-mobile-active {
-                display: block
+                display: block;
             }
 
             .layout-topbar-button {
@@ -144,7 +161,7 @@
 
                 i {
                     font-size: 1rem;
-                    margin-right: .5rem;
+                    margin-right: 0.5rem;
                 }
 
                 span {

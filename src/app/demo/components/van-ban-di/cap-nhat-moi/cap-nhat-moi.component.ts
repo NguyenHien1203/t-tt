@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { CapNhatMoiService } from 'src/app/demo/service/van-ban-di/cap-nhat-moi.service';
 import { TimKiemDanhSach } from 'src/app/models/van-ban-di/cap-nhat-moi';
@@ -9,13 +9,14 @@ import { TimKiemDanhSach } from 'src/app/models/van-ban-di/cap-nhat-moi';
   selector: 'app-cap-nhat-moi',
   templateUrl: './cap-nhat-moi.component.html',
   styleUrls: ['./cap-nhat-moi.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class CapNhatMoiComponent implements OnInit {
 
   constructor(private messageService: MessageService,
     private service: CapNhatMoiService,
     private authService: AuthService,
+    private confirmService : ConfirmationService,
     private router: Router,
     private cd: ChangeDetectorRef) {
   }
@@ -121,7 +122,29 @@ export class CapNhatMoiComponent implements OnInit {
     this.id = id;
   }
 
-  public CheckedHt() {
+  public Xoa(id: string) {
+    this.confirmService.confirm({
+      message: 'Bạn có chắc chắn xác nhận xóa văn bản?',
+      header: 'Xác nhận',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.service.xoaVanBanDi(id, this.idDonViLamViec).subscribe(data => {
+          if (data.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+          } else {
+            this.LoadDanhSach();
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+          }
+        }, (error) => {
+          console.log('Error', error);
+        })
+      },
+      reject: () => {
+      }
+    });
+  }
 
+  public CheckedHt() {
+this.timChinhXac = !this.timChinhXac;
   }
 }

@@ -143,7 +143,6 @@ export class GuiThongBaoComponent {
       donViId: this.authService.GetDonViLamViec(),
       listPhongBanDaChon: this.lstUserNhan
     }
-console.log(itemData)
     this.service.guiThongBao(itemData).subscribe(
       data => {
         let resData = data as ResponeMessage;

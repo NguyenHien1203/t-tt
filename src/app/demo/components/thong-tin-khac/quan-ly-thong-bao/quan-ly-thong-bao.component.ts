@@ -10,9 +10,11 @@ import { TimKiemDanhSach } from 'src/app/models/thong-tin-khac/quan-ly-thong-bao
   providers: [MessageService, ConfirmationService]
 })
 export class QuanLyThongBaoComponent implements OnInit {
+  
   constructor(private service: QuanLyThongBaoService
     , private messageService: MessageService
     , private confirmService: ConfirmationService) { }
+
   public hienThiThemMoi: boolean = false;
   public hienThiCapNhat: boolean = false;
   public hienThiGuiThongBao: boolean = false;

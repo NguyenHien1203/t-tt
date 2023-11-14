@@ -160,6 +160,7 @@
                         dataKey="id"
                         [rows]="10"
                         [loading]="loading"
+                        [rowsPerPageOptions]="[10,20,30]"
                         [rowHover]="true"
                         styleClass="p-datatable-gridlines"
                         [paginator]="true"
@@ -333,6 +334,7 @@
                                         <button
                                             pButton
                                             pRipple
+                                            (click)="Xoa(capNhatMoi.id)"
                                             icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"
                                         ></button>
@@ -373,3 +375,20 @@
     [id]="id"
     (tatPopup)="Thoat($event, 'G')"
 ></app-gui-van-ban>
+<p-confirmDialog #cd [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+      <h3>Xác nhận</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-info">
+        <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+        <span class="p-button-label">Đồng ý</span>
+        <span class="p-ink"></span>
+      </button>
+      <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-danger">
+        <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+        <span class="p-button-label">Hủy</span>
+        <span class="p-ink"></span>
+      </button>
+    </ng-template>
+  </p-confirmDialog> 

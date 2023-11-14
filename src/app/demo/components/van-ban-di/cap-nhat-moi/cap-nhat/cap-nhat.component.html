@@ -368,44 +368,46 @@
                 &nbsp;&nbsp;
             </div>
 
-            <div class="field grid div-center">
-                <button
-                    pbutton=""
-                    pripple=""
-                    type="submit"
-                    label="Info"
-                    class="p-element p-ripple p-button-primary p-button p-component"
-                    ng-reflect-label="Info"
-                    (click)="CapNhat()"
-                >
-                    <span class="p-button-label">Lưu lại</span
-                    ><span class="p-ink"></span></button
-                >&nbsp;
-                <button
-                    pbutton=""
-                    pripple=""
-                    type="submit"
-                    label="Info"
-                    class="p-element p-ripple p-button-warning p-button p-component"
-                    ng-reflect-label="Info"
-                    (click)="NhapLai()"
-                >
-                    <span class="p-button-label">Nhập lại</span
-                    ><span class="p-ink"></span></button
-                >&nbsp;
-                <button
-                    pbutton=""
-                    pripple=""
-                    label="Info"
-                    class="p-element p-ripple p-button-danger p-button p-component"
-                    ng-reflect-label="Info"
-                    (click)="Thoat()"
-                >
-                    <span class="p-button-label">Thoát</span
-                    ><span class="p-ink"></span></button
-                >
-            </div>
+            
         </form>
     </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="div-center">
+            <button
+                pbutton=""
+                pripple=""
+                type="submit"
+                label="Info"
+                class="p-element p-ripple p-button-primary p-button p-component"
+                ng-reflect-label="Info"
+                (click)="CapNhat()"
+            >
+                <span class="p-button-label">Lưu lại</span
+                ><span class="p-ink"></span></button
+            >&nbsp;
+            <button
+                pbutton=""
+                pripple=""
+                type="submit"
+                label="Info"
+                class="p-element p-ripple p-button-warning p-button p-component"
+                ng-reflect-label="Info"
+                (click)="NhapLai()"
+            >
+                <span class="p-button-label">Nhập lại</span
+                ><span class="p-ink"></span></button
+            >&nbsp;
+            <button
+                pbutton=""
+                pripple=""
+                label="Info"
+                class="p-element p-ripple p-button-danger p-button p-component"
+                ng-reflect-label="Info"
+                (click)="Thoat()"
+            >
+                <span class="p-button-label">Thoát</span
+                ><span class="p-ink"></span></button
+            >
+        </div>
+    </ng-template>
 </p-dialog>
-<p-toast></p-toast>

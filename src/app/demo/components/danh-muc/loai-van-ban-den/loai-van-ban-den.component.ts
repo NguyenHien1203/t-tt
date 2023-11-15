@@ -73,7 +73,7 @@ export class LoaiVanBanDenComponent implements OnInit {
   }
 
   UpdateLoaiVBDen() {
-    if (this.idSoVB == this.checkId && this.idSoVB > 0) {
+    if (this.idSoVB == this.checkId && this.idSoVB > 0 && this.loaiVBDen.length > 0) {
       this.submitted = true;
       if (this.submitted == true) {
         this.loaiVBDenService.updateDataVBDen(this.loaiVBDen).subscribe(data => {

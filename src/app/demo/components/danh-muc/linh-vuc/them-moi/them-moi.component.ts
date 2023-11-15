@@ -115,7 +115,7 @@ export class ThemMoiComponent implements OnInit {
     this.formCreate.value.donViIdPhongban = this.valueFormCreate.donViIdPhongban.id ?? 0;
 
     if (this.formCreate.valid) {
-      this.linhVucService.createField(this.formCreate.value).subscribe(data => {
+      this.linhVucService.themMoi(this.formCreate.value).subscribe(data => {
         if (data.isError) {
           this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
         } else {

@@ -25,10 +25,11 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { PhanPhoiComponent } from './phan-phoi/phan-phoi.component';
+import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 
 
 @NgModule({
-  declarations: [CapNhatMoiComponent, PhanPhoiComponent],
+  declarations: [CapNhatMoiComponent, PhanPhoiComponent,CapNhatComponent],
   imports: [
     CommonModule,
     CapNhatMoiRoutingModule,

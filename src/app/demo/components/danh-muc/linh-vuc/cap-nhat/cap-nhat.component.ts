@@ -109,7 +109,7 @@ export class CapNhatComponent implements OnInit {
   }
 
   getDataField() {
-    this.linhVucService.getIdField(this.id).subscribe(data => {
+    this.linhVucService.getLinhVuc(this.id).subscribe(data => {
 
       this.donViIdPhongban = data.donViIdPhongban;
       const objDonViSl = this.filterItems(this.unitTree)
@@ -182,7 +182,7 @@ export class CapNhatComponent implements OnInit {
 
     if (this.formUpdate.valid) {
       this.submitted = true;
-      this.linhVucService.updateField(this.formUpdate.value, this.id).subscribe(data => {
+      this.linhVucService.capNhat(this.formUpdate.value, this.id).subscribe(data => {
         if (data.isError) {
           this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
         } else {

@@ -54,7 +54,7 @@
                             Số hiện tại <span class="p-error">(*)</span>
                         </div>
                         <div class="col-12 md:col-1 fl-wr">
-                            <input type="text" formControlName="soHienTai" id="coQuanBanHanh"
+                            <input readonly="" type="text" formControlName="soHienTai" id="coQuanBanHanh"
                                 [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element">
                                 <span class="p-error"
                                 *ngIf="!formThongTinVanBan.controls.soHienTai.valid && (formThongTinVanBan.controls.soHienTai.touched || submitted_VB)">Vui lòng nhập số hiện tại với định dạng số</span>

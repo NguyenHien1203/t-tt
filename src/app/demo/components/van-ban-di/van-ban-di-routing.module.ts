@@ -1,3 +1,4 @@
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -18,6 +19,7 @@ const routes: Routes = [
                 (m) => m.TraCuuDonGianModule
             ),
     },
+    { path: 'quan-tri-van-ban-di', data: { breadcrumb: 'Quản trị văn bản đi' }, loadChildren: () => import('./quan-tri-van-ban-di/quan-tri-van-ban-di.module').then(m => m.QuanTriVanBanDiModule) },
 ];
 @NgModule({
     imports: [RouterModule.forChild(routes)],

@@ -1,0 +1,177 @@
+<div class="grid">
+    <div class="col-12">
+        <p-breadcrumb [model]="breadcrumbItems" [home]="{icon: 'pi pi-home'}" routerLink="/"></p-breadcrumb>
+    </div>
+    <div class="col-12 pt-0">
+        <p-toast></p-toast>
+        <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
+            <h2>Tìm kiếm</h2>
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-4">
+                    <input id="search-name-title" type="text" pInputText placeholder="Thông tin văn bản">
+                </div>
+                <div class="field col-12 md:col-2">
+                    <input id="search-name-title" type="text" pInputText placeholder="Số, ký hiệu">
+                </div>
+                <div class="field col-12 md:col-2">
+                    <p-dropdown [options]="luaChonNam" placeholder="Chọn năm"></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-2">
+                    <p-dropdown [options]="luaChonThang" placeholder="Chọn tháng"></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-2 mt-2">
+                    <div class="field-checkbox">
+                        <p-checkbox name="timChinhXac" id="timChinhXac" value="true" label="Tìm chính xác"></p-checkbox>
+                    </div>
+                </div>
+            </div>
+
+            <ng-container *ngIf="hienThi">
+                <div class="p-fluid p-formgrid grid">
+                    <div class="field col-12 md:col-3">
+                        <p-calendar dateFormat="dd/mm/yy" placeholder="Ngày ban hành"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <p-calendar dateFormat="dd/mm/yy" placeholder="Ngày gửi"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <p-dropdown
+                            [options]="[{id: '2', loai: 'Chọn năm'},{id: '0', loai: 'Văn bản đến'},{id: '1', loai: 'Văn bản đi'}]"
+                            optionValue="id" optionLabel="loai" placeholder="Chọn loại văn bản"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <p-dropdown
+                            [options]="[{id: '2', loai: 'Chọn năm'},{id: '0', loai: 'Văn bản đến'},{id: '1', loai: 'Văn bản đi'}]"
+                            optionValue="id" optionLabel="loai" placeholder="Chọn sổ văn bản"></p-dropdown>
+                    </div>
+                </div>
+
+                <div class="p-fluid p-formgrid grid">
+                    <div class="field col-12 md:col-3">
+                        <input id="search-name-title" type="text" pInputText placeholder="Trích yếu">
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <p-dropdown
+                            [options]="luaChonTrangThai" placeholder="Chọn trạng thái"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <p-dropdown
+                            [options]="luaChonMucDo" placeholder="Chọn mức độ trạng thái"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <input id="search-name-title" type="text" pInputText placeholder="Số đi">
+                    </div>
+                </div>
+            </ng-container>
+
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-2">
+                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2"></button>
+                </div>
+                <div class="field col-12 md:col-2">
+                    <button pButton pRipple [label]="trangThaiButton" (click)="HienThiTimKiem()" [icon]="iconButton"
+                        class="p-button-info mr-2"></button>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="card pb-0 pl-4 pr-4">
+            <div class="wrapper">
+                <h2>DANH SÁCH LOẠI VĂN BẢN</h2>
+                <div class="icon-cls">
+                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success">
+                    </button>
+                </div>
+            </div>
+            <!-- <div class="grid">
+                <div class="col-12">
+                    <p-table styleClass="p-datatable-gridlines" #dt [value]="danhSachLoaiVanBan" [columns]="cols"
+                        responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="text-align: center;">STT
+                                </th>
+                                <th>Tên loại văn bản
+                                </th>
+                                <th>Mã loại văn bản
+                                </th>
+                                <th style="text-align: center;">Hiển thị
+                                </th>
+                                <th style="text-align: center;">Phân loại
+                                </th>
+                                <th>Ghi chú
+                                </th>
+                                <th style="text-align: center;">Thứ tự
+                                </th>
+                                <th style="text-align: center;">Chức năng
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-loaiVanBan let-rowIndex="rowIndex">
+                            <tr>
+                                <td style="width:5%; min-width:5rem; text-align: center;"><span
+                                        class="p-column-title">STT</span>
+                                    {{rowIndex + 1}}
+                                </td>
+                                <td style="width:23%; min-width:10rem;">
+                                    <span class="p-column-title">Tên loại văn bản</span>
+                                    {{loaiVanBan.tenLoaiVB}}
+                                </td>
+                                <td style="width:15%; min-width:10rem;">
+                                    <span class="p-column-title">Mã loại văn bản</span>
+                                    {{loaiVanBan.maLoaiVB}}
+                                </td>
+                                <td style="width:8%; min-width:8rem; text-align: center;">
+                                    <span class="p-column-title">Hiển thị</span>
+                                    <i class="pi"
+                                        [ngClass]="{'true-icon pi-check-circle text-green-500 my-font-size-icon-true': loaiVanBan.hienThi, 
+                                        'false-icon pi-times-circle text-pink-500 my-font-size-icon-false': !loaiVanBan.hienThi}"></i>
+                                </td>
+                                <td style="width:15%; min-width:10rem; text-align: center;">
+                                    <span class="p-column-title">Phân loại</span>
+                                    {{loaiVanBan.phanLoai === 0 ? 'Văn bản đến' : 'Văn bản đi'}}
+                                </td>
+                                <td style="width:20%; min-width:10rem;">
+                                    <span class="p-column-title">Ghi chú</span>
+                                    {{loaiVanBan.ghiChu}}
+                                </td>
+                                <td style="width:6%; min-width:6rem; text-align: center;">
+                                    <span class="p-column-title">Thứ tự</span>
+                                    {{loaiVanBan.thuTu}}
+                                </td>
+                                <td style="width:14%; min-width:10rem;">
+                                    <div class="flex justify-content-center">
+                                        <button pButton pRipple icon="pi pi-pencil"
+                                            class="p-button-rounded p-button-success mr-2"
+                                            (click)="CapNhatLoaiVanBan(loaiVanBan.id)"></button>
+                                        <button pButton pRipple icon="pi pi-trash"
+                                            class="p-button-rounded p-button-warning"
+                                            (click)="XoaLoaiVanBan(loaiVanBan.id)"></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div> -->
+        </div>
+
+        <!-- <app-them-moi [show]="hienThiThemMoi" (close)="tatPopup($event, 'C')"></app-them-moi>
+
+        <app-cap-nhat [show]="hienThiCapNhat" (close)="tatPopup($event, 'U')" [id]="idLoaiVanBan"></app-cap-nhat>
+
+        <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="loaiVanBan">Bạn muốn xóa bản ghi này ?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"
+                    (click)="XacNhanXoa()"></button>
+                <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
+                    (click)="TamDungXoa()"></button>
+            </ng-template>
+        </p-dialog> -->
+    </div>
+</div>

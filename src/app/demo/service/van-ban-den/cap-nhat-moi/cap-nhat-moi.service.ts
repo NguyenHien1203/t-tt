@@ -90,6 +90,15 @@ export class CapNhatMoiService {
     }
 
     /**
+     * Cập nhật
+     */
+    public CapNhatVanBan(modelVanban: any): Observable<any> {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+        return this.httpClient.post<any>(environment.baseUrlApi + '/VanBanDen/CapNhatMoiVanBanDen/CapNhatVanBanDen', modelVanban, this.httpOption)
+    }
+
+    /**
      * Xóa tài khoản
      */
     public DeleteVanBan(IdVanBan: string): Observable<any> {
@@ -148,7 +157,7 @@ export class CapNhatMoiService {
         return this.httpClient.get<any>(url);
     }
 
-    
+
     public changePhongBan(phongBanId: string) {
         return this.httpClient.get<any>(environment.baseUrlApi + '/VanBanDen/CapNhatMoiVanBanDen/ChangePhongBan/' + phongBanId)
             .toPromise()
@@ -164,11 +173,79 @@ export class CapNhatMoiService {
     /**
      * PhanPhoiVanBan
      */
-    public PhanPhoiVanBan(itemData : any) {
+    public PhanPhoiVanBan(itemData: any) {
         if (!this.auth.CheckLogin())
-        this.router.navigate(['/login']);
+            this.router.navigate(['/login']);
         const url = `${this.baseUrl}/VanBanDen/CapNhatMoiVanBanDen/PhanPhoiVanBanDen`;
         return this.httpClient.post<any>(url, itemData, this.httpOption);
     }
+
+    /**
+     * lấy dữ liệu những cá nhân đã phân phối
+     */
+    public GetCaNhanPhanPhoi(idVanBan: any) {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+        var DviLamViec = this.auth.GetDonViLamViec();
+        const url = `${this.baseUrl}/VanBanDen/CapNhatMoiVanBanDen/GetCaNhanPhanPhoi?DviLamViec=` + DviLamViec + "&idVanBan=" + idVanBan;
+        return this.httpClient.get<any>(url);
+    }
+
+    /**
+    * lấy dữ liệu những phòng ban đã phân phối
+    */
+    public GetPhongBanPhanPhoi(idVanBan: any) {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+        var DviLamViec = this.auth.GetDonViLamViec();
+        var Cap = this.auth.GetmUserInfo().cap;
+
+        const url = `${this.baseUrl}/VanBanDen/CapNhatMoiVanBanDen/GetPhongBanPhanPhoi?DviLamViec=` + DviLamViec + "&idVanBan=" + idVanBan + "&CapDvlv=" + Cap;
+        return this.httpClient.get<any>(url);
+    }
+
+    /**
+     * GetVanBanById
+     */
+    public GetVanBanById(id: string) {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+        var DviLamViec = this.auth.GetDonViLamViec();
+        var Pblamviec = this.auth.GetmUserInfo().phongBanLamViecId.toString();
+        const url = `${this.baseUrl}/VanBanDen/CapNhatMoiVanBanDen/GetVanBanById?IdVanBan=` + id + "&dviLamViec=" + DviLamViec + "&Pblamviec=" + Pblamviec;
+        return this.httpClient.get<any>(url).toPromise()
+            .then(data => data.objData);
+
+    }
+
+    public downloadFile(filePath: string, fileName: string, urlDownLoad) {
+        const headers = new HttpHeaders().set('Accept', 'application/octet-stream');
+        return this.httpClient.get(environment.baseUrlApi + urlDownLoad + "?filePath=" + filePath + "&fileName=" + fileName, {
+            headers,
+            responseType: 'blob', // Xác định responseType là 'blob'.
+        });
+    }
+
+
+
+    public getSoHienTai(idSoVanBan: string, ngayBanHanh: Date, idSoVanBanUpdate: string, soDiHienTai: string, soDiHienTaiUpDate: string) {
+        let itemData = {
+            idSoVanBan: idSoVanBan,
+            ngayBanHanh: ngayBanHanh,
+            idSoVanBanUpdate: idSoVanBanUpdate,
+            soDiHienTai: soDiHienTai,
+            soDiDenUpdate: soDiHienTaiUpDate
+        }
+        return this.httpClient.post<any>(environment.baseUrlApi + '/VanBanDen/CapNhatMoiVanBanDen/GetSoHienTai', itemData, this.httpOption)
+            .toPromise()
+            .then(data => data.data)
+    }
+
+    public  getSoKiHieu(idSoVanBan : string, loaiVanBanId : string, soHienTai : string ){
+        return this.httpClient.get<any>(environment.baseUrlApi + '/VanBanDen/CapNhatMoiVanBanDen/GetSoKiHieu?idSoVanBan='+ idSoVanBan + "&loaiVanBanId=" +loaiVanBanId + "&soHienTai=" + soHienTai, this.httpOption)
+        .toPromise()
+        .then(data => data.data)
+      }
+    
 
 }

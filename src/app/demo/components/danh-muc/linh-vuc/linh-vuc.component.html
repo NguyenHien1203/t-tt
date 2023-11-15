@@ -11,7 +11,7 @@
             <h2>Tìm kiếm</h2>
             <div class="p-fluid p-formgrid grid">
                 <div class="field col-12 md:col-8">
-                    <input id="search-name-title" type="text" pInputText [(ngModel)]="search.keyWord"
+                    <input id="search-name-title" type="text" pInputText [(ngModel)]="timKiem.keyWord"
                         placeholder="Tên lĩnh vực">
                 </div>
                 <div class="field col-12 md:col-2 mt-2">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="field col-12 md:col-2">
                     <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2"
-                        (click)="searchField()"></button>
+                        (click)="TimKiemLinhVuc()"></button>
                 </div>
             </div>
         </div>
@@ -39,63 +39,57 @@
             </div>
             <div class="grid">
                 <div class="col-12">
-                    <p-table styleClass="p-datatable-gridlines" #dt [value]="listFields" [columns]="cols"
-                        responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]">
+                    <p-table styleClass="p-datatable-gridlines" #dt [value]="cacLinhVuc
+                    " [columns]="cols" responsiveLayout="scroll" [rows]="10" [paginator]="true"
+                        [rowsPerPageOptions]="[10,20,30]">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="text-align: center;" pSortableColumn="STT">STT <p-sortIcon
-                                        field="STT"></p-sortIcon>
-                                </th>
-                                <th pSortableColumn="vietTat">Mã <p-sortIcon field="vietTat"></p-sortIcon>
-                                </th>
-                                <th pSortableColumn="tenChucDanh">Tên lĩnh vực <p-sortIcon
-                                        field="tenChucDanh"></p-sortIcon>
-                                </th>
+                                <th style="text-align: center;">STT</th>
+                                <th>Mã</th>
+                                <th>Tên lĩnh vực </th>
                                 <th>Ghi chú</th>
-                                <th style="text-align: center;" pSortableColumn="hienThi">Hiển thị <p-sortIcon
-                                        field="hienThi"></p-sortIcon>
-                                </th>
-                                <th style="text-align: center;" pSortableColumn="thuTu">Thứ tự <p-sortIcon
-                                        field="thuTu"></p-sortIcon></th>
+                                <th style="text-align: center;">Hiển thị</th>
+                                <th style="text-align: center;">Thứ tự </th>
                                 <th style="text-align: center;">Chức năng
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-listTitle let-rowIndex="rowIndex">
+                        <ng-template pTemplate="body" let-linhVuc let-rowIndex="rowIndex">
                             <tr>
-                                <td style="width:8%; min-width:10rem; text-align: center;"><span
+                                <td style="width:8%; min-width:8rem; text-align: center;"><span
                                         class="p-column-title">STT</span>
                                     {{rowIndex + 1}}
                                 </td>
                                 <td style="width:13%; min-width:10rem;">
                                     <span class="p-column-title">Mã</span>
-                                    {{listTitle.vietTat}}
+                                    {{linhVuc.vietTat}}
                                 </td>
                                 <td style="width:30%; min-width:10rem;">
                                     <span class="p-column-title">Tên chức danh</span>
-                                    {{listTitle.tenLinhVuc}}
+                                    {{linhVuc.tenLinhVuc}}
                                 </td>
                                 <td style="width:30%; min-width:8rem;">
                                     <span class="p-column-title">Ghi chú</span>
-                                    {{listTitle.ghiChu}}
+                                    {{linhVuc.ghiChu}}
                                 </td>
                                 <td style="width:10%; min-width:8rem; text-align: center;">
                                     <span class="p-column-title">Hiển thị</span>
-                                    <div *ngIf="listTitle.hienThi == true; then thenTrue else thenFalse"></div>
-                                    <ng-template #thenTrue>Có</ng-template>
-                                    <ng-template #thenFalse>Không</ng-template>
+                                    <i class="pi" [ngClass]="{
+                                            'true-icon pi-check-circle text-green-500 my-font-size-icon-true': linhVuc.hienThi, 
+                                            'false-icon pi-times-circle text-pink-500 my-font-size-icon-false': !linhVuc.hienThi
+                                            }"></i>
                                 </td>
                                 <td style="width:10%; min-width:10rem; text-align: center;">
                                     <span class="p-column-title">Thứ tự</span>
-                                    {{listTitle.thuTu}}
+                                    {{linhVuc.thuTu}}
                                 </td>
                                 <td style="width:14%; min-width:10rem;">
                                     <div class="flex justify-content-center">
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
-                                            (click)="editField(listTitle.id)"></button>
+                                            (click)="editField(linhVuc.id)"></button>
                                         <button pButton pRipple icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"
-                                            (click)="deleteField(listTitle.id)"></button>
+                                            (click)="deleteField(linhVuc.id)"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -112,7 +106,7 @@
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="listField">Bạn muốn xóa bản ghi này ?</span>
+                <span *ngIf="linhVuc">Bạn muốn xóa bản ghi này ?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"

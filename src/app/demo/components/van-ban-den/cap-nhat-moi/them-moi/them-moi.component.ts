@@ -58,8 +58,8 @@ export class ThemMoiComponent implements OnInit {
     soKiHieu: ["", [Validators.required]],
     soHienTai: ["", [Validators.required, Validators.pattern('^[0-9]*$')]],
     soDen: ["", [Validators.required, Validators.pattern('^[0-9]*$')]],
-    ngayBanHanh: ["", [Validators.required]],
-    ngayNhanVanBan: ["", [Validators.required]],
+    ngayBanHanh: [new Date(), [Validators.required]],
+    ngayNhanVanBan: [new Date(), [Validators.required]],
     loaiVanBanId: ["", [Validators.required]],
     lanhDaoKy: ["", []],
     trichYeu: ["", []],
@@ -104,6 +104,18 @@ export class ThemMoiComponent implements OnInit {
    * onChange LoaiVanBan
    */
   public onChangeLoaiVanBan(event: any) {
+    this.capnhatmoiService.getSoHienTai(event.value.toString(), this.formThongTinVanBan.value.ngayBanHanh, "0", this.formThongTinVanBan.value.soDen, "0").then(data => {
+      this.formThongTinVanBan.patchValue({
+        soHienTai: data,
+      });
+    }).then(() => {
+      this.capnhatmoiService.getSoKiHieu(event.value, "0", this.formThongTinVanBan.value.soHienTai).then(data => {
+        this.formThongTinVanBan.patchValue({
+          soKiHieu: data,
+        });
+      });
+    });
+
     var IdSoVanBan = event.value;
     this.capnhatmoiService.GetDataLoaiVanBanByIdSoVanBan(IdSoVanBan).subscribe(data => {
       if (data.isError) {
@@ -111,9 +123,8 @@ export class ThemMoiComponent implements OnInit {
       } else {
         this.LoaiVanBan = data.objData;
       }
-    }, (error) => {
-      console.log('Error', error);
     })
+
   }
 
   public onFileSelected(event: any) {
@@ -132,7 +143,7 @@ export class ThemMoiComponent implements OnInit {
               path: data.objData.filePath,
             }
             this.file_fomat.push(fileReturn);
-           
+
             this.selectedFiles.push(FileInput);
           }
         },
@@ -145,6 +156,7 @@ export class ThemMoiComponent implements OnInit {
   }
 
   public downloadFile(file: File) {
+    console.log(file);
     this.dataFile = file;
     const blob = new Blob([this.dataFile], { type: 'application/octet-stream' });
     // Sử dụng saveAs để tải tệp xuống với tên cụ thể.
@@ -178,7 +190,7 @@ export class ThemMoiComponent implements OnInit {
       this.formTT_VB_fomat = this.formThongTinVanBan.value;
       this.formTT_VB_fomat.chkLuuTru = this.checkLuuTru;
       this.formTT_VB_fomat.chkXemTatCa = this.checkXemTatCa;
-      
+
       this.capnhatmoiService.ThemMoiVanBan(this.formTT_VB_fomat).subscribe(data => {
         if (data.isError) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });

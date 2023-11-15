@@ -20,29 +20,29 @@ export class LinhVucService {
 
   constructor(private http: HttpClient) { }
 
-  public getIdField(id: any): Observable<any> {
+  public getLinhVuc(id: any): Observable<any> {
     return this.http.get<any>(`${environment.baseUrlApi}` + this.url + `GetLinhVucById/${id}`)
       .pipe(
         map((response: any) => response.objData as LinhVuc[])
       );
   }
 
-  public getListFields(fields: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachLinhVuc', fields, this.httpOptions)
+  public getDanhSachLinhVuc(danhSach: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachLinhVuc', danhSach, this.httpOptions)
       .pipe(
         map((res: any) => res.objData as LinhVuc[])
       )
   }
 
-  public createField(field: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'ThemMoiLinhVuc', field, this.httpOptions)
+  public themMoi(linhVuc: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'ThemMoiLinhVuc', linhVuc, this.httpOptions)
   }
 
-  public updateField(field: any, id: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhatLinhVuc?id=${id}`, field, this.httpOptions)
+  public capNhat(linhVuc: any, id: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhatLinhVuc?id=${id}`, linhVuc, this.httpOptions)
   }
 
-  public deleteField(id: any): Observable<any> {
+  public xoa(id: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `DeleteLinhVuc/${id}`, this.httpOptions)
   }
 

@@ -2,30 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-tree-node',
-    template: `
-        <li>
-            <span
-                (click)="toggleNode()"
-                [class]="node.children.length > 0 ? iconClass : 'mg-l'"
-            >
-                <input
-                    type="checkbox"
-                    [id]="node.id"
-                    [checked]="node.checked"
-                    (click)="handleCheckboxClick($event)"
-                />
-                <span class="icon">{{ node.tenDonVi }}</span>
-            </span>
-            <ul *ngIf="node.expanded">
-                <app-tree-node
-                    *ngFor="let child of node.children"
-                    [node]="child"
-                    (expand)="expandNode($event)"
-                    (collapse)="collapseNode($event)"
-                ></app-tree-node>
-            </ul>
-        </li>
-    `,
+    templateUrl: './tree-node.component.html',
     styleUrls: ['./tree-node.component.scss'],
 })
 export class TreeNodeComponent {
@@ -33,10 +10,16 @@ export class TreeNodeComponent {
     @Output() expand: EventEmitter<any> = new EventEmitter();
     @Output() collapse: EventEmitter<any> = new EventEmitter();
     @Output() isCheckAll: EventEmitter<any> = new EventEmitter();
+    @Output() checkNode = new EventEmitter<any>(); // Output để emit sự kiện lên component cha
 
     iconClass = 'pi pi-plus';
 
-    handleCheckboxClick(event: Event): void {
+    handleCheckboxClick(event: Event): void { // tương tự như node-cha
+        this.node.checked = !this.node.checked;
+        this.checkNode.emit({
+            id: this.node.id,
+            checked: this.node.checked,
+        });
         event.stopPropagation(); // Ngăn chặn sự kiện lan ra các phần tử cha
     }
 

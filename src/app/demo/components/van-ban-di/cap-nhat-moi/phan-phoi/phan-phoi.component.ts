@@ -261,7 +261,7 @@ export class PhanPhoiComponent {
                 .map((phongBan) => phongBan.value),
         };
 
-        this.service.PhanPhoi(itemData).subscribe(
+        this.service.phanPhoi(itemData).subscribe(
             (data) => {
                 if (data.isError) {
                     this.messageService.add({

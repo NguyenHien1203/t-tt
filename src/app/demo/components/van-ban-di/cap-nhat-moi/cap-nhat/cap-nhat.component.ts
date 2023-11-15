@@ -181,6 +181,7 @@ export class CapNhatComponent {
     }
 
     public Thoat(): void {
+        this.formThongTinVanBan.reset();
         this.submitted = false;
         this.show = false;
         this.tatPopup.emit(this.show);
@@ -188,8 +189,7 @@ export class CapNhatComponent {
 
     public async ChangeSoVanBan(event) {
         try {
-            if(event != null)
-            {
+            if (event != null) {
                 const dataSoHienTai = await this.service.getSoHienTai(
                     event?.toString(),
                     this.formThongTinVanBan.value.ngayBanHanh,
@@ -197,21 +197,21 @@ export class CapNhatComponent {
                     this.formThongTinVanBan.value.soDi,
                     this.oldSoDi?.toString()
                 );
-    
+
                 this.formThongTinVanBan.patchValue({
                     soHienTai: dataSoHienTai,
                 });
-    
+
                 const dataSoKiHieu = await this.service.getSoKiHieu(
                     event,
                     this.formThongTinVanBan.value.loaiVanBanId,
                     this.formThongTinVanBan.value.soHienTai
                 );
-    
+
                 this.formThongTinVanBan.patchValue({
                     soKiHieu: dataSoKiHieu,
                 });
-    
+
                 this.lstLoaiVanBan = await this.service.changeSoVanBan(
                     event,
                     this.idDonViLamViec
@@ -360,7 +360,7 @@ export class CapNhatComponent {
             this.vanBanDi.fileUpLoad = JSON.stringify(this.selectedFiles);
             this.vanBanDi.SoVanBanIdCu = this.oldSoVanBanId?.toString();
             this.vanBanDi.SoDiCu = this.oldSoDi?.toString();
-            
+
             this.service.capNhatVanBanDi(this.vanBanDi).subscribe(
                 (data) => {
                     if (data.isError) {
@@ -382,7 +382,7 @@ export class CapNhatComponent {
                     this.messageService.add({
                         severity: 'error',
                         summary: 'Error',
-                        detail: 'Có lỗi xảy ra' ,
+                        detail: 'Có lỗi xảy ra',
                     });
                     return throwError(() => error);
                 }

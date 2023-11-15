@@ -87,7 +87,7 @@
                 </p-table>
             </div>
         </div>
-        <div class="p-fluid p-formgrid grid">
+        <div class="p-fluid p-formgrid grid" *ngIf="isHienThi">
             <div class="field col-12 md:col-6 mb-0">
                 <span>Hình thức gửi:</span> &nbsp;
                 <p-checkbox
@@ -109,7 +109,7 @@
         </div>
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-3 mb-0">
-                <span>Chọn văn bản:</span> &nbsp;
+                <span>Chọn văn bản trả lời:</span> &nbsp;
             </div>
             <div class="field col-12 md:col-9 mb-0">
                 <span><strong>Danh sách văn bản đã chọn:</strong></span> &nbsp;
@@ -122,9 +122,9 @@
                     pripple=""
                     type="submit"
                     label="Info"
-                    class="p-element p-ripple p-button-info p-button p-component"
+                    class="p-element p-ripple p-button p-button p-component"
                     ng-reflect-label="Info"
-                    (click)="ChonVanBan()"
+                    (click)="OpenChonVanBan()"
                 >
                     <span class="p-button-label"
                         ><i class="pi pi-plus"></i>&nbsp;Chọn văn bản</span
@@ -134,31 +134,38 @@
             <div class="field col-12 md:col-9 mb-0">
                 <p-table
                     styleClass="p-datatable-gridlines"
-                    [value]="[ThongTinVanBan]"
+                    [value]="lstSelectedVanBan"
                     class="custom-table"
                 >
                     <ng-template pTemplate="header" let-item>
                         <tr>
                             <th>Số ký hiệu</th>
                             <th>Trích yếu</th>
-                            <th>Xóa</th>
+                            <th style="width: 2%">Xóa</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-item>
                         <tr>
                             <td class="custom-rb">
-                                {{ item.soKyHieu }}
+                                {{ item.soKiHieu }}
                             </td>
                             <td class="custom-rb">
                                 {{ item.trichYeu }}
                             </td>
                             <td class="custom-rb">
-                                <a
-                                    href="javascript:;"
-                                    (click)="XoaVanBan(item.id)"
-                                    >&nbsp;<i class="pi pi-trash"></i
-                                ></a>
+                                <div class="div-center">
+                                    <a
+                                        href="javascript:;"
+                                        (click)="XoaVanBan(item.id)"
+                                        >&nbsp;<i class="pi pi-trash"></i
+                                    ></a>
+                                </div>
                             </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="10">No record found.</td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -169,10 +176,10 @@
                 <p-dropdown
                     appendTo="body"
                     [showClear]="true"
-                    (ngModelChange)="onChangePhongBan($event)"
+                    (ngModelChange)="onChangeNhomDonVi($event)"
                     [filter]="true"
-                    [options]="lstPhongBan"
-                    [(ngModel)]="phongBan"
+                    [options]="lstNhomDonVi"
+                    [(ngModel)]="nhomDonVi"
                     optionLabel="text"
                     optionValue="value"
                     placeholder="Chọn đơn vị theo nhóm"
@@ -185,13 +192,16 @@
                 <div class="p-inputgroup">
                     <button
                         type="button"
+                        (click)="SearchTreeDonVi($event)"
                         pButton
                         pRipple
                         icon="pi pi-search"
                         label=""
                     ></button>
                     <input
+                        [(ngModel)]="keyWord"
                         type="text"
+                        (keypress)="SearchTreeDonVi($event)"
                         pInputText
                         placeholder="Tìm kiếm đơn vị"
                     />
@@ -223,6 +233,7 @@
                                     </span>
                                     <ul *ngIf="isShowAll">
                                         <app-tree-node
+                                            (checkNode)="CheckedNode($event)"
                                             *ngFor="let node of treeData"
                                             [node]="node"
                                             (expand)="expandNode($event)"
@@ -287,7 +298,7 @@
             label="Info"
             class="p-element p-ripple p-button-info p-button p-component"
             ng-reflect-label="Info"
-            (click)="PhanPhoi()"
+            (click)="GuiVanBan()"
         >
             <span class="p-button-label">Lưu</span><span class="p-ink"></span>
         </button>
@@ -305,3 +316,9 @@
     </ng-template>
 </p-dialog>
 <p-toast></p-toast>
+<app-chon-van-ban
+    [show]="hienThiChonVanBan"
+    [id]="id"
+    (chonVanBan)="ChonVanban($event)"
+    (tatPopup)="ThoatChonVanban($event, 'C')"
+></app-chon-van-ban>

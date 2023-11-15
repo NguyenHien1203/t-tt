@@ -199,11 +199,10 @@ export class CapNhatComponent {
     this.checkXemTatCa = !this.checkXemTatCa;
   }
 
-
   public Thoat(): void {
     this.submitted = false;
     this.hienThi = false;
-    
+    this.formThongTinVanBan.reset();
     this.tatPopup.emit(this.hienThi);
   }
 

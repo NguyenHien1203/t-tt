@@ -39,7 +39,7 @@ import { ChonVanBanComponent } from './gui-van-ban/chon-van-ban/chon-van-ban.com
     PhanPhoiComponent,
     GuiVanBanComponent,
     TreeNodeComponent,
-    ChonVanBanComponent
+    ChonVanBanComponent,
   ],
   exports: [TreeNodeComponent],
   imports: [

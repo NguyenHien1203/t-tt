@@ -28,6 +28,7 @@ export class GuiVanBanComponent {
         this.GetTreeDonVi();
     }
 
+    loading : boolean = false;
     iconClass = 'pi pi-plus';
     checkAllItem = 'checkAllItem';
     isHienThi : boolean = false;
@@ -291,6 +292,8 @@ export class GuiVanBanComponent {
 
     public SearchTreeDonVi(event) {
         if (event.keyCode === 13 || event.type == 'click') {
+            this.loading = true;
+            setTimeout(() => (this.loading = false), 1000);
             this.GetTreeDonVi();
         }
     }

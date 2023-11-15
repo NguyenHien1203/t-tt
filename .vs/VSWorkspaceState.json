@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\demo",
+    "\\src\\app\\demo\\components",
+    "\\src\\app\\demo\\components\\van-ban-di",
+    "\\src\\app\\demo\\components\\van-ban-di\\gui-van-ban",
+    "\\src\\assets",
+    "\\src\\assets\\layout",
+    "\\src\\assets\\layout\\styles",
+    "\\src\\assets\\layout\\styles\\layout"
+  ],
+  "PreviewInSolutionExplorer": false
+}

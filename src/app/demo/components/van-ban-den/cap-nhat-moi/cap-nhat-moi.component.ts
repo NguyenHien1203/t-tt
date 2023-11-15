@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { CapNhatMoiService } from 'src/app/demo/service/van-ban-den/cap-nhat-moi/cap-nhat-moi.service';
@@ -64,11 +64,17 @@ export class CapNhatMoiComponent implements OnInit {
     this.GetDanhSachCapNhatMoi();
   }
 
+  
+  ngAfterContentChecked(): void {
+    this.cd.detectChanges();
+  }
+
   constructor(
     private messageService: MessageService,
     private capnhatmoiService: CapNhatMoiService,
     private router: Router,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private cd: ChangeDetectorRef
   ) { }
 
   public CheckedHt(): void {

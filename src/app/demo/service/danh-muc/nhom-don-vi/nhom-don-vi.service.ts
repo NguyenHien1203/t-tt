@@ -46,4 +46,12 @@ export class NhomDonViService {
     const url = `${this.baseApiUrl}/DanhMuc/NhomDonVi/DeleteNhomNguoiDung?id=` + id;
     return this.http.post<any>(url, this.httpOption)
   }
+
+   /**
+   * Lấy dữ liệu đơn vị tree
+   */
+   public GetDataDonVi(): Observable<any> {
+    const url = `${this.baseApiUrl}/DanhMuc/NhomDonVi/GetDataDonVi`;
+    return this.http.get(url);
+  }
 }

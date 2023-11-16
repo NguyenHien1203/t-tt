@@ -1,0 +1,55 @@
+.listDonVi {
+    padding-right: 35px;
+    background: #eee;
+    border-radius: 0 3px 3px 0;
+    position: relative;
+}
+
+#listDonVi {
+    height: 200px;
+    width: 97%;
+    margin-top: 30px;
+    background-color: #fff !important;
+    border: 1px solid #ccc;
+}
+
+#btnAdd {
+    position: absolute;
+    font-size: 15px;
+    color: #fff;
+    line-height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    top: 25%;
+    right: 3px;
+}
+
+#btnRemove {
+    position: absolute;
+    font-size: 15px;
+    color: #fff;
+    line-height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    top: 45%;
+    right: 3px;
+}
+
+.spinner {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    width: 8px;
+    height: 8px;
+    animation: spinner-z355kx 1s infinite linear;
+    border-radius: 8px;
+    box-shadow: 20px 0px 0 0 #434343, 12.4px 15.6px 0 0 #434343, -4.4px 19.4px 0 0 #434343, -18px 8.6px 0 0 #434343, -18px -8.6px 0 0 #434343, -4.4px -19.4px 0 0 #434343, 12.4px -15.6px 0 0 #434343;
+}
+
+@keyframes spinner-z355kx {
+    to {
+        transform: rotate(360deg);
+    }
+}

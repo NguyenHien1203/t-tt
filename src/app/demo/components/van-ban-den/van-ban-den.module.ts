@@ -7,6 +7,7 @@ import { VanBanDenRoutingModule } from './van-ban-den-routing.module';
   imports: [
     CommonModule,
     VanBanDenRoutingModule
-  ]
+  ],
+  declarations: []
 })
 export class VanBanDenModule { }

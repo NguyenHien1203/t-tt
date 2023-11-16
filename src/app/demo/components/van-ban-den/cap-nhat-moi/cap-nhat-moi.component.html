@@ -14,7 +14,7 @@
             <div class="field grid">
                 <div class="col-12 md:col-3 fl-wr">
                     <input pInputText type="text" [(ngModel)]="timKiemDanhSach.trichYeu" placeholder="Trích yếu"
-                        class="form-control" />
+                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
                     <p-dropdown [(ngModel)]="timKiemDanhSach.soVBId" [options]="SoVanBan" appendTo="body"
@@ -48,17 +48,17 @@
                 </div>
                 <label class="col-12 md:col-3 fl-wr">
                     <input [(ngModel)]="timKiemDanhSach.soDen" pInputText type="text" placeholder="Số đến"
-                        class="form-control" />
+                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
                 </label>
             </div>
             <div class="field grid">
                 <div class="col-12 md:col-3 fl-wr">
                     <input [(ngModel)]="timKiemDanhSach.soKyHieu" pInputText type="text" placeholder="Số ký hiệu"
-                        class="form-control" />
+                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
                     <input [(ngModel)]="timKiemDanhSach.lanhDaoKy" pInputText type="text" placeholder="Lãnh đạo ký"
-                        class="form-control" />
+                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
                     <p-dropdown [showClear]="true" [(ngModel)]="timKiemDanhSach.coQuanBanHanh" [options]="CoQuanBanHanh"

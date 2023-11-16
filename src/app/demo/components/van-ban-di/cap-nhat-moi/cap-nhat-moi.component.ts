@@ -73,6 +73,7 @@ export class CapNhatMoiComponent implements OnInit {
     }
 
     public changeSoVanBan(event) {
+        this.lstLoaiVanBan  = [];
         if (event != null) {
             this.service
                 .changeSoVanBan(event, this.idDonViLamViec)

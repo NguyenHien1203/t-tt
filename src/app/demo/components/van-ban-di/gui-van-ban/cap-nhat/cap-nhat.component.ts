@@ -210,6 +210,7 @@ export class CapNhatComponent {
                   soKiHieu: dataSoKiHieu,
               });
 
+              this.lstLoaiVanBan = [];
               this.lstLoaiVanBan = await this.service.changeSoVanBan(
                   event,
                   this.idDonViLamViec

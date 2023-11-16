@@ -211,7 +211,6 @@ export class CapNhatComponent {
                 this.formThongTinVanBan.patchValue({
                     soKiHieu: dataSoKiHieu,
                 });
-
                 this.lstLoaiVanBan = await this.service.changeSoVanBan(
                     event,
                     this.idDonViLamViec

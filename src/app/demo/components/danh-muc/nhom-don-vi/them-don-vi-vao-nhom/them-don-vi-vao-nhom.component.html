@@ -1,1 +1,31 @@
-<p>them-don-vi-vao-nhom works!</p>
+<form [formGroup]="FormNhomDonVi">
+    <p-dialog appendTo="body" header="Cập nhật nhóm đơn vị" (onShow)="BindDataDialog()" (onHide)="Thoat()"
+        [(visible)]="hienThi" [modal]="true" [style]="{ width: '65vw' }" [draggable]="true" [resizable]="false">
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 2-0">
+                <label htmlfor="tenNhom">Tên nhóm đơn vị: <span>{{TenNhomDonVi}}</span></label>
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6 2-0 listDonVi">
+                <label htmlfor="tenNhom">Danh sách đơn vị</label>
+                <div id="listDonVi" class="scroll listDonVi">
+                    <p-treeSelect appendTo="body" [filterInputAutoFocus]="true"  formControlName="ParentId" id="ParentId" [filter]="true" class="md:w-20rem w-full" containerStyleClass="w-full" 
+                    [options]="DonViTree" placeholder="Chọn đơn vị"></p-treeSelect>
+                </div>
+
+                <a href="javascript:;" id="btnAdd" class="SaveButton tx-wwhite pd-0 btn btn-primary"
+                    style="margin-right: 5px; margin-top: 12px"><i class="ion-arrow-right-a"></i></a>
+                <a href="javascript:;" id="btnRemove" class="SaveButton tx-wwhite pd-0 btn btn-primary"
+                    style="margin-right: 5px; margin-top: 12px"><i class="ion-arrow-left-a"></i></a>
+            </div>
+            <div class="field col-12 md:col-6 2-0">
+                <label htmlfor="tenNhom">Danh sách đơn vị đã chọn</label>
+                <input pinputtext="" id="tenNhom" type="text" class="p-inputtext p-component p-element"
+                    formControlName="tenNhom">
+            </div>
+        </div>
+    </p-dialog>
+</form>

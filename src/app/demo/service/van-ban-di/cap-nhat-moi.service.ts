@@ -77,9 +77,13 @@ export class CapNhatMoiService {
         );
     }
 
-    xoaVanBanDi(idVanBan: string, idDonViLamViec : string) {
+    xoaVanBanDi(idVanBan: string, idDonViLamViec: string) {
         return this.http.get<any>(
-            environment.baseUrlApi + '/VanBanDi/CapNhatMoi/XoaVanBanDi?idVanBan=' + idVanBan + "&idDonViLamViec=" + idDonViLamViec
+            environment.baseUrlApi +
+                '/VanBanDi/CapNhatMoi/XoaVanBanDi?idVanBan=' +
+                idVanBan +
+                '&idDonViLamViec=' +
+                idDonViLamViec
         );
     }
 
@@ -307,12 +311,18 @@ export class CapNhatMoiService {
     }
 
     guiVanBan(model: any) {
-        return this.http
-            .post<any>(
-                environment.baseUrlApi +
-                    '/VanBanDi/CapNhatMoi/GuiVanBan',
-                    model,
-                this.httpOption
-            )
+        return this.http.post<any>(
+            environment.baseUrlApi + '/VanBanDi/CapNhatMoi/GuiVanBan',
+            model,
+            this.httpOption
+        );
+    }
+
+    thuHoiVanBan(model: any) {
+        return this.http.post<any>(
+            environment.baseUrlApi + '/VanBanDi/CapNhatMoi/ThuHoiVanBan',
+            model,
+            this.httpOption
+        );
     }
 }

@@ -19,7 +19,30 @@ const routes: Routes = [
                 (m) => m.TraCuuDonGianModule
             ),
     },
-    { path: 'quan-tri-van-ban-di', data: { breadcrumb: 'Quản trị văn bản đi' }, loadChildren: () => import('./quan-tri-van-ban-di/quan-tri-van-ban-di.module').then(m => m.QuanTriVanBanDiModule) },
+    {
+        path: 'quan-tri-van-ban-di',
+        data: { breadcrumb: 'Quản trị văn bản đi' },
+        loadChildren: () =>
+            import('./quan-tri-van-ban-di/quan-tri-van-ban-di.module').then(
+                (m) => m.QuanTriVanBanDiModule
+            ),
+    },
+    {
+        path: 'gui-van-ban',
+        data: { breadcrumb: 'Gửi văn bản đi' },
+        loadChildren: () =>
+            import('./gui-van-ban/gui-van-ban.module').then(
+                (m) => m.GuiVanBanModule
+            ),
+    },
+    {
+        path: 'tra-cuu-nang-cao',
+        data: { breadcrumb: 'Tra cứu nâng cao' },
+        loadChildren: () =>
+            import('./tra-cuu-nang-cao/tra-cuu-nang-cao.module').then(
+                (m) => m.TraCuuNangCaoModule
+            ),
+    },
 ];
 @NgModule({
     imports: [RouterModule.forChild(routes)],

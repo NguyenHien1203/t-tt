@@ -44,7 +44,7 @@
                     <p-table [value]="notifis" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="notifi.hide()" responsiveLayout="scroll">
                         <ng-template pTemplate="caption">
                             <div class="div-center">
-                              THÔNG BÁO
+                              THÔNG BÁO ({{notifis.length}})
                             </div>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-notifi>

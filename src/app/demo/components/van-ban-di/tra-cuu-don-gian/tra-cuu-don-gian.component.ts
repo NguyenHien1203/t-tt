@@ -14,58 +14,37 @@ export class TraCuuDonGianComponent {
     constructor(
         private service: TraCuuDonGianService,
         private messageService: MessageService,
-        private authService : AuthService
-    ) {}
+        private authService: AuthService
+    ) { }
 
-  idDonViLamViec: string = this.authService.GetDonViLamViec() ?? "0";
+    idDonViLamViec: string = this.authService.GetDonViLamViec() ?? "0";
+    idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? "0";
+    idUser: string = this.authService.GetmUserInfo()?.userId ?? "0";
     yearOptions: SelectItem[] = [];
+    monthOptions: SelectItem[] = [];
     timChinhXac: boolean = false;
     public id: string = '1';
     hienThiPhanPhoi: boolean = false;
     hienThiCapNhat: boolean = false;
     hienThiGuiVanBan: boolean = false;
     loading: boolean = false;
-    lstLoaiVanBan: any = [];
-    lstSoVanBan: any = [];
-    capNhatMois: any[] = [];
+    traCuuDonGians: any[] = [];
     public home = { icon: 'pi pi-home', routerLink: '/' };
     public items = [{ label: 'Văn bản đi' }, { label: 'Tra cứu đơn gian' }];
     public timKiemDanhSach: TimKiemDanhSach = {
-      keyWord: "",
-      soVanBanId: 0,
-      vanBanId: 0,
-      donViId: Number(this.idDonViLamViec),
-      mucDo: 0,
-      loaiVanBanId: 0,
-      lanhDaoKy: "",
-      ngayGuiVanBan: "1901-01-01",
-      ngayBanHanhVanBan: "1901-01-01",
-      nam: new Date().getFullYear(),
-      thang: 0,
-      trangThai: 0,
-      soKyHieu: "",
-      lanhDaoKyId: 0,
-      soDi: null,
-      pageIndex: 0,
-      pageSize: 0,
-      trichYeu: "",
-      timChinhXac: 0
+        keyWord: "",
+        donViId: Number(this.idDonViLamViec),
+        nam: new Date().getFullYear(),
+        thang: 0,
+        phongBanId: Number(this.idPhongBan),
+        userId: Number(this.idUser),
+        timChinhXac: 0
     };
-    lstThongBao: SelectItem[] = [
-        { label: 'Chọn trạng thái', value: 3 },
-        { label: 'Còn hiệu lực', value: 2 },
-        { label: 'Không còn hiệu lực', value: 1 },
-    ];
-    lstHienThi: SelectItem[] = [
-        { label: 'Chọn hình thức', value: 3 },
-        { label: 'Hiển thị', value: 1 },
-        { label: 'Không hiển thị', value: 0 },
-    ];
-    quanLyThongBaos: any[] = [];
 
     ngOnInit(): void {
         this.loading = false;
         this.LoadDanhSach();
+        this.BindNamThang();
     }
 
     public LoadDanhSach(): void {
@@ -73,7 +52,7 @@ export class TraCuuDonGianComponent {
         this.service
             .getDanhSachTraCuuDonGian(this.timKiemDanhSach)
             .then((data) => {
-                this.quanLyThongBaos = data;
+                this.traCuuDonGians = data;
             });
     }
 
@@ -81,19 +60,14 @@ export class TraCuuDonGianComponent {
         this.timChinhXac = !this.timChinhXac;
     }
 
-    public changeSoVanBan(event) {
-      if(event != null)
-      {
-        this.service.changeSoVanBan(event, this.idDonViLamViec).then(data => {
-          this.lstLoaiVanBan = data;
-        })
-      }
-    }
-  
-    public GetDataYear() {
-      const currentYear = new Date().getFullYear();
-      for (let i = currentYear + 1; i >= currentYear - 5; i--) {
-        this.yearOptions.push({ label: i.toString(), value: i });
-      }
+    public BindNamThang() {
+        const currentYear = new Date().getFullYear();
+        for (let i = currentYear + 1; i >= currentYear - 5; i--) {
+            this.yearOptions.push({ label: "Năm " + i.toString(), value: i });
+        }
+
+        for (let i = 1; i < 12; i++) {
+            this.monthOptions.push({ label: "Tháng " + i.toString(), value: i });
+        }
     }
 }

@@ -1,0 +1,338 @@
+<p-dialog
+    appendTo="body"
+    header="Gửi văn bản"
+    (onHide)="Thoat()"
+    (onShow)="BindDataDialog()"
+    [(visible)]="show"
+    [modal]="true"
+    [style]="{ width: '1250px' }"
+    [draggable]="true"
+    [resizable]="false"
+>
+    <ng-template pTemplate="content">
+        <div class="guiVanBan">
+            <div class="grid">
+                <div class="col-12">
+                    <p-table
+                        styleClass="p-datatable-gridlines"
+                        [value]="[ThongTinVanBan]"
+                        class="custom-table"
+                    >
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="custom-rb">
+                                    <strong>Số ký hiệu:</strong>
+                                </td>
+                                <td class="custom-b">{{ item.soKiHieu }}</td>
+                                <td class="custom-rb">
+                                    <strong>Loại văn bản:</strong>
+                                </td>
+                                <td class="custom-b">
+                                    {{ item.tenLoaiVanBan }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="custom-rb">
+                                    <strong>Ngày ban hành:</strong>
+                                </td>
+                                <td class="custom-b">
+                                    {{ item.ngayBanHanh | date : "dd/MM/yyyy" }}
+                                </td>
+                                <td class="custom-rb">
+                                    <strong>Ngày gửi văn bản:</strong>
+                                </td>
+                                <td class="custom-b">
+                                    {{
+                                        item.ngayNhanVanBan
+                                            | date : "dd/MM/yyyy"
+                                    }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="custom-rb">
+                                    <strong>Sổ văn bản:</strong>
+                                </td>
+                                <td class="custom-b">{{ item.tenSoVanBan }}</td>
+                                <td class="custom-rb">
+                                    <strong>Số đi:</strong>
+                                </td>
+                                <td class="custom-b">{{ item.soDi }}</td>
+                            </tr>
+                            <tr>
+                                <td class="custom-rb">
+                                    <strong>Cơ quan ban hành:</strong>
+                                </td>
+                                <td class="custom-b">{{ item.coQuanBh }}</td>
+                                <td class="custom-rb">
+                                    <strong>File đính kèm:</strong>
+                                </td>
+                                <td class="custom-b">
+                                    <li
+                                        class="custom-li"
+                                        *ngFor="let file of ThongTinFile"
+                                    >
+                                        <a
+                                            (click)="
+                                                DownloadFile(
+                                                    file.filePath,
+                                                    file.fileName
+                                                )
+                                            "
+                                            >{{ file.fileName }}</a
+                                        >
+                                    </li>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="custom-rb">
+                                    <strong>Trích yếu:</strong>
+                                </td>
+                                <td class="custom-b" colspan="3">
+                                    {{ item.trichYeu }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <div class="field grid">
+                <div class="col-12 md:col-12 fl-wr">
+                    <span>Lý do thu hồi: </span>
+                    <textarea
+                        rows="3"
+                        cols="30"
+                        class="my-drop"
+                        [(ngModel)]="lyDoThuHoi"
+                        placeholder="Lý do thu hồi"
+                        pInputTextarea
+                    ></textarea>
+                    <span
+                        class="p-error"
+                        *ngIf="lyDoThuHoi !== undefine && lyDoThuHoi.length == 0 && submitted"
+                        >Yêu cầu nhập lý do thu hồi</span
+                    >
+                </div>
+            </div>
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-3 mb-0">
+                    <span>Chọn văn bản trả lời:</span> &nbsp;
+                </div>
+                <div class="field col-12 md:col-9 mb-0">
+                    <span><strong>Danh sách văn bản đã chọn:</strong></span>
+                    &nbsp;
+                </div>
+            </div>
+            <div class="p-formgrid grid">
+                <div class="field col-12 md:col-3 mb-0">
+                    <button
+                        pbutton=""
+                        pripple=""
+                        type="submit"
+                        label="Info"
+                        class="p-element p-ripple p-button p-button p-component"
+                        ng-reflect-label="Info"
+                        (click)="OpenChonVanBan()"
+                    >
+                        <span class="p-button-label"
+                            ><i class="pi pi-plus"></i>&nbsp;Chọn văn bản</span
+                        >
+                    </button>
+                </div>
+                <div class="field col-12 md:col-9 mb-0">
+                    <p-table
+                        styleClass="p-datatable-gridlines"
+                        [value]="lstSelectedVanBan"
+                        class="custom-table"
+                    >
+                        <ng-template pTemplate="header" let-item>
+                            <tr>
+                                <th>Số ký hiệu</th>
+                                <th>Trích yếu</th>
+                                <th style="width: 2%">Xóa</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="custom-rb">
+                                    {{ item.soKiHieu }}
+                                </td>
+                                <td class="custom-rb">
+                                    {{ item.trichYeu }}
+                                </td>
+                                <td class="custom-rb">
+                                    <div class="div-center">
+                                        <a
+                                            href="javascript:;"
+                                            (click)="XoaVanBan(item.id)"
+                                            >&nbsp;<i class="pi pi-trash"></i
+                                        ></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="10">No record found.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6 mb-0">
+                    <p-dropdown
+                        appendTo="body"
+                        [showClear]="true"
+                        (ngModelChange)="onChangeNhomDonVi($event)"
+                        [filter]="true"
+                        [options]="lstNhomDonVi"
+                        [(ngModel)]="nhomDonVi"
+                        optionLabel="text"
+                        optionValue="value"
+                        placeholder="Chọn đơn vị theo nhóm"
+                    ></p-dropdown>
+                </div>
+            </div>
+
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6 mb-0">
+                    <div class="p-inputgroup">
+                        <input
+                            [(ngModel)]="keyWord"
+                            type="text"
+                            (keypress)="SearchTreeDonVi($event)"
+                            pInputText
+                            placeholder="Tìm kiếm đơn vị"
+                        />
+                        <p-button
+                            icon="pi pi-search"
+                            [style]="{
+                                'border-top-left-radius': '0px',
+                                'border-bottom-left-radius': '0px'
+                            }"
+                            [loading]="loading"
+                            (click)="SearchTreeDonVi($event)"
+                        ></p-button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid formgrid">
+                <div class="col-12 row">
+                    <div class="col-12 md:col-6">
+                        <label class="" for=""
+                            >Danh sách đơn vị/ phòng ban</label
+                        >
+                        <div class="listDonVi">
+                            <div id="listDonVi" class="scroll-pane listDonVi">
+                                <ul style="padding-left: 10px">
+                                    <li>
+                                        <span
+                                            [class]="iconClass"
+                                            (click)="toggleNode(checkAllItem)"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                [id]="checkAllItem"
+                                                [checked]="isCheckedAll"
+                                                (click)="
+                                                    handleCheckboxClick($event)
+                                                "
+                                            />
+                                            Các sở, ban, ngành đơn vị
+                                        </span>
+                                        <ul *ngIf="isShowAll">
+                                            <app-tree-node
+                                                (checkNode)="
+                                                    CheckedNode($event)
+                                                "
+                                                *ngFor="let node of treeData"
+                                                [node]="node"
+                                                (expand)="expandNode($event)"
+                                                (collapse)="
+                                                    collapseNode($event)
+                                                "
+                                            ></app-tree-node>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a
+                                id="btnAdd"
+                                href="javascript:;"
+                                (click)="AddToSelected()"
+                                class="btn p-buttonpp"
+                                style="margin-right: 5px; margin-top: 20px"
+                            >
+                                <i class="pi pi-arrow-right"></i
+                            ></a>
+                            <a
+                                id="btnRemove"
+                                href="javascript:;"
+                                (click)="RemoveFromSelected()"
+                                class="btn p-buttonpp"
+                                style="margin-right: 5px; margin-top: 20px"
+                            >
+                                <i class="pi pi-arrow-left"></i
+                            ></a>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <label class="form-control-label" for=""
+                            >Danh sách đơn vị nhận văn bản</label
+                        >
+                        <div class="lstUserChoise selectUser">
+                            <select
+                                size="4"
+                                name="lstUserChoise"
+                                [(ngModel)]="DsCaNhanNhan"
+                                class="form-control"
+                                id="lstUserChoise"
+                                multiple="multiple"
+                                style="height: 250px"
+                            >
+                                <option
+                                    *ngFor="let obj of lstDonViNhan"
+                                    [value]="obj.value"
+                                >
+                                    {{ obj.text }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            type="submit"
+            label="Info"
+            class="p-element p-ripple p-button-info p-button p-component"
+            ng-reflect-label="Info"
+            (click)="ThuHoiVanBan()"
+        >
+            <span class="p-button-label">Lưu</span><span class="p-ink"></span>
+        </button>
+        <button
+            pbutton=""
+            pripple=""
+            type="button"
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            (click)="Thoat()"
+            ng-reflect-label="Danger"
+        >
+            <span class="p-button-label">Hủy</span><span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-dialog>
+<app-chon-van-ban
+    [show]="hienThiChonVanBan"
+    [id]="id"
+    (chonVanBan)="ChonVanban($event)"
+    (tatPopup)="ThoatChonVanban($event, 'C')"
+></app-chon-van-ban>

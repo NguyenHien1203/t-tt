@@ -26,7 +26,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
-
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 
 @NgModule({
@@ -60,6 +60,7 @@ import { TabViewModule } from 'primeng/tabview';
     CalendarModule,
     TabViewModule,
     CommonModule,
+    OverlayPanelModule,
   ]
 })
 export class QuanTriVanBanDiModule { }

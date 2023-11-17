@@ -36,6 +36,122 @@
                 
             </div>
         </div>
+
+        <div class="card">
+            <div class="wrapper">
+                <h2>DANH SÁCH VĂN BẢN ĐẾN CHỜ TIẾP NHẬN</h2>
+               
+            </div>
+            <div class="grid">
+                <div class="col-12">
+                    <p-table [paginator]="true" #dt1 [value]="LstTiepNhanVanBan" dataKey="id" [rows]="10"
+                        [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+                        responsiveLayout="scroll">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 2%;">
+                                    <div class="flex justify-content-between align-items-center">
+                                        STT
+                                    </div>
+                                </th>
+                                <th style="min-width: 5rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Số ký hiệu
+                                    </div>
+                                </th>
+                                <th style="min-width: 7cqw">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Trích yếu
+                                    </div>
+                                </th>
+                                <th style="min-width: 5rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Ngày gửi
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Cơ quan ban hành
+                                    </div>
+                                </th>
+
+                                <th style="min-width: 10rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Trạng thái
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Chức năng
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                            <tr>
+                                <td style="text-align: center;">
+                                    {{ rowIndex + 1 }}
+                                </td>
+                                <td class="text-center">
+                                    {{item.soKiHieu}}
+                                </td>
+                                <td>
+                                    {{item.trichYeu}}
+                                </td>
+                                <td class="text-center">
+                                    {{item.ngayBanHanh}}
+                                </td>
+                                <td>
+                                    {{item.coQuanBH}}
+                                </td>
+                                <td>
+                                    {{ item.trangThaiId == 1 ? "Phát hành" :
+                                    item.trangThaiId == 2 ? "Chưa tiếp nhận" :
+                                     item.trangThaiId == 3 ? "Đã tiếp nhận" :
+                                     item.trangThaiId == 4 ? "VB lưu trữ" :
+                                     item.trangThaiId == 5 ? "Đang XL" :
+                                     item.trangThaiId == 7 ? "Đã XL" :
+                                     item.trangThaiId == 6 ? "Đang XL" :
+                                     item.trangThaiId == 11 ? "Văn bản chờ lấy lại" :
+                                     item.trangThaiId == 12 ? "Văn bản lấy lại" :
+                                     item.trangThaiId == 13 ? "Văn bản từ chối lấy lại" :
+                                     item.trangThaiId == 16 ? "Văn bản chờ cập nhật" :
+                                     item.trangThaiId == 17 ? "Văn bản cập nhật" :
+                                     item.trangThaiId == 21 ? "Văn bản thu hồi" :
+                                     item.trangThaiId == 22 ? "Văn bản chờ thu hồi" :
+                                     item.trangThaiId == 23 ? "Văn bản từ chối thu hồi" :
+                                     item.trangThaiId == 20 ? "Đã từ chối" : "Dự thảo" }}
+                                </td>
+                               
+                                <td class="text-center">
+                                    <div class="div-center">
+                                        <button pButton pRipple pTooltip="Tiếp nhận" (click)="TiepNhan(item.id)" icon="pi pi-check"
+                                            class="p-button-rounded p-button-success mr-2"></button>
+                                        <button pButton pRipple (click)="TuChoi(item.id)"  pTooltip="Từ chối" icon="pi pi-times"
+                                            class="p-button-rounded p-button-danger"></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="10">No record found.</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="loadingbody">
+                            <tr>
+                                <td colspan="10">Loading record data. Please wait.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+
+       
     </div>
 
 </div>
+<app-tiep-nhan [hienThi]="hienthiTiepNhan" [id]="id" (tatPopup)="Thoat($event, 'T')"></app-tiep-nhan>
+
+<app-tu-choi [hienThi]="hienthiTuChoi" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-tu-choi>

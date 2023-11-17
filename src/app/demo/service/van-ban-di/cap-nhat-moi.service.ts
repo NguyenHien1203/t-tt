@@ -31,7 +31,7 @@ export class CapNhatMoiService {
             .toPromise()
             .then((res) => res.objData as CapNhatMoi[]);
     }
-    GetVanBanById(id: string) {
+    getVanBanById(id: string) {
         return (
             this.http
                 .get<any>(

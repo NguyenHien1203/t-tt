@@ -180,7 +180,7 @@ export class AppMenuComponent implements OnInit {
                         {
                             label: 'Theo dõi văn bản đi',
                             icon: 'pi pi-fw pi-arrow-circle-right',
-                            routerLink: ['/hethong/nhomquyen'],
+                            routerLink: ['/van-ban-di/theo-doi-van-ban-di'],
                             code: '002006'
                         },
                         {
@@ -998,7 +998,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Theo dõi văn bản đi',
                                 icon: 'pi pi-fw pi-arrow-circle-right',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-di/theo-doi-van-ban-di'],
                                 code: '002006'
                             },
                             {

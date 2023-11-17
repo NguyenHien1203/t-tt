@@ -319,6 +319,7 @@
                                             <button
                                                 pButton
                                                 pRipple
+                                                pTooltip="Gửi"
                                                 icon="pi pi-play"
                                                 (click)="
                                                     GuiVanBan(capNhatMoi.id)
@@ -347,6 +348,7 @@
                                         <button
                                             pButton
                                             pRipple
+                                            pTooltip="Phân phối"
                                             (click)="PhanPhoi(capNhatMoi.id)"
                                             icon="pi pi-send"
                                             class="p-button-rounded p-button-info mr-2"
@@ -359,6 +361,7 @@
                                             pButton
                                             pRipple
                                             icon="pi pi-plus"
+                                            pTooltip="Thu hồi/Lấy lại"
                                             (click)="mail.toggle($event)"
                                             class="p-button-rounded p-button-success mr-2"
                                         >
@@ -412,6 +415,7 @@
                                         <button
                                             pButton
                                             pRipple
+                                            pTooltip="Cập nhật"
                                             icon="pi pi-pencil"
                                             (click)="CapNhat(capNhatMoi.id)"
                                             class="p-button-rounded p-button-success mr-2"
@@ -419,6 +423,7 @@
                                         <button
                                             pButton
                                             pRipple
+                                            pTooltip="Xóa"
                                             (click)="Xoa(capNhatMoi.id)"
                                             icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"

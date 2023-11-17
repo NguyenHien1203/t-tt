@@ -23,35 +23,21 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 
-import { GuiVanBanRoutingModule } from './gui-van-ban-routing.module';
-import { GuiVanBanComponent } from './gui-van-ban.component';
-import { PhanPhoiComponent } from './phan-phoi/phan-phoi.component';
-import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
-import { GuiComponent } from './gui/gui.component';
-import { ChonVanBanComponent } from './gui/chon-van-ban/chon-van-ban.component';
-import { TreeNodeComponent } from './tree-node/tree-node.component';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { TagModule } from 'primeng/tag';
-import { ThuHoiComponent } from './thu-hoi/thu-hoi.component';
-import { LayLaiComponent } from './gui/lay-lai/lay-lai.component';
+import { TheoDoiVanBanDiRoutingModule } from './theo-doi-van-ban-di-routing.module';
+import { TheoDoiVanBanDiComponent } from './theo-doi-van-ban-di.component';
+import { BaoCaoComponent } from './bao-cao/bao-cao.component';
+import { TheoDoiComponent } from './theo-doi/theo-doi.component';
 import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
   declarations: [
-    GuiVanBanComponent,
-    PhanPhoiComponent,
-    CapNhatComponent,
-    GuiComponent,
-    ChonVanBanComponent,
-    TreeNodeComponent,
-    ThuHoiComponent,
-    LayLaiComponent
+    TheoDoiVanBanDiComponent,
+    BaoCaoComponent,
+    TheoDoiComponent
   ],
   imports: [
     TooltipModule,
-    TagModule,
-    OverlayPanelModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -75,7 +61,7 @@ import { TooltipModule } from 'primeng/tooltip';
     CalendarModule,
     TabViewModule,
     CommonModule,
-    GuiVanBanRoutingModule
+    TheoDoiVanBanDiRoutingModule
   ]
 })
-export class GuiVanBanModule { }
+export class TheoDoiVanBanDiModule { }

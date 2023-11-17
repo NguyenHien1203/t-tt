@@ -51,6 +51,14 @@ const routes: Routes = [
                 (m) => m.SoVanBanDiModule
             ),
     },
+    {
+        path: 'theo-doi-van-ban-di',
+        data: { breadcrumb: 'Theo dõi văn bản đi' },
+        loadChildren: () =>
+            import('./theo-doi-van-ban-di/theo-doi-van-ban-di.module').then(
+                (m) => m.TheoDoiVanBanDiModule
+            ),
+    },
 ];
 @NgModule({
     imports: [RouterModule.forChild(routes)],

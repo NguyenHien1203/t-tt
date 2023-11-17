@@ -1,0 +1,288 @@
+<div class="col-12 pb-0">
+    <div class="p-fluid p-formgrid grid">
+        <div class="field col-12 md:col-12 mb-0 pb-0">
+            <p-breadcrumb
+                class="max-w-full"
+                [model]="items"
+                [home]="home"
+            ></p-breadcrumb>
+        </div>
+    </div>
+</div>
+
+<div class="col-12">
+    <div class="card">
+        <div class="guiVanBan">
+            <div class="guiVanBan">
+                <div class="grid">
+                    <div class="col-12"><b>Thông tin văn bản:</b></div>
+                </div>
+                <div class="grid">
+                    <div class="col-12">
+                        <p-table
+                            styleClass="p-datatable-gridlines"
+                            [value]="[ThongTinVanBan]"
+                            class="custom-table"
+                        >
+                            <ng-template pTemplate="body" let-item>
+                                <tr>
+                                    <td class="custom-rb">
+                                        <strong>Số ký hiệu:</strong>
+                                    </td>
+                                    <td class="custom-b">
+                                        {{ item.soKiHieu }}
+                                    </td>
+                                    <td class="custom-rb">
+                                        <strong>Loại văn bản:</strong>
+                                    </td>
+                                    <td class="custom-b">
+                                        {{ item.tenLoaiVanBan }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="custom-rb">
+                                        <strong>Ngày ban hành:</strong>
+                                    </td>
+                                    <td class="custom-b">
+                                        {{
+                                            item.ngayBanHanh
+                                                | date : "dd/MM/yyyy"
+                                        }}
+                                    </td>
+                                    <td class="custom-rb">
+                                        <strong>Ngày gửi văn bản:</strong>
+                                    </td>
+                                    <td class="custom-b">
+                                        {{
+                                            item.ngayNhanVanBan
+                                                | date : "dd/MM/yyyy"
+                                        }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="custom-rb">
+                                        <strong>Sổ văn bản:</strong>
+                                    </td>
+                                    <td class="custom-b">
+                                        {{ item.tenSoVanBan }}
+                                    </td>
+                                    <td class="custom-rb">
+                                        <strong>Số đi:</strong>
+                                    </td>
+                                    <td class="custom-b">{{ item.soDi }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="custom-rb">
+                                        <strong>Cơ quan ban hành:</strong>
+                                    </td>
+                                    <td class="custom-b">
+                                        {{ item.coQuanBh }}
+                                    </td>
+                                    <td class="custom-rb">
+                                        <strong>File đính kèm:</strong>
+                                    </td>
+                                    <td class="custom-b">
+                                        <li
+                                            class="custom-li"
+                                            *ngFor="let file of ThongTinFile"
+                                        >
+                                            <a
+                                                (click)="
+                                                    DownloadFile(
+                                                        file.filePath,
+                                                        file.fileName
+                                                    )
+                                                "
+                                                >{{ file.fileName }}</a
+                                            >
+                                        </li>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="custom-rb">
+                                        <strong>Trích yếu:</strong>
+                                    </td>
+                                    <td class="custom-b" colspan="3">
+                                        {{ item.trichYeu }}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        <div class="grid">
+            <div class="col-12">
+                <b>Gửi 1 đơn vị trong đó có 0 phải có báo cáo trả lời:</b>
+                &nbsp;
+                <a href="javascript:;"
+                    ><i class="pi pi-arrow-right-arrow-left"></i> Cập nhật báo
+                    cáo cho các đơn bị ngoài hệ thống liên thông</a
+                >
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="col-12">
+                <p-table
+                    [paginator]="true"
+                    #dt1
+                    [value]="lstBaoCao"
+                    dataKey="id"
+                    [rows]="10"
+                    [loading]="loading"
+                    [rowsPerPageOptions]="[10, 20, 30]"
+                    [rowHover]="true"
+                    styleClass="p-datatable-gridlines"
+                    [paginator]="true"
+                    responsiveLayout="scroll"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 2%">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    STT
+                                </div>
+                            </th>
+                            <th style="min-width: 3rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Ngày gửi
+                                </div>
+                            </th>
+                            <th style="min-width: 3rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Nơi nhận
+                                </div>
+                            </th>
+                            <th style="min-width: 14rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Thời gian nhận
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Văn bản trả lời
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Trạng thái văn bản
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Kết quả
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Văn bản kết quả
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Cập nhật kết quả
+                                </div>
+                            </th>
+
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Cảnh báo
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Chức năng
+                                </div>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template
+                        pTemplate="body"
+                        let-item
+                        let-rowIndex="rowIndex"
+                    >
+                        <tr>
+                            <td style="text-align: center">
+                                {{ rowIndex + 1 }}
+                            </td>
+                            <td class="text-center">
+                                {{ item.soDiDen }}
+                            </td>
+                            <td class="text-center">
+                                {{ item.soKiHieu }}
+                            </td>
+                            <td>
+                                {{ item.trichYeu }}
+                            </td>
+
+                            <td class="text-center">
+                                {{ item.ngayBanHanh | date : "dd-MM-yyyy" }}
+                            </td>
+                            <td>
+                                {{ item.nguoiKy }}
+                            </td>
+                            <td class="text-center">
+                                <div class="div-center">
+                                    <button
+                                        pTooltip="Theo dõi"
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-check-square"
+                                        (click)="TheoDoi(item.id)"
+                                        class="p-button-rounded p-button-info mr-2"
+                                    ></button>
+                                    <button
+                                        pTooltip="Báo cáo"
+                                        pButton
+                                        pRipple
+                                        (click)="BaoCao(item.id)"
+                                        icon="pi pi-user-edit"
+                                        class="p-button-rounded p-button-info"
+                                    ></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="12">No record found.</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="loadingbody">
+                        <tr>
+                            <td colspan="12">
+                                Loading record data. Please wait.
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>

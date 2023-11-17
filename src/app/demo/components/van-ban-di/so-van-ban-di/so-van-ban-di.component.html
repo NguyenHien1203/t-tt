@@ -176,7 +176,7 @@
             <div class="field grid" #txNgay *ngIf="activeTab === 'txNgay'">
                 <label class="col-12 md:col-3 fl-wr">
                     <p-calendar
-                        [(ngModel)]="timKiemDanhSach.banHanhTuNgay"
+                        [(ngModel)]="timKiemDanhSach.bHTN"
                         dateFormat="dd/mm/yy"
                         placeholder="Ban hành đến ngày"
                         [style]="{ width: '100%' }"
@@ -185,7 +185,7 @@
                 </label>
                 <label class="col-12 md:col-3 fl-wr">
                     <p-calendar
-                        [(ngModel)]="timKiemDanhSach.banHanhDenNgay"
+                        [(ngModel)]="timKiemDanhSach.bHDN"
                         dateFormat="dd/mm/yy"
                         placeholder="Ban hành đến ngày"
                         [style]="{ width: '100%' }"
@@ -194,7 +194,7 @@
                 </label>
                 <label class="col-12 md:col-3 fl-wr">
                     <p-calendar
-                        [(ngModel)]="timKiemDanhSach.ngayGuiTuNgay"
+                        [(ngModel)]="timKiemDanhSach.bGTN"
                         dateFormat="dd/mm/yy"
                         placeholder="Ngày gửi từ ngày"
                         [style]="{ width: '100%' }"
@@ -203,7 +203,7 @@
                 </label>
                 <label class="col-12 md:col-3 fl-wr">
                     <p-calendar
-                        [(ngModel)]="timKiemDanhSach.ngayGuiDenNgay"
+                        [(ngModel)]="timKiemDanhSach.bGDN"
                         dateFormat="dd/mm/yy"
                         placeholder="Ngày gửi đến ngày"
                         [style]="{ width: '100%' }"

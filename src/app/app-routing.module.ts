@@ -24,6 +24,7 @@ import { LoginComponent } from './demo/components/auth/login/login.component';
                     { path: 'van-ban-di', loadChildren: () => import('./demo/components/van-ban-di/van-ban-di.module').then(m => m.VanBanDiModule) },
                 ]
             },
+            { path: 'in-so-van-ban', loadChildren: () => import('./demo/components/van-ban-di/so-van-ban-di/in-so-van-ban/in-so-van-ban.module').then(m => m.InSoVanBanModule) },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
             { path: 'landing', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
             { path: 'login', loadChildren: () => import('./demo/components/auth/login/login.module').then(m => m.LoginModule), component: LoginComponent },

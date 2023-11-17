@@ -31,7 +31,7 @@ import { ConfirmationService } from 'primeng/api';
 
 
 @NgModule({
-  declarations: [SoVanBanDiComponent, InSoVanBanComponent],
+  declarations: [SoVanBanDiComponent],
   providers : [ConfirmationService],
   imports: [
     TabMenuModule,

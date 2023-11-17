@@ -22,6 +22,7 @@ export class SoVanBanDiComponent {
         private router: Router
     ) {}
 
+    strTrichXuat: string = '';
     activeTab: string = 'txThang';
     activeTabItem: string = '';
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
@@ -59,7 +60,7 @@ export class SoVanBanDiComponent {
     ];
 
     timKiemDanhSach: TimKiemDanhSach = {
-        loaiTrichXuat: 0,
+        loaiTrichXuat: 1,
         nam: new Date().getFullYear(),
         thang: 0,
         quy: 0,
@@ -114,14 +115,14 @@ export class SoVanBanDiComponent {
             this.yearOptions.push({ label: 'Năm ' + i.toString(), value: i });
         }
 
-        for (let i = 1; i >= 12; i++) {
+        for (let i = 1; i <= 12; i++) {
             this.monthOptions.push({
                 label: 'Tháng ' + i.toString(),
                 value: i,
             });
         }
 
-        for (let i = 1; i >= 4; i++) {
+        for (let i = 1; i <= 4; i++) {
             this.quarterOptions.push({
                 label: 'Quý ' + i.toString(),
                 value: i,
@@ -179,12 +180,51 @@ export class SoVanBanDiComponent {
     }
 
     public In(): void {
-      let listInSoVanBan = this.lstSoVanBanDi.slice(this.timKiemDanhSach.first, this.timKiemDanhSach.rowsPerPage)
+        if (this.timKiemDanhSach.loaiTrichXuat == 1) {
+            const thang = this.timKiemDanhSach.thang
+                ? 'Tháng ' + this.timKiemDanhSach.thang
+                : '';
+            const nam = this.timKiemDanhSach.nam
+                ? ' Năm ' + this.timKiemDanhSach.nam
+                : '';
+            this.strTrichXuat = thang + nam;
+        }
+
+        if (this.timKiemDanhSach.loaiTrichXuat == 2) {
+            const quy = this.timKiemDanhSach.quy
+                ? 'Quý ' + this.timKiemDanhSach.quy
+                : '';
+            const nam = this.timKiemDanhSach.nam
+                ? ' Năm ' + this.timKiemDanhSach.nam
+                : '';
+            this.strTrichXuat = quy + nam;
+        }
+
+        if (this.timKiemDanhSach.loaiTrichXuat == 3) {
+            const nam = this.timKiemDanhSach.nam
+                ? ' Năm ' + this.timKiemDanhSach.nam
+                : '';
+            this.strTrichXuat = nam;
+        }
+
+        if (this.timKiemDanhSach.loaiTrichXuat == 4) {
+            const banHanhTu = this.formatDateToDDMMYY(new Date(this.timKiemDanhSach.bHTN)) != "01/01/1901"
+                ? this.formatDateToDDMMYY(new Date(this.timKiemDanhSach.bHTN))
+                : '';
+            const banHanhDen = this.formatDateToDDMMYY(new Date(this.timKiemDanhSach.bHDN)) != "01/01/1901"
+                ? ' - ' + this.formatDateToDDMMYY(new Date(this.timKiemDanhSach.bHDN))
+                : '';
+            this.strTrichXuat = banHanhTu + banHanhDen;
+        }
+        let listInSoVanBan = this.lstSoVanBanDi.slice(
+            this.timKiemDanhSach.first,
+            this.timKiemDanhSach.rowsPerPage
+        );
         const encodedList = encodeURIComponent(JSON.stringify(listInSoVanBan));
-        this.router.navigate(['./van-ban-di/so-van-ban-di/in-so-van-ban'], {
-            queryParams: { list: encodedList },
+        // const encodedData = btoa(JSON.stringify(listInSoVanBan));
+        this.router.navigate(['/in-so-van-ban'], {
             queryParamsHandling: 'merge',
-            state: { target: '_blank' }, // Sử dụng state để truyền 'target'
+            queryParams: { list: encodedList, strTrichXuat: this.strTrichXuat },
         });
     }
 
@@ -218,5 +258,13 @@ export class SoVanBanDiComponent {
             },
             reject: () => {},
         });
+    }
+
+    formatDateToDDMMYY(date) : string {
+        const day = ('0' + date.getDate()).slice(-2);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const year = date.getFullYear().toString();
+
+        return day + '/' + month + '/' + year;
     }
 }

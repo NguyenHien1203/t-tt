@@ -215,7 +215,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Sổ văn bản đi',
                                 icon: 'pi pi-fw pi-book',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-di/so-van-ban-di'],
                                 code: '002009'
                             },
                             {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MenuItem, Message, MessageService } from 'primeng/api';
 import { DmPhongBan, TimKiemModel } from 'src/app/demo/api/danh-muc/phong-ban';
 import { PhongbanService } from 'src/app/demo/service/danh-muc/phong-ban/phongban.service';
+import { DMJsonModel } from 'src/app/models/common/DMJsonModel';
 
 @Component({
   templateUrl: './phong-ban.component.html',
@@ -43,6 +44,10 @@ export class PhongBanComponent implements OnInit {
   rowsPerPageOptions = [5, 10, 20];
   //Hết 
 
+  //Khai báo đơn vị tree
+  DonViTree: DMJsonModel[] = [];
+  selectedDonVi: '';
+  
   constructor(private messageService: MessageService, private dmPhongBanService: PhongbanService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {

@@ -43,6 +43,14 @@ const routes: Routes = [
                 (m) => m.TraCuuNangCaoModule
             ),
     },
+    {
+        path: 'so-van-ban-di',
+        data: { breadcrumb: 'Sổ văn bản đi' },
+        loadChildren: () =>
+            import('./so-van-ban-di/so-van-ban-di.module').then(
+                (m) => m.SoVanBanDiModule
+            ),
+    },
 ];
 @NgModule({
     imports: [RouterModule.forChild(routes)],

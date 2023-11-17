@@ -19,9 +19,9 @@ export class TraCuuNangCaoComponent {
 ) {}
 
 itemMenus = [
-  { label: 'Tab 1', icon: 'pi pi-fw pi-calendar', command: () => this.tabClick(0) },
-  { label: 'Tab 2', icon: 'pi pi-fw pi-pencil', command: () => this.tabClick(1) },
-  { label: 'Tab 3', icon: 'pi pi-fw pi-file', command: () => this.tabClick(2) },
+  { label: 'Tab 1', icon: 'pi pi-box', command: () => this.tabClick(0) },
+  { label: 'Tab 2', icon: 'pi pi-box', command: () => this.tabClick(1) },
+  { label: 'Tab 3', icon: 'pi pi-box', command: () => this.tabClick(2) },
 ];
 
 activeItem = this.itemMenus[0];
@@ -38,14 +38,14 @@ lstChucNang = [
 ];
 
 isShowSearch: boolean = false;
-lyDoLayLai: string = '';
 idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
 yearOptions: SelectItem[] = [];
+monthOptions: SelectItem[] = [];
 timChinhXac: boolean = false;
 loading: boolean = false;
 lstLoaiVanBan: any = [];
-capNhatMois: any[] = [];
-items = [{ label: 'Văn bản đi' }, { label: 'Cập nhật mới' }];
+lstVanBanDi: any[] = [];
+items = [{ label: 'Văn bản đi' }, { label: 'Tra cứu nâng cao' }];
 home = { icon: 'pi pi-home', routerLink: '/' };
 
 timKiemDanhSach: TimKiemDanhSach = {
@@ -56,8 +56,10 @@ timKiemDanhSach: TimKiemDanhSach = {
     mucDo: 0,
     loaiVanBanId: 0,
     lanhDaoKy: '',
-    ngayGuiVanBan: '1901-01-01',
-    ngayBanHanhVanBan: '1901-01-01',
+    ngayGuiTuNgay: '1901-01-01',
+    ngayGuiDenNgay: '1901-01-01',
+    banHanhTuNgay: '1901-01-01',
+    banHanhDenNgay: '1901-01-01',
     nam: new Date().getFullYear(),
     thang: 0,
     soKyHieu: '',
@@ -75,22 +77,33 @@ ngAfterContentChecked(): void {
 }
 
 ngOnInit(): void {
-    this.GetDataYear();
+    this.GetDataMonthYear();
+    this.LoadLoaiVanBan();
     this.loading = false;
     this.LoadDanhSach();
 }
 
-public GetDataYear() {
+public GetDataMonthYear() {
     const currentYear = new Date().getFullYear();
     for (let i = currentYear + 1; i >= currentYear - 5; i--) {
-        this.yearOptions.push({ label: i.toString(), value: i });
+        this.yearOptions.push({ label: "Năm " + i.toString(), value: i });
     }
+
+    for (let i = 1; i <= 12; i++) {
+      this.monthOptions.push({ label: "Tháng " + i.toString(), value: i });
+  }
+}
+
+public LoadLoaiVanBan(): void{
+    this.service.getDanhSachLoaiVanBan(this.idDonViLamViec).then((data) => {
+        this.lstLoaiVanBan = data;
+    });
 }
 
 public LoadDanhSach(): void {
     this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
     this.service.getDanhSachTraCuuNangCao(this.timKiemDanhSach).then((data) => {
-        this.capNhatMois = data;
+        this.lstVanBanDi = data;
     });
 }
 

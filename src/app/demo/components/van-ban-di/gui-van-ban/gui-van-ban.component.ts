@@ -26,7 +26,6 @@ export class GuiVanBanComponent {
     ];
 
     isShowSearch: boolean = false;
-    lyDoLayLai: string = '';
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     yearOptions: SelectItem[] = [];
     timChinhXac: boolean = false;
@@ -40,7 +39,7 @@ export class GuiVanBanComponent {
     lstLoaiVanBan: any = [];
     lstSoVanBan: any = [];
     capNhatMois: any[] = [];
-    items = [{ label: 'Văn bản đi' }, { label: 'Cập nhật mới' }];
+    items = [{ label: 'Văn bản đi' }, { label: 'Gửi văn bản đi' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
     lstTrangThai: any[] = [
         { text: 'Chờ phát hành', value: '8' },
@@ -111,6 +110,7 @@ export class GuiVanBanComponent {
     }
 
     public changeSoVanBan(event) {
+        this.lstLoaiVanBan = [];
         if (event != null) {
             this.service
                 .changeSoVanBan(event, this.idDonViLamViec)

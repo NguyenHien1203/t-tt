@@ -21,6 +21,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TreeSelectModule } from 'primeng/treeselect';
 import { ThemMoiNhomDonViComponent } from './them-moi-nhom-don-vi/them-moi-nhom-don-vi.component';
 import { CapNhatNhomDonViComponent } from './cap-nhat-nhom-don-vi/cap-nhat-nhom-don-vi.component';
 import { ThemDonViVaoNhomComponent } from './them-don-vi-vao-nhom/them-don-vi-vao-nhom.component';
@@ -50,7 +51,8 @@ import { ThemDonViVaoNhomComponent } from './them-don-vi-vao-nhom/them-don-vi-va
     CascadeSelectModule,
     MultiSelectModule,
     InputTextareaModule,
-    InputTextModule
+    InputTextModule,
+    TreeSelectModule
   ]
 })
 export class NhomDonViModule { }

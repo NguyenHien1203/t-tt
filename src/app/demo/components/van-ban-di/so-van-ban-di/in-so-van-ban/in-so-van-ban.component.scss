@@ -1,0 +1,15 @@
+@media print {
+      /* Thêm các kiểu CSS in của bạn ở đây */
+      body {
+        margin: 0;
+      }
+    
+      table {
+        width: 100%;
+      }
+    }
+
+    table {
+      width: 100%;
+      page-break-inside: auto;
+    }

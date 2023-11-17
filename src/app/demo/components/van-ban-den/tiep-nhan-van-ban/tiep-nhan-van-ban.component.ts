@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { TiepNhanVanBanService } from 'src/app/demo/service/van-ban-den/tiep-nhan-van-ban/tiep-nhan-van-ban.service';
 import { TimKiemDanhSach } from 'src/app/models/van-ban-den/cap-nhat-moi';
@@ -15,12 +15,15 @@ export class TiepNhanVanBanComponent implements OnInit {
   home: any;
   loading: boolean = true;
   public timChinhXac: boolean = false;
-
   LstTiepNhanVanBan: any[] = [];
+  hienthiTiepNhan: boolean = false;
+  hienthiTuChoi: boolean = false;
+  id: any = "";
 
   constructor(
     private messageService: MessageService,
-    private service : TiepNhanVanBanService,
+    private service: TiepNhanVanBanService,
+    private cd: ChangeDetectorRef
   ) { }
 
 
@@ -29,7 +32,7 @@ export class TiepNhanVanBanComponent implements OnInit {
     this.items = [{ label: 'Văn bản đến' }, { label: 'Tiếp nhận văn bản' }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
 
-    this.GetDanhSachCapNhatMoi();
+    this.GetDanhSachTiepNhanVanBan();
   }
 
   public timKiemDanhSach: TimKiemDanhSach = {
@@ -44,18 +47,46 @@ export class TiepNhanVanBanComponent implements OnInit {
     this.timChinhXac = !this.timChinhXac;
   }
 
+  ngAfterContentChecked(): void {
+    this.cd.detectChanges();
+  }
+
   /**
    * lấy dữ liệu bản ghi cập nhật mới
    */
-  public GetDanhSachCapNhatMoi() {
-    this.service.getDanhSachCapNhatMoi(this.timKiemDanhSach).subscribe(data => {
+  public GetDanhSachTiepNhanVanBan() {
+    this.service.getDanhSachTiepNhanVanBan(this.timKiemDanhSach).subscribe(data => {
       if (data.isError) {
-
       } else {
         this.LstTiepNhanVanBan = data.objData;
       }
     }, (error) => {
       console.log('Error', error);
     })
+  }
+
+  /**
+   * TiepNhan
+   */
+  public TiepNhan(idVanBan: string) {
+    this.hienthiTiepNhan = true;
+    this.id = idVanBan;
+  }
+
+  /**
+   * TiepNhan
+   */
+  public TuChoi(idVanBan: string) {
+    this.hienthiTuChoi = true;
+    this.id = idVanBan;
+  }
+
+  public Thoat(itemHt: any, loai: string): void {
+    if (loai === 'T')
+      this.hienthiTiepNhan = false;
+
+      if (loai === 'C')
+      this.hienthiTuChoi = false;
+    this.GetDanhSachTiepNhanVanBan();
   }
 }

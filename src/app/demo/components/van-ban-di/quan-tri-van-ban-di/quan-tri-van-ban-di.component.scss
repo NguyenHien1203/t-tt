@@ -1,0 +1,44 @@
+.my-show-and-hide {
+    align-items: center;
+    text-align: center;
+}
+
+.my-size-icon {
+    width: 2rem;
+    height: 2rem !important;
+}
+
+.my-a {
+    align-items: center;
+    background-color: #3B82F6;
+    border: 1px solid #3B82F6;
+    border-radius: 50%;
+}
+
+.my-a span {
+    color: #ffffff;
+}
+
+.my-dropdown-menu {
+    position: absolute;
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform: translate3d(0px, 39.8491px, 0px);
+}
+
+.my-dropdown-menu {
+    display: block;
+}
+
+.my-font {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+}
+
+a.my-font:hover {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3B82F6;
+    text-decoration: underline;
+}

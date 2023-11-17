@@ -1,0 +1,158 @@
+<p-dialog [(visible)]="hienThi" [formGroup]="formThongTinVanBan" [draggable]="true" [resizable]="false"
+    (onHide)="Thoat()" (onShow)="BindDataDialog()" [style]="{ width: '1150px' }" [modal]="true"
+    header="Tiếp nhận văn bản">
+    <ng-template pTemplate="content">
+
+        <div class="field grid">
+            <div class="col-12 md:col-2 fl-wr">
+                Cơ quan ban hành <span class="p-error">(*)</span>
+            </div>
+            <div class="col-12 md:col-4 fl-wr">
+                <input type="text" readonly="" formControlName="coQuanBanHanh" id="coQuanBanHanh"
+                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element">
+
+            </div>
+
+            <div class="col-12 md:col-2 fl-wr">
+                Sổ văn bản <span class="p-error">(*)</span>
+            </div>
+            <div class="col-12 md:col-4 fl-wr">
+                <p-dropdown [showClear]="true" [options]="SoVanBan" optionValue="id" optionLabel="tenSo" [filter]="true"
+                    [style]="{'width': '100%'}" class="my-drop" (onChange)="onChangeLoaiVanBan($event)"
+                    formControlName="soVanBanId" placeholder="Chọn sổ văn bản"></p-dropdown>
+                <span class="p-error"
+                    *ngIf="!formThongTinVanBan.controls.soVanBanId.valid && (formThongTinVanBan.controls.soVanBanId.touched || submitted_VB)">Vui
+                    lòng chọn sổ văn bản</span>
+            </div>
+        </div>
+
+        <div class="field grid">
+            <div class="col-12 md:col-2 fl-wr">
+                Số ký hiệu <span class="p-error">(*)</span>
+            </div>
+            <div class="col-12 md:col-4 fl-wr">
+                <input type="text" formControlName="soKiHieu" id="soKiHieu" [style]="{'width': '100%'}" class="my-drop"
+                    class="p-inputtext p-component p-element">
+                <span class="p-error"
+                    *ngIf="!formThongTinVanBan.controls.soKiHieu.valid && (formThongTinVanBan.controls.soKiHieu.touched || submitted_VB)">Vui
+                    lòng nhập số ký hiệu</span>
+            </div>
+
+            <div class="col-12 md:col-2 fl-wr">
+                Số hiện tại <span class="p-error">(*)</span>
+            </div>
+            <div class="col-12 md:col-4 fl-wr">
+                <input readonly="" type="text" formControlName="soHienTai" id="soHienTai" [style]="{'width': '100%'}"
+                    class="my-drop" class="p-inputtext p-component p-element">
+                <span class="p-error"
+                    *ngIf="!formThongTinVanBan.controls.soHienTai.valid && (formThongTinVanBan.controls.soHienTai.touched || submitted_VB)">Vui
+                    lòng nhập số hiện tại với định dạng số</span>
+            </div>
+
+        </div>
+
+        <div class="field grid">
+            <div class="col-12 md:col-2 fl-wr">
+                Số đến <span class="p-error">(*)</span>
+            </div>
+            <div class="col-12 md:col-4 fl-wr">
+                <input type="text" formControlName="soDen" id="soDen" [style]="{'width': '100%'}" class="my-drop"
+                    class="p-inputtext p-component p-element">
+                <span class="p-error"
+                    *ngIf="!formThongTinVanBan.controls.soDen.valid && (formThongTinVanBan.controls.soDen.touched || submitted_VB)">Vui
+                    lòng nhập số đến với định dạng số</span>
+            </div>
+
+            <div class="col-12 md:col-2 fl-wr">
+                Ngày ban hành <span class="p-error">(*)</span>
+            </div>
+            <div class="col-12 md:col-4 fl-wr">
+                <p-calendar formControlName="ngayBanHanh" dateFormat="dd/mm/yy" [style]="{'width': '100%'}"
+                    class="my-drop"></p-calendar>
+                <span class="p-error"
+                    *ngIf="!formThongTinVanBan.controls.ngayBanHanh.valid && (formThongTinVanBan.controls.ngayBanHanh.touched || submitted_VB)">Vui
+                    lòng chọn ngày ban hành</span>
+            </div>
+
+
+        </div>
+
+        <div class="field grid">
+            <div class="col-12 md:col-2 fl-wr">
+                Ngày gửi văn bản <span class="p-error">(*)</span>
+            </div>
+            <div class="col-12 md:col-4 fl-wr">
+                <p-calendar formControlName="ngayGui" dateFormat="dd/mm/yy" [style]="{'width': '100%'}"
+                    class="my-drop"></p-calendar>
+                <span class="p-error"
+                    *ngIf="!formThongTinVanBan.controls.ngayGui.valid && (formThongTinVanBan.controls.ngayGui.touched || submitted_VB)">Vui
+                    lòng chọn ngày gửi văn bản</span>
+            </div>
+            <div class="col-12 md:col-2 fl-wr">
+                Loại văn bản <span class="p-error">(*)</span>
+            </div>
+            <div class="col-12 md:col-4 fl-wr">
+                <p-dropdown formControlName="loaiVanBanId" [options]="LoaiVanBan" optionValue="loaiVbId"
+                    optionLabel="tenLoaiVb" [showClear]="true" [filter]="true" appendTo="body"
+                    placeholder="Chọn loại văn bản" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
+                <span class="p-error"
+                    *ngIf="!formThongTinVanBan.controls.loaiVanBanId.valid && (formThongTinVanBan.controls.loaiVanBanId.touched || submitted_VB)">Vui
+                    lòng chọn loại văn bản</span>
+
+            </div>
+        </div>
+        <div class="field grid">
+            <div class="col-12 md:col-2 fl-wr">
+                Ý kiến tham mưu
+                (nếu có)
+            </div>
+            <div class="col-12 md:col-10 fl-wr">
+                <textarea type="text" formControlName="yKienThamMuu" id="yKienThamMuu" [style]="{'width': '100%'}"
+                    class="my-drop" class="p-inputtext p-component p-element"></textarea>
+            </div>
+        </div>
+
+        <div class="field grid">
+            <div class="col-12 md:col-2 fl-wr">
+                File đính kèm <span class="p-error">(*)</span>
+            </div>
+            <div class="col-12 md:col-10 fl-wr">
+                <div>
+                    <label for="fileUpload" class="custom-file-upload">
+                        <i class="pi pi-upload"></i> Chọn tệp
+                    </label>
+                    <input type="file" id="fileUpload" multiple="multiple" (change)="onFileSelected($event)"
+                        style="display: none;">
+
+                </div>
+                <ul>
+                    <li *ngFor="let file of selectedFiles"><a (click)="DownloadFile(file.path, file.name)"
+                            href="javascript:;">{{file.name}}</a><a href="javascript:;"
+                            (click)="XoaFile(file.name)">&nbsp;<i class="pi pi-trash"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="field grid div-center">
+            <p-checkbox formControlName="chkLuuTru" (click)="CheckLuuTru()" value="true"
+                label="Văn bản lưu trữ"></p-checkbox>
+            &nbsp;&nbsp;&nbsp;
+            <p-checkbox formControlName="chkXemTatCa" (click)="CheckXemTatCa()" value="true"
+                label="Cho phép tất cả các CQ được xem"></p-checkbox>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button (click)="Submit()" type="submit" pbutton="" pripple="" label="Tìm kiếm" icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component">
+            <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+            <span class="p-button-label">Lưu</span>
+            <span class="p-ink"></span>
+        </button>
+        <button pbutton="" pripple="" label="Tìm kiếm" icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component p-button-danger" (click)="Thoat()">
+            <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+            <span class="p-button-label">Thoát</span>
+            <span class="p-ink"></span>
+        </button>
+    </ng-template>
+
+</p-dialog>

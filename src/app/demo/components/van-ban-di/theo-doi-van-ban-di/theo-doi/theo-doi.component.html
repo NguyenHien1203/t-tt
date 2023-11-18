@@ -98,8 +98,8 @@
             <div class="p-formgrid grid">
                 <div class="field col-12 md:col-12 mb-0">
                     <a href="javascript:;" (click)="ToggleTable()"
-                        >{{ !isShowTable ? "Mở" : "Đóng" }} khung chọn đơn vị báo
-                        cáo trả lời</a
+                        >{{ !isShowTable ? "Mở" : "Đóng" }} khung chọn đơn vị
+                        báo cáo trả lời</a
                     >
                 </div>
                 <div class="field col-12 md:col-12 mb-0">
@@ -118,6 +118,7 @@
                             <tr>
                                 <th class="text-center">
                                     <p-checkbox
+                                        [readonly]="true"
                                         name="checkAll"
                                         [(ngModel)]="isCheckedAllGuiVb"
                                         binary="true"
@@ -125,13 +126,13 @@
                                         label=""
                                     ></p-checkbox>
                                 </th>
-                                <th  class="text-center">
+                                <th class="text-center">
                                     <p-checkbox
                                         name="checkAll"
                                         [(ngModel)]="isCheckedAllVbTraLoi"
                                         binary="true"
                                         id="checkAll"
-                                        (ngModelChange)="checkAll($event)"
+                                        (ngModelChange)="CheckAll($event)"
                                         value="true"
                                         label=""
                                     ></p-checkbox>
@@ -145,8 +146,8 @@
                                 </td>
                                 <td class="custom-rb text-center">
                                     <p-checkbox
-                                        [ariaReadOnly]="true"
-                                        [(ngModel)]="item.checked"
+                                        [readonly]="true"
+                                        [(ngModel)]="item.checkedPhongBan"
                                         binary="true"
                                         value="true"
                                         label=""
@@ -154,7 +155,7 @@
                                 </td>
                                 <td class="text-center">
                                     <p-checkbox
-                                        [(ngModel)]="item.checked"
+                                        [(ngModel)]="item.checkedBaoCao"
                                         binary="true"
                                         (ngModelChange)="checkItem($event)"
                                         value="true"
@@ -179,7 +180,7 @@
                 </div>
                 <div class="p-formgrid grid">
                     <div class="col-12 md:col-2 fl-wr">
-                        Ngày phải báo cáo <span class="p-error">(*):</span>
+                        Ngày phải báo cáo <span class="p-error">(*)</span>:
                     </div>
                     <div class="col-12 md:col-4 fl-wr">
                         <p-calendar
@@ -188,6 +189,7 @@
                             [style]="{ width: '100%' }"
                             class="my-drop"
                             appendTo="body"
+                            required=""
                         ></p-calendar>
                         <span
                             class="p-error"
@@ -204,7 +206,7 @@
                 </div>
                 <div class="p-formgrid grid">
                     <div class="col-12 md:col-2 fl-wr">
-                        Ngày bắt đầu <span class="p-error">(*):</span>
+                        Ngày bắt đầu <span class="p-error">(*)</span>:
                     </div>
                     <div class="col-12 md:col-4 fl-wr">
                         <p-calendar
@@ -213,6 +215,7 @@
                             [style]="{ width: '100%' }"
                             class="my-drop"
                             appendTo="body"
+                            required=""
                         ></p-calendar>
                         <span
                             class="p-error"
@@ -226,7 +229,7 @@
                         >
                     </div>
                     <div class="col-12 md:col-2 fl-wr">
-                        Ngày kết thúc <span class="p-error">(*):</span>
+                        Ngày kết thúc <span class="p-error">(*)</span>:
                     </div>
                     <div class="col-12 md:col-4 fl-wr">
                         <p-calendar
@@ -235,6 +238,7 @@
                             [style]="{ width: '100%' }"
                             class="my-drop"
                             appendTo="body"
+                            required=""
                         ></p-calendar>
                         <span
                             class="p-error"
@@ -260,7 +264,7 @@
             label="Info"
             class="p-element p-ripple p-button-info p-button p-component"
             ng-reflect-label="Info"
-            (click)="GuiVanBan()"
+            (click)="TheoDoiVanBan()"
         >
             <span class="p-button-label">Lưu</span><span class="p-ink"></span>
         </button>
@@ -277,3 +281,4 @@
         </button>
     </ng-template>
 </p-dialog>
+<p-toast></p-toast>

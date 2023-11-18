@@ -5,7 +5,8 @@ import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { TheoDoiVanBanDiService } from 'src/app/demo/service/van-ban-di/theo-doi-van-ban-di.service';
 import { saveAs } from 'file-saver';
 import { throwError } from 'rxjs';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-theo-doi',
@@ -26,6 +27,8 @@ export class TheoDoiComponent {
         private uploadFileService: UploadFileService
     ) {}
 
+    isCheckedAllGuiVb: boolean = false;
+    isCheckedAllVbTraLoi: boolean = false;
     isShowTable: boolean = false;
     loading: boolean = false;
     iconClass = 'pi pi-plus';
@@ -41,41 +44,50 @@ export class TheoDoiComponent {
     submitted: boolean = false;
     idDonViLamViec = this.authService.GetDonViLamViec() ?? '0';
     formTheoDoiVanBan = this.fb.group({
-        ngayBaoCao: [, []],
-        ngayBatDau: [, []],
-        ngayKetThuc: [, []],
+        ngayBaoCao:  ['', [Validators.required]],
+        ngayBatDau:  ['', [Validators.required]],
+        ngayKetThuc: ['', [Validators.required]],
     });
 
-    public BindDataDialog() {
-        this.service.getVanBanById(this.id).then(
-            (data) => {
-                if (data.isError) {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: data.title,
-                    });
-                } else {
-                    this.ThongTinVanBan = data.objVanBan;
-                    this.ThongTinFile = data.lstFile;
-                }
-            },
-            (error) => {
-                console.log('Error', error);
-            }
+    public async BindDataDialog() {
+        const data = await this.service.getVanBanById(this.id);
+        this.ThongTinVanBan = data.objVanBan;
+        this.ThongTinFile = data.lstFile;
+
+        const lstPhongBanSelected =
+            await this.service.getDanhSachPhongBanSelected(
+                this.authService.GetDonViLamViec(),
+                this.id
+            );
+
+        const lstBaoCaoSelected = await this.service.getDanhSachBaoCaoSelected(
+            this.id
         );
 
-        this.service
-            .getDonViDaGui('0', this.authService.GetDonViLamViec(), this.id)
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.lstDonViDaGui = data;
-                },
-                (error) => {
-                    console.log('Error', error);
-                }
-            );
+        const lstPhongBanSelectedId = lstPhongBanSelected.map((pb) => pb.id);
+        const lstBaoCaoSelectedId = lstBaoCaoSelected.map((bc) => bc.id);
+
+        const lstDonViDaGui = await this.service.getDonViDaGui(
+            '0',
+            this.authService.GetDonViLamViec(),
+            this.id
+        );
+        this.lstDonViDaGui = lstDonViDaGui.map((data) => {
+            return {
+                ...data,
+                checkedPhongBan: lstPhongBanSelectedId.includes(
+                    Number(data.id)
+                ),
+                checkedBaoCao: lstBaoCaoSelectedId.includes(Number(data.id)),
+            };
+        });
+
+        this.isCheckedAllGuiVb =
+            this.lstDonViDaGui.filter((dv) => dv.checkedPhongBan == true)
+                .length == lstPhongBanSelectedId.length;
+        this.isCheckedAllVbTraLoi =
+            this.lstDonViDaGui.filter((dv) => dv.checkedBaoCao == true)
+                .length == lstBaoCaoSelectedId.length;
     }
 
     public Thoat(): void {
@@ -121,50 +133,52 @@ export class TheoDoiComponent {
 
     public TheoDoiVanBan(): void {
         this.submitted = true;
-
-        // if (this.lstDonViNhan.length == 0) {
-        //     this.messageService.add({
-        //         severity: 'error',
-        //         summary: 'Error',
-        //         detail: 'Yêu cầu chọn đơn vị gửi',
-        //     });
-        //     return;
-        // }
-        let itemData: any = {
-            idVanBan: this.id?.toString(),
-            donViId: this.authService.GetDonViLamViec(),
-            doAction: 'guivanban',
-            lyDoThuHoi: '',
-        };
-
-        this.service.theoDoiVanBanDi(itemData).subscribe(
-            (data) => {
-                if (data.isError) {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: data.title,
-                    });
-                } else {
-                    this.messageService.add({
-                        severity: 'success',
-                        summary: 'Success',
-                        detail: data.title,
-                    });
-                    this.Thoat();
+        const lstDonViGui = this.lstDonViDaGui;
+        if (this.formTheoDoiVanBan.valid) {
+            let itemData: any = {
+                idVanBan: this.id?.toString(),
+                idDonViLamViec: this.authService.GetDonViLamViec(),
+                lstDonViDaNhanVanBan: lstDonViGui
+                    .filter((dv) => dv.checkedPhongBan == true)
+                    .map((dv) => dv.id),
+                lstDonViGuiVanBanTraLoi: lstDonViGui
+                    .filter((dv) => dv.checkedBaoCao == true)
+                    .map((dv) => dv.id),
+                ngayBaoCao: this.formTheoDoiVanBan.value.ngayBaoCao,
+                ngayBatDau: this.formTheoDoiVanBan.value.ngayBatDau,
+                ngayKetThuc: this.formTheoDoiVanBan.value.ngayKetThuc,
+            };
+            this.service.theoDoiVanBanDi(itemData).subscribe(
+                (data) => {
+                    if (data.isError) {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: data.title,
+                        });
+                    } else {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Success',
+                            detail: data.title,
+                        });
+                        this.Thoat();
+                    }
+                },
+                (error) => {
+                    console.log('Error', error);
                 }
-            },
-            (error) => {
-                console.log('Error', error);
-            }
-        );
+            );
+        }
     }
 
     public ToggleTable() {
         this.isShowTable = !this.isShowTable;
     }
 
-    public checkItem() {}
-
-    public checkAll() {}
+    public CheckAll(event) {
+        this.lstDonViDaGui = this.lstDonViDaGui.map((data) => {
+            return { ...data, checkedBaoCao: event };
+        });
+    }
 }

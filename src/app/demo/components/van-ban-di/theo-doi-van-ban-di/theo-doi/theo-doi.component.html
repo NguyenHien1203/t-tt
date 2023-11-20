@@ -1,6 +1,6 @@
 <p-dialog
     appendTo="body"
-    header="Gửi văn bản"
+    header="Theo dõi văn bản đi"
     (onHide)="Thoat()"
     (onShow)="BindDataDialog()"
     [(visible)]="show"
@@ -157,7 +157,7 @@
                                     <p-checkbox
                                         [(ngModel)]="item.checkedBaoCao"
                                         binary="true"
-                                        (ngModelChange)="checkItem($event)"
+                                        (ngModelChange)="CheckItem($event)"
                                         value="true"
                                         label=""
                                     ></p-checkbox>
@@ -279,3 +279,4 @@
     </ng-template>
 </p-dialog>
 <p-toast></p-toast>
+

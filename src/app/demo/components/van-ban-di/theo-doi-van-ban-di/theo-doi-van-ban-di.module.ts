@@ -28,13 +28,17 @@ import { TheoDoiVanBanDiComponent } from './theo-doi-van-ban-di.component';
 import { BaoCaoComponent } from './bao-cao/bao-cao.component';
 import { TheoDoiComponent } from './theo-doi/theo-doi.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { CapNhatKetQuaComponent } from './bao-cao/cap-nhat-ket-qua/cap-nhat-ket-qua.component';
+import { GuiCanhBaoComponent } from './bao-cao/gui-canh-bao/gui-canh-bao.component';
 
 
 @NgModule({
   declarations: [
     TheoDoiVanBanDiComponent,
     BaoCaoComponent,
-    TheoDoiComponent
+    TheoDoiComponent,
+    CapNhatKetQuaComponent,
+    GuiCanhBaoComponent
   ],
   imports: [
     TooltipModule,

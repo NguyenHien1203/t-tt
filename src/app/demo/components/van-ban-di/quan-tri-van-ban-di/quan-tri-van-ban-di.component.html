@@ -126,7 +126,8 @@
                                 </td>
                                 <td style="width:15%; min-width:10rem;">
                                     <span class="p-column-title">Số ký hiệu</span>
-                                    {{vanBanDi.soKiHieu}}
+                                    <a href="javascript:;" (click)="ChiTietVanBan()">{{vanBanDi.soKiHieu}}</a>
+                                    <!-- {{vanBanDi.soKiHieu}} -->
                                 </td>
                                 <td style="width:20%; min-width:10rem;">
                                     <span class="p-column-title">Trích yếu</span>
@@ -215,9 +216,9 @@
             </div>
         </div>
 
-        <!-- <app-them-moi [show]="hienThiThemMoi" (close)="tatPopup($event, 'C')"></app-them-moi>
+        <app-chi-tiet-van-ban [show]="hienThiChiTiet" (close)="tatPopup($event, 'C')"></app-chi-tiet-van-ban>
 
-        <app-cap-nhat [show]="hienThiCapNhat" (close)="tatPopup($event, 'U')" [id]="idLoaiVanBan"></app-cap-nhat>
+        <!--<app-cap-nhat [show]="hienThiCapNhat" (close)="tatPopup($event, 'U')" [id]="idLoaiVanBan"></app-cap-nhat>
 
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">

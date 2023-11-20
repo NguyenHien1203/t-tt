@@ -1,5 +1,5 @@
 import { QuanTriVanBanDiService } from './../../../service/van-ban-di/quan-tri-van-ban-di/quan-tri-van-ban-di.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
@@ -63,7 +63,7 @@ export class QuanTriVanBanDiComponent {
     { label: 'Thu hồi', icon: 'pi pi-backward', action: 'thuHoi' },
     { label: 'Lấy lại', icon: 'pi pi-sign-in', action: 'layLai' },
     { label: 'Thay thế', icon: 'pi pi-replay', action: 'thayThe' },
-];
+  ];
 
   constructor(private messageService: MessageService, private authService: AuthService, private quanTriVanBanDiService: QuanTriVanBanDiService) { }
 
@@ -186,5 +186,20 @@ export class QuanTriVanBanDiComponent {
     this.luaChonMucDo.push({ label: "VB mật", value: 3 });
     this.luaChonMucDo.push({ label: "VB tuyệt mật", value: 4 });
     this.luaChonMucDo.push({ label: "VB tối mật", value: 5 });
+  }
+
+  //Chi tiết văn bản
+  hienThiChiTiet: boolean = false;
+
+  ChiTietVanBan() {
+    this.hienThiChiTiet = true;
+    console.log("sadasdasd");
+  }
+
+  tatPopup(item: any, type: string) {
+    if (type === "C") {
+      this.hienThiChiTiet = false;
+    }
+    this.TimKiem();
   }
 }

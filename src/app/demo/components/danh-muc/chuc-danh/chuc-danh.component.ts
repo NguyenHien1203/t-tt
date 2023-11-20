@@ -14,17 +14,13 @@ import { AuthService } from 'src/app/common/auth.services';
 export class ChucDanhComponent implements OnInit {
 
   breadcrumbItems: MenuItem[] = [];
-
   cols: any[] = [];
-
   rowsPerPageOptions = [5, 10, 20];
 
   chucDanh: ChucDanh = {};
-
   cacChucDanh: ChucDanh[] = [];
 
   timKiem: Search = {};
-
   dauVaoTimKiem = {
     "keyWord": "",
     "nam": 0,
@@ -46,17 +42,12 @@ export class ChucDanhComponent implements OnInit {
   }
 
   productDialog: boolean = false;
-
   submitted: boolean = false;
-
   deleteProductDialog: boolean = false;
 
   idChucDanh: number;
-
   header: string;
-
   valCheck: string[] = [];
-
   msgs: Message[] = [];
 
   constructor(private messageService: MessageService, private chucDanhService: ChucDanhService, private authService: AuthService) { }

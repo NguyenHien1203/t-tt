@@ -22,7 +22,7 @@ export class CapNhatComponent {
   items: any[] = [];
   home: any;
   loading: boolean = true;
-  selectedFiles: File[] = [];
+  selectedFiles: any[] = [];
 
   CoQuanBanHanh = [];
   SoVanBan = [];
@@ -139,10 +139,12 @@ export class CapNhatComponent {
             const fileReturn = {
               name: data.objData.fileName,
               path: data.objData.filePath,
-            }
-            this.file_fomat.push(fileReturn);
+              isNew: true,
+              isDelete: false,
+            };
 
-            this.selectedFiles.push(FileInput);
+            this.selectedFiles.push(fileReturn);
+           
           }
         },
         error: (error: any) => {

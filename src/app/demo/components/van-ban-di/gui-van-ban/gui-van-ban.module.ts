@@ -34,6 +34,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TagModule } from 'primeng/tag';
 import { ThuHoiComponent } from './thu-hoi/thu-hoi.component';
 import { LayLaiComponent } from './gui/lay-lai/lay-lai.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { LayLaiComponent } from './gui/lay-lai/lay-lai.component';
     LayLaiComponent
   ],
   imports: [
+    TooltipModule,
     TagModule,
     OverlayPanelModule,
     TableModule,

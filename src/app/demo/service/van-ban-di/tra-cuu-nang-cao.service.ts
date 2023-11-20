@@ -19,8 +19,20 @@ constructor(private http: HttpClient) {}
     return this.http
         .post<any>(
             environment.baseUrlApi +
-                '/VanBanDi/TraCuuNangCao/GetDanhSach',
+                '/VanBanDi/TraCuuNangCao/GetDanhSachTraCuuNangCao',
             timKiemDanhSach,
+            this.httpOption
+        )
+        .toPromise()
+        .then((res) => res.objData as any[]);
+}
+  
+  
+        getDanhSachLoaiVanBan(idDonViLamViec: string) {
+    return this.http
+        .get<any>(
+            environment.baseUrlApi +
+                '/VanBanDi/TraCuuNangCao/GetDanhSachLoaiVanBan/' + idDonViLamViec,
             this.httpOption
         )
         .toPromise()

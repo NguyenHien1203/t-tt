@@ -51,7 +51,7 @@ export class GuiVanBanComponent {
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
     public async BindDataDialog() {
-        this.service.GetVanBanById(this.id).then(
+        this.service.getVanBanById(this.id).then(
             (data) => {
                 if (data.isError) {
                     this.messageService.add({

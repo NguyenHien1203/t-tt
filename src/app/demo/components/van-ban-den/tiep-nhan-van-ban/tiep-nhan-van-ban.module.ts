@@ -24,10 +24,12 @@ import { TiepNhanVanBanComponent } from './tiep-nhan-van-ban.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
+import { TiepNhanComponent } from './tiep-nhan/tiep-nhan.component';
+import { TuChoiComponent } from './tu-choi/tu-choi.component';
 
 
 @NgModule({
-  declarations: [TiepNhanVanBanComponent],
+  declarations: [TiepNhanVanBanComponent, TiepNhanComponent, TuChoiComponent],
   imports: [
     CommonModule,
     TiepNhanVanBanRoutingModule,

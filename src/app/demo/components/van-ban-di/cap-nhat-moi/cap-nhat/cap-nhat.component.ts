@@ -89,7 +89,7 @@ export class CapNhatComponent {
 
     public async BindDialogData() {
         try {
-            const data = await this.service.GetVanBanById(this.id);
+            const data = await this.service.getVanBanById(this.id);
             let fileLoad = data.lstFile;
             fileLoad.forEach(function (val, key) {
                 val.isNew = false;
@@ -211,7 +211,6 @@ export class CapNhatComponent {
                 this.formThongTinVanBan.patchValue({
                     soKiHieu: dataSoKiHieu,
                 });
-
                 this.lstLoaiVanBan = await this.service.changeSoVanBan(
                     event,
                     this.idDonViLamViec

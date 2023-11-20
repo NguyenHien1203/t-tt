@@ -1,0 +1,73 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <p-toast></p-toast>
+            <h2>TÌM KIẾM</h2>
+            <div class="field grid">
+                <div class="col-12 md:col-6 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.thongtinvb" placeholder="Thông tin văn bản"
+                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [showClear]="true" [(ngModel)]="timKiemDanhSach.nam" [options]="yearOptions"
+                        [filter]="true" placeholder="Chọn năm" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
+                </div>
+
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [showClear]="true" [(ngModel)]="timKiemDanhSach.thang" [options]="monthOptions"
+                        [filter]="true" placeholder="Chọn tháng" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="field grid">
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.sokihieu" placeholder="Số, ký hiệu"
+                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [(ngModel)]="timKiemDanhSach.sovanbanid" (onChange)="onChangeLoaiVanBan($event)" [options]="SoVanBan" appendTo="body"
+                        [filter]="true" optionValue="id" optionLabel="tenSo"
+                        placeholder="Chọn sổ văn bản" [showClear]="true" [style]="{'width': '100%'}"
+                        class="my-drop"></p-dropdown>
+                </div>
+
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-calendar [(ngModel)]="timKiemDanhSach.ngaybanhanh" dateFormat="dd/mm/yy"
+                    placeholder="Ngày ban hành" [style]="{'width': '100%'}" class="my-drop"></p-calendar>
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-calendar [(ngModel)]="timKiemDanhSach.ngaynhan" dateFormat="dd/mm/yy"
+                    placeholder="Ngày nhận văn bản" [style]="{'width': '100%'}" class="my-drop"></p-calendar>
+                </div>
+            </div>
+
+            <div class="field grid">
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [(ngModel)]="timKiemDanhSach.loaivbid" [options]="LoaiVanBan" optionValue="loaiVbId"
+                        optionLabel="tenLoaiVb" [showClear]="true" [filter]="true" appendTo="body"
+                        placeholder="Chọn loại văn bản" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.soden" placeholder="Số đến"
+                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.tencqbh" placeholder="Tên cơ quan ban hành"
+                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.trichyeu" placeholder="Trích yếu"
+                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

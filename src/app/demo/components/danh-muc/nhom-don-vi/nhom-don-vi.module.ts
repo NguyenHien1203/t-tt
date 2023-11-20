@@ -25,11 +25,14 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { ThemMoiNhomDonViComponent } from './them-moi-nhom-don-vi/them-moi-nhom-don-vi.component';
 import { CapNhatNhomDonViComponent } from './cap-nhat-nhom-don-vi/cap-nhat-nhom-don-vi.component';
 import { ThemDonViVaoNhomComponent } from './them-don-vi-vao-nhom/them-don-vi-vao-nhom.component';
+import { TreeModule } from 'primeng/tree';
+import { TreeNodeComponent } from './tree-node/tree-node.component';
 
 
 @NgModule({
-  declarations: [NhomDonViComponent, ThemMoiNhomDonViComponent, CapNhatNhomDonViComponent, ThemDonViVaoNhomComponent],
+  declarations: [NhomDonViComponent, ThemMoiNhomDonViComponent, CapNhatNhomDonViComponent, ThemDonViVaoNhomComponent, TreeNodeComponent],
   imports: [
+    TreeModule,
     CommonModule,
     NhomDonViRoutingModule,
     ConfirmDialogModule,

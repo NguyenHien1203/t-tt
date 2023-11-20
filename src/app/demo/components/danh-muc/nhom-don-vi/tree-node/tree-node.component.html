@@ -1,0 +1,21 @@
+
+<li class="treeNode">
+    <span (click)="toggleNode()" [class]="node.children.length > 0 ? iconClass : 'mg-l'">
+      <input
+        type="checkbox"
+        [id]="node.id"
+        [checked]="node.checked"
+        (click)="handleCheckboxClick($event)"
+      />
+      <span class="icon">{{ node.tenDonVi }}</span>
+    </span>
+    <ul *ngIf="node.expanded">
+      <app-tree-node
+        *ngFor="let child of node.children"
+        [node]="child"
+        (expand)="expandNode($event)"
+        (collapse)="collapseNode($event)"
+        (checkNode)="checkNode.emit($event)"
+      ></app-tree-node>
+    </ul>
+  </li>

@@ -1,31 +1,155 @@
-<form [formGroup]="FormNhomDonVi">
-    <p-dialog appendTo="body" header="Cập nhật nhóm đơn vị" (onShow)="BindDataDialog()" (onHide)="Thoat()"
-        [(visible)]="hienThi" [modal]="true" [style]="{ width: '65vw' }" [draggable]="true" [resizable]="false">
-
-        <div class="p-fluid p-formgrid grid">
-            <div class="field col-12 md:col-12 2-0">
-                <label htmlfor="tenNhom">Tên nhóm đơn vị: <span>{{TenNhomDonVi}}</span></label>
-            </div>
-        </div>
-
-        <div class="p-fluid p-formgrid grid">
-            <div class="field col-12 md:col-6 2-0 listDonVi">
-                <label htmlfor="tenNhom">Danh sách đơn vị</label>
-                <div id="listDonVi" class="scroll listDonVi">
-                    <p-treeSelect appendTo="body" [filterInputAutoFocus]="true"  formControlName="ParentId" id="ParentId" [filter]="true" class="md:w-20rem w-full" containerStyleClass="w-full" 
-                    [options]="DonViTree" placeholder="Chọn đơn vị"></p-treeSelect>
+<p-dialog
+    appendTo="body"
+    header="Thêm mới đơn vị trong nhóm"
+    (onHide)="Thoat()"
+    (onShow)="BindDataDialog()"
+    [(visible)]="hienThi"
+    [modal]="true"
+    [style]="{ width: '1250px' }"
+    [draggable]="true"
+    [resizable]="false"
+>
+    <ng-template pTemplate="content">
+        <div class="guiVanBan">
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6" style="margin-bottom: -20px;">
+                    <h4>Tên nhóm đơn vị: {{this.tenNhomDonVi}}</h4>
                 </div>
-
-                <a href="javascript:;" id="btnAdd" class="SaveButton tx-wwhite pd-0 btn btn-primary"
-                    style="margin-right: 5px; margin-top: 12px"><i class="ion-arrow-right-a"></i></a>
-                <a href="javascript:;" id="btnRemove" class="SaveButton tx-wwhite pd-0 btn btn-primary"
-                    style="margin-right: 5px; margin-top: 12px"><i class="ion-arrow-left-a"></i></a>
             </div>
-            <div class="field col-12 md:col-6 2-0">
-                <label htmlfor="tenNhom">Danh sách đơn vị đã chọn</label>
-                <input pinputtext="" id="tenNhom" type="text" class="p-inputtext p-component p-element"
-                    formControlName="tenNhom">
+            <hr style="margin-bottom: 20px;">
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6" >
+                    <div class="p-inputgroup">
+                        <input
+                            [(ngModel)]="keyWord"
+                            type="text"
+                            (keypress)="SearchTreeDonVi($event)"
+                            pInputText
+                            placeholder="Tìm kiếm đơn vị"
+                        />
+                        <p-button
+                            icon="pi pi-search"
+                            [style]="{
+                                'border-top-left-radius': '0px',
+                                'border-bottom-left-radius': '0px'
+                            }"
+                            [loading]="loading"
+                            (click)="SearchTreeDonVi($event)"
+                        ></p-button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid formgrid">
+                <div class="col-12 row">
+                    <div class="col-12 md:col-6">
+                        <label class="" for=""
+                            >Danh sách đơn vị/ phòng ban</label
+                        >
+                        <div class="listDonVi">
+                            <div id="listDonVi" class="scroll-pane listDonVi">
+                                <ul style="padding-left: 10px">
+                                    <li>
+                                        <span
+                                            [class]="iconClass"
+                                            (click)="toggleNode(checkAllItem)"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                [id]="checkAllItem"
+                                                [checked]="isCheckedAll"
+                                                (click)="
+                                                    handleCheckboxClick($event)
+                                                "
+                                            />
+                                            Các sở, ban, ngành đơn vị
+                                        </span>
+                                        <ul *ngIf="isShowAll">
+                                            <app-tree-node
+                                                (checkNode)="
+                                                    CheckedNode($event)
+                                                "
+                                                *ngFor="let node of treeData"
+                                                [node]="node"
+                                                (expand)="expandNode($event)"
+                                                (collapse)="
+                                                    collapseNode($event)
+                                                "
+                                            ></app-tree-node>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a
+                                id="btnAdd"
+                                href="javascript:;"
+                                (click)="AddToSelected()"
+                                class="btn p-buttonpp"
+                                style="margin-right: 5px; margin-top: 20px"
+                            >
+                                <i class="pi pi-arrow-right"></i
+                            ></a>
+                            <a
+                                id="btnRemove"
+                                href="javascript:;"
+                                (click)="RemoveFromSelected()"
+                                class="btn p-buttonpp"
+                                style="margin-right: 5px; margin-top: 20px"
+                            >
+                                <i class="pi pi-arrow-left"></i
+                            ></a>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6"> 
+                        <label class="form-control-label" for=""
+                            >Danh sách đơn vị nhận văn bản</label
+                        >
+                        <div class="lstUserChoise selectUser">
+                            <select
+                                size="4"
+                                name="lstUserChoise"
+                                [(ngModel)]="DsCaNhanNhan"
+                                class="form-control"
+                                id="lstUserChoise"
+                                multiple="multiple"
+                                style="height: 250px"
+                            >
+                                <option
+                                    *ngFor="let obj of lstDonViNhan"
+                                    [value]="obj.value"
+                                >
+                                    {{ obj.text }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </p-dialog>
-</form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            type="submit"
+            label="Info"
+            class="p-element p-ripple p-button-info p-button p-component"
+            ng-reflect-label="Info"
+            (click)="ThuHoiVanBan()"
+        >
+            <span class="p-button-label">Lưu</span><span class="p-ink"></span>
+        </button>
+        <button
+            pbutton=""
+            pripple=""
+            type="button"
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            (click)="Thoat()"
+            ng-reflect-label="Danger"
+        >
+            <span class="p-button-label">Hủy</span><span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-dialog>

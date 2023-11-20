@@ -171,8 +171,6 @@ export class ThemMoiPhongBanComponent {
 
     return customData;
   }
-
-
 }
 
 

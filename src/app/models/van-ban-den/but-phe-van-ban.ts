@@ -10,5 +10,6 @@ export interface TimKiemDanhSach {
     soden?: string,
     tencqbh?: string,
     trichyeu?: string,
-    DonViLamViec?: string
+    DonViLamViec?: string,
+    phongbanlamviecid?:string
 }

@@ -20,6 +20,8 @@ export class ButPheVanBanComponent implements OnInit {
   monthOptions: SelectItem[] = [];
   SoVanBan = [];
   LoaiVanBan = [];
+  isShowSearch: boolean = false;
+  lstButPhe: any[] = [];
 
   constructor(
     private messageService: MessageService,
@@ -52,6 +54,8 @@ export class ButPheVanBanComponent implements OnInit {
     this.GetDataYear();
     this.GetDataMonth();
     this.GetDataSoVanBan();
+
+    this.GetDanhSachButPhe();
   }
 
   public GetDataSoVanBan() {
@@ -100,6 +104,24 @@ export class ButPheVanBanComponent implements OnInit {
     for (let i = 1; i <= 12; i++) {
       this.monthOptions.push({ label: "Tháng" + i.toString(), value: i });
     }
+  }
+
+  public ShowSearch() {
+    this.isShowSearch = !this.isShowSearch;
+  }
+
+  /**
+   * GetDanhSachButPhe
+   */
+  public GetDanhSachButPhe() {
+    this.service.getDataButPhe(this.timKiemDanhSach).subscribe(data => {
+      if (data.isError) {
+      } else {
+        this.lstButPhe = data.objData;
+      }
+    }, (error) => {
+      console.log('Error', error);
+    })
   }
 
 }

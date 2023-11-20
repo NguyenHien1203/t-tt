@@ -15,8 +15,27 @@
         <div class="guiVanBan">
             <div class="guiVanBan">
                 <div class="grid">
-                    <div class="col-12"><b>Thông tin văn bản:</b></div>
+                    <div class="col-12">
+                        <div class="wrapper">
+                            <b>Thông tin văn bản:</b>
+                            <div class="icon-cls">
+                                <a
+                                    href="javascript:;"
+                                    pButton
+                                    [style]="{
+                                        'margin-bottom': '0px',
+                                        'font-weight': '700px'
+                                    }"
+                                    class="p-button-info"
+                                    (click)="QuayLai()"
+                                    ><i class="pi pi-refresh"></i>&nbsp;QUAY
+                                    LẠI</a
+                                >
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="grid">
                     <div class="col-12">
                         <p-table
@@ -118,7 +137,9 @@
             <div class="col-12">
                 <b>Gửi 1 đơn vị trong đó có 0 phải có báo cáo trả lời:</b>
                 &nbsp;
-                <a href="javascript:;"
+                <a
+                    href="javascript:;"
+                    pTooltip="Cập nhật kết quả ngoài hệ thống liên thông"
                     ><i class="pi pi-arrow-right-arrow-left"></i> Cập nhật báo
                     cáo cho các đơn bị ngoài hệ thống liên thông</a
                 >
@@ -130,7 +151,7 @@
                 <p-table
                     [paginator]="true"
                     #dt1
-                    [value]="lstBaoCao"
+                    [value]="lstBaoCaoVanBanDi"
                     dataKey="id"
                     [rows]="10"
                     [loading]="loading"
@@ -213,13 +234,6 @@
                                     Cảnh báo
                                 </div>
                             </th>
-                            <th style="min-width: 10rem">
-                                <div
-                                    class="flex justify-content-between align-items-center"
-                                >
-                                    Chức năng
-                                </div>
-                            </th>
                         </tr>
                     </ng-template>
                     <ng-template
@@ -232,51 +246,76 @@
                                 {{ rowIndex + 1 }}
                             </td>
                             <td class="text-center">
-                                {{ item.soDiDen }}
+                                {{ item.ngayGui | date : "dd-MM-yyyy" }}
                             </td>
                             <td class="text-center">
-                                {{ item.soKiHieu }}
+                                {{ item.tenDonVi }}
                             </td>
                             <td>
-                                {{ item.trichYeu }}
+                                {{ item.ngayNhan | date : "dd-MM-yyyy" }}
                             </td>
 
                             <td class="text-center">
-                                {{ item.ngayBanHanh | date : "dd-MM-yyyy" }}
+                                {{ item.ketQuaXuLy }}
                             </td>
                             <td>
-                                {{ item.nguoiKy }}
+                                {{ item.ketQuaBaoCao }}
                             </td>
-                            <td class="text-center">
+                            <td>
+                                <a
+                                    href="javascript:;"
+                                    (click)="XemChiTiet(item.iDVBDenKQ)"
+                                    >{{ item.soKiHieu }}</a
+                                >
+                            </td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="let file of lstFile">
+                                        <a
+                                            (click)="
+                                                DownloadFile(
+                                                    file.filePath,
+                                                    file.fileName
+                                                )
+                                            "
+                                            href="javascript:;"
+                                            >{{ file.fileName }}</a
+                                        >
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
                                 <div class="div-center">
                                     <button
-                                        pTooltip="Theo dõi"
+                                        *ngIf="item.baoCaoId == 1"
+                                        pTooltip="Cập nhật báo cáo"
                                         pButton
                                         pRipple
-                                        icon="pi pi-check-square"
-                                        (click)="TheoDoi(item.id)"
-                                        class="p-button-rounded p-button-info mr-2"
-                                    ></button>
-                                    <button
-                                        pTooltip="Báo cáo"
-                                        pButton
-                                        pRipple
-                                        (click)="BaoCao(item.id)"
-                                        icon="pi pi-user-edit"
+                                        (click)="CapNhatBaoCao(item.id)"
+                                        icon="pi pi-arrow-right-arrow-left"
                                         class="p-button-rounded p-button-info"
                                     ></button>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div
+                                    *ngIf="item.iDVBDenKQ != null"
+                                    class="div-center"
+                                >
+                                <button pTooltip="Gửi cảnh báo" pButton pRipple
+                                    (click)="GuiCanhBao(item.id)"   ></button>
                                 </div>
                             </td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="emptymessage">
                         <tr>
-                            <td colspan="12">No record found.</td>
+                            <td colspan="10">No record found.</td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="loadingbody">
                         <tr>
-                            <td colspan="12">
+                            <td colspan="10">
                                 Loading record data. Please wait.
                             </td>
                         </tr>

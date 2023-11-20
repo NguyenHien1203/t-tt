@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AnyComponent } from '@fullcalendar/core/preact';
 import { TimKiemDanhSach } from 'src/app/models/van-ban-di/theo-doi-van-ban-di';
 import { environment } from 'src/environments/environment.development';
 
@@ -24,6 +25,17 @@ export class TheoDoiVanBanDiService {
             )
             .toPromise()
             .then((res) => res.objData as any[]);
+    }
+
+    getDanhSachBaoCaoVanBanDi(idVanban : string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/VanBanDi/TheoDoiVanBanDi/GetDanhSachBaoCaoVanBanDi/' + idVanban,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData);
     }
 
     getVanBanById(id: string) {
@@ -75,9 +87,10 @@ export class TheoDoiVanBanDiService {
             .then((data) => data.objData as any[]);
     }
 
-    theoDoiVanBanDi(itemData) {
+    theoDoiVanBanDi(itemData: AnyComponent) {
         return this.http.post<any>(
-            environment.baseUrlApi + itemData,
+            environment.baseUrlApi + '/VanBanDi/TheoDoiVanBanDi/DangKy',
+            itemData,
             this.httpOption
         );
     }
@@ -92,6 +105,30 @@ export class TheoDoiVanBanDiService {
                     idDonViNhan +
                     '&idDonViGui=' +
                     idDonViGui
+            )
+            .toPromise()
+            .then((data) => data.objData as any[]);
+    }
+
+    getDanhSachPhongBanSelected(idDonViLamViec: string, idVanBan: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/VanBanDi/TheoDoiVanBanDi/GetDanhSachDonViDaGui?idVanBan=' +
+                    idVanBan +
+                    '&idDonViLamViec=' +
+                    idDonViLamViec
+            )
+            .toPromise()
+            .then((data) => data.objData as any[]);
+    }
+
+    getDanhSachBaoCaoSelected(idVanBan: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/VanBanDi/TheoDoiVanBanDi/GetDanhSachDonViDaGui?idVanBan=' +
+                    idVanBan
             )
             .toPromise()
             .then((data) => data.objData as any[]);

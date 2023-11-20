@@ -19,8 +19,10 @@ export class BaoCaoComponent implements OnInit {
         private messageService: MessageService
     ) {}
 
-    loading : boolean = false;
-    lstBaoCao : any[] = [];
+    lstFile: any[] = [];
+    ThongTinFile: any[] = [];
+    loading: boolean = false;
+    lstBaoCao: any[] = [];
     items = [
         { label: 'Văn bản đi' },
         { label: 'Theo dõi văn bản đi' },
@@ -29,6 +31,7 @@ export class BaoCaoComponent implements OnInit {
     home = { icon: 'pi pi-home', routerLink: '/' };
     id: string = '1';
     ThongTinVanBan: any[] = [];
+    lstBaoCaoVanBanDi: any[] = [];
     fullName = this.authService.GetmUserInfo()?.fullName;
 
     ngOnInit() {
@@ -48,12 +51,25 @@ export class BaoCaoComponent implements OnInit {
                     });
                 } else {
                     this.ThongTinVanBan = data.objVanBan;
-                    // this.ThongTinFile = data.lstFile;
+                    this.ThongTinFile = data.lstFile;
                 }
             },
             (error) => {
                 console.log('Error', error);
             }
         );
+
+        this.service.getDanhSachBaoCaoVanBanDi(this.id).then((data) => {
+            if (data != null) {
+                this.lstBaoCaoVanBanDi = data;
+                this.lstFile =
+                    data.lstFile != null ? JSON.parse(data.lstFile) : null;
+            }
+        });
+    }
+
+    public QuayLai() {
+        // window.history.back();
+        this.router.navigate(['/van-ban-di/theo-doi-van-ban-di']);
     }
 }

@@ -88,9 +88,11 @@ export class TheoDoiComponent {
         this.isCheckedAllVbTraLoi =
             this.lstDonViDaGui.filter((dv) => dv.checkedBaoCao == true)
                 .length == lstBaoCaoSelectedId.length;
+                console.log(this.submitted)
     }
 
     public Thoat(): void {
+        this.formTheoDoiVanBan.reset();
         this.submitted = false;
         this.show = false;
         this.tatPopup.emit(this.show);

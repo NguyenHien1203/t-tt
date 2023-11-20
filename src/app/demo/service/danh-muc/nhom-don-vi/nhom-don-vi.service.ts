@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { NhomDonVi, TimKiemModel } from 'src/app/models/danh-muc/nhom-don-vi/nhom-don-vi';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,19 @@ export class NhomDonViService {
     );
   }
 
+  GetTenDonViById(id: string) {
+    const url = `${this.baseApiUrl}/DanhMuc/NhomDonVi/GetNhomDonViId?id=` + id;
+    return (
+        this.http
+            .get<any>(
+              url
+            )
+            .toPromise()
+            .then((data) => data.objData)
+    );
+}
+
+
   //Cập nhật cơ quan
   CapNhatNhomDonVi(modelLienKet: any) {
     return this.http.post<any>(this.baseApiUrl + '/DanhMuc/NhomDonVi/CapNhatNhomNguoiDung', modelLienKet, this.httpOption)
@@ -54,4 +68,12 @@ export class NhomDonViService {
     const url = `${this.baseApiUrl}/DanhMuc/NhomDonVi/GetDataDonVi`;
     return this.http.get(url);
   }
+
+  addDonVi(model: any) {
+    return this.http.post<any>(
+        environment.baseUrlApi + '/VanBanDi/NhomDonVi/AddDonVi',
+        model,
+        this.httpOption
+    );
+}
 }

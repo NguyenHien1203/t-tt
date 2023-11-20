@@ -74,6 +74,8 @@ export class NhomDonViComponent implements OnInit {
   public Thoat(itemHt: any, loai: string): void {
     if (loai === 'T')
       this.hienThiThemMoi = false;
+      if (loai === 'Z')
+      this.hienThiThemmDonVi = false;
     else
       this.hienThiCapNhat = false;
     this.LoadDanhSach(this.timKiem);

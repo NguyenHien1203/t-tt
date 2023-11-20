@@ -84,11 +84,14 @@ export class ThuHoiComponent {
   }
 
   toggleNode(id: string): void {
+    console.log("id", id);
+    console.log("this.checkAllItem", this.checkAllItem);
       //chuyển hoạt họa icon
       if (id === this.checkAllItem) {
           this.isShowAll = !this.isShowAll;
           this.iconClass = this.isShowAll ? 'pi pi-minus' : 'pi pi-plus';
       }
+      console.log("Show all",this.isShowAll);
   }
 
   toggleAllNodes(): void {

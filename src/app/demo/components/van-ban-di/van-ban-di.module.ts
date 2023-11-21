@@ -6,6 +6,7 @@ import { VanBanDiRoutingModule } from './van-ban-di-routing.module';
 
 @NgModule({
   declarations: [
+  
   ],
   imports: [
     CommonModule,

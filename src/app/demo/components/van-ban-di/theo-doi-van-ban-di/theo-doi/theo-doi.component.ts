@@ -31,14 +31,8 @@ export class TheoDoiComponent {
     isCheckedAllVbTraLoi: boolean = false;
     isShowTable: boolean = false;
     loading: boolean = false;
-    iconClass = 'pi pi-plus';
-    checkAllItem = 'checkAllItem';
-    isHienThi: boolean = false;
     ThongTinVanBan: any;
-    keyWord: string = '';
-    treeData: any[] = [];
     ThongTinFile: any[] = [];
-    isCheckedAll: boolean = false;
     isShowAll: boolean = false;
     lstDonViDaGui: any[] = [];
     submitted: boolean = false;
@@ -65,8 +59,6 @@ export class TheoDoiComponent {
         );
 
         const lstPhongBanSelectedId = lstPhongBanSelected.map((pb) => pb.id);
-        const lstBaoCaoSelectedId = lstBaoCaoSelected.map((bc) => bc.id);
-
         const lstDonViDaGui = await this.service.getDonViDaGui(
             '0',
             this.authService.GetDonViLamViec(),
@@ -78,7 +70,7 @@ export class TheoDoiComponent {
                 checkedPhongBan: lstPhongBanSelectedId.includes(
                     Number(data.id)
                 ),
-                checkedBaoCao: lstBaoCaoSelectedId.includes(Number(data.id)),
+                checkedBaoCao: lstBaoCaoSelected.includes(Number(data.id)),
             };
         });
 
@@ -87,10 +79,12 @@ export class TheoDoiComponent {
                 .length == lstPhongBanSelectedId.length;
         this.isCheckedAllVbTraLoi =
             this.lstDonViDaGui.filter((dv) => dv.checkedBaoCao == true)
-                .length == lstBaoCaoSelectedId.length;
+                .length == lstBaoCaoSelected.length;
+                console.log(this.submitted)
     }
 
     public Thoat(): void {
+        this.formTheoDoiVanBan.reset();
         this.submitted = false;
         this.show = false;
         this.tatPopup.emit(this.show);
@@ -180,5 +174,9 @@ export class TheoDoiComponent {
         this.lstDonViDaGui = this.lstDonViDaGui.map((data) => {
             return { ...data, checkedBaoCao: event };
         });
+    }
+
+    public CheckItem(event){
+        this.isCheckedAllVbTraLoi = this.lstDonViDaGui.filter(dv=> dv.checkedBaoCao == true).length == this.lstDonViDaGui.length;
     }
 }

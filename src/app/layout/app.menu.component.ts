@@ -893,15 +893,15 @@ export class AppMenuComponent implements OnInit {
                                 code: '001003'
                             },
                             {
-                                label: 'Tạo công việc',
+                                label: 'Bút phê văn bản',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-den/but-phe-van-ban'],
                                 code: '001004'
                             },
                             {
-                                label: 'Cập nhật công việc',
+                                label: 'Sửa bút phê',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-den/sua-but-phe'],
                                 code: '001009'
                             },
                             {

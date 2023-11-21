@@ -19,29 +19,19 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ButPheVanBanRoutingModule } from './but-phe-van-ban-routing.module';
+import { ButPheVanBanComponent } from './but-phe-van-ban.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 
-import { TheoDoiVanBanDiRoutingModule } from './theo-doi-van-ban-di-routing.module';
-import { TheoDoiVanBanDiComponent } from './theo-doi-van-ban-di.component';
-import { BaoCaoComponent } from './bao-cao/bao-cao.component';
-import { TheoDoiComponent } from './theo-doi/theo-doi.component';
-import { TooltipModule } from 'primeng/tooltip';
-import { CapNhatKetQuaComponent } from './bao-cao/cap-nhat-ket-qua/cap-nhat-ket-qua.component';
-import { GuiCanhBaoComponent } from './bao-cao/gui-canh-bao/gui-canh-bao.component';
 
 
 @NgModule({
-  declarations: [
-    TheoDoiVanBanDiComponent,
-    BaoCaoComponent,
-    TheoDoiComponent,
-    CapNhatKetQuaComponent,
-    GuiCanhBaoComponent
-  ],
+  declarations: [ButPheVanBanComponent],
   imports: [
-    TooltipModule,
+    CommonModule,
+    ButPheVanBanRoutingModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -63,9 +53,7 @@ import { GuiCanhBaoComponent } from './bao-cao/gui-canh-bao/gui-canh-bao.compone
     ConfirmDialogModule,
     CheckboxModule,
     CalendarModule,
-    TabViewModule,
-    CommonModule,
-    TheoDoiVanBanDiRoutingModule
+    TabViewModule
   ]
 })
-export class TheoDoiVanBanDiModule { }
+export class ButPheVanBanModule { }

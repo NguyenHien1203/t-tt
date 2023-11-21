@@ -27,11 +27,24 @@ export class TheoDoiVanBanDiService {
             .then((res) => res.objData as any[]);
     }
 
-    getDanhSachBaoCaoVanBanDi(idVanban : string) {
+    getDanhSachBaoCaoVanBanDi(idVanban: string) {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/VanBanDi/TheoDoiVanBanDi/GetDanhSachBaoCaoVanBanDi/' + idVanban,
+                    '/VanBanDi/TheoDoiVanBanDi/GetDanhSachBaoCaoVanBanDi/' +
+                    idVanban,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
+
+    getDonViDaBaoCao(idVanban: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/VanBanDi/TheoDoiVanBanDi/GetDonViDaBaoCao/' +
+                    idVanban,
                 this.httpOption
             )
             .toPromise()
@@ -87,10 +100,31 @@ export class TheoDoiVanBanDiService {
             .then((data) => data.objData as any[]);
     }
 
-    theoDoiVanBanDi(itemData: AnyComponent) {
+    theoDoiVanBanDi(itemData: any) {
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/TheoDoiVanBanDi/DangKy',
             itemData,
+            this.httpOption
+        );
+    }
+
+    capNhatKetQuaBaoCao(itemData: any) {
+        return this.http.post<any>(
+            environment.baseUrlApi + '/VanBanDi/TheoDoiVanBanDi/CapNhatKQBC',
+            itemData,
+            this.httpOption
+        );
+    }
+
+    guiCanhBao(idVanBan: string, idDonVi: string, noiDungCanhBao: string) {
+        return this.http.post<any>(
+            environment.baseUrlApi +
+                '/VanBanDi/TheoDoiVanBanDi/GuiCanhBao?idVanBan=' +
+                idVanBan +
+                '&idDonVi=' +
+                idDonVi +
+                '&noiDungCanhBao=' +
+                noiDungCanhBao,
             this.httpOption
         );
     }
@@ -127,10 +161,54 @@ export class TheoDoiVanBanDiService {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/VanBanDi/TheoDoiVanBanDi/GetDanhSachDonViDaGui?idVanBan=' +
+                    '/VanBanDi/TheoDoiVanBanDi/GetDanhSachBaoCaoSelected?idVanBan=' +
                     idVanBan
             )
             .toPromise()
             .then((data) => data.objData as any[]);
+    }
+
+    getFileKetQuaBaoCao(idVanBan: string, idDonViNhan: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/VanBanDi/TheoDoiVanBanDi/GetFileKetQuaBaoCao?idVanBan=' +
+                    idVanBan +
+                    '&idDonViNhan=' +
+                    idDonViNhan
+            )
+            .toPromise()
+            .then((data) => data.objData);
+    }
+
+    getDanhSachBaoCaoVanBanTraLoi(
+        idVanBan: string,
+        idDonViLamViec: string,
+        idDonViNhan: string,
+        loaiBaoCao: number
+    ) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/VanBanDi/TheoDoiVanBanDi/GetDanhSachVanBanBaoCaoTraLoi?idVanBan=' +
+                    idVanBan +
+                    '&idDonViLamViec=' +
+                    idDonViLamViec +
+                    '&idDonViNhan=' +
+                    idDonViNhan +
+                    '&loaiBaoCao=' +
+                    loaiBaoCao,
+                this.httpOption
+            )
+            .toPromise()
+            .then((data) => data.objData as any[]);
+    }
+
+    capNhatKetQua(itemData: any) {
+        return this.http.post<any>(
+            environment.baseUrlApi + '/VanBanDi/TheoDoiVanBanDi/capNhatKetQua',
+            itemData,
+            this.httpOption
+        );
     }
 }

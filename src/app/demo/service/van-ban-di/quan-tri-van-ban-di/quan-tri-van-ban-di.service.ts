@@ -34,4 +34,9 @@ export class QuanTriVanBanDiService {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachQuanTriVanBanDi', danhSach)
     .pipe(map((res: any) => res.objData as QuanTriVanBanDi))
   }
+
+  public getVanBanDi(id: any): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + 'GetVanBanDi/' + id)
+    .pipe(map((res: any) => res.objData as QuanTriVanBanDi))
+  }
 }

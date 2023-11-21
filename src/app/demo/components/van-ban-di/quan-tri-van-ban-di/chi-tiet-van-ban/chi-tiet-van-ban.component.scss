@@ -1,0 +1,59 @@
+.my-card {
+    padding: 0;   
+}
+
+.my-item-flex {
+    flex-basis: 50%;
+    align-items: stretch;
+    display: flex;
+}
+
+.my-item-flex-100 {
+    flex-basis: 100%;
+    align-items: stretch;
+    display: flex;
+}
+
+.my-item-flex-left {
+    flex: 0 0 14rem;
+}
+
+.my-item-flex-right {
+    flex: 1;
+}
+
+.my-bd-right {
+    border-right: 1px solid #dfe7ef;
+}   
+
+.my-bd-left {
+    border-left: 1px solid #dfe7ef;
+}
+
+.my-bd-bottom {
+    border-bottom: 1px solid #dfe7ef;
+}
+
+.my-background {
+    background-color: #f8f8f8;
+}
+
+.my-border-radius-tl {
+    border-top-left-radius: 12px;
+}
+
+.my-border-radius-tr {
+    border-top-right-radius: 12px;
+}
+
+.my-border-radius-bl {
+    border-bottom-left-radius: 12px;
+}
+
+.my-border-radius-br {
+    border-bottom-right-radius: 12px;
+}
+
+
+
+

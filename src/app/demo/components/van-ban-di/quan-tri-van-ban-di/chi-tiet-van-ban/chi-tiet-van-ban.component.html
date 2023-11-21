@@ -1,15 +1,137 @@
-<p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Chi tiết văn bản" [modal]="true" class="p-fluid"
-    (onHide)="tatPopup()">
+<p-dialog [(visible)]="show" [style]="{width: '1100px'}" header="Chi tiết văn bản" [modal]="true" class="p-fluid"
+    (onHide)="tatPopup()" (onShow)="GetVanBanDi()">
     <p-tabView orientation="left">
         <p-tabPanel header="Header I" class="line-height-3 m-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-            et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-            est laborum.
+            <div class="card my-card">
+                <div class="flex">
+                    <div class="my-item-flex justify-content-between ">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background my-border-radius-tl">
+                            Số ký hiệu:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
+                            <label>{{vanBanDi.soKiHieu}}</label>
+                        </div>
+                    </div>
+                    <div class="my-item-flex justify-content-between ">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
+                            Loại văn bản:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3 my-border-radius-tr">
+                            <label>{{vanBanDi.tenLoaiVb}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="my-item-flex justify-content-between ">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
+                            Ngày ban hành:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
+                            <label>{{vanBanDi.ngayBanHanh | date: "dd/MM/yyyy"}}</label>
+                        </div>
+                    </div>
+                    <div class="my-item-flex justify-content-between ">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
+                            Ngày nhận/gửi văn bản:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
+                            <label>{{vanBanDi.ngayNhanGui | date: "dd/MM/yyyy"}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="my-item-flex justify-content-between ">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
+                            Sổ văn bản:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
+                            <label>{{vanBanDi.tenSoVB}}</label>
+                        </div>
+                    </div>
+                    <div class="my-item-flex justify-content-between ">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
+                            Số hiện tại:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
+                            <label>{{vanBanDi.soDiDen}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="my-item-flex justify-content-between ">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
+                            Trạng thái:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
+                            <label>{{vanBanDi.trangThai}}</label>
+                        </div>
+                    </div>
+                    <div class="my-item-flex justify-content-between ">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
+                            Sô ban hành:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
+                            <label>{{vanBanDi.soBanPhatHanh}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="my-item-flex justify-content-between ">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
+                            Cơ quan ban hành:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
+                            <label>{{vanBanDi.coQuanBh}}</label>
+                        </div>
+                    </div>
+                    <div class="my-item-flex justify-content-between ">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
+                            Mã định danh:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
+                            <label>{{vanBanDi.maDinhDanhVB}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="my-item-flex justify-content-between ">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
+                            Mức độ:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
+                            <label>{{vanBanDi.mucDo}}</label>
+                        </div>
+                    </div>
+                    <div class="my-item-flex justify-content-between ">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
+                            Số đi/đến:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
+                            <label>{{vanBanDi.soDiDen}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="my-item-flex-100 justify-content-between">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background my-border-radius-bl">
+                            Trích yếu:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3 my-border-radius-br">
+                            <label>{{vanBanDi.trichYeu}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="my-item-flex-100 justify-content-between">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background my-border-radius-bl">
+                            Nơi nhận khác:
+                        </div>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3 my-border-radius-br">
+                            <label>{{vanBanDi.noiNhanGui}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Header II" class="line-height-3 m-0">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,

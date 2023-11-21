@@ -1,5 +1,5 @@
 export interface QuanTriVanBanDi {
-    soKyHieu?: string,
+    soKiHieu?: string,
     trichYeu?: string,
     soDi?: number,
     ngayBanHanh?: string,
@@ -7,6 +7,17 @@ export interface QuanTriVanBanDi {
     trangThai?: string,
     trangThaiGui?: string,
     dieuKienGui?: string,
+    coQuanBh?: string,
+    maDinhDanhVB?: string,
+    mucDo?: string,
+    noiNhanGui?: string,
+    soDiDen?: number,
+    soDiDenCustom?: string,
+    tenLoaiVb?: string,
+    tenSoVB?: string,
+    ngayNhanGui?: string,
+    soBanPhatHanh?: number,
+    soHienTai?: string,
 }
 
 export interface TimKiemVBDi {
@@ -24,4 +35,5 @@ export interface TimKiemVBDi {
     soVanBanId?: number,
     donViId?: number,
     loaiVanBanId?: number,
+    vanBanId?: number,
 }

@@ -12,7 +12,7 @@ import { QuanTriVanBanDi, TimKiemVBDi } from 'src/app/models/van-ban-di/quan-tri
   styleUrls: ['./quan-tri-van-ban-di.component.scss'],
   providers: [MessageService]
 })
-export class QuanTriVanBanDiComponent {
+export class QuanTriVanBanDiComponent implements OnInit {
 
   breadcrumbItems: MenuItem[] = [];
   cols: any[] = [];
@@ -49,11 +49,13 @@ export class QuanTriVanBanDiComponent {
     mucDo: 0,
     soDi: 0,
 
+    vanBanId: 0,
     donViId: Number(this.idDonViLamViec),
   }
 
   danhSachVanBanDi: QuanTriVanBanDi[] = [];
   vanBanDi: QuanTriVanBanDi = {};
+  idVanBanDi: string = '1';
 
   msgs: Message[] = [];
   // hienThiDrop: boolean;
@@ -191,9 +193,11 @@ export class QuanTriVanBanDiComponent {
   //Chi tiết văn bản
   hienThiChiTiet: boolean = false;
 
-  ChiTietVanBan() {
+  ChiTietVanBan(id: string) {
     this.hienThiChiTiet = true;
-    console.log("sadasdasd");
+    this.idVanBanDi = id;
+    console.log(id);
+    
   }
 
   tatPopup(item: any, type: string) {

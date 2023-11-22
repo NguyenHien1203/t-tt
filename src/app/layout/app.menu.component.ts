@@ -19,6 +19,7 @@ export class AppMenuComponent implements OnInit {
     LstMenuCon: any[] = [];
     nhomQuyenOption: [];
     selectedItem: any;
+    position : string = "top";
     DonViDangNhap = "";
     constructor(
         public layoutService: LayoutService,
@@ -1016,13 +1017,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Văn bản nghiệp vụ',
                                 icon: 'pi pi-fw pi-arrow-right-arrow-left',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-di/van-ban-nghiep-vu'],
                                 code: '002015'
                             },
                             {
                                 label: 'Văn bản đi liên quan',
                                 icon: 'pi pi-fw pi-arrow-right-arrow-left',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-di/van-ban-di-lien-quan'],
                                 code: '002008'
                             },
                             {
@@ -1090,37 +1091,37 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Soạn thư',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/trao-doi-thong-tin/soan-thu'],
                                 code: '004001'
                             },
                             {
                                 label: 'Hộp thư đến',
                                 icon: 'pi pi-fw pi-envelope',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/trao-doi-thong-tin/hop-thu-den'],
                                 code: '004002'
                             },
                             {
                                 label: 'Hộp thư đi',
                                 icon: 'pi pi-fw pi-send',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/trao-doi-thong-tin/hop-thu-di'],
                                 code: '004003'
                             },
                             {
                                 label: 'Thư nháp',
                                 icon: 'pi pi-fw pi-pause',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/trao-doi-thong-tin/hop-thu-nhap'],
                                 code: '004004'
                             },
                             {
                                 label: 'Thư quan trọng',
                                 icon: 'pi pi-fw pi-flag-fill',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/trao-doi-thong-tin/thu-quan-trong'],
                                 code: '004005'
                             },
                             {
                                 label: 'Thêm nhãn',
                                 icon: 'pi pi-fw pi-tags',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/trao-doi-thong-tin/them-nhan'],
                                 code: '004006'
                             },
                         ]

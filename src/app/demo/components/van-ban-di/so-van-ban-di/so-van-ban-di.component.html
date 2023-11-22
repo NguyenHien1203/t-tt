@@ -14,12 +14,11 @@
     <div class="col-12">
         <div class="card">
             <p-toast></p-toast>
-
             <div class="field grid">
-                <p-tabMenu
+                <div class="col-12"><p-tabMenu
                     [model]="lstTrichXuat"
                     [activeItem]="activeTabItem"
-                ></p-tabMenu>
+                ></p-tabMenu></div>
             </div>
 
             <div class="field grid" #txThang *ngIf="activeTab === 'txThang'">

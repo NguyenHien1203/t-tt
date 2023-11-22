@@ -94,7 +94,7 @@
                 </div>
             </div>
             <div class="grid">
-                <div class="col-12">
+                <div class="col-12">                                                                                
                     <p-table styleClass="p-datatable-gridlines" #dt [value]="danhSachVanBanDi" [columns]="cols"
                         responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]">
                         <ng-template pTemplate="header">
@@ -216,7 +216,7 @@
             </div>
         </div>
 
-        <app-chi-tiet-van-ban [show]="hienThiChiTiet" (close)="tatPopup($event, 'C')" [id] = "idVanBanDi"></app-chi-tiet-van-ban>
+        <app-chi-tiet-van-ban [show]="hienThiChiTiet" (close)="tatPopup($event, 'C')" [idVb] = "idVanBanDi"></app-chi-tiet-van-ban>
 
         <!--<app-cap-nhat [show]="hienThiCapNhat" (close)="tatPopup($event, 'U')" [id]="idLoaiVanBan"></app-cap-nhat>
 

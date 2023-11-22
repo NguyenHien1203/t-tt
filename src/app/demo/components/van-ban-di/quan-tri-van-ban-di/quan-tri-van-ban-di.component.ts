@@ -30,6 +30,7 @@ export class QuanTriVanBanDiComponent implements OnInit {
   lstSoVanBan: any = [];
 
   idDonViLamViec: string = this.authService.GetDonViLamViec() ?? "0";
+  idDonViLVCha: string = this.authService.GetmUserInfo().donViIdCha ?? "0";
   timChinhXac: boolean = false;
   timKiemDanhSach: TimKiemVBDi = {
     //Row 1
@@ -84,8 +85,10 @@ export class QuanTriVanBanDiComponent implements OnInit {
     this.GetMucDoVanBan();
 
     this.TimKiem();
-    // console.log(this.authService.GetmUserInfo());
+    console.log(this.authService.GetmUserInfo());
     // console.log(this.authService.GetDonViLamViec());
+    console.log("idDv page list", this.idDonViLamViec);
+    console.log("idDvCha page list", this.idDonViLVCha);
   }
 
   // Kiểm tra true false tìm chính xác
@@ -97,8 +100,7 @@ export class QuanTriVanBanDiComponent implements OnInit {
   TimKiem() {
     this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
     this.quanTriVanBanDiService.danhSachVanBanDi(this.timKiemDanhSach).subscribe(data => {
-      console.log(data);
-
+      console.log("List", data);
       this.danhSachVanBanDi = data;
     })
   }
@@ -196,8 +198,6 @@ export class QuanTriVanBanDiComponent implements OnInit {
   ChiTietVanBan(id: string) {
     this.hienThiChiTiet = true;
     this.idVanBanDi = id;
-    console.log(id);
-    
   }
 
   tatPopup(item: any, type: string) {

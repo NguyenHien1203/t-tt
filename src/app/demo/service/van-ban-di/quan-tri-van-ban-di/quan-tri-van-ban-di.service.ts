@@ -22,21 +22,31 @@ export class QuanTriVanBanDiService {
 
   public getLoaiVanBan(id: string): Observable<any> {
     return this.http.get<any>(`${environment.baseUrlApi}` + this.url + 'GetLoaiVanBan/' + id)
-    .pipe(map((res: any)=> res.objData))
+      .pipe(map((res: any) => res.objData))
   }
 
   public getSoVanBan(id: string): Observable<any> {
-    return this.http.get<any>(`${environment.baseUrlApi}`  + this.url + 'GetSoVanBan/' + id)
-    .pipe(map((res: any) => res.objData))
+    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + 'GetSoVanBan/' + id)
+      .pipe(map((res: any) => res.objData))
   }
 
   public danhSachVanBanDi(danhSach: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachQuanTriVanBanDi', danhSach)
-    .pipe(map((res: any) => res.objData as QuanTriVanBanDi))
+      .pipe(map((res: any) => res.objData as QuanTriVanBanDi))
   }
 
-  public getVanBanDi(id: any): Observable<any> {
-    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + 'GetVanBanDi/' + id)
-    .pipe(map((res: any) => res.objData as QuanTriVanBanDi))
+  public getVanBanDi(idVb: any, idDv: any, idDvCha: any, idPB: any, nameAdmin: any): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + 'GetVanBanDi/' + idVb + '/' + idDv + '/' + idDvCha + '/' + idPB + '/' + nameAdmin)
+      .pipe(map((res: any) => res.objData as QuanTriVanBanDi))
+  }
+
+  public getVanBanNhanGui(id: string): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + 'GetVanBanNhanGui/' + id)
+      .pipe(map((res: any) => res.objData))
+  }
+
+  public getThongTinDaGui(id: string, idDv: string): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + 'GetThongTinDaGui/' + id + '/' + idDv)
+      .pipe(map((res: any) => res.objData))
   }
 }

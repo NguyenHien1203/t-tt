@@ -1,3 +1,4 @@
+import { NhomDonVi } from './../danh-muc/nhom-don-vi/nhom-don-vi';
 export interface QuanTriVanBanDi {
     soKiHieu?: string,
     trichYeu?: string,
@@ -7,7 +8,7 @@ export interface QuanTriVanBanDi {
     trangThai?: string,
     trangThaiGui?: string,
     dieuKienGui?: string,
-    coQuanBh?: string,
+    coQuanBH?: string,
     maDinhDanhVB?: string,
     mucDo?: string,
     noiNhanGui?: string,
@@ -37,3 +38,65 @@ export interface TimKiemVBDi {
     loaiVanBanId?: number,
     vanBanId?: number,
 }
+
+export interface VanBanNhanGui {
+    loaiVanBanDiDen?: number,
+    publicNoiDung?: number,
+    checkCapNhat?: number,
+    trangThaiId?: number,
+    trichYeu?: string,
+    noiNhanGui?: string,
+}
+
+export interface VBIDPL {
+    userId?: number,
+    nhomDonVi?: number,
+    donViId?: number,
+    phongBanId?: number,
+    trangThaiId?: number,
+    phanLoai?: number,
+    ten?: string;
+    tenPhongBan?: string,
+    thuTu?: number,
+    loaiVbDiDen?: number,
+}
+
+export interface VBIDPLoaiCoBC {
+    userId?: number,
+    nhomDonVi?: number,
+    donViId?: number,
+    phongBanId?: number,
+    trangThaiId?: number,
+    phanLoai?: number,
+    ten?: string;
+    tenPhongBan?: string,
+    thuTu?: number,
+    loaiVbDiDen?: number,
+}
+
+export interface VBIDPLoaiKoBC {
+    userId?: number,
+    nhomDonVi?: number,
+    donViId?: number,
+    phongBanId?: number,
+    trangThaiId?: number,
+    phanLoai?: number,
+    ten?: string;
+    tenPhongBan?: string,
+    thuTu?: number,
+    loaiVbDiDen?: number,
+}
+
+export interface VBIDPLoaiCN {
+    userId?: number,
+    nhomDonVi?: number,
+    donViId?: number,
+    phongBanId?: number,
+    trangThaiId?: number,
+    phanLoai?: number,
+    ten?: string;
+    tenPhongBan?: string,
+    thuTu?: number,
+    loaiVbDiDen?: number,
+}
+

@@ -5,7 +5,8 @@ import { TraoDoiThongTinRoutingModule } from './trao-doi-thong-tin-routing.modul
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     TraoDoiThongTinRoutingModule

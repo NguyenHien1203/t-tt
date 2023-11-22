@@ -13,11 +13,158 @@
     <div class="col-12">
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-12 mb-0 pb-0">
-                <p-menubar [model]="MenuItems" ></p-menubar>
+                <p-menubar [model]="MenuItems"></p-menubar>
             </div>
         </div>
     </div>
     <div class="col-12">
-        <div class="card"></div>
+        <div class="card">
+            <div class="p-formgrid grid fl-wr">
+                <div class="col-12 md:col-12">
+                    <button
+                        pButton
+                        pRipple
+                        label="Gửi đi"
+                        icon="pi pi-send"
+                        class="p-button-info mr-2"
+                    ></button>
+                    <button
+                        pButton
+                        pRipple
+                        label="Lưu nháp"
+                        icon="pi pi-cloud-download"
+                        class="p-button-secondary mr-2"
+                    ></button>
+                    <hr />
+                </div>
+            </div>
+            <div class="field grid" [style]="{ 'margin-bottom': '0rem' }">
+                <label class="col-12 md:col-4">
+                    <p-dropdown
+                        [(ngModel)]="donViId"
+                        [options]="lstDonVi"
+                        appendTo="body"
+                        [filter]="true"
+                        (ngModelChange)="ChangeDonVi($event)"
+                        optionValue="value"
+                        optionLabel="text"
+                        placeholder="Chọn đơn vị"
+                        [showClear]="true"
+                        [style]="{ width: '100%' }"
+                        class="my-drop"
+                    ></p-dropdown>
+                </label>
+                <label class="col-12 md:col-4">
+                    <p-dropdown
+                        [(ngModel)]="phongBanId"
+                        [options]="lstPhongBan"
+                        appendTo="body"
+                        [filter]="true"
+                        (ngModelChange)="ChangePhongBan($event)"
+                        optionValue="value"
+                        optionLabel="text"
+                        placeholder="Chọn phòng ban"
+                        [showClear]="true"
+                        [style]="{ width: '100%' }"
+                        class="my-drop"
+                    ></p-dropdown>
+                </label>
+                <label class="col-12 md:col-4">
+                    <p-dropdown
+                        [(ngModel)]="nguoiDungId"
+                        [options]="lstNhomNguoiDung"
+                        appendTo="body"
+                        [filter]="true"
+                        (ngModelChange)="ChangeNhomNguoiDung($event)"
+                        optionValue="value"
+                        optionLabel="text"
+                        placeholder="Chọn nhóm người dùng"
+                        [showClear]="true"
+                        [style]="{ width: '100%' }"
+                        class="my-drop"
+                    ></p-dropdown>
+                </label>
+            </div>
+            <span class="p-fluid">
+                <p-autoComplete
+                    [multiple]="true"
+                    (completeMethod)="filterItems($event)"
+                    [suggestions]="filteredItems"
+                    [field]="'text'"
+                    placeholder="Search"
+                >
+                    <ng-template let-item pTemplate="item">
+                        <div class="p-grid">
+                            <div class="p-col">{{ item.text }}</div>
+                        </div>
+                    </ng-template>
+                </p-autoComplete></span
+            >
+            <div class="field grid">
+                <label class="col-12 md:col-12"> </label>
+
+                <label class="col-12 md:col-12">
+                    <textarea
+                        rows="3"
+                        cols="30"
+                        class="my-drop"
+                        placeholder="Nội dung"
+                        pInputTextarea
+                    ></textarea>
+                </label>
+            </div>
+            <div class="field grid">
+                <div class="col-12 md:col-1 fl-wr">File đính kèm:</div>
+                <div class="col-12 md:col-11 fl-wr">
+                    <div>
+                        <label for="fileUpload" class="custom-file-upload">
+                            <i class="pi pi-upload"></i> Chọn tệp
+                        </label>
+                        <input
+                            type="file"
+                            id="fileUpload"
+                            multiple="multiple"
+                            (change)="onFileSelected($event)"
+                            style="display: none"
+                        />
+                    </div>
+                    <ul>
+                        <li *ngFor="let file of selectedFiles">
+                            <span *ngIf="file.isDelete == false">
+                                <a
+                                    (click)="
+                                        DownloadFile(
+                                            file.filePath,
+                                            file.fileName
+                                        )
+                                    "
+                                    href="javascript:;"
+                                    >{{ file.fileName }}</a
+                                ><a
+                                    href="javascript:;"
+                                    (click)="XoaFile(file.filePath)"
+                                    >&nbsp;<i class="pi pi-trash"></i
+                                ></a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="field">
+                <ckeditor
+                    #myEditor
+                    id="editor"
+                    [editor]="Editor"
+                    row=""
+                    [config]="getToolBar()"
+                    data=""
+                ></ckeditor>
+            </div>
+        </div>
     </div>
 </div>
+<app-chon-nguoi-dung [show]="hienThiChonNguoiDung"
+               [id]="id"
+               [idSelected]="idSelected"
+               [loai]="loai"
+               (tatPopup)="Thoat($event, 'C')"></app-chon-nguoi-dung>

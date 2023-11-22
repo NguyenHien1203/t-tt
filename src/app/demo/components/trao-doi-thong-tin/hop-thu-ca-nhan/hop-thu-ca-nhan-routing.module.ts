@@ -3,8 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { HopThuCaNhanComponent } from './hop-thu-ca-nhan.component';
 
 const routes: Routes = [
-    { path: '', component: HopThuCaNhanComponent },
-    { path: 'hop-thu-ca-nhan/:id', component: HopThuCaNhanComponent },
+    {
+        path: '',
+        component: HopThuCaNhanComponent,
+        children: [
+            {
+                path: ':id', // Tham số id
+                component: HopThuCaNhanComponent,
+            },
+        ],
+    },
 ];
 
 @NgModule({

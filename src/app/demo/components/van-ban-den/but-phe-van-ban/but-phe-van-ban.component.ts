@@ -54,7 +54,6 @@ export class ButPheVanBanComponent implements OnInit {
     this.GetDataYear();
     this.GetDataMonth();
     this.GetDataSoVanBan();
-
     this.GetDanhSachButPhe();
   }
 
@@ -122,6 +121,16 @@ export class ButPheVanBanComponent implements OnInit {
     }, (error) => {
       console.log('Error', error);
     })
+  }
+
+  /**
+   * ThemMoiCongViec
+   */
+  public ThemMoiCongViec(idVanBan: string) {
+    this.router.navigate(['/van-ban-den/them-moi-cong-viec'], {
+      queryParamsHandling: 'merge',
+      queryParams: { idVanBan: idVanBan },
+    });
   }
 
 }

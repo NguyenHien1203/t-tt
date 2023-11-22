@@ -148,6 +148,7 @@ export class SoVanBanDiComponent {
     }
 
     public ExportExcel() {
+        this.LoadDanhSach();
         this.confirmService.confirm({
             message: 'Bạn có chắc chắn xác nhận xuất excel',
             header: 'Xác nhận',
@@ -179,7 +180,13 @@ export class SoVanBanDiComponent {
         });
     }
 
-    public In(): void {
+    public async In() {
+       await this.service // phải thực hiện cùng lúc tác vụ search + in 
+        .getDanhSachSoVanBanDi(this.timKiemDanhSach)
+        .then((data) => {
+            this.lstSoVanBanDi = data;
+        });
+
         if (this.timKiemDanhSach.loaiTrichXuat == 1) {
             const thang = this.timKiemDanhSach.thang
                 ? 'Tháng ' + this.timKiemDanhSach.thang
@@ -216,19 +223,22 @@ export class SoVanBanDiComponent {
                 : '';
             this.strTrichXuat = banHanhTu + banHanhDen;
         }
+
         let listInSoVanBan = this.lstSoVanBanDi.slice(
             this.timKiemDanhSach.first,
             this.timKiemDanhSach.rowsPerPage
         );
         const encodedList = encodeURIComponent(JSON.stringify(listInSoVanBan));
+
         // const encodedData = btoa(JSON.stringify(listInSoVanBan));
-        this.router.navigate(['/in-so-van-ban'], {
+        await this.router.navigate(['/in-so-van-ban'], {
             queryParamsHandling: 'merge',
             queryParams: { list: encodedList, strTrichXuat: this.strTrichXuat },
         });
     }
 
     public ExportWord() {
+        this.LoadDanhSach();
         this.confirmService.confirm({
             message: 'Bạn có chắc chắn xác nhận xuất word',
             header: 'Xác nhận',

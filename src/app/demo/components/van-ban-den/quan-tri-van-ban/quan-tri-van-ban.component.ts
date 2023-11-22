@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { QuanTriVanBanService } from 'src/app/demo/service/van-ban-den/quan-tri-van-ban/quan-tri-van-ban.service';
+import { TimKiemModel, VanBan } from 'src/app/models/van-ban-den/quan-tri-van-ban.model';
 
 @Component({
   selector: 'app-quan-tri-van-ban',
@@ -24,18 +25,41 @@ export class QuanTriVanBanComponent implements OnInit {
   //Dữ liêu truyền vào để tìm kiếm
   timChinhXac: boolean = false;
   timKiem: TimKiemModel = {
-    KeyWord: '',
-    GhiChu: '',
-    KyHieu: '',
-    TimChinhXac: 0,
+    trangthai : 0,
+    nam : 0,
+    thang : 0,
+    sokihieu : '',
+    TimChinhXac : 0,
+    idsovb : 0,
+    idloaivb : 0,
+    ngtn : new Date,
+    ngdn : new Date,
+    bhtn : new Date,
+    bhdn : new Date,
+    sodiden : 0,
+    cqbh : '',
+    cqbhid : 0,
+    trichyeu : '',
+    ky : '',
+    vbdiden : 0,
+    iddonvi : 0,
+    CurrentPage : 0,
+    RowPerPage : 0,
+    ItemId : 0,
+    mucdo : 0,
+    soan : '',
+    ghichu : '',
+    vanban : '',
+    iPhanLoaiDV : 0,
+    cap : 0,
   }
 
-  coQuanBanHanhs: CoQuanBanHanh[] = [];
+  vanBans : VanBan[] = [];
   selectedState: any = null;
   loading: boolean = true;
 
   ngOnInit(): void {
-    this.items = [{ label: 'Danh mục' }, { label: 'đơn vị' }];
+    this.items = [{ label: 'Văn bản đến' }, { label: 'Quản trị văn bản' }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.loading = false;
     //Trỏ đến get danh sách
@@ -48,10 +72,10 @@ export class QuanTriVanBanComponent implements OnInit {
   }
 
   //#region 
-  // Get List Phong Ban
+  // Get List Van Ban
   public LoadDanhSach(timkiems: TimKiemModel) {
     this.timKiem.TimChinhXac = this.timChinhXac ? 1 : 0;
-    this.service.getDanhSachCoQuan(timkiems).then(data => { this.coQuanBanHanhs = data; console.log(data) }
+    this.service.getDanhSachvanBan(timkiems).then(data => { this.vanBans = data; console.log(data) }
     )
   };
   //#endregion
@@ -63,30 +87,6 @@ export class QuanTriVanBanComponent implements OnInit {
   public CapNhat(id: string): void {
     this.hienThiCapNhat = true;
     this.id = id;
-  }
-
-  public Xoa(id: string) {
-    console.log("id", id)
-    this.confirmationService.confirm({
-      message: 'Đồng ý xóa cơ quan?',
-      header: 'Xác nhận',
-      icon: 'pi pi-info-circle',
-      accept: () => {
-        this.service.xoaCoQuan(id).subscribe(data => {
-          if (data.isError) {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
-          } else {
-            this.LoadDanhSach(this.timKiem);
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
-          }
-        }, (error) => {
-          console.log('Error', error);
-        })
-      },
-      reject: () => {
-
-      }
-    });
   }
 
   public Thoat(itemHt: any, loai: string): void {

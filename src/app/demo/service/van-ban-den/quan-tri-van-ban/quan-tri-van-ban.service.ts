@@ -17,8 +17,8 @@ export class QuanTriVanBanService {
   }
   constructor(private http: HttpClient) { }
 
-  getDanhSachCoQuan(timkiem: TimKiemModel) {
-    return this.http.post<any>(this.baseApiUrl + '/DanhMuc/CoQuanBanHanh/GetDanhSachCoQuanBanHanh', timkiem, this.httpOption)
+  getDanhSachvanBan(timkiem: TimKiemModel) {
+    return this.http.post<any>(this.baseApiUrl + '/VanBanDen/QuanTriVanBanDen/GetListQTriVanBanDen', timkiem, this.httpOption)
       .toPromise()
       .then(res => res.objData.listCoQuanBanHanh as CoQuanBanHanh[]);
   }

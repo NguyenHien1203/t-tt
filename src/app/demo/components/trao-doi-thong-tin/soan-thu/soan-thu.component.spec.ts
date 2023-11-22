@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TheoDoiComponent } from './theo-doi.component';
+import { SoanThuComponent } from './soan-thu.component';
 
-describe('TheoDoiComponent', () => {
-  let component: TheoDoiComponent;
-  let fixture: ComponentFixture<TheoDoiComponent>;
+describe('SoanThuComponent', () => {
+  let component: SoanThuComponent;
+  let fixture: ComponentFixture<SoanThuComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TheoDoiComponent]
+      declarations: [SoanThuComponent]
     });
-    fixture = TestBed.createComponent(TheoDoiComponent);
+    fixture = TestBed.createComponent(SoanThuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -59,6 +59,22 @@ const routes: Routes = [
                 (m) => m.TheoDoiVanBanDiModule
             ),
     },
+    {
+        path: 'van-ban-di-lien-quan',
+        data: { breadcrumb: 'Văn bản đi liên quan' },
+        loadChildren: () =>
+            import('./van-ban-di-lien-quan/van-ban-di-lien-quan.module').then(
+                (m) => m.VanBanDiLienQuanModule
+            ),
+    },
+    {
+        path: 'van-ban-nghiep-vu',
+        data: { breadcrumb: 'Văn bản nghiệp vụ' },
+        loadChildren: () =>
+            import('./van-ban-nghiep-vu/van-ban-nghiep-vu.module').then(
+                (m) => m.VanBanNghiepVuModule
+            ),
+    },
 ];
 @NgModule({
     imports: [RouterModule.forChild(routes)],

@@ -43,10 +43,17 @@ export class SoanThuComponent implements OnInit {
             .getDanhSachNhanCaNhan(this.timKiemDanhSach)
             .then((data) => {
                 this.lstNhanCaNhan = data.map((ncn) => {
-                    return { label: ncn.tenNhan, icon: 'pi pi-tag', routerLink: ['/trao-doi-thong-tin/hop-thu-ca-nhan',ncn.id], };
+                    return {
+                        label: ncn.tenNhan,
+                        icon: 'pi pi-tag',
+                        routerLink: [
+                            '/trao-doi-thong-tin/hop-thu-ca-nhan',
+                            ncn.id,
+                        ],
+                    };
                 });
             });
-            console.log(this.lstNhanCaNhan)
+        console.log(this.lstNhanCaNhan);
 
         this.MenuItems = [
             {

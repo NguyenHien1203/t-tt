@@ -1,5 +1,5 @@
 import { QuanTriVanBanDiService } from './../../../service/van-ban-di/quan-tri-van-ban-di/quan-tri-van-ban-di.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
@@ -12,7 +12,7 @@ import { QuanTriVanBanDi, TimKiemVBDi } from 'src/app/models/van-ban-di/quan-tri
   styleUrls: ['./quan-tri-van-ban-di.component.scss'],
   providers: [MessageService]
 })
-export class QuanTriVanBanDiComponent {
+export class QuanTriVanBanDiComponent implements OnInit {
 
   breadcrumbItems: MenuItem[] = [];
   cols: any[] = [];
@@ -30,6 +30,7 @@ export class QuanTriVanBanDiComponent {
   lstSoVanBan: any = [];
 
   idDonViLamViec: string = this.authService.GetDonViLamViec() ?? "0";
+  idDonViLVCha: string = this.authService.GetmUserInfo().donViIdCha ?? "0";
   timChinhXac: boolean = false;
   timKiemDanhSach: TimKiemVBDi = {
     //Row 1
@@ -49,11 +50,13 @@ export class QuanTriVanBanDiComponent {
     mucDo: 0,
     soDi: 0,
 
+    vanBanId: 0,
     donViId: Number(this.idDonViLamViec),
   }
 
   danhSachVanBanDi: QuanTriVanBanDi[] = [];
   vanBanDi: QuanTriVanBanDi = {};
+  idVanBanDi: string = '1';
 
   msgs: Message[] = [];
   // hienThiDrop: boolean;
@@ -63,7 +66,7 @@ export class QuanTriVanBanDiComponent {
     { label: 'Thu hồi', icon: 'pi pi-backward', action: 'thuHoi' },
     { label: 'Lấy lại', icon: 'pi pi-sign-in', action: 'layLai' },
     { label: 'Thay thế', icon: 'pi pi-replay', action: 'thayThe' },
-];
+  ];
 
   constructor(private messageService: MessageService, private authService: AuthService, private quanTriVanBanDiService: QuanTriVanBanDiService) { }
 
@@ -82,8 +85,10 @@ export class QuanTriVanBanDiComponent {
     this.GetMucDoVanBan();
 
     this.TimKiem();
-    // console.log(this.authService.GetmUserInfo());
+    console.log(this.authService.GetmUserInfo());
     // console.log(this.authService.GetDonViLamViec());
+    console.log("idDv page list", this.idDonViLamViec);
+    console.log("idDvCha page list", this.idDonViLVCha);
   }
 
   // Kiểm tra true false tìm chính xác
@@ -95,8 +100,7 @@ export class QuanTriVanBanDiComponent {
   TimKiem() {
     this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
     this.quanTriVanBanDiService.danhSachVanBanDi(this.timKiemDanhSach).subscribe(data => {
-      console.log(data);
-
+      console.log("List", data);
       this.danhSachVanBanDi = data;
     })
   }
@@ -186,5 +190,20 @@ export class QuanTriVanBanDiComponent {
     this.luaChonMucDo.push({ label: "VB mật", value: 3 });
     this.luaChonMucDo.push({ label: "VB tuyệt mật", value: 4 });
     this.luaChonMucDo.push({ label: "VB tối mật", value: 5 });
+  }
+
+  //Chi tiết văn bản
+  hienThiChiTiet: boolean = false;
+
+  ChiTietVanBan(id: string) {
+    this.hienThiChiTiet = true;
+    this.idVanBanDi = id;
+  }
+
+  tatPopup(item: any, type: string) {
+    if (type === "C") {
+      this.hienThiChiTiet = false;
+    }
+    this.TimKiem();
   }
 }

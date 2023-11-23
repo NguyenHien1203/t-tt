@@ -27,11 +27,13 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ChiTietVanBanComponent } from './chi-tiet-van-ban/chi-tiet-van-ban.component';
 
 
 @NgModule({
   declarations: [
-    QuanTriVanBanDiComponent
+    QuanTriVanBanDiComponent,
+    ChiTietVanBanComponent
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { AuthService } from 'src/app/common/auth.services';
 import { ButPheVanBanService } from 'src/app/demo/service/van-ban-den/but-phe-van-ban/but-phe-van-ban.service';
 
 @Component({
@@ -16,14 +15,15 @@ export class ThemMoiCongViecComponent implements OnInit {
   home: any;
   loading: boolean = true;
   ThongTinVanBan: any;
+  lstPhongBan: [];
+  lstNhomNguoiDung: [];
+  lstNguoiDung: [];
 
   constructor(
     private service: ButPheVanBanService,
-    private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService,
     private messageService: MessageService
-) {}
+  ) { }
 
   ngOnInit() {
     this.loading = false;
@@ -37,12 +37,15 @@ export class ThemMoiCongViecComponent implements OnInit {
     });
 
     this.GetDataVanBan(this.idVanBan);
+    this.LoadPhongBan();
+    this.LoadNhomNguoiDung();
+    this.LoadChonNhanhNguoiDung();
   }
 
   /**
    * GetDataVanBan
    */
-  public GetDataVanBan(idVanBan : string) {
+  public GetDataVanBan(idVanBan: string) {
     this.service.GetVanBanById(idVanBan).subscribe(data => {
       if (data.isError) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
@@ -51,6 +54,42 @@ export class ThemMoiCongViecComponent implements OnInit {
       }
     }, (error) => {
       console.log('Error', error);
+    })
+  }
+
+  /**
+   * LoadPhongBan
+   */
+  public LoadPhongBan() {
+    this.service.LoadPhongBan().subscribe(data => {
+      if (data.isError) {
+      } else {
+        this.lstPhongBan = data.objData;
+      }
+    })
+  }
+
+  /**
+  * LoadNhomNguoiDung
+  */
+  public LoadNhomNguoiDung() {
+    this.service.LoadNhomNguoiDung().subscribe(data => {
+      if (data.isError) {
+      } else {
+        this.lstNhomNguoiDung = data.objData;
+      }
+    })
+  }
+
+  /**
+  * LoadChonNhanhNguoiDung
+  */
+  public LoadChonNhanhNguoiDung() {
+    this.service.LoadChonNhanhNguoiDung().subscribe(data => {
+      if (data.isError) {
+      } else {
+        this.lstNguoiDung = data.objData;
+      }
     })
   }
 

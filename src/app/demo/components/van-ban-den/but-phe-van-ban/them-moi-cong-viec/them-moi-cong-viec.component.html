@@ -58,21 +58,34 @@
                         <label class="col-12 md:col-2 fl-wr">
                             <label for="integeronly">Ngày bắt đầu<span class="p-error">(*) </span>:</label>
                             <p-calendar dateFormat="dd/mm/yy" [style]="{'width': '100%'}"
-                            class="my-drop mg-t-55"></p-calendar>
+                                class="my-drop mg-t-55"></p-calendar>
                         </label>
 
                         <label class="col-12 md:col-2 fl-wr">
                             <label for="integeronly">Ngày kết thúc<span class="p-error">(*) </span>:</label>
                             <p-calendar dateFormat="dd/mm/yy" [style]="{'width': '100%'}"
-                            class="my-drop mg-t-55"></p-calendar>
+                                class="my-drop mg-t-55"></p-calendar>
                         </label>
                     </div>
 
                     <div class="field grid">
                         <label class="col-12 md:col-6 fl-wr">
-                            <label for="integeronly">Số ngày<span class="p-error">(*) </span>:</label>
+                            <label for="integeronly">Chọn phòng ban</label>
                             <input type="text" id="soNgay" [style]="{'width': '100%'}"
-                                class="my-drop mg-t-55 p-inputtext p-component p-element">
+                                class="my-drop p-inputtext p-component p-element">
+
+                            <label for="integeronly">Chọn nhóm người dùng</label>
+                            <input type="text" id="soNgay" [style]="{'width': '100%'}"
+                                class="my-drop p-inputtext p-component p-element">
+
+                            <label for="integeronly">Chọn nhanh người dùng</label>
+                            <input type="text" id="soNgay" [style]="{'width': '100%'}"
+                                class="my-drop p-inputtext p-component p-element">
+                        </label>
+                        <label class="col-12 md:col-6 fl-wr">
+                            <label for="integeronly">Chọn người dùng</label>
+                            <textarea rows="6" cols="30" class="my-drop  mg-t-55" pInputTextarea></textarea>
+                            <button pButton pRipple label="Chọn"></button>
                         </label>
                     </div>
                 </form>

@@ -27,11 +27,18 @@ import { TabViewModule } from 'primeng/tabview';
 import { SoanThuRoutingModule } from './soan-thu-routing.module';
 import { SoanThuComponent } from './soan-thu.component';
 import { MenubarModule } from 'primeng/menubar';
+import { PanelModule } from 'primeng/panel';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ChonNguoiDungComponent } from './chon-nguoi-dung/chon-nguoi-dung.component';
 
 
 @NgModule({
-  declarations: [SoanThuComponent],
+  declarations: [SoanThuComponent, ChonNguoiDungComponent],
   imports: [
+    AutoCompleteModule,
+    CKEditorModule,
+    PanelModule,
     MenubarModule,
     TableModule,
     FileUploadModule,

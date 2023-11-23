@@ -17,6 +17,8 @@ export class HopThuDenComponent {
     MenuItems = [];
     timChinhXac: boolean = false;
     public id: string = '1';
+    hienThiChiTiet: boolean = false;
+
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     constructor(
         private messageService: MessageService,
@@ -83,5 +85,9 @@ export class HopThuDenComponent {
                 items: this.lstNhanCaNhan,
             },
         ];
+    }
+
+    public Thoat(itemHt: any, loai: string): void {
+        if (loai === 'C') this.hienThiChiTiet = false;
     }
 }

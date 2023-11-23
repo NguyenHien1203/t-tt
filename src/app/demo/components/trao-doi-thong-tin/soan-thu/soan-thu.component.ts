@@ -13,6 +13,7 @@ import { saveAs } from 'file-saver';
 import { throwError } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-soan-thu',
@@ -29,29 +30,24 @@ export class SoanThuComponent implements OnInit {
         private authService: AuthService,
         private cd: ChangeDetectorRef,
         private uploadfileService: UploadFileService,
+        private router : Router,
         @Inject(DOCUMENT) private document: Document
     ) {}
 
-    menuItems: any[] = [
-        { text: 'Item 1' },
-        { text: 'Item 2' },
-        // Add more items as needed
-    ];
-
-    showAutoComplete: boolean = false;
+    tieuDe: string = '';
+    lstNguoiDungFilter: any[] = [];
+    lstSelectedNguoiDung: any[] = [];
     filteredItems: any[] = [];
-    nguoiDungId : string = "";
-    phongBanId : string = "";
-    donViId : string = "";
-    hienThiChonNguoiDung : boolean  = false;
-    loai : number  = 0;
-    idSelected : string  = "0";
+    nhomNguoiDungId: string = '';
+    phongBanId: string = '';
+    donViId: string = '';
+    hienThiChonNguoiDung: boolean = false;
     items = [{ label: 'Trao đổi thông tin' }, { label: 'Soạn thư' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
     lstNhanCaNhan: any[] = [];
     lstDonVi: any[] = [];
     lstPhongBan: any[] = [];
-    lstUserGui: any[] = [];
+    lstNguoiDung: any[] = [];
     lstNhomNguoiDung: any[] = [];
     file: File | null = null;
     MenuItems = [];
@@ -71,52 +67,25 @@ export class SoanThuComponent implements OnInit {
     };
 
     filterItems(event: any) {
-        const keyword = event.query.toLowerCase();
-        this.filteredItems = this.menuItems.filter((item) =>
-            item.text.toLowerCase().includes(keyword)
+        //tìm kiếm người dùng
+        const lstNguoiDungSelected = this.lstSelectedNguoiDung.map(
+            (x) => x.text
         );
-    }
-
-    public getToolBar(): any {
-        const toolbar: any = {
-            items: [
-                'undo',
-                'redo',
-                '|',
-                'heading',
-                '|',
-                'fontfamily',
-                'fontsize',
-                'fontColor',
-                'fontBackgroundColor',
-                '|',
-                'bold',
-                'italic',
-                'strikethrough',
-                'subscript',
-                'superscript',
-                'code',
-                '|',
-                'link',
-                'uploadImage',
-                'blockQuote',
-                'codeBlock',
-                '|',
-                'alignment',
-                '|',
-                'bulletedList',
-                'numberedList',
-                'todoList',
-                'outdent',
-                'indent',
-            ],
-            shouldNotGroupWhenFull: true,
-        };
-        return toolbar;
+        const keyword = event.query.toLowerCase();
+        this.filteredItems = this.lstNguoiDungFilter // lọc ra những người có tên hoặc username trùng với keyword, và không trùng với người dùng đã selected
+            .filter(
+                (item) =>
+                    (item.userName.toLowerCase().includes(keyword) ||
+                        item.hoTenDem.toLowerCase().includes(keyword)) &&
+                    !lstNguoiDungSelected.includes(item.userName)
+            )
+            .map((data) => {
+                return { ...data, text: data.userName };
+            });
     }
 
     async ngOnInit() {
-        await this.service
+        await this.service //lấy danh sách nhãn cá nhân
             .getDanhSachNhanCaNhan(this.timKiemDanhSach)
             .then((data) => {
                 this.lstNhanCaNhan = data.map((ncn) => {
@@ -168,8 +137,11 @@ export class SoanThuComponent implements OnInit {
     }
 
     public LoadDanhMuc() {
+        //Lấy danh sách đơn vị + nhóm người dùng
         this.service.getDanhSachDonVi().then((data) => {
-            this.lstDonVi = data;
+            setTimeout(() => {
+                this.lstDonVi = data;
+            }, 300);
         });
         this.service
             .getDanhSachNhomNguoiDung(
@@ -180,6 +152,10 @@ export class SoanThuComponent implements OnInit {
             .then((data) => {
                 this.lstNhomNguoiDung = data;
             });
+
+        this.service.getDanhSachNguoiDungs().then((data) => {
+            this.lstNguoiDungFilter = data;
+        });
     }
 
     public onFileSelected(event: any) {
@@ -222,37 +198,106 @@ export class SoanThuComponent implements OnInit {
             });
         }
     }
-    // this.quanLyThongBao.noiDung = this.myEditor.editorInstance.getData();
+
     public ChangeDonVi(event): void {
         this.lstNhomNguoiDung = [];
         if (event != null) {
             this.service.getDanhSachPhongBan(event).then((data) => {
                 this.lstPhongBan = data;
-                console.log(this.lstPhongBan)
             });
         }
     }
-
-    public ChangePhongBan(event): void {
-        if (event != null) {
-            this.service.getDanhSachUserThuocPhongBan(event).then((data) => {
-              this.lstUserGui = data;
-            });
-            setTimeout(() => {
-                this.idSelected = event;
-            this.loai = 0;
-            this.hienThiChonNguoiDung = true;
-            },500)
-          } else {
-            this.lstUserGui = []; // Xóa danh sách người dùng nếu không có giá trị được chọn
-          }
-    }
-
 
     public Thoat(itemHt: any, loai: string): void {
         if (loai === 'C') this.hienThiChonNguoiDung = false;
     }
 
+    public ChonNguoiDung(event: any): void {
+        //Chọn người dùng từ dialog
+        const lstSelectedNgd = this.lstSelectedNguoiDung.map((dt) => dt.text);
+        if (event != null) {
+            const lstTmp = event
+                .filter((dt) => !lstSelectedNgd.includes(dt))
+                .map((dt) => {
+                    return { text: dt };
+                });
+            this.lstSelectedNguoiDung =
+                this.lstSelectedNguoiDung.concat(lstTmp);
+        }
+    }
 
-    public ChangeNhomNguoiDung(event): void {}
+    public ChangePhongBan(event): void {
+        //bind người dùng lên dialog
+        this.nhomNguoiDungId = null;
+        if (event != null) {
+            this.service.getDanhSachUserThuocPhongBan(event).then((data) => {
+                this.lstNguoiDung = data;
+            });
+            setTimeout(() => {
+                this.hienThiChonNguoiDung = true;
+            }, 500);
+        } else {
+            this.lstNguoiDung = []; // Xóa danh sách người dùng nếu không có giá trị được chọn
+        }
+    }
+
+    public ChangeNhomNguoiDung(event): void {
+        //bind người dùng lên dialog
+        this.phongBanId = null;
+        if (event != null) {
+            this.service.getDanhSachUserThuocPhongBan(event).then((data) => {
+                this.lstNguoiDung = data;
+            });
+            setTimeout(() => {
+                this.hienThiChonNguoiDung = true;
+            }, 500);
+        } else {
+            this.lstNguoiDung = []; // Xóa danh sách người dùng nếu không có giá trị được chọn
+        }
+    }
+
+    public GuiDi(): void {
+        if (this.lstSelectedNguoiDung.length == 0) {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Yêu cầu chọn người nhận',
+            });
+        }
+
+        if (this.tieuDe === '') {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Yêu cầu nhập tiêu đề',
+            });
+        }
+
+        let itemData = {
+            userId: this.idUser,
+            listDiaChi: this.lstSelectedNguoiDung.map((data) => data.text),
+            tieuDe: this.tieuDe,
+            noiDung: this.myEditor.editorInstance.getData(),
+            loaiHinhTraoDoi: '0',
+            vanBanId: '',
+            traoDoiId: '',
+            listFile: this.selectedFiles,
+        };
+
+        this.service.guiDi(itemData).subscribe((data) => {
+            this.messageService.add({
+                severity: data.isError ? 'error' : 'success',
+                summary: data.isError ? 'Error' : 'Success',
+                detail: data.title,
+            });
+
+            setTimeout(() => {
+                if (!data.isError) {
+                    this.router.navigate(['/trao-doi-thong-tin/soan-thu']);
+                }
+            }, 2000);
+        });
+    }
+
+    public LuuNhap(): void {}
 }

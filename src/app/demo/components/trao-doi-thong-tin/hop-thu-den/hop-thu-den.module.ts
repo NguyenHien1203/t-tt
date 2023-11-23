@@ -26,38 +26,38 @@ import { MenubarModule } from 'primeng/menubar';
 
 import { HopThuDenRoutingModule } from './hop-thu-den-routing.module';
 import { HopThuDenComponent } from './hop-thu-den.component';
-
+import { HopThuDiModule } from '../hop-thu-di/hop-thu-di.module';
+import { TraoDoiThongTinModule } from '../trao-doi-thong-tin.module';
 
 @NgModule({
-  declarations: [
-    HopThuDenComponent
-  ],
-  imports: [
-    MenubarModule,
-    TableModule,
-    FileUploadModule,
-    FormsModule,
-    ButtonModule,
-    RippleModule,
-    ToastModule,
-    ToolbarModule,
-    RatingModule,
-    InputTextModule,
-    InputTextareaModule,
-    DropdownModule,
-    RadioButtonModule,
-    InputNumberModule,
-    DialogModule,
-    ReactiveFormsModule,
-    BreadcrumbModule,
-    TreeModule,
-    TreeSelectModule,
-    ConfirmDialogModule,
-    CheckboxModule,
-    CalendarModule,
-    TabViewModule,
-    CommonModule,
-    HopThuDenRoutingModule
-  ]
+    declarations: [HopThuDenComponent],
+    imports: [
+        TraoDoiThongTinModule,
+        MenubarModule,
+        TableModule,
+        FileUploadModule,
+        FormsModule,
+        ButtonModule,
+        RippleModule,
+        ToastModule,
+        ToolbarModule,
+        RatingModule,
+        InputTextModule,
+        InputTextareaModule,
+        DropdownModule,
+        RadioButtonModule,
+        InputNumberModule,
+        DialogModule,
+        ReactiveFormsModule,
+        BreadcrumbModule,
+        TreeModule,
+        TreeSelectModule,
+        ConfirmDialogModule,
+        CheckboxModule,
+        CalendarModule,
+        TabViewModule,
+        CommonModule,
+        HopThuDenRoutingModule,
+    ],
 })
-export class HopThuDenModule { }
+export class HopThuDenModule {}

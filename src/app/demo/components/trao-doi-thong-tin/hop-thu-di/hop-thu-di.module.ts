@@ -26,6 +26,8 @@ import { MenubarModule } from 'primeng/menubar';
 
 import { HopThuDiRoutingModule } from './hop-thu-di-routing.module';
 import { HopThuDiComponent } from './hop-thu-di.component';
+import { ChiTietHopThuComponent } from '../chi-tiet-hop-thu/chi-tiet-hop-thu.component';
+import { TraoDoiThongTinModule } from '../trao-doi-thong-tin.module';
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import { HopThuDiComponent } from './hop-thu-di.component';
     HopThuDiComponent
   ],
   imports: [
+    TraoDoiThongTinModule,
     MenubarModule,
     TableModule,
     FileUploadModule,

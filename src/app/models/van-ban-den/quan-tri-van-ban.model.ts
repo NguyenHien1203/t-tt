@@ -1,6 +1,13 @@
-
-export interface VanBan{
-
+export interface QuanTriVanBanDen {
+    soKyHieu?: string,
+    trichYeu?: string,
+    soDi?: number,
+    ngayBanHanh?: string,
+    loaiVBNghiepVu?: string,
+    trangThaiId?: string,
+    TenTrangThai?: string,
+    trangThaiGui?: string,
+    dieuKienGui?: string,
 }
 
 export class TimKiemModel {
@@ -22,8 +29,6 @@ export class TimKiemModel {
     ky? : string;
     vbdiden? : number;
     iddonvi? : number;
-    CurrentPage? : number;
-    RowPerPage? : number;
     ItemId? : number;
     mucdo? : number;
     soan? : string;
@@ -31,4 +36,5 @@ export class TimKiemModel {
     vanban? : string;
     iPhanLoaiDV? : number;
     cap? : number;
+    donViId?: number;
 }

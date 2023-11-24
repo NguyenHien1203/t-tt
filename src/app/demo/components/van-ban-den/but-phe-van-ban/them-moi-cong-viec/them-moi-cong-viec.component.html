@@ -1,0 +1,146 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <p-table styleClass="p-datatable-gridlines" [value]="[ThongTinVanBan]" class="custom-table">
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td class="custom-rb"><strong>Số ký hiệu:</strong></td>
+                        <td class="custom-b">{{item.sokyhieu}}</td>
+                        <td class="custom-rb"><strong>Loại văn bản:</strong></td>
+                        <td class="custom-b">{{item.loaivanban}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="custom-rb"><strong>Trích yếu:</strong></td>
+                        <td class="custom-b" colspan="3">{{item.trichyeu}}</td>
+                    </tr>
+                    <tr>
+                        <td class="custom-rb"><strong>Ý kiến tham mưu:</strong></td>
+                        <td class="custom-b" colspan="3">{{item.ykien}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div class="card">
+            <div class="wrapper">
+                <h2>NHẬP THÔNG TIN CÔNG VIỆC</h2>
+                <div class="icon-cls">
+                    <button pButton pRipple label="Thêm lịch cơ quan" icon="pi pi-plus" class="p-button-success mr-2">
+                    </button>
+                    <button pButton pRipple label="Quay lại" icon="pi pi-replay" class="p-button-success mr-2">
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <form>
+                    <div class="field grid">
+                        <label class="col-12 md:col-6 fl-wr">
+                            <label for="integeronly">Nội dung công việc<span class="p-error">(*) </span>:</label>
+                            <textarea rows="3" cols="30" class="my-drop" pInputTextarea></textarea>
+                        </label>
+
+                        <label class="col-12 md:col-2 fl-wr">
+                            <label for="integeronly">Số ngày<span class="p-error">(*) </span>:</label>
+                            <input type="text" id="soNgay" [style]="{'width': '100%'}"
+                                class="my-drop mg-t-55 p-inputtext p-component p-element">
+                        </label>
+
+                        <label class="col-12 md:col-2 fl-wr">
+                            <label for="integeronly">Ngày bắt đầu<span class="p-error">(*) </span>:</label>
+                            <p-calendar dateFormat="dd/mm/yy" [style]="{'width': '100%'}"
+                                class="my-drop mg-t-55"></p-calendar>
+                        </label>
+
+                        <label class="col-12 md:col-2 fl-wr">
+                            <label for="integeronly">Ngày kết thúc<span class="p-error">(*) </span>:</label>
+                            <p-calendar dateFormat="dd/mm/yy" [style]="{'width': '100%'}"
+                                class="my-drop mg-t-55"></p-calendar>
+                        </label>
+                    </div>
+
+                    <div class="field grid">
+                        <label class="col-12 md:col-6 fl-wr">
+                            <label for="integeronly">Chọn phòng ban</label>
+                            <p-dropdown [showClear]="true" [options]="lstPhongBan" optionValue="id"
+                                optionLabel="tenDonVi" [filter]="true" [style]="{'width': '100%'}" class="my-drop"
+                                placeholder="Chọn phòng ban"></p-dropdown>
+
+                            <label for="integeronly">Chọn nhóm người dùng</label>
+                            <p-dropdown [showClear]="true" [options]="lstNhomNguoiDung" optionValue="id"
+                                optionLabel="tenNhom" [filter]="true" [style]="{'width': '100%'}" class="my-drop"
+                                placeholder="Chọn nhóm người dùng"></p-dropdown>
+
+                            <label for="integeronly">Chọn nhanh người dùng</label>
+                            <p-dropdown [showClear]="true" [options]="lstNguoiDung" optionValue="id"
+                                optionLabel="hoTenDem" [filter]="true" [style]="{'width': '100%'}" class="my-drop"
+                                placeholder="Chọn nhanh người dùng"></p-dropdown>
+                        </label>
+                        <label class="col-12 md:col-6 fl-wr">
+                            <label for="integeronly">Chọn người dùng</label>
+                            <textarea rows="6" cols="30" class="my-drop  mg-t-55" pInputTextarea></textarea>
+                            <button pButton pRipple label="Chọn"></button>
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <p-table styleClass="p-datatable-gridlines" class="custom-table">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th rowspan="2" style="width: 60%;">Họ và tên</th>
+                        <th style="width: 2%;">Chỉ đạo</th>
+                        <th style="width: 2%;">Chủ trì</th>
+                        <th style="width: 2%;">Phối hợp</th>
+                        <th style="width: 2%;">Thông báo</th>
+                        <th style="width: 2%;">TB SMS</th>
+                        <th style="width: 10%;">Có VB trả lời</th>
+                        <th style="width: 2%;">Xóa</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center"><i class="pi pi-times" style="font-size: 1.5rem"></i></th>
+                        <th class="text-center"><i class="pi pi-times" style="font-size: 1.5rem"></i></th>
+                        <th class="text-center"><p-checkbox [binary]="true" inputId="binary"></p-checkbox></th>
+                        <th class="text-center"><p-checkbox [binary]="true" inputId="binary"></p-checkbox></th>
+                        <th class="text-center"><p-checkbox [binary]="true" inputId="binary"></p-checkbox></th>
+                        <th class="text-center"><p-checkbox [binary]="true" inputId="binary"></p-checkbox></th>
+                        <th class="text-center"><i class="pi pi-times" style="font-size: 1.5rem"></i></th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td class="custom-rb"><strong>Số ký hiệu:</strong></td>
+                        <td class="custom-rb"><strong>Số ký hiệu:</strong></td>
+                        <td class="custom-rb"><strong>Số ký hiệu:</strong></td>
+                        <td class="custom-rb"><strong>Số ký hiệu:</strong></td>
+                        <td class="custom-rb"><strong>Số ký hiệu:</strong></td>
+                        <td class="custom-rb"><strong>Số ký hiệu:</strong></td>
+                        <td class="custom-rb"><strong>Số ký hiệu:</strong></td>
+                        <td class="custom-rb"><strong>Số ký hiệu:</strong></td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="10">No record found.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="10">Loading record data. Please wait.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>

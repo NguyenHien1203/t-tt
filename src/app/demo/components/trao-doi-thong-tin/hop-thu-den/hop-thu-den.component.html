@@ -21,4 +21,8 @@
           <div class="card"></div>
       </div>
   </div>
-  
+  <app-chi-tiet-hop-thu
+    [show]="hienThiChiTiet"
+    [id]="id"
+    (tatpopup)="Thoat($event, 'c')"
+></app-chi-tiet-hop-thu>

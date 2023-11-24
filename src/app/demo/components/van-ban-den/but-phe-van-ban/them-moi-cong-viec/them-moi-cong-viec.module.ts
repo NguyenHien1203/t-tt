@@ -19,19 +19,20 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ButPheVanBanRoutingModule } from './but-phe-van-ban-routing.module';
-import { ButPheVanBanComponent } from './but-phe-van-ban.component';
+import { ThemMoiCongViecRoutingModule } from './them-moi-cong-viec-routing.module';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
+import { ThemMoiCongViecComponent } from './them-moi-cong-viec.component';
 import { TabViewModule } from 'primeng/tabview';
 
-
 @NgModule({
-  declarations: [ButPheVanBanComponent],
+  declarations: [
+    ThemMoiCongViecComponent
+  ],
   imports: [
     CommonModule,
-    ButPheVanBanRoutingModule,
     TableModule,
+    ThemMoiCongViecRoutingModule,
     FileUploadModule,
     FormsModule,
     ButtonModule,
@@ -55,4 +56,4 @@ import { TabViewModule } from 'primeng/tabview';
     TabViewModule
   ]
 })
-export class ButPheVanBanModule { }
+export class ThemMoiCongViecModule { }

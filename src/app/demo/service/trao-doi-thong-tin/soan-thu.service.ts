@@ -25,4 +25,91 @@ export class SoanThuService {
             .toPromise()
             .then((res) => res.objData as any[]);
     }
+
+    getDanhSachDonVi() {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/TraoDoiThongTin/SoanThu/GetDanhSachDonVi',
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData as any[]);
+    }
+
+    getDanhSachPhongBan(idDonVi: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/TraoDoiThongTin/SoanThu/GetDanhSachPhongBan?idDonVi=' +
+                    idDonVi,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData as any[]);
+    }
+
+    getDanhSachNhomNguoiDung(
+        idUser: string,
+        idPhongBan: string,
+        idDonVi: string
+    ) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/TraoDoiThongTin/SoanThu/GetDanhSachNhomNguoiDung?idUser=' +
+                    idUser +
+                    '&idPhongBan=' +
+                    idPhongBan +
+                    '&idDonVi=' +
+                    idDonVi,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData as any[]);
+    }
+
+    getDanhSachUserThuocPhongBan(idDonVi: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/TraoDoiThongTin/SoanThu/GetDanhSachUserThuocPhongBan/' +
+                    idDonVi,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData as any[]);
+    }
+
+    getDanhSachUserThuocNhomNguoiDung(idNhomNguoiDung: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/TraoDoiThongTin/SoanThu/GetDanhSachUserThuocNhomNguoiDung/' +
+                    idNhomNguoiDung,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData as any[]);
+    }
+
+    getDanhSachNguoiDungs() {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/TraoDoiThongTin/SoanThu/GetDanhSachUsers',
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData as any[]);
+    }
+
+    guiDi(itemData: any) {
+        return this.http
+            .post<any>(
+                environment.baseUrlApi + '/TraoDoiThongTin/SoanThu/GuiDi',
+                itemData,
+                this.httpOption
+            )
+    }
 }

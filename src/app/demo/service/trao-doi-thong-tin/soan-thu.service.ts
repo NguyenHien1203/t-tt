@@ -22,6 +22,17 @@ export class SoanThuService {
         timChinhXac: 0,
     };
 
+    getChiTietHopThuById(idHopThu : string, idUser : string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/TraoDoiThongTin/SoanThu/GetHopThuById?idHopThu=' + idHopThu + "&idNguoiGui=" + idUser,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
+
     getDanhSachNhanCaNhan(nguoiTao: number) {
         this.timKiemDanhSachNhanCaNhan.nguoiTao = nguoiTao;
         return this.http
@@ -142,6 +153,15 @@ export class SoanThuService {
         return this.http
             .post<any>(
                 environment.baseUrlApi + '/TraoDoiThongTin/SoanThu/DanhDauQuanTrong',
+                lstHopThu,
+                this.httpOption
+            )
+    }
+    
+    boDanhDauQuanTrong(lstHopThu: any) {
+        return this.http
+            .post<any>(
+                environment.baseUrlApi + '/TraoDoiThongTin/SoanThu/BoThuQuanTrong',
                 lstHopThu,
                 this.httpOption
             )

@@ -29,6 +29,7 @@ import { HopThuCaNhanComponent } from './hop-thu-ca-nhan.component';
 import { TraoDoiThongTinModule } from '../trao-doi-thong-tin.module';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ChipModule } from 'primeng/chip';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { ChipModule } from 'primeng/chip';
     HopThuCaNhanComponent
   ],
   imports: [
+    OverlayPanelModule,
     ChipModule,
     TieredMenuModule,
     TraoDoiThongTinModule,

@@ -273,4 +273,9 @@ export class HopThuCaNhanComponent {
     public Thoat(itemHt: any, loai: string): void {
         if (loai === 'C') this.hienThiChiTiet = false;
     }
+
+    public ChiTiet(id: string): void {
+        this.id = id;
+        this.hienThiChiTiet = true;
+    }
 }

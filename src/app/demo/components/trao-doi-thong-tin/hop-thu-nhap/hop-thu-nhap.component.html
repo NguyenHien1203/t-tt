@@ -259,7 +259,10 @@
 </div>
 <app-chi-tiet-hop-thu
     [show]="hienThiChiTiet"
-    [id]="id"
-    (tatpopup)="Thoat($event, 'c')"
+    [idHopThu]="id"
+    [idNhanCaNhan]="ncn"
+    [checkThuDen]="checkThuDen"
+    [checkThuNhap]="checkThuNhap"
+    (tatPopup)="Thoat($event, 'C')"
 ></app-chi-tiet-hop-thu>
 <p-toast></p-toast>

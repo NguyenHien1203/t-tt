@@ -89,20 +89,78 @@
         <div class="card">
             <div class="wrapper">
                 <h2>DANH SÁCH HỘP THƯ ĐI</h2>
-                <div class="icon-cls">
+                <div class="icon-cls"  *ngIf="isShowMenuBar">
                     <button
                         pButton
                         pRipple
                         label="Gán nhãn"
                         icon="pi pi-plus"
                         class="p-button-info mr-2"
-                        (click)="menu.toggle($event)"
+                        (click)="ncn.toggle($event)"
                     ></button>
-                    <p-tieredMenu
-                        #menu
-                        [model]="lstNhanCaNhanClone"
-                        [popup]="true"
-                    ></p-tieredMenu>
+                    <p-overlayPanel
+                        #ncn
+                        [showCloseIcon]="false"
+                        [style]="{ width: '250px' }"
+                    >
+                        <ng-template pTemplate>
+                            <p-table
+                                class="tb-nhancanhan"
+                                #tbNhanCaNhan
+                                [value]="lstNhanCaNhanClone"
+                                selectionMode="single"
+                                [paginator]="false"
+                                [sc]="true"
+                                [rows]="5"
+                                [globalFilterFields]="['label']"
+                                responsiveLayout="scroll"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div class="flex">
+                                        <input
+                                            pInputText
+                                            type="text"
+                                            (input)="
+                                                tbNhanCaNhan.filterGlobal(
+                                                    $event.target.value,
+                                                    'contains'
+                                                )
+                                            "
+                                            placeholder="Keyword"
+                                        />
+                                    </div>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-rowData
+                                    let-item
+                                >
+                                    <tr [pSelectableRow]="rowData">
+                                        <td style="width: 2rem">
+                                            <p-checkbox
+                                                binary="true"
+                                                [(ngModel)]="item.checked"
+                                                value="true"
+                                                label=""
+                                            ></p-checkbox>
+                                        </td>
+                                        <td>{{ item.label }}</td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="footer">
+                                    <button
+                                        [style]="{ 'margin-top': '10px' }"
+                                        pButton
+                                        pRipple
+                                        label="Gán"
+                                        icon="pi pi-check"
+                                        class="p-button-info mr-2"
+                                        (click)="GanNhan()"
+                                    ></button>
+                                </ng-template>
+                            </p-table>
+                        </ng-template>
+                    </p-overlayPanel>
                     <button
                         pButton
                         pRipple
@@ -114,10 +172,10 @@
                     <button
                         pButton
                         pRipple
-                        label="Đánh dấu là quan trọng"
-                        icon="pi pi-star-fill"
+                        label="Bỏ đánh dấu là quan trọng"
+                        icon="pi pi-star"
                         class="p-button-warning mr-2"
-                        (click)="DanhDauQuanTrong()"
+                        (click)="BoDanhDauQuanTrong()"
                     ></button>
                 </div>
             </div>
@@ -224,9 +282,9 @@
                                         <button
                                             pButton
                                             pRipple
-                                            icon="pi pi-pencil"
-                                            (click)="CapNhat(item.id)"
-                                            class="p-button-rounded p-button-success mr-2"
+                                            icon="pi pi-eye"
+                                            (click)="ChiTiet(item.traoDoiId)"
+                                            class="p-button-rounded p-button-info mr-2"
                                         ></button>
                                         <button
                                             pButton
@@ -257,9 +315,26 @@
         </div>
     </div>
 </div>
+<p-confirmDialog #cd [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+      <h3>Xác nhận</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-info">
+        <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+        <span class="p-button-label">Đồng ý</span>
+        <span class="p-ink"></span>
+      </button>
+      <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-danger">
+        <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+        <span class="p-button-label">Hủy</span>
+        <span class="p-ink"></span>
+      </button>
+    </ng-template>
+  </p-confirmDialog>
 <app-chi-tiet-hop-thu
     [show]="hienThiChiTiet"
-    [id]="id"
+    [idHopThu]="id"
     (tatpopup)="Thoat($event, 'c')"
 ></app-chi-tiet-hop-thu>
 <p-toast></p-toast>

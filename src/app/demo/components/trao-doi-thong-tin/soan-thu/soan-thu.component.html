@@ -162,7 +162,8 @@
                     [config]="{
                         placeholder: 'Nhập nội dung'
                     }"
-                    data=""
+                     [(ngModel)]="editConTent"
+                    [data]="editConTent"
                     placeholder="Write your message"
                 ></ckeditor>
             </div>

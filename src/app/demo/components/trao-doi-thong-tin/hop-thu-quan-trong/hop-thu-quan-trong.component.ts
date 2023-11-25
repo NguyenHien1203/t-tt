@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { HopThuQuanTrongService } from 'src/app/demo/service/trao-doi-thong-tin/hop-thu-quan-trong.service';
 import { SoanThuService } from 'src/app/demo/service/trao-doi-thong-tin/soan-thu.service';
@@ -10,7 +10,7 @@ import { TimKiemDanhSach } from 'src/app/models/trao-doi-thong-tin/hop-thu-quan-
     selector: 'app-hop-thu-quan-trong',
     templateUrl: './hop-thu-quan-trong.component.html',
     styleUrls: ['./hop-thu-quan-trong.component.scss'],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class HopThuQuanTrongComponent {
     constructor(
@@ -18,7 +18,8 @@ export class HopThuQuanTrongComponent {
         private service: HopThuQuanTrongService,
         private soanThuService: SoanThuService,
         private authService: AuthService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private confirmationService : ConfirmationService
     ) {}
 
     items = [{ label: 'Trao đổi thông tin' }, { label: 'Hộp thư quan trọng' }];
@@ -82,10 +83,11 @@ export class HopThuQuanTrongComponent {
                 });
 
                 this.lstNhanCaNhanClone = data.map((ncn) => {
+                    //tạo button gán nhãn
                     return {
                         label: ncn.tenNhan,
-                        icon: 'pi pi-tag',
-                        command: () => this.GanNhan(ncn.id),
+                        value: ncn.id,
+                        checked: false,
                     };
                 });
             });
@@ -162,15 +164,114 @@ export class HopThuQuanTrongComponent {
         this.isShowMenuBar = event;
     }
 
-    public GanNhan(idNhanCaNhan: string) {
-        console.log(idNhanCaNhan);
+    public GanNhan() {
+        const lstHopThuSelected = this.lstTraoDoi
+            .filter((x) => x.checked == true)
+            .map((x) => x.id);
+        const lstNhanSelected = this.lstNhanCaNhanClone
+            .filter((x) => x.checked == true)
+            .map((x) => x.value);
+
+        if (lstNhanSelected.length == 0) {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Yêu cầu chọn nhãn',
+            });
+        }
+
+        let itemData = {
+            listHopThuUser: lstHopThuSelected,
+            listNhan: lstNhanSelected,
+        };
+
+        this.soanThuService.ganNhan(itemData).subscribe((data) => {
+            this.messageService.add({
+                severity: data.isError ? 'error' : 'success',
+                summary: data.isError ? 'Error' : 'Success',
+                detail: data.title,
+            });
+        });
     }
 
-    public XoaNhieu() {}
+    public XoaNhieu() {
+        const lstHopThuSelected = this.lstTraoDoi
+            .filter((x) => x.checked == true)
+            .map((x) => x.id);
 
-    public DanhDauQuanTrong() {}
+        this.confirmationService.confirm({
+            message: 'Bạn có chắc chắn xác nhận xóa những bản ghi này?',
+            header: 'Xác nhận',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.soanThuService.xoaNhieu(lstHopThuSelected).subscribe(
+                    (data) => {
+                        if (data.isError) {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: data.title,
+                            });
+                        } else {
+                            this.LoadDanhSach();
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Success',
+                                detail: data.title,
+                            });
+                        }
+                    },
+                    (error) => {
+                        console.log('Error', error);
+                    }
+                );
+            },
+            reject: () => {},
+        });
+    }
+
+    public BoDanhDauQuanTrong() {
+        const lstHopThuSelected = this.lstTraoDoi
+            .filter((x) => x.checked == true)
+            .map((x) => x.id);
+            
+        this.confirmationService.confirm({
+            message: 'Bạn có chắc chắn xác nhận bỏ đánh dấu quan trọng?',
+            header: 'Xác nhận',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.soanThuService.boDanhDauQuanTrong(lstHopThuSelected).subscribe(
+                    (data) => {
+                        if (data.isError) {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: data.title,
+                            });
+                        } else {
+                            this.LoadDanhSach();
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Success',
+                                detail: data.title,
+                            });
+                        }
+                    },
+                    (error) => {
+                        console.log('Error', error);
+                    }
+                );
+            },
+            reject: () => {},
+        });
+    }
 
     public Thoat(itemHt: any, loai: string): void {
         if (loai === 'C') this.hienThiChiTiet = false;
+    }
+
+    public ChiTiet(id: string): void {
+        this.id = id;
+        this.hienThiChiTiet = true;
     }
 }

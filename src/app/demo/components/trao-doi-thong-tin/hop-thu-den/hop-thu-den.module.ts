@@ -29,10 +29,12 @@ import { HopThuDenComponent } from './hop-thu-den.component';
 import { HopThuDiModule } from '../hop-thu-di/hop-thu-di.module';
 import { TraoDoiThongTinModule } from '../trao-doi-thong-tin.module';
 import { TieredMenuModule } from 'primeng/tieredmenu';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
     declarations: [HopThuDenComponent],
     imports: [
+        OverlayPanelModule,
         TieredMenuModule,
         TraoDoiThongTinModule,
         MenubarModule,

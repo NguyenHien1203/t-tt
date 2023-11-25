@@ -34,6 +34,7 @@ export class SoanThuComponent implements OnInit {
         @Inject(DOCUMENT) private document: Document
     ) {}
 
+    editConTent: string = '';
     tieuDe: string = '';
     lstNguoiDungFilter: any[] = [];
     lstSelectedNguoiDung: any[] = [];
@@ -191,6 +192,41 @@ export class SoanThuComponent implements OnInit {
         }
     }
 
+    public DownloadFile(filepath: string, filename: string) {
+        let urlDownLoad = '/TraoDoiThongTin/SoanThu/DownloadFile';
+        this.uploadfileService
+            .downloadFile(filepath, filename, urlDownLoad)
+            .subscribe(
+                (data) => {
+                    const blob = new Blob([data], {
+                        type: 'application/octet-stream',
+                    });
+                    saveAs(blob, filename);
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Tải tệp thành công',
+                    });
+                },
+                (error: any) => {
+                    if (error.status === 404) {
+                        // Xử lý lỗi 404 (NotFound)
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Không tìm thấy đường dẫn file',
+                        });
+                        // Ví dụ: Hiển thị thông báo lỗi cho người dùng
+                    } else {
+                        // Xử lý các lỗi khác
+                        console.error('Đã xảy ra lỗi', error);
+                        // Thực hiện các hành động tương ứng
+                    }
+                    return throwError(() => error);
+                }
+            );
+    }
+
     public ChangeDonVi(event): void {
         this.lstNhomNguoiDung = [];
         if (event != null) {
@@ -343,8 +379,9 @@ export class SoanThuComponent implements OnInit {
         this.donViId = null;
         this.phongBanId = null;
         this.nhomNguoiDungId = null;
+        this.tieuDe = null;
+        this.editConTent = "";
         this.lstSelectedNguoiDung = [];
         this.selectedFiles = [];
-        this.myEditor.editorInstance.setValue("")
     }
 }

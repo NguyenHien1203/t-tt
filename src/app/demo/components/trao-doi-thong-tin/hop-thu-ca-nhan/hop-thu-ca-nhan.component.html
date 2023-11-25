@@ -88,7 +88,7 @@
 
         <div class="card">
             <div class="wrapper">
-                <h2>DANH SÁCH HỘP THƯ ĐI</h2>
+                <h2>DANH SÁCH HỘP THƯ</h2>
                 <div class="icon-cls" *ngIf="isShowMenuBar">
                     <button
                         pButton
@@ -252,7 +252,7 @@
                                     {{ rowIndex + 1 }}
                                 </td>
                                 <td>
-                                    <p-chip *ngIf="item.checkQuanTrong == 1" label="Hộp thư đến" icon="pi pi-envelope"></p-chip> &nbsp; {{ item.tieuDe }}
+                                    <p-chip *ngIf="item.chkThuDen == 1" label="Hộp thư đến" icon="pi pi-envelope"></p-chip> &nbsp; {{ item.tieuDe }}
                                 </td>
                                 <td>
                                     {{
@@ -299,8 +299,8 @@
 </div>
 <app-chi-tiet-hop-thu
     [show]="hienThiChiTiet"
-    [id]="id"
-    (tatpopup)="Thoat($event, 'c')"
+    [idHopThu]="id"
+    (tatpopup)="Thoat($event, 'C')"
 ></app-chi-tiet-hop-thu>
 <p-confirmDialog #cd [style]="{width: '30vw'}">
     <ng-template pTemplate="header">

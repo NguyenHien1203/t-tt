@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { HopThuDenService } from 'src/app/demo/service/trao-doi-thong-tin/hop-thu-den.service';
 import { SoanThuService } from 'src/app/demo/service/trao-doi-thong-tin/soan-thu.service';
@@ -9,7 +9,7 @@ import { TimKiemDanhSach } from 'src/app/models/trao-doi-thong-tin/hop-thu-den';
     selector: 'app-hop-thu-den',
     templateUrl: './hop-thu-den.component.html',
     styleUrls: ['./hop-thu-den.component.scss'],
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class HopThuDenComponent {
     constructor(
@@ -17,7 +17,8 @@ export class HopThuDenComponent {
         private service: HopThuDenService,
         private soanThuService: SoanThuService,
         private authService: AuthService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private confirmationService : ConfirmationService
     ) {}
 
     items = [{ label: 'Trao đổi thông tin' }, { label: 'Hộp thư đến' }];
@@ -33,6 +34,9 @@ export class HopThuDenComponent {
     loading: boolean = true;
     isCheckAll: boolean = false;
     public id: string = '1';
+    public checkThuDen: number = 0;
+    public checkThuNhap: number = 0;
+    public ncn: number = 0;
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     yearOptions: SelectItem[] = [];
@@ -83,10 +87,11 @@ export class HopThuDenComponent {
                 });
 
                 this.lstNhanCaNhanClone = data.map((ncn) => {
+                    //tạo button gán nhãn
                     return {
                         label: ncn.tenNhan,
-                        icon: 'pi pi-tag',
-                        command: () => this.GanNhan(ncn.id),
+                        value: ncn.id,
+                        checked: false,
                     };
                 });
             });
@@ -160,18 +165,126 @@ export class HopThuDenComponent {
         this.lstTraoDoi = this.lstTraoDoi.map((data) => {
             return { ...data, checked: this.isCheckAll };
         });
-        this.isShowMenuBar = event;
+        this.isShowMenuBar =
+        this.lstTraoDoi.filter((x) => x.checked == true).length > 0;
     }
 
-    public GanNhan(idNhanCaNhan: string) {
-        console.log(idNhanCaNhan);
+    public GanNhan() {
+        const lstHopThuSelected = this.lstTraoDoi
+            .filter((x) => x.checked == true)
+            .map((x) => x.id);
+        const lstNhanSelected = this.lstNhanCaNhanClone
+            .filter((x) => x.checked == true)
+            .map((x) => x.value);
+
+        if (lstNhanSelected.length == 0) {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Yêu cầu chọn nhãn',
+            });
+        }
+
+        let itemData = {
+            listHopThuUser: lstHopThuSelected,
+            listNhan: lstNhanSelected,
+        };
+
+        this.soanThuService.ganNhan(itemData).subscribe((data) => {
+            this.messageService.add({
+                severity: data.isError ? 'error' : 'success',
+                summary: data.isError ? 'Error' : 'Success',
+                detail: data.title,
+            });
+        });
     }
 
-    public XoaNhieu() {}
+    public XoaNhieu() {
+        const lstHopThuSelected = this.lstTraoDoi
+            .filter((x) => x.checked == true)
+            .map((x) => x.id);
 
-    public DanhDauQuanTrong() {}
+        this.confirmationService.confirm({
+            message: 'Bạn có chắc chắn xác nhận xóa những bản ghi này?',
+            header: 'Xác nhận',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.soanThuService.xoaNhieu(lstHopThuSelected).subscribe(
+                    (data) => {
+                        if (data.isError) {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: data.title,
+                            });
+                        } else {
+                            this.LoadDanhSach();
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Success',
+                                detail: data.title,
+                            });
+                        }
+                    },
+                    (error) => {
+                        console.log('Error', error);
+                    }
+                );
+            },
+            reject: () => {},
+        });
+    }
+
+    public DanhDauQuanTrong() {
+        const lstHopThuSelected = this.lstTraoDoi
+            .filter((x) => x.checked == true)
+            .map((x) => x.id);
+            
+        this.confirmationService.confirm({
+            message: 'Bạn có chắc chắn xác nhận đánh dấu quan trọng?',
+            header: 'Xác nhận',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.soanThuService.danhDauQuanTrong(lstHopThuSelected).subscribe(
+                    (data) => {
+                        if (data.isError) {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: data.title,
+                            });
+                        } else {
+                            this.LoadDanhSach();
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Success',
+                                detail: data.title,
+                            });
+                        }
+                    },
+                    (error) => {
+                        console.log('Error', error);
+                    }
+                );
+            },
+            reject: () => {},
+        });
+    }
 
     public Thoat(itemHt: any, loai: string): void {
         if (loai === 'C') this.hienThiChiTiet = false;
+    }
+
+    public ChiTiet(
+        id: string,
+        ncn: number,
+        checkThuDen: number,
+        checkThuNhap: number
+    ): void {
+        this.id = id;
+        this.checkThuDen = checkThuDen;
+        this.checkThuNhap = checkThuNhap;
+        this.ncn = ncn;
+        this.hienThiChiTiet = true;
     }
 }

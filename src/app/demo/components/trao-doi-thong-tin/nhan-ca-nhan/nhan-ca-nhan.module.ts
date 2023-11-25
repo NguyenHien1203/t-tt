@@ -25,11 +25,15 @@ import { TabViewModule } from 'primeng/tabview';
 
 import { NhanCaNhanRoutingModule } from './nhan-ca-nhan-routing.module';
 import { NhanCaNhanComponent } from './nhan-ca-nhan.component';
+import { ThemMoiComponent } from './them-moi/them-moi.component';
+import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 
 
 @NgModule({
   declarations: [
-    NhanCaNhanComponent
+    NhanCaNhanComponent,
+    ThemMoiComponent,
+    CapNhatComponent
   ],
   imports: [
     TableModule,

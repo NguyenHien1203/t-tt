@@ -1,51 +1,52 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { LienKetService } from 'src/app/demo/service/lien-ket/lien-ket.service';
-import { LienKet } from 'src/app/models/danh-muc/lien-ket/lien-ket';
-import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
+import { AuthService } from 'src/app/common/auth.services';
+import { NhanCaNhanService } from 'src/app/demo/service/trao-doi-thong-tin/nhan-ca-nhan.service';
 
 @Component({
   selector: 'app-them-moi',
   templateUrl: './them-moi.component.html',
   styleUrls: ['./them-moi.component.scss']
 })
-
 export class ThemMoiComponent {
-  @Input() hienThi: boolean = false;
+  @Input() show: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
 
   constructor(private fb: FormBuilder
-    , private service: LienKetService
-    , private messageService: MessageService) { };
+    , private service: NhanCaNhanService
+    , private messageService: MessageService,
+    private authService : AuthService) { };
     
-  public lienKet: any = {};
+  public nhanCaNhan: any = {};
   public checkedValue : boolean = false;
   submitted: boolean = false;
+  idUser : string = this.authService.GetmUserInfo()?.userId ?? "0;"
   public formThemMoi = this.fb.group({
     id: [0, []],
-    tenLienKet: ["", [Validators.required]],
+    tenHienThi: ["", [Validators.required]],
     ghiChu: ["", []],
     hienThi: [false, ''],
-    thuTu: [0, []],
   });
 
   public Thoat(): void {
     this.checkedValue = false;
     this.formThemMoi.reset();
     this.submitted = false;
-    this.hienThi = false;
-    this.tatPopup.emit(this.hienThi);
+    this.show = false;
+    this.tatPopup.emit(this.show);
   }
 
   public ThemMoi(): void {
     this.submitted = true;
     if (this.formThemMoi.valid) {
-      this.lienKet = this.formThemMoi.value;
-      this.lienKet.hienThi = this.checkedValue;
-      this.service.themMoiLienKet(this.lienKet).subscribe(
+      this.nhanCaNhan = this.formThemMoi.value;
+      this.nhanCaNhan.userId = Number(this.idUser);
+      this.nhanCaNhan.hienThi = this.checkedValue;
+      console.log(this.nhanCaNhan)
+      this.service.themMoiNhanCaNhan(this.nhanCaNhan).subscribe(
         data => {
-          let resData = data as ResponeMessage;
+          let resData = data;
           if (resData.isError) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
           } else {

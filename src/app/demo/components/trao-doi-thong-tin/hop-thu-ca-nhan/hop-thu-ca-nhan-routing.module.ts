@@ -8,7 +8,7 @@ const routes: Routes = [
         component: HopThuCaNhanComponent,
         children: [
             {
-                path: ':id', // Tham số id
+                path: ':ncn', // Tham số ncn
                 component: HopThuCaNhanComponent,
             },
         ],

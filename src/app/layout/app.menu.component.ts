@@ -273,37 +273,37 @@ export class AppMenuComponent implements OnInit {
                         {
                             label: 'Soạn thư',
                             icon: 'pi pi-fw pi-file-edit',
-                            routerLink: ['/hethong/quantritaikhoan'],
+                            routerLink: ['/trao-doi-thong-tin/soan-thu'],
                             code: '004001'
                         },
                         {
                             label: 'Hộp thư đến',
                             icon: 'pi pi-fw pi-envelope',
-                            routerLink: ['/hethong/nhomquyen'],
+                            routerLink: ['/trao-doi-thong-tin/hop-thu-den'],
                             code: '004002'
                         },
                         {
                             label: 'Hộp thư đi',
                             icon: 'pi pi-fw pi-send',
-                            routerLink: ['/hethong/quantritaikhoan'],
+                            routerLink: ['/trao-doi-thong-tin/hop-thu-di'],
                             code: '004003'
                         },
                         {
                             label: 'Thư nháp',
                             icon: 'pi pi-fw pi-pause',
-                            routerLink: ['/hethong/quantritaikhoan'],
+                            routerLink: ['/trao-doi-thong-tin/hop-thu-nhap'],
                             code: '004004'
                         },
                         {
                             label: 'Thư quan trọng',
                             icon: 'pi pi-fw pi-flag-fill',
-                            routerLink: ['/hethong/quantritaikhoan'],
+                            routerLink: ['/trao-doi-thong-tin/hop-thu-quan-trong'],
                             code: '004005'
                         },
                         {
                             label: 'Thêm nhãn',
                             icon: 'pi pi-fw pi-tags',
-                            routerLink: ['/hethong/quantritaikhoan'],
+                            routerLink: ['/trao-doi-thong-tin/nhan-ca-nhan'],
                             code: '004006'
                         },
                     ]
@@ -1115,13 +1115,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Thư quan trọng',
                                 icon: 'pi pi-fw pi-flag-fill',
-                                routerLink: ['/trao-doi-thong-tin/thu-quan-trong'],
+                                routerLink: ['/trao-doi-thong-tin/hop-thu-quan-trong'],
                                 code: '004005'
                             },
                             {
                                 label: 'Thêm nhãn',
                                 icon: 'pi pi-fw pi-tags',
-                                routerLink: ['/trao-doi-thong-tin/them-nhan'],
+                                routerLink: ['/trao-doi-thong-tin/nhan-ca-nhan'],
                                 code: '004006'
                             },
                         ]

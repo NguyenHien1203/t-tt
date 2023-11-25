@@ -1,22 +1,17 @@
-<p-dialog [(visible)]="hienThi" [formGroup]="formCapNhat" (onHide)="Thoat()" (onShow)="BindDataDialog()" [style]="{width: '750px'}"
-    header="Cập nhật liên kết" [modal]="true" class="p-fluid">
+<p-dialog [(visible)]="show" [formGroup]="formCapNhat" (onHide)="Thoat()" (onShow)="BindDataDialog()" [style]="{width: '750px'}"
+    header="Cập nhật nhãn cá nhân" [modal]="true" class="p-fluid">
     <ng-template pTemplate="content">
         <div class="formgrid grid">
             <div class="field col md:col-5">
-                <label htmlfor="tenLienKet">Tên liên kết <span class="p-error">(*)</span>:</label>
-                <input pinputtext="" id="tenLienKet" type="text" class="p-inputtext p-component p-element"
-                    formControlName="tenLienKet">
+                <label htmlfor="tenHienThi">Tên nhãn <span class="p-error">(*)</span>:</label>
+                <input pinputtext="" id="tenHienThi" type="text" class="p-inputtext p-component p-element"
+                    formControlName="tenHienThi">
                 <span class="p-error"
-                    *ngIf="!formCapNhat.controls.tenLienKet.valid && (formCapNhat.controls.tenLienKet.touched || submitted)">Vui lòng
-                    nhập tên liên kết</span>
+                    *ngIf="!formCapNhat.controls.tenHienThi.valid && (formCapNhat.controls.tenHienThi.touched || submitted)">Vui lòng
+                    nhập tên nhãn</span>
             </div>
             <div class="field col">
-                <label for="thuTu" ngDefaultControl>Thứ tự hiển thị:</label>
-                <p-inputNumber id="thuTu"  formControlName="thuTu"></p-inputNumber>
-            </div>
-
-            <div class="field col">
-                <p-checkbox name="hienThi" binary="true" formControlName="hienThi"  (click)="CheckedHt()" class="mg-t-25" value="true"
+                <p-checkbox name="hienThi" binary="true"  formControlName="hienThi"  (click)="CheckedHt()" class="mg-t-25" value="true"
                     label="Hiển thị"></p-checkbox>
             </div>
         </div>

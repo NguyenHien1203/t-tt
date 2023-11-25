@@ -26,6 +26,9 @@ import { MenubarModule } from 'primeng/menubar';
 
 import { HopThuCaNhanRoutingModule } from './hop-thu-ca-nhan-routing.module';
 import { HopThuCaNhanComponent } from './hop-thu-ca-nhan.component';
+import { TraoDoiThongTinModule } from '../trao-doi-thong-tin.module';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { ChipModule } from 'primeng/chip';
 
 
 @NgModule({
@@ -33,6 +36,9 @@ import { HopThuCaNhanComponent } from './hop-thu-ca-nhan.component';
     HopThuCaNhanComponent
   ],
   imports: [
+    ChipModule,
+    TieredMenuModule,
+    TraoDoiThongTinModule,
     MenubarModule,
     TableModule,
     FileUploadModule,

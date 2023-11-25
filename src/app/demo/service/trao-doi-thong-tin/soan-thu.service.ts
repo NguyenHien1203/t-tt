@@ -14,12 +14,21 @@ export class SoanThuService {
     };
     constructor(private http: HttpClient) {}
 
-    getDanhSachNhanCaNhan(timKiemDanhSach: any) {
+    timKiemDanhSachNhanCaNhan: any = {
+        tenNhan: '',
+        phanLoai: '1',
+        ghiChu: '',
+        nguoiTao: 0,
+        timChinhXac: 0,
+    };
+
+    getDanhSachNhanCaNhan(nguoiTao: number) {
+        this.timKiemDanhSachNhanCaNhan.nguoiTao = nguoiTao;
         return this.http
             .post<any>(
                 environment.baseUrlApi +
                     '/TraoDoiThongTin/NhanCaNhan/GetDanhSachNhanCaNhan',
-                timKiemDanhSach,
+                this.timKiemDanhSachNhanCaNhan,
                 this.httpOption
             )
             .toPromise()
@@ -105,9 +114,43 @@ export class SoanThuService {
     }
 
     guiDi(itemData: any) {
+        return this.http.post<any>(
+            environment.baseUrlApi + '/TraoDoiThongTin/SoanThu/GuiDi',
+            itemData,
+            this.httpOption
+        );
+    }
+    
+    luuNhap(itemData: any) {
+        return this.http.post<any>(
+            environment.baseUrlApi + '/TraoDoiThongTin/SoanThu/LuuNhap',
+            itemData,
+            this.httpOption
+        );
+    }
+
+    xoaNhieu(lstHopThu: any) {
         return this.http
             .post<any>(
-                environment.baseUrlApi + '/TraoDoiThongTin/SoanThu/GuiDi',
+                environment.baseUrlApi + '/TraoDoiThongTin/SoanThu/XoaNhieu',
+                lstHopThu,
+                this.httpOption
+            )
+    }
+
+    danhDauQuanTrong(lstHopThu: any) {
+        return this.http
+            .post<any>(
+                environment.baseUrlApi + '/TraoDoiThongTin/SoanThu/DanhDauQuanTrong',
+                lstHopThu,
+                this.httpOption
+            )
+    }
+    
+    ganNhan(itemData: any) {
+        return this.http
+            .post<any>(
+                environment.baseUrlApi + '/TraoDoiThongTin/SoanThu/GanNhan',
                 itemData,
                 this.httpOption
             )

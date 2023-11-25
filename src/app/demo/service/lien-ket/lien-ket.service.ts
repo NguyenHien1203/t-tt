@@ -5,37 +5,65 @@ import { environment } from 'src/environments/environment.development';
 import { LienKet } from 'src/app/models/danh-muc/lien-ket/lien-ket';
 import { TimKiemDanhSach } from 'src/app/models/danh-muc/lien-ket/lien-ket';
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class LienKetService {
-  private httpOption = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }
-  constructor(private http: HttpClient) { }
+    private httpOption = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+        }),
+    };
+    constructor(private http: HttpClient) {}
 
-  getDanhSachDmLienKet(timKiemDanhSach: TimKiemDanhSach) {
-    return this.http.post<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/GetDanhSach', timKiemDanhSach, this.httpOption)
-      .toPromise()
-      .then(res => res.objData.listDanhSach as LienKet[]);
-  }
-  getDmLienKetById(id: string) {
-    return this.http.get<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/GetDanhMucLienKetById/' + id)
-      .pipe(
-        map((response: any) => response.objData)
-      );
-  }
+    getDanhSachDmLienKet(timKiemDanhSach: TimKiemDanhSach) {
+        return this.http
+            .post<any>(
+                environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/GetDanhSach',
+                timKiemDanhSach,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData.listDanhSach as LienKet[]);
+    }
+    getDmLienKetById(id: string) {
+        return (
+            this.http
+                .get<any>(
+                    environment.baseUrlApi +
+                        '/DanhMuc/DanhMucLienKet/GetDanhMucLienKetById/' +
+                        id
+                )
+                // .pipe(
+                //   map((response: any) => response.objData)
+                // );
+                .toPromise()
+                .then((data) => data.objData)
+        );
+    }
 
-  themMoiLienKet(modelLienKet: any) {
-    return this.http.post<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/ThemMoiDanhMucLienKet', modelLienKet, this.httpOption)
-  }
+    themMoiLienKet(modelLienKet: any) {
+        return this.http.post<any>(
+            environment.baseUrlApi +
+                '/DanhMuc/DanhMucLienKet/ThemMoiDanhMucLienKet',
+            modelLienKet,
+            this.httpOption
+        );
+    }
 
-  capNhatLienKet(modelLienKet: any) {
-    return this.http.post<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/CapNhatDanhMucLienKet', modelLienKet, this.httpOption)
-  }
+    capNhatLienKet(modelLienKet: any) {
+        return this.http.post<any>(
+            environment.baseUrlApi +
+                '/DanhMuc/DanhMucLienKet/CapNhatDanhMucLienKet',
+            modelLienKet,
+            this.httpOption
+        );
+    }
 
-  xoaLienKet(id : string) {
-    return this.http.get<any>(environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/DeleteDanhMucLienKet/'+ id)
-  }
+    xoaLienKet(id: string) {
+        return this.http.get<any>(
+            environment.baseUrlApi +
+                '/DanhMuc/DanhMucLienKet/DeleteDanhMucLienKet/' +
+                id
+        );
+    }
 }

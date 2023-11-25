@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { CoQuanBanHanh } from 'src/app/models/danh-muc/co-quan-ban-hanh/co-quan-ban-hanh.model';
 import { NhomDonVi, TimKiemModel } from 'src/app/models/danh-muc/nhom-don-vi/nhom-don-vi';
+import { QuanTriVanBanDen } from 'src/app/models/van-ban-den/quan-tri-van-ban.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -20,8 +20,33 @@ export class QuanTriVanBanService {
   getDanhSachvanBan(timkiem: TimKiemModel) {
     return this.http.post<any>(this.baseApiUrl + '/VanBanDen/QuanTriVanBanDen/GetListQTriVanBanDen', timkiem, this.httpOption)
       .toPromise()
-      .then(res => res.objData.listCoQuanBanHanh as CoQuanBanHanh[]);
+      .then(res => res.objData as QuanTriVanBanDen[]);
   }
+
+  // public danhSachVanBanDi(danhSach: any): Observable<any> {
+  //   return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachQuanTriVanBanDi', danhSach)
+  //   .pipe(map((res: any) => res.objData as QuanTriVanBanDen))
+  // }
+
+  public getLoaiVanBan(id: string): Observable<any> {
+    return this.http.get<any>(this.baseApiUrl + '/VanBanDen/QuanTriVanBanDen/GetLoaiVanBan/' + id)
+    .pipe(map((res: any)=> res.objData))
+  }
+
+  public getSoVanBan(id: string): Observable<any> {
+    return this.http.get<any>(this.baseApiUrl + '/VanBanDen/QuanTriVanBanDen/GetSoVanBan/' + id)
+    .pipe(map((res: any) => res.objData))
+  }
+
+  // public danhSachVanBanDi(danhSach: any): Observable<any> {
+  //   return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachQuanTriVanBanDi', danhSach)
+  //   .pipe(map((res: any) => res.objData as QuanTriVanBanDi))
+  // }
+
+
+
+
+
 
    /**
    * Lấy dữ liệu đơn vị
@@ -33,9 +58,9 @@ export class QuanTriVanBanService {
   }
 
   //Thêm cơ quan
-  addCoQuan(CQBH: CoQuanBanHanh): Observable<any> {
-    return this.http.post<any>(this.baseApiUrl +'/DanhMuc/CoQuanBanHanh/ThemMoiCoQuanBH/', CQBH, this.httpOption);
-  }
+  // addCoQuan(CQBH: CoQuanBanHanh): Observable<any> {
+  //   return this.http.post<any>(this.baseApiUrl +'/DanhMuc/CoQuanBanHanh/ThemMoiCoQuanBH/', CQBH, this.httpOption);
+  // }
 
   //Cập nhật cơ quan
   CapNhatCoQuan(modelLienKet: any) {

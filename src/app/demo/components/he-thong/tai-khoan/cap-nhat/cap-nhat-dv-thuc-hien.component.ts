@@ -37,7 +37,6 @@ export class CapNhatDvThucHienComponent {
   });
 
   public SubmitCapNhatDvth(): void {
-    console.log(this.formCapNhatdvth.value)
     this.luuDonVi.emit(this.formCapNhatdvth.value);
     this.ThoatDvThucHien();
   }
@@ -51,8 +50,6 @@ export class CapNhatDvThucHienComponent {
   public BindDataDVTH(): void {
     this.GetTreeDonViThucHien();
     this.GetNhomQuyen();
-
-
   }
 
   public GetTreeDonViThucHien() {

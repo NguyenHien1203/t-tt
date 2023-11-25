@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, Message, MessageService, SelectItem } from 'primeng/api';
+import { AuthService } from 'src/app/common/auth.services';
 import { QuanTriVanBanService } from 'src/app/demo/service/van-ban-den/quan-tri-van-ban/quan-tri-van-ban.service';
-import { TimKiemModel, VanBan } from 'src/app/models/van-ban-den/quan-tri-van-ban.model';
+import { QuanTriVanBanDen, TimKiemModel } from 'src/app/models/van-ban-den/quan-tri-van-ban.model';
 
 @Component({
   selector: 'app-quan-tri-van-ban',
@@ -11,20 +12,26 @@ import { TimKiemModel, VanBan } from 'src/app/models/van-ban-den/quan-tri-van-ba
 })
 export class QuanTriVanBanComponent implements OnInit {
 
-  constructor(private service: QuanTriVanBanService
-    , private messageService: MessageService,
-    private confirmationService: ConfirmationService) { }
+  breadcrumbItems: MenuItem[] = [];
+  cols: any[] = [];
+  rowsPerPageOptions = [5, 10, 20];
 
-  hienThiThemMoi: boolean = false;
-  hienThiCapNhat: boolean = false;
-  items: any[] = [{ label: 'Danh mục' }, { label: 'cơ quan ban hành' }];
-  id: string = "";
-  home: any = { icon: 'pi pi-home', routerLink: '/' };
-  lienKetDialog: boolean = false;
+  trangThaiButton: any = "Tìm kiếm nâng cao";
+  iconButton: any = "pi pi-arrow-down";
 
-  //Dữ liêu truyền vào để tìm kiếm
+  hienThi: boolean = false;
+  luaChonNam: SelectItem[] = [] // Lựa chọn năm
+  luaChonThang: SelectItem[] = [] // Lựa chọn tháng
+  luaChonTrangThai: SelectItem[] = [] // Lựa chọn trạng thái
+  luaChonMucDo: SelectItem[] = [] // Lựa chọn mức độ văn bản
+  lstLoaiVanBan: any = [];
+  lstSoVanBan: any = [];
+  tenTrangThai:"";
+
+
+  idDonViLamViec: string = this.authService.GetDonViLamViec() ?? "0";
   timChinhXac: boolean = false;
-  timKiem: TimKiemModel = {
+  timKiemDanhSach: TimKiemModel = {
     trangthai : 0,
     nam : 0,
     thang : 0,
@@ -43,8 +50,6 @@ export class QuanTriVanBanComponent implements OnInit {
     ky : '',
     vbdiden : 0,
     iddonvi : 0,
-    CurrentPage : 0,
-    RowPerPage : 0,
     ItemId : 0,
     mucdo : 0,
     soan : '',
@@ -52,49 +57,141 @@ export class QuanTriVanBanComponent implements OnInit {
     vanban : '',
     iPhanLoaiDV : 0,
     cap : 0,
+
+    donViId: Number(this.idDonViLamViec),
   }
 
-  vanBans : VanBan[] = [];
-  selectedState: any = null;
-  loading: boolean = true;
+  danhSachVanBanDen: QuanTriVanBanDen[] = [];
+  vanBanDi: QuanTriVanBanDen = {};
 
-  ngOnInit(): void {
-    this.items = [{ label: 'Văn bản đến' }, { label: 'Quản trị văn bản' }];
-    this.home = { icon: 'pi pi-home', routerLink: '/' };
-    this.loading = false;
-    //Trỏ đến get danh sách
-    this.LoadDanhSach(this.timKiem);
+  msgs: Message[] = [];
+  // hienThiDrop: boolean;
+
+  lstChucNang = [
+    { label: 'Cập nhật', icon: 'pi pi-sync', action: 'capNhat' },
+    { label: 'Thu hồi', icon: 'pi pi-backward', action: 'thuHoi' },
+    { label: 'Lấy lại', icon: 'pi pi-sign-in', action: 'layLai' },
+    { label: 'Thay thế', icon: 'pi pi-replay', action: 'thayThe' },
+];
+
+  constructor(private messageService: MessageService, private authService: AuthService, private service: QuanTriVanBanService) { }
+
+  ngOnInit() {
+    this.breadcrumbItems = [];
+    this.breadcrumbItems.push({ label: 'Văn bản đến' });
+    this.breadcrumbItems.push({ label: 'Quản trị văn bản' });
+
+    // this.hienThiDrop = false;
+
+    this.GetLoaiVanBan();
+    this.GetSoVanBan();
+    this.GetNam();
+    this.GetThang();
+    this.GetTrangThai();
+    this.GetMucDoVanBan();
+
+    this.TimKiem(this.timKiemDanhSach);
+    // console.log(this.authService.GetmUserInfo());
+    // console.log(this.authService.GetDonViLamViec());
   }
 
-  //Thay đổi giá trị checkbox tìm kiếm
-  public CheckChinhXac(): void {
+  // Kiểm tra true false tìm chính xác
+  public TimChinhXac() {
     this.timChinhXac = !this.timChinhXac;
   }
 
-  //#region 
-  // Get List Van Ban
-  public LoadDanhSach(timkiems: TimKiemModel) {
-    this.timKiem.TimChinhXac = this.timChinhXac ? 1 : 0;
-    this.service.getDanhSachvanBan(timkiems).then(data => { this.vanBans = data; console.log(data) }
+  // Tìm kiếm danh sách
+  public TimKiem(timkiems: TimKiemModel) {
+    this.timKiemDanhSach.TimChinhXac = this.timChinhXac ? 1 : 0;
+    this.service.getDanhSachvanBan(timkiems).then(data => { this.danhSachVanBanDen = data; console.log(data) }
     )
-  };
-  //#endregion
-
-  public ThemMoi(): void {
-    this.hienThiThemMoi = true;
+    
   }
 
-  public CapNhat(id: string): void {
-    this.hienThiCapNhat = true;
-    this.id = id;
+  // Hiển thị tìm kiếm nâng cao
+  HienThiTimKiem() {
+    this.hienThi = !this.hienThi;
+
+    if (this.hienThi) {
+      this.trangThaiButton = "Thu gọn tìm kiếm";
+      this.iconButton = "pi pi-arrow-up";
+    } else {
+      this.trangThaiButton = "Tìm kiếm nâng cao";
+      this.iconButton = "pi pi-arrow-down";
+    }
   }
 
-  public Thoat(itemHt: any, loai: string): void {
-    if (loai === 'T')
-      this.hienThiThemMoi = false;
-    else
-      this.hienThiCapNhat = false;
-    this.LoadDanhSach(this.timKiem);
+  // Danh sách loại văn bản ở phần tìm kiếm
+  GetLoaiVanBan() {
+    this.service.getLoaiVanBan(this.idDonViLamViec)
+      .subscribe(data => {
+        if (data.isError) {
+          this.msgs = [];
+          this.msgs.push({ severity: 'error', detail: "Không tìm thấy dữ liệu" })
+        } else {
+          this.lstLoaiVanBan = data;
+        }
+      }, (error) => {
+        console.log('Error', error);
+      })
   }
 
+  // Danh sách sổ văn bản ở phần tìm kiếm
+  GetSoVanBan() {
+    this.service.getSoVanBan(this.idDonViLamViec)
+      .subscribe(data => {
+        if (data.isError) {
+          this.msgs = [];
+          this.msgs.push({ severity: 'error', detail: "Không tìm thấy dữ liệu" })
+        } else {
+          this.lstSoVanBan = data;
+        }
+      }, (error) => {
+        console.log('Error', error);
+      })
+  }
+
+  // Lấy dữ liệu số năm cho phép lựa chọn
+  GetNam() {
+    this.luaChonNam.push({ label: "--Chọn năm--", value: 0 });
+    const soNam = new Date().getFullYear();
+    for (let i = soNam + 1; i >= soNam - 5; i--) {
+      this.luaChonNam.push({ label: i.toString(), value: i });
+    }
+  }
+
+  //Lấy dữ liệu số tháng lựa chọn
+  GetThang() {
+    this.luaChonThang.push({ label: "--Chọn tháng--", value: 0 });
+    const soThang = new Date().getMonth();
+    for (let i = 1; i <= soThang + 2; i++) {
+      this.luaChonThang.push({ label: "Tháng " + i.toString(), value: i });
+    }
+  }
+
+  //Tạo dữ liệu trạng thái
+  GetTrangThai() {
+    this.luaChonTrangThai.push({ label: "--Chọn trạng thái--", value: 0 });
+    this.luaChonTrangThai.push({ label: "Chờ phát hành", value: 8 });
+    this.luaChonTrangThai.push({ label: "Đã phát hành", value: 1 });
+    this.luaChonTrangThai.push({ label: "Đã gửi", value: 2 });
+    this.luaChonTrangThai.push({ label: "Thay thế", value: 14 });
+    this.luaChonTrangThai.push({ label: "Bị thay thế", value: 15 });
+    this.luaChonTrangThai.push({ label: "Cập nhật", value: 17 });
+    this.luaChonTrangThai.push({ label: "Lấy lại", value: 18 });
+    this.luaChonTrangThai.push({ label: "Thu hồi", value: 21 });
+    this.luaChonTrangThai.push({ label: "Bị thu hồi", value: 24 });
+    this.luaChonTrangThai.push({ label: "Đang xử lý", value: 10 });
+    this.luaChonTrangThai.push({ label: "Đã xử lý", value: 11 });
+  }
+
+  //Tạo dữ liệu mức độ văn bản
+  GetMucDoVanBan() {
+    this.luaChonMucDo.push({ label: "--Chọn mức độ--", value: 0 });
+    this.luaChonMucDo.push({ label: "VB thường", value: 1 });
+    this.luaChonMucDo.push({ label: "VB khẩn, hỏa tốc", value: 2 });
+    this.luaChonMucDo.push({ label: "VB mật", value: 3 });
+    this.luaChonMucDo.push({ label: "VB tuyệt mật", value: 4 });
+    this.luaChonMucDo.push({ label: "VB tối mật", value: 5 });
+  }
 }

@@ -11,5 +11,16 @@ export interface TimKiemDanhSach {
     tencqbh?: string,
     trichyeu?: string,
     DonViLamViec?: string,
-    phongbanlamviecid?:string
+    phongbanlamviecid?: string
+}
+
+export interface DoiTuongPhanCong {
+    HoTen?: string,
+    Value?: string,
+    ChiDao: boolean,
+    ChuTri: boolean,
+    PhoiHop: boolean,
+    ThongBao: boolean,
+    SMS: boolean,
+    VBTL: boolean,
 }

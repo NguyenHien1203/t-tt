@@ -90,6 +90,7 @@ export class CapNhatComponent {
     public async BindDialogData() {
         try {
             const data = await this.service.getVanBanById(this.id);
+            console.log("data: ", data);
             let fileLoad = data.lstFile;
             fileLoad.forEach(function (val, key) {
                 val.isNew = false;
@@ -148,6 +149,7 @@ export class CapNhatComponent {
             this.formThongTinVanBan.patchValue({
                 soKiHieu: soKiHieuData,
             });
+            console.log("form", this.formThongTinVanBan.value);
         } catch (error) {
             this.messageService.add({
                 severity: 'error',
@@ -160,6 +162,8 @@ export class CapNhatComponent {
     public LoadLanhDaoKy() {
         this.service.getDanhSachLanhDaoKy(this.idDonViLamViec).then((data) => {
             this.lstLanhDaoKy = data;
+            console.log(this.lstLanhDaoKy);
+            
         });
     }
 

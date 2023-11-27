@@ -88,10 +88,10 @@
         <div class="card pb-0 pl-4 pr-4">
             <div class="wrapper">
                 <h2>DANH SÁCH LOẠI VĂN BẢN</h2>
-                <div class="icon-cls">
+                <!-- <div class="icon-cls">
                     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success">
                     </button>
-                </div>
+                </div> -->
             </div>
             <div class="grid">
                 <div class="col-12">                                                                                
@@ -155,14 +155,14 @@
                                 </td>
                                 <td style="width:10%; min-width:9rem;">
                                     <span *ngIf="vanBanDi.dieuKienGui == 'Gửi'">
-                                        <button pButton pRipple icon="pi pi-play"
+                                        <button pButton pRipple icon="pi pi-play"z
                                             class="p-button-rounded p-button-info mr-2"></button>
                                     </span>
                                     <span *ngIf="vanBanDi.dieuKienGui == 'Send'; else allowSection">Đã gửi</span>
                                     <ng-template #allowSection>
                                         <span *ngIf="vanBanDi.dieuKienGui == 'Allow'">
                                             <button pButton pRipple icon="pi pi-play"
-                                                class="p-button-rounded p-button-info mr-2 my-size-icon"></button>
+                                                class="p-button-rounded p-button-info mr-2 my-size-icon" (click)="GuiVanBan(vanBanDi.id)"></button>
                                         </span>
                                         <span *ngIf="vanBanDi.dieuKienGui == 'Required_PDF'">Yêu cầu PDF</span>
                                         <span *ngIf="vanBanDi.dieuKienGui == 'Publish_False'">Văn bản lưu thông nội
@@ -189,8 +189,8 @@
                                                     <p-table [value]="lstChucNang" selectionMode="single" (onRowSelect)="mail.hide()" responsiveLayout="scroll">
                                                         <ng-template pTemplate="body" let-item>
                                                             <tr>
-                                                                <td>
-                                                                    <a class="my-font">
+                                                                <td (click)="HandleClick(item.action,vanBanDi.id)">
+                                                                    <a class="my-font" href="javascript:;">
                                                                         <i class="{{item.icon}} my-font"></i>
                                                                         {{item.label}}
                                                                     </a>
@@ -216,11 +216,13 @@
             </div>
         </div>
 
-        <app-chi-tiet-van-ban [show]="hienThiChiTiet" (close)="tatPopup($event, 'C')" [idVb] = "idVanBanDi"></app-chi-tiet-van-ban>
+        <app-chi-tiet-van-ban [show]="hienThiChiTiet" (close)="TatPopup($event, 'C')" [idVb]="idVanBanDi"></app-chi-tiet-van-ban>
 
-        <!--<app-cap-nhat [show]="hienThiCapNhat" (close)="tatPopup($event, 'U')" [id]="idLoaiVanBan"></app-cap-nhat>
+        <app-gui-van-ban [show]="hienThiGuiVanBan" (close)="TatPopup($event, 'G')" [idVb]="idVanBanDi"></app-gui-van-ban>
 
-        <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
+        <app-cap-nhat-van-ban [show]="hienThiCapNhat" (close)="TatPopup($event, 'CN')" [idVb]="idVanBanDi"></app-cap-nhat-van-ban>
+
+        <!--<p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
                 <span *ngIf="loaiVanBan">Bạn muốn xóa bản ghi này ?</span>

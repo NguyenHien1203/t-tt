@@ -1,0 +1,130 @@
+<p-dialog [(visible)]="show" [formGroup]="formVanBan" [style]="{width: '1300px'}" header="Cập nhật văn bản đi"
+    [modal]="true" class="p-fluid" (onHide)="TatPopup()" (onShow)="GetVanBanById()">
+    <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+            <label for="soVanBanId">Sổ văn bản<span class="p-error">*</span></label>
+            <p-dropdown [options]="lstSoVanBan" optionValue="value" optionLabel="text" placeholder="Chọn sổ văn bản"
+                appendTo="body" formControlName="soVanBanId"></p-dropdown>
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="loaiVanBanId">Loại văn bản<span class="p-error">*</span></label>
+            <p-dropdown [options]="lstLoaiVanBan" optionValue="value" optionLabel="text" placeholder="Chọn loại văn bản"
+                appendTo="body" formControlName="loaiVanBanId"></p-dropdown>
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <div class="field col md:col-3">
+            <label for="soHienTai">Số hiện tại</label>
+            <p-inputNumber formControlName="soHienTai" id="soHienTai" placeholder="Số hiện tại"></p-inputNumber>
+        </div>
+        <div class="field col md:col-3">
+            <label for="soDi">Số đi</label>
+            <p-inputNumber formControlName="soDi" id="soDi" placeholder="Số đi"></p-inputNumber>
+        </div>
+        <div class="field col md:col-3">
+            <label for="soKiHieu">Số ký hiệu</label>
+            <input formControlName="soKiHieu" type="text" pInputText placeholder="Số ký hiệu" />
+        </div>
+        <div class="field col md:col-3">
+            <label for="soBanPhatHanh">Số ban phát hành</label>
+            <p-inputNumber formControlName="soBanPhatHanh" id="soBanPhatHanh"
+                placeholder="Số ban phát hành"></p-inputNumber>
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <div class="field col md:col-6">
+            <label for="ngayBanHanh">Ngày gửi văn bản</label>
+            <p-calendar formControlName="ngayBanHanh" dateFormat="dd/mm/yy" placeholder="Ngày gửi văn bản"></p-calendar>
+        </div>
+        <div class="field col md:col-6">
+            <label for="ngayNhanVanBan">Ngày nhận văn bản</label>
+            <p-calendar formControlName="ngayNhanVanBan" dateFormat="dd/mm/yy"
+                placeholder="Ngày nhận văn bản"></p-calendar>
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+            <label for="phongBanSoanThaoId">Cán bộ/ PB soạn thảo<span class="p-error">*</span></label>
+            <p-dropdown [options]="lstPBSoanThao" optionValue="value" optionLabel="text"
+                placeholder="Chọn phòng ban soạn thảo" [showClear]="true" [filter]="true" appendTo="body"
+                formControlName="phongBanSoanThaoId"></p-dropdown>
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="lanhDaoKyId">Lãnh đạo ký<span class="p-error">*</span></label>
+            <p-dropdown formControlName="lanhDaoKyId" [options]="lstLanhDao" optionValue="value" optionLabel="text"
+                placeholder="Chọn lãnh đạo ký" appendTo="body"></p-dropdown>
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+            <label for="trichYeu">Trích yếu<span class="p-error">*</span></label>
+            <textarea formControlName="trichYeu" rows="4" cols="30" class="my-drop" placeholder="Nội dung"
+                pInputTextarea></textarea>
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="noiNhanKhac">Nơi nhận khác(ngoài hệ thống liên thông): <span class="p-error">*</span></label>
+            <textarea formControlName="noiNhanKhac" rows="4" cols="30" class="my-drop" placeholder="Nội dung"
+                pInputTextarea></textarea>
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+            <label for="mucDoVanBanId">Mức độ<span class="p-error">*</span></label>
+            <p-dropdown formControlName="mucDoVanBanId" [options]="lstMucDo" optionValue="value" optionLabel="text"
+                placeholder="Chọn mức độ" appendTo="body"></p-dropdown>
+        </div>
+        <div class="field col-12 md:col-6">
+            <label>File đính kèm<span class="p-error">*</span></label>
+            <div class="formgrid grid">
+                <div class="field col-12 md:col-3">
+                    <label for="fileUpload" class="custom-file-upload">
+                        <i class="pi pi-upload"></i> Chọn tệp
+                    </label>
+                    <input type="file" id="fileUpload" multiple="multiple" (change)="onFileSelected($event)"
+                        style="display: none" />
+                </div>
+                <div class="field col-12 md:col-9">
+                    <ul class="mt-0">
+                        <li *ngFor="let file of selectedFiles">
+                            <span *ngIf="file.isDelete == false">
+                                <a (click)="
+                                        DownloadFile(
+                                            file.filePath,
+                                            file.fileName
+                                        )
+                                    " href="javascript:;" class="mr-3">{{ file.fileName }}</a>
+                                <a pTooltip="Xóa file" href="javascript:;" (click)="XoaFile(file.filePath)"><i
+                                        style="color: brown;" class="pi pi-trash"></i></a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field grid div-center">
+        <p-checkbox binary="true" formControlName="chkVanBanLienThong" value="true"
+            label="Văn bản liên thông"></p-checkbox>
+        &nbsp;&nbsp;
+        <p-checkbox binary="true" formControlName="chkVanBanHeThong" value="true"
+            label="Văn bản trong hệ thống"></p-checkbox>
+        &nbsp;&nbsp;
+        <p-checkbox binary="true" formControlName="chkVanBanNoiBo" value="true" label="Văn bản nội bộ"></p-checkbox>
+        &nbsp;&nbsp;
+    </div>
+    <ng-template pTemplate="footer">
+        <!-- <button pButton pRipple label="Lưu" (click)="CapNhat()" icon="pi pi-check" class="p-button-info"></button> -->
+        <!-- <button pButton pRipple label="Hủy"  class="" (click)="TatPopup()"></button> -->
+        <div class="div-center">
+            <button pButton pRipple type="submit" class="p-button-info" icon="pi pi-arrow-circle-down
+            " label="Lưu lại"></button>
+            <!-- <span class="p-button-label">Lưu lại</span><span class="p-ink"></span></button>&nbsp; -->
+            <button pButton pRipple type="submit" class="p-button-warning" icon="
+                pi pi-undo" label="Nhập lại"></button>
+            <!-- <span class="p-button-label">Nhập lại</span><span class="p-ink"></span></button>&nbsp; -->
+            <button pButton pRipple icon="pi pi-times" class="p-button-danger" (click)="TatPopup()"
+                label="Thoát"></button>
+            <!-- <span class="p-button-label">Thoát</span><span class="p-ink"></span></button> -->
+        </div>
+    </ng-template>
+</p-dialog>

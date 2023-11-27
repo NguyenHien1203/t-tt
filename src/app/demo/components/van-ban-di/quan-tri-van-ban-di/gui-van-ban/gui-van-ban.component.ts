@@ -1,17 +1,15 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { QuanTriVanBanDi, VBIDPL, VBIDPLoaiCN, VBIDPLoaiCoBC, VBIDPLoaiKoBC, VanBanNhanGui } from 'src/app/models/van-ban-di/quan-tri-van-ban-di';
 import { Message, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { QuanTriVanBanDiService } from 'src/app/demo/service/van-ban-di/quan-tri-van-ban-di/quan-tri-van-ban-di.service';
-
+import { QuanTriVanBanDi, VanBanNhanGui } from 'src/app/models/van-ban-di/quan-tri-van-ban-di';
 
 @Component({
-  selector: 'app-chi-tiet-van-ban',
-  templateUrl: './chi-tiet-van-ban.component.html',
-  styleUrls: ['./chi-tiet-van-ban.component.scss']
+  selector: 'app-gui-van-ban',
+  templateUrl: './gui-van-ban.component.html',
+  styleUrls: ['./gui-van-ban.component.scss']
 })
-
-export class ChiTietVanBanComponent implements OnInit {
+export class GuiVanBanComponent implements OnInit {
   @Input() show: boolean = false;
   @Output() close = new EventEmitter<boolean>();
   @Input() idVb: string = '';
@@ -23,27 +21,13 @@ export class ChiTietVanBanComponent implements OnInit {
 
   danhSachVanBanDi: QuanTriVanBanDi[] = [];
   vanBanDi: QuanTriVanBanDi = {};
-
-  lstVBNG_VBIDPL: VBIDPL[] = [];
-  vBNG_VBIDPL: VBIDPL = {};
-  lstVBNG_VBIDPLoaiCoBC: VBIDPLoaiCoBC[] = [];
-  vBNG_VBIDPLoaiCoBC: VBIDPLoaiCoBC = {};
-  lstVBNG_VBIDPLoaiKoBC: VBIDPLoaiKoBC[] = [];
-  vBNG_VBIDPLoaiKoBC: VBIDPLoaiKoBC = {};
-  lstVBNG_VBIDPLoaiCN: VBIDPLoaiCN[] = [];
-  vBNG_VBIDPLoaiCN: VBIDPLoaiCN = {};
-  CountDVBC: number;
-  CountDV: number;
-  CountCN: number;
-  CountCNPP: number;
-  CountDVPP: number;
-
+  
   vanBanNhanGui: VanBanNhanGui = {};
 
   constructor(private messageService: MessageService, private authService: AuthService, private quanTriVanBanDiService: QuanTriVanBanDiService) { }
 
   ngOnInit() {
-    
+
   }
 
   GetVanBanDi() {
@@ -60,24 +44,11 @@ export class ChiTietVanBanComponent implements OnInit {
       this.vanBanNhanGui = data;
       console.log("2: ", data);
     })
-
-    this.quanTriVanBanDiService.getThongTinDaGui(this.idVb, this.idDonViLamViec).subscribe(data => {
-      // console.log("3: ", data);
-      this.lstVBNG_VBIDPL = data.lstVBNG_VBIDPL;
-      this.lstVBNG_VBIDPLoaiCoBC = data.lstVBNG_VBIDPLoaiCoBC;
-      this.lstVBNG_VBIDPLoaiKoBC = data.lstVBNG_VBIDPLoaiKoBC;
-      this.lstVBNG_VBIDPLoaiCN = data.lstVBNG_VBIDPLoaiCN;
-      this.CountDVBC = data.countDVBC;
-      this.CountDV = data.countDV;
-      this.CountCN = data.countCN;
-      this.CountCNPP = data.countCNPP;
-      this.CountDVPP = data.countDVPP;
-    })
   }
+
 
   TatPopup() {
     this.show = false;
     this.close.emit(this.show);
   }
 }
-

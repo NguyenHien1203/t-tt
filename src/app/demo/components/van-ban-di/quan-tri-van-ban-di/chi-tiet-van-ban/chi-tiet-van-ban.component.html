@@ -1,5 +1,5 @@
 <p-dialog [(visible)]="show" [style]="{width: '1100px'}" header="Chi tiết văn bản" [modal]="true" class="p-fluid"
-    (onHide)="tatPopup()" (onShow)="GetVanBanDi()">
+    (onHide)="TatPopup()" (onShow)="GetVanBanDi()">
     <p-tabView orientation="left">
         <p-tabPanel header="Thông tin văn bản" class="line-height-3 m-0">
 
@@ -54,7 +54,8 @@
                             Số hiện tại:
                         </div>
                         <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
-                            <label>{{vanBanDi.soDiDen}}</label>
+                            <label *ngIf="vanBanNhanGui.loaiVanBanDiDen == 1">{{vanBanDi.soDiDen}}</label>
+                            <label *ngIf="vanBanNhanGui.loaiVanBanDiDen == 0">{{vanBanNhanGui.soDiDenCustom}}</label>
                         </div>
                     </div>
                 </div>
@@ -69,7 +70,7 @@
                     </div>
                     <div class="my-item-flex justify-content-between ">
                         <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
-                            Sô ban hành:
+                            Số ban hành:
                         </div>
                         <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
                             <label>{{vanBanDi.soBanPhatHanh}}</label>
@@ -108,17 +109,21 @@
                             Số đi/đến:
                         </div>
                         <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
-                            <label>{{vanBanDi.soDiDen}}</label>
+                            <label *ngIf="vanBanNhanGui.loaiVanBanDiDen == 1">{{vanBanDi.soDiDenCustom}}</label>
+                            <label *ngIf="vanBanNhanGui.loaiVanBanDiDen == 0">{{vanBanNhanGui.soDiDen}}</label>
                         </div>
                     </div>
                 </div>
                 <div class="flex">
                     <div class="my-item-flex-100 justify-content-between">
-                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background my-border-radius-bl">
+                        <div class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background">
                             Trích yếu:
                         </div>
-                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3 my-border-radius-br">
-                            <label>{{vanBanDi.trichYeu}}</label>
+                        <div class="my-item-flex-right my-bd-right my-bd-bottom p-3">
+                            <label *ngIf="(vanBanNhanGui.trangThaiId == 2 || vanBanNhanGui.trangThaiId == 5 || vanBanNhanGui.trangThaiId == 35 || vanBanNhanGui.trangThaiId == 36) && vanBanNhanGui.checkCapNhat == 2 else trichYeuData">{{vanBanNhanGui.trichYeu}}</label>
+                            <ng-template #trichYeuData>
+                                <label>{{vanBanDi.trichYeu}}</label>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
@@ -128,7 +133,7 @@
                             Nơi nhận khác:
                         </div>
                         <div class="my-item-flex-right my-bd-right my-bd-bottom p-3 my-border-radius-br">
-                            <label>{{vanBanDi.noiNhanGui}}</label>
+                            <label>{{vanBanNhanGui.noiNhanGui}}</label>
                         </div>
                     </div>
                 </div>

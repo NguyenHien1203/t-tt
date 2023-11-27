@@ -32,6 +32,7 @@ export class NhanCaNhanComponent {
     timKiemDanhSach: TimKiemDanhSach = {
         tenNhan: '',
         ghiChu: '',
+        hienThi: 2,
         timChinhXac: 0,
         nguoiTao: Number(this.idUser),
     };

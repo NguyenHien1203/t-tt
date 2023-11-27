@@ -48,7 +48,7 @@ export class HopThuQuanTrongComponent {
         noiDung: '',
         nguoiGui: '',
         nguoiNhan: '',
-        checkQuanTrong: 0,
+        checkQuanTrong: 1,
         timChinhXac: 0,
     };
 
@@ -205,6 +205,38 @@ export class HopThuQuanTrongComponent {
             icon: 'pi pi-info-circle',
             accept: () => {
                 this.soanThuService.xoaNhieu(lstHopThuSelected).subscribe(
+                    (data) => {
+                        if (data.isError) {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: data.title,
+                            });
+                        } else {
+                            this.LoadDanhSach();
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Success',
+                                detail: data.title,
+                            });
+                        }
+                    },
+                    (error) => {
+                        console.log('Error', error);
+                    }
+                );
+            },
+            reject: () => {},
+        });
+    }
+
+    public Xoa(id: string) {
+        this.confirmationService.confirm({
+            message: 'Bạn có chắc chắn xác nhận xóa bản ghi này?',
+            header: 'Xác nhận',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.soanThuService.xoa(id).subscribe(
                     (data) => {
                         if (data.isError) {
                             this.messageService.add({

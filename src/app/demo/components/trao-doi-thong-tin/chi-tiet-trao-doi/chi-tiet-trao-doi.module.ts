@@ -22,21 +22,21 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
-import { MenubarModule } from 'primeng/menubar';
 
-import { HopThuNhapRoutingModule } from './hop-thu-nhap-routing.module';
-import { HopThuNhapComponent } from './hop-thu-nhap.component';
-import { TraoDoiThongTinModule } from '../trao-doi-thong-tin.module';
+import { ChiTietTraoDoiRoutingModule } from './chi-tiet-trao-doi-routing.module';
+import { MenubarModule } from 'primeng/menubar';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { ChipModule } from 'primeng/chip';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ChiTietTraoDoiComponent } from './chi-tiet-trao-doi.component';
 
 
 @NgModule({
-  declarations: [
-    HopThuNhapComponent
-  ],
+  declarations: [ChiTietTraoDoiComponent],
   imports: [
     OverlayPanelModule,
-    TraoDoiThongTinModule,
+    ChipModule,
+    TieredMenuModule,
     MenubarModule,
     TableModule,
     FileUploadModule,
@@ -61,7 +61,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     CalendarModule,
     TabViewModule,
     CommonModule,
-    HopThuNhapRoutingModule
+    ChiTietTraoDoiRoutingModule
   ]
 })
-export class HopThuNhapModule { }
+export class ChiTietTraoDoiModule { }

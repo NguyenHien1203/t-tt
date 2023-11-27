@@ -5,4 +5,5 @@ export interface TimKiemDanhSach {
     ghiChu?: string,
     timChinhXac?: number,
     nguoiTao? : number
+    hienThi? : number
 }

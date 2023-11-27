@@ -8,10 +8,12 @@ import { QuanLyBangLuongComponent } from './quan-ly-bang-luong/quan-ly-bang-luon
 import { ThemMoiComponent } from './quan-ly-bang-luong/them-moi/them-moi.component';
 import { CapNhatComponent } from './quan-ly-bang-luong/cap-nhat/cap-nhat.component';
 import { XemBangLuongComponent } from './xem-bang-luong/xem-bang-luong.component';
+import { QuanLyTaiLieuHuongDanComponent } from './quan-ly-tai-lieu-huong-dan/quan-ly-tai-lieu-huong-dan.component';
 
 
 @NgModule({
   declarations: [
+    
   ],
   imports: [
     CommonModule,

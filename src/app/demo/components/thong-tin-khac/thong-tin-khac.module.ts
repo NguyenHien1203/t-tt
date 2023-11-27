@@ -8,6 +8,8 @@ import { QuanLyBangLuongComponent } from './quan-ly-bang-luong/quan-ly-bang-luon
 import { ThemMoiComponent } from './quan-ly-bang-luong/them-moi/them-moi.component';
 import { CapNhatComponent } from './quan-ly-bang-luong/cap-nhat/cap-nhat.component';
 import { XemBangLuongComponent } from './xem-bang-luong/xem-bang-luong.component';
+import { QuanLyCauHoiThuongGapComponent } from './quan-ly-cau-hoi-thuong-gap/quan-ly-cau-hoi-thuong-gap.component';
+import { QuanLyChuyenMucCauHoiComponent } from './quan-ly-chuyen-muc-cau-hoi/quan-ly-chuyen-muc-cau-hoi.component';
 
 
 @NgModule({

@@ -1,50 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
-import { QuanLyThongBaoService } from 'src/app/demo/service/thong-tin-khac/quan-ly-thong-bao.service';
-import { TimKiemDanhSach } from 'src/app/models/thong-tin-khac/quan-ly-thong-bao';
+import { QuanLyCauHoiThươngGapService } from 'src/app/demo/service/thong-tin-khac/quan-ly-cau-hoi-thương-gap.service';
+import { TimKiemCauHoiThuongGap } from 'src/app/models/thong-tin-khac/quan-ly-cau-hoi-thuong-gap';
 
 @Component({
-    selector: 'app-quan-ly-thong-bao',
-    templateUrl: './quan-ly-thong-bao.component.html',
-    styleUrls: ['./quan-ly-thong-bao.component.scss'],
+    selector: 'app-quan-ly-cau-hoi-thuong-gap',
+    templateUrl: './quan-ly-cau-hoi-thuong-gap.component.html',
+    styleUrls: ['./quan-ly-cau-hoi-thuong-gap.component.scss'],
     providers: [MessageService, ConfirmationService],
 })
-export class QuanLyThongBaoComponent implements OnInit {
+export class QuanLyCauHoiThuongGapComponent {
     constructor(
-        private service: QuanLyThongBaoService,
+        private service: QuanLyCauHoiThươngGapService,
         private messageService: MessageService,
         private confirmService: ConfirmationService
     ) {}
 
     public hienThiThemMoi: boolean = false;
     public hienThiCapNhat: boolean = false;
-    public hienThiGuiThongBao: boolean = false;
+    public hienThiTraLoi: boolean = false;
     public id: string = '1';
     public loading: boolean = true;
     public home = { icon: 'pi pi-home', routerLink: '/' };
     public items = [
         { label: 'Thông tin khác' },
-        { label: 'Quản lý thông báo' },
+        { label: 'Quản lý câu hỏi thường gặp' },
     ];
     public timChinhXac: boolean = false;
-    public timKiemDanhSach: TimKiemDanhSach = {
+    public timKiemDanhSach: TimKiemCauHoiThuongGap = {
         keyWord: '',
-        tuNgay: '1901-01-01',
-        denNgay: '9999-01-01',
+        chuyenMucId: 0,
+        trangThai: 0,
         donViId: 0,
-        hienThi: 3,
-        isHieuLuc: 3,
         timChinhXac: 0,
     };
-    lstThongBao: SelectItem[] = [
-        { label: 'Chọn trạng thái', value: 3 },
-        { label: 'Còn hiệu lực', value: 2 },
-        { label: 'Không còn hiệu lực', value: 1 },
-    ];
-    lstHienThi: SelectItem[] = [
-        { label: 'Chọn hình thức', value: 3 },
-        { label: 'Hiển thị', value: 1 },
-        { label: 'Không hiển thị', value: 0 },
+    lstChuyenMuc: any[] = [];
+    lstTrangThai: SelectItem[] = [
+        { label: 'Chọn trạng thái', value: 7 },
+        { label: 'Chưa trả lời', value: 8 },
+        { label: 'Đã trả lời', value: 9 },
     ];
     quanLyThongBaos: any[] = [];
 
@@ -62,18 +56,18 @@ export class QuanLyThongBaoComponent implements OnInit {
         this.id = id;
     }
 
-    public GuiThongBao(id: string): void {
-        this.hienThiGuiThongBao = true;
+    public TraLoi(id: string): void {
+        this.hienThiTraLoi = true;
         this.id = id;
     }
 
     public Xoa(id: string) {
         this.confirmService.confirm({
-            message: 'Bạn có chắc chắn xác nhận xóa thông báo?',
+            message: 'Bạn có chắc chắn xác nhận xóa câu hỏi thường gặp?',
             header: 'Xác nhận',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.service.xoaQuanLyThongBao(id).subscribe(
+                this.service.xoaCauHoiThuongGap(id).subscribe(
                     (data) => {
                         if (data.isError) {
                             this.messageService.add({
@@ -102,14 +96,14 @@ export class QuanLyThongBaoComponent implements OnInit {
     public Thoat(itemHt: any, loai: string): void {
         if (loai === 'T') this.hienThiThemMoi = false;
         if (loai === 'C') this.hienThiCapNhat = false;
-        if (loai === 'G') this.hienThiGuiThongBao = false;
+        if (loai === 'TL') this.hienThiTraLoi = false;
         this.LoadDanhSach();
     }
 
     public LoadDanhSach(): void {
         this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
         this.service
-            .getDanhSachQuanLyThongBao(this.timKiemDanhSach)
+            .getDanhSachQuanLyCauHoiThuongGap(this.timKiemDanhSach)
             .then((data) => {
                 this.quanLyThongBaos = data;
             });

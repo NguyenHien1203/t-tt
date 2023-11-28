@@ -37,7 +37,7 @@ export class QuanTriVanBanDiComponent implements OnInit {
     //Row 1
     keyWord: "",
     soKyHieu: "",
-    nam: 0,
+    nam: 0, 
     thang: 0,
     timChinhXac: 0,
     //Row 2

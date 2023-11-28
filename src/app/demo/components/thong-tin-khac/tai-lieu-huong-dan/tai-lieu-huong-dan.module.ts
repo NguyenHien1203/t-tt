@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { QuanLyTaiLieuHuongDanRoutingModule } from './quan-ly-tai-lieu-huong-dan-routing.module';
-import { ThemMoiComponent } from './them-moi/them-moi.component';
-import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { TaiLieuHuongDanRoutingModule } from './tai-lieu-huong-dan-routing.module';
 
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TableModule } from 'primeng/table';
@@ -24,20 +22,13 @@ import { Select2Module } from 'ng-select2-component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
-import { QuanLyTaiLieuHuongDanComponent } from './quan-ly-tai-lieu-huong-dan.component';
-import { ChiTietComponent } from './chi-tiet/chi-tiet.component';
-
+import { TaiLieuHuongDanComponent } from './tai-lieu-huong-dan.component';
 
 @NgModule({
-  declarations: [
-    QuanLyTaiLieuHuongDanComponent,
-    ThemMoiComponent,
-    CapNhatComponent,
-    ChiTietComponent
-  ],
+  declarations: [TaiLieuHuongDanComponent],
   imports: [
     CommonModule,
-    QuanLyTaiLieuHuongDanRoutingModule,
+    TaiLieuHuongDanRoutingModule,
     ConfirmDialogModule,
     FileUploadModule,
     DialogModule,
@@ -59,4 +50,4 @@ import { ChiTietComponent } from './chi-tiet/chi-tiet.component';
     BreadcrumbModule,
   ]
 })
-export class QuanLyTaiLieuHuongDanModule { }
+export class TaiLieuHuongDanModule { }

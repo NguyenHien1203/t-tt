@@ -8,6 +8,8 @@ const routes: Routes = [
   { path: 'xem-bang-luong', data: { breadcrumb: 'Xem bảng lương' }, loadChildren: () => import('./xem-bang-luong/xem-bang-luong.module').then(m => m.XemBangLuongModule) },
   { path: 'quan-ly-tai-lieu-huong-dan', data: { breadcrumb: 'Quản lý tài liệu hướng dẫn' }, loadChildren: () => import('./quan-ly-tai-lieu-huong-dan/quan-ly-tai-lieu-huong-dan.module').then(m => m.QuanLyTaiLieuHuongDanModule) },
   { path: 'tai-lieu-huong-dan', data: { breadcrumb: 'Tài liệu hướng dẫn' }, loadChildren: () => import('./tai-lieu-huong-dan/tai-lieu-huong-dan.module').then(m => m.TaiLieuHuongDanModule) },
+  { path: 'quan-ly-cau-hoi-thuong-gap', data: { breadcrumb: 'Quản lý câu hỏi thường gặp' }, loadChildren: () => import('./quan-ly-cau-hoi-thuong-gap/quan-ly-cau-hoi-thuong-gap.module').then(m => m.QuanLyCauHoiThuongGapModule) },
+  { path: 'quan-ly-chuyen-muc-cau-hoi', data: { breadcrumb: 'Quản lý câu hỏi thường gặp' }, loadChildren: () => import('./quan-ly-chuyen-muc-cau-hoi/quan-ly-chuyen-muc-cau-hoi.module').then(m => m.QuanLyChuyenMucCauHoiModule) },
 ];
 
 @NgModule({

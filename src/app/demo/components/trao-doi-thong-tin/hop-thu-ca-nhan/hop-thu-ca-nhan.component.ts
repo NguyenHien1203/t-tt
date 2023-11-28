@@ -37,6 +37,9 @@ export class HopThuCaNhanComponent {
     loading: boolean = true;
     isCheckAll: boolean = false;
     public id: string = '1';
+    public checkThuDen: number = 0;
+    public checkThuNhap: number = 0;
+    public ncn: number = 0;
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     yearOptions: SelectItem[] = [];
@@ -234,6 +237,38 @@ export class HopThuCaNhanComponent {
         });
     }
 
+    public Xoa(id: string) {
+        this.confirmationService.confirm({
+            message: 'Bạn có chắc chắn xác nhận xóa bản ghi này?',
+            header: 'Xác nhận',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.soanThuService.xoa(id).subscribe(
+                    (data) => {
+                        if (data.isError) {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: data.title,
+                            });
+                        } else {
+                            this.LoadDanhSach();
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Success',
+                                detail: data.title,
+                            });
+                        }
+                    },
+                    (error) => {
+                        console.log('Error', error);
+                    }
+                );
+            },
+            reject: () => {},
+        });
+    }
+
     public DanhDauQuanTrong() {
         const lstHopThuSelected = this.lstTraoDoi
             .filter((x) => x.checked == true)
@@ -274,8 +309,16 @@ export class HopThuCaNhanComponent {
         if (loai === 'C') this.hienThiChiTiet = false;
     }
 
-    public ChiTiet(id: string): void {
+    public ChiTiet(
+        id: string,
+        ncn: number,
+        checkThuDen: number,
+        checkThuNhap: number
+    ): void {
         this.id = id;
+        this.checkThuDen = checkThuDen;
+        this.checkThuNhap = checkThuNhap;
+        this.ncn = ncn;
         this.hienThiChiTiet = true;
     }
 }

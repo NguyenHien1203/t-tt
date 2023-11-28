@@ -468,7 +468,7 @@ export class AppMenuComponent implements OnInit {
                         {
                             label: 'Quản lý chuyên mục câu hỏi',
                             icon: 'pi pi-fw pi-question-circle',
-                            routerLink: ['/hethong/nhomquyen'],
+                            routerLink: ['/thong-tin-khac/quan-ly-chuyen-muc-cau-hoi'],
                             code: '006007'
                         },
                         {
@@ -480,7 +480,7 @@ export class AppMenuComponent implements OnInit {
                         {
                             label: 'Quản lý câu hỏi thường gặp',
                             icon: 'pi pi-fw pi-question-circle',
-                            routerLink: ['/hethong/nhomquyen'],
+                            routerLink: ['/thong-tin-khac/quan-ly-cau-hoi-thuong-gap'],
                             code: '006010'
                         },
                         {
@@ -1286,7 +1286,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý chuyên mục câu hỏi',
                                 icon: 'pi pi-fw pi-question-circle',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/quan-ly-chuyen-muc-cau-hoi'],
                                 code: '006007'
                             },
                             {
@@ -1298,7 +1298,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý câu hỏi thường gặp',
                                 icon: 'pi pi-fw pi-question-circle',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/quan-ly-cau-hoi-thuong-gap'],
                                 code: '006010'
                             },
                             {

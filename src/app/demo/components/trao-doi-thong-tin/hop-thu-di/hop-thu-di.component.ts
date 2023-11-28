@@ -243,6 +243,38 @@ export class HopThuDiComponent {
         });
     }
 
+    public Xoa(id: string) {
+        this.confirmationService.confirm({
+            message: 'Bạn có chắc chắn xác nhận xóa bản ghi này?',
+            header: 'Xác nhận',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.soanThuService.xoa(id).subscribe(
+                    (data) => {
+                        if (data.isError) {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: data.title,
+                            });
+                        } else {
+                            this.LoadDanhSach();
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Success',
+                                detail: data.title,
+                            });
+                        }
+                    },
+                    (error) => {
+                        console.log('Error', error);
+                    }
+                );
+            },
+            reject: () => {},
+        });
+    }
+
     public DanhDauQuanTrong() {
         const lstHopThuSelected = this.lstTraoDoi
             .filter((x) => x.checked == true)

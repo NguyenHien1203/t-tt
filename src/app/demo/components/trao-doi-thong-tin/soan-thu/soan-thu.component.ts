@@ -13,7 +13,7 @@ import { saveAs } from 'file-saver';
 import { throwError } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-soan-thu',
@@ -30,12 +30,13 @@ export class SoanThuComponent implements OnInit {
         private authService: AuthService,
         private cd: ChangeDetectorRef,
         private uploadfileService: UploadFileService,
-        private router : Router,
-        @Inject(DOCUMENT) private document: Document
+        private route: ActivatedRoute
     ) {}
 
     editConTent: string = '';
     tieuDe: string = '';
+    traoDoiId: string = '1';
+    type: string = '0';
     lstNguoiDungFilter: any[] = [];
     lstSelectedNguoiDung: any[] = [];
     filteredItems: any[] = [];
@@ -79,7 +80,9 @@ export class SoanThuComponent implements OnInit {
 
     async ngOnInit() {
         await this.service //lấy danh sách nhãn cá nhân
-            .getDanhSachNhanCaNhan(Number(this.authService.GetmUserInfo()?.userId))
+            .getDanhSachNhanCaNhan(
+                Number(this.authService.GetmUserInfo()?.userId)
+            )
             .then((data) => {
                 this.lstNhanCaNhan = data.map((ncn) => {
                     return {
@@ -127,6 +130,63 @@ export class SoanThuComponent implements OnInit {
         ];
 
         this.LoadDanhMuc();
+
+        this.XuLySoanThu();
+    }
+
+    public XuLySoanThu(): void {
+        this.route.params.subscribe((params) => {
+            this.type = params['type'];
+            this.traoDoiId = params['traoDoiId'];
+            if (this.type !== undefined && this.traoDoiId !== undefined) {
+                this.service
+                    .getChiTietHopThuById(this.traoDoiId, this.idUser)
+                    .then((data) => {
+                        if (data != null) {
+                            let itemData = data.objHopThu;
+                            this.selectedFiles = data.lstFile.map((file) => {
+                                return {
+                                    ...file,
+                                    isDelete: false,
+                                    isNew: true,
+                                };
+                            }); //bind file
+                            if (itemData != null) {
+                                if (this.type == LoaiHinhTraoDoi.Reply) {
+                                    this.tieuDe = 'Reply: ' + itemData.tieuDe;
+                                    this.lstSelectedNguoiDung = (
+                                        itemData.usersTraoDoi as string
+                                    )
+                                        .split(',')
+                                        .filter((us) => us !== '')
+                                        .map((us) => {
+                                            return { text: us };
+                                        });
+                                }
+
+                                if (this.type == LoaiHinhTraoDoi.Forward) {
+                                    this.tieuDe = 'Forward: ' + itemData.tieuDe;
+                                    this.editConTent = itemData.noiDung;
+                                }
+
+                                if (this.type == LoaiHinhTraoDoi.SendDraf) {
+                                    this.tieuDe = itemData.tieuDe;
+                                    this.lstSelectedNguoiDung = (
+                                        itemData.usersTraoDoi as string
+                                    )
+                                        .split(',')
+                                        .filter((us) => us !== '')
+                                        .map((us) => {
+                                            return { text: us };
+                                        });
+
+                                    this.editConTent = itemData.noiDung;
+                                }
+                            }
+                        }
+                    });
+            }
+        });
     }
 
     public LoadDanhMuc() {
@@ -237,10 +297,11 @@ export class SoanThuComponent implements OnInit {
     }
 
     public Thoat(itemHt: any, loai: string): void {
-        if (loai === 'C') {this.hienThiChonNguoiDung = false;
-        this.phongBanId = null;
-                this.nhomNguoiDungId = null;
-            };
+        if (loai === 'C') {
+            this.hienThiChonNguoiDung = false;
+            this.phongBanId = null;
+            this.nhomNguoiDungId = null;
+        }
     }
 
     public ChonNguoiDung(event: any): void {
@@ -254,8 +315,8 @@ export class SoanThuComponent implements OnInit {
                 });
             this.lstSelectedNguoiDung =
                 this.lstSelectedNguoiDung.concat(lstTmp);
-                this.phongBanId = null;
-                this.nhomNguoiDungId = null;
+            this.phongBanId = null;
+            this.nhomNguoiDungId = null;
         }
     }
 
@@ -339,6 +400,7 @@ export class SoanThuComponent implements OnInit {
                 summary: 'Error',
                 detail: 'Yêu cầu chọn người nhận',
             });
+            return;
         }
 
         if (this.tieuDe === '') {
@@ -347,6 +409,7 @@ export class SoanThuComponent implements OnInit {
                 summary: 'Error',
                 detail: 'Yêu cầu nhập tiêu đề',
             });
+            return;
         }
 
         let itemData = {
@@ -375,13 +438,19 @@ export class SoanThuComponent implements OnInit {
         });
     }
 
-    public ResetForm(){
+    public ResetForm() {
         this.donViId = null;
         this.phongBanId = null;
         this.nhomNguoiDungId = null;
         this.tieuDe = null;
-        this.editConTent = "";
+        this.editConTent = '';
         this.lstSelectedNguoiDung = [];
         this.selectedFiles = [];
     }
 }
+
+const LoaiHinhTraoDoi = {
+    Reply: '1',
+    Forward: '2',
+    SendDraf: '3',
+};

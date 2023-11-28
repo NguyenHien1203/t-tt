@@ -4,64 +4,61 @@ import { TimKiemChuyenMucCauHoi } from 'src/app/models/thong-tin-khac/quan-ly-ch
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class QuanLyChuyenMucCauHoiService {
+    private httpOption = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+        }),
+    };
+    constructor(private http: HttpClient) {}
 
-  private httpOption = {
-    headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-    }),
-};
-constructor(private http: HttpClient) {}
+    getDanhSachChuyenMucCauHoi(timKiemDanhSach: TimKiemChuyenMucCauHoi) {
+        return this.http
+            .post<any>(
+                environment.baseUrlApi +
+                    '/ThongTinKhac/QuanLyChuyenMucCauHoi/GetDanhSach',
+                timKiemDanhSach,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
+    getChuyenMucCauHoiById(id: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/ThongTinKhac/QuanLyChuyenMucCauHoi/GetDanhMucChuyenMucCauHoiById/' +
+                    id
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
 
-getDanhSachQuanLyCauHoiThuongGap(
-    timKiemDanhSach: TimKiemChuyenMucCauHoi
-) {
-    return this.http
-        .post<any>(
+    themMoiChuyenMucCauHoi(itemData: any) {
+        return this.http.post<any>(
             environment.baseUrlApi +
-                '/ThongTinKhac/QuanLyChuyenMucCauHoi/GetDanhSach',
-            timKiemDanhSach,
+                '/ThongTinKhac/QuanLyChuyenMucCauHoi/ThemMoiChuyenMucCauHoi',
+            itemData,
             this.httpOption
-        )
-        .toPromise()
-        .then((res) => res.objData);
-}
-getCauHoiThuongGapById(id: string) {
-    return this.http
-        .get<any>(
+        );
+    }
+
+    capNhatChuyenMucCauHoi(itemData: any) {
+        return this.http.post<any>(
             environment.baseUrlApi +
-                '/ThongTinKhac/QuanLyChuyenMucCauHoi/GetChuyenMucCauHoiById/' +
+                '/ThongTinKhac/QuanLyChuyenMucCauHoi/CapNhatChuyenMucCauHoi',
+            itemData,
+            this.httpOption
+        );
+    }
+
+    xoaChuyenMucCauHoi(id: string) {
+        return this.http.get<any>(
+            environment.baseUrlApi +
+                '/ThongTinKhac/QuanLyChuyenMucCauHoi/XoaChuyenMucCauHoi/' +
                 id
-        )
-        .toPromise()
-        .then((res) => res.objData);
-}
-
-themMoiCauHoiThuongGap(itemData: any) {
-    return this.http.post<any>(
-        environment.baseUrlApi +
-            '/ThongTinKhac/QuanLyChuyenMucCauHoi/ThemMoiCauHoiThuongGap',
-        itemData,
-        this.httpOption
-    );
-}
-
-capNhatCauHoiThuongGap(itemData: any) {
-    return this.http.post<any>(
-        environment.baseUrlApi +
-            '/ThongTinKhac/QuanLyChuyenMucCauHoi/CapNhatCauHoiThuongGap',
-        itemData,
-        this.httpOption
-    );
-}
-
-xoaCauHoiThuongGap(id: string) {
-    return this.http.get<any>(
-        environment.baseUrlApi +
-            '/ThongTinKhac/QuanLyChuyenMucCauHoi/XoaChuyenMucCauHoi/' +
-            id
-    );
-}
+        );
+    }
 }

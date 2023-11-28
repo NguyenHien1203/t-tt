@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
-import { ChipsModule } from 'primeng/chips';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -17,27 +16,24 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { Select2Module } from 'ng-select2-component';
 import { DialogModule } from 'primeng/dialog';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { KeyFilterModule } from 'primeng/keyfilter';
+import { ChipModule } from 'primeng/chip';
 
-import { QuanLyChuyenMucCauHoiRoutingModule } from './quan-ly-chuyen-muc-cau-hoi-routing.module';
-import { QuanLyChuyenMucCauHoiComponent } from './quan-ly-chuyen-muc-cau-hoi.component';
-import { ThemMoiComponent } from './them-moi/them-moi.component';
-import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { CauHoiThuongGapRoutingModule } from './cau-hoi-thuong-gap-routing.module';
+
+import { CauHoiThuongGapComponent } from './cau-hoi-thuong-gap.component';
+import { ThongTinKhacModule } from '../thong-tin-khac.module';
+
 
 @NgModule({
-  declarations: [QuanLyChuyenMucCauHoiComponent, ThemMoiComponent, CapNhatComponent],
+  declarations: [CauHoiThuongGapComponent],
   imports: [
-    KeyFilterModule,
-    ConfirmDialogModule,
-    FileUploadModule,
+    ThongTinKhacModule,
+    ChipModule,
     DialogModule,
     FormsModule,
     Select2Module,
     AutoCompleteModule,
     CalendarModule,
-    ChipsModule,
     DropdownModule,
     InputMaskModule,
     InputNumberModule,
@@ -50,7 +46,7 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
     ToastModule,
     BreadcrumbModule,
     CommonModule,
-    QuanLyChuyenMucCauHoiRoutingModule
+    CauHoiThuongGapRoutingModule
   ]
 })
-export class QuanLyChuyenMucCauHoiModule { }
+export class CauHoiThuongGapModule { }

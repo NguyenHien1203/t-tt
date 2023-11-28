@@ -1,0 +1,40 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { TimKiemCauHoiThuongGap } from 'src/app/models/thong-tin-khac/quan-ly-cau-hoi-thuong-gap';
+import { environment } from 'src/environments/environment.development';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CauHoiThuongGapService {
+
+  private httpOption = {
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+    }),
+};
+constructor(private http: HttpClient) {}
+
+getDanhSachQuanLyCauHoiThuongGap(timKiemDanhSach: TimKiemCauHoiThuongGap) {
+    return this.http
+        .post<any>(
+            environment.baseUrlApi +
+                '/ThongTinKhac/CauHoiThuongGap/GetDanhSach',
+            timKiemDanhSach,
+            this.httpOption
+        )
+        .toPromise()
+        .then((res) => res.objData);
+}
+
+getCauHoiThuongGap(idCauHoi: string) {
+    return this.http
+        .get<any>(
+            environment.baseUrlApi +
+                '/ThongTinKhac/CauHoiThuongGap/GetCauHoiThuongGapById/' + idCauHoi,
+            this.httpOption
+        )
+        .toPromise()
+        .then((res) => res.objData);
+}
+}

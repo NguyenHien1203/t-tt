@@ -162,8 +162,6 @@ export class CapNhatComponent {
     public LoadLanhDaoKy() {
         this.service.getDanhSachLanhDaoKy(this.idDonViLamViec).then((data) => {
             this.lstLanhDaoKy = data;
-            console.log(this.lstLanhDaoKy);
-            
         });
     }
 

@@ -50,6 +50,14 @@ const routes: Routes = [
                 './quan-ly-chuyen-muc-cau-hoi/quan-ly-chuyen-muc-cau-hoi.module'
             ).then((m) => m.QuanLyChuyenMucCauHoiModule),
     },
+    {
+        path: 'cau-hoi-thuong-gap',
+        data: { breadcrumb: 'Câu hỏi thường gặp' },
+        loadChildren: () =>
+            import(
+                './cau-hoi-thuong-gap/cau-hoi-thuong-gap.module'
+            ).then((m) => m.CauHoiThuongGapModule),
+    },
 ];
 
 @NgModule({

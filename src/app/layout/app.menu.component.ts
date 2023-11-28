@@ -486,7 +486,7 @@ export class AppMenuComponent implements OnInit {
                         {
                             label: 'Câu hỏi thường gặp',
                             icon: 'pi pi-fw pi-question',
-                            routerLink: ['/hethong/nhomquyen'],
+                            routerLink: ['/thong-tin-khac/cau-hoi-thuong-gap'],
                             code: '006011'
                         },
                         {
@@ -1304,7 +1304,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Câu hỏi thường gặp',
                                 icon: 'pi pi-fw pi-question',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/cau-hoi-thuong-gap'],
                                 code: '006011'
                             },
                             {

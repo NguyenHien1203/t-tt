@@ -27,12 +27,6 @@ export class CapNhatComponent {
         private authService: AuthService
     ) {}
 
-    items: any[] = [
-        { label: 'Văn bản đi' },
-        { label: 'Cập nhật mới' },
-        { label: 'Thêm mới văn bản' },
-    ];
-    home: any = { icon: 'pi pi-home', routerLink: '/' };
     loading: boolean = true;
     selectedFiles: any[] = [];
     submitted: boolean = false;
@@ -90,7 +84,6 @@ export class CapNhatComponent {
     public async BindDialogData() {
         try {
             const data = await this.service.getVanBanById(this.id);
-            console.log("data: ", data);
             let fileLoad = data.lstFile;
             fileLoad.forEach(function (val, key) {
                 val.isNew = false;
@@ -396,7 +389,4 @@ export class CapNhatComponent {
         this.submitted = false;
     }
 
-    public ReturnTrangChu() {
-        this.router.navigate(['/van-ban-di/cap-nhat-moi']);
-    }
 }

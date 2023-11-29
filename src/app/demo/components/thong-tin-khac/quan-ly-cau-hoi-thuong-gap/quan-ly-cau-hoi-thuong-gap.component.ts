@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { QuanLyCauHoiThươngGapService } from 'src/app/demo/service/thong-tin-khac/quan-ly-cau-hoi-thương-gap.service';
@@ -15,7 +15,8 @@ export class QuanLyCauHoiThuongGapComponent {
         private service: QuanLyCauHoiThươngGapService,
         private messageService: MessageService,
         private confirmService: ConfirmationService,
-        private authService: AuthService
+        private authService: AuthService,
+        private cd: ChangeDetectorRef
     ) {}
 
     public hienThiThemMoi: boolean = false;
@@ -50,6 +51,10 @@ export class QuanLyCauHoiThuongGapComponent {
         this.loading = false;
         this.LoadDanhSach();
         this.LoadChuyenMuc();
+    }
+
+    ngAfterContentChecked(): void {
+        this.cd.detectChanges();
     }
 
     public ThemMoi(): void {
@@ -121,8 +126,7 @@ export class QuanLyCauHoiThuongGapComponent {
             });
     }
 
-    public ChiTiet(id: string)
-    {
+    public ChiTiet(id: string) {
         this.id = id;
         this.hienThiChiTiet = true;
     }

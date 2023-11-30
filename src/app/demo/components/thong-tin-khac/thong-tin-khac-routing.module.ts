@@ -50,6 +50,7 @@ const routes: Routes = [
                 './quan-ly-chuyen-muc-cau-hoi/quan-ly-chuyen-muc-cau-hoi.module'
             ).then((m) => m.QuanLyChuyenMucCauHoiModule),
     },
+    { path: 'quan-ly-tham-do-y-kien', data: { breadcrumb: 'Quản lý thăm dò ý kiến' }, loadChildren: () => import('./quan-ly-tham-do-y-kien/quan-ly-tham-do-y-kien.module').then(m => m.QuanLyThamDoYKienModule) },
     {
         path: 'cau-hoi-thuong-gap',
         data: { breadcrumb: 'Câu hỏi thường gặp' },

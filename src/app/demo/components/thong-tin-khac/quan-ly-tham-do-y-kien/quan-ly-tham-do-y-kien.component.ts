@@ -19,10 +19,14 @@ export class QuanLyThamDoYKienComponent implements OnInit {
   deleteProductDialog: boolean = false;
   hienThiThemMoi: boolean = false;
   hienThiCapNhat: boolean = false;
+  hienThiDapAn: boolean = false;
   msgs: Message[] = [];
 
   danhSach: QuanLyThamDoYKien[] = [];
   quanLyThamDo: QuanLyThamDoYKien = {};
+  idYKien: any;
+  idCapNhat: any;
+  idDapAn: any;
 
   timKiem: TimKiemQuanLyThamDoYKien = {
     noiDung: "",
@@ -33,8 +37,8 @@ export class QuanLyThamDoYKienComponent implements OnInit {
 
   maxThuTu: number = 0;
 
-  constructor(private messageService: MessageService, private quanLyThamDoYKienService: QuanLyThamDoYKienService, private authService: AuthService,) { } 
-  
+  constructor(private messageService: MessageService, private quanLyThamDoYKienService: QuanLyThamDoYKienService, private authService: AuthService,) { }
+
   ngOnInit(): void {
     this.breadcrumbItems = [];
     this.breadcrumbItems.push({ label: 'Danh mục' });
@@ -48,32 +52,68 @@ export class QuanLyThamDoYKienComponent implements OnInit {
 
   TimKiem() {
     this.timKiem.timChinhXac = this.timchinhXac ? 1 : 0;
-    
+
     this.quanLyThamDoYKienService.getDanhSach(this.timKiem)
-    .subscribe(data => {
-      if (data.isError) {
-        this.msgs = [];
-        this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
-      } else {
-        this.danhSach = data.lst;     
-        this.maxThuTu = data.max;
-      };
-    }, (error) => {
-      console.log('Error', error);
-    })
+      .subscribe(data => {
+        if (data.isError) {
+          this.msgs = [];
+          this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
+        } else {
+          this.danhSach = data.lst;
+          this.maxThuTu = data.max;
+        };
+      }, (error) => {
+        console.log('Error', error);
+      })
+  }
+
+  Xoa(id: any) {
+    this.deleteProductDialog = true;
+    this.idYKien = id;
+    console.log(this.idYKien);
+  }
+
+  TamDungXoa() {
+    this.deleteProductDialog = false;
+    this.idYKien = null;
+  }
+
+  XacNhanXoa() {
+    this.deleteProductDialog = false;
+    this.quanLyThamDoYKienService.xoa(this.idYKien).subscribe(
+      data => {
+        if (data.isError) {
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
+        } else {
+          this.TimKiem();
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
+        }
+      }
+    )
   }
 
   ThemMoi() {
     this.hienThiThemMoi = true;
   }
 
+  CapNhat(id: any) {
+    this.hienThiCapNhat = true;
+    this.idCapNhat = id;
+  }
+
+  DapAn(id: any){
+    this.hienThiDapAn = true;
+    this.idDapAn = id;
+  }
+
   TatPopup(item: any, type: string) {
     if (type === 'C') {
       this.hienThiThemMoi = false;
-    } else {
+    } else if (type === 'U') {
       this.hienThiCapNhat = false;
+    } else if (type === 'D') {
+      this.hienThiDapAn = false;
     }
     this.TimKiem();
   }
-
 }

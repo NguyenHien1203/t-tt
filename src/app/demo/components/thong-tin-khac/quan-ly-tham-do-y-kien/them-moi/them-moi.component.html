@@ -1,5 +1,5 @@
 <p-dialog [formGroup]="formThemMoi" [(visible)]="show" [style]="{width: '960px'}"
-    header="THÊM CÂU TRẢ LỜI CHO CÂU HỎI THĂM DÒ Ý KIẾN" [modal]="true" class="p-fluid" (onHide)="TatPopup()"
+    header="THÊM CÂU HỎI THĂM DÒ Ý KIẾN" [modal]="true" class="p-fluid" (onHide)="TatPopup()"
     (onShow)="GetValueThuTu()">
     <div class="formgrid grid">
         <div class="field col-7">
@@ -15,8 +15,8 @@
         </div>
         <div class="field col md:col-2">
             <label for="hienThi">Hiển thị</label>
-            <p-checkbox [binary]="true" inputId="checkbox" name="hienThi" formControlName="hienThi" value="true"
-                (click)="CheckHT()" class="mt-3" label="Hiển thị"></p-checkbox>
+            <p-checkbox [binary]="true" inputId="checkbox" name="hienThi" formControlName="hienThi" value="false"
+               class="mt-3" label="Hiển thị"></p-checkbox>
         </div>
     </div>
     <ng-template pTemplate="footer">

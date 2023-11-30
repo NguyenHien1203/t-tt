@@ -20,7 +20,7 @@ export class ThemMoiComponent implements OnInit {
     noiDung: ["", [Validators.required]],
     thuTu: [0, []],
     donViId: [0, []],
-    hienThi: ["", []],
+    hienThi: [false, []],
     created: [new Date(), []],
     createdBy: [0, []],
     lastModified: [new Date(), []],
@@ -28,18 +28,6 @@ export class ThemMoiComponent implements OnInit {
   });
   valueForm: any;
   hienThi: boolean = false;
-
-  data: any = {
-    id: 0,
-    thuTu: 0,
-    noiDung: "",
-    donViId: 0,
-    hienThi: "",
-    created: new Date(),
-    createdBy: 0,
-    lastModified: new Date(),
-    lastModifiedBy: 0,
-  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -61,12 +49,13 @@ export class ThemMoiComponent implements OnInit {
     this.show = false;
     this.close.emit(this.show);
     this.formThemMoi.reset();
-    
+
   }
 
   GetValueThuTu() {
-    this.data.thuTu = this.maxThuTu + 1;
-    this.formThemMoi.setValue(this.data);
+    this.formThemMoi.patchValue({
+      thuTu: this.maxThuTu + 1,
+    })
   }
 
   ThemMoi() {
@@ -74,20 +63,22 @@ export class ThemMoiComponent implements OnInit {
     this.valueForm = this.formThemMoi.value;
     this.valueForm.donViId = this.authService.GetDonViLamViec();
     this.valueForm.createdBy = this.authService.GetDonViLamViec();
-    this.quanLyThamDoYKienService.themMoi(this.formThemMoi.value).subscribe(
-      data => {
-        console.log('data', data);
-        let resData = data;
-        if (resData.isError) {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
-        } else {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
+    if (this.formThemMoi.valid) {
+      this.submitted = true;
+      this.quanLyThamDoYKienService.themMoi(this.formThemMoi.value).subscribe(
+        data => {
+          let resData = data;
+          if (resData.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
+          } else {
+            this.TatPopup();
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
+          }
+        },
+        error => {
+          console.log('Error', error);
         }
-      },
-      error => {
-        console.log('Error', error);
-      }
-    )
-    this.TatPopup();
+      )
+    }
   }
 }

@@ -13,7 +13,7 @@
                 <div class="field col-12 md:col-2 mt-2">
                     <div class="field-checkbox">
                         <p-checkbox name="timChinhXac" id="timChinhXac" value="true" label="Tìm chính xác"
-                            (click)="CheckCX()" value="true"></p-checkbox>
+                            (click)="CheckCX()" value="false"></p-checkbox>
                     </div>
                 </div>
                 <div class="field col-12 md:col-2">
@@ -77,10 +77,10 @@
                                     <div class="flex justify-content-center">
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
-                                            (click)="CapNhatSoVanBan(quanLyThamDo.id)"></button>
+                                            (click)="CapNhat(quanLyThamDo.id)"></button>
                                         <button pButton pRipple icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"
-                                            (click)="XoaSoVanBan(quanLyThamDo.id)"></button>
+                                            (click)="Xoa(quanLyThamDo.id)"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -92,12 +92,14 @@
 
         <app-them-moi [show]="hienThiThemMoi" (close)="TatPopup($event, 'C')" [maxThuTu]="maxThuTu"></app-them-moi>
 
-        <!--<app-cap-nhat [show]="hienThiCapNhat" (close)="TatPopup($event, 'U')" [id]="idSoVanBan"></app-cap-nhat>  -->
+        <app-cap-nhat [show]="hienThiCapNhat" (close)="TatPopup($event, 'U')" [id]="idCapNhat"></app-cap-nhat> 
+
+        <app-dap-an [show]="hienThiDapAn" (close)="TatPopup($event, 'D')" [id]="idDapAn"></app-dap-an>
 
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="">Bạn muốn xóa bản ghi này ?</span>
+                <span *ngIf="quanLyThamDo">Bạn muốn xóa bản ghi này ?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"

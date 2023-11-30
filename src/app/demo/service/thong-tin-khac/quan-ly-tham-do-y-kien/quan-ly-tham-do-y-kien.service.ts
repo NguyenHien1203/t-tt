@@ -21,11 +21,24 @@ export class QuanLyThamDoYKienService {
   constructor(private http: HttpClient) { }
 
   public getDanhSach(danhSach: any): Observable<any> {
-    return this.http.post(`${environment.baseUrlApi}` + this.url + 'GetDanhSach' ,danhSach)
-    .pipe(map((res: any) => res.objData as QuanLyThamDoYKien))
+    return this.http.post(`${environment.baseUrlApi}` + this.url + 'GetDanhSach', danhSach)
+      .pipe(map((res: any) => res.objData as QuanLyThamDoYKien))
   }
 
   public themMoi(cauHoi: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'ThemMoi', cauHoi, this.httpOptions)
+  }
+
+  public xoa(id: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `Xoa/${id}`, this.httpOptions);
+  }
+
+  public capNhat(cauHoi: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhat/${cauHoi.id}`, cauHoi, this.httpOptions);
+  }
+
+  public getThamDoCauHoi(id: any): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + `GetThamDoYKien/${id}`)
+      .pipe(map((res: any) => res.objData as QuanLyThamDoYKien));
   }
 }

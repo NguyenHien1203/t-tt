@@ -76,4 +76,15 @@ export class QuanTriLichService {
             this.httpOption
         );
     }
+
+    xuLyQuanTriLich(idQuanTriLich: string, action: string) {
+        return this.http.get<any>(
+            environment.baseUrlApi +
+                '/Lich/QuanTriLich/XuLyQuanTriLich?idQuanTriLich=' +
+                idQuanTriLich +
+                '&action=' +
+                action,
+            this.httpOption
+        );
+    }
 }

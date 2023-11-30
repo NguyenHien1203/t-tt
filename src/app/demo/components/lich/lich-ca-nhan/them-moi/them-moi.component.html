@@ -57,6 +57,7 @@
                     >Ngày bắt đầu <span class="p-error"> (*)</span>:</label
                 >
                 <p-calendar
+                    showIcon="true"
                     appendTo="body"
                     formControlName="ngayHopBatDau"
                     dateFormat="dd/mm/yy"
@@ -81,6 +82,7 @@
                 >
                 <label htmlfor="ngayHopKetThuc"> </label>
                 <p-calendar
+                    showIcon="true"
                     required=""
                     appendTo="body"
                     formControlName="ngayHopKetThuc"
@@ -134,7 +136,7 @@
                 ></p-dropdown>
             </div>
             <div class="col-12 md:col-3">
-                <label htmlfor="phutBatDau">Phút bắt đầu</label>
+                <label htmlfor="phutBatDau">Phút bắt đầu:</label>
                 <p-dropdown
                     [options]="lstPhut"
                     appendTo="body"
@@ -145,7 +147,7 @@
                 ></p-dropdown>
             </div>
             <div class="col-12 md:col-3">
-                <label htmlfor="gioKetThuc">Giờ kết thúc</label>
+                <label htmlfor="gioKetThuc">Giờ kết thúc:</label>
                 <p-dropdown
                     [options]="lstGio"
                     appendTo="body"
@@ -156,7 +158,7 @@
                 ></p-dropdown>
             </div>
             <div class="col-12 md:col-3">
-                <label htmlfor="gioKetThuc">Phút kết thúc</label>
+                <label htmlfor="gioKetThuc">Phút kết thúc:</label>
                 <p-dropdown
                     [options]="lstPhut"
                     appendTo="body"

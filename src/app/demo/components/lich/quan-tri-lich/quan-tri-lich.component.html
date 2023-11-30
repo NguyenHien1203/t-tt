@@ -21,55 +21,73 @@
                         appendTo="body"
                         optionValue="value"
                         class="form-control"
-                        [style]="{'width': '100%'}"
+                        [style]="{ width: '100%' }"
                         [(ngModel)]="currentWeek"
                         [showClear]="false"
+                        (ngModelChange)="ChangeLich()"
                     ></p-dropdown>
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
-                  <p-dropdown
+                    <p-dropdown
                         [options]="lstNam"
                         appendTo="body"
                         class="form-control"
-                        [style]="{'width': '100%'}"
+                        [style]="{ width: '100%' }"
                         optionValue="value"
                         [(ngModel)]="currentYear"
                         [showClear]="false"
+                        (ngModelChange)="ChangeLich()"
                     ></p-dropdown>
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
-                    <p-button label="TUẦN TRƯỚC" [style]="{'width': '100%'}" class="form-control" icon="pi pi-arrow-left" iconPos="left"></p-button>
-                  
+                    <p-button
+                        label="TUẦN TRƯỚC"
+                        [style]="{ width: '100%' }"
+                        class="form-control"
+                        icon="pi pi-arrow-left"
+                        iconPos="left"
+                        (click)="updateWeek(startOfWeekDate, 'prev')"
+                    ></p-button>
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
-                    <p-button label="TUẦN SAU" [style]="{'width': '100%'}" class="form-control" icon="pi pi-arrow-right" iconPos="right"></p-button>
+                    <p-button
+                        label="TUẦN SAU"
+                        [style]="{ width: '100%' }"
+                        class="form-control"
+                        icon="pi pi-arrow-right"
+                        iconPos="right"
+                        (click)="updateWeek(startOfWeekDate, 'next')"
+                    ></p-button>
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
-                  <input
-                    pinputtext=""
-                    id="tuNgay"
-                    type="text"
-                    class="form-control"
-                    [style]="{'width': '100%'}"
-                    class="p-inputtext p-component p-element"
-                />
+                    <input
+                        [(ngModel)]="firstOfWeek_show"
+                        pinputtext=""
+                        id="tuNgay"
+                        type="text"
+                        class="form-control"
+                        [style]="{ width: '100%' }"
+                        class="p-inputtext p-component p-element"
+                    />
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
-                  <input
-                    pinputtext=""
-                    id="denNgay"
-                    type="text"
-                    class="form-control"
-                    [style]="{'width': '100%'}"
-                    class="p-inputtext p-component p-element"
-                />
+                    <input
+                        [(ngModel)]="endOfWeek_show"
+                        pinputtext=""
+                        id="denNgay"
+                        type="text"
+                        class="form-control"
+                        [style]="{ width: '100%' }"
+                        click=""
+                        class="p-inputtext p-component p-element"
+                    />
                 </label>
             </div>
         </div>
 
         <div class="card">
             <div class="wrapper">
-                <h2>DANH SÁCH LỊCH CÁ NHÂN</h2>
+                <h2>DANH SÁCH QUẢN TRỊ LỊCH</h2>
                 <div class="icon-cls">
                     <button
                         pButton
@@ -109,10 +127,31 @@
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
-                                        Lịch họp
+                                        Ngày tạo
                                     </div>
                                 </th>
                                 <th style="min-width: 12rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Thời gian
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Người tạo
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Nội dung
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
@@ -123,21 +162,28 @@
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
-                                        Thời gian bắt đầu
+                                        Chủ trì
                                     </div>
                                 </th>
                                 <th style="min-width: 10rem">
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
-                                        Thời gian kết thúc
+                                        Lãnh đạo văn phòng
                                     </div>
                                 </th>
                                 <th style="min-width: 10rem">
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
-                                        Nội dung
+                                        Đơn vị chuẩn bị
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Trạng thái
                                     </div>
                                 </th>
                                 <th style="min-width: 5rem">
@@ -159,25 +205,61 @@
                                     {{ rowIndex + 1 }}
                                 </td>
                                 <td class="text-center">
-                                    {{ item.lichHop }}
+                                    {{ item.ngayTao | date : "dd-MM-yyyy" }}
                                 </td>
                                 <td class="text-center">
-                                    {{ item.diaDiem }}
+                                    {{ item.thoiGian }}
                                 </td>
                                 <td>
-                                    {{
-                                        item.thoiGianBatDau
-                                            | date : "dd-MM-yyyy"
-                                    }}
-                                </td>
-                                <td>
-                                    {{
-                                        item.thoiGianKetThuc
-                                            | date : "dd-MM-yyyy"
-                                    }}
+                                    {{ item.tenNguoiDeXuat }}
                                 </td>
                                 <td>
                                     {{ item.noiDung }}
+                                </td>
+                                <td>
+                                    {{ item.diaDiem }}
+                                </td>
+                                <td>
+                                    {{ item.lanhDaoChuTri }}
+                                </td>
+                                <td>
+                                    {{ item.lanhDaoVanPhong }}
+                                </td>
+                                <td>
+                                    {{ item.donViChuanBi }}
+                                </td>
+                                <td>
+                                    <span
+                                        *ngIf="
+                                            idNhomQuyen == 3 &&
+                                                item.trangThai == 1;
+                                            else notPermis
+                                        "
+                                    >
+                                        <button
+                                            pButton
+                                            pRipple
+                                            icon="pi pi-check"
+                                            (click)="XuLyLich(item.id, 'D')"
+                                            pTooltip="Duyệt"
+                                            class="p-button-rounded p-button-success mr-2"
+                                        ></button>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            (click)="XuLyLich(item.id, 'TC')"
+                                            pTooltip="Từ chối duyệt"
+                                            icon="pi pi-times"
+                                            class="p-button-rounded p-button-danger"
+                                        ></button>
+                                    </span>
+                                    <ng-template #notPermis>
+                                        <p-chip
+                                            label="{{
+                                                item.tenTrangThai
+                                            }}"
+                                        ></p-chip>
+                                    </ng-template>
                                 </td>
                                 <td class="text-center">
                                     <div class="div-center">
@@ -185,12 +267,14 @@
                                             pButton
                                             pRipple
                                             icon="pi pi-pencil"
+                                            pTooltip="Cập nhật"
                                             (click)="CapNhat(item.id)"
                                             class="p-button-rounded p-button-success mr-2"
                                         ></button>
                                         <button
                                             pButton
                                             pRipple
+                                            pTooltip="Xóa"
                                             (click)="Xoa(item.id)"
                                             icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"
@@ -201,12 +285,12 @@
                         </ng-template>
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td colspan="10">No record found.</td>
+                                <td colspan="12">No record found.</td>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="loadingbody">
                             <tr>
-                                <td colspan="10">
+                                <td colspan="12">
                                     Loading record data. Please wait.
                                 </td>
                             </tr>

@@ -1,5 +1,5 @@
 export const environment = {
    baseUrlApi: 'https://localhost:7077/api'
     // baseUrlApi: 'https://localhost:8009/api'
-    ////baseUrlApi: 'https://192.168.1.205:19196/api' // public to local minhtd
+    // baseUrlApi: 'http://192.168.1.181:2023/api' // public to local minhtd
 };

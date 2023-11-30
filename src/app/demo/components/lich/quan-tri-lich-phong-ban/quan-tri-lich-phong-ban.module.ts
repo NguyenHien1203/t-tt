@@ -18,21 +18,26 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { Select2Module } from 'ng-select2-component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
-import { QuanTriLichRoutingModule } from './quan-tri-lich-routing.module';
-import { QuanTriLichComponent } from './quan-tri-lich.component';
-import { ThemMoiComponent } from './them-moi/them-moi.component';
-import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
-import { RadioButtonModule } from 'primeng/radiobutton';
 import { ChipModule } from 'primeng/chip';
 import { TooltipModule } from 'primeng/tooltip';
 
+import { QuanTriLichPhongBanRoutingModule } from './quan-tri-lich-phong-ban-routing.module';
+import { ThemMoiComponent } from './them-moi/them-moi.component';
+import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { ImportExcelComponent } from './import-excel/import-excel.component';
+import { QuanTriLichPhongBanComponent } from './quan-tri-lich-phong-ban.component';
+
+
 @NgModule({
-    declarations: [QuanTriLichComponent, ThemMoiComponent, CapNhatComponent],
-    imports: [
-        TooltipModule,
+  declarations: [
+    QuanTriLichPhongBanComponent,
+    ThemMoiComponent,
+    CapNhatComponent,
+    ImportExcelComponent
+  ],
+  imports: [
+    TooltipModule,
         ChipModule,
-        RadioButtonModule,
         ConfirmDialogModule,
         DialogModule,
         FormsModule,
@@ -51,8 +56,8 @@ import { TooltipModule } from 'primeng/tooltip';
         TableModule,
         ToastModule,
         BreadcrumbModule,
-        CommonModule,
-        QuanTriLichRoutingModule,
-    ],
+    CommonModule,
+    QuanTriLichPhongBanRoutingModule
+  ]
 })
-export class QuanTriLichModule {}
+export class QuanTriLichPhongBanModule { }

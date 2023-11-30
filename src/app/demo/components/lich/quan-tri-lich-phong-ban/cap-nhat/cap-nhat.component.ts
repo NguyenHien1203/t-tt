@@ -1,30 +1,25 @@
-import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    Output,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
-import { QuanTriLichService } from 'src/app/demo/service/lich/quan-tri-lich.service';
+import { QuanTriLichPhongBanService } from 'src/app/demo/service/lich/quan-tri-lich-phong-ban.service';
 
 @Component({
-    selector: 'app-them-moi',
-    templateUrl: './them-moi.component.html',
-    styleUrls: ['./them-moi.component.scss'],
+  selector: 'app-cap-nhat',
+  templateUrl: './cap-nhat.component.html',
+  styleUrls: ['./cap-nhat.component.scss']
 })
-export class ThemMoiComponent {
-    @Input() show: boolean = false;
+export class CapNhatComponent {
+  @Input() show: boolean = false;
     @Output() tatPopup = new EventEmitter<boolean>();
+    @Input() id: string = '1';
 
     constructor(
-        private fb: FormBuilder,
-        private service: QuanTriLichService,
+        private service: QuanTriLichPhongBanService,
         private messageService: MessageService,
-        private authService: AuthService,
-        private cd: ChangeDetectorRef
+        private fb: FormBuilder,
+        private cd: ChangeDetectorRef,
+        private authService: AuthService
     ) {
         this.lstPhut.push({ label: 'Chọn phút', value: null });
         for (let i = 0; i < 60; i += 5) {
@@ -39,9 +34,8 @@ export class ThemMoiComponent {
         { label: 'Buổi chiều', value: '2' },
     ];
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
-    idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     submitted: boolean = false;
-    formThemMoi = this.fb.group({
+    public formCapNhat = this.fb.group({
         id: [0, []],
         ngayTao: [new Date(), [Validators.required]],
         thoiGian: ['0', []],
@@ -52,21 +46,23 @@ export class ThemMoiComponent {
         lanhDaoVanPhong: ['', []],
         donViChuanBi: ['', []],
         noiDung: ['', []],
-        donViId : [this.idDonViLamViec, []],
-        userId : [this.idUser, []],
     });
 
-    public Thoat(): void {
-        this.submitted = false;
-        this.formThemMoi.reset();
-        this.show = false;
-        this.tatPopup.emit(this.show);
-        this.cd.detectChanges();
+    public async BindDataDialog() {
+        try {
+            const data = await this.service.getQuanTriLichPhongBanById(this.id);
+            data.ngayTao = new Date(data.ngayTao);
+            this.formCapNhat.setValue(data);
+        } catch (error) {
+            console.log(error);
+        }
+
+        this.ChangeThoiGian();
     }
 
     public ChangeThoiGian() {
         this.lstGio = [];
-        let value = this.formThemMoi.value.thoiGian;
+        let value = this.formCapNhat.value.thoiGian;
         if (value != null) {
             this.lstGio.push({ label: 'Chọn giờ', value: null });
            let number = value == '1' ? 12 : value == '2' ? 23 : 0;
@@ -77,24 +73,32 @@ export class ThemMoiComponent {
         }
     }
 
-    public ThemMoi(): void {
+    public Thoat(): void {
+        this.submitted = false;
+        this.formCapNhat.reset();
+        this.show = false;
+        this.tatPopup.emit(this.show);
+        this.cd.detectChanges();
+    }
+
+    public CapNhat(): void {
         this.submitted = true;
-        if (this.formThemMoi.valid) {
-            const lichCaNhan = this.formThemMoi.value;
-            lichCaNhan.id = 0;
-            this.service.themMoiQuanTriLich(lichCaNhan).subscribe(
+        if (this.formCapNhat.valid) {
+            let lichCaNhan = this.formCapNhat.value;
+            this.service.capNhatQuanTriLichPhongBan(lichCaNhan).subscribe(
                 (data) => {
-                    if (data.isError) {
+                    let resData = data;
+                    if (resData.isError) {
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Error',
-                            detail: data.title,
+                            detail: resData.title,
                         });
                     } else {
                         this.messageService.add({
                             severity: 'success',
                             summary: 'Success',
-                            detail: data.title,
+                            detail: resData.title,
                         });
                         this.Thoat();
                     }

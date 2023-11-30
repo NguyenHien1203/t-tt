@@ -401,7 +401,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản trị lịch phòng ban',
                                 icon: 'pi pi-fw pi-calendar-plus',
-                                routerLink: ['/lich/quan-tri-lich-ca-nhan'],
+                                routerLink: ['/lich/quan-tri-lich-phong-ban'],
                                 code: '005001',
                             },
                             {
@@ -1235,7 +1235,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản trị lịch phòng ban',
                                 icon: 'pi pi-fw pi-calendar-plus',
-                                routerLink: ['/lich/quan-tri-lich-ca-nhan'],
+                                routerLink: ['/lich/quan-tri-lich-phong-ban'],
                                 code: '005001',
                             },
                             {

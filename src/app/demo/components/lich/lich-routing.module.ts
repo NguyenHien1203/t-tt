@@ -22,8 +22,8 @@ const routes: Routes = [
         path: 'quan-tri-lich-phong-ban',
         data: { breadcrumb: 'Quản trị lịch phòng ban' },
         loadChildren: () =>
-            import('./lich-ca-nhan/lich-ca-nhan.module').then(
-                (m) => m.LichCaNhanModule
+            import('./quan-tri-lich-phong-ban/quan-tri-lich-phong-ban.module').then(
+                (m) => m.QuanTriLichPhongBanModule
             ),
     },
     {

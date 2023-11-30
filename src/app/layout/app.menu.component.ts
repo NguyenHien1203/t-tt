@@ -492,7 +492,7 @@ export class AppMenuComponent implements OnInit {
                         {
                             label: 'Quản lý thăm dò ý kiến',
                             icon: 'pi pi-fw pi-globe',
-                            routerLink: ['/hethong/nhomquyen'],
+                            routerLink: ['/thong-tin-khac/quan-ly-tham-do-y-kien'],
                             code: '006012'
                         },
                         {
@@ -1310,7 +1310,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý thăm dò ý kiến',
                                 icon: 'pi pi-fw pi-globe',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/quan-ly-tham-do-y-kien'],
                                 code: '006012'
                             },
                             {

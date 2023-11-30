@@ -1,0 +1,26 @@
+<p-dialog [formGroup]="formThemMoi" [(visible)]="show" [style]="{width: '960px'}"
+    header="THÊM CÂU TRẢ LỜI CHO CÂU HỎI THĂM DÒ Ý KIẾN" [modal]="true" class="p-fluid" (onHide)="TatPopup()"
+    (onShow)="GetValueThuTu()">
+    <div class="formgrid grid">
+        <div class="field col-7">
+            <label for="noiDung">Câu hỏi <span class="p-error">*</span></label>
+            <input type="text" pInputText id="noiDung" formControlName="noiDung" placeholder="Nội dung câu hỏi">
+            <span class="p-error"
+                *ngIf="!formThemMoi.controls.noiDung.valid && (formThemMoi.controls.noiDung.touched || submitted)">Vui
+                lòng thêm mới nội dung</span>
+        </div>
+        <div class="field col md:col-3">
+            <label for="thuTu">Số thứ tự</label>
+            <p-inputNumber id="thuTu" formControlName="thuTu" placeholder="Số thứ tự"></p-inputNumber>
+        </div>
+        <div class="field col md:col-2">
+            <label for="hienThi">Hiển thị</label>
+            <p-checkbox [binary]="true" inputId="checkbox" name="hienThi" formControlName="hienThi" value="true"
+                (click)="CheckHT()" class="mt-3" label="Hiển thị"></p-checkbox>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" (click)="ThemMoi()" icon="pi pi-check" class="p-button-info"></button>
+        <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="TatPopup()"></button>
+    </ng-template>
+</p-dialog>

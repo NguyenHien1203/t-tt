@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'tai-lieu-huong-dan', data: { breadcrumb: 'Tài liệu hướng dẫn' }, loadChildren: () => import('./tai-lieu-huong-dan/tai-lieu-huong-dan.module').then(m => m.TaiLieuHuongDanModule) },
   { path: 'quan-ly-cau-hoi-thuong-gap', data: { breadcrumb: 'Quản lý câu hỏi thường gặp' }, loadChildren: () => import('./quan-ly-cau-hoi-thuong-gap/quan-ly-cau-hoi-thuong-gap.module').then(m => m.QuanLyCauHoiThuongGapModule) },
   { path: 'quan-ly-chuyen-muc-cau-hoi', data: { breadcrumb: 'Quản lý câu hỏi thường gặp' }, loadChildren: () => import('./quan-ly-chuyen-muc-cau-hoi/quan-ly-chuyen-muc-cau-hoi.module').then(m => m.QuanLyChuyenMucCauHoiModule) },
+  { path: 'quan-ly-tham-do-y-kien', data: { breadcrumb: 'Quản lý thăm dò ý kiến' }, loadChildren: () => import('./quan-ly-tham-do-y-kien/quan-ly-tham-do-y-kien.module').then(m => m.QuanLyThamDoYKienModule) },
 ];
 
 @NgModule({

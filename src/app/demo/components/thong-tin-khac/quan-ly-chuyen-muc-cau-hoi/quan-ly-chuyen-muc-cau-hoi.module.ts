@@ -19,13 +19,17 @@ import { Select2Module } from 'ng-select2-component';
 import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 import { QuanLyChuyenMucCauHoiRoutingModule } from './quan-ly-chuyen-muc-cau-hoi-routing.module';
 import { QuanLyChuyenMucCauHoiComponent } from './quan-ly-chuyen-muc-cau-hoi.component';
+import { ThemMoiComponent } from './them-moi/them-moi.component';
+import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 
 @NgModule({
-  declarations: [QuanLyChuyenMucCauHoiComponent],
+  declarations: [QuanLyChuyenMucCauHoiComponent, ThemMoiComponent, CapNhatComponent],
   imports: [
+    KeyFilterModule,
     ConfirmDialogModule,
     FileUploadModule,
     DialogModule,

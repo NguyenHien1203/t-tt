@@ -11,7 +11,6 @@ import { throwError } from 'rxjs';
     selector: 'app-phan-phoi',
     templateUrl: './phan-phoi.component.html',
     styleUrls: ['./phan-phoi.component.scss'],
-    providers: [MessageService],
 })
 export class PhanPhoiComponent {
     @Input() show: boolean = false;

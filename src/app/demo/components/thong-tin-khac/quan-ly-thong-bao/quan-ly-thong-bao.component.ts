@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { QuanLyThongBaoService } from 'src/app/demo/service/thong-tin-khac/quan-ly-thong-bao.service';
 import { TimKiemDanhSach } from 'src/app/models/thong-tin-khac/quan-ly-thong-bao';
@@ -13,7 +13,8 @@ export class QuanLyThongBaoComponent implements OnInit {
     constructor(
         private service: QuanLyThongBaoService,
         private messageService: MessageService,
-        private confirmService: ConfirmationService
+        private confirmService: ConfirmationService,
+        private cd: ChangeDetectorRef
     ) {}
 
     public hienThiThemMoi: boolean = false;
@@ -47,6 +48,10 @@ export class QuanLyThongBaoComponent implements OnInit {
         { label: 'Không hiển thị', value: 0 },
     ];
     quanLyThongBaos: any[] = [];
+
+    ngAfterContentChecked(): void {
+        this.cd.detectChanges();
+    }
 
     ngOnInit(): void {
         this.loading = false;

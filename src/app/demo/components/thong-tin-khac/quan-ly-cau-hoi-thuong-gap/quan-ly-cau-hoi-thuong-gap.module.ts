@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
-import { ChipsModule } from 'primeng/chips';
+import { ChipModule } from 'primeng/chip';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -25,6 +25,7 @@ import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 import { TraLoiComponent } from './tra-loi/tra-loi.component';
 import { QuanLyCauHoiThuongGapComponent } from './quan-ly-cau-hoi-thuong-gap.component';
+import { ThongTinKhacModule } from '../thong-tin-khac.module';
 
 
 @NgModule({
@@ -35,6 +36,8 @@ import { QuanLyCauHoiThuongGapComponent } from './quan-ly-cau-hoi-thuong-gap.com
     TraLoiComponent
   ],
   imports: [
+    ThongTinKhacModule,
+    ChipModule,
     ConfirmDialogModule,
     FileUploadModule,
     DialogModule,
@@ -42,7 +45,6 @@ import { QuanLyCauHoiThuongGapComponent } from './quan-ly-cau-hoi-thuong-gap.com
     Select2Module,
     AutoCompleteModule,
     CalendarModule,
-    ChipsModule,
     DropdownModule,
     InputMaskModule,
     InputNumberModule,

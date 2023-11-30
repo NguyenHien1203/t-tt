@@ -14,9 +14,7 @@ export class QuanLyCauHoiThươngGapService {
     };
     constructor(private http: HttpClient) {}
 
-    getDanhSachQuanLyCauHoiThuongGap(
-        timKiemDanhSach: TimKiemCauHoiThuongGap
-    ) {
+    getDanhSachQuanLyCauHoiThuongGap(timKiemDanhSach: TimKiemCauHoiThuongGap) {
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -27,6 +25,7 @@ export class QuanLyCauHoiThươngGapService {
             .toPromise()
             .then((res) => res.objData);
     }
+
     getCauHoiThuongGapById(id: string) {
         return this.http
             .get<any>(
@@ -36,6 +35,30 @@ export class QuanLyCauHoiThươngGapService {
             )
             .toPromise()
             .then((res) => res.objData);
+    }
+
+    getChuyenMucCauHoi(donViId: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/ThongTinKhac/QuanLyCauHoiThuongGap/GetChuyenMucCauHoi/' +
+                    donViId
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
+
+    traLoiCauHoi(idCauHoi: string, cauTraLoi: string, idNguoiTraLoi: string) {
+        return this.http.post<any>(
+            environment.baseUrlApi +
+                '/ThongTinKhac/QuanLyCauHoiThuongGap/TraLoiCauHoi?idCauHoi=' +
+                idCauHoi +
+                '&cauTraLoi=' +
+                cauTraLoi +
+                '&idNguoiTraLoi=' +
+                idNguoiTraLoi,
+            this.httpOption
+        );
     }
 
     themMoiCauHoiThuongGap(itemData: any) {

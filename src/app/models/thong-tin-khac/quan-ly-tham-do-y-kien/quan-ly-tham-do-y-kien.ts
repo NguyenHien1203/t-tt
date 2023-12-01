@@ -11,3 +11,11 @@ export interface TimKiemQuanLyThamDoYKien {
     donViId?: number;
     timChinhXac?: number;
 }
+
+export interface CauTraLoiThamDo {
+    id?: number;
+    noiDung?: string;
+    ThuTuHienThiCauHoi?: number;
+    hienThi?: boolean;
+    cauHoiId?: number;
+}

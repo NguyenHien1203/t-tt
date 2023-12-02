@@ -27,16 +27,16 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 import { ImportExcelComponent } from './import-excel/import-excel.component';
 import { QuanTriLichPhongBanComponent } from './quan-tri-lich-phong-ban.component';
 
-
 @NgModule({
-  declarations: [
-    QuanTriLichPhongBanComponent,
-    ThemMoiComponent,
-    CapNhatComponent,
-    ImportExcelComponent
-  ],
-  imports: [
-    TooltipModule,
+    declarations: [
+        QuanTriLichPhongBanComponent,
+        ThemMoiComponent,
+        CapNhatComponent,
+        ImportExcelComponent,
+    ],
+    imports: [
+        MultiSelectModule,
+        TooltipModule,
         ChipModule,
         ConfirmDialogModule,
         DialogModule,
@@ -56,8 +56,8 @@ import { QuanTriLichPhongBanComponent } from './quan-tri-lich-phong-ban.componen
         TableModule,
         ToastModule,
         BreadcrumbModule,
-    CommonModule,
-    QuanTriLichPhongBanRoutingModule
-  ]
+        CommonModule,
+        QuanTriLichPhongBanRoutingModule,
+    ],
 })
-export class QuanTriLichPhongBanModule { }
+export class QuanTriLichPhongBanModule {}

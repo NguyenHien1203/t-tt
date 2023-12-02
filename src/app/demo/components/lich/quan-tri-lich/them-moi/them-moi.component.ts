@@ -67,7 +67,7 @@ export class ThemMoiComponent {
     public ChangeThoiGian() {
         this.lstGio = [];
         let value = this.formThemMoi.value.thoiGian;
-        if (value != null) {
+        if (value != null && value != '0') {
             this.lstGio.push({ label: 'Chọn giờ', value: null });
            let number = value == '1' ? 12 : value == '2' ? 23 : 0;
            let index = value == '1' ? 0 : value == '2' ? 12 : 0;
@@ -80,9 +80,9 @@ export class ThemMoiComponent {
     public ThemMoi(): void {
         this.submitted = true;
         if (this.formThemMoi.valid) {
-            const lichCaNhan = this.formThemMoi.value;
-            lichCaNhan.id = 0;
-            this.service.themMoiQuanTriLich(lichCaNhan).subscribe(
+            const quanTriLich = this.formThemMoi.value;
+            quanTriLich.id = 0;
+            this.service.themMoiQuanTriLich(quanTriLich).subscribe(
                 (data) => {
                     if (data.isError) {
                         this.messageService.add({

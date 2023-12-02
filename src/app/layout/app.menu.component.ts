@@ -428,12 +428,12 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/lich/lich-tinh-uy'],
                                 code: '005003',
                             },
-                            {
-                                label: 'Lịch họp',
-                                icon: 'pi pi-fw pi-calendar-plus',
-                                routerLink: ['/lich/lich-hop'],
-                                code: '005002',
-                            },
+                            // {
+                            //     label: 'Lịch họp',
+                            //     icon: 'pi pi-fw pi-calendar-plus',
+                            //     routerLink: ['/lich/lich-hop'],
+                            //     code: '005002',
+                            // },
                         ],
                     },
                     {
@@ -1262,12 +1262,12 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/lich/lich-tinh-uy'],
                                 code: '005003',
                             },
-                            {
-                                label: 'Lịch họp',
-                                icon: 'pi pi-fw pi-calendar-plus',
-                                routerLink: ['/lich/lich-hop'],
-                                code: '005002',
-                            },
+                            // {
+                            //     label: 'LichUBNDTinh',
+                            //     icon: 'pi pi-fw pi-calendar-plus',
+                            //     routerLink: ['/lich/lich-hop'],
+                            //     code: '005002',
+                            // },
                         ],
                     },
                     {

@@ -137,21 +137,23 @@ export class QuanTriLichComponent {
     }
 
     updateWeek(date: Date, action: 'next' | 'prev' = 'next'): void {
-        const weekChange: number = action === 'next' ? 6 : -6;
         // Nếu action là 'next', tăng tuần lên 1, ngược lại giảm đi 1
         const newDate =
             action === 'next' ? addWeeks(date, 1) : subWeeks(date, 1); // lấy ngày đầu từ startDay tuần trước
         this.currentYear = newDate.getFullYear(); // lấy năm
         this.currentWeek = this.getWeek(newDate); // lấy tuần từ ngày mới lấy được
         // Tính toán ngày đầu tuần và ngày cuối tuần với múi giờ địa phương
+
         this.startOfWeekDate = new Date(
             newDate.setDate(newDate.getDate() - newDate.getDay() + 1)
         );
         this.endOfWeekDate = new Date(
             newDate.setDate(
-                newDate.getDate() - this.currentDate.getDay() + weekChange
+                newDate.getDate() - newDate.getDay() + 7
             )
         );
+        console.log(this.endOfWeekDate)
+
         this.firstOfWeek_show = this.formatDateToDDMMYY(this.startOfWeekDate); //Chuyển dạng dd/MM/yyyy ra UI
         this.endOfWeek_show = this.formatDateToDDMMYY(this.endOfWeekDate);
         this.LoadDanhSach();

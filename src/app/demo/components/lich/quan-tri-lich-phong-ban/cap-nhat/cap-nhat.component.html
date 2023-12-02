@@ -10,142 +10,125 @@
     header="Cập nhật lịch"
     class="p-fluid"
 >
-<ng-template pTemplate="content">
-      <div class="grid formgrid">
-          <div class="col-12 md:col-12 div-center">
-              Các trường <span class="p-error">&nbsp;(*)&nbsp;</span> bắt buộc
-              phải nhập
-          </div>
-      </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-3">
-              <label htmlfor="ngayTao"
-                  >Ngày tạo<span class="p-error"> (*)</span>:</label
-              >
-              <p-calendar
-                  appendTo="body"
-                  formControlName="ngayTao"
-                  dateFormat="dd/mm/yy"
-                  placeholder="Ngày tạo"
-                  [style]="{ width: '100%' }"
-                  class="my-drop"
-                  required=""
-                  showIcon="true"
-              ></p-calendar>
-              <span
-                  class="p-error"
-                  *ngIf="
-                      !formCapNhat.controls.ngayTao.valid &&
-                      (formCapNhat.controls.ngayTao.touched || submitted)
-                  "
-                  >Vui lòng nhập ngày tạo</span
-              >
-          </div>
-          <div class="col-12 md:col-3">
-              <label htmlfor="thoiGian">Thời gian:</label>
-              <p-dropdown
-                  [options]="lstThoiGian"
-                  appendTo="body"
-                  optionValue="value"
-                  formControlName="thoiGian"
-                  placeholder="Chọn thời gian"
-                  [showClear]="false"
-                  (onChange)="ChangeThoiGian()"
-              ></p-dropdown>
-          </div>
-          <div class="col-12 md:col-3">
-              <label htmlfor="gio"
-                  >Chọn giờ:</label
-              >
-              <p-dropdown
-                  [options]="lstGio"
-                  appendTo="body"
-                  optionValue="value"
-                  formControlName="gio"
-                  placeholder="Chọn giờ"
-                  [showClear]="false"
-              ></p-dropdown>
-          </div>
-          <div class="col-12 md:col-3 gap-3">
-              <label htmlfor="phut"
-                  >Chọn phút:</label
-              >
-              <p-dropdown
-                  [options]="lstPhut"
-                  appendTo="body"
-                  optionValue="value"
-                  formControlName="phut"
-                  placeholder="Chọn phút"
-                  [showClear]="false"
-              ></p-dropdown>
-          </div>
-      </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-6">
-              <label htmlfor="diaDiem">Địa điểm:</label>
-              <textarea
-                  rows="3"
-                  cols="30"
-                  formControlName="diaDiem"
-                  placeholder="Địa điểm"
-                  pInputTextarea
-              ></textarea>
-          </div>
-          <div class="col-12 md:col-6">
-              <label htmlfor="lanhDaoChuTri">Lãnh đạo chủ trì:</label>
-              <input
-                  pinputtext=""
-                  id="lanhDaoChuTri"
-                  type="text"
-                  class="p-inputtext p-component p-element"
-                  formControlName="lanhDaoChuTri"
-              />
-          </div>
-      </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-6">
-              <label htmlfor="lanhDaoVanPhong">Lãnh đạo văn phòng:</label>
-              <input
-                  pinputtext=""
-                  id="lanhDaoVanPhong"
-                  type="text"
-                  class="p-inputtext p-component p-element"
-                  formControlName="lanhDaoVanPhong"
-              />
-          </div>
-          <div class="col-12 md:col-6">
-              <label htmlfor="donViChuanBi">Đơn vị chuẩn bị:</label>
-              <input
-                  pinputtext=""
-                  id="donViChuanBi"
-                  type="text"
-                  class="p-inputtext p-component p-element"
-                  formControlName="donViChuanBi"
-              />
-          </div>
-      </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-12">
-              <label htmlfor="noiDung">Nội dung<span class="p-error"> (*)</span>:</label>
-              <textarea
-                  rows="3"
-                  cols="30"
-                  formControlName="noiDung"
-                  placeholder="Nội dung"
-                  pInputTextarea
-                  required=""
-              ></textarea>
-              <span
-              class="p-error"
-              *ngIf="
-                  !formCapNhat.controls.noiDung.valid &&
-                  (formCapNhat.controls.noiDung.touched || submitted)
-              "
-              >Vui lòng nhập nội dung</span
-          >
-          </div>
-      </div>
-  </ng-template>
+    <ng-template pTemplate="content">
+        <div class="grid formgrid">
+            <div class="col-12 md:col-12 div-center">
+                Các trường <span class="p-error">&nbsp;(*)&nbsp;</span> bắt buộc
+                phải nhập
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-12">
+                <label htmlfor="listThu"
+                    >Thứ:</label
+                >
+                <label for="">
+                   &nbsp;<p-chip label="{{formCapNhat.value.thu}}"></p-chip>
+                </label>
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-3">
+                <label htmlfor="thoiGian">Thời gian:</label>
+                <p-dropdown
+                    [options]="lstThoiGian"
+                    appendTo="body"
+                    optionValue="value"
+                    formControlName="thoiGian"
+                    placeholder="Chọn thời gian"
+                    [showClear]="false"
+                    (onChange)="ChangeThoiGian()"
+                ></p-dropdown>
+            </div>
+            <div class="col-12 md:col-2">
+                <label htmlfor="gio">Chọn giờ:</label>
+                <p-dropdown
+                    [options]="lstGio"
+                    appendTo="body"
+                    optionValue="value"
+                    formControlName="gio"
+                    placeholder="Chọn giờ"
+                    [showClear]="false"
+                ></p-dropdown>
+            </div>
+            <div class="col-12 md:col-2">
+                <label htmlfor="phut">Chọn phút:</label>
+                <p-dropdown
+                    [options]="lstPhut"
+                    appendTo="body"
+                    optionValue="value"
+                    formControlName="phut"
+                    placeholder="Chọn phút"
+                    [showClear]="false"
+                ></p-dropdown>
+            </div>
+            <div class="col-12 md:col-5">
+                <label htmlfor="diaDiem">Địa điểm:</label>
+                <textarea
+                    rows="3"
+                    cols="30"
+                    formControlName="diaDiem"
+                    placeholder="Địa điểm"
+                    pInputTextarea
+                ></textarea>
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-4">
+                <label htmlfor="lanhDaoChuTri">Lãnh đạo chủ trì:</label>
+                <input
+                    pinputtext=""
+                    id="lanhDaoChuTri"
+                    type="text"
+                    class="p-inputtext p-component p-element"
+                    formControlName="lanhDaoChuTri"
+                />
+            </div>
+            <div class="col-12 md:col-4">
+                <label htmlfor="lanhDaoVanPhong">Lãnh đạo văn phòng:</label>
+                <input
+                    pinputtext=""
+                    id="lanhDaoVanPhong"
+                    type="text"
+                    class="p-inputtext p-component p-element"
+                    formControlName="lanhDaoVanPhong"
+                />
+            </div>
+            <div class="col-12 md:col-4">
+                <label htmlfor="chuyenVienPhoiHop">Chuyên viên phối hợp:</label>
+                <input
+                    pinputtext=""
+                    id="chuyenVienPhoiHop"
+                    type="text"
+                    class="p-inputtext p-component p-element"
+                    formControlName="chuyenVienPhoiHop"
+                />
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-12">
+                <label htmlfor="noiDung"
+                    >Nội dung<span class="p-error"> (*)</span>:</label
+                >
+                <textarea
+                    rows="3"
+                    cols="30"
+                    formControlName="noiDung"
+                    placeholder="Nội dung"
+                    pInputTextarea
+                    required=""
+                ></textarea>
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formCapNhat.controls.noiDung.valid &&
+                        (formCapNhat.controls.noiDung.touched || submitted)
+                    "
+                    >Vui lòng nhập nội dung</span
+                >
+            </div>
+        </div>
+    </ng-template>
     <ng-template pTemplate="footer">
         <button
             pbutton=""

@@ -34,6 +34,7 @@ lstNam: SelectItem[] = [];
 idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
 idNhomQuyen: string = this.authService.GetmUserInfo()?.nhomQuyenId ?? '0';
 idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
+idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
 timChinhXac: boolean = false;
 public id: string = '1';
 hienThiThemMoi: boolean = false;
@@ -48,8 +49,7 @@ home = { icon: 'pi pi-home', routerLink: '/' };
 timKiemDanhSach: TimKiemQuanTriLichPhongBan = {
     tuNgay: '1901-01-01',
     denNgay: '1901-01-01',
-    donViId: Number(this.idDonViLamViec),
-    userId: 0,
+    phongBanId: Number(this.idPhongBan),
 };
 
 ngAfterContentChecked(): void {
@@ -141,7 +141,6 @@ formatDateToDDMMYY(date): string {
 }
 
 updateWeek(date: Date, action: 'next' | 'prev' = 'next'): void {
-    const weekChange: number = action === 'next' ? 6 : -6;
     // Nếu action là 'next', tăng tuần lên 1, ngược lại giảm đi 1
     const newDate =
         action === 'next' ? addWeeks(date, 1) : subWeeks(date, 1); // lấy ngày đầu từ startDay tuần trước
@@ -153,7 +152,7 @@ updateWeek(date: Date, action: 'next' | 'prev' = 'next'): void {
     );
     this.endOfWeekDate = new Date(
         newDate.setDate(
-            newDate.getDate() - this.currentDate.getDay() + weekChange
+            newDate.getDate() - newDate.getDay() + 7
         )
     );
     this.firstOfWeek_show = this.formatDateToDDMMYY(this.startOfWeekDate); //Chuyển dạng dd/MM/yyyy ra UI

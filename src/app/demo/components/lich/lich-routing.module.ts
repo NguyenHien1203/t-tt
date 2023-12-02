@@ -1,3 +1,5 @@
+import { LichTinhUyModule } from './lich-tinh-uy/lich-tinh-uy.module';
+import { LichTinhUy } from './../../../models/thong-tin-khac/lich/lich-tinh-uy';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -30,32 +32,32 @@ const routes: Routes = [
         path: 'lich-co-quan',
         data: { breadcrumb: 'Lịch cơ quan' },
         loadChildren: () =>
-            import('./lich-ca-nhan/lich-ca-nhan.module').then(
-                (m) => m.LichCaNhanModule
+            import('./lich-co-quan/lich-co-quan.module').then(
+                (m) => m.LichCoQuanModule
             ),
     },
      {
-        path: 'lich-uy-ban-nhan-dan-tinh',
+        path: 'lich-ubnd-tinh',
         data: { breadcrumb: 'Lịch ủy ban nhân dân tỉnh' },
         loadChildren: () =>
-            import('./lich-ca-nhan/lich-ca-nhan.module').then(
-                (m) => m.LichCaNhanModule
+            import('./lich-ubnd-tinh/lich-ubnd-tinh.module').then(
+                (m) => m.LichUbndTinhModule
             ),
     },
      {
-        path: 'lich-hoi-dong-nhan-dan-va-dai-bieu-quoc-hoi',
+        path: 'lich-hdnd-va-dbqh',
         data: { breadcrumb: 'Lịch hội đồng nhân dân và đại biểu quốc hội' },
         loadChildren: () =>
-            import('./lich-ca-nhan/lich-ca-nhan.module').then(
-                (m) => m.LichCaNhanModule
+            import('./lich-hdnd-va-dbqh/lich-hdnd-va-dbqh.module').then(
+                (m) => m.LichHdndVaDbqhModule
             ),
     },
      {
         path: 'lich-tinh-uy',
         data: { breadcrumb: 'Lịch ủy ban nhân dân tỉnh' },
         loadChildren: () =>
-            import('./lich-ca-nhan/lich-ca-nhan.module').then(
-                (m) => m.LichCaNhanModule
+            import('./lich-tinh-uy/lich-tinh-uy.module').then(
+                (m) => m.LichTinhUyModule
             ),
     },
     {

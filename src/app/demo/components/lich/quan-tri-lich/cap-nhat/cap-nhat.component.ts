@@ -69,7 +69,7 @@ export class CapNhatComponent {
     public ChangeThoiGian() {
         this.lstGio = [];
         let value = this.formCapNhat.value.thoiGian;
-        if (value != null) {
+        if (value != null && value != '0') {
             this.lstGio.push({ label: 'Chọn giờ', value: null });
            let number = value == '1' ? 12 : value == '2' ? 23 : 0;
            let index = value == '1' ? 0 : value == '2' ? 12 : 0;
@@ -90,8 +90,8 @@ export class CapNhatComponent {
     public CapNhat(): void {
         this.submitted = true;
         if (this.formCapNhat.valid) {
-            let lichCaNhan = this.formCapNhat.value;
-            this.service.capNhatQuanTriLich(lichCaNhan).subscribe(
+            let quanTriLich = this.formCapNhat.value;
+            this.service.capNhatQuanTriLich(quanTriLich).subscribe(
                 (data) => {
                     let resData = data;
                     if (resData.isError) {

@@ -1,16 +1,22 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { QuanTriLichPhongBanService } from 'src/app/demo/service/lich/quan-tri-lich-phong-ban.service';
 
 @Component({
-  selector: 'app-cap-nhat',
-  templateUrl: './cap-nhat.component.html',
-  styleUrls: ['./cap-nhat.component.scss']
+    selector: 'app-cap-nhat',
+    templateUrl: './cap-nhat.component.html',
+    styleUrls: ['./cap-nhat.component.scss'],
 })
 export class CapNhatComponent {
-  @Input() show: boolean = false;
+    @Input() show: boolean = false;
     @Output() tatPopup = new EventEmitter<boolean>();
     @Input() id: string = '1';
 
@@ -27,6 +33,7 @@ export class CapNhatComponent {
         }
     }
     lstGio: SelectItem[] = [];
+    lstThu: SelectItem[] = [];
     lstPhut: SelectItem[] = [];
     lstThoiGian: SelectItem[] = [
         { label: 'Chọn thời gian', value: '0' },
@@ -34,25 +41,39 @@ export class CapNhatComponent {
         { label: 'Buổi chiều', value: '2' },
     ];
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
+    idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
+    idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
     submitted: boolean = false;
     public formCapNhat = this.fb.group({
         id: [0, []],
-        ngayTao: [new Date(), [Validators.required]],
-        thoiGian: ['0', []],
+        thu: [, []],
+        thoiGian: [null, []],
         gio: [null, []],
         phut: [null, []],
         diaDiem: ['', []],
         lanhDaoChuTri: ['', []],
         lanhDaoVanPhong: ['', []],
-        donViChuanBi: ['', []],
+        chuyenVienPhoiHop: ['', []],
         noiDung: ['', []],
+        donViId: [Number(this.idDonViLamViec), []],
+        phongBanId: [Number(this.idPhongBan), []],
     });
 
     public async BindDataDialog() {
         try {
             const data = await this.service.getQuanTriLichPhongBanById(this.id);
-            data.ngayTao = new Date(data.ngayTao);
-            this.formCapNhat.setValue(data);
+            this.formCapNhat.patchValue({
+                id: data.id,
+                thu: data.thu,
+                thoiGian: data.thoiGian,
+                gio: data.gio,
+                phut: data.phut,
+                diaDiem: data.diaDiem,
+                lanhDaoChuTri: data.lanhDaoChuTri,
+                lanhDaoVanPhong: data.lanhDaoVanPhong,
+                chuyenVienPhoiHop: data.chuyenVienPhoiHop,
+                noiDung: data.noiDung,
+            });
         } catch (error) {
             console.log(error);
         }
@@ -63,11 +84,11 @@ export class CapNhatComponent {
     public ChangeThoiGian() {
         this.lstGio = [];
         let value = this.formCapNhat.value.thoiGian;
-        if (value != null) {
+        if (value != null && value != '0') {
             this.lstGio.push({ label: 'Chọn giờ', value: null });
-           let number = value == '1' ? 12 : value == '2' ? 23 : 0;
-           let index = value == '1' ? 0 : value == '2' ? 12 : 0;
-            for (let i = index; i <= number; i ++) {
+            let number = value == '1' ? 12 : value == '2' ? 23 : 0;
+            let index = value == '1' ? 0 : value == '2' ? 12 : 0;
+            for (let i = index; i <= number; i++) {
                 this.lstGio.push({ label: ('0' + i).slice(-2), value: i });
             }
         }

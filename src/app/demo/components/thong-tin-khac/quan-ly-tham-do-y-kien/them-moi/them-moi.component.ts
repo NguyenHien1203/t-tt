@@ -20,6 +20,7 @@ export class ThemMoiComponent implements OnInit {
     noiDung: ["", [Validators.required]],
     thuTu: [0, []],
     donViId: [0, []],
+    ghiChu: ["CTL"],
     hienThi: [false, []],
     created: [new Date(), []],
     createdBy: [0, []],
@@ -55,7 +56,7 @@ export class ThemMoiComponent implements OnInit {
   GetValueThuTu() {
     this.formThemMoi.patchValue({
       thuTu: this.maxThuTu + 1,
-    })
+    })                                                                                                                                                                              
   }
 
   ThemMoi() {

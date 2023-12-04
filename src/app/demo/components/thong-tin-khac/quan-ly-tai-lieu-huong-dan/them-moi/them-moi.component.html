@@ -2,7 +2,7 @@
     class="p-fluid" (onHide)="TatPopup()">
     <div class="field">
         <label for="tenSo">Tiêu đề <span class="p-error">*</span></label>
-        <input type="text" pInputText id="tenSo" formControlName="tieuDe">
+        <input type="text" pInputText id="tenSo">
     </div>
     <div class="formgrid grid">
         <div class="field col-12 md:col-8">
@@ -17,7 +17,7 @@
     </div>
     <div class="field">
         <label for="ghiChu">Nội dung</label>
-        <textarea id="noiDung" formControlName="noiDung" pInputTextarea rows="3" cols="20"></textarea>
+        <textarea id="noiDung" pInputTextarea rows="3" cols="20"></textarea>
     </div>
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Lưu" (click)="ThemMoi()" icon="pi pi-check" class="p-button-info"></button>

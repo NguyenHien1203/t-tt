@@ -23,11 +23,6 @@ export class QuanTriVanBanService {
       .then(res => res.objData as QuanTriVanBanDen[]);
   }
 
-  // public danhSachVanBanDi(danhSach: any): Observable<any> {
-  //   return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachQuanTriVanBanDi', danhSach)
-  //   .pipe(map((res: any) => res.objData as QuanTriVanBanDen))
-  // }
-
   public getLoaiVanBan(id: string): Observable<any> {
     return this.http.get<any>(this.baseApiUrl + '/VanBanDen/QuanTriVanBanDen/GetLoaiVanBan/' + id)
     .pipe(map((res: any)=> res.objData))
@@ -38,21 +33,12 @@ export class QuanTriVanBanService {
     .pipe(map((res: any) => res.objData))
   }
 
-  // public danhSachVanBanDi(danhSach: any): Observable<any> {
-  //   return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachQuanTriVanBanDi', danhSach)
-  //   .pipe(map((res: any) => res.objData as QuanTriVanBanDi))
-  // }
-
-
-
-
-
 
    /**
    * Lấy dữ liệu đơn vị
    */
-   GetDonViById(id: string): Observable<any> {
-    return this.http.get<any>(this.baseApiUrl + '/DanhMuc/CoQuanBanHanh/GetCoQuanBanHanhById/' + id).pipe(
+   GetVanBanById(id: string): Observable<any> {
+    return this.http.get<any>(this.baseApiUrl + '/VanBanDen/QuanTriVanBanDen/GetVanBanById/' + id).pipe(
       map((response: any) => response.objData)
     );
   }

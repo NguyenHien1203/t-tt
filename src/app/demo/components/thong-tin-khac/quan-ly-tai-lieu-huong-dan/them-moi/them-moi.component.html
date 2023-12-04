@@ -1,0 +1,26 @@
+<p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới tài liệu hướng dẫn" [modal]="true"
+    class="p-fluid" (onHide)="TatPopup()">
+    <div class="field">
+        <label for="tenSo">Tiêu đề <span class="p-error">*</span></label>
+        <input type="text" pInputText id="tenSo" formControlName="tieuDe">
+    </div>
+    <div class="formgrid grid">
+        <div class="field col-12 md:col-8">
+            <label for="fileUpload" class="custom-file-upload">
+                <i class="pi pi-upload"></i> Chọn tệp
+            </label>
+            <input type="file" id="fileUpload" multiple="multiple" style="display: none" />
+        </div>
+        <div class="field col-12 md:col-4">
+
+        </div>
+    </div>
+    <div class="field">
+        <label for="ghiChu">Nội dung</label>
+        <textarea id="noiDung" formControlName="noiDung" pInputTextarea rows="3" cols="20"></textarea>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" (click)="ThemMoi()" icon="pi pi-check" class="p-button-info"></button>
+        <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="TatPopup()"></button>
+    </ng-template>
+</p-dialog>

@@ -11,6 +11,7 @@ import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { saveAs } from 'file-saver';
 import { throwError } from 'rxjs';
 import { AuthService } from 'src/app/common/auth.services';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-chi-tiet-hop-thu',
     templateUrl: './chi-tiet-hop-thu.component.html',
@@ -29,7 +30,8 @@ export class ChiTietHopThuComponent {
         private messageService: MessageService,
         private cd: ChangeDetectorRef,
         private uploadfileService: UploadFileService,
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router
     ) {}
 
     typebtn: number = 1;
@@ -45,19 +47,21 @@ export class ChiTietHopThuComponent {
             this.idHopThu,
             this.idUser
         );
+        if (data != null) {
+            let itemData = data.objHopThu;
+            if (itemData != null) {
+                itemData.ngayGui = new Date(itemData.ngayGui);
+                this.xemHopThu = {
+                    thongTinNguoiGui: itemData.thongTinNguoiGui,
+                    guiToi: itemData.usersTraoDoi,
+                    tieuDe: itemData.tieuDe,
+                    noiDung: itemData.noiDung,
+                    ngayGui: itemData.ngayGui,
+                };
+            }
 
-        let itemData = data.objHopThu;
-        if (itemData != null) {
-            itemData.ngayGui = new Date(itemData.ngayGui);
-            this.xemHopThu = {
-                thongTinNguoiGui: itemData.thongTinNguoiGui,
-                guiToi: itemData.usersTraoDoi,
-                tieuDe: itemData.tieuDe,
-                noiDung: itemData.noiDung,
-                ngayGui: itemData.ngayGui,
-            };
+            this.selectedFiles = data.lstFile;
         }
-        this.selectedFiles = data.lstFile;
         this.AllowAction();
     }
 
@@ -103,38 +107,69 @@ export class ChiTietHopThuComponent {
     }
 
     public AllowAction(): void {
-      console.log(this.idNhanCaNhan)
-        if (this.idNhanCaNhan == 9) {
+        this.btnPhanHoi = false;
+        this.btnXemNguoiDoc = false;
+        this.btnChuyenTiep = false;
+
+        if (this.idNhanCaNhan == Label.Trao_Doi_Den) {
             this.typebtn = 1;
             this.lblPhanHoi = 'Phản hồi';
             this.btnPhanHoi = true;
             this.btnChuyenTiep = true;
         }
         //
-        if (this.idNhanCaNhan == 10) {
+        if (this.idNhanCaNhan == Label.Trao_Doi_Di) {
+            this.typebtn = 2;
             this.btnChuyenTiep = true;
             this.btnXemNguoiDoc = true;
         }
         //
-        if (this.idNhanCaNhan == 11) {
+        if (this.idNhanCaNhan == Label.Trao_Doi_Nhap) {
             this.typebtn = 3;
             this.lblPhanHoi = 'Gửi';
             this.btnPhanHoi = true;
         }
         if (this.idNhanCaNhan > 11) {
+            this.typebtn = 1;
+            this.btnChuyenTiep = true;
+            this.btnXemNguoiDoc = true;
+
             if (this.checkThuDen == 1) {
                 this.typebtn = 1;
                 this.lblPhanHoi = 'Phản hồi';
                 this.btnPhanHoi = true;
+                this.btnChuyenTiep = true;
+                this.btnXemNguoiDoc = false;
             }
 
             if (this.checkThuNhap == 1) {
                 this.typebtn = 3;
                 this.lblPhanHoi = 'Gửi';
                 this.btnPhanHoi = true;
+                this.btnXemNguoiDoc = false;
+                this.btnChuyenTiep = false;
             }
-            this.btnChuyenTiep = true;
-            this.btnXemNguoiDoc = true;
         }
     }
+
+    public XuLy(idTraoDoi: string, type: number): void {
+        if (type !== undefined) this.typebtn = type; //trường hợp forward
+        this.router.navigate([
+            './trao-doi-thong-tin/soan-thu',
+            { type: this.typebtn, traoDoiId: idTraoDoi },
+        ]);
+    }
+
+    public XemNguoiDoc(idTraoDoi: string): void {
+        this.router.navigate([
+            './trao-doi-thong-tin/chi-tiet-trao-doi',
+            { traoDoiId: idTraoDoi },
+        ]);
+    }
 }
+
+const Label = {
+    Trao_Doi_Den: 9,
+    Trao_Doi_Di: 10,
+    Trao_Doi_Nhap: 11,
+};

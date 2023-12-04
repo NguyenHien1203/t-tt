@@ -43,7 +43,7 @@ export class HopThuNhapComponent {
     monthOptions: SelectItem[] = [];
     timKiemDanhSach: TimKiemDanhSach = {
         idUserNhan: this.idUser,
-        idNhanCaNhan: 10, //nhãn đi
+        idNhanCaNhan: 11, //nhãn đi
         nam: 0,
         thang: 0,
         tieuDe: '',
@@ -206,6 +206,38 @@ export class HopThuNhapComponent {
             icon: 'pi pi-info-circle',
             accept: () => {
                 this.soanThuService.xoaNhieu(lstHopThuSelected).subscribe(
+                    (data) => {
+                        if (data.isError) {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: data.title,
+                            });
+                        } else {
+                            this.LoadDanhSach();
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Success',
+                                detail: data.title,
+                            });
+                        }
+                    },
+                    (error) => {
+                        console.log('Error', error);
+                    }
+                );
+            },
+            reject: () => {},
+        });
+    }
+
+    public Xoa(id: string) {
+        this.confirmationService.confirm({
+            message: 'Bạn có chắc chắn xác nhận xóa bản ghi này?',
+            header: 'Xác nhận',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.soanThuService.xoa(id).subscribe(
                     (data) => {
                         if (data.isError) {
                             this.messageService.add({

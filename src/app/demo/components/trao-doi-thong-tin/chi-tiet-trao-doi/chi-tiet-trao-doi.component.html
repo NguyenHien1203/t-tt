@@ -1,0 +1,180 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb
+                    class="max-w-full"
+                    [model]="items"
+                    [home]="home"
+                ></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-menubar [model]="MenuItems"></p-menubar>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <p-toast></p-toast>
+            <h2>TÌM KIẾM</h2>
+            <div class="field grid">
+                <label class="col-12 md:col-3 fl-wr">
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="timKiemDanhSach.tenDangNhap"
+                        placeholder="Tên đăng nhập"
+                        class="form-control"
+                    />
+                </label>
+                <label class="col-12 md:col-3 fl-wr">
+                    <p-dropdown
+                        [(ngModel)]="timKiemDanhSach.trangThai"
+                        [options]="lstTrangThai"
+                        appendTo="body"
+                        [filter]="true"
+                        optionValue="value"
+                        optionLabel="text"
+                        placeholder="Chọn trạng thái"
+                        [showClear]="true"
+                        [style]="{ width: '100%' }"
+                        class="my-drop"
+                    ></p-dropdown>
+                </label>
+                <label class="col-12 md:col-3 fl-wr">
+                    <button
+                        pButton
+                        pRipple
+                        label="Tìm kiếm"
+                        icon="pi pi-search"
+                        class="p-button-info mr-2"
+                        (click)="LoadDanhSach()"
+                    ></button>
+                </label>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="wrapper">
+                <h2>DANH SÁCH TRAO ĐỔI ĐÃ GỬI</h2>
+            </div>
+            <div class="grid">
+                <div class="col-12">
+                    <p-table
+                        [paginator]="true"
+                        #dt1
+                        [value]="lstChiTietTraoDoi"
+                        dataKey="id"
+                        [rows]="10"
+                        [loading]="loading"
+                        [rowsPerPageOptions]="[10, 20, 30]"
+                        [rowHover]="true"
+                        styleClass="p-datatable-gridlines"
+                        [paginator]="true"
+                        responsiveLayout="scroll"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 2%">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        STT
+                                    </div>
+                                </th>
+                                <th style="min-width: 2rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Họ tên
+                                    </div>
+                                </th>
+                                <th style="min-width: 3rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Tên đăng nhập
+                                    </div>
+                                </th>
+                                <th style="min-width: 14rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Đơn vị
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Phòng ban
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Trạng thái
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Thời gian xem
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template
+                            pTemplate="body"
+                            let-item
+                            let-rowIndex="rowIndex"
+                        >
+                            <tr>
+                                <td style="text-align: center">
+                                    {{ rowIndex + 1 }}
+                                </td>
+                                <td class="text-center">
+                                    {{ item.hoTen }}
+                                </td>
+                                <td class="text-center">
+                                    {{ item.tenDangNhap }}
+                                </td>
+                                <td>
+                                    {{ item.donVi }}
+                                </td>
+                                <td>
+                                    {{ item.phongBan }}
+                                </td>
+                                <td>
+                                    {{ item.trangThai }}
+                                </td>
+                                <td class="text-center">
+                                    {{ item.thoiGianXem | date : "dd-MM-yyyy" }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="10">No record found.</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="loadingbody">
+                            <tr>
+                                <td colspan="10">
+                                    Loading record data. Please wait.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>

@@ -1,0 +1,209 @@
+<p-dialog
+    [(visible)]="show"
+    [formGroup]="formThemMoi"
+    [draggable]="true"
+    [resizable]="false"
+    (onHide)="Thoat()"
+    [style]="{ width: '950px' }"
+    [modal]="true"
+    [modal]="true"
+    header="Thêm mới bảng lương"
+    class="p-fluid"
+>
+    <ng-template pTemplate="content">
+        <div class="grid formgrid ">
+            <div class="col-12 md:col-12 div-center">
+                Các trường <span class="p-error">&nbsp;(*)&nbsp;</span> bắt buộc phải nhập
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-12">
+                <label htmlfor="lichHop"
+                    >Lịch họp<span class="p-error"> (*)</span>:</label
+                >
+                <input
+                    pinputtext=""
+                    id="lichHop"
+                    type="text"
+                    required=""
+                    class="p-inputtext p-component p-element"
+                    formControlName="lichHop"
+                />
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.lichHop.valid &&
+                        (formThemMoi.controls.lichHop.touched || submitted)
+                    "
+                    >Vui lòng nhập lịch họp</span
+                >
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-12">
+                <label htmlfor="noiDung">Nội dung cuộc họp:</label>
+                <textarea
+                    rows="3"
+                    cols="30"
+                    formControlName="noiDung"
+                    placeholder="Nội dung cuộc họp"
+                    pInputTextarea
+                ></textarea>
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-3">
+                <label htmlfor="ngayHopBatDau"
+                    >Ngày bắt đầu <span class="p-error"> (*)</span>:</label
+                >
+                <p-calendar
+                    showIcon="true"
+                    appendTo="body"
+                    formControlName="ngayHopBatDau"
+                    dateFormat="dd/mm/yy"
+                    placeholder="Ngày bắt đầu họp"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                    required=""
+                ></p-calendar>
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.ngayHopBatDau.valid &&
+                        (formThemMoi.controls.ngayHopBatDau.touched ||
+                            submitted)
+                    "
+                    >Vui lòng nhập ngày họp bắt đầu</span
+                >
+            </div>
+            <div class="col-12 md:col-3">
+                <label htmlfor="ngayHopBatDau"
+                    >Ngày kết thúc <span class="p-error"> (*)</span>:</label
+                >
+                <label htmlfor="ngayHopKetThuc"> </label>
+                <p-calendar
+                    showIcon="true"
+                    required=""
+                    appendTo="body"
+                    formControlName="ngayHopKetThuc"
+                    dateFormat="dd/mm/yy"
+                    placeholder="Ngày kết thúc họp"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                ></p-calendar>
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.ngayHopKetThuc.valid &&
+                        (formThemMoi.controls.ngayHopKetThuc.touched ||
+                            submitted)
+                    "
+                    >Vui lòng nhập ngày họp kết thúc</span
+                >
+            </div>
+            <div class="col-12 md:col-6">
+                <label htmlfor="diaDiem"
+                    >Địa điểm <span class="p-error"> (*)</span>:</label
+                >
+                <textarea
+                    rows="3"
+                    cols="30"
+                    formControlName="diaDiem"
+                    placeholder="Địa điểm"
+                    required=""
+                    pInputTextarea
+                ></textarea>
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.diaDiem.valid &&
+                        (formThemMoi.controls.diaDiem.touched || submitted)
+                    "
+                    >Vui lòng nhập địa điểm</span
+                >
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-3">
+                <label htmlfor="gioBatDau">Giờ bắt đầu</label>
+                <p-dropdown
+                    [options]="lstGio"
+                    appendTo="body"
+                    optionValue="value"
+                    formControlName="gioBatDau"
+                    placeholder="Chọn giờ"
+                    [showClear]="false"
+                ></p-dropdown>
+            </div>
+            <div class="col-12 md:col-3">
+                <label htmlfor="phutBatDau">Phút bắt đầu:</label>
+                <p-dropdown
+                    [options]="lstPhut"
+                    appendTo="body"
+                    optionValue="value"
+                    formControlName="phutBatDau"
+                    placeholder="Chọn phút"
+                    [showClear]="false"
+                ></p-dropdown>
+            </div>
+            <div class="col-12 md:col-3">
+                <label htmlfor="gioKetThuc">Giờ kết thúc:</label>
+                <p-dropdown
+                    [options]="lstGio"
+                    appendTo="body"
+                    optionValue="value"
+                    formControlName="gioKetThuc"
+                    placeholder="Chọn giờ"
+                    [showClear]="false"
+                ></p-dropdown>
+            </div>
+            <div class="col-12 md:col-3">
+                <label htmlfor="gioKetThuc">Phút kết thúc:</label>
+                <p-dropdown
+                    [options]="lstPhut"
+                    appendTo="body"
+                    optionValue="value"
+                    formControlName="phutKetThuc"
+                    placeholder="Chọn phút"
+                    [showClear]="false"
+                ></p-dropdown>
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-12">
+                <label htmlfor="ghiChu">Ghi chú:</label>
+                <textarea
+                    rows="3"
+                    cols="30"
+                    formControlName="ghiChu"
+                    placeholder="Ghi chú"
+                    pInputTextarea
+                ></textarea>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            type="submit"
+            label="Info"
+            class="p-element p-ripple p-button-info p-button p-component"
+            ng-reflect-label="Info"
+            (click)="ThemMoi()"
+        >
+            <span class="p-button-label">Lưu</span><span class="p-ink"></span>
+        </button>
+        <button
+            pbutton=""
+            pripple=""
+            type="button"
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            ng-reflect-label="Danger"
+            (click)="Thoat()"
+        >
+            <span class="p-button-label">Hủy</span><span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-dialog>

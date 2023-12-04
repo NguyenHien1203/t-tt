@@ -3,6 +3,7 @@ import { Component, OnInit, Type } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
+import { HangSo } from 'src/app/models/van-ban-di/cap-nhat-moi';
 import { QuanTriVanBanDi, TimKiemVBDi } from 'src/app/models/van-ban-di/quan-tri-van-ban-di';
 // import { MatMenuTrigger } from '@angular/material';
 
@@ -36,7 +37,7 @@ export class QuanTriVanBanDiComponent implements OnInit {
     //Row 1
     keyWord: "",
     soKyHieu: "",
-    nam: 0,
+    nam: 0, 
     thang: 0,
     timChinhXac: 0,
     //Row 2
@@ -63,9 +64,9 @@ export class QuanTriVanBanDiComponent implements OnInit {
 
   lstChucNang = [
     { label: 'Cập nhật', icon: 'pi pi-sync', action: 'capNhat' },
-    { label: 'Thu hồi', icon: 'pi pi-backward', action: 'thuHoi' },
-    { label: 'Lấy lại', icon: 'pi pi-sign-in', action: 'layLai' },
-    { label: 'Thay thế', icon: 'pi pi-replay', action: 'thayThe' },
+    { label: 'Thu hồi', icon: 'pi pi-backward', action: '' },
+    { label: 'Lấy lại', icon: 'pi pi-sign-in', action: '' },
+    { label: 'Thay thế', icon: 'pi pi-replay', action: '' },
   ];
 
   constructor(private messageService: MessageService, private authService: AuthService, private quanTriVanBanDiService: QuanTriVanBanDiService) { }
@@ -85,10 +86,11 @@ export class QuanTriVanBanDiComponent implements OnInit {
     this.GetMucDoVanBan();
 
     this.TimKiem();
-    console.log(this.authService.GetmUserInfo());
+    // console.log(this.authService.GetmUserInfo());
     // console.log(this.authService.GetDonViLamViec());
-    console.log("idDv page list", this.idDonViLamViec);
-    console.log("idDvCha page list", this.idDonViLVCha);
+    // console.log("idDv page list", this.idDonViLamViec);
+    // console.log("idDvCha page list", this.idDonViLVCha);
+    // console.log("HangSO: ");
   }
 
   // Kiểm tra true false tìm chính xác
@@ -200,10 +202,44 @@ export class QuanTriVanBanDiComponent implements OnInit {
     this.idVanBanDi = id;
   }
 
-  tatPopup(item: any, type: string) {
-    if (type === "C") {
-      this.hienThiChiTiet = false;
+  //Gửi văn bản
+  hienThiGuiVanBan: boolean = false;
+
+  GuiVanBan(id: string) {
+    this.hienThiGuiVanBan = true;
+    this.idVanBanDi = id;
+  }
+
+  //Cập nhật văn bản
+
+  hienThiCapNhat: boolean = false;
+
+  CapNhatVanBan(id: string) {
+    this.hienThiCapNhat = true;
+    this.idVanBanDi = id;
+  }
+
+  public HandleClick(action: string, id: string) {
+    if (action === 'capNhat') this.CapNhatVanBan(id);
+  }
+
+  TatPopup(item: any, type: string) {
+    switch (type as any) {
+      case "C": {
+        this.hienThiChiTiet = false;
+        break;
+      }
+      case "G": {
+        this.hienThiGuiVanBan = false;
+        break;
+      }
+      case "CN": {
+        this.hienThiCapNhat = false;
+        break;
+      }
+      default: {
+        this.TimKiem();
+      }
     }
-    this.TimKiem();
   }
 }

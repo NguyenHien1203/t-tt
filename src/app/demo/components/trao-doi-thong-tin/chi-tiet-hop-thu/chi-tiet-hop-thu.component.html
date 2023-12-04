@@ -17,7 +17,7 @@
                 label="Info"
                 class="p-element p-ripple p-button-info p-button p-component"
                 ng-reflect-label="Info"
-                (click)="PhanHoi()"
+                (click)="XuLy(idHopThu)"
             >
                 <span class="p-button-label"><i class="{{typebtn == 1 ? 'pi pi-refresh' : 'pi pi-send'}}"></i> {{lblPhanHoi}}</span
                 ><span class="p-ink"></span></button
@@ -30,7 +30,7 @@
                 label="Info"
                 class="p-element p-ripple p-button-info p-button p-component"
                 ng-reflect-label="Info"
-                (click)="ChuyenTiep()"
+                (click)="XuLy(idHopThu, 2)"
             >
                 <span class="p-button-label"><i class="pi pi-send"></i>&nbsp;Chuyển tiếp</span
                 ><span class="p-ink"></span></button
@@ -42,7 +42,7 @@
                 label="Info"
                 class="p-element p-ripple p-button-info p-button p-component"
                 ng-reflect-label="Info"
-                (click)="XemNguoiDoc()"
+                (click)="XemNguoiDoc(idHopThu)"
             >
                 <span class="p-button-label"><i class="pi pi-check"></i>&nbsp;Xem người nhận đã đọc chưa?</span
                 ><span class="p-ink"></span>

@@ -18,8 +18,7 @@ import { PhotoService } from './demo/service/photo.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-    declarations: [
-        AppComponent, NotfoundComponent ],
+    declarations: [AppComponent, NotfoundComponent],
     imports: [
         AppRoutingModule,
         AppLayoutModule,
@@ -28,9 +27,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService,HttpClientModule, HttpClient
+        CountryService,
+        CustomerService,
+        EventService,
+        IconService,
+        NodeService,
+        PhotoService,
+        ProductService,
+        HttpClientModule,
+        HttpClient,
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -922,7 +922,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Sửa bút phê',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/van-ban-den/sua-but-phe'],
+                                routerLink: ['/van-ban-den/sua-but-phe-van-ban'],
                                 code: '001009',
                             },
                             {

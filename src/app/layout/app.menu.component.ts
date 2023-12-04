@@ -472,13 +472,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý tài liệu hướng dẫn',
                                 icon: 'pi pi-fw pi-directions',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/quan-ly-tai-lieu-huong-dan'],
                                 code: '006006',
                             },
                             {
                                 label: 'Tài liệu hướng dẫn',
                                 icon: 'pi pi-fw pi-info-circle',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/tai-lieu-huong-dan'],
                                 code: '006009',
                             },
                             {
@@ -922,7 +922,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Sửa bút phê',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/van-ban-den/sua-but-phe'],
+                                routerLink: ['/van-ban-den/sua-but-phe-van-ban'],
                                 code: '001009',
                             },
                             {

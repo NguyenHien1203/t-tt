@@ -97,20 +97,20 @@ export class ButPheVanBanService {
   /**
         * Lấy dữ liệu danh sách nhóm người dùng
         */
-  public BindUserByNhomPhongBan(phongbanId : string): Observable<any> {
+  public BindUserByNhomPhongBan(phongbanId: string): Observable<any> {
     if (!this.auth.CheckLogin())
       this.router.navigate(['/login']);
     var IdDonViLv = this.auth.GetDonViLamViec();
     var UserDangNhap = this.auth.GetmUserInfo().userId.toString();
 
-    const url = `${this.baseUrl}/VanBanDen/ButPheVanBan/BindUserByNhomPhongBan?phongbanId=` + phongbanId + "&DonViLamViec=" + IdDonViLv+ "&UserDangNhap=" + UserDangNhap;
+    const url = `${this.baseUrl}/VanBanDen/ButPheVanBan/BindUserByNhomPhongBan?phongbanId=` + phongbanId + "&DonViLamViec=" + IdDonViLv + "&UserDangNhap=" + UserDangNhap;
     return this.httpClient.get<any>(url);
   }
 
-   /**
-        * Lấy dữ liệu danh sách nhóm người dùng
-        */
-   public BindUserByNhomNguoiDung(idNhomUser : string): Observable<any> {
+  /**
+       * Lấy dữ liệu danh sách nhóm người dùng
+       */
+  public BindUserByNhomNguoiDung(idNhomUser: string): Observable<any> {
     if (!this.auth.CheckLogin())
       this.router.navigate(['/login']);
     var IdDonViLv = this.auth.GetDonViLamViec();
@@ -119,10 +119,10 @@ export class ButPheVanBanService {
   }
 
 
-   /**
-        * Lấy dữ liệu danh sách nhóm người dùng
-        */
-   public BindChonNhanhNguoiDung(idNguoiDung : string): Observable<any> {
+  /**
+       * Lấy dữ liệu danh sách nhóm người dùng
+       */
+  public BindChonNhanhNguoiDung(idNguoiDung: string): Observable<any> {
     if (!this.auth.CheckLogin())
       this.router.navigate(['/login']);
     var IdDonViLv = this.auth.GetDonViLamViec();
@@ -131,14 +131,23 @@ export class ButPheVanBanService {
   }
 
 
-   /**
-        * Lấy ngày kết thúc thông qua số ngày và ngày bắt đầu
-        */
-   public GetSoNgayKT(soNgay : string, ngayBatDau: string): Observable<any> {
+  /**
+       * Lấy ngày kết thúc thông qua số ngày và ngày bắt đầu
+       */
+  public GetSoNgayKT(soNgay: string, ngayBatDau: string): Observable<any> {
     if (!this.auth.CheckLogin())
       this.router.navigate(['/login']);
-    var IdDonViLv = this.auth.GetDonViLamViec();
+   
     const url = `${this.baseUrl}/VanBanDen/ButPheVanBan/GetSoNgayKT?soNgay=` + soNgay + "&ngayBatDau=" + ngayBatDau;
     return this.httpClient.get<any>(url);
+  }
+
+  /**
+     * Thêm mới công việc
+     */
+  public ThemMoiCongViec(modelVanban: any): Observable<any> {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    return this.httpClient.post<any>(environment.baseUrlApi + '/VanBanDen/ButPheVanBan/ThemMoiCongViec', modelVanban, this.httpOption)
   }
 }

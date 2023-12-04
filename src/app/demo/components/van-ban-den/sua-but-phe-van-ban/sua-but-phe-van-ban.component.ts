@@ -3,16 +3,16 @@ import { Router } from '@angular/router';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { ButPheVanBanService } from 'src/app/demo/service/van-ban-den/but-phe-van-ban/but-phe-van-ban.service';
 import { CapNhatMoiService } from 'src/app/demo/service/van-ban-den/cap-nhat-moi/cap-nhat-moi.service';
+import { SuaButPheVanBanService } from 'src/app/demo/service/van-ban-den/sua-but-phe-van-ban/sua-but-phe-van-ban.service';
 import { TimKiemDanhSach } from 'src/app/models/van-ban-den/but-phe-van-ban';
 
 @Component({
-  selector: 'app-but-phe-van-ban',
-  templateUrl: './but-phe-van-ban.component.html',
-  styleUrls: ['./but-phe-van-ban.component.scss'],
+  selector: 'app-sua-but-phe-van-ban',
+  templateUrl: './sua-but-phe-van-ban.component.html',
+  styleUrls: ['./sua-but-phe-van-ban.component.scss'],
   providers: [MessageService, ConfirmationService]
 })
-
-export class ButPheVanBanComponent implements OnInit {
+export class SuaButPheVanBanComponent  implements OnInit {
   items: any[] = [];
   home: any;
   loading: boolean = true;
@@ -23,19 +23,10 @@ export class ButPheVanBanComponent implements OnInit {
   isShowSearch: boolean = false;
   lstButPhe: any[] = [];
 
-  constructor(
-    private messageService: MessageService,
-    private service: ButPheVanBanService,
-    private cnmsvice: CapNhatMoiService,
-    private router: Router,
-    private confirmationService: ConfirmationService,
-    private cd: ChangeDetectorRef,
-  ) { }
-
   public timKiemDanhSach: TimKiemDanhSach = {
     thongtinvb: "",
     ngaybanhanh: "",
-    ngaynhan: "", 
+    ngaynhan: "",
     sokihieu: "",
     sovanbanid: "",
     loaivbid: "",
@@ -47,14 +38,24 @@ export class ButPheVanBanComponent implements OnInit {
     DonViLamViec: ""
   }
 
+  constructor(
+    private messageService: MessageService,
+    private service: ButPheVanBanService,
+    private suaButPheSv: SuaButPheVanBanService,
+    private cnmsvice: CapNhatMoiService,
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private cd: ChangeDetectorRef,
+  ) { }
+
   ngOnInit() {
     this.loading = false;
-    this.items = [{ label: 'Văn bản đến' }, { label: 'Bút phê văn bản' }];
+    this.items = [{ label: 'Văn bản đến' }, { label: 'Sửa bút phê văn bản' }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.GetDataYear();
     this.GetDataMonth();
     this.GetDataSoVanBan();
-    this.GetDanhSachButPhe();
+    this.GetDanhSachSuaButPhe();
   }
 
   public GetDataSoVanBan() {
@@ -112,8 +113,8 @@ export class ButPheVanBanComponent implements OnInit {
   /**
    * GetDanhSachButPhe
    */
-  public GetDanhSachButPhe() {
-    this.service.getDataButPhe(this.timKiemDanhSach).subscribe(data => {
+  public GetDanhSachSuaButPhe() {
+    this.suaButPheSv.getDataSuaButPhe(this.timKiemDanhSach).subscribe(data => {
       if (data.isError) {
       } else {
         this.lstButPhe = data.objData;
@@ -123,14 +124,11 @@ export class ButPheVanBanComponent implements OnInit {
     })
   }
 
-  /**
-   * ThemMoiCongViec
-   */
-  public ThemMoiCongViec(idVanBan: string) {
-    this.router.navigate(['/van-ban-den/them-moi-cong-viec'], {
+  public SuaCongViec(idVanBan: string) {
+    this.router.navigate(['/van-ban-den/sua-cong-viec'], {
       queryParamsHandling: 'merge',
       queryParams: { idVanBan: idVanBan },
     });
   }
-
+  
 }

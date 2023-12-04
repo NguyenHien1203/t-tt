@@ -1,1 +1,55 @@
-<p>chi-tiet works!</p>
+<p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Chi tiết tài liệu hướng dẫn" [modal]="true"
+    class="p-fluid" (onHide)="TatPopup()" (onShow)="GetTaiLieu()">
+    <div class="card my-card">
+        <div class="flex">
+            <div class="my-bd-bottom my-item-flex-100 justify-content-between ">
+                <div class="my-item-flex-left my-bd-right p-3 my-background my-border-radius-tl">
+                    Tiêu đê:
+                </div>
+                <div class="my-item-flex-right my-bd-right p-3 my-border-radius-tr">
+                    <label>{{taiLieu.tieuDe}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="my-bd-bottom my-item-flex-100 justify-content-between">
+                <div class="my-item-flex-left my-bd-right p-3 my-background">
+                    Đơn vị:
+                </div>
+                <div class="my-item-flex-right my-bd-right p-3">
+                    <label>{{taiLieu.tenDonVi}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="my-bd-bottom my-item-flex-100 justify-content-between ">
+                <div class="my-item-flex-left my-bd-right p-3 my-background">
+                    Ngày tạo:
+                </div>
+                <div class="my-item-flex-right my-bd-right p-3">
+                    <label>{{taiLieu.ngayTao | date: 'dd/mm/yyyy' }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="my-bd-bottom my-item-flex-100 justify-content-between ">
+                <div class="my-item-flex-left my-bd-right p-3 my-background">
+                    File đính kèm:
+                </div>
+                <div class="my-item-flex-right my-bd-right p-3">
+                    <label>{{taiLieu.fileName}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="my-item-flex-100 justify-content-between ">
+                <div class="my-item-flex-left my-bd-right p-3 my-background my-bd-bottom">
+                    Nội dung:
+                </div>
+                <div class="my-item-flex-right my-bd-right p-3 my-border-radius-tr my-bd-bottom">
+                    <label>{{taiLieu.noiDung}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>

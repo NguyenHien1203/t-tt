@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/common/auth.services';
 import { ButPheVanBanService } from 'src/app/demo/service/van-ban-den/but-phe-van-ban/but-phe-van-ban.service';
 import { DoiTuongPhanCong } from 'src/app/models/van-ban-den/but-phe-van-ban';
 
@@ -36,6 +37,8 @@ export class ThemMoiCongViecComponent implements OnInit {
   lstChiDao: any[] = [];
   lstChuTri: any[] = [];
 
+  congviec: any = [];
+
   chkAllPhoiHop: boolean = false;
   chkAllThongBao: boolean = false;
 
@@ -47,6 +50,7 @@ export class ThemMoiCongViecComponent implements OnInit {
     private route: ActivatedRoute,
     private messageService: MessageService,
     private formBuilder: FormBuilder,
+    private auth: AuthService,
   ) { }
 
   public ThongTinCongViec = this.formBuilder.group({
@@ -266,7 +270,7 @@ export class ThemMoiCongViecComponent implements OnInit {
    */
   public XoaDoiTuong(nguoidung: any) {
     this.lstUserNhan = this.lstUserNhan.concat(nguoidung);
-    // this.lstNguoiDungPhanCong = this.lstNguoiDungPhanCong.filter(option => nguoidung.value !== option.value);
+    this.lstNguoiDungPhanCong = this.lstNguoiDungPhanCong.filter(option => nguoidung.value !== option.Value);
   }
 
   public ckAllPhoiHop() {
@@ -318,7 +322,7 @@ export class ThemMoiCongViecComponent implements OnInit {
         }
       });
     }
-    console.log("lst", this.lstNguoiDungPhanCong);
+
   }
 
   public chkChuTriChild(item: DoiTuongPhanCong) {
@@ -363,8 +367,36 @@ export class ThemMoiCongViecComponent implements OnInit {
   }
 
   public ThemMoiCongViec() {
-    console.log("lst", this.lstNguoiDungPhanCong);
+    this.submitted = true;
+    if (this.ThongTinCongViec.valid) {
+      this.congviec = this.ThongTinCongViec.value;
 
+      let data = {
+        ngayBatDau: this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayBatDau)),
+        ngayKetThuc: this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayKetThuc)),
+        lstDoiTuong: JSON.stringify(this.lstNguoiDungPhanCong),
+        soNgay: this.congviec.soNgay,
+        noiDung: this.congviec.noiDung,
+        vanBanId: this.idVanBan,
+        userId: this.auth.GetmUserInfo().userId.toString(),
+        donViLamViecId: this.auth.GetDonViLamViec(),
+        idNhomQuyenLamViec : this.auth.GetmUserInfo().nhomQuyenId.toString(),
+        donViId : this.auth.GetmUserInfo().donViId.toString(),
+      }
+
+      this.service.ThemMoiCongViec(data).subscribe(data => {
+        if (data.isError) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+        } else {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+          setTimeout(() => {
+            // this.router.navigate(['/van-ban-den/cap-nhat-moi']);
+          }, 1000);
+        }
+      }, (error) => {
+        console.log('Error', error);
+      })
+    }
   }
 
 }

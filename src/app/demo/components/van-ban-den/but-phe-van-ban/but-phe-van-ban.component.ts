@@ -29,7 +29,7 @@ export class ButPheVanBanComponent implements OnInit {
     private cnmsvice: CapNhatMoiService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) { }
 
   public timKiemDanhSach: TimKiemDanhSach = {

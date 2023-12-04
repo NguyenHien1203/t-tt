@@ -59,6 +59,22 @@ const routes: Routes = [
                 './cau-hoi-thuong-gap/cau-hoi-thuong-gap.module'
             ).then((m) => m.CauHoiThuongGapModule),
     },
+    {
+        path: 'quan-ly-tai-lieu-huong-dan',
+        data: { breadcrumb: 'Quản lý tài liệu hướng dẫn' },
+        loadChildren: () =>
+            import('./quan-ly-tai-lieu-huong-dan/quan-ly-tai-lieu-huong-dan.module').then(
+                (m) => m.QuanLyTaiLieuHuongDanModule
+            ),
+    },
+    {
+        path: 'tai-lieu-huong-dan',
+        data: { breadcrumb: 'Tài liệu hướng dẫn' },
+        loadChildren: () =>
+            import('./tai-lieu-huong-dan/tai-lieu-huong-dan.module').then(
+                (m) => m.TaiLieuHuongDanModule
+            ),
+    },
 ];
 
 @NgModule({

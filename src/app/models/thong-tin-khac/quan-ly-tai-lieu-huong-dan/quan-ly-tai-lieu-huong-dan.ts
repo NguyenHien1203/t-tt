@@ -7,7 +7,7 @@ export interface QuanLyTaiLieuHuongDan {
 
 export interface TimKiemQuanLyTaiLieuHuongDan {
     keyWord?: string,
-    donViId?: string,
+    donViId?: number,
     timChinhXac?: number,
 }
 

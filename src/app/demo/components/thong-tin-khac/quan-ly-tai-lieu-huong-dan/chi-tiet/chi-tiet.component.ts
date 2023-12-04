@@ -32,6 +32,8 @@ export class ChiTietComponent implements OnInit {
     this.quanLyTaiLieuService.getTaiLieu(this.id).subscribe(data => 
       { 
         this.taiLieu = data;
+        console.log(data);
+        
       });
   }
 

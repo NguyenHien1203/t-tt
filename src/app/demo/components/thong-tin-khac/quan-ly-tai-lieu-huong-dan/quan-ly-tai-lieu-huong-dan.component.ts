@@ -29,11 +29,13 @@ export class QuanLyTaiLieuHuongDanComponent implements OnInit {
 
   timKiem: TimKiemQuanLyTaiLieuHuongDan = {
     keyWord: "",
-    donViId: this.authService.GetDonViLamViec() ?? "0",
+    donViId: 0,
     timChinhXac: 0
   }
 
   idChiTiet: string;
+
+  timchinhXac: boolean = false;
 
   constructor(private messageService: MessageService, private quanLyTaiLieuService: QuanLyTaiLieuHuongDanService, private authService: AuthService,) { }
 
@@ -61,6 +63,9 @@ export class QuanLyTaiLieuHuongDanComponent implements OnInit {
   }
 
   TimKiem() {
+    this.timKiem.timChinhXac = this.timchinhXac ? 1 : 0;
+    console.log(this.timKiem);
+    
     this.quanLyTaiLieuService.getDanhSach(this.timKiem)
     .subscribe(data => {
       if (data.isError) {
@@ -68,7 +73,6 @@ export class QuanLyTaiLieuHuongDanComponent implements OnInit {
         this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
       } else {
         this.danhSachQuanLyTaiLieu = data;
-        console.log(data);      
       };
     }, (error) => {
       console.log('Error', error);

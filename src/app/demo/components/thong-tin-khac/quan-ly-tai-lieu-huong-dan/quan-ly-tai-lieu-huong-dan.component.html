@@ -8,19 +8,19 @@
             <h2>Tìm kiếm</h2>
             <div class="p-fluid p-formgrid grid">
                 <div class="field col-12 md:col-3">
-                    <input id="search-name-title" type="text" pInputText placeholder="Tiêu đề">
+                    <input id="search-name-title" type="text" pInputText placeholder="Tiêu đề" [(ngModel)]="timKiem.keyWord">
                 </div>
                 <div class="field col-12 md:col-3">
-                    <p-dropdown [options]="lstDonVi" optionValue="value" optionLabel="text" [filter]="true"
+                    <p-dropdown [options]="lstDonVi" optionValue="value" optionLabel="text" [filter]="true" [(ngModel)]="timKiem.donViId"
                         placeholder="Chọn đơn vị"></p-dropdown>
                 </div>
                 <div class="field col-12 md:col-2 mt-2">
                     <div class="field-checkbox">
-                        <p-checkbox name="timChinhXac" id="timChinhXac" value="true" label="Tìm chính xác"></p-checkbox>
+                        <p-checkbox name="timChinhXac" id="timChinhXac" label="Tìm chính xác" [(ngModel)]="timchinhXac" binary="false"></p-checkbox>
                     </div>
                 </div>
                 <div class="field col-12 md:col-2">
-                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2"></button>
+                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2" (click)="TimKiem()"></button>
                 </div>
             </div>
         </div>

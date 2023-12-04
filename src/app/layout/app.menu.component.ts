@@ -472,13 +472,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý tài liệu hướng dẫn',
                                 icon: 'pi pi-fw pi-directions',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/quan-ly-tai-lieu-huong-dan'],
                                 code: '006006',
                             },
                             {
                                 label: 'Tài liệu hướng dẫn',
                                 icon: 'pi pi-fw pi-info-circle',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/tai-lieu-huong-dan'],
                                 code: '006009',
                             },
                             {

@@ -29,4 +29,9 @@ export class QuanLyTaiLieuHuongDanService {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachTaiLieu', danhSach)
     .pipe(map((res: any) => res.objData as QuanLyTaiLieuHuongDan))
   }
+
+  public getTaiLieu(id: any): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + `GetTaiLieuHuongDan/${id}`)
+    .pipe(map((res: any) => res.objData))
+  }
 }

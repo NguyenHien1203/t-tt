@@ -36,6 +36,8 @@ export class ThemMoiCongViecComponent implements OnInit {
   lstChiDao: any[] = [];
   lstChuTri: any[] = [];
 
+  congviec: any = [];
+
   chkAllPhoiHop: boolean = false;
   chkAllThongBao: boolean = false;
 
@@ -266,7 +268,7 @@ export class ThemMoiCongViecComponent implements OnInit {
    */
   public XoaDoiTuong(nguoidung: any) {
     this.lstUserNhan = this.lstUserNhan.concat(nguoidung);
-    // this.lstNguoiDungPhanCong = this.lstNguoiDungPhanCong.filter(option => nguoidung.value !== option.value);
+    this.lstNguoiDungPhanCong = this.lstNguoiDungPhanCong.filter(option => nguoidung.value !== option.Value);
   }
 
   public ckAllPhoiHop() {
@@ -318,7 +320,7 @@ export class ThemMoiCongViecComponent implements OnInit {
         }
       });
     }
-    console.log("lst", this.lstNguoiDungPhanCong);
+
   }
 
   public chkChuTriChild(item: DoiTuongPhanCong) {
@@ -363,8 +365,17 @@ export class ThemMoiCongViecComponent implements OnInit {
   }
 
   public ThemMoiCongViec() {
-    console.log("lst", this.lstNguoiDungPhanCong);
+    this.submitted = true;
+    if (this.ThongTinCongViec.valid) {
+      this.congviec = this.ThongTinCongViec.value;
+      this.congviec.ngayBatDau =this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayBatDau));
+      this.congviec.ngayKetThuc =this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayKetThuc));
 
+     
+
+    }
+
+    
   }
 
 }

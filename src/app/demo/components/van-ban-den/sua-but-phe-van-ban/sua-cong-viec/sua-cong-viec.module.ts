@@ -19,20 +19,19 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { SuaButPheVanBanRoutingModule } from './sua-but-phe-van-ban-routing.module';
-import { SuaButPheVanBanComponent } from './sua-but-phe-van-ban.component';
+import { SuaCongViecRoutingModule } from './sua-cong-viec-routing.module';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
+import { SuaCongViecComponent } from './sua-cong-viec.component';
 import { TabViewModule } from 'primeng/tabview';
-import { SuaCongViecComponent } from './sua-cong-viec/sua-cong-viec.component';
 
 
 @NgModule({
-  declarations: [SuaButPheVanBanComponent],
+  declarations: [SuaCongViecComponent],
   imports: [
     CommonModule,
-    SuaButPheVanBanRoutingModule,
     TableModule,
+    SuaCongViecRoutingModule,
     FileUploadModule,
     FormsModule,
     ButtonModule,
@@ -56,4 +55,4 @@ import { SuaCongViecComponent } from './sua-cong-viec/sua-cong-viec.component';
     TabViewModule
   ]
 })
-export class SuaButPheVanBanModule { }
+export class SuaCongViecModule { }

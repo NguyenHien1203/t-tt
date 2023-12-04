@@ -35,7 +35,7 @@ export class ButPheVanBanComponent implements OnInit {
   public timKiemDanhSach: TimKiemDanhSach = {
     thongtinvb: "",
     ngaybanhanh: "",
-    ngaynhan: "",
+    ngaynhan: "", 
     sokihieu: "",
     sovanbanid: "",
     loaivbid: "",

@@ -4,7 +4,8 @@
     [draggable]="true"
     [resizable]="false"
     (onHide)="Thoat()"
-    [style]="{ width: '950px' }"
+    (onShow)="LoadThu()"
+    [style]="{ width: '1150px' }"
     [modal]="true"
     header="Thêm mới lịch"
     class="p-fluid"
@@ -17,29 +18,24 @@
             </div>
         </div>
         <div class="grid formgrid">
-            <div class="col-12 md:col-3">
-                <label htmlfor="ngayTao"
-                    >Ngày tạo<span class="p-error"> (*)</span>:</label
-                >
-                <p-calendar
-                    appendTo="body"
-                    formControlName="ngayTao"
-                    dateFormat="dd/mm/yy"
-                    placeholder="Ngày tạo"
-                    [style]="{ width: '100%' }"
-                    class="my-drop"
+            <div class="col-12 md:col-12">
+                <label htmlfor="listThu">Chọn thứ:<span class="p-error"> (*) </span>:</label>
+                <p-multiSelect
+                    [options]="lstThu"
+                    formControlName="listThu"
                     required=""
-                    showIcon="true"
-                ></p-calendar>
+                ></p-multiSelect>
                 <span
                     class="p-error"
                     *ngIf="
-                        !formThemMoi.controls.ngayTao.valid &&
-                        (formThemMoi.controls.ngayTao.touched || submitted)
+                        !formThemMoi.controls.listThu.valid &&
+                        (formThemMoi.controls.listThu.touched || submitted)
                     "
-                    >Vui lòng nhập ngày tạo</span
+                    >Vui lòng chọn thứ</span
                 >
             </div>
+        </div>
+        <div class="grid formgrid">
             <div class="col-12 md:col-3">
                 <label htmlfor="thoiGian">Thời gian:</label>
                 <p-dropdown
@@ -52,10 +48,8 @@
                     (onChange)="ChangeThoiGian()"
                 ></p-dropdown>
             </div>
-            <div class="col-12 md:col-3">
-                <label htmlfor="gio"
-                    >Chọn giờ:</label
-                >
+            <div class="col-12 md:col-2">
+                <label htmlfor="gio">Chọn giờ:</label>
                 <p-dropdown
                     [options]="lstGio"
                     appendTo="body"
@@ -65,10 +59,8 @@
                     [showClear]="false"
                 ></p-dropdown>
             </div>
-            <div class="col-12 md:col-3 gap-3">
-                <label htmlfor="phut"
-                    >Chọn phút:</label
-                >
+            <div class="col-12 md:col-2">
+                <label htmlfor="phut">Chọn phút:</label>
                 <p-dropdown
                     [options]="lstPhut"
                     appendTo="body"
@@ -78,9 +70,7 @@
                     [showClear]="false"
                 ></p-dropdown>
             </div>
-        </div>
-        <div class="grid formgrid">
-            <div class="col-12 md:col-6">
+            <div class="col-12 md:col-5">
                 <label htmlfor="diaDiem">Địa điểm:</label>
                 <textarea
                     rows="3"
@@ -90,7 +80,9 @@
                     pInputTextarea
                 ></textarea>
             </div>
-            <div class="col-12 md:col-6">
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-4">
                 <label htmlfor="lanhDaoChuTri">Lãnh đạo chủ trì:</label>
                 <input
                     pinputtext=""
@@ -100,9 +92,7 @@
                     formControlName="lanhDaoChuTri"
                 />
             </div>
-        </div>
-        <div class="grid formgrid">
-            <div class="col-12 md:col-6">
+            <div class="col-12 md:col-4">
                 <label htmlfor="lanhDaoVanPhong">Lãnh đạo văn phòng:</label>
                 <input
                     pinputtext=""
@@ -112,20 +102,22 @@
                     formControlName="lanhDaoVanPhong"
                 />
             </div>
-            <div class="col-12 md:col-6">
-                <label htmlfor="donViChuanBi">Đơn vị chuẩn bị:</label>
+            <div class="col-12 md:col-4">
+                <label htmlfor="chuyenVienPhoiHop">Chuyên viên phối hợp:</label>
                 <input
                     pinputtext=""
-                    id="donViChuanBi"
+                    id="chuyenVienPhoiHop"
                     type="text"
                     class="p-inputtext p-component p-element"
-                    formControlName="donViChuanBi"
+                    formControlName="chuyenVienPhoiHop"
                 />
             </div>
         </div>
         <div class="grid formgrid">
             <div class="col-12 md:col-12">
-                <label htmlfor="noiDung">Nội dung<span class="p-error"> (*)</span>:</label>
+                <label htmlfor="noiDung"
+                    >Nội dung<span class="p-error"> (*)</span>:</label
+                >
                 <textarea
                     rows="3"
                     cols="30"
@@ -135,13 +127,13 @@
                     required=""
                 ></textarea>
                 <span
-                class="p-error"
-                *ngIf="
-                    !formThemMoi.controls.noiDung.valid &&
-                    (formThemMoi.controls.noiDung.touched || submitted)
-                "
-                >Vui lòng nhập nội dung</span
-            >
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.noiDung.valid &&
+                        (formThemMoi.controls.noiDung.touched || submitted)
+                    "
+                    >Vui lòng nhập nội dung</span
+                >
             </div>
         </div>
     </ng-template>

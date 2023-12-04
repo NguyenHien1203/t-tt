@@ -1,13 +1,17 @@
 export interface QuanTriVanBanDen {
+    id?: number,
     soKyHieu?: string,
     trichYeu?: string,
     soDi?: number,
     ngayBanHanh?: string,
     loaiVBNghiepVu?: string,
     trangThaiId?: string,
-    TenTrangThai?: string,
+    tenTrangThai?: string,
     trangThaiGui?: string,
     dieuKienGui?: string,
+    donViId?: number,
+    tenTrangThaiGuiDi?: string,
+    publicNoiDung?: number
 }
 
 export class TimKiemModel {

@@ -19,12 +19,33 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { QuanTriVanBanRoutingModule } from './quan-tri-van-ban-routing.module';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { RatingModule } from 'primeng/rating';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { TreeModule } from 'primeng/tree';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { TabViewModule } from 'primeng/tabview';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { QuanTriVanBanComponent } from './quan-tri-van-ban.component';
+import { TiepNhanVanBanComponent } from './tiep-nhan-van-ban/tiep-nhan-van-ban.component';
+import { SuaVanBanComponent } from './sua-van-ban/sua-van-ban.component';
+import { TuChoiComponent } from './tu-choi/tu-choi.component';
 
 
 @NgModule({
-  declarations: [QuanTriVanBanComponent],
+  declarations: [QuanTriVanBanComponent, TiepNhanVanBanComponent,SuaVanBanComponent, TuChoiComponent],
   imports: [
+    FileUploadModule,
+    RadioButtonModule,
+    TreeSelectModule,
+    OverlayPanelModule,
+    TabViewModule,
+    TreeModule,
+    RatingModule,
+    RippleModule,
+    ButtonModule,
     ConfirmDialogModule,
     ToastModule,
     ReactiveFormsModule,

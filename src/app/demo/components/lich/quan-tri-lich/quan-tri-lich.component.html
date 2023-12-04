@@ -141,7 +141,7 @@
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
-                                        Người tạo
+                                        Người đề xuất
                                     </div>
                                 </th>
                                 <th style="min-width: 10rem">
@@ -177,13 +177,6 @@
                                         class="flex justify-content-between align-items-center"
                                     >
                                         Đơn vị chuẩn bị
-                                    </div>
-                                </th>
-                                <th style="min-width: 10rem">
-                                    <div
-                                        class="flex justify-content-between align-items-center"
-                                    >
-                                        Trạng thái
                                     </div>
                                 </th>
                                 <th style="min-width: 5rem">
@@ -228,57 +221,32 @@
                                 <td>
                                     {{ item.donViChuanBi }}
                                 </td>
-                                <td>
-                                    <span
-                                        *ngIf="
-                                            idNhomQuyen == 3 &&
-                                                item.trangThai == 1;
-                                            else notPermis
-                                        "
-                                    >
-                                        <button
-                                            pButton
-                                            pRipple
-                                            icon="pi pi-check"
-                                            (click)="XuLyLich(item.id, 'D')"
-                                            pTooltip="Duyệt"
-                                            class="p-button-rounded p-button-success mr-2"
-                                        ></button>
-                                        <button
-                                            pButton
-                                            pRipple
-                                            (click)="XuLyLich(item.id, 'TC')"
-                                            pTooltip="Từ chối duyệt"
-                                            icon="pi pi-times"
-                                            class="p-button-rounded p-button-danger"
-                                        ></button>
-                                    </span>
-                                    <ng-template #notPermis>
-                                        <p-chip
-                                            label="{{
-                                                item.tenTrangThai
-                                            }}"
-                                        ></p-chip>
-                                    </ng-template>
-                                </td>
                                 <td class="text-center">
                                     <div class="div-center">
-                                        <button
-                                            pButton
-                                            pRipple
-                                            icon="pi pi-pencil"
-                                            pTooltip="Cập nhật"
-                                            (click)="CapNhat(item.id)"
-                                            class="p-button-rounded p-button-success mr-2"
-                                        ></button>
-                                        <button
-                                            pButton
-                                            pRipple
-                                            pTooltip="Xóa"
-                                            (click)="Xoa(item.id)"
-                                            icon="pi pi-trash"
-                                            class="p-button-rounded p-button-warning"
-                                        ></button>
+                                        <span
+                                            *ngIf="
+                                                idNhomQuyen == 3 ||
+                                                idNhomQuyen == 12 ||
+                                                idUser == item.nguoiTao
+                                            "
+                                        >
+                                            <button
+                                                pButton
+                                                pRipple
+                                                icon="pi pi-pencil"
+                                                pTooltip="Cập nhật"
+                                                (click)="CapNhat(item.id)"
+                                                class="p-button-rounded p-button-success mr-2"
+                                            ></button>
+                                            <button
+                                                pButton
+                                                pRipple
+                                                pTooltip="Xóa"
+                                                (click)="Xoa(item.id)"
+                                                icon="pi pi-trash"
+                                                class="p-button-rounded p-button-warning"
+                                            ></button>
+                                        </span>
                                     </div>
                                 </td>
                             </tr>

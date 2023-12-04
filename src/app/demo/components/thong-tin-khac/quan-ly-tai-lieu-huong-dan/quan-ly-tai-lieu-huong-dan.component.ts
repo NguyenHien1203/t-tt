@@ -19,6 +19,7 @@ export class QuanLyTaiLieuHuongDanComponent implements OnInit {
   deleteProductDialog: boolean = false;
   hienThiThemMoi: boolean = false;
   hienThiCapNhat: boolean = false;
+  hienThiChiTiet: boolean = false;
   msgs: Message[] = [];
 
   danhSachQuanLyTaiLieu: QuanLyTaiLieuHuongDan[] = [];
@@ -31,6 +32,8 @@ export class QuanLyTaiLieuHuongDanComponent implements OnInit {
     donViId: this.authService.GetDonViLamViec() ?? "0",
     timChinhXac: 0
   }
+
+  idChiTiet: string;
 
   constructor(private messageService: MessageService, private quanLyTaiLieuService: QuanLyTaiLieuHuongDanService, private authService: AuthService,) { }
 
@@ -76,11 +79,16 @@ export class QuanLyTaiLieuHuongDanComponent implements OnInit {
     this.hienThiThemMoi = true;
   }
 
+  ChiTiet(id: any) {
+    this.hienThiChiTiet = true;
+    this.idChiTiet = id;
+  }
+
   TatPopup(item: any, type: string) {
     if (type === 'C') {
       this.hienThiThemMoi = false;
-    } else {
-      this.hienThiCapNhat = false;
+    } else if (type === 'I') {
+      this.hienThiChiTiet = false;
     }
     this.TimKiem();
   }

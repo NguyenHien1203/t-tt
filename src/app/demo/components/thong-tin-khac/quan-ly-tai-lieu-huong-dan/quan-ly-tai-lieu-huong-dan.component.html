@@ -29,7 +29,8 @@
             <div class="wrapper">
                 <h2>DANH SÁCH TÀI LIỆU HƯỚNG DẪN</h2>
                 <div class="icon-cls">
-                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success" (click)="ThemMoi()">
+                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success"
+                        (click)="ThemMoi()">
                     </button>
                 </div>
             </div>
@@ -58,7 +59,7 @@
                                 </td>
                                 <td style="width:10%; min-width:15rem;">
                                     <span class="p-column-title">Tiêu đề</span>
-                                    {{quanLyTaiLieu.tieuDe}}
+                                    <a href="javascript:;" (click)="ChiTiet(quanLyTaiLieu.id)">{{quanLyTaiLieu.tieuDe}}</a>
                                 </td>
                                 <td style="width:10%; min-width:10rem;">
                                     <span class="p-column-title">Đơn vị</span>
@@ -81,6 +82,11 @@
                                 </td>
                             </tr>
                         </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="8">No record found.</td>
+                            </tr>
+                        </ng-template>
                     </p-table>
                 </div>
             </div>
@@ -89,6 +95,8 @@
         <app-them-moi [show]="hienThiThemMoi" (close)="TatPopup($event, 'C')"></app-them-moi>
 
         <!--<app-cap-nhat [show]="hienThiCapNhat" (close)="TatPopup($event, 'U')" [id]="idSoVanBan"></app-cap-nhat>  -->
+
+        <app-chi-tiet [show]="hienThiChiTiet" (close)="TatPopup($event, 'I')" [id]="idChiTiet"></app-chi-tiet>
 
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">

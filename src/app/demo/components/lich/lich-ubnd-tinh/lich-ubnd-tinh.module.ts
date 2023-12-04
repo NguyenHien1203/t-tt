@@ -26,11 +26,10 @@ import { LichUbndTinhComponent } from './lich-ubnd-tinh.component';
 import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 
-
 @NgModule({
-  declarations: [LichUbndTinhComponent, ThemMoiComponent, CapNhatComponent],
-  imports: [
-    TooltipModule,
+    declarations: [LichUbndTinhComponent, ThemMoiComponent, CapNhatComponent],
+    imports: [
+        TooltipModule,
         ChipModule,
         ConfirmDialogModule,
         DialogModule,
@@ -50,8 +49,8 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
         TableModule,
         ToastModule,
         BreadcrumbModule,
-    CommonModule,
-    LichUbndTinhRoutingModule
-  ]
+        CommonModule,
+        LichUbndTinhRoutingModule,
+    ],
 })
-export class LichUbndTinhModule { }
+export class LichUbndTinhModule {}

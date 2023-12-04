@@ -1,0 +1,371 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb
+                    class="max-w-full"
+                    [model]="items"
+                    [home]="home"
+                ></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <h2>TÌM KIẾM</h2>
+            <div class="field grid">
+                <label class="col-12 md:col-2 fl-wr">
+                    <p-dropdown
+                        [options]="lstTuan"
+                        appendTo="body"
+                        optionValue="value"
+                        class="form-control"
+                        [style]="{ width: '100%' }"
+                        [(ngModel)]="currentWeek"
+                        [showClear]="false"
+                        (ngModelChange)="ChangeLich()"
+                    ></p-dropdown>
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
+                    <p-dropdown
+                        [options]="lstNam"
+                        appendTo="body"
+                        class="form-control"
+                        [style]="{ width: '100%' }"
+                        optionValue="value"
+                        [(ngModel)]="currentYear"
+                        [showClear]="false"
+                        (ngModelChange)="ChangeLich()"
+                    ></p-dropdown>
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
+                    <p-button
+                        label="TUẦN TRƯỚC"
+                        [style]="{ width: '100%' }"
+                        class="form-control"
+                        icon="pi pi-arrow-left"
+                        iconPos="left"
+                        (click)="updateWeek(startOfWeekDate, 'prev')"
+                    ></p-button>
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
+                    <p-button
+                        label="TUẦN SAU"
+                        [style]="{ width: '100%' }"
+                        class="form-control"
+                        icon="pi pi-arrow-right"
+                        iconPos="right"
+                        (click)="updateWeek(startOfWeekDate, 'next')"
+                    ></p-button>
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
+                    <input
+                        [(ngModel)]="firstOfWeek_show"
+                        pinputtext=""
+                        id="tuNgay"
+                        type="text"
+                        class="form-control"
+                        [style]="{ width: '100%' }"
+                        class="p-inputtext p-component p-element"
+                    />
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
+                    <input
+                        [(ngModel)]="endOfWeek_show"
+                        pinputtext=""
+                        id="denNgay"
+                        type="text"
+                        class="form-control"
+                        [style]="{ width: '100%' }"
+                        click=""
+                        class="p-inputtext p-component p-element"
+                    />
+                </label>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="wrapper">
+                <h2>DANH SÁCH LỊCH CƠ QUAN</h2>
+                <div class="icon-cls">
+                    <button
+                        pButton
+                        pRipple
+                        label="Import excel"
+                        icon="pi pi-plus"
+                        class="p-button-success mr-2"
+                        (click)="ImportExcel()"
+                    ></button>
+                    <button
+                        pButton
+                        pRipple
+                        label="Thêm mới"
+                        icon="pi pi-plus"
+                        class="p-button-success mr-2"
+                        (click)="ThemMoi()"
+                    ></button>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-12">
+                    <p-table
+                        [paginator]="true"
+                        #dt1
+                        [value]="lstLichCoQuan"
+                        dataKey="id"
+                        [rows]="10"
+                        [loading]="loading"
+                        [rowsPerPageOptions]="[10, 20, 30]"
+                        [rowHover]="true"
+                        styleClass="p-datatable-gridlines"
+                        [paginator]="true"
+                        responsiveLayout="scroll"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 2%">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        STT
+                                    </div>
+                                </th>
+                                <th style="min-width: 12rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Ngày tạo
+                                    </div>
+                                </th>
+                                <th style="min-width: 12rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Thời gian
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Người tạo
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Nội dung
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Địa điểm
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Chủ trì
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Lãnh đạo văn phòng
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Đơn vị chuẩn bị
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Trạng thái
+                                    </div>
+                                </th>
+                                <th style="min-width: 7rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Chức năng
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template
+                            pTemplate="body"
+                            let-item
+                            let-rowIndex="rowIndex"
+                        >
+                            <tr>
+                                <td style="text-align: center">
+                                    {{ rowIndex + 1 }}
+                                </td>
+                                <td class="text-center">
+                                    {{ item.ngayTao | date : "dd-MM-yyyy" }}
+                                </td>
+                                <td class="text-center">
+                                    {{ item.thoiGian }}
+                                </td>
+                                <td>
+                                    {{ item.tenNguoiDeXuat }}
+                                </td>
+                                <td>
+                                    {{ item.noiDung }}
+                                </td>
+                                <td>
+                                    {{ item.diaDiem }}
+                                </td>
+                                <td>
+                                    {{ item.lanhDaoChuTri }}
+                                </td>
+                                <td>
+                                    {{ item.lanhDaoVanPhong }}
+                                </td>
+                                <td>
+                                    {{ item.donViChuanBi }}
+                                </td>
+                                <td>
+                                    <span
+                                        *ngIf="
+                                            idNhomQuyen == 3 &&
+                                                item.trangThai == 1;
+                                            else notPermis
+                                        "
+                                    >
+                                        <button
+                                            pButton
+                                            pRipple
+                                            icon="pi pi-check"
+                                            (click)="XuLyLich(item.id, 'D')"
+                                            pTooltip="Duyệt"
+                                            class="p-button-rounded p-button-success mr-2"
+                                        ></button>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            (click)="XuLyLich(item.id, 'TC')"
+                                            pTooltip="Từ chối duyệt"
+                                            icon="pi pi-times"
+                                            class="p-button-rounded p-button-danger"
+                                        ></button>
+                                    </span>
+                                    <ng-template #notPermis>
+                                        <p-chip
+                                            label="{{ item.tenTrangThai }}"
+                                        ></p-chip>
+                                    </ng-template>
+                                </td>
+                                <td class="text-center">
+                                    <div class="div-center">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            icon="pi pi-pencil"
+                                            pTooltip="Cập nhật"
+                                            (click)="CapNhat(item.id)"
+                                            class="p-button-rounded p-button-success mr-2"
+                                        ></button>
+                                        <button
+                                            *ngIf="item.trangThai == 2 && item.trangThai != 4"
+                                            [style]="{ 'margin-right': '5px' }"
+                                            pButton
+                                            pRipple
+                                            pTooltip="Xuất bản"
+                                            (click)="XuatBan(item.id)"
+                                            icon="pi pi-calendar-plus"
+                                            class="p-button-rounded p-button-success"
+                                        ></button>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            pTooltip="Xóa"
+                                            (click)="Xoa(item.id)"
+                                            icon="pi pi-trash"
+                                            class="p-button-rounded p-button-warning"
+                                        ></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="12">No record found.</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="loadingbody">
+                            <tr>
+                                <td colspan="12">
+                                    Loading record data. Please wait.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-them-moi
+    [show]="hienThiThemMoi"
+    [id]="id"
+    (tatPopup)="Thoat($event, 'T')"
+></app-them-moi>
+<app-cap-nhat
+    [show]="hienThiCapNhat"
+    [id]="id"
+    (tatPopup)="Thoat($event, 'C')"
+></app-cap-nhat>
+<app-import-excel
+    [show]="hienThiImport"
+    (tatPopup)="Thoat($event, 'I')"
+></app-import-excel>
+<p-confirmDialog #cd [style]="{ width: '30vw' }">
+    <ng-template pTemplate="header">
+        <h3>Xác nhận</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            (click)="cd.accept()"
+            label="Đồng ý"
+            icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component p-button-info"
+        >
+            <span
+                class="p-button-icon p-button-icon-left pi pi-check"
+                aria-hidden="true"
+            ></span>
+            <span class="p-button-label">Đồng ý</span>
+            <span class="p-ink"></span>
+        </button>
+        <button
+            pbutton=""
+            pripple=""
+            (click)="cd.reject()"
+            label="Hủy"
+            icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component p-button-danger"
+        >
+            <span
+                class="p-button-icon p-button-icon-left pi pi-times"
+                aria-hidden="true"
+            ></span>
+            <span class="p-button-label">Hủy</span>
+            <span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-confirmDialog>
+<p-toast></p-toast>

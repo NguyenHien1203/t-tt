@@ -1,0 +1,32 @@
+<p-dialog [(visible)]="show" [formGroup]="formCapNhat" (onHide)="Thoat()" (onShow)="BindDataDialog()" [style]="{width: '750px'}"
+    header="Cập nhật nhãn cá nhân" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="formgrid grid">
+            <div class="field col md:col-5">
+                <label htmlfor="tenHienThi">Tên nhãn <span class="p-error">(*)</span>:</label>
+                <input pinputtext="" id="tenHienThi" type="text" class="p-inputtext p-component p-element"
+                    formControlName="tenHienThi">
+                <span class="p-error"
+                    *ngIf="!formCapNhat.controls.tenHienThi.valid && (formCapNhat.controls.tenHienThi.touched || submitted)">Vui lòng
+                    nhập tên nhãn</span>
+            </div>
+            <div class="field col">
+                <p-checkbox name="hienThi" binary="true"  formControlName="hienThi"  (click)="CheckedHt()" class="mg-t-25" value="true"
+                    label="Hiển thị"></p-checkbox>
+            </div>
+        </div>
+        <div class="field">
+            <label for="ghiChu">Ghi chú:</label>
+            <textarea id="ghiChu" formControlName="ghiChu" pInputTextarea rows="3" cols="20"></textarea>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pbutton="" pripple="" type="submit" label="Info"
+            class="p-element p-ripple p-button-info p-button p-component" ng-reflect-label="Info"
+            (click)="CapNhat()"><span class="p-button-label">Lưu</span><span class="p-ink"></span></button>
+        <button pbutton="" pripple="" type="button" label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component" ng-reflect-label="Danger"
+            (click)="Thoat()"><span class="p-button-label">Hủy</span><span class="p-ink"></span></button>
+    </ng-template>
+</p-dialog>

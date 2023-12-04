@@ -26,6 +26,9 @@ import { MenubarModule } from 'primeng/menubar';
 
 import { HopThuQuanTrongRoutingModule } from './hop-thu-quan-trong-routing.module';
 import { HopThuQuanTrongComponent } from './hop-thu-quan-trong.component';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { TraoDoiThongTinModule } from '../trao-doi-thong-tin.module';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 
 @NgModule({
@@ -33,6 +36,9 @@ import { HopThuQuanTrongComponent } from './hop-thu-quan-trong.component';
     HopThuQuanTrongComponent
   ],
   imports: [
+    OverlayPanelModule,
+    TieredMenuModule,
+    TraoDoiThongTinModule,
     MenubarModule,
     TableModule,
     FileUploadModule,

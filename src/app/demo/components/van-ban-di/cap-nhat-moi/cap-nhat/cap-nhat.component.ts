@@ -27,12 +27,6 @@ export class CapNhatComponent {
         private authService: AuthService
     ) {}
 
-    items: any[] = [
-        { label: 'Văn bản đi' },
-        { label: 'Cập nhật mới' },
-        { label: 'Thêm mới văn bản' },
-    ];
-    home: any = { icon: 'pi pi-home', routerLink: '/' };
     loading: boolean = true;
     selectedFiles: any[] = [];
     submitted: boolean = false;
@@ -148,6 +142,7 @@ export class CapNhatComponent {
             this.formThongTinVanBan.patchValue({
                 soKiHieu: soKiHieuData,
             });
+            console.log("form", this.formThongTinVanBan.value);
         } catch (error) {
             this.messageService.add({
                 severity: 'error',
@@ -394,7 +389,4 @@ export class CapNhatComponent {
         this.submitted = false;
     }
 
-    public ReturnTrangChu() {
-        this.router.navigate(['/van-ban-di/cap-nhat-moi']);
-    }
 }

@@ -1,5 +1,5 @@
 <p-dialog [(visible)]="hienThi" [formGroup]="formCapNhat" (onHide)="Thoat()" (onShow)="BindDataDialog()" [style]="{width: '750px'}"
-    header="Thêm mới liên kết" [modal]="true" class="p-fluid">
+    header="Cập nhật liên kết" [modal]="true" class="p-fluid">
     <ng-template pTemplate="content">
         <div class="formgrid grid">
             <div class="field col md:col-5">
@@ -16,7 +16,7 @@
             </div>
 
             <div class="field col">
-                <p-checkbox name="hienThi" binary="true" [(ngModel)]="checked" formControlName="hienThi"  (click)="CheckedHt()" class="mg-t-25" value="true"
+                <p-checkbox name="hienThi" binary="true" formControlName="hienThi"  (click)="CheckedHt()" class="mg-t-25" value="true"
                     label="Hiển thị"></p-checkbox>
             </div>
         </div>

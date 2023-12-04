@@ -22,7 +22,7 @@
             <p-toast></p-toast>
             <h2>TÌM KIẾM</h2>
             <div class="field grid">
-                <div class="col-12 md:col-3 fl-wr">
+                <label class="col-12 md:col-3 fl-wr">
                     <input
                         pInputText
                         type="text"
@@ -30,8 +30,8 @@
                         placeholder="Tiêu đề"
                         class="form-control"
                     />
-                </div>
-                <div class="col-12 md:col-3 fl-wr">
+                </label>
+                <label class="col-12 md:col-3 fl-wr">
                     <input
                         pInputText
                         type="text"
@@ -39,28 +39,29 @@
                         placeholder="Người gửi"
                         class="form-control"
                     />
-                </div>
-                <div class="col-12 md:col-2 fl-wr">
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
                     <p-dropdown
-                    [showClear]="true"
-                    [(ngModel)]="timKiemDanhSach.nam"
-                    [options]="yearOptions"
-                    [filter]="true"
-                    placeholder="Chọn năm"
-                    [style]="{ width: '100%' }"
-                    class="my-drop"
-                ></p-dropdown> 
-                </div><div class="col-12 md:col-2 fl-wr">
+                        [showClear]="true"
+                        [(ngModel)]="timKiemDanhSach.nam"
+                        [options]="yearOptions"
+                        [filter]="true"
+                        placeholder="Chọn năm"
+                        [style]="{ width: '100%' }"
+                        class="my-drop"
+                    ></p-dropdown>
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
                     <p-dropdown
-                    [showClear]="true"
-                    [(ngModel)]="timKiemDanhSach.thang"
-                    [options]="monthOptions"
-                    [filter]="true"
-                    placeholder="Chọn tháng"
-                    [style]="{ width: '100%' }"
-                    class="my-drop"
-                ></p-dropdown> 
-                </div>
+                        [showClear]="true"
+                        [(ngModel)]="timKiemDanhSach.thang"
+                        [options]="monthOptions"
+                        [filter]="true"
+                        placeholder="Chọn tháng"
+                        [style]="{ width: '100%' }"
+                        class="my-drop"
+                    ></p-dropdown>
+                </label>
                 <label class="col-12 md:col-2 fl-wr">
                     <p-checkbox
                         name="hienThi"
@@ -88,29 +89,92 @@
         <div class="card">
             <div class="wrapper">
                 <h2>DANH SÁCH HỘP THƯ ĐI</h2>
-                <div class="icon-cls">
+                <div class="icon-cls" *ngIf="isShowMenuBar">
                     <button
                         pButton
                         pRipple
                         label="Gán nhãn"
                         icon="pi pi-plus"
-                        class="p-button-success mr-2"
-                        (click)="GanNhan()"
+                        class="p-button-info mr-2"
+                        (click)="ncn.toggle($event)"
                     ></button>
+                    <p-overlayPanel
+                        #ncn
+                        [showCloseIcon]="false"
+                        [style]="{ width: '250px' }"
+                    >
+                        <ng-template pTemplate>
+                            <p-table
+                                class="tb-nhancanhan"
+                                #tbNhanCaNhan
+                                [value]="lstNhanCaNhanClone"
+                                selectionMode="single"
+                                [paginator]="false"
+                                [sc]="true"
+                                [rows]="5"
+                                [globalFilterFields]="['label']"
+                                responsiveLayout="scroll"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div class="flex">
+                                        <input
+                                            pInputText
+                                            type="text"
+                                            (input)="
+                                                tbNhanCaNhan.filterGlobal(
+                                                    $event.target.value,
+                                                    'contains'
+                                                )
+                                            "
+                                            placeholder="Keyword"
+                                        />
+                                    </div>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-rowData
+                                    let-item
+                                >
+                                    <tr [pSelectableRow]="rowData">
+                                        <td style="width: 2rem">
+                                            <p-checkbox
+                                                binary="true"
+                                                [(ngModel)]="item.checked"
+                                                value="true"
+                                                label=""
+                                            ></p-checkbox>
+                                        </td>
+                                        <td>{{ item.label }}</td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="footer">
+                                    <button
+                                        [style]="{ 'margin-top': '10px' }"
+                                        pButton
+                                        pRipple
+                                        label="Gán"
+                                        icon="pi pi-check"
+                                        class="p-button-info mr-2"
+                                        (click)="GanNhan()"
+                                    ></button>
+                                </ng-template>
+                            </p-table>
+                        </ng-template>
+                    </p-overlayPanel>
                     <button
                         pButton
                         pRipple
                         label="Xóa"
-                        icon="pi pi-plus"
-                        class="p-button-success mr-2"
+                        icon="pi pi-trash"
+                        class="p-button-danger mr-2"
                         (click)="XoaNhieu()"
                     ></button>
                     <button
                         pButton
                         pRipple
                         label="Đánh dấu là quan trọng"
-                        icon="pi pi-plus"
-                        class="p-button-success mr-2"
+                        icon="pi pi-star-fill"
+                        class="p-button-warning mr-2"
                         (click)="DanhDauQuanTrong()"
                     ></button>
                 </div>
@@ -136,13 +200,13 @@
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
-                                    <p-checkbox
-                                    binary="true"
-                                    [(ngModel)]="isCheckAll"
-                                    (ngModelChange)="CheckAll($event)"
-                                    value="true"
-                                    label=""
-                                ></p-checkbox>
+                                        <p-checkbox
+                                            binary="true"
+                                            [(ngModel)]="isCheckAll"
+                                            (ngModelChange)="CheckAll($event)"
+                                            value="true"
+                                            label=""
+                                        ></p-checkbox>
                                     </div>
                                 </th>
                                 <th style="width: 2%">
@@ -190,33 +254,44 @@
                             <tr>
                                 <td style="text-align: center">
                                     <p-checkbox
-                                            binary="true"
-                                            [(ngModel)]="item.checked"
-                                            (ngModelChange)="CheckSingle($event, item.id)"
-                                            value="true"
-                                            label=""
-                                        ></p-checkbox>
+                                        binary="true"
+                                        [(ngModel)]="item.checked"
+                                        (ngModelChange)="
+                                            CheckSingle($event, item.id)
+                                        "
+                                        value="true"
+                                        label=""
+                                    ></p-checkbox>
                                 </td>
-                                 <td style="text-align: center">
+                                <td style="text-align: center">
                                     {{ rowIndex + 1 }}
                                 </td>
-                                <td >
+                                <td>
                                     {{ item.nguoiNhan }}
                                 </td>
-                                <td >
+                                <td>
                                     {{ item.tieuDe }}
                                 </td>
                                 <td>
-                                    {{ item.ngayGui   | date : "dd-MM-yyyy hh:mm" }}
+                                    {{
+                                        item.ngayGui | date : "dd-MM-yyyy hh:mm"
+                                    }}
                                 </td>
                                 <td class="text-center">
                                     <div class="div-center">
                                         <button
                                             pButton
                                             pRipple
-                                            icon="pi pi-pencil"
-                                            (click)="CapNhat(item.id)"
-                                            class="p-button-rounded p-button-success mr-2"
+                                            icon="pi pi-eye"
+                                            (click)="
+                                                ChiTiet(
+                                                    item.traoDoiId,
+                                                    10,
+                                                    item.chkThuDen,
+                                                    item.chkThuNhap
+                                                )
+                                            "
+                                            class="p-button-rounded p-button-info mr-2"
                                         ></button>
                                         <button
                                             pButton
@@ -249,7 +324,48 @@
 </div>
 <app-chi-tiet-hop-thu
     [show]="hienThiChiTiet"
-    [id]="id"
-    (tatpopup)="Thoat($event, 'c')"
+    [idHopThu]="id"
+    [idNhanCaNhan]="ncn"
+    [checkThuDen]="checkThuDen"
+    [checkThuNhap]="checkThuNhap"
+    (tatPopup)="Thoat($event, 'C')"
 ></app-chi-tiet-hop-thu>
+
+<p-confirmDialog #cd [style]="{ width: '30vw' }">
+    <ng-template pTemplate="header">
+        <h3>Xác nhận</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            (click)="cd.accept()"
+            label="Đồng ý"
+            icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component p-button-info"
+        >
+            <span
+                class="p-button-icon p-button-icon-left pi pi-check"
+                aria-hidden="true"
+            ></span>
+            <span class="p-button-label">Đồng ý</span>
+            <span class="p-ink"></span>
+        </button>
+        <button
+            pbutton=""
+            pripple=""
+            (click)="cd.reject()"
+            label="Hủy"
+            icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component p-button-danger"
+        >
+            <span
+                class="p-button-icon p-button-icon-left pi pi-times"
+                aria-hidden="true"
+            ></span>
+            <span class="p-button-label">Hủy</span>
+            <span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-confirmDialog>
 <p-toast></p-toast>

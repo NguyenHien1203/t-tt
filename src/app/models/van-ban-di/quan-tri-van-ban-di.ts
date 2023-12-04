@@ -40,12 +40,17 @@ export interface TimKiemVBDi {
 }
 
 export interface VanBanNhanGui {
-    loaiVanBanDiDen?: number,
-    publicNoiDung?: number,
-    checkCapNhat?: number,
+    vanBanId?: number;
+    nhanId?: number;
     trangThaiId?: number,
+    phanLoai?: number;
+    loaiVanBanDiDen?: number,
     trichYeu?: string,
+    soDiDenCustom?: string,
     noiNhanGui?: string,
+    publicNoiDung?: number,
+    createdBy?: number,
+    checkCapNhat?: number,
 }
 
 export interface VBIDPL {

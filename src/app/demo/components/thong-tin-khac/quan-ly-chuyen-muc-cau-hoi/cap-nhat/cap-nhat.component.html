@@ -1,0 +1,62 @@
+<p>cap-nhat works!</p>
+<p-dialog [(visible)]="show" [formGroup]="formCapNhat" (onShow)="BindDataDialog()" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
+    [style]="{width: '950px'}" [modal]="true" header="Cập nhật chuyên mục câu hỏi" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field div-center">
+            Các trường có dấu <span class="p-error">&nbsp;(*)&nbsp; </span> yêu cầu bắt
+            buộc nhập
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-8" for="tenDanhMucCauHoi">
+                <label htmlfor="tenDanhMucCauHoi"
+                    >Tên chuyên mục câu hỏi
+                    <span class="p-error"> (*)</span>:</label
+                >
+                <input
+                    pinputtext=""
+                    id="ten"
+                    type="text"
+                    required=""
+                    class="p-inputtext p-component p-element"
+                    formControlName="tenDanhMucCauHoi"
+                />
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formCapNhat.controls.tenDanhMucCauHoi.valid &&
+                        (formCapNhat.controls.tenDanhMucCauHoi.touched ||
+                            submitted)
+                    "
+                    >Vui lòng nhập tên chuyên mục</span
+                >
+            </div>
+            <div class="col-12 md:col-2" for="thuTu">
+                <label htmlfor="thuTu">Số thứ tự </label>
+                <input
+                    pInputText
+                    pKeyFilter="int"
+                    formControlName="thuTu"
+                    placeholder=""
+                />
+            </div>
+            <div class="col-12 md:col-2" for="hienThi">
+                <p-checkbox
+                    name="hienThi"
+                    formControlName="hienThi"
+                    binary="true"
+                    class="mg-t-25"
+                    value="true"
+                    label="Hiển thị"
+                ></p-checkbox>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pbutton="" pripple="" type="submit" label="Info"
+            class="p-element p-ripple p-button-info p-button p-component" ng-reflect-label="Info"
+            (click)="CapNhat()"><span class="p-button-label">Lưu</span><span class="p-ink"></span></button>
+        <button pbutton="" pripple="" type="button" label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component" ng-reflect-label="Danger"
+            (click)="Thoat()"><span class="p-button-label">Hủy</span><span class="p-ink"></span></button>
+    </ng-template>
+</p-dialog>

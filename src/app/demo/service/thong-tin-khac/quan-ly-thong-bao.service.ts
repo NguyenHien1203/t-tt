@@ -23,6 +23,7 @@ export class QuanLyThongBaoService {
       .toPromise()
       .then(res => res.objData as QuanLyThongBao[]);
   }
+  
   getQuanLyThongBaoId(id: string) {
     return this.http.get<any>(environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/GetThongBaoById/' + id)
       .pipe(

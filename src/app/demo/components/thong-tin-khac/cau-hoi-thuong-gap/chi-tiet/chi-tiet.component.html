@@ -1,0 +1,96 @@
+<p-dialog
+    [(visible)]="show"
+    (onShow)="BindDataDialog()"
+    [draggable]="true"
+    [resizable]="false"
+    (onHide)="Thoat()"
+    [style]="{ width: '950px' }"
+    [modal]="true"
+    header="Chi tiết câu hỏi thường gặp"
+    class="p-fluid"
+>
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <div class="col-12">
+                <p-table [value]="[cauHoiThuongGap]" class="custom-table">
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Chuyên mục:</strong>
+                            </td>
+                            <td class="custom-b">{{ item.tenChuyenMuc }}</td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb"><strong>Tiêu đề:</strong></td>
+                            <td class="custom-b">{{ item.tieuDe }}</td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb"><strong>Câu hỏi:</strong></td>
+                            <td class="custom-b">{{ item.cauHoi }}</td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Người tạo:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{ item.tenNguoiTao }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Ngày tạo:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{ item.ngayTao | date : "dd-MM-yyyy" }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Câu trả lời:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{ item.traLoi }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Người trả lời:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{ item.tenNguoiTraLoi }}
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="custom-rb">
+                                <strong>Ngày trả lời:</strong>
+                            </td>
+                            <td class="custom-b">
+                              {{ item.ngayTraLoi | date : "dd-MM-yyyy" }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-r"><strong>Số lượt xem:</strong></td>
+                            <td>
+                              {{ item.soLuotXem }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            type="button"
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            ng-reflect-label="Danger"
+            (click)="Thoat()"
+        >
+            <span class="p-button-label">Hủy</span><span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-dialog>

@@ -31,6 +31,7 @@ export class ChonNguoiDungComponent {
     }
 
     public ThoatChonNguoiDung(): void {
+        this.isCheckAll = false;
         this.show = false;
         this.tatPopup.emit(this.show);
     }

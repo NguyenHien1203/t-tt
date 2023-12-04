@@ -31,6 +31,8 @@ export class ThemMoiComponent {
   });
 
   public Thoat(): void {
+    this.checkedValue = false;
+    this.formThemMoi.reset();
     this.submitted = false;
     this.hienThi = false;
     this.tatPopup.emit(this.hienThi);

@@ -36,3 +36,7 @@ export interface TimKiemDanhSachVanBan{
     trichYeu? : string ,
     donViId? : string 
 }
+
+export class HangSo {
+    formChiTiet = 1;
+}

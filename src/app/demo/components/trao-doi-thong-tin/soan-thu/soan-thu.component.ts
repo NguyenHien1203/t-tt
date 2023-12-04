@@ -13,7 +13,7 @@ import { saveAs } from 'file-saver';
 import { throwError } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-soan-thu',
@@ -30,11 +30,13 @@ export class SoanThuComponent implements OnInit {
         private authService: AuthService,
         private cd: ChangeDetectorRef,
         private uploadfileService: UploadFileService,
-        private router : Router,
-        @Inject(DOCUMENT) private document: Document
+        private route: ActivatedRoute
     ) {}
 
+    editConTent: string = '';
     tieuDe: string = '';
+    traoDoiId: string = '1';
+    type: string = '0';
     lstNguoiDungFilter: any[] = [];
     lstSelectedNguoiDung: any[] = [];
     filteredItems: any[] = [];
@@ -58,14 +60,6 @@ export class SoanThuComponent implements OnInit {
     idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     Editor = ClassicEditor;
-    timKiemDanhSach: any = {
-        tenNhan: '',
-        phanLoai: '1',
-        ghiChu: '',
-        nguoiTao: Number(this.authService.GetmUserInfo()?.userId),
-        timChinhXac: 0,
-    };
-
     filterItems(event: any) {
         //tìm kiếm người dùng
         const lstNguoiDungSelected = this.lstSelectedNguoiDung.map(
@@ -86,7 +80,9 @@ export class SoanThuComponent implements OnInit {
 
     async ngOnInit() {
         await this.service //lấy danh sách nhãn cá nhân
-            .getDanhSachNhanCaNhan(this.timKiemDanhSach)
+            .getDanhSachNhanCaNhan(
+                Number(this.authService.GetmUserInfo()?.userId)
+            )
             .then((data) => {
                 this.lstNhanCaNhan = data.map((ncn) => {
                     return {
@@ -134,6 +130,63 @@ export class SoanThuComponent implements OnInit {
         ];
 
         this.LoadDanhMuc();
+
+        this.XuLySoanThu();
+    }
+
+    public XuLySoanThu(): void {
+        this.route.params.subscribe((params) => {
+            this.type = params['type'];
+            this.traoDoiId = params['traoDoiId'];
+            if (this.type !== undefined && this.traoDoiId !== undefined) {
+                this.service
+                    .getChiTietHopThuById(this.traoDoiId, this.idUser)
+                    .then((data) => {
+                        if (data != null) {
+                            let itemData = data.objHopThu;
+                            this.selectedFiles = data.lstFile.map((file) => {
+                                return {
+                                    ...file,
+                                    isDelete: false,
+                                    isNew: true,
+                                };
+                            }); //bind file
+                            if (itemData != null) {
+                                if (this.type == LoaiHinhTraoDoi.Reply) {
+                                    this.tieuDe = 'Reply: ' + itemData.tieuDe;
+                                    this.lstSelectedNguoiDung = (
+                                        itemData.usersTraoDoi as string
+                                    )
+                                        .split(',')
+                                        .filter((us) => us !== '')
+                                        .map((us) => {
+                                            return { text: us };
+                                        });
+                                }
+
+                                if (this.type == LoaiHinhTraoDoi.Forward) {
+                                    this.tieuDe = 'Forward: ' + itemData.tieuDe;
+                                    this.editConTent = itemData.noiDung;
+                                }
+
+                                if (this.type == LoaiHinhTraoDoi.SendDraf) {
+                                    this.tieuDe = itemData.tieuDe;
+                                    this.lstSelectedNguoiDung = (
+                                        itemData.usersTraoDoi as string
+                                    )
+                                        .split(',')
+                                        .filter((us) => us !== '')
+                                        .map((us) => {
+                                            return { text: us };
+                                        });
+
+                                    this.editConTent = itemData.noiDung;
+                                }
+                            }
+                        }
+                    });
+            }
+        });
     }
 
     public LoadDanhMuc() {
@@ -199,6 +252,41 @@ export class SoanThuComponent implements OnInit {
         }
     }
 
+    public DownloadFile(filepath: string, filename: string) {
+        let urlDownLoad = '/TraoDoiThongTin/SoanThu/DownloadFile';
+        this.uploadfileService
+            .downloadFile(filepath, filename, urlDownLoad)
+            .subscribe(
+                (data) => {
+                    const blob = new Blob([data], {
+                        type: 'application/octet-stream',
+                    });
+                    saveAs(blob, filename);
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Tải tệp thành công',
+                    });
+                },
+                (error: any) => {
+                    if (error.status === 404) {
+                        // Xử lý lỗi 404 (NotFound)
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Không tìm thấy đường dẫn file',
+                        });
+                        // Ví dụ: Hiển thị thông báo lỗi cho người dùng
+                    } else {
+                        // Xử lý các lỗi khác
+                        console.error('Đã xảy ra lỗi', error);
+                        // Thực hiện các hành động tương ứng
+                    }
+                    return throwError(() => error);
+                }
+            );
+    }
+
     public ChangeDonVi(event): void {
         this.lstNhomNguoiDung = [];
         if (event != null) {
@@ -209,7 +297,11 @@ export class SoanThuComponent implements OnInit {
     }
 
     public Thoat(itemHt: any, loai: string): void {
-        if (loai === 'C') this.hienThiChonNguoiDung = false;
+        if (loai === 'C') {
+            this.hienThiChonNguoiDung = false;
+            this.phongBanId = null;
+            this.nhomNguoiDungId = null;
+        }
     }
 
     public ChonNguoiDung(event: any): void {
@@ -223,6 +315,8 @@ export class SoanThuComponent implements OnInit {
                 });
             this.lstSelectedNguoiDung =
                 this.lstSelectedNguoiDung.concat(lstTmp);
+            this.phongBanId = null;
+            this.nhomNguoiDungId = null;
         }
     }
 
@@ -293,11 +387,70 @@ export class SoanThuComponent implements OnInit {
 
             setTimeout(() => {
                 if (!data.isError) {
-                    this.router.navigate(['/trao-doi-thong-tin/soan-thu']);
+                    this.ResetForm();
                 }
             }, 2000);
         });
     }
 
-    public LuuNhap(): void {}
+    public LuuNhap(): void {
+        if (this.lstSelectedNguoiDung.length == 0) {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Yêu cầu chọn người nhận',
+            });
+            return;
+        }
+
+        if (this.tieuDe === '') {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Yêu cầu nhập tiêu đề',
+            });
+            return;
+        }
+
+        let itemData = {
+            userId: this.idUser,
+            listDiaChi: this.lstSelectedNguoiDung.map((data) => data.text),
+            tieuDe: this.tieuDe,
+            noiDung: this.myEditor.editorInstance.getData(),
+            loaiHinhTraoDoi: '0',
+            vanBanId: '',
+            traoDoiId: '',
+            listFile: this.selectedFiles,
+        };
+
+        this.service.luuNhap(itemData).subscribe((data) => {
+            this.messageService.add({
+                severity: data.isError ? 'error' : 'success',
+                summary: data.isError ? 'Error' : 'Success',
+                detail: data.title,
+            });
+
+            setTimeout(() => {
+                if (!data.isError) {
+                    this.ResetForm();
+                }
+            }, 2000);
+        });
+    }
+
+    public ResetForm() {
+        this.donViId = null;
+        this.phongBanId = null;
+        this.nhomNguoiDungId = null;
+        this.tieuDe = null;
+        this.editConTent = '';
+        this.lstSelectedNguoiDung = [];
+        this.selectedFiles = [];
+    }
 }
+
+const LoaiHinhTraoDoi = {
+    Reply: '1',
+    Forward: '2',
+    SendDraf: '3',
+};

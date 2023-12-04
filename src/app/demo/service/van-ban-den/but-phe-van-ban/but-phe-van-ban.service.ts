@@ -93,4 +93,52 @@ export class ButPheVanBanService {
     const url = `${this.baseUrl}/VanBanDen/ButPheVanBan/LoadChonNhanhNguoiDung?DonViId=` + IdDonVi + "&UserId=" + IdUser;
     return this.httpClient.get<any>(url);
   }
+
+  /**
+        * Lấy dữ liệu danh sách nhóm người dùng
+        */
+  public BindUserByNhomPhongBan(phongbanId : string): Observable<any> {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    var IdDonViLv = this.auth.GetDonViLamViec();
+    var UserDangNhap = this.auth.GetmUserInfo().userId.toString();
+
+    const url = `${this.baseUrl}/VanBanDen/ButPheVanBan/BindUserByNhomPhongBan?phongbanId=` + phongbanId + "&DonViLamViec=" + IdDonViLv+ "&UserDangNhap=" + UserDangNhap;
+    return this.httpClient.get<any>(url);
+  }
+
+   /**
+        * Lấy dữ liệu danh sách nhóm người dùng
+        */
+   public BindUserByNhomNguoiDung(idNhomUser : string): Observable<any> {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    var IdDonViLv = this.auth.GetDonViLamViec();
+    const url = `${this.baseUrl}/VanBanDen/ButPheVanBan/BindUserByNhomNguoiDung?nhomUserId=` + idNhomUser + "&DonViLamViec=" + IdDonViLv;
+    return this.httpClient.get<any>(url);
+  }
+
+
+   /**
+        * Lấy dữ liệu danh sách nhóm người dùng
+        */
+   public BindChonNhanhNguoiDung(idNguoiDung : string): Observable<any> {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    var IdDonViLv = this.auth.GetDonViLamViec();
+    const url = `${this.baseUrl}/VanBanDen/ButPheVanBan/BindChonNhanhNguoiDung?nguoidungid=` + idNguoiDung + "&DonViLamViec=" + IdDonViLv;
+    return this.httpClient.get<any>(url);
+  }
+
+
+   /**
+        * Lấy ngày kết thúc thông qua số ngày và ngày bắt đầu
+        */
+   public GetSoNgayKT(soNgay : string, ngayBatDau: string): Observable<any> {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    var IdDonViLv = this.auth.GetDonViLamViec();
+    const url = `${this.baseUrl}/VanBanDen/ButPheVanBan/GetSoNgayKT?soNgay=` + soNgay + "&ngayBatDau=" + ngayBatDau;
+    return this.httpClient.get<any>(url);
+  }
 }

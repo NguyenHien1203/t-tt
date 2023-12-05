@@ -156,7 +156,10 @@
                                 </td>
 
                                 <td class="text-center">
-                                    {{item.ngayBanHanh}}
+                                    {{
+                                        item.ngayBanHanh
+                                            | date : "dd-MM-yyyy"
+                                    }}
                                 </td>
                                 <td>
                                     {{item.coQuanBH}}

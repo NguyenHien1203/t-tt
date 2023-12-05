@@ -1,0 +1,165 @@
+<p-dialog [(visible)]="hienThi"  [draggable]="true" [resizable]="false"
+    (onHide)="Thoat()" (onShow)="BindDialogData()" [style]="{ width: '80ev' }" [modal]="true"
+    header="Chỉnh sửa công việc">
+    <ng-template pTemplate="content">
+        <form [formGroup]="ThongTinCongViec">
+            <div class="field grid">
+                <label class="col-12 md:col-6 fl-wr">
+                    <label for="integeronly">Nội dung công việc<span class="p-error">(*) </span></label>
+                    <textarea rows="3" formControlName="noiDung" cols="30" class="my-drop"
+                        pInputTextarea></textarea>
+                    <span class="p-error"
+                        *ngIf="!ThongTinCongViec.controls.noiDung.valid && (ThongTinCongViec.controls.noiDung.touched || submitted)">Vui
+                        lòng nhập nội dung công việc</span>
+                </label>
+
+                <label class="col-12 md:col-2 fl-wr">
+                    <label for="integeronly">Số ngày<span class="p-error">(*) </span></label>
+                    <input type="text" formControlName="soNgay" (change)="ChangeSoNgay()" id="soNgay"
+                        [style]="{'width': '100%'}" class="my-drop mg-t-55 p-inputtext p-component p-element">
+                    <span class="p-error"
+                        *ngIf="!ThongTinCongViec.controls.soNgay.valid && (ThongTinCongViec.controls.soNgay.touched || submitted)">Vui
+                        lòng nhập số ngày theo đúng yêu cầu</span>
+                </label>
+
+                <label class="col-12 md:col-2 fl-wr">
+                    <label for="integeronly">Ngày bắt đầu<span class="p-error">(*) </span></label>
+                    <p-calendar dateFormat="dd/mm/yy" formControlName="ngayBatDau" [style]="{'width': '100%'}"
+                        class="my-drop mg-t-55"></p-calendar>
+                    <span class="p-error"
+                        *ngIf="!ThongTinCongViec.controls.ngayBatDau.valid && (ThongTinCongViec.controls.ngayBatDau.touched || submitted)">Yêu
+                        cầu nhập ngày bắt đầu</span>
+                </label>
+
+                <label class="col-12 md:col-2 fl-wr">
+                    <label for="integeronly">Ngày kết thúc</label>
+                    <p-calendar dateFormat="dd/mm/yy" formControlName="ngayKetThuc" [style]="{'width': '100%'}"
+                        class="my-drop mg-t-55"></p-calendar>
+                </label>
+            </div>
+
+            <div class="field grid">
+                <label class="col-12 md:col-6 fl-wr">
+                    <label for="integeronly">Chọn phòng ban</label>
+                    <p-dropdown [showClear]="true" formControlName="phongBanId" [options]="lstPhongBan"
+                        optionValue="id" optionLabel="tenDonVi" [filter]="true" [style]="{'width': '100%'}"
+                        class="my-drop" placeholder="Chọn phòng ban"
+                        (onChange)="ChangePhongBan($event)"></p-dropdown>
+
+                    <label for="integeronly">Chọn nhóm người dùng</label>
+                    <p-dropdown [showClear]="true" formControlName="nhomNguoiDungId"
+                        [options]="lstNhomNguoiDung" optionValue="id" optionLabel="tenNhom" [filter]="true"
+                        [style]="{'width': '100%'}" class="my-drop" placeholder="Chọn nhóm người dùng"
+                        (onChange)="ChangeNhomNguoiDung($event)"></p-dropdown>
+
+                    <label for="integeronly">Chọn nhanh người dùng</label>
+                    <p-dropdown [showClear]="true" [options]="lstNguoiDung" optionValue="id"
+                        optionLabel="hoTenDem" formControlName="nguoiDungId" [filter]="true"
+                        [style]="{'width': '100%'}" class="my-drop" placeholder="Chọn nhanh người dùng"
+                        (onChange)="ChangeChonNhanhNguoiDung($event)"></p-dropdown>
+                </label>
+                <div class="col-12 md:col-6">
+                    <div class="form-control-label" for="">Chọn người dùng</div>
+                    <div class="lstUserChoise selectUser" [style]="{'margin-bottom':'45px'}">
+                        <select formControlName="lstDoiTuong" (dblclick)="ChangeDoiTuong()" size="4"
+                            name="lstUserChoise" class="form-control" id="lstUserChoise" multiple="multiple"
+                            style="height: 170px">
+                            <option *ngFor="let obj of lstUserNhan" [value]="obj.value">
+                                {{ obj.text }}
+                            </option>
+                        </select>
+                    </div>
+                    <div [style]="{'margin-bottom':'15px'}">
+                        <button (click)="ChonDoiTuong()" pButton pRipple label="Chọn" icon="pi pi-plus"
+                            class="p-button-success mr-2">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="card">
+            <p-table styleClass="p-datatable-gridlines" class="custom-table" [value]="lstNguoiDungPhanCong">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th rowspan="2" style="width: 60%;">Họ và tên</th>
+                        <th style="width: 2%;">Chỉ đạo</th>
+                        <th style="width: 2%;">Chủ trì</th>
+                        <th style="width: 2%;">Phối hợp</th>
+                        <th style="width: 2%;">Thông báo</th>
+                        <th style="width: 2%;">TB SMS</th>
+                        <th style="width: 10%;">Có VB trả lời</th>
+                        <th style="width: 2%;">Xóa</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center"><i class="pi pi-times"></i></th>
+                        <th class="text-center"><i class="pi pi-times"></i></th>
+                        <th class="text-center">
+                            <input type="checkbox" [checked]="chkAllPhoiHop" (click)="ckAllPhoiHop()" id="ckAllPhoiHop"
+                                class="checkbox">
+                        </th>
+                        <th class="text-center">
+                            <input type="checkbox" [checked]="chkAllThongBao" (click)="ckAllThongBao()" id="ckAllThongBao" class="checkbox">
+                        </th>
+                        <th class="text-center"><input type="checkbox" id="ckAllSMS" class="checkbox"> </th>
+                        <th class="text-center"><input type="checkbox" id="chkAllBCVB" class="checkbox"> </th>
+                        <th class="text-center"><i class="pi pi-times"></i></th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td class="custom-rb ">{{item.hoTen}}</td>
+                        <td class="custom-rb text-center">
+                            <input type="radio" class="radio" [checked]="item.chiDao" [value]="item.chiDao" (click)="chkChiDaoChild(item)" name="rdbChiDao">
+                        </td>
+                        <td class="custom-rb text-center">
+                            <input type="radio" class="radio" [checked]="item.chuTri" [value]="item.chuTri" (click)="chkChuTriChild(item)" name="rdbChuTri">
+                        </td>
+                        <td class="custom-rb text-center">
+                            <input type="checkbox" [(ngModel)]="item.phoiHop" (click)="chkPhoiHopChild(item)"
+                                name="chkPhoiHop"  id="chkPhoiHop" class="checkbox">
+                        </td>
+                        <td class="custom-rb text-center">
+                            <input type="checkbox" [(ngModel)]="item.thongBao" (click)="chkThongBaoChild(item)" name="chkThongBao"
+                                 id="chkThongBao" class="checkbox">
+                        </td>
+                        <td class="custom-rb text-center">
+                            <input type="checkbox" [(ngModel)]="item.sms" (click)="chkSmSChild(item)" name="chkSMS" 
+                                id="chkSMS" class="checkbox">
+                        </td>
+                        <td class="custom-rb text-center">
+                            <input type="checkbox" [(ngModel)]="item.vbtl" (click)="chkVBTLChild(item)" name="chkBCVB" [value]="item.Value"
+                                id="chkBCVB" class="checkbox">
+                        </td>
+                        <td class="custom-rb text-center">
+                            <a href="javascript:;" (click)="XoaDoiTuong(item)"><i class="pi pi-times"></i></a>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="10">No record found.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="10">Loading record data. Please wait.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <br>
+            <div class="field grid div-center">
+                <button pbutton="" pripple="" type="submit" label="Info"
+                    class="p-element p-ripple p-button-primary p-button p-component" ng-reflect-label="Info" (click)="CapNhatCongViec()"
+                    ><span class="p-button-label">Lưu lại</span><span
+                        class="p-ink"></span></button>&nbsp;
+                <button pbutton="" pripple="" type="submit" label="Info"
+                    class="p-element p-ripple p-button-warning p-button p-component" ng-reflect-label="Info"
+                    (click)="Thoat()"><span class="p-button-label">Hủy</span><span class="p-ink"></span></button>&nbsp;
+
+            </div>
+        </div>
+     
+    </ng-template>
+</p-dialog>

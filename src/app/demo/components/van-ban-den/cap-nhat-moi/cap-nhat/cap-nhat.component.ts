@@ -144,7 +144,7 @@ export class CapNhatComponent {
             };
 
             this.selectedFiles.push(fileReturn);
-           
+            event.target.value = '';
           }
         },
         error: (error: any) => {

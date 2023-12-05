@@ -308,21 +308,39 @@
                                             pTooltip="Chỉnh sửa văn bản"
                                             icon="pi pi-pencil"
                                             class="p-button-rounded p-button-primary mr-2 my-size-icon"
+                                            (click)="SuaVanBan(vanBanDen.id)"
+                                        ></button>
+
+                                        <button
+                                            pButton
+                                            pRipple
+                                            pTooltip="Xóa văn bản"
+                                            icon="pi pi-trash"
+                                            class="p-button-rounded p-button-primary mr-2 my-size-icon"
+                                            (click)="XoaVanBan(vanBanDen.id)"
+                                        ></button>
+
+                                        <button
+                                            pButton
+                                            pRipple
+                                            pTooltip="Phân phối văn bản"
+                                            icon="pi pi-send"
+                                            class="p-button-rounded p-button-warning mr-2 my-size-icon"
                                             (click)="
-                                                SuaVanBan(vanBanDen.id)
+                                                PhanPhoiVanBan(vanBanDen.id)
                                             "
                                         ></button>
 
                                         <button
-                                        pButton
-                                        pRipple
-                                        pTooltip="Xóa văn bản"
-                                        icon="pi pi-trash"
-                                        class="p-button-rounded p-button-primary mr-2 my-size-icon"
-                                        (click)="
-                                            XoaVanBan(vanBanDen.id)
-                                        "
-                                    ></button>
+                                            pButton
+                                            pRipple
+                                            pTooltip="Tải văn bản"
+                                            icon="pi pi-arrow-circle-down"
+                                            class="p-button-rounded p-button-warning mr-2 my-size-icon"
+                                            (click)="
+                                                TaiVanBan(vanBanDen.id)
+                                            "
+                                        ></button>
                                     </div>
                                 </td>
                             </tr>
@@ -345,34 +363,60 @@
         ></app-tu-choi>
 
         <app-sua-van-ban
-        [hienThi]="hienthiSuaVanBan"
-        [id]="idVanBan"
-        (tatPopup)="Thoat($event, 'SVB')"
-    ></app-sua-van-ban>
+            [hienThi]="hienthiSuaVanBan"
+            [id]="idVanBan"
+            (tatPopup)="Thoat($event, 'SVB')"
+        ></app-sua-van-ban>
 
-    <app-sua-van-ban
-    [hienThi]="hienthiSuaVanBan"
-    [id]="idVanBan"
-    (tatPopup)="Thoat($event, 'SVB')"
-></app-sua-van-ban>
+        <app-sua-van-ban
+            [hienThi]="hienthiSuaVanBan"
+            [id]="idVanBan"
+            (tatPopup)="Thoat($event, 'SVB')"
+        ></app-sua-van-ban>
 
-<p-confirmDialog #cd [style]="{width: '30vw'}">
-    <ng-template pTemplate="header">
-      <h3>Xác nhận</h3>
-    </ng-template>
-    <ng-template pTemplate="footer">
-      <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-info">
-        <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
-        <span class="p-button-label">Đồng ý</span>
-        <span class="p-ink"></span>
-      </button>
-      <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-danger">
-        <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
-        <span class="p-button-label">Hủy</span>
-        <span class="p-ink"></span>
-      </button>
-    </ng-template>
-  </p-confirmDialog>
+        <app-phan-phoi
+            [hienThi]="hienthiPhanPhoi"
+            [id]="idVanBan"
+            (tatPopup)="Thoat($event, 'PP')"
+        ></app-phan-phoi>
+
+        <p-confirmDialog #cd [style]="{ width: '30vw' }">
+            <ng-template pTemplate="header">
+                <h3>Xác nhận</h3>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <button
+                    pbutton=""
+                    pripple=""
+                    (click)="cd.accept()"
+                    label="Đồng ý"
+                    icon="pi pi-bookmark"
+                    class="p-element p-ripple p-button p-component p-button-info"
+                >
+                    <span
+                        class="p-button-icon p-button-icon-left pi pi-check"
+                        aria-hidden="true"
+                    ></span>
+                    <span class="p-button-label">Đồng ý</span>
+                    <span class="p-ink"></span>
+                </button>
+                <button
+                    pbutton=""
+                    pripple=""
+                    (click)="cd.reject()"
+                    label="Hủy"
+                    icon="pi pi-bookmark"
+                    class="p-element p-ripple p-button p-component p-button-danger"
+                >
+                    <span
+                        class="p-button-icon p-button-icon-left pi pi-times"
+                        aria-hidden="true"
+                    ></span>
+                    <span class="p-button-label">Hủy</span>
+                    <span class="p-ink"></span>
+                </button>
+            </ng-template>
+        </p-confirmDialog>
 
         <!-- <app-chi-tiet-van-ban [show]="hienThiChiTiet" (close)="tatPopup($event, 'C')" [idVb] = "idvanBanDen"></app-chi-tiet-van-ban> -->
 

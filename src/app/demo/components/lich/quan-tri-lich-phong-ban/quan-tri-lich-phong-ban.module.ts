@@ -24,7 +24,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { QuanTriLichPhongBanRoutingModule } from './quan-tri-lich-phong-ban-routing.module';
 import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
-import { ImportExcelComponent } from './import-excel/import-excel.component';
 import { QuanTriLichPhongBanComponent } from './quan-tri-lich-phong-ban.component';
 
 @NgModule({
@@ -32,7 +31,6 @@ import { QuanTriLichPhongBanComponent } from './quan-tri-lich-phong-ban.componen
         QuanTriLichPhongBanComponent,
         ThemMoiComponent,
         CapNhatComponent,
-        ImportExcelComponent,
     ],
     imports: [
         MultiSelectModule,

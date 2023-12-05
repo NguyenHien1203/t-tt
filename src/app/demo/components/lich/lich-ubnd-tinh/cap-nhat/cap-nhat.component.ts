@@ -84,8 +84,8 @@ export class CapNhatComponent {
   public CapNhat(): void {
       this.submitted = true;
       if (this.formCapNhat.valid) {
-          let quanTriLich = this.formCapNhat.value;
-          this.service.capNhatLichUBNDTinh(quanTriLich).subscribe(
+          let lichUBNDTinh = this.formCapNhat.value;
+          this.service.capNhatLichUBNDTinh(lichUBNDTinh).subscribe(
               (data) => {
                   let resData = data;
                   if (resData.isError) {

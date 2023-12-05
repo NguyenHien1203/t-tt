@@ -1,0 +1,159 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb
+                    class="max-w-full"
+                    [model]="items"
+                    [home]="home"
+                ></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <!-- <div class="card">
+            <p-toast></p-toast>
+            <h2>TÌM KIẾM</h2>
+            <div class="field grid">
+                <label class="col-12 md:col-3 fl-wr">
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="timKiemDanhSach.maHoSo"
+                        placeholder="Mã hồ sơ"
+                        class="form-control"
+                    />
+                </label>
+                <label class="col-12 md:col-3 fl-wr">
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="timKiemDanhSach.tenHoSo"
+                        placeholder="Tên hồ sơ"
+                        class="form-control"
+                    />
+                </label>
+                <label class="col-12 md:col-3 fl-wr">
+                  <button pButton
+                          pRipple
+                          label="Tìm kiếm"
+                          icon="pi pi-search"
+                          class="p-button-info mr-2"
+                          (click)="LoadDanhSach()"></button>
+              </label>
+            </div>
+        </div> -->
+
+        <div class="card">
+            <div class="wrapper">
+                <h2>DANH MỤC HỒ SƠ CÔNG VIỆC CƠ QUAN</h2>
+                <div class="icon-cls">
+                    <button
+                        pButton
+                        pRipple
+                        label="Thêm mới"
+                        icon="pi pi-plus"
+                        class="p-button-success mr-2"
+                        (click)="ThemMoi(0)"
+                    ></button>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-12">
+                    <p-tree
+                        class="w-full md:w-30rem"
+                        [filter]="true"
+                        [value]="lstDmHoSo"
+                        [loading]="loading"
+                    >
+                        <ng-template let-node pTemplate="default">
+                            <div class="tree-node">
+                                <!-- Hiển thị nút mở rộng/collapse -->
+                                <span
+                                    class="tree-toggler-icon"
+                                    (click)="node.toggleNode()"
+                                    *ngIf="
+                                        node.children && node.children.length
+                                    "
+                                ></span>
+                                <!-- Hiển thị nhãn -->
+                                <span class="tree-node-label">{{
+                                    node.label
+                                }}</span
+                                >&nbsp;
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-plus"
+                                    (click)="ThemMoi(node)"
+                                    class="p-button-rounded p-button-info mr-2 my-size-icon"
+                                ></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-pencil"
+                                    (click)="CapNhat(node.data)"
+                                    class="p-button-rounded p-button-success mr-2 my-size-icon"
+                                ></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-trash"
+                                    (click)="Xoa(node.id)"
+                                    class="p-button-rounded p-button-danger mr-2 my-size-icon"
+                                ></button>
+                            </div> </ng-template
+                    ></p-tree>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-them-moi
+    [show]="hienThiThemMoi"
+    (tatPopup)="Thoat($event, 'C')"
+></app-them-moi>
+<app-cap-nhat
+    [show]="hienThiCapNhat"
+    [id]="id"
+    (tatPopup)="Thoat($event, 'C')"
+></app-cap-nhat>
+<p-confirmDialog #cd [style]="{ width: '30vw' }">
+    <ng-template pTemplate="header">
+        <h3>Xác nhận</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            (click)="cd.accept()"
+            label="Đồng ý"
+            icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component p-button-info"
+        >
+            <span
+                class="p-button-icon p-button-icon-left pi pi-check"
+                aria-hidden="true"
+            ></span>
+            <span class="p-button-label">Đồng ý</span>
+            <span class="p-ink"></span>
+        </button>
+        <button
+            pbutton=""
+            pripple=""
+            (click)="cd.reject()"
+            label="Hủy"
+            icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component p-button-danger"
+        >
+            <span
+                class="p-button-icon p-button-icon-left pi pi-times"
+                aria-hidden="true"
+            ></span>
+            <span class="p-button-label">Hủy</span>
+            <span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-confirmDialog>

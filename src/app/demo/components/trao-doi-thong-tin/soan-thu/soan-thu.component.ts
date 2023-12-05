@@ -130,7 +130,6 @@ export class SoanThuComponent implements OnInit {
         ];
 
         this.LoadDanhMuc();
-
         this.XuLySoanThu();
     }
 
@@ -215,7 +214,7 @@ export class SoanThuComponent implements OnInit {
         const FileInput: File = event.target.files[0];
 
         if (FileInput) {
-            this.file = FileInput;
+            event.target.value = '';
             let urlSave = '/VanBanDi/CapNhatMoi/UpLoadFile';
             this.uploadfileService.uploadFiles(this.file, urlSave).subscribe({
                 next: (data) => {
@@ -226,6 +225,7 @@ export class SoanThuComponent implements OnInit {
                             detail: 'Tải lên thất bại',
                         });
                     else {
+                        this.file = FileInput;
                         this.messageService.add({
                             severity: 'info',
                             summary: 'Info',

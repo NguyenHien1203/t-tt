@@ -24,14 +24,15 @@ export class GuiVanBanComponent {
         private authService: AuthService,
         private uploadFileService: UploadFileService
     ) {
+        //vứt vào đây thì load ngay khi vào page
         this.GetDataNhomDonVi();
-        this.GetTreeDonVi();
+        // this.GetTreeDonVi();
     }
 
-    loading : boolean = false;
+    loading: boolean = false;
     iconClass = 'pi pi-plus';
     checkAllItem = 'checkAllItem';
-    isHienThi : boolean = false;
+    isHienThi: boolean = false;
     ThongTinVanBan: any;
     lstSelectedVanBan: any[] = [];
     hienThiChonVanBan: boolean = false;
@@ -51,6 +52,7 @@ export class GuiVanBanComponent {
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
     public async BindDataDialog() {
+        this.GetTreeDonVi(); //vào đây thì load khi mở popup nhưng khá chậm
         this.service.getVanBanById(this.id).then(
             (data) => {
                 if (data.isError) {
@@ -74,7 +76,7 @@ export class GuiVanBanComponent {
     handleCheckboxClick(event: Event): void {
         event.stopPropagation(); // Ngăn chặn sự kiện lan ra các phần tử cha
         this.isCheckedAll = !this.isCheckedAll;
-        let checkAll = this.isCheckedAll;//checked toàn bộ danh sách
+        let checkAll = this.isCheckedAll; //checked toàn bộ danh sách
         this.treeData = this.treeData.map((data) => ({
             ...data,
             checked: checkAll,
@@ -85,7 +87,8 @@ export class GuiVanBanComponent {
         }));
     }
 
-    toggleNode(id: string): void { //chuyển hoạt họa icon
+    toggleNode(id: string): void {
+        //chuyển hoạt họa icon
         if (id === this.checkAllItem) {
             this.isShowAll = !this.isShowAll;
             this.iconClass = this.isShowAll ? 'pi pi-minus' : 'pi pi-plus';
@@ -96,11 +99,13 @@ export class GuiVanBanComponent {
         // Implement logic to expand/collapse all nodes
     }
 
-    expandNode(node: any): void { // mở
+    expandNode(node: any): void {
+        // mở
         node.expanded = true;
     }
 
-    collapseNode(node: any): void { //đóng
+    collapseNode(node: any): void {
+        //đóng
         node.expanded = false;
     }
 
@@ -157,7 +162,8 @@ export class GuiVanBanComponent {
             });
     }
 
-    public CheckedNode(itemHt: any) { // gán giá trị cho checked từ node-con
+    public CheckedNode(itemHt: any) {
+        // gán giá trị cho checked từ node-con
         this.treeData.filter((dt) => {
             if (dt.id === itemHt.id) {
                 // Nếu là node cần cập nhật
@@ -182,7 +188,8 @@ export class GuiVanBanComponent {
         });
     }
 
-    getAllCheckedNodes(node: any): any[] { // lấy toàn bộ những item được checked
+    getAllCheckedNodes(node: any): any[] {
+        // lấy toàn bộ những item được checked
         let result: any[] = [];
 
         if (node.checked) {
@@ -208,7 +215,8 @@ export class GuiVanBanComponent {
             });
     }
 
-    public onChangeNhomDonVi(event) { // lấy ra những trường đã thêm từ nhóm đơn vị
+    public onChangeNhomDonVi(event) {
+        // lấy ra những trường đã thêm từ nhóm đơn vị
         this.service
             .changeNhomDonViTuDinhNghia(this.nhomDonVi, this.idDonViLamViec)
             .then((data) => {
@@ -315,8 +323,7 @@ export class GuiVanBanComponent {
     public GuiVanBan(): void {
         this.submitted = true;
 
-        if(this.lstDonViNhan.length ==0)
-        {
+        if (this.lstDonViNhan.length == 0) {
             this.messageService.add({
                 severity: 'error',
                 summary: 'Error',
@@ -327,13 +334,13 @@ export class GuiVanBanComponent {
         let itemData: any = {
             idVanBan: this.id?.toString(),
             donViId: this.authService.GetDonViLamViec(),
-            doAction: "guivanban",
-            lyDoThuHoi : "",
+            doAction: 'guivanban',
+            lyDoThuHoi: '',
             lstVanBanDaChon: this.lstSelectedVanBan.map((vb) => vb.id),
             lstDonViDaChon: this.lstDonViNhan.map((dv) => dv.value),
         };
 
-        console.log(itemData)
+        console.log(itemData);
 
         this.service.guiVanBan(itemData).subscribe(
             (data) => {

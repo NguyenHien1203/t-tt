@@ -18,8 +18,19 @@ export class MucDoTruyCapService {
         return this.http
             .post<any>(
                 environment.baseUrlApi +
-                    '/ThongKe/MucDoTruyCap/GetDanhSachThongKeMucDoTruyCap',
+                    '/ThongKe/ThongKeMucDoTruyCap/GetDanhSachMucDoTruyCap',
                 timKiemDanhSach,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
+    
+    getDanhSachPhongBan(idDonVi: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/ThongKe/ThongKeMucDoTruyCap/ChangeDonVi/' + idDonVi,
                 this.httpOption
             )
             .toPromise()

@@ -25,6 +25,7 @@ import { LoginComponent } from './demo/components/auth/login/login.component';
                     { path: 'trao-doi-thong-tin', loadChildren: () => import('./demo/components/trao-doi-thong-tin/trao-doi-thong-tin.module').then(m => m.TraoDoiThongTinModule) },
                     { path: 'lich', loadChildren: () => import('./demo/components/lich/lich.module').then(m => m.LichModule) },
                     { path: 'thong-ke', loadChildren: () => import('./demo/components/thong-ke/thong-ke.module').then(m => m.ThongKeModule) },
+                    { path: 'ho-so-cong-viec', loadChildren: () => import('./demo/components/ho-so-cong-viec/ho-so-cong-viec.module').then(m => m.HoSoCongViecModule) },
                 ]
             },
             { path: 'in-so-van-ban', loadChildren: () => import('./demo/components/van-ban-di/so-van-ban-di/in-so-van-ban/in-so-van-ban.module').then(m => m.InSoVanBanModule) },

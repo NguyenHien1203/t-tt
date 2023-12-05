@@ -99,7 +99,10 @@
                                     {{item.trichYeu}}
                                 </td>
                                 <td class="text-center">
-                                    {{item.ngayBanHanh}}
+                                    {{
+                                        capNhatMoi.ngayBanHanh
+                                            | date : "dd-MM-yyyy"
+                                    }}
                                 </td>
                                 <td>
                                     {{item.coQuanBH}}

@@ -32,10 +32,11 @@ import { QuanTriVanBanComponent } from './quan-tri-van-ban.component';
 import { TiepNhanVanBanComponent } from './tiep-nhan-van-ban/tiep-nhan-van-ban.component';
 import { SuaVanBanComponent } from './sua-van-ban/sua-van-ban.component';
 import { TuChoiComponent } from './tu-choi/tu-choi.component';
-
+import { PhanPhoiComponent } from './phan-phoi/phan-phoi.component';
+import { saveAs } from 'file-saver';
 
 @NgModule({
-  declarations: [QuanTriVanBanComponent, TiepNhanVanBanComponent,SuaVanBanComponent, TuChoiComponent],
+  declarations: [QuanTriVanBanComponent, TiepNhanVanBanComponent,SuaVanBanComponent, TuChoiComponent, PhanPhoiComponent],
   imports: [
     FileUploadModule,
     RadioButtonModule,

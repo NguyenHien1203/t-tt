@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { MucDoTruyCapService } from 'src/app/demo/service/thong-ke/muc-do-truy-cap.service';
+import { VanBanNhanService } from 'src/app/demo/service/thong-ke/van-ban-nhan.service';
 import { TimKiemMucDoTruyCap } from 'src/app/models/thong-ke/muc-do-truy-cap';
 
 @Component({
@@ -13,6 +14,7 @@ export class MucDoTruyCapComponent {
   constructor(
     private messageService: MessageService,
     private service: MucDoTruyCapService,
+    private vanBanNhanService: VanBanNhanService,
     private authService: AuthService,
     private cd: ChangeDetectorRef,
 ) {}
@@ -47,7 +49,7 @@ ngOnInit(): void {
 }
 
 public LoadDonVi(){
-  this.service.getDanhSachDonVi().then(data => this.lstDonVi = data);
+  this.vanBanNhanService.getDanhSachDonVi().then(data => this.lstDonVi = data);
 }
 
 public LoadThangNam() {

@@ -22,9 +22,10 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ChipModule } from 'primeng/chip';
 
 import { MucDoTruyCapRoutingModule } from './muc-do-truy-cap-routing.module';
+import { MucDoTruyCapComponent } from './muc-do-truy-cap.component';
 
 @NgModule({
-    declarations: [],
+    declarations: [MucDoTruyCapComponent],
     imports: [
         TooltipModule,
         ChipModule,

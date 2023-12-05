@@ -143,8 +143,8 @@ export class ThemMoiComponent implements OnInit {
               path: data.objData.filePath,
             }
             this.file_fomat.push(fileReturn);
-
             this.selectedFiles.push(FileInput);
+            event.target.value = '';
           }
         },
         error: (error: any) => {

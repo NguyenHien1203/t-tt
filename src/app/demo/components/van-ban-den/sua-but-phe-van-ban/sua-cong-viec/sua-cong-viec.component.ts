@@ -20,7 +20,7 @@ export class SuaCongViecComponent implements OnInit {
   loading: boolean = true;
   submitted: boolean = false;
   ThongTinVanBan: any;
-  ThongTinCongViec : any[] = [];
+  ThongTinCongViec: any[] = [];
 
   constructor(
     private service: SuaButPheVanBanService,
@@ -73,12 +73,26 @@ export class SuaCongViecComponent implements OnInit {
         console.log(this.ThongTinCongViec);
       }
     }, (error) => {
-      
+
     })
   }
 
   public ThemCongViec() {
 
+  }
+
+  /**
+   * GetDataParent
+   */
+  public GetDataParent(): any[] {
+    return this.ThongTinCongViec.filter(s => s.idParent === "" || s.idParent === null);
+  }
+
+  /**
+   * name
+   */
+  public GetDataChild(parentItem: any) : any[] {
+    return this.ThongTinCongViec.filter(s => s.idParent !== "" && s.idParent === parentItem.idChild);
   }
 }
 

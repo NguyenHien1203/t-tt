@@ -1,0 +1,193 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <p-toast></p-toast>
+            <h2>TÌM KIẾM</h2>
+
+            <div class="icon-cls" [style]="{'margin-bottom':'10px'}">
+                <a href="javascript:;" (click)="ShowSearch()">{{
+                    !isShowSearch
+                    ? "Hiện tìm kiếm nâng cao"
+                    : "Ẩn tìm kiếm nâng cao"
+                    }}</a>
+            </div>
+
+            <label class="field grid">
+
+                <label class="col-12 md:col-6 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.thongtinvb"
+                        placeholder="Thông tin văn bản" [style]="{'width': '100%'}" class="my-drop"
+                        class="p-inputtext p-component p-element" />
+                </label>
+                <label class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [showClear]="true" [(ngModel)]="timKiemDanhSach.nam" [options]="yearOptions"
+                        [filter]="true" placeholder="Chọn năm" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
+                </label>
+
+                <label class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [showClear]="true" [(ngModel)]="timKiemDanhSach.thang" [options]="monthOptions"
+                        [filter]="true" placeholder="Chọn tháng" [style]="{'width': '100%'}"
+                        class="my-drop"></p-dropdown>
+                </label>
+            </label>
+
+            <div class="field grid" *ngIf="isShowSearch">
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.sokihieu" placeholder="Số, ký hiệu"
+                        [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [(ngModel)]="timKiemDanhSach.sovanbanid" (onChange)="onChangeLoaiVanBan($event)"
+                        [options]="SoVanBan" appendTo="body" [filter]="true" optionValue="id" optionLabel="tenSo"
+                        placeholder="Chọn sổ văn bản" [showClear]="true" [style]="{'width': '100%'}"
+                        class="my-drop"></p-dropdown>
+                </div>
+
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-calendar [(ngModel)]="timKiemDanhSach.ngaybanhanh" dateFormat="dd/mm/yy"
+                        placeholder="Ngày ban hành" [style]="{'width': '100%'}" class="my-drop"></p-calendar>
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-calendar [(ngModel)]="timKiemDanhSach.ngaynhan" dateFormat="dd/mm/yy"
+                        placeholder="Ngày nhận văn bản" [style]="{'width': '100%'}" class="my-drop"></p-calendar>
+                </div>
+            </div>
+
+            <div class="field grid" *ngIf="isShowSearch">
+                <div class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [(ngModel)]="timKiemDanhSach.loaivbid" [options]="LoaiVanBan" optionValue="loaiVbId"
+                        optionLabel="tenLoaiVb" [showClear]="true" [filter]="true" appendTo="body"
+                        placeholder="Chọn loại văn bản" [style]="{'width': '100%'}" class="my-drop"></p-dropdown>
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.soden" placeholder="Số đến"
+                        [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.tencqbh"
+                        placeholder="Tên cơ quan ban hành" [style]="{'width': '100%'}" class="my-drop"
+                        class="p-inputtext p-component p-element" />
+                </div>
+                <div class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.trichyeu" placeholder="Trích yếu"
+                        [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
+                </div>
+            </div>
+
+            <div class="field grid div-center">
+                <label class="col-12 md:col-3 fl-wr">
+                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-success mr-2"></button>
+                </label>
+            </div>
+
+
+        </div>
+
+        <div class="card">
+            <div class="wrapper">
+                <h2>DANH SÁCH VĂN BẢN</h2>
+
+            </div>
+            <div class="grid">
+                <div class="col-12">
+                    <p-table [paginator]="true" #dt1 [value]="lstButPhe" dataKey="id" [rows]="10" [loading]="loading"
+                        [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+                        responsiveLayout="scroll">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 2%;">
+                                    <div class="flex justify-content-between align-items-center">
+                                        STT
+                                    </div>
+                                </th>
+                                <th style="min-width: 2rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Số ký hiệu
+                                    </div>
+                                </th>
+                                <th style="min-width: 3rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Trích yếu
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Ngày ban hành
+                                    </div>
+                                </th>
+
+                                <th style="min-width: 10rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Cơ quan ban hành
+                                    </div>
+                                </th>
+
+                                <th style="min-width: 10rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Loại văn bản
+                                    </div>
+                                </th>
+                                <th style="min-width: 14rem">
+                                    <div class="flex justify-content-between align-items-center">
+                                        Chỉ đạo
+                                    </div>
+                                </th>
+
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                            <tr>
+                                <td style="text-align: center;">
+                                    {{ rowIndex + 1 }}
+                                </td>
+                                <td>
+                                    {{item.soKiHieu}}
+                                </td>
+                                <td>
+                                    {{item.trichYeu}}
+                                </td>
+
+                                <td class="text-center">
+                                    {{item.ngayBanHanh}}
+                                </td>
+                                <td>
+                                    {{item.coQuanBH}}
+                                </td>
+
+                                <td>
+                                    {{item.mucDoKhan == 1 ? "VB thường" : item.mucDoKhan == 2?"VB khẩn, hỏa tốc" :
+                                    item.mucDoKhan == 3 ?"VB mật" :item.mucDoKhan == 4 ?"VB tuyệt mật"
+                                    :item.mucDoKhan == 5 ?"VB tối mật" : ""}}
+                                </td>
+                                <td class="text-center">
+                                    <div class="div-center">
+                                        <button title="Sửa bút phê" pButton pRipple (click)="SuaCongViec(item.id)"  icon="pi pi-pencil"
+                                            class="p-button-rounded p-button-success mr-2"></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="10">No record found.</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="loadingbody">
+                            <tr>
+                                <td colspan="10">Loading record data. Please wait.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -43,6 +43,7 @@ export class ThemMoiComponent {
         { label: 'Buổi sáng', value: '1' },
         { label: 'Buổi chiều', value: '2' },
     ];
+    lstLichDaThem: any[] = [];
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
@@ -50,7 +51,7 @@ export class ThemMoiComponent {
     formThemMoi = this.fb.group({
         id: [0, []],
         listThu: [, []],
-        thoiGian: [null, []],
+        thoiGian: ['0', []],
         gio: [null, []],
         phut: [null, []],
         diaDiem: ['', []],
@@ -58,28 +59,47 @@ export class ThemMoiComponent {
         lanhDaoVanPhong: ['', []],
         chuyenVienPhoiHop: ['', []],
         noiDung: ['', []],
-        donViId: [Number(this.idDonViLamViec), []],
-        phongBanId: [Number(this.idPhongBan), []],
+        donViId: [0, []],
+        phongBanId: [0, []],
     });
 
-    public LoadThu() {
+    public async LoadThu() {
+        this.lstThu = [];
+        const data = await this.service.getDanhSachLichThuDaThem(
+            this.formatDateToDDMMYY(this.tuNgay),
+            this.formatDateToDDMMYY(this.denNgay)
+        );
+
+        this.lstLichDaThem = data;
         let idx = 0;
         const dayOfWeek = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
-        const dayOfWeekFull = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'];
+        const dayOfWeekFull = [
+            'Thứ 2',
+            'Thứ 3',
+            'Thứ 4',
+            'Thứ 5',
+            'Thứ 6',
+            'Thứ 7',
+            'Chủ nhật',
+        ];
         for (
             let date = new Date(this.tuNgay);
             date <= new Date(this.denNgay);
             date.setDate(date.getDate() + 1)
         ) {
-            this.lstThu.push({
-                label:
-                    dayOfWeek[idx] +
-                    ' (' +
-                    this.formatDateToDDMMYY(date) +
-                    ') ',
-                value: new Date(date),
-                title : dayOfWeekFull[idx]
-            });
+            if (!this.lstLichDaThem.includes(this.formatDateToDDMMYY(date))) {
+                // kiểm tra ngày đã thêm có trong danh sách chưa
+                this.lstThu.push({
+                    label:
+                        dayOfWeek[idx] +
+                        ' (' +
+                        this.formatDateToDDMMYY(date) +
+                        ') ',
+                    value: new Date(date),
+                    title: dayOfWeekFull[idx],
+                });
+            }
+
             idx++;
         }
     }
@@ -116,22 +136,31 @@ export class ThemMoiComponent {
         if (this.formThemMoi.valid) {
             const itemData = this.formThemMoi.value;
 
-            const lstTmp = this.lstThu.map((data) => {return {...data, value : this.formatDateToDDMMYY(data.value)}})
-            let listThuSelected = (itemData.listThu as any[]).map((value) => ((lstTmp.filter(data => data.value == this.formatDateToDDMMYY(value))[0]?.title) + "_" +  this.formatDateToDDMMYY(value)))
+            const lstTmp = this.lstThu.map((data) => {
+                return { ...data, value: this.formatDateToDDMMYY(data.value) };
+            });
+            let listThuSelected = (itemData.listThu as any[]).map(
+                (value) =>
+                    lstTmp.filter(
+                        (data) => data.value == this.formatDateToDDMMYY(value)
+                    )[0]?.title +
+                    '_' +
+                    this.formatDateToDDMMYY(value)
+            );
             const lichPhongBan = {
-              id: 0,
-              listThu: listThuSelected,
-              thoiGian: itemData.thoiGian,
-              gio: itemData.gio,
-              phut: itemData.phut,
-              diaDiem: itemData.diaDiem,
-              lanhDaoChuTri: itemData.lanhDaoChuTri,
-              lanhDaoVanPhong: itemData.lanhDaoVanPhong,
-              chuyenVienPhoiHop: itemData.chuyenVienPhoiHop,
-              noiDung: itemData.noiDung,
-              donViId: itemData.donViId,
-              phongBanId: itemData.phongBanId,
-            }
+                id: 0,
+                listThu: listThuSelected,
+                thoiGian: itemData.thoiGian,
+                gio: itemData.gio,
+                phut: itemData.phut,
+                diaDiem: itemData.diaDiem,
+                lanhDaoChuTri: itemData.lanhDaoChuTri,
+                lanhDaoVanPhong: itemData.lanhDaoVanPhong,
+                chuyenVienPhoiHop: itemData.chuyenVienPhoiHop,
+                noiDung: itemData.noiDung,
+                donViId: this.idDonViLamViec,
+                phongBanId: this.idPhongBan,
+            };
 
             this.service.themMoiQuanTriLichPhongBan(lichPhongBan).subscribe(
                 (data) => {

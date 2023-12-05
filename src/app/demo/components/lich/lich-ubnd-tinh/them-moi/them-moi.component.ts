@@ -75,9 +75,9 @@ export class ThemMoiComponent {
   public ThemMoi(): void {
       this.submitted = true;
       if (this.formThemMoi.valid) {
-          const ubndTinh = this.formThemMoi.value;
-          ubndTinh.id = 0;
-          this.service.themMoiLichUBNDTinh(ubndTinh).subscribe(
+          const lichUBNDTinh = this.formThemMoi.value;
+          lichUBNDTinh.id = 0;
+          this.service.themMoiLichUBNDTinh(lichUBNDTinh).subscribe(
               (data) => {
                   if (data.isError) {
                       this.messageService.add({

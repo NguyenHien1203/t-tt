@@ -472,13 +472,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý tài liệu hướng dẫn',
                                 icon: 'pi pi-fw pi-directions',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/quan-ly-tai-lieu-huong-dan'],
                                 code: '006006',
                             },
                             {
                                 label: 'Tài liệu hướng dẫn',
                                 icon: 'pi pi-fw pi-info-circle',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/tai-lieu-huong-dan'],
                                 code: '006009',
                             },
                             {
@@ -533,25 +533,25 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Văn bản nhận',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/thong-ke/van-ban-nhan'],
                                 code: '008001',
                             },
                             {
                                 label: 'Văn bản đi',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-ke/van-ban-di'],
                                 code: '008002',
                             },
                             {
                                 label: 'Thống kê xử lý công việc',
                                 icon: 'pi pi-fw pi-box',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-ke/xu-ly-cong-viec'],
                                 code: '008003',
                             },
                             {
                                 label: 'Mức độ truy cập',
                                 icon: 'pi pi-fw pi-stopwatch',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-ke/muc-do-truy-cap'],
                                 code: '008005',
                             },
                         ],
@@ -922,7 +922,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Sửa bút phê',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/van-ban-den/sua-but-phe'],
+                                routerLink: ['/van-ban-den/sua-but-phe-van-ban'],
                                 code: '001009',
                             },
                             {
@@ -1367,25 +1367,25 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Văn bản nhận',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/thong-ke/van-ban-nhan'],
                                 code: '008001',
                             },
                             {
                                 label: 'Văn bản đi',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-ke/van-ban-di'],
                                 code: '008002',
                             },
                             {
                                 label: 'Thống kê xử lý công việc',
                                 icon: 'pi pi-fw pi-box',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-ke/xu-ly-cong-viec'],
                                 code: '008003',
                             },
                             {
                                 label: 'Mức độ truy cập',
                                 icon: 'pi pi-fw pi-stopwatch',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-ke/muc-do-truy-cap'],
                                 code: '008005',
                             },
                         ],

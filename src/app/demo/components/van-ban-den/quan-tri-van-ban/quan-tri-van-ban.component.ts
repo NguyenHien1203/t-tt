@@ -24,6 +24,7 @@ export class QuanTriVanBanComponent implements OnInit {
     hienThiTiepNhan: boolean = false;
     hienthiTuChoi: boolean = false;
     hienthiSuaVanBan: boolean = false;
+    hienthiPhanPhoi: boolean = false;
     idVanBan: string = '';
     // end
 
@@ -277,6 +278,16 @@ export class QuanTriVanBanComponent implements OnInit {
      */
     public SuaVanBan(id: string): void {
         this.hienthiSuaVanBan = true;
+        this.idVanBan = id;
+    }
+    //#endregion
+
+     //#region phân phối văn bản
+    /**
+     * SuaVanBan
+     */
+    public PhanPhoiVanBan(id: string): void {
+        this.hienthiPhanPhoi = true;
         this.idVanBan = id;
     }
     //#endregion

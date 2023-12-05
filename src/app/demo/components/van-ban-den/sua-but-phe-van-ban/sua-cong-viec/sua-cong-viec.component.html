@@ -31,6 +31,7 @@
         </div>
 
         <div class="card">
+            <p-toast></p-toast>
             <div class="wrapper">
                 <h2>SỬA BÚT PHÊ</h2>
                 <div class="icon-cls">
@@ -55,7 +56,7 @@
                                     </a>
                                 </div>
                                 <div class="">
-                                    <a href="javascript:;" class="btn__addCongViec">
+                                    <a href="javascript:;" (click)="CreateCongViec(item)" class="btn__addCongViec">
                                         <i class="pi pi-plus-circle"></i>
                                     </a>
                                 </div>
@@ -82,9 +83,9 @@
                                         <div class="congViec__TimeBatDau congViec__xuLy-item pos-relative">
                                             <span class="tx-bold">{{item.thoiHan}}</span>
                                             ngày | Từ:
-                                            {{item.ngayBD}}
+                                            {{item.ngayBD| date : "dd/MM/yyyy"}}
                                             Đến:
-                                            {{item.ngayKT}}
+                                            {{item.ngayKT| date : "dd/MM/yyyy"}}
                                         </div>
                                         <div class="congViec__TyLeXuLy congViec__xuLy-item pos-relative">
                                             Tỷ lệ xử lý:
@@ -140,9 +141,9 @@
                                 </div>
                                 <div class="congViec__item-action d-flex flex-column align-items-start">
                                     <div class="congViec__cta">
-                                        <button pButton pRipple icon="pi pi-trash" class="p-button-danger">
+                                        <button pButton pRipple icon="pi pi-trash"  class="p-button-danger">
                                         </button><br><br>
-                                        <button pButton pRipple icon="pi pi-pencil" class="p-button-success">
+                                        <button (click)="UpdateParent(item)" pButton pRipple icon="pi pi-pencil" class="p-button-success">
                                         </button>
                                     </div>
                                 </div>
@@ -182,9 +183,9 @@
                                                     <span class="tx-bold">{{itemChild.thoiHan}}</span>
                                                     ngày |
                                                     Từ:
-                                                    {{itemChild.ngayBD}}&nbsp;
+                                                    {{itemChild.ngayBD| date : "dd/MM/yyyy"}}&nbsp;
                                                     Đến:
-                                                    {{itemChild.ngayKT}}
+                                                    {{itemChild.ngayKT| date : "dd/MM/yyyy"}}
                                                 </div>
                                                 <div class="congViec__TyLeXuLy congViec__xuLy-item pos-relative">
                                                     Tỷ lệ xử lý:
@@ -238,7 +239,7 @@
                                         </div>
                                         <div class="congViec__item-action d-flex flex-column align-items-start">
                                             <div class="congViec__cta">
-                                                <button pButton pRipple icon="pi pi-trash" class="p-button-danger">
+                                                <button pButton pRipple icon="pi pi-trash"  class="p-button-danger">
                                                 </button><br><br>
                                                 <button pButton pRipple icon="pi pi-pencil" class="p-button-success">
                                                 </button>
@@ -251,8 +252,15 @@
 
                         </div>
                     </div>
+                    <div class="btnNewCongViec tx-left">
+                        <a href="javascript:;" data-type="parent">
+                            <i class="pi pi-plus-circle"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
+
+            <app-cap-nhat [hienThi]="hienThiCapNhat" [item]="item" (tatPopup)="Thoat($event, 'T')"></app-cap-nhat>
         </div>
     </div>
 </div>

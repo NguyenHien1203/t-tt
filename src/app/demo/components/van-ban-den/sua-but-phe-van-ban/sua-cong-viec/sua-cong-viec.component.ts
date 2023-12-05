@@ -14,6 +14,8 @@ import { SuaButPheVanBanService } from 'src/app/demo/service/van-ban-den/sua-but
   providers: [MessageService]
 })
 export class SuaCongViecComponent implements OnInit {
+  hienThiCapNhat: boolean = false;
+  item: any = [];
   idVanBan: string = '1';
   items: any[] = [];
   home: any;
@@ -70,7 +72,6 @@ export class SuaCongViecComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
       } else {
         this.ThongTinCongViec = data.objData;
-        console.log(this.ThongTinCongViec);
       }
     }, (error) => {
 
@@ -91,8 +92,22 @@ export class SuaCongViecComponent implements OnInit {
   /**
    * name
    */
-  public GetDataChild(parentItem: any) : any[] {
+  public GetDataChild(parentItem: any): any[] {
     return this.ThongTinCongViec.filter(s => s.idParent !== "" && s.idParent === parentItem.idChild);
+  }
+
+
+  public UpdateParent(congviec: any) {
+    this.hienThiCapNhat = true;
+    this.item = congviec;
+  }
+
+  public Thoat(itemHt: any, loai: string): void {
+    if (loai === 'T')
+      this.hienThiCapNhat = false;
+
+    this.GetDataVanBan(this.idVanBan);
+    this.LoadDataDefault(this.idVanBan);
   }
 }
 

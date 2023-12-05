@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { ButPheVanBanService } from 'src/app/demo/service/van-ban-den/but-phe-van-ban/but-phe-van-ban.service';
-import { DoiTuongPhanCong } from 'src/app/models/van-ban-den/but-phe-van-ban';
+import { SuaButPheVanBanService } from 'src/app/demo/service/van-ban-den/sua-but-phe-van-ban/sua-but-phe-van-ban.service';
+import { DoiTuongPhanCong } from 'src/app/models/van-ban-den/sua-but-phe-van-ban';
+
 
 @Component({
-  selector: 'app-them-moi-cong-viec',
-  templateUrl: './them-moi-cong-viec.component.html',
-  styleUrls: ['./them-moi-cong-viec.component.scss'],
-  providers: [MessageService],
+  selector: 'app-cap-nhat',
+  templateUrl: './cap-nhat.component.html',
+  styleUrls: ['./cap-nhat.component.scss'],
+  
 })
-export class ThemMoiCongViecComponent implements OnInit {
-  idVanBan: string = '1';
-  items: any[] = [];
-  home: any;
-  loading: boolean = true;
-  ThongTinVanBan: any;
+export class CapNhatComponent {
+  @Input() hienThi: boolean = false;
+  @Output() tatPopup = new EventEmitter<boolean>();
+  @Input() item: any = [];
+
+  submitted: boolean = false;
   lstPhongBan: [];
   lstNhomNguoiDung: [];
   lstNguoiDung: [];
@@ -25,7 +27,6 @@ export class ThemMoiCongViecComponent implements OnInit {
   PhongBanId: any;
   NhomNguoiDungId: any;
   NguoiDungId: any;
-  submitted: boolean = false;
 
   lstNguoiDungPhanCong: DoiTuongPhanCong[] = [];
   formThemMoi_fommat: any = [];
@@ -36,9 +37,7 @@ export class ThemMoiCongViecComponent implements OnInit {
   lstVBTL: any[] = [];
   lstChiDao: any[] = [];
   lstChuTri: any[] = [];
-
   congviec: any = [];
-
   chkAllPhoiHop: boolean = false;
   chkAllThongBao: boolean = false;
 
@@ -47,11 +46,11 @@ export class ThemMoiCongViecComponent implements OnInit {
 
   constructor(
     private service: ButPheVanBanService,
+    private Suabutpheservice: SuaButPheVanBanService,
     private route: ActivatedRoute,
     private messageService: MessageService,
     private formBuilder: FormBuilder,
     private auth: AuthService,
-    private router: Router,
   ) { }
 
   public ThongTinCongViec = this.formBuilder.group({
@@ -65,42 +64,38 @@ export class ThemMoiCongViecComponent implements OnInit {
     lstDoiTuong: ["", []],
   });
 
+  public Thoat(): void {
+    this.submitted = false;
+    this.hienThi = false;
+    this.ThongTinCongViec.reset();
+    this.tatPopup.emit(this.hienThi);
+  }
 
-  ngOnInit() {
-    this.loading = false;
-    this.items = [{ label: 'Văn bản đến' }, { label: 'Thêm mới công việc' }];
-    this.home = { icon: 'pi pi-home', routerLink: '/' };
-
-    this.route.queryParams.subscribe((params) => {
-      if (params['idVanBan'] != undefined) {
-        this.idVanBan = params['idVanBan'];
-      }
-    });
-
-    this.GetDataVanBan(this.idVanBan);
+  public async BindDialogData() {
     this.LoadPhongBan();
     this.LoadNhomNguoiDung();
     this.LoadChonNhanhNguoiDung();
+    this.GetDataUpdateCongViec();
   }
 
-  /**
-   * GetDataVanBan
-   */
-  public GetDataVanBan(idVanBan: string) {
-    this.service.GetVanBanById(idVanBan).subscribe(data => {
+  public GetDataUpdateCongViec() {
+    this.Suabutpheservice.GetDataUpdateCongViec(this.item).subscribe(data => {
       if (data.isError) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
       } else {
-        this.ThongTinVanBan = data.objData;
+        this.lstNguoiDungPhanCong = data.objData.lstDoiTuongModel;
+        this.ThongTinCongViec.patchValue({
+          noiDung: data.objData.objCongViec.noiDungCongViec,
+          soNgay: data.objData.objCongViec.thoiHan,
+          ngayBatDau: new Date(data.objData.objCongViec.ngayBd),
+          ngayKetThuc: new Date(data.objData.objCongViec.ngayKt),
+        })
       }
-    }, (error) => {
-      console.log('Error', error);
     })
   }
 
   /**
-   * LoadPhongBan
-   */
+  * LoadPhongBan
+  */
   public LoadPhongBan() {
     this.service.LoadPhongBan().subscribe(data => {
       if (data.isError) {
@@ -147,10 +142,12 @@ export class ThemMoiCongViecComponent implements OnInit {
       if (data.isError) {
       } else {
         this.lstUserNhan = data.objData;
+
         this.lstNguoiDungPhanCong.forEach((item: any) => {
           const newList = this.lstUserNhan.filter(s => s.value !== item.value);
           this.lstUserNhan = newList;
         });
+
       }
     })
   }
@@ -230,14 +227,14 @@ export class ThemMoiCongViecComponent implements OnInit {
     const selectedOption = this.lstUserNhan.filter(option => objNguoiDung.includes(option.value));
 
     let itemData: DoiTuongPhanCong = {
-      HoTen: selectedOption[0].text.toString(),
-      Value: selectedOption[0].value.toString(),
-      ChiDao: false,
-      ChuTri: false,
-      PhoiHop: false,
-      ThongBao: false,
-      SMS: false,
-      VBTL: false,
+      hoTen: selectedOption[0].text.toString(),
+      value: selectedOption[0].value.toString(),
+      chiDao: false,
+      chuTri: false,
+      phoiHop: false,
+      thongBao: false,
+      sms: false,
+      vbtl: false,
     }
 
     this.lstNguoiDungPhanCong.push(itemData);
@@ -260,14 +257,14 @@ export class ThemMoiCongViecComponent implements OnInit {
 
     selectedOption.forEach((obj, index) => {
       let itemData: DoiTuongPhanCong = {
-        HoTen: obj.text.toString(),
-        Value: obj.value.toString(),
-        ChiDao: false,
-        ChuTri: false,
-        PhoiHop: false,
-        ThongBao: false,
-        SMS: false,
-        VBTL: false,
+        hoTen: obj.text.toString(),
+        value: obj.value.toString(),
+        chiDao: false,
+        chuTri: false,
+        phoiHop: false,
+        thongBao: false,
+        sms: false,
+        vbtl: false,
       }
       this.lstNguoiDungPhanCong.push(itemData);
     });
@@ -283,11 +280,11 @@ export class ThemMoiCongViecComponent implements OnInit {
    */
   public XoaDoiTuong(nguoidung: any) {
     let itemData = {
-      value: nguoidung.Value,
-      text: nguoidung.HoTen
+      value: nguoidung.value,
+      text: nguoidung.hoTen
     }
     this.lstUserNhan = this.lstUserNhan.concat(itemData);
-    this.lstNguoiDungPhanCong = this.lstNguoiDungPhanCong.filter(option => nguoidung.Value !== option.Value);
+    this.lstNguoiDungPhanCong = this.lstNguoiDungPhanCong.filter(option => nguoidung.value !== option.value);
   }
 
   public ckAllPhoiHop() {
@@ -295,14 +292,14 @@ export class ThemMoiCongViecComponent implements OnInit {
     if (this.chkAllPhoiHop === true) {
       this.chkAllThongBao = false;
       this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        obj.PhoiHop = true;
-        obj.ThongBao = false;
-        obj.ChiDao = false;
-        obj.ChuTri = false;
+        obj.phoiHop = true;
+        obj.thongBao = false;
+        obj.chiDao = false;
+        obj.chuTri = false;
       });
     } else {
       this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        obj.PhoiHop = false;
+        obj.phoiHop = false;
       });
     }
   }
@@ -313,14 +310,14 @@ export class ThemMoiCongViecComponent implements OnInit {
     if (this.chkAllThongBao === true) {
       this.chkAllPhoiHop = false;
       this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        obj.ThongBao = true;
-        obj.PhoiHop = false;
-        obj.ChiDao = false;
-        obj.ChuTri = false;
+        obj.thongBao = true;
+        obj.phoiHop = false;
+        obj.chiDao = false;
+        obj.chuTri = false;
       });
     } else {
       this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        obj.ThongBao = false;
+        obj.thongBao = false;
       });
     }
   }
@@ -334,8 +331,8 @@ export class ThemMoiCongViecComponent implements OnInit {
       item.ThongBao = !item.ChiDao;
 
       this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        if (obj.Value !== item.Value) {
-          obj.ChiDao = false;
+        if (obj.value !== item.Value) {
+          obj.chiDao = false;
         }
       });
     }
@@ -343,48 +340,49 @@ export class ThemMoiCongViecComponent implements OnInit {
   }
 
   public chkChuTriChild(item: DoiTuongPhanCong) {
-    item.ChuTri = !item.ChuTri;
-    if (item.ChuTri === true) {
-      item.ChiDao = !item.ChuTri;
-      item.PhoiHop = !item.ChuTri;
-      item.ThongBao = !item.ChuTri;
+    item.chuTri = !item.chuTri;
+    if (item.chuTri === true) {
+      item.chiDao = !item.chuTri;
+      item.phoiHop = !item.chuTri;
+      item.thongBao = !item.chuTri;
 
       this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        if (obj.Value !== item.Value) {
-          obj.ChuTri = false;
+        if (obj.value !== item.value) {
+          obj.chuTri = false;
         }
       });
     }
   }
 
   public chkPhoiHopChild(item: DoiTuongPhanCong) {
-    item.PhoiHop = !item.PhoiHop;
-    if (item.PhoiHop === true) {
-      item.ThongBao = !item.PhoiHop;
-      item.ChiDao = !item.PhoiHop;
-      item.ChuTri = !item.PhoiHop;
+    item.phoiHop = !item.phoiHop;
+    if (item.phoiHop === true) {
+      item.thongBao = !item.phoiHop;
+      item.chiDao = !item.phoiHop;
+      item.chuTri = !item.phoiHop;
     }
   }
 
   public chkThongBaoChild(item: DoiTuongPhanCong) {
-    item.ThongBao = !item.ThongBao;
-    if (item.ThongBao === true) {
-      item.PhoiHop = !item.ThongBao;
-      item.ChiDao = !item.ThongBao;
-      item.ChuTri = !item.ThongBao;
+    item.thongBao = !item.thongBao;
+    if (item.thongBao === true) {
+      item.phoiHop = !item.thongBao;
+      item.chiDao = !item.thongBao;
+      item.chuTri = !item.thongBao;
     }
   }
 
   public chkSmSChild(item: DoiTuongPhanCong) {
-    item.SMS = !item.SMS;
+    item.sms = !item.sms;
   }
 
   public chkVBTLChild(item: DoiTuongPhanCong) {
-    item.VBTL = !item.VBTL;
+    item.vbtl = !item.vbtl;
   }
 
-  public ThemMoiCongViec() {
+  public CapNhatCongViec() {
     this.submitted = true;
+    console.log(this.item);
     if (this.ThongTinCongViec.valid) {
       this.congviec = this.ThongTinCongViec.value;
 
@@ -392,22 +390,23 @@ export class ThemMoiCongViecComponent implements OnInit {
         ngayBatDau: this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayBatDau)),
         ngayKetThuc: this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayKetThuc)),
         lstDoiTuong: JSON.stringify(this.lstNguoiDungPhanCong),
-        soNgay: this.congviec.soNgay,
-        noiDung: this.congviec.noiDung,
-        vanBanId: this.idVanBan,
+        soNgay: this.congviec.soNgay.toString(),
+        noiDung: this.congviec.noiDung.toString(),
+        idCongViec: this.item.congViecId.toString(),
+        idUserXuLy: this.item.id.toString(),
+        stt: this.item.stt.toString(),
         userId: this.auth.GetmUserInfo().userId.toString(),
         donViLamViecId: this.auth.GetDonViLamViec(),
-        idNhomQuyenLamViec: this.auth.GetmUserInfo().nhomQuyenId.toString(),
         donViId: this.auth.GetmUserInfo().donViId.toString(),
       }
 
-      this.service.ThemMoiCongViec(data).subscribe(data => {
+      this.Suabutpheservice.CapNhatCongViec(data).subscribe(data => {
         if (data.isError) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
         } else {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
           setTimeout(() => {
-            this.router.navigate(['/van-ban-den/but-phe-van-ban']);
+            this.Thoat();
           }, 1000);
         }
       }, (error) => {

@@ -24,10 +24,11 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { SuaCongViecComponent } from './sua-cong-viec.component';
 import { TabViewModule } from 'primeng/tabview';
+import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 
 
 @NgModule({
-  declarations: [SuaCongViecComponent],
+  declarations: [SuaCongViecComponent, CapNhatComponent],
   imports: [
     CommonModule,
     TableModule,

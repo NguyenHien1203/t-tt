@@ -11,14 +11,14 @@
     class="p-fluid"
 >
 <ng-template pTemplate="content">
-      <div class="grid formgrid">
+      <div class="field grid">
           <div class="col-12 md:col-12 div-center">
               Các trường <span class="p-error">&nbsp;(*)&nbsp;</span> bắt buộc
               phải nhập
           </div>
       </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-3">
+      <div class="field grid">
+          <div class="col-12 md:col-3 fl-wr">
               <label htmlfor="ngayTao"
                   >Ngày tạo<span class="p-error"> (*)</span>:</label
               >
@@ -41,19 +41,20 @@
                   >Vui lòng nhập ngày tạo</span
               >
           </div>
-          <div class="col-12 md:col-3">
+          <div class="col-12 md:col-3 fl-wr">
               <label htmlfor="thoiGian">Thời gian:</label>
               <p-dropdown
                   [options]="lstThoiGian"
                   appendTo="body"
                   optionValue="value"
+                  class="form-control"
                   formControlName="thoiGian"
                   placeholder="Chọn thời gian"
                   [showClear]="false"
                   (onChange)="ChangeThoiGian()"
               ></p-dropdown>
           </div>
-          <div class="col-12 md:col-3">
+          <div class="col-12 md:col-3 fl-wr">
               <label htmlfor="gio"
                   >Chọn giờ:</label
               >
@@ -61,12 +62,13 @@
                   [options]="lstGio"
                   appendTo="body"
                   optionValue="value"
+                  class="form-control"
                   formControlName="gio"
                   placeholder="Chọn giờ"
                   [showClear]="false"
               ></p-dropdown>
           </div>
-          <div class="col-12 md:col-3 gap-3">
+          <div class="col-12 md:col-3 fl-wr">
               <label htmlfor="phut"
                   >Chọn phút:</label
               >
@@ -75,13 +77,14 @@
                   appendTo="body"
                   optionValue="value"
                   formControlName="phut"
+                  class="form-control"
                   placeholder="Chọn phút"
                   [showClear]="false"
               ></p-dropdown>
           </div>
       </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-6">
+      <div class="field grid">
+          <div class="col-12 md:col-6 fl-wr">
               <label htmlfor="diaDiem">Địa điểm:</label>
               <textarea
                   rows="3"
@@ -96,14 +99,15 @@
               <input
                   pinputtext=""
                   id="lanhDaoChuTri"
+                  [style]="{'margin-top' : '5px'}"
                   type="text"
                   class="p-inputtext p-component p-element"
                   formControlName="lanhDaoChuTri"
               />
           </div>
       </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-6">
+      <div class="field grid">
+          <div class="col-12 md:col-6 fl-wr">
               <label htmlfor="lanhDaoVanPhong">Lãnh đạo văn phòng:</label>
               <input
                   pinputtext=""
@@ -113,7 +117,7 @@
                   formControlName="lanhDaoVanPhong"
               />
           </div>
-          <div class="col-12 md:col-6">
+          <div class="col-12 md:col-6 fl-wr">
               <label htmlfor="donViChuanBi">Chuyên viên chuẩn bị:</label>
               <input
                   pinputtext=""
@@ -124,8 +128,8 @@
               />
           </div>
       </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-12">
+      <div class="field grid">
+          <div class="col-12 md:col-12 fl-wr">
               <label htmlfor="noiDung">Nội dung<span class="p-error"> (*)</span>:</label>
               <textarea
                   rows="3"

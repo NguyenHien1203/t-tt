@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { addWeeks, startOfWeek, subWeeks } from 'date-fns';
+import { addWeeks, format, startOfWeek, subWeeks } from 'date-fns';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { LichCoQuanService } from 'src/app/demo/service/lich/lich-co-quan.service';
@@ -158,10 +158,8 @@ export class LichCoQuanComponent {
     }
 
     public LoadDanhSach(): void {
-        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-        console.log(this.startOfWeekDate.toLocaleDateString())
-        this.timKiemDanhSach.tuNgay = this.startOfWeekDate.toLocaleDateString();
-        this.timKiemDanhSach.denNgay = this.endOfWeekDate.toLocaleDateString();
+        this.timKiemDanhSach.tuNgay = format(this.startOfWeekDate, 'dd/MM/yyyy');
+        this.timKiemDanhSach.denNgay = format(this.endOfWeekDate, 'dd/MM/yyyy');
         this.service
             .getDanhSachLichCoQuan(this.timKiemDanhSach)
             .then((data) => {

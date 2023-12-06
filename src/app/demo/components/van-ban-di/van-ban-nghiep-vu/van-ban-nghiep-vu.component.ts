@@ -32,7 +32,7 @@ export class VanBanNghiepVuComponent {
     lstLoaiVanBan: any = [];
     lstSoVanBanDi: any = [];
     lstSoVanBan: any = [];
-    items = [{ label: 'Văn bản đi' }, { label: 'Sổ văn bản đi' }];
+    items = [{ label: 'Văn bản đi' }, { label: 'Văn bản nghiệp vụ' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
     lstMucDoKhan: any[] = [
         { text: 'VB thường', value: '1' },

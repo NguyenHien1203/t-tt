@@ -44,7 +44,7 @@ loading: boolean = false;
 lstLoaiVanBan: any = [];
 lstSoVanBan: any = [];
 lstLichCaNhan: any[] = [];
-items = [{ label: 'Lịch' }, { label: 'Quản trị lịch' }];
+items = [{ label: 'Lịch' }, { label: 'Lịch phòng ban' }];
 home = { icon: 'pi pi-home', routerLink: '/' };
 timKiemDanhSach: TimKiemQuanTriLichPhongBan = {
     tuNgay: '1901-01-01',

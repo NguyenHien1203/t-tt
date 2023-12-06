@@ -4,6 +4,7 @@
     [draggable]="true"
     [resizable]="false"
     (onHide)="Thoat()"
+    (onShow)="BindParent()"
     [style]="{ width: '950px' }"
     [modal]="true"
     header="Thêm mới hồ sơ công việc"
@@ -89,7 +90,8 @@
                 <p-checkbox
                     binary="true"
                     class="mg-bt-75"
-                    formControlName="luuTru"
+                    [(ngModel)]="selectedLuuTru"
+                    formControlName="noiLuu"
                     value="true"
                     label="Lưu trữ"
                 ></p-checkbox>

@@ -59,7 +59,6 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
     CalendarModule,
     TabViewModule,
     CommonModule,
-    CommonModule,
     DanhMucHoSoCoQuanRoutingModule
   ]
 })

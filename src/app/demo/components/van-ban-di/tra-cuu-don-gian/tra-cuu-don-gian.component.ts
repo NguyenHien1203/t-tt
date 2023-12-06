@@ -30,7 +30,7 @@ export class TraCuuDonGianComponent {
     loading: boolean = false;
     traCuuDonGians: any[] = [];
     public home = { icon: 'pi pi-home', routerLink: '/' };
-    public items = [{ label: 'Văn bản đi' }, { label: 'Tra cứu đơn gian' }];
+    public items = [{ label: 'Văn bản đi' }, { label: 'Tra cứu đơn giản' }];
     public timKiemDanhSach: TimKiemDanhSach = {
         keyWord: "",
         donViId: Number(this.idDonViLamViec),

@@ -75,10 +75,18 @@ const routes: Routes = [
                 (m) => m.TaiLieuHuongDanModule
             ),
     },
+    {
+        path: 'hoat-dong-sap-toi',
+        data: { breadcrumb: 'Hoạt động sắp tới' },
+        loadChildren: () =>
+            import('./hoat-dong-sap-toi/hoat-dong-sap-toi.module').then(
+                (m) => m.HoatDongSapToiModule
+            )
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class ThongTinKhacRoutingModule {}
+export class ThongTinKhacRoutingModule { }

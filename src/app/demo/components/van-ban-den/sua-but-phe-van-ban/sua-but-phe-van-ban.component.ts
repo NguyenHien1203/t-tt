@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { format } from 'date-fns';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { ButPheVanBanService } from 'src/app/demo/service/van-ban-den/but-phe-van-ban/but-phe-van-ban.service';
 import { CapNhatMoiService } from 'src/app/demo/service/van-ban-den/cap-nhat-moi/cap-nhat-moi.service';
@@ -114,6 +115,12 @@ export class SuaButPheVanBanComponent  implements OnInit {
    * GetDanhSachButPhe
    */
   public GetDanhSachSuaButPhe() {
+    if (this.timKiemDanhSach.ngaybanhanh !== "" && this.timKiemDanhSach.ngaybanhanh !== null)
+    this.timKiemDanhSach.ngaybanhanh = format(new Date(this.timKiemDanhSach.ngaybanhanh), 'dd/MM/yyyy');
+
+  if (this.timKiemDanhSach.ngaynhan !== "" && this.timKiemDanhSach.ngaynhan !== null)
+    this.timKiemDanhSach.ngaynhan = format(new Date(this.timKiemDanhSach.ngaynhan), 'dd/MM/yyyy');
+
     this.suaButPheSv.getDataSuaButPhe(this.timKiemDanhSach).subscribe(data => {
       if (data.isError) {
       } else {

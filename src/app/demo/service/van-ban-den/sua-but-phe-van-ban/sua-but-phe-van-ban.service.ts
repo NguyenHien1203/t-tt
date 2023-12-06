@@ -63,4 +63,17 @@ export class SuaButPheVanBanService {
       this.router.navigate(['/login']);
     return this.httpClient.post<any>(environment.baseUrlApi + '/VanBanDen/SuaButPheVanBan/CapNhatCongViec', modelVanban, this.httpOption)
   }
+
+  public ThemCongViecCon(modelVanban: any): Observable<any> {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    return this.httpClient.post<any>(environment.baseUrlApi + '/VanBanDen/SuaButPheVanBan/ThemCongViecCon', modelVanban, this.httpOption)
+  }
+
+  public XoaCongViec(idChiTieu: string): Observable<any> {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    const url = `${this.baseUrl}/VanBanDen/SuaButPheVanBan/XoaCongViec?idUserXuLy=` + idChiTieu;
+    return this.httpClient.post<any>(url, this.httpOption)
+  }
 }

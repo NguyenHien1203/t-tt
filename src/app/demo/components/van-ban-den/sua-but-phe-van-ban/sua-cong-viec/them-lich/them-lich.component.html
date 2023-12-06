@@ -1,0 +1,173 @@
+<p-dialog
+    [(visible)]="hienThi"
+    [formGroup]="formThemMoi"
+    [draggable]="true"
+    [resizable]="false"
+    (onHide)="Thoat()"
+    [style]="{ width: '950px' }"
+    [modal]="true"
+    header="Thêm mới lịch"
+    class="p-fluid"
+>
+    <ng-template pTemplate="content">
+        <div class="grid formgrid">
+            <div class="col-12 md:col-12 div-center">
+                Các trường <span class="p-error">&nbsp;(*)&nbsp;</span> bắt buộc
+                phải nhập
+            </div>
+        </div>
+        
+        <div class="grid formgrid">
+            <div class="col-12 md:col-3">
+                <label htmlfor="ngayTao"
+                    >Ngày tạo<span class="p-error"> (*)</span>:</label
+                >
+                <p-calendar
+                    appendTo="body"
+                    formControlName="ngayTao"
+                    dateFormat="dd/mm/yy"
+                    placeholder="Ngày tạo"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                    required=""
+                    showIcon="true"
+                ></p-calendar>
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.ngayTao.valid &&
+                        (formThemMoi.controls.ngayTao.touched || submitted)
+                    "
+                    >Vui lòng nhập ngày tạo</span
+                >
+            </div>
+            <div class="col-12 md:col-3">
+                <label htmlfor="thoiGian">Thời gian:</label>
+                <p-dropdown
+                    [options]="lstThoiGian"
+                    appendTo="body"
+                    optionValue="value"
+                    formControlName="thoiGian"
+                    placeholder="Chọn thời gian"
+                    [showClear]="false"
+                    (onChange)="ChangeThoiGian()"
+                ></p-dropdown>
+            </div>
+            <div class="col-12 md:col-3">
+                <label htmlfor="gio"
+                    >Chọn giờ:</label
+                >
+                <p-dropdown
+                    [options]="lstGio"
+                    appendTo="body"
+                    optionValue="value"
+                    formControlName="gio"
+                    placeholder="Chọn giờ"
+                    [showClear]="false"
+                ></p-dropdown>
+            </div>
+            <div class="col-12 md:col-3 gap-3">
+                <label htmlfor="phut"
+                    >Chọn phút:</label
+                >
+                <p-dropdown
+                    [options]="lstPhut"
+                    appendTo="body"
+                    optionValue="value"
+                    formControlName="phut"
+                    placeholder="Chọn phút"
+                    [showClear]="false"
+                ></p-dropdown>
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-6">
+                <label htmlfor="diaDiem">Địa điểm:</label>
+                <textarea
+                    rows="3"
+                    cols="30"
+                    formControlName="diaDiem"
+                    placeholder="Địa điểm"
+                    pInputTextarea
+                ></textarea>
+            </div>
+            <div class="col-12 md:col-6">
+                <label htmlfor="lanhDaoChuTri">Lãnh đạo chủ trì:</label>
+                <input
+                    pinputtext=""
+                    id="lanhDaoChuTri"
+                    type="text"
+                    class="p-inputtext p-component p-element"
+                    formControlName="lanhDaoChuTri"
+                />
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-6">
+                <label htmlfor="lanhDaoVanPhong">Lãnh đạo văn phòng:</label>
+                <input
+                    pinputtext=""
+                    id="lanhDaoVanPhong"
+                    type="text"
+                    class="p-inputtext p-component p-element"
+                    formControlName="lanhDaoVanPhong"
+                />
+            </div>
+            <div class="col-12 md:col-6">
+                <label htmlfor="donViChuanBi">Đơn vị chuẩn bị:</label>
+                <input
+                    pinputtext=""
+                    id="donViChuanBi"
+                    type="text"
+                    class="p-inputtext p-component p-element"
+                    formControlName="donViChuanBi"
+                />
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-12">
+                <label htmlfor="noiDung">Nội dung<span class="p-error"> (*)</span>:</label>
+                <textarea
+                    rows="3"
+                    cols="30"
+                    formControlName="noiDung"
+                    placeholder="Nội dung"
+                    pInputTextarea
+                    required=""
+                ></textarea>
+                <span
+                class="p-error"
+                *ngIf="
+                    !formThemMoi.controls.noiDung.valid &&
+                    (formThemMoi.controls.noiDung.touched || submitted)
+                "
+                >Vui lòng nhập nội dung</span
+            >
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            type="submit"
+            label="Info"
+            class="p-element p-ripple p-button-info p-button p-component"
+            ng-reflect-label="Info"
+            (click)="ThemMoi()"
+        >
+            <span class="p-button-label">Lưu</span><span class="p-ink"></span>
+        </button>
+        <button
+            pbutton=""
+            pripple=""
+            type="button"
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            ng-reflect-label="Danger"
+            (click)="Thoat()"
+        >
+            <span class="p-button-label">Hủy</span><span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-dialog>

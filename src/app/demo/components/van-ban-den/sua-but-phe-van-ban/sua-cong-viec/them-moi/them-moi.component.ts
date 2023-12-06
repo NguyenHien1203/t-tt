@@ -7,18 +7,18 @@ import { ButPheVanBanService } from 'src/app/demo/service/van-ban-den/but-phe-va
 import { SuaButPheVanBanService } from 'src/app/demo/service/van-ban-den/sua-but-phe-van-ban/sua-but-phe-van-ban.service';
 import { DoiTuongPhanCong } from 'src/app/models/van-ban-den/sua-but-phe-van-ban';
 
-
 @Component({
-  selector: 'app-cap-nhat',
-  templateUrl: './cap-nhat.component.html',
-  styleUrls: ['./cap-nhat.component.scss'],
-
+  selector: 'app-them-moi',
+  templateUrl: './them-moi.component.html',
+  styleUrls: ['./them-moi.component.scss']
 })
-export class CapNhatComponent {
+export class ThemMoiComponent {
   @Input() hienThi: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
-  @Input() item: any = [];
+  @Input() idVanBan: string = "";
+  @Input() stt: string = "";
 
+  type: string = "";
   submitted: boolean = false;
   lstPhongBan: [];
   lstNhomNguoiDung: [];
@@ -68,29 +68,21 @@ export class CapNhatComponent {
     this.submitted = false;
     this.hienThi = false;
     this.ThongTinCongViec.reset();
+    this.lstNguoiDungPhanCong = [];
+    this.lstUserNhan = [];
     this.tatPopup.emit(this.hienThi);
   }
 
   public async BindDialogData() {
+
+    this.ThongTinCongViec.patchValue({
+      ngayBatDau: new Date(),
+      ngayKetThuc: new Date()
+    })
+
     this.LoadPhongBan();
     this.LoadNhomNguoiDung();
     this.LoadChonNhanhNguoiDung();
-    this.GetDataUpdateCongViec();
-  }
-
-  public GetDataUpdateCongViec() {
-    this.Suabutpheservice.GetDataUpdateCongViec(this.item).subscribe(data => {
-      if (data.isError) {
-      } else {
-        this.lstNguoiDungPhanCong = data.objData.lstDoiTuongModel;
-        this.ThongTinCongViec.patchValue({
-          noiDung: data.objData.objCongViec.noiDungCongViec,
-          soNgay: data.objData.objCongViec.thoiHan,
-          ngayBatDau: new Date(data.objData.objCongViec.ngayBd),
-          ngayKetThuc: new Date(data.objData.objCongViec.ngayKt),
-        })
-      }
-    })
   }
 
   /**
@@ -142,7 +134,6 @@ export class CapNhatComponent {
       if (data.isError) {
       } else {
         this.lstUserNhan = data.objData;
-
         this.lstNguoiDungPhanCong.forEach((item: any) => {
           const newList = this.lstUserNhan.filter(s => s.value !== item.value);
           this.lstUserNhan = newList;
@@ -336,8 +327,9 @@ export class CapNhatComponent {
         }
       });
     }
+
   }
-  
+
   public chkChuTriChild(item: DoiTuongPhanCong) {
     item.chuTri = !item.chuTri;
     if (item.chuTri === true) {
@@ -381,9 +373,13 @@ export class CapNhatComponent {
 
   public CapNhatCongViec() {
     this.submitted = true;
-    console.log(this.item);
     if (this.ThongTinCongViec.valid) {
       this.congviec = this.ThongTinCongViec.value;
+
+      if (this.stt === '')
+        this.type = 'parent';
+      else
+        this.type = 'child';
 
       let data = {
         ngayBatDau: this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayBatDau)),
@@ -391,15 +387,15 @@ export class CapNhatComponent {
         lstDoiTuong: JSON.stringify(this.lstNguoiDungPhanCong),
         soNgay: this.congviec.soNgay.toString(),
         noiDung: this.congviec.noiDung.toString(),
-        idCongViec: this.item.congViecId.toString(),
-        idUserXuLy: this.item.id.toString(),
-        stt: this.item.stt.toString(),
+        stt: this.stt !== "" ? this.stt.toString() : "",
+        idVanBan: this.idVanBan.toString(),
+        donViDangNhap: this.auth.GetmUserInfo().donViId.toString(),
+        DonViLamViec: this.auth.GetDonViLamViec(),
         userId: this.auth.GetmUserInfo().userId.toString(),
-        donViLamViecId: this.auth.GetDonViLamViec(),
-        donViId: this.auth.GetmUserInfo().donViId.toString(),
+        type: this.type,
       }
 
-      this.Suabutpheservice.CapNhatCongViec(data).subscribe(data => {
+      this.Suabutpheservice.ThemCongViecCon(data).subscribe(data => {
         if (data.isError) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
         } else {

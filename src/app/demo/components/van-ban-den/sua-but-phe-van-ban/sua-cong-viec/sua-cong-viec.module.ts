@@ -25,10 +25,12 @@ import { CalendarModule } from 'primeng/calendar';
 import { SuaCongViecComponent } from './sua-cong-viec.component';
 import { TabViewModule } from 'primeng/tabview';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { ThemMoiComponent } from './them-moi/them-moi.component';
+import { ThemLichComponent } from './them-lich/them-lich.component';
 
 
 @NgModule({
-  declarations: [SuaCongViecComponent, CapNhatComponent],
+  declarations: [SuaCongViecComponent, CapNhatComponent, ThemMoiComponent, ThemLichComponent],
   imports: [
     CommonModule,
     TableModule,

@@ -35,9 +35,9 @@
             <div class="wrapper">
                 <h2>SỬA BÚT PHÊ</h2>
                 <div class="icon-cls">
-                    <button pButton pRipple label="Thêm lịch cơ quan" icon="pi pi-plus" class="p-button-success mr-2">
+                    <button (click)="ThemLich()" pButton pRipple label="Thêm lịch cơ quan" icon="pi pi-plus" class="p-button-success mr-2">
                     </button>
-                    <button pButton pRipple label="Quay lại" icon="pi pi-replay" class="p-button-success mr-2">
+                    <button (click)="QuayLai()" pButton pRipple label="Quay lại" icon="pi pi-replay" class="p-button-success mr-2">
                     </button>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                                     </a>
                                 </div>
                                 <div class="">
-                                    <a href="javascript:;" (click)="CreateCongViec(item)" class="btn__addCongViec">
+                                    <a href="javascript:;" (click)="CreateCongViec(item.stt)" class="btn__addCongViec">
                                         <i class="pi pi-plus-circle"></i>
                                     </a>
                                 </div>
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="congViec__item-action d-flex flex-column align-items-start">
                                     <div class="congViec__cta">
-                                        <button pButton pRipple icon="pi pi-trash"  class="p-button-danger">
+                                        <button (click)="DeleteParent(item.id)" pButton pRipple icon="pi pi-trash"  class="p-button-danger">
                                         </button><br><br>
                                         <button (click)="UpdateParent(item)" pButton pRipple icon="pi pi-pencil" class="p-button-success">
                                         </button>
@@ -239,9 +239,9 @@
                                         </div>
                                         <div class="congViec__item-action d-flex flex-column align-items-start">
                                             <div class="congViec__cta">
-                                                <button pButton pRipple icon="pi pi-trash"  class="p-button-danger">
+                                                <button (click)="DeleteParent(itemChild.id)" pButton pRipple icon="pi pi-trash"  class="p-button-danger">
                                                 </button><br><br>
-                                                <button pButton pRipple icon="pi pi-pencil" class="p-button-success">
+                                                <button (click)="UpdateParent(itemChild)" pButton pRipple icon="pi pi-pencil" class="p-button-success">
                                                 </button>
                                             </div>
                                         </div>
@@ -253,7 +253,7 @@
                         </div>
                     </div>
                     <div class="btnNewCongViec tx-left">
-                        <a href="javascript:;" data-type="parent">
+                        <a href="javascript:;" (click)="CreateCongViec('')" data-type="parent">
                             <i class="pi pi-plus-circle"></i>
                         </a>
                     </div>
@@ -261,6 +261,31 @@
             </div>
 
             <app-cap-nhat [hienThi]="hienThiCapNhat" [item]="item" (tatPopup)="Thoat($event, 'T')"></app-cap-nhat>
+
+            <app-them-moi [hienThi]="hienThiThemMoi" [idVanBan]="idVanBan" [stt]="stt" (tatPopup)="Thoat($event, 'C')"></app-them-moi>
+
+            <app-them-lich [hienThi]="hienThiThemLich" (tatPopup)="Thoat($event, 'TL')"></app-them-lich>
+            
         </div>
+
+        <p-confirmDialog #cd [style]="{width: '30vw'}">
+            <ng-template pTemplate="header">
+                <h3>Xác nhận</h3>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark"
+                    class="p-element p-ripple p-button p-component p-button-info">
+                    <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+                    <span class="p-button-label">Đồng ý</span>
+                    <span class="p-ink"></span>
+                </button>
+                <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark"
+                    class="p-element p-ripple p-button p-component p-button-danger">
+                    <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+                    <span class="p-button-label">Hủy</span>
+                    <span class="p-ink"></span>
+                </button>
+            </ng-template>
+        </p-confirmDialog>
     </div>
 </div>

@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { format } from 'date-fns';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { ButPheVanBanService } from 'src/app/demo/service/van-ban-den/but-phe-van-ban/but-phe-van-ban.service';
 import { CapNhatMoiService } from 'src/app/demo/service/van-ban-den/cap-nhat-moi/cap-nhat-moi.service';
@@ -35,7 +36,7 @@ export class ButPheVanBanComponent implements OnInit {
   public timKiemDanhSach: TimKiemDanhSach = {
     thongtinvb: "",
     ngaybanhanh: "",
-    ngaynhan: "", 
+    ngaynhan: "",
     sokihieu: "",
     sovanbanid: "",
     loaivbid: "",
@@ -113,6 +114,12 @@ export class ButPheVanBanComponent implements OnInit {
    * GetDanhSachButPhe
    */
   public GetDanhSachButPhe() {
+    if (this.timKiemDanhSach.ngaybanhanh !== "" && this.timKiemDanhSach.ngaybanhanh !== null)
+      this.timKiemDanhSach.ngaybanhanh = format(new Date(this.timKiemDanhSach.ngaybanhanh), 'dd/MM/yyyy');
+
+    if (this.timKiemDanhSach.ngaynhan !== "" && this.timKiemDanhSach.ngaynhan !== null)
+      this.timKiemDanhSach.ngaynhan = format(new Date(this.timKiemDanhSach.ngaynhan), 'dd/MM/yyyy');
+
     this.service.getDataButPhe(this.timKiemDanhSach).subscribe(data => {
       if (data.isError) {
       } else {
@@ -131,6 +138,13 @@ export class ButPheVanBanComponent implements OnInit {
       queryParamsHandling: 'merge',
       queryParams: { idVanBan: idVanBan },
     });
+  }
+
+  formatDateToDDMMYY(date): string {
+    const day = ('0' + date.getDate()).slice(-2);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear().toString();
+    return day + '/' + month + '/' + year;
   }
 
 }

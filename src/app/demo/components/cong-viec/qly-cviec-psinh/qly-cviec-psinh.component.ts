@@ -22,12 +22,8 @@ export class QlyCviecPsinhComponent implements OnInit {
   ];
 
   lstCongViec: any[] = [];
-
-
   public timKiemDanhSach: TimKiemDanhSach = {
     idUser: "",
-    nam: "",
-    thang: "",
     trangThai: "",
     noiDung: "",
     vanBan: "",
@@ -56,9 +52,14 @@ export class QlyCviecPsinhComponent implements OnInit {
 
       } else {
         this.lstCongViec = data.objData;
+        console.log( this.lstCongViec)
       }
     }, (error) => {
       console.log('Error', error);
     })
+  }
+
+  public ThemMoi(){
+    this.router.navigate(['/cong-viec/them-moi-cong-viec']);
   }
 }

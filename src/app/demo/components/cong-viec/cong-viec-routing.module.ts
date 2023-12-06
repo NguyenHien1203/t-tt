@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
                         (m) => m.QlyCviecPsinhModule
                     ),
             },
+            { path: 'them-moi-cong-viec', data: { breadcrumb: 'Button' }, loadChildren: () => import('./qly-cviec-psinh/them-moi/them-moi.module').then(m => m.ThemMoiModule) },
             {
               path: 'xu-ly-cong-viec',
               data: { breadcrumb: 'Xử lý công việc' },

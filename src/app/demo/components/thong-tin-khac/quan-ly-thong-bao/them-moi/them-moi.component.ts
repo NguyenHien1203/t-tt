@@ -67,6 +67,7 @@ export class ThemMoiComponent {
     onChange(event: any) {
         const file: File = event.target.files[0];
         if (file) {
+            event.target.value = '';
             let urlUpload = '/ThongTinKhac/QuanLyThongBao/UploadFile';
             this.fileService.uploadFile(file, urlUpload).subscribe({
                 next: (data) => {

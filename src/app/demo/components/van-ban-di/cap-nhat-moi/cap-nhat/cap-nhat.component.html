@@ -1,7 +1,6 @@
 <p-dialog [(visible)]="show" [formGroup]="formThongTinVanBan" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
     (onShow)="BindDialogData()" [style]="{ width: '80ev' }" [modal]="true" header="Cập nhật văn bản đi">
     <ng-template pTemplate="content">
-        <form [formGroup]="formThongTinVanBan">
             <div class="field grid">
                 <div class="col-12 md:col-2 fl-wr">
                     Sổ văn bản <span class="p-error">(*)</span>
@@ -14,7 +13,7 @@
                             !formThongTinVanBan.controls.soVanBanId.valid &&
                             (formThongTinVanBan.controls.soVanBanId.touched ||
                                 submitted)
-                        ">Yeu cầu chọn sổ văn bản</span>
+                        ">Yêu cầu chọn sổ văn bản</span>
                 </div>
                 <div class="col-12 md:col-2 fl-wr">
                     Loại văn bản <span class="p-error">(*)</span>
@@ -204,7 +203,6 @@
             </div>
 
 
-        </form>
     </ng-template>
     <ng-template pTemplate="footer">
         <div class="div-center">

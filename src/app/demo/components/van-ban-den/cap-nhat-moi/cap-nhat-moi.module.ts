@@ -29,7 +29,7 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 
 
 @NgModule({
-  declarations: [CapNhatMoiComponent, PhanPhoiComponent,CapNhatComponent],
+  declarations: [CapNhatMoiComponent, PhanPhoiComponent, CapNhatComponent],
   imports: [
     CommonModule,
     CapNhatMoiRoutingModule,

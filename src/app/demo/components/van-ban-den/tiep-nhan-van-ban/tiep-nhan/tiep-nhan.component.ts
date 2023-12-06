@@ -137,6 +137,7 @@ export class TiepNhanComponent {
               isDelete: false,
             };
             this.selectedFiles.push(fileReturn);
+            event.target.value = '';
           }
         },
         error: (error: any) => {

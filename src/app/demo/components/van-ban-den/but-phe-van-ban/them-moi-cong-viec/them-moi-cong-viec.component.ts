@@ -51,6 +51,7 @@ export class ThemMoiCongViecComponent implements OnInit {
     private messageService: MessageService,
     private formBuilder: FormBuilder,
     private auth: AuthService,
+    private router: Router,
   ) { }
 
   public ThongTinCongViec = this.formBuilder.group({
@@ -146,6 +147,10 @@ export class ThemMoiCongViecComponent implements OnInit {
       if (data.isError) {
       } else {
         this.lstUserNhan = data.objData;
+        this.lstNguoiDungPhanCong.forEach((item: any) => {
+          const newList = this.lstUserNhan.filter(s => s.value !== item.value);
+          this.lstUserNhan = newList;
+        });
       }
     })
   }
@@ -164,6 +169,10 @@ export class ThemMoiCongViecComponent implements OnInit {
       if (data.isError) {
       } else {
         this.lstUserNhan = data.objData;
+        this.lstNguoiDungPhanCong.forEach((item: any) => {
+          const newList = this.lstUserNhan.filter(s => s.value !== item.value);
+          this.lstUserNhan = newList;
+        });
       }
     })
   }
@@ -181,6 +190,10 @@ export class ThemMoiCongViecComponent implements OnInit {
       if (data.isError) {
       } else {
         this.lstUserNhan = data.objData;
+        this.lstNguoiDungPhanCong.forEach((item: any) => {
+          const newList = this.lstUserNhan.filter(s => s.value !== item.value);
+          this.lstUserNhan = newList;
+        });
       }
     })
   }
@@ -269,8 +282,12 @@ export class ThemMoiCongViecComponent implements OnInit {
    * XoaDoiTuong
    */
   public XoaDoiTuong(nguoidung: any) {
-    this.lstUserNhan = this.lstUserNhan.concat(nguoidung);
-    this.lstNguoiDungPhanCong = this.lstNguoiDungPhanCong.filter(option => nguoidung.value !== option.Value);
+    let itemData = {
+      value: nguoidung.Value,
+      text: nguoidung.HoTen
+    }
+    this.lstUserNhan = this.lstUserNhan.concat(itemData);
+    this.lstNguoiDungPhanCong = this.lstNguoiDungPhanCong.filter(option => nguoidung.Value !== option.Value);
   }
 
   public ckAllPhoiHop() {
@@ -380,8 +397,8 @@ export class ThemMoiCongViecComponent implements OnInit {
         vanBanId: this.idVanBan,
         userId: this.auth.GetmUserInfo().userId.toString(),
         donViLamViecId: this.auth.GetDonViLamViec(),
-        idNhomQuyenLamViec : this.auth.GetmUserInfo().nhomQuyenId.toString(),
-        donViId : this.auth.GetmUserInfo().donViId.toString(),
+        idNhomQuyenLamViec: this.auth.GetmUserInfo().nhomQuyenId.toString(),
+        donViId: this.auth.GetmUserInfo().donViId.toString(),
       }
 
       this.service.ThemMoiCongViec(data).subscribe(data => {
@@ -390,7 +407,7 @@ export class ThemMoiCongViecComponent implements OnInit {
         } else {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
           setTimeout(() => {
-            // this.router.navigate(['/van-ban-den/cap-nhat-moi']);
+            this.router.navigate(['/van-ban-den/but-phe-van-ban']);
           }, 1000);
         }
       }, (error) => {
@@ -398,5 +415,4 @@ export class ThemMoiCongViecComponent implements OnInit {
       })
     }
   }
-
 }

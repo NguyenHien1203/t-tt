@@ -142,7 +142,6 @@ export class CapNhatComponent {
             this.formThongTinVanBan.patchValue({
                 soKiHieu: soKiHieuData,
             });
-            console.log("form", this.formThongTinVanBan.value);
         } catch (error) {
             this.messageService.add({
                 severity: 'error',
@@ -247,8 +246,8 @@ export class CapNhatComponent {
 
     public onFileSelected(event: any) {
         const FileInput: File = event.target.files[0];
-
         if (FileInput) {
+            event.target.value = '';
             this.file = FileInput;
             let urlSave = '/VanBanDi/CapNhatMoi/UpLoadFile';
             this.uploadfileService.uploadFiles(this.file, urlSave).subscribe({

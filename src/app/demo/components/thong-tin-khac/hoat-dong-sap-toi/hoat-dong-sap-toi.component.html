@@ -46,7 +46,7 @@
             <div class="wrapper">
                 <h2>DANH SÁCH HOẠT ĐỘNG SẮP TỚI</h2>
                 <div class="icon-cls">
-                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success">
+                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success" (click)="ThemMoi()">
                     </button>
                 </div>
             </div>
@@ -104,6 +104,8 @@
                 </div>
             </div>
         </div>
+
+        <app-them-moi [show]="hienThiThemMoi" (close)="TatPopup($event, 'C')"></app-them-moi>
 
     </div>
 </div>

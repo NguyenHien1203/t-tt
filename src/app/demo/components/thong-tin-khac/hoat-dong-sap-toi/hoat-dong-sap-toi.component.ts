@@ -43,6 +43,10 @@ export class HoatDongSapToiComponent implements OnInit {
   showFirstOfWeek: string;
   showEndOfWeek: string;
 
+  hienThiThemMoi: boolean = false;
+  hienThiCapNhat: boolean = false;
+  hienThiGui: boolean = false;
+
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
@@ -136,5 +140,18 @@ export class HoatDongSapToiComponent implements OnInit {
       console.log('Error', error);
     // console.log(data);
     })
+  }
+
+  ThemMoi() {
+    this.hienThiThemMoi = true;
+  }
+
+  TatPopup(item: any, type: string) {
+    if (type === 'C') {
+      this.hienThiThemMoi = false;
+    } 
+    // else if (type === 'I') {
+    //   this.hienThiChiTiet = false;
+    // }
   }
 }

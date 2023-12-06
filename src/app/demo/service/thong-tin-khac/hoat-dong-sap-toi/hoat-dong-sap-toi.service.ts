@@ -23,4 +23,12 @@ export class HoatDongSapToiService {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSach', danhSach)
     .pipe(map((res: any) => res.objData));
   }
+
+  public themMoi(hoatDong: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'ThemMoi', hoatDong, this.httpOptions);
+  }
+
+  public xoa(id:any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `Xoa/${id}`, this.httpOptions);
+  }
 }

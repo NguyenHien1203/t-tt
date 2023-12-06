@@ -11,12 +11,12 @@
     class="p-fluid"
 >
     <ng-template pTemplate="content">
-        <div class="grid formgrid">
+        <div class="field grid">
             <div class="col-12 md:col-12 div-center">
                 Lịch phòng ban chỉ thêm theo tuần
             </div>
         </div>
-        <div class="grid formgrid">
+        <div class="field grid">
             <div class="col-12 md:col-12">
                 <label htmlfor="listThu"
                     >Thứ:</label
@@ -26,7 +26,7 @@
                 </label>
             </div>
         </div>
-        <div class="grid formgrid">
+        <div class="field grid">
             <div class="col-12 md:col-3">
                 <label htmlfor="thoiGian">Thời gian:</label>
                 <p-dropdown
@@ -36,6 +36,7 @@
                     formControlName="thoiGian"
                     placeholder="Chọn thời gian"
                     [showClear]="false"
+                    [style]="{'margin-top' : '5px'}"
                     (onChange)="ChangeThoiGian()"
                 ></p-dropdown>
             </div>
@@ -44,6 +45,7 @@
                 <p-dropdown
                     [options]="lstGio"
                     appendTo="body"
+                    [style]="{'margin-top' : '5px'}"
                     optionValue="value"
                     formControlName="gio"
                     placeholder="Chọn giờ"
@@ -57,11 +59,12 @@
                     appendTo="body"
                     optionValue="value"
                     formControlName="phut"
+                    [style]="{'margin-top' : '5px'}"
                     placeholder="Chọn phút"
                     [showClear]="false"
                 ></p-dropdown>
             </div>
-            <div class="col-12 md:col-5">
+            <div class="col-12 md:col-5 fl-wr">
                 <label htmlfor="diaDiem">Địa điểm:</label>
                 <textarea
                     rows="3"
@@ -72,8 +75,8 @@
                 ></textarea>
             </div>
         </div>
-        <div class="grid formgrid">
-            <div class="col-12 md:col-4">
+        <div class="field grid">
+            <div class="col-12 md:col-4 fl-wr">
                 <label htmlfor="lanhDaoChuTri">Lãnh đạo chủ trì:</label>
                 <input
                     pinputtext=""
@@ -83,7 +86,7 @@
                     formControlName="lanhDaoChuTri"
                 />
             </div>
-            <div class="col-12 md:col-4">
+            <div class="col-12 md:col-4 fl-wr">
                 <label htmlfor="lanhDaoVanPhong">Lãnh đạo văn phòng:</label>
                 <input
                     pinputtext=""
@@ -93,7 +96,7 @@
                     formControlName="lanhDaoVanPhong"
                 />
             </div>
-            <div class="col-12 md:col-4">
+            <div class="col-12 md:col-4 fl-wr">
                 <label htmlfor="chuyenVienPhoiHop">Chuyên viên phối hợp:</label>
                 <input
                     pinputtext=""
@@ -104,8 +107,8 @@
                 />
             </div>
         </div>
-        <div class="grid formgrid">
-            <div class="col-12 md:col-12">
+        <div class="field grid">
+            <div class="col-12 md:col-12 fl-wr">
                 <label htmlfor="noiDung"
                     >Nội dung<span class="p-error"> (*)</span>:</label
                 >

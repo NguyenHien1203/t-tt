@@ -6,7 +6,8 @@ import { environment } from 'src/environments/environment.development';
 @Injectable({
   providedIn: 'root'
 })
-export class DanhMucHoSoCongViecService {
+export class DanhMucHoSoCaNhanService {
+
   private httpOption = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -14,12 +15,12 @@ export class DanhMucHoSoCongViecService {
 };
 constructor(private http: HttpClient) {}
 
-getDanhSachDanhMucHoSoCaNhan(timKiemDanhSach: TimKiemDanhMucHoSoCaNhan) {
+getDanhSachDanhMucHoSoCaNhan(idUser : string) {
     return this.http
-        .post<any>(
+        .get<any>(
             environment.baseUrlApi +
-                '/HoSoCongViec/DanhMucHoSoCaNhan/GetDanhSach',
-            timKiemDanhSach,
+                '/HoSoCongViec/DanhMucHoSoCaNhan/GetDanhMucHoSoCaNhan/'+
+                idUser,
             this.httpOption
         )
         .toPromise()

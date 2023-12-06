@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { throwError } from 'rxjs';
 import { AuthService } from 'src/app/common/auth.services';
 import { DanhMucHoSoCoQuanService } from 'src/app/demo/service/ho-so-cong-viec/danh-muc-ho-so-co-quan.service';
+import { TreeNode, loaiHoSoCongViec } from 'src/app/models/ho-so-cong-viec/danh-muc-ho-so-ca-nhan';
 
 @Component({
     selector: 'app-cap-nhat',
@@ -22,54 +23,57 @@ export class CapNhatComponent {
         private authService: AuthService
     ) {}
 
+    selectedNodes: TreeNode = null;
     loading: boolean = true;
-    selectedFiles: any[] = [];
+    selectedLuuTru: boolean = false;
     submitted: boolean = false;
-    dataFile: any;
-    file_fomat: any = [];
-    vanBanDi: any = [];
-    file: File | null = null;
-    chkLienThong: boolean = false;
-    chkHeThong: boolean = false;
-    chkNoiBo: boolean = false;
-    lstSoVanBan: any[] = [];
-    lstLoaiVanBan: any[] = [];
-    lstPhongBan: any[] = [];
-    lstLanhDaoKy: any[] = [];
-    lstMucDoVanBan: any[] = [
-        { text: 'VB thường', value: 1 },
-        { text: 'VB khẩn, hỏa tốc', value: 2 },
-        { text: 'VB mật', value: 3 },
-        { text: 'VB tuyệt mật', value: 4 },
-        { text: 'VB tối mật', value: 5 },
-    ];
+    lstHoSoParent: TreeNode[] = [];
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
-    public formThongTinVanBan = this.formBuilder.group({
+    idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
+    public formCapNhat = this.formBuilder.group({
         id: [0, []],
+        maHoSo: ['', []],
+        tenHoSo: ['', []],
+        parentId: [0, []],
+        noiLuu: [0, []],
+        phanLoai: [0, []],
+        ghiChu: ['', []],
+        lastModified: [new Date(), []],
+        lastModifiedBy: ['0', []],
     });
-    oldSoDi: string = '0';
-    oldSoVanBanId: string = '0';
-    oldLoaiVanBanId: string = '';
-
-    ngOnInit() {
-        this.loading = false;
-    }
 
     public async BindDialogData() {
         try {
+            const dataParent = await this.service.getDanhSachDanhMucHoSoCoQuan(
+                this.idDonViLamViec
+            );
+            this.lstHoSoParent = dataParent;
+
             const data = await this.service.getDanhMucHoSoCoQuanId(this.id);
-            let fileLoad = data.lstFile;
+            this.selectedNodes = this.findNodeByData(dataParent, data.parentId);
+            this.formCapNhat.patchValue({
+                id: data.id,
+                maHoSo: data.maHoSo,
+                tenHoSo: data.tenHoSo,
+                noiLuu: data.noiLuu,
+                phanLoai: data.phanLoai,
+                ghiChu: data.ghiChu,
+            });
+            this.selectedLuuTru =
+                data.noiLuu == loaiHoSoCongViec.hoSoCongViecCoQuan
+                    ? true
+                    : false;
         } catch (error) {
             this.messageService.add({
                 severity: 'error',
                 summary: 'Error',
-                detail: 'Có lỗi xảy ra' + error,
+                detail: 'Có lỗi xảy ra:' + error,
             });
         }
     }
 
     public Thoat(): void {
-        this.formThongTinVanBan.reset();
+        this.formCapNhat.reset();
         this.submitted = false;
         this.show = false;
         this.tatPopup.emit(this.show);
@@ -78,16 +82,15 @@ export class CapNhatComponent {
     public CapNhat() {
         this.submitted = true;
 
-        if (this.formThongTinVanBan.valid) {
-            this.vanBanDi = this.formThongTinVanBan.value;
-            this.vanBanDi.chkVanBanLienThong = this.chkLienThong ? 1 : 0;
-            this.vanBanDi.chkVanBanHeThong = this.chkHeThong ? 1 : 0;
-            this.vanBanDi.chkVanBanNoiBo = this.chkNoiBo ? 1 : 0;
-            this.vanBanDi.fileUpLoad = JSON.stringify(this.selectedFiles);
-            this.vanBanDi.SoVanBanIdCu = this.oldSoVanBanId?.toString();
-            this.vanBanDi.SoDiCu = this.oldSoDi?.toString();
-
-            this.service.capNhatDanhMucHoSoCoQuan(this.vanBanDi).subscribe(
+        if (this.formCapNhat.valid) {
+            let itemData = this.formCapNhat.value;
+            itemData.lastModifiedBy = this.idUser;
+            itemData.parentId =
+                this.selectedNodes != null ? this.selectedNodes.data : 0;
+            itemData.noiLuu = this.selectedLuuTru
+                ? loaiHoSoCongViec.hoSoCongViecCoQuan
+                : 0;
+            this.service.capNhatDanhMucHoSoCoQuan(itemData).subscribe(
                 (data) => {
                     if (data.isError) {
                         this.messageService.add({
@@ -114,5 +117,29 @@ export class CapNhatComponent {
                 }
             );
         }
+    }
+
+    findNodeByData(tree, searchData) {
+        if (searchData === 0) {
+            return null;
+        }
+
+        for (const node of tree) {
+            if (node.data === searchData) {
+                return node; // Trả về nếu tìm thấy nút
+            }
+
+            if (node.children && node.children.length > 0) {
+                const foundInChild = this.findNodeByData(
+                    node.children,
+                    searchData
+                );
+                if (foundInChild) {
+                    return foundInChild; // Trả về nếu tìm thấy trong các nút con
+                }
+            }
+        }
+
+        return null; // Trả về null nếu không tìm thấy
     }
 }

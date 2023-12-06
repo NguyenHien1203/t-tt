@@ -1,13 +1,13 @@
 <p-dialog [(visible)]="show" [formGroup]="formCapNhat" (onShow)="BindDataDialog()" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
     [style]="{width: '950px'}" [modal]="true" header="Cập nhật bảng lương" class="p-fluid">
     <ng-template pTemplate="content">
-      <div class="grid formgrid ">
+      <div class="field grid ">
           <div class="col-12 md:col-12 div-center">
               Các trường <span class="p-error">&nbsp;(*)&nbsp;</span> bắt buộc phải nhập
           </div>
       </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-12">
+      <div class="field grid">
+          <div class="col-12 md:col-12 fl-wr">
               <label htmlfor="lichHop"
                   >Lịch họp<span class="p-error"> (*)</span>:</label
               >
@@ -29,8 +29,8 @@
               >
           </div>
       </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-12">
+      <div class="field grid">
+          <div class="col-12 md:col-12 fl-wr">
               <label htmlfor="noiDung">Nội dung cuộc họp:</label>
               <textarea
                   rows="3"
@@ -41,8 +41,8 @@
               ></textarea>
           </div>
       </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-3">
+      <div class="field grid">
+          <div class="col-12 md:col-3 fl-wr">
               <label htmlfor="ngayHopBatDau"
                   >Ngày bắt đầu <span class="p-error"> (*)</span>:</label
               >
@@ -65,7 +65,7 @@
                   >Vui lòng nhập ngày họp bắt đầu</span
               >
           </div>
-          <div class="col-12 md:col-3">
+          <div class="col-12 md:col-3 fl-wr">
               <label htmlfor="ngayHopBatDau"
                   >Ngày kết thúc <span class="p-error"> (*)</span>:</label
               >
@@ -89,7 +89,7 @@
                   >Vui lòng nhập ngày họp kết thúc</span
               >
           </div>
-          <div class="col-12 md:col-6">
+          <div class="col-12 md:col-6 fl-wr">
               <label htmlfor="diaDiem"
                   >Địa điểm <span class="p-error"> (*)</span>:</label
               >
@@ -111,33 +111,36 @@
               >
           </div>
       </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-3">
+      <div class="field grid">
+          <div class="col-12 md:col-3 fl-wr">
               <label htmlfor="gioBatDau">Giờ bắt đầu:</label>
               <p-dropdown
                   [options]="lstGio"
                   appendTo="body"
+                  class="form-control"
                   optionValue="value"
                   formControlName="gioBatDau"
                   placeholder="Chọn giờ"
                   [showClear]="false"
               ></p-dropdown>
           </div>
-          <div class="col-12 md:col-3">
+          <div class="col-12 md:col-3 fl-wr">
               <label htmlfor="phutBatDau">Phút bắt đầu:</label>
               <p-dropdown
                   [options]="lstPhut"
                   appendTo="body"
                   optionValue="value"
+                  class="form-control"
                   formControlName="phutBatDau"
                   placeholder="Chọn phút"
                   [showClear]="false"
               ></p-dropdown>
           </div>
-          <div class="col-12 md:col-3">
+          <div class="col-12 md:col-3 fl-wr">
               <label htmlfor="gioKetThuc">Giờ kết thúc:</label>
               <p-dropdown
                   [options]="lstGio"
+                  class="form-control"
                   appendTo="body"
                   optionValue="value"
                   formControlName="gioKetThuc"
@@ -145,11 +148,12 @@
                   [showClear]="false"
               ></p-dropdown>
           </div>
-          <div class="col-12 md:col-3">
+          <div class="col-12 md:col-3 fl-wr">
               <label htmlfor="gioKetThuc">Phút kết thúc:</label>
               <p-dropdown
                   [options]="lstPhut"
                   appendTo="body"
+                  class="form-control"
                   optionValue="value"
                   formControlName="phutKetThuc"
                   placeholder="Chọn phút"
@@ -157,8 +161,8 @@
               ></p-dropdown>
           </div>
       </div>
-      <div class="grid formgrid">
-          <div class="col-12 md:col-12">
+      <div class="field grid">
+          <div class="col-12 md:col-12 fl-wr">
               <label htmlfor="ghiChu">Ghi chú:</label>
               <textarea
                   rows="3"

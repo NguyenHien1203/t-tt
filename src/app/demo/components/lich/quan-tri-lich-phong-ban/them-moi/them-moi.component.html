@@ -11,18 +11,19 @@
     class="p-fluid"
 >
     <ng-template pTemplate="content">
-        <div class="grid formgrid">
+        <div class="field grid">
             <div class="col-12 md:col-12 div-center">
                 Lịch phòng ban chỉ thêm theo tuần
             </div>
         </div>
-        <div class="grid formgrid">
-            <div class="col-12 md:col-12">
+        <div class="field grid">
+            <div class="col-12 md:col-12 fl-wr">
                 <label htmlfor="listThu">Chọn thứ:<span class="p-error"> (*) </span>:</label>
                 <p-multiSelect
                     [options]="lstThu"
                     formControlName="listThu"
                     required=""
+                    class="form-control"
                 ></p-multiSelect>
                 <span
                     class="p-error"
@@ -34,42 +35,48 @@
                 >
             </div>
         </div>
-        <div class="grid formgrid">
-            <div class="col-12 md:col-3">
+        <div class="field grid">
+            <div class="col-12 md:col-3 ">
                 <label htmlfor="thoiGian">Thời gian:</label>
                 <p-dropdown
                     [options]="lstThoiGian"
                     appendTo="body"
                     optionValue="value"
+                    class="form-control"
+                    [style]="{'margin-top' : '5px'}"
                     formControlName="thoiGian"
                     placeholder="Chọn thời gian"
                     [showClear]="false"
                     (onChange)="ChangeThoiGian()"
                 ></p-dropdown>
             </div>
-            <div class="col-12 md:col-2">
+            <div class="col-12 md:col-2 ">
                 <label htmlfor="gio">Chọn giờ:</label>
                 <p-dropdown
                     [options]="lstGio"
                     appendTo="body"
+                    class="form-control"
                     optionValue="value"
                     formControlName="gio"
+                    [style]="{'margin-top' : '5px'}"
                     placeholder="Chọn giờ"
                     [showClear]="false"
                 ></p-dropdown>
             </div>
-            <div class="col-12 md:col-2">
+            <div class="col-12 md:col-2 ">
                 <label htmlfor="phut">Chọn phút:</label>
                 <p-dropdown
                     [options]="lstPhut"
+                    class="form-control"
                     appendTo="body"
                     optionValue="value"
                     formControlName="phut"
                     placeholder="Chọn phút"
+                    [style]="{'margin-top' : '5px'}"
                     [showClear]="false"
                 ></p-dropdown>
             </div>
-            <div class="col-12 md:col-5">
+            <div class="col-12 md:col-5 fl-wr">
                 <label htmlfor="diaDiem">Địa điểm:</label>
                 <textarea
                     rows="3"
@@ -80,8 +87,8 @@
                 ></textarea>
             </div>
         </div>
-        <div class="grid formgrid">
-            <div class="col-12 md:col-4">
+        <div class="field grid">
+            <div class="col-12 md:col-4 fl-wr">
                 <label htmlfor="lanhDaoChuTri">Lãnh đạo chủ trì:</label>
                 <input
                     pinputtext=""
@@ -91,7 +98,7 @@
                     formControlName="lanhDaoChuTri"
                 />
             </div>
-            <div class="col-12 md:col-4">
+            <div class="col-12 md:col-4 fl-wr">
                 <label htmlfor="lanhDaoVanPhong">Lãnh đạo văn phòng:</label>
                 <input
                     pinputtext=""
@@ -101,7 +108,7 @@
                     formControlName="lanhDaoVanPhong"
                 />
             </div>
-            <div class="col-12 md:col-4">
+            <div class="col-12 md:col-4 fl-wr">
                 <label htmlfor="chuyenVienPhoiHop">Chuyên viên phối hợp:</label>
                 <input
                     pinputtext=""
@@ -112,8 +119,8 @@
                 />
             </div>
         </div>
-        <div class="grid formgrid">
-            <div class="col-12 md:col-12">
+        <div class="field grid">
+            <div class="col-12 md:col-12 fl-wr">
                 <label htmlfor="noiDung"
                     >Nội dung<span class="p-error"> (*)</span>:</label
                 >

@@ -12,7 +12,7 @@ import { DoiTuongPhanCong } from 'src/app/models/van-ban-den/sua-but-phe-van-ban
   selector: 'app-cap-nhat',
   templateUrl: './cap-nhat.component.html',
   styleUrls: ['./cap-nhat.component.scss'],
-  
+
 })
 export class CapNhatComponent {
   @Input() hienThi: boolean = false;
@@ -324,21 +324,20 @@ export class CapNhatComponent {
 
 
   public chkChiDaoChild(item) {
-    item.ChiDao = !item.ChiDao;
-    if (item.ChiDao === true) {
-      item.ChuTri = !item.ChiDao;
-      item.PhoiHop = !item.ChiDao;
-      item.ThongBao = !item.ChiDao;
+    item.chiDao = !item.chiDao;
+    if (item.chiDao === true) {
+      item.chuTri = !item.chiDao;
+      item.phoiHop = !item.chiDao;
+      item.thongBao = !item.chiDao;
 
       this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        if (obj.value !== item.Value) {
+        if (obj.value !== item.value) {
           obj.chiDao = false;
         }
       });
     }
-
   }
-
+  
   public chkChuTriChild(item: DoiTuongPhanCong) {
     item.chuTri = !item.chuTri;
     if (item.chuTri === true) {

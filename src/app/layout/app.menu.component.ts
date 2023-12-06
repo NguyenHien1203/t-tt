@@ -1064,7 +1064,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Quản lý công việc phát sinh',
                                 icon: 'pi pi-fw pi-clone',
-                                routerLink: ['/danhmuc/chucdanh'],
+                                routerLink: ['/cong-viec/qly-cviec-psinh'],
                                 code: '003001',
                             },
                             {

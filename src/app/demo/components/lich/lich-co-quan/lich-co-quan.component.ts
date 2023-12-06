@@ -40,7 +40,7 @@ export class LichCoQuanComponent {
     hienThiImport: boolean = false;
     loading: boolean = false;
     lstLichCoQuan: any[] = [];
-    items = [{ label: 'Lịch' }, { label: 'Quản trị lịch' }];
+    items = [{ label: 'Lịch' }, { label: 'Lịch cơ quan' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
     timKiemDanhSach: TimKiemLichCoQuan = {
         tuNgay: '1901-01-01',
@@ -158,6 +158,8 @@ export class LichCoQuanComponent {
     }
 
     public LoadDanhSach(): void {
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        console.log(this.startOfWeekDate.toLocaleDateString())
         this.timKiemDanhSach.tuNgay = this.startOfWeekDate.toLocaleDateString();
         this.timKiemDanhSach.denNgay = this.endOfWeekDate.toLocaleDateString();
         this.service
@@ -282,3 +284,5 @@ export class LichCoQuanComponent {
         });
     }
 }
+
+

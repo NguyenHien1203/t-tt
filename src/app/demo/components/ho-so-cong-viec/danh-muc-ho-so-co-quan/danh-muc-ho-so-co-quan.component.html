@@ -55,7 +55,7 @@
                         label="Thêm mới"
                         icon="pi pi-plus"
                         class="p-button-success mr-2"
-                        (click)="ThemMoi(0)"
+                        (click)="ThemMoi(null)"
                     ></button>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                                     pButton
                                     pRipple
                                     icon="pi pi-trash"
-                                    (click)="Xoa(node.id)"
+                                    (click)="Xoa(node.data)"
                                     class="p-button-rounded p-button-danger mr-2 my-size-icon"
                                 ></button>
                             </div> </ng-template
@@ -113,7 +113,8 @@
 
 <app-them-moi
     [show]="hienThiThemMoi"
-    (tatPopup)="Thoat($event, 'C')"
+    [node]="node"
+    (tatPopup)="Thoat($event, 'T')"
 ></app-them-moi>
 <app-cap-nhat
     [show]="hienThiCapNhat"
@@ -157,3 +158,4 @@
         </button>
     </ng-template>
 </p-confirmDialog>
+<p-toast></p-toast>

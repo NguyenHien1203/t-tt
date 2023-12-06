@@ -1,1 +1,128 @@
-<p>cap-nhat works!</p>
+<p-dialog
+    [(visible)]="show"
+    [formGroup]="formCapNhat"
+    [draggable]="true"
+    [resizable]="false"
+    (onHide)="Thoat()"
+    (onShow)="BindDialogData()"
+    [style]="{ width: '950px' }"
+    [modal]="true"
+    header="Cập nhật hồ sơ công việc"
+>
+<ng-template pTemplate="content">
+    <div class="field grid">
+        <div class="col-12 md:col-4 fl-wr">
+            <label for="">
+                Mã hồ sơ công việc cơ quan
+                <span class="p-error">(*)</span></label
+            >
+            <input
+                type="text"
+                formControlName="maHoSo"
+                required=""
+                id="maHoSo"
+                [style]="{ width: '100%' }"
+                class="form-control"
+                class="p-inputtext p-component p-element"
+            />
+            <span
+                class="p-error"
+                *ngIf="
+                    !formCapNhat.controls.maHoSo.valid &&
+                    (formCapNhat.controls.maHoSo.touched || submitted)
+                "
+                >Yêu cầu nhập mã</span
+            >
+        </div>
+        <div class="col-12 md:col-4 fl-wr">
+            <label for="">
+                Tên hồ sơ công việc cơ quan
+                <span class="p-error">(*)</span></label
+            >
+            <input
+                type="text"
+                required=""
+                formControlName="tenHoSo"
+                id="tenHoSo"
+                [style]="{ width: '100%' }"
+                class="form-control"
+                class="p-inputtext p-component p-element"
+            />
+            <span
+                class="p-error"
+                *ngIf="
+                    !formCapNhat.controls.tenHoSo.valid &&
+                    (formCapNhat.controls.tenHoSo.touched || submitted)
+                "
+                >Yeu cầu nhập tên</span
+            >
+        </div>
+        <div class="col-12 md:col-4 fl-wr">
+            <label for="">
+                Công việc cha
+                <span class="p-error">(*)</span></label
+            >
+            <p-treeSelect
+            [showClear]="true"
+                class="md:w-20rem w-full"
+                containerStyleClass="w-full"
+                [(ngModel)]="selectedNodes"
+                [options]="lstHoSoParent"
+                appendTo="body"
+                formControlName="parentId"
+                placeholder="Chọn hồ sơ công việc cha"
+            ></p-treeSelect>
+        </div>
+    </div>
+    <div class="field grid">
+        <div class="col-12 md:col-10 fl-wr">
+            <label for=""> Ghi chú:</label>
+            <textarea
+                rows="4"
+                cols="30"
+                class="form-control"
+                formControlName="ghiChu"
+                placeholder="Ghi chú"
+                pInputTextarea
+            ></textarea>
+        </div>
+        <div class="col-12 md:col-2 fl-wr">
+            <p-checkbox
+                binary="true"
+                class="mg-bt-75"
+                formControlName="noiLuu"
+                [(ngModel)]="selectedLuuTru"
+                value="true"
+                label="Lưu trữ"
+            ></p-checkbox>
+        </div>
+    </div>
+</ng-template>
+    <ng-template pTemplate="footer">
+        <div class="div-center">
+            <button
+                pbutton=""
+                pripple=""
+                type="submit"
+                label="Info"
+                class="p-element p-ripple p-button-info p-button p-component"
+                ng-reflect-label="Info"
+                (click)="CapNhat()"
+            >
+                <span class="p-button-label">Lưu</span
+                ><span class="p-ink"></span></button
+            >&nbsp;
+            <button
+                pbutton=""
+                pripple=""
+                label="Info"
+                class="p-element p-ripple p-button-danger p-button p-component"
+                ng-reflect-label="Info"
+                (click)="Thoat()"
+            >
+                <span class="p-button-label">Thoát</span
+                ><span class="p-ink"></span>
+            </button>
+        </div>
+    </ng-template>
+</p-dialog>

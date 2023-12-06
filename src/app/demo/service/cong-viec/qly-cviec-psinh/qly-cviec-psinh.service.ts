@@ -15,7 +15,7 @@ export class QlyCviecPsinhService {
       'Content-Type': 'application/json'
     })
   }
-  
+
   constructor(
     private httpClient: HttpClient,
     private auth: AuthService,
@@ -28,7 +28,9 @@ export class QlyCviecPsinhService {
     if (!this.auth.CheckLogin())
       this.router.navigate(['/login']);
     modelTimKiem.idUser = this.auth.GetmUserInfo().userId.toString();
-    const url = `${this.baseUrl}/VanBanDen/ButPheVanBan/GetDanhSachButPhe/`;
+    console.log(modelTimKiem);
+    const url = `${this.baseUrl}/CongViec/QuanLyCongViecPhatSinh/GetDanhSachCongViec/`;
+    
     return this.httpClient.post<any>(url, modelTimKiem, this.httpOption);
   }
 

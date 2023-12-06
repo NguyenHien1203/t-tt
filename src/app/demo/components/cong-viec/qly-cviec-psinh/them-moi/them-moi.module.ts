@@ -19,20 +19,18 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { QlyCviecPsinhRoutingModule } from './qly-cviec-psinh-routing.module';
-import { QlyCviecPsinhComponent } from './qly-cviec-psinh.component';
+import { ThemMoiRoutingModule } from './them-moi-routing.module';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
-import { ThemMoiComponent } from './them-moi/them-moi.component';
-import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { ThemMoiComponent } from './them-moi.component';
 
 @NgModule({
-  declarations: [QlyCviecPsinhComponent],
+  declarations: [ThemMoiComponent],
   imports: [
     CommonModule,
-    QlyCviecPsinhRoutingModule,
     TableModule,
+    ThemMoiRoutingModule,
     FileUploadModule,
     FormsModule,
     ButtonModule,
@@ -56,4 +54,4 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
     TabViewModule
   ]
 })
-export class QlyCviecPsinhModule { }
+export class ThemMoiModule { }

@@ -1,0 +1,56 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <p-toast></p-toast>
+            <h2>TÌM KIẾM</h2>
+            <label class="field grid">
+                <label class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.vanBan" placeholder="Văn bản" [style]="{'width': '100%'}" class="my-drop"
+                        class="p-inputtext p-component p-element" />
+                </label>
+
+                <label class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.noiDung" placeholder="Nội dung" [style]="{'width': '100%'}" class="my-drop"
+                        class="p-inputtext p-component p-element" />
+                </label>
+
+                <label class="col-12 md:col-3 fl-wr">
+                    <input pInputText type="text" [(ngModel)]="timKiemDanhSach.chuTri" placeholder="Chủ trì" [style]="{'width': '100%'}" class="my-drop"
+                        class="p-inputtext p-component p-element" />
+                </label>
+
+                <label class="col-12 md:col-3 fl-wr">
+                    <p-dropdown [options]="lstTrangThai" [(ngModel)]="timKiemDanhSach.trangThai" optionValue="value" optionLabel="label" [showClear]="true"
+                        [filter]="true" appendTo="body" placeholder="Chọn loại văn bản" [style]="{'width': '100%'}"
+                        class="my-drop"></p-dropdown>
+                </label>
+            </label>
+
+            <div class="field grid div-center">
+                <label class="col-12 md:col-3 fl-wr">
+                    <button (click)="GetDanhSachCongViec()" pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-success mr-2"></button>
+                </label>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <div class="wrapper">
+                <h2>DANH SÁCH CÔNG VIỆC</h2>
+                <div class="icon-cls">
+                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
+                       >
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

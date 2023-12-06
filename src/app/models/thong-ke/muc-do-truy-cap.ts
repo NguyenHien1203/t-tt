@@ -2,7 +2,7 @@ export interface MucDoTruyCap {
 }
 
 export interface TimKiemMucDoTruyCap {
-      keyWord? : string,
+      phongBanId? : number,
       donViId? : number,
       userId? : number,
       nam? : number,

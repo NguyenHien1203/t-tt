@@ -4,7 +4,7 @@ export interface XuLyCongViec {
 
 export interface TimKiemXuLyCongViec {
       keyWord? : string,
-      donViId? : string,
+      donViId? : number,
       userId? : number,
       nam? : number,
       thang? : number

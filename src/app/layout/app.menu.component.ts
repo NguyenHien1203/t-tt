@@ -236,7 +236,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Xử lý công việc',
                                 icon: 'pi pi-fw pi-check-square',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/cong-viec/xu-ly-cong-viec'],
                                 code: '003002',
                             },
                             {
@@ -1070,7 +1070,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Xử lý công việc',
                                 icon: 'pi pi-fw pi-check-square',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/cong-viec/xu-ly-cong-viec'],
                                 code: '003002',
                             },
                             {

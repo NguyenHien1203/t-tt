@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { MessageService, SelectItem } from 'primeng/api';
+import { Router } from '@angular/router';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { XuLyCongViecService } from 'src/app/demo/service/thong-ke/xu-ly-cong-viec.service';
 import { TimKiemXuLyCongViec } from 'src/app/models/thong-ke/xu-ly-cong-viec';
@@ -8,32 +9,32 @@ import { TimKiemXuLyCongViec } from 'src/app/models/thong-ke/xu-ly-cong-viec';
     selector: 'app-xu-ly-cong-viec',
     templateUrl: './xu-ly-cong-viec.component.html',
     styleUrls: ['./xu-ly-cong-viec.component.scss'],
-    providers: [MessageService],
+    providers : [MessageService, ConfirmationService]
 })
 export class XuLyCongViecComponent {
     constructor(
         private messageService: MessageService,
         private service: XuLyCongViecService,
         private authService: AuthService,
+        private confirmService: ConfirmationService,
+        private router: Router,
         private cd: ChangeDetectorRef
     ) {}
-    lstDonVi: any;
-    lstThang: SelectItem[] = [];
-    lstNam: SelectItem[] = [];
+
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
-    idNhomQuyen: string = this.authService.GetmUserInfo()?.nhomQuyenId ?? '0';
-    idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
+    yearOptions: SelectItem[] = [];
+    timChinhXac: boolean = false;
     public id: string = '1';
+    hienThiLuongXuLy: boolean = false;
+    hienThiHoSo: boolean = false;
+    hienThiGiaoViec: boolean = false;
+    hienThiBaoCao: boolean = false;
     loading: boolean = false;
-    lstXuLyCongViec: any[] = [];
-    items = [{ label: 'Thống kê' }, { label: 'Thống kê xử lý công việc' }];
+    lstCongViec: any[] = [];
+    items = [{ label: 'Công việc' }, { label: 'Xử lý công việc' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
     timKiemDanhSach: TimKiemXuLyCongViec = {
-        donViId: 0,
-        userId: 0,
-        nam: 0,
-        thang: 0,
-        keyWord: '',
+        timChinhXac: 0,
     };
 
     ngAfterContentChecked(): void {
@@ -41,30 +42,36 @@ export class XuLyCongViecComponent {
     }
 
     ngOnInit(): void {
+        this.GetDataYear();
         this.loading = false;
-        this.LoadThangNam();
         this.LoadDanhSach();
     }
 
-    public LoadThangNam() {
-        for (let i = 1; i <= 12; i++) {
-            this.lstThang.push({ label: 'Tháng ' + i, value: i });
-        }
-        let year = new Date().getFullYear() + 1;
-        for (let i = year; i >= year - 5; i--) {
-            this.lstNam.push({ label: 'Năm ' + i, value: i });
+    public GetDataYear() {
+        const currentYear = new Date().getFullYear();
+        for (let i = currentYear + 1; i >= currentYear - 5; i--) {
+            this.yearOptions.push({ label: i.toString(), value: i });
         }
     }
 
     public LoadDanhSach(): void {
+        this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
         this.service
             .getDanhSachXuLyCongViec(this.timKiemDanhSach)
             .then((data) => {
-                this.lstXuLyCongViec = data;
+                this.lstCongViec = data;
             });
     }
 
     public Thoat(itemHt: any, loai: string): void {
+        if (loai === 'L') this.hienThiLuongXuLy = false;
+        if (loai === 'H') this.hienThiHoSo = false;
+        if (loai === 'G') this.hienThiGiaoViec = false;
+        if (loai === 'B') this.hienThiBaoCao = false;
         this.LoadDanhSach();
+    }
+
+    public CheckedHt() {
+        this.timChinhXac = !this.timChinhXac;
     }
 }

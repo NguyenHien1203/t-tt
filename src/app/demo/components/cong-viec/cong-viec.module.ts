@@ -4,7 +4,8 @@ import { CongViecRoutingModule } from './cong-viec-routing.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule, CongViecRoutingModule
   ]

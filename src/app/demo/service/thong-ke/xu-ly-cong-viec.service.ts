@@ -18,7 +18,7 @@ export class XuLyCongViecService {
         return this.http
             .post<any>(
                 environment.baseUrlApi +
-                    '/ThongKe/ThongKeXuLyCongViec/GetDanhSachXuLyCongViec',
+                    '/CongViec/XuLyCongViec/GetDanhSachXuLyCongViec',
                 timKiemDanhSach,
                 this.httpOption
             )

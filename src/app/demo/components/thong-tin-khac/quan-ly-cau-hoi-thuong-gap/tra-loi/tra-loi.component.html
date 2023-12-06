@@ -13,14 +13,21 @@
             Các trường có dấu <span class="p-error">&nbsp;(*)&nbsp; </span> yêu
             cầu bắt buộc nhập
         </div>
-        <div class="grid formgrid">
+        <div class="field grid">
             <div class="col-12 md:col-12" for="cauTraLoi">
                 <label htmlfor="cauTraLoi"
                     >Câu trả lời <span class="p-error"> (*)</span>:</label
                 >
                 <label for="">
-                  <textarea rows="4" cols="30" class="my-drop" required=""  [(ngModel)]="cauTraLoi" placeholder="Trả lời"
-                        pInputTextarea></textarea>
+                    <textarea
+                        rows="4"
+                        cols="30"
+                        class="my-drop"
+                        required=""
+                        [(ngModel)]="cauTraLoi"
+                        placeholder="Trả lời"
+                        pInputTextarea
+                    ></textarea>
                     <span class="p-error" *ngIf="submitted && cauTraLoi === ''"
                         >Vui lòng nhập câu trả lời</span
                     >

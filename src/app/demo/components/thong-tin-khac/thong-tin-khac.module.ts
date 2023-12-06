@@ -9,10 +9,9 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { ThamDoYKienComponent } from './tham-do-y-kien/tham-do-y-kien.component';
 
 @NgModule({
-    declarations: [ChiTietComponent, ThamDoYKienComponent],
+    declarations: [ChiTietComponent],
     imports: [
         Select2Module,
         CascadeSelectModule,

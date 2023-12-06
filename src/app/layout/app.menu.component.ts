@@ -492,7 +492,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Hoạt động sắp tới',
                                 icon: 'pi pi-fw pi-arrow-circle-right',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/hoat-dong-sap-toi'],
                                 code: '006008',
                             },
                             {
@@ -1326,7 +1326,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Hoạt động sắp tới',
                                 icon: 'pi pi-fw pi-arrow-circle-right',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/hoat-dong-sap-toi'],
                                 code: '006008',
                             },
                             {

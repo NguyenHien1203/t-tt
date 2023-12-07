@@ -395,7 +395,7 @@ export class CapNhatComponent {
         idUserXuLy: this.item.id.toString(),
         stt: this.item.stt.toString(),
         userId: this.auth.GetmUserInfo().userId.toString(),
-        donViLamViecId: this.auth.GetDonViLamViec(),
+        donViLamViecId: this.auth.GetmUserInfo().phongBanLamViecId.toString(),
         donViId: this.auth.GetmUserInfo().donViId.toString(),
       }
 

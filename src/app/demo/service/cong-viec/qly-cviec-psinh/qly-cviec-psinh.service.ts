@@ -34,4 +34,10 @@ export class QlyCviecPsinhService {
     return this.httpClient.post<any>(url, modelTimKiem, this.httpOption);
   }
 
+  public ThemMoiCongViec(modelCongViec: any) {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    return this.httpClient.post<any>(environment.baseUrlApi + '/CongViec/QuanLyCongViecPhatSinh/ThemMoiCVPhatSinh', modelCongViec, this.httpOption)
+  }
+
 }

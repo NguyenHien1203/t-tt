@@ -390,7 +390,7 @@ export class ThemMoiComponent {
         stt: this.stt !== "" ? this.stt.toString() : "",
         idVanBan: this.idVanBan.toString(),
         donViDangNhap: this.auth.GetmUserInfo().donViId.toString(),
-        DonViLamViec: this.auth.GetDonViLamViec(),
+        DonViLamViec: this.auth.GetmUserInfo().phongBanLamViecId.toString(),
         userId: this.auth.GetmUserInfo().userId.toString(),
         type: this.type,
       }

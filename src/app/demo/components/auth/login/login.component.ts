@@ -70,13 +70,12 @@ export class LoginComponent {
                     this.msgs = [];
                     this.msgs.push({ severity: 'error', detail: "Thông tin đăng nhập không hợp lệ" });
                 } else {
+console.log(data.objNguoiDung.phongBanId);
                     this.cookieService.set('isLoggedIn', "true");
                     this.cookieService.set('token', JSON.stringify(data.objData));
                     this.cookieService.set('mUserInfo', JSON.stringify(data.objNguoiDung));
-                    this.cookieService.set('idDonViLamViec', data.objNguoiDung.donViId);
-
-                    // localStorage.setItem('isLoggedIn', "true");
-                    // localStorage.setItem('token', data.objData);
+                    this.cookieService.set('idDonViLamViec', data.objNguoiDung.phongBanId);
+                   
                     this.router.navigate([this.returnUrl])
                 }
             }, (error) => {

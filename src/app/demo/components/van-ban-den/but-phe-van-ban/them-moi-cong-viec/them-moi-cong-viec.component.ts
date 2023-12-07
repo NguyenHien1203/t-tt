@@ -396,7 +396,7 @@ export class ThemMoiCongViecComponent implements OnInit {
         noiDung: this.congviec.noiDung,
         vanBanId: this.idVanBan,
         userId: this.auth.GetmUserInfo().userId.toString(),
-        donViLamViecId: this.auth.GetDonViLamViec(),
+        donViLamViecId: this.auth.GetmUserInfo().phongBanLamViecId.toString(),
         idNhomQuyenLamViec: this.auth.GetmUserInfo().nhomQuyenId.toString(),
         donViId: this.auth.GetmUserInfo().donViId.toString(),
       }

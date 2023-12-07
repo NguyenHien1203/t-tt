@@ -5,3 +5,16 @@ export interface TimKiemDanhSach {
     vanBan?: string,
     chuTri?: string,
 }
+
+
+export interface DoiTuongPhanCong {
+    hoTen?: string,
+    value?: string,
+    chiDao: boolean,
+    chuTri: boolean,
+    phoiHop: boolean,
+    thongBao: boolean,
+    sms: boolean,
+    vbtl: boolean,
+}
+

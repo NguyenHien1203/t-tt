@@ -1,15 +1,16 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { XuLyCongViecService } from 'src/app/demo/service/thong-ke/xu-ly-cong-viec.service';
+import { modelOptions } from 'src/app/models/option-model';
 import { TimKiemXuLyCongViec } from 'src/app/models/thong-ke/xu-ly-cong-viec';
 
 @Component({
     selector: 'app-xu-ly-cong-viec',
     templateUrl: './xu-ly-cong-viec.component.html',
     styleUrls: ['./xu-ly-cong-viec.component.scss'],
-    providers : [MessageService, ConfirmationService]
+    providers: [MessageService, ConfirmationService],
 })
 export class XuLyCongViecComponent {
     constructor(
@@ -22,7 +23,15 @@ export class XuLyCongViecComponent {
     ) {}
 
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
-    yearOptions: SelectItem[] = [];
+    lstNam: modelOptions[] = [];
+    lstThang: modelOptions[] = [];
+    lstVaiTro: modelOptions[] = [
+        { text: 'Tất cả', value: 0 },
+        { text: 'Chỉ đạo', value: 1 },
+        { text: 'Chủ trì', value: 2 },
+        { text: 'Phối hợp', value: 3 },
+        { text: 'Thông báo', value: 4 },
+    ];
     timChinhXac: boolean = false;
     public id: string = '1';
     hienThiLuongXuLy: boolean = false;
@@ -42,15 +51,18 @@ export class XuLyCongViecComponent {
     }
 
     ngOnInit(): void {
-        this.GetDataYear();
         this.loading = false;
         this.LoadDanhSach();
+        this.LoadDanhMuc();
     }
 
-    public GetDataYear() {
-        const currentYear = new Date().getFullYear();
+    public LoadDanhMuc() {
+        const currentYear = new Date().getFullYear() + 1;
         for (let i = currentYear + 1; i >= currentYear - 5; i--) {
-            this.yearOptions.push({ label: i.toString(), value: i });
+            this.lstNam.push({ text: 'Năm ' + i, value: i });
+        }
+        for (let i = 1; i <= 12; i++) {
+            this.lstThang.push({ text: 'Tháng ' + i, value: i });
         }
     }
 

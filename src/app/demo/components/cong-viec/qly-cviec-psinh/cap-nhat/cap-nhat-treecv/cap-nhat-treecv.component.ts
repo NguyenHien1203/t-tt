@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { QlyCviecPsinhService } from 'src/app/demo/service/cong-viec/qly-cviec-psinh/qly-cviec-psinh.service';
@@ -8,16 +8,16 @@ import { ButPheVanBanService } from 'src/app/demo/service/van-ban-den/but-phe-va
 import { DoiTuongPhanCong } from 'src/app/models/cong-viec/qly-cviec-psinh';
 
 @Component({
-  selector: 'app-them-moi',
-  templateUrl: './them-moi.component.html',
-  styleUrls: ['./them-moi.component.scss'],
-  providers: [MessageService],
+  selector: 'app-cap-nhat-treecv',
+  templateUrl: './cap-nhat-treecv.component.html',
+  styleUrls: ['./cap-nhat-treecv.component.scss']
 })
-export class ThemMoiComponent implements OnInit {
-  items: any[] = [];
-  home: any;
-  loading: boolean = true;
+export class CapNhatTreecvComponent {
+  @Input() show: boolean = false;
+  @Output() tatPopup = new EventEmitter<boolean>();
+  @Input() item: any = [];
 
+  submitted: boolean = false;
   lstPhongBan: [];
   lstNhomNguoiDung: [];
   lstNguoiDung: [];
@@ -25,7 +25,6 @@ export class ThemMoiComponent implements OnInit {
   PhongBanId: any;
   NhomNguoiDungId: any;
   NguoiDungId: any;
-  submitted: boolean = false;
 
   lstNguoiDungPhanCong: DoiTuongPhanCong[] = [];
   formThemMoi_fommat: any = [];
@@ -36,9 +35,7 @@ export class ThemMoiComponent implements OnInit {
   lstVBTL: any[] = [];
   lstChiDao: any[] = [];
   lstChuTri: any[] = [];
-
   congviec: any = [];
-
   chkAllPhoiHop: boolean = false;
   chkAllThongBao: boolean = false;
 
@@ -51,10 +48,8 @@ export class ThemMoiComponent implements OnInit {
     private messageService: MessageService,
     private formBuilder: FormBuilder,
     private auth: AuthService,
-    private router: Router,
-    private sv_congviec : QlyCviecPsinhService
+    private cv_service: QlyCviecPsinhService,
   ) { }
-
 
   public ThongTinCongViec = this.formBuilder.group({
     phongBanId: ["", []],
@@ -67,16 +62,38 @@ export class ThemMoiComponent implements OnInit {
     lstDoiTuong: ["", []],
   });
 
-  ngOnInit() {
-    this.loading = false;
-    this.items = [{ label: 'Công việc' }, { label: 'Thêm mới công việc' }];
-    this.home = { icon: 'pi pi-home', routerLink: '/' };
+  public Thoat(): void {
+    this.submitted = false;
+    this.show = false;
+    this.ThongTinCongViec.reset();
+    this.tatPopup.emit(this.show);
+  }
 
+  public async BindDialogData() {
     this.LoadPhongBan();
     this.LoadNhomNguoiDung();
     this.LoadChonNhanhNguoiDung();
+    this.GetDataUpdateCongViec();
   }
 
+  public GetDataUpdateCongViec() {
+    this.cv_service.GetDataUpdateCongViec(this.item).subscribe(data => {
+      if (data.isError) {
+      } else {
+        this.lstNguoiDungPhanCong = data.objData.lstDoiTuongModel;
+        this.ThongTinCongViec.patchValue({
+          noiDung: data.objData.objCongViec.noiDungCongViec,
+          soNgay: data.objData.objCongViec.thoiHan,
+          ngayBatDau: new Date(data.objData.objCongViec.ngayBd),
+          ngayKetThuc: new Date(data.objData.objCongViec.ngayKt),
+        })
+      }
+    })
+  }
+
+  /**
+  * LoadPhongBan
+  */
   public LoadPhongBan() {
     this.service.LoadPhongBan().subscribe(data => {
       if (data.isError) {
@@ -110,6 +127,9 @@ export class ThemMoiComponent implements OnInit {
     })
   }
 
+  /**
+   * ChangePhongBan
+   */
   public ChangePhongBan(event: any) {
     this.ThongTinCongViec.patchValue({
       nhomNguoiDungId: null,
@@ -120,6 +140,7 @@ export class ThemMoiComponent implements OnInit {
       if (data.isError) {
       } else {
         this.lstUserNhan = data.objData;
+
         this.lstNguoiDungPhanCong.forEach((item: any) => {
           const newList = this.lstUserNhan.filter(s => s.value !== item.value);
           this.lstUserNhan = newList;
@@ -313,9 +334,8 @@ export class ThemMoiComponent implements OnInit {
         }
       });
     }
-
   }
-
+  
   public chkChuTriChild(item: DoiTuongPhanCong) {
     item.chuTri = !item.chuTri;
     if (item.chuTri === true) {
@@ -357,8 +377,9 @@ export class ThemMoiComponent implements OnInit {
     item.vbtl = !item.vbtl;
   }
 
-  public ThemMoiCongViec() {
+  public CapNhatCongViec() {
     this.submitted = true;
+    console.log(this.item);
     if (this.ThongTinCongViec.valid) {
       this.congviec = this.ThongTinCongViec.value;
 
@@ -366,21 +387,24 @@ export class ThemMoiComponent implements OnInit {
         ngayBatDau: this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayBatDau)),
         ngayKetThuc: this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayKetThuc)),
         lstDoiTuong: JSON.stringify(this.lstNguoiDungPhanCong),
-        soNgay: this.congviec.soNgay,
-        noiDung: this.congviec.noiDung,
+        soNgay: this.congviec.soNgay.toString(),
+        noiDung: this.congviec.noiDung.toString(),
+        idCongViec: this.item.congViecId.toString(),
+        idUserXuLy: this.item.id.toString(),
+        stt: this.item.stt.toString(),
         userId: this.auth.GetmUserInfo().userId.toString(),
-        DonViLamViec: this.auth.GetDonViLamViec(),
+        donViLamViecId: this.auth.GetmUserInfo().phongBanLamViecId.toString(),
+        donViId: this.auth.GetmUserInfo().donViId.toString(),
         idNhomQuyenLamViec: this.auth.GetmUserInfo().nhomQuyenId.toString(),
-        phongBanLamViecId: this.auth.GetmUserInfo().phongBanLamViecId.toString(),
       }
 
-      this.sv_congviec.ThemMoiCongViec(data).subscribe(data => {
+      this.cv_service.CapNhatCongViec(data).subscribe(data => {
         if (data.isError) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
         } else {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
           setTimeout(() => {
-            this.router.navigate(['/cong-viec/qly-cviec-psinh']);
+            this.Thoat();
           }, 1000);
         }
       }, (error) => {
@@ -388,9 +412,4 @@ export class ThemMoiComponent implements OnInit {
       })
     }
   }
-
-  public QuayLai() {
-    this.router.navigate(['/cong-viec/qly-cviec-psinh']);
-  }
-
 }

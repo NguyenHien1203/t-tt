@@ -34,4 +34,40 @@ export class QlyCviecPsinhService {
     return this.httpClient.post<any>(url, modelTimKiem, this.httpOption);
   }
 
+  public ThemMoiCongViec(modelCongViec: any) {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    return this.httpClient.post<any>(environment.baseUrlApi + '/CongViec/QuanLyCongViecPhatSinh/ThemMoiCVPhatSinh', modelCongViec, this.httpOption)
+  }
+
+  public LoadDataDefault(idCongViec: string) {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    var IdDonVi = this.auth.GetmUserInfo().donViId.toString();
+    const url = `${this.baseUrl}/CongViec/QuanLyCongViecPhatSinh/GetDanhSachCongViec?idCongViec=` + idCongViec + "&idDonVi=" + IdDonVi;
+    return this.httpClient.get<any>(url);
+  }
+
+  public ThemCongViecCon(modelCongViec: any) {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    return this.httpClient.post<any>(environment.baseUrlApi + '/CongViec/QuanLyCongViecPhatSinh/ThemCongViecCon', modelCongViec, this.httpOption)
+  }
+
+
+  public GetDataUpdateCongViec(item: any) {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+
+    const url = `${this.baseUrl}/CongViec/QuanLyCongViecPhatSinh/GetDataUpdateCongViec?idUserCvChiTieu=` + item.id.toString() + "&idCongViec=" + item.congViecId + "&stt=" + item.stt;
+    return this.httpClient.get<any>(url);
+  }
+
+  public CapNhatCongViec(modelVanban: any) {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    return this.httpClient.post<any>(environment.baseUrlApi + '/CongViec/QuanLyCongViecPhatSinh/CapNhatCongViec', modelVanban, this.httpOption)
+  }
+
+
 }

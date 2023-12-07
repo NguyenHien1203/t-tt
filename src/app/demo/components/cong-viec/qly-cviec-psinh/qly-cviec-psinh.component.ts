@@ -62,4 +62,11 @@ export class QlyCviecPsinhComponent implements OnInit {
   public ThemMoi(){
     this.router.navigate(['/cong-viec/them-moi-cong-viec']);
   }
+
+  public Update(idCongViec:string){
+    this.router.navigate(['/cong-viec/cap-nhat-cong-viec'], {
+      queryParamsHandling: 'merge',
+      queryParams: { idCongViec: idCongViec },
+    });
+  }
 }

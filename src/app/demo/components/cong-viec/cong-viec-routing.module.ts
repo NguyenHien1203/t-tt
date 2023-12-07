@@ -13,16 +13,17 @@ import { RouterModule } from '@angular/router';
                     ),
             },
             { path: 'them-moi-cong-viec', data: { breadcrumb: 'Button' }, loadChildren: () => import('./qly-cviec-psinh/them-moi/them-moi.module').then(m => m.ThemMoiModule) },
+            { path: 'cap-nhat-cong-viec', data: { breadcrumb: 'Button' }, loadChildren: () => import('./qly-cviec-psinh/cap-nhat/cap-nhat.module').then(m => m.CapNhatModule) },
             {
-              path: 'xu-ly-cong-viec',
-              data: { breadcrumb: 'Xử lý công việc' },
-              loadChildren: () =>
-                  import('./xu-ly-cong-viec/xu-ly-cong-viec.module').then(
-                      (m) => m.XuLyCongViecModule
-                  ),
-          },
+                path: 'xu-ly-cong-viec',
+                data: { breadcrumb: 'Xử lý công việc' },
+                loadChildren: () =>
+                    import('./xu-ly-cong-viec/xu-ly-cong-viec.module').then(
+                        (m) => m.XuLyCongViecModule
+                    ),
+            },
         ]),
     ],
     exports: [RouterModule],
 })
-export class CongViecRoutingModule {}
+export class CongViecRoutingModule { }

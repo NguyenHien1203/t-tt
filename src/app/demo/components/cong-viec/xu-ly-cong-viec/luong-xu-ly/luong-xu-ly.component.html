@@ -1,1 +1,35 @@
-<p>luong-xu-ly works!</p>
+<div class="grid">
+      <div class="col-12 pb-0">
+          <div class="p-fluid p-formgrid grid">
+              <div class="field col-12 md:col-12 mb-0 pb-0">
+                  <p-breadcrumb
+                      class="max-w-full"
+                      [model]="items"
+                      [home]="home"
+                  ></p-breadcrumb>
+              </div>
+          </div>
+      </div>
+  
+      <div class="col-12">
+          <div class="card">
+              <div class="wrapper">
+                  <h2>LUỒNG XỬ LÝ</h2>
+              </div>
+              <div class="icon-cls">
+                  <button pButton
+                          pRipple
+                          label="Quay lại"
+                          icon="pi pi-refresh"
+                          class="p-button-info mr-2"
+                          (click)="QuayLai()"></button>
+              </div>
+              <div class="grid">
+                  <div class="col-12 div-center">
+                        <p-organizationChart [value]="data"></p-organizationChart>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  

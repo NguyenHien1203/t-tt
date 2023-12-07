@@ -415,4 +415,8 @@ export class ThemMoiCongViecComponent implements OnInit {
       })
     }
   }
+
+  public QuayLai() {
+    this.router.navigate(['/van-ban-den/but-phe-van-ban']);
+  }
 }

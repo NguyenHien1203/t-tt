@@ -397,6 +397,7 @@ export class CapNhatComponent {
         userId: this.auth.GetmUserInfo().userId.toString(),
         donViLamViecId: this.auth.GetmUserInfo().phongBanLamViecId.toString(),
         donViId: this.auth.GetmUserInfo().donViId.toString(),
+        idNhomQuyenLamViec: this.auth.GetmUserInfo().nhomQuyenId.toString(),
       }
 
       this.Suabutpheservice.CapNhatCongViec(data).subscribe(data => {

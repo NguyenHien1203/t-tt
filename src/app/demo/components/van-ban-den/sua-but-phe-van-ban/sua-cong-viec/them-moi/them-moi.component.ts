@@ -393,6 +393,7 @@ export class ThemMoiComponent {
         DonViLamViec: this.auth.GetmUserInfo().phongBanLamViecId.toString(),
         userId: this.auth.GetmUserInfo().userId.toString(),
         type: this.type,
+        idNhomQuyenLamViec: this.auth.GetmUserInfo().nhomQuyenId.toString(),
       }
 
       this.Suabutpheservice.ThemCongViecCon(data).subscribe(data => {

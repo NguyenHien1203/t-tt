@@ -13,9 +13,7 @@
             <div class="wrapper">
                 <h2>NHẬP THÔNG TIN CÔNG VIỆC</h2>
                 <div class="icon-cls">
-                    <button pButton pRipple label="Thêm lịch cơ quan" icon="pi pi-plus" class="p-button-success mr-2">
-                    </button>
-                    <button pButton pRipple label="Quay lại" icon="pi pi-replay" class="p-button-success mr-2">
+                    <button (click)="QuayLai()" pButton pRipple label="Quay lại" icon="pi pi-replay" class="p-button-success mr-2">
                     </button>
                 </div>
             </div>
@@ -130,27 +128,27 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item>
                     <tr>
-                        <td class="custom-rb ">{{item.HoTen}}</td>
+                        <td class="custom-rb ">{{item.hoTen}}</td>
                         <td class="custom-rb text-center">
-                            <input type="radio" class="radio" [checked]="item.ChiDao" [value]="item.ChiDao" (click)="chkChiDaoChild(item)" name="rdbChiDao">
+                            <input type="radio" class="radio" [checked]="item.chiDao" [value]="item.chiDao" (click)="chkChiDaoChild(item)" name="rdbChiDao">
                         </td>
                         <td class="custom-rb text-center">
-                            <input type="radio" class="radio" [checked]="item.ChuTri" [value]="item.ChuTri" (click)="chkChuTriChild(item)" name="rdbChuTri">
+                            <input type="radio" class="radio" [checked]="item.chuTri" [value]="item.chuTri" (click)="chkChuTriChild(item)" name="rdbChuTri">
                         </td>
                         <td class="custom-rb text-center">
-                            <input type="checkbox" [(ngModel)]="item.PhoiHop" (click)="chkPhoiHopChild(item)"
+                            <input type="checkbox" [(ngModel)]="item.phoiHop" (click)="chkPhoiHopChild(item)"
                                 name="chkPhoiHop"  id="chkPhoiHop" class="checkbox">
                         </td>
                         <td class="custom-rb text-center">
-                            <input type="checkbox" [(ngModel)]="item.ThongBao" (click)="chkThongBaoChild(item)" name="chkThongBao"
+                            <input type="checkbox" [(ngModel)]="item.thongBao" (click)="chkThongBaoChild(item)" name="chkThongBao"
                                  id="chkThongBao" class="checkbox">
                         </td>
                         <td class="custom-rb text-center">
-                            <input type="checkbox" [(ngModel)]="item.SMS" (click)="chkSmSChild(item)" name="chkSMS" 
+                            <input type="checkbox" [(ngModel)]="item.sms" (click)="chkSmSChild(item)" name="chkSMS" 
                                 id="chkSMS" class="checkbox">
                         </td>
                         <td class="custom-rb text-center">
-                            <input type="checkbox" [(ngModel)]="item.VBTL" (click)="chkVBTLChild(item)" name="chkBCVB" [value]="item.Value"
+                            <input type="checkbox" [(ngModel)]="item.vbtl" (click)="chkVBTLChild(item)" name="chkBCVB" [value]="item.Value"
                                 id="chkBCVB" class="checkbox">
                         </td>
                         <td class="custom-rb text-center">

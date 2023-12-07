@@ -369,9 +369,9 @@ export class ThemMoiComponent implements OnInit {
         soNgay: this.congviec.soNgay,
         noiDung: this.congviec.noiDung,
         userId: this.auth.GetmUserInfo().userId.toString(),
-        donViLamViecId: this.auth.GetmUserInfo().phongBanLamViecId.toString(),
+        DonViLamViec: this.auth.GetDonViLamViec(),
         idNhomQuyenLamViec: this.auth.GetmUserInfo().nhomQuyenId.toString(),
-        donViId: this.auth.GetmUserInfo().donViId.toString(),
+        phongBanLamViecId: this.auth.GetmUserInfo().phongBanLamViecId.toString(),
       }
 
       this.sv_congviec.ThemMoiCongViec(data).subscribe(data => {
@@ -387,6 +387,10 @@ export class ThemMoiComponent implements OnInit {
         console.log('Error', error);
       })
     }
+  }
+
+  public QuayLai() {
+    this.router.navigate(['/cong-viec/qly-cviec-psinh']);
   }
 
 }

@@ -18,14 +18,17 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Select2Module } from 'ng-select2-component';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { OrganizationChartModule } from 'primeng/organizationchart';
 
 import { XuLyCongViecRoutingModule } from './xu-ly-cong-viec-routing.module';
 import { XuLyCongViecComponent } from './xu-ly-cong-viec.component';
-
+import { LuongXuLyComponent } from './luong-xu-ly/luong-xu-ly.component';
+import { HoSoComponent } from './ho-so/ho-so.component';
 
 @NgModule({
-  declarations: [XuLyCongViecComponent],
+  declarations: [XuLyCongViecComponent, LuongXuLyComponent, HoSoComponent],
   imports: [
+    OrganizationChartModule,
     ConfirmDialogModule,
     DialogModule,
     FormsModule,

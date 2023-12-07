@@ -387,5 +387,4 @@ export class CapNhatComponent {
         this.BindDialogData();
         this.submitted = false;
     }
-
 }

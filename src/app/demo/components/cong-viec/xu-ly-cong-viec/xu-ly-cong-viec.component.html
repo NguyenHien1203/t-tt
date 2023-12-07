@@ -28,7 +28,7 @@
                 <label class="col-12 md:col-2 fl-wr">
                     <p-dropdown
                         [(ngModel)]="timKiemDanhSach.thang"
-                        [options]="[]"
+                        [options]="lstThang"
                         optionValue="value"
                         optionLabel="text"
                         [showClear]="true"
@@ -42,7 +42,7 @@
                 <label class="col-12 md:col-2 fl-wr">
                     <p-dropdown
                         [(ngModel)]="timKiemDanhSach.nam"
-                        [options]="[]"
+                        [options]="lstNam"
                         optionValue="value"
                         optionLabel="text"
                         [showClear]="true"
@@ -56,7 +56,7 @@
                 <label class="col-12 md:col-3 fl-wr">
                     <p-dropdown
                         [(ngModel)]="timKiemDanhSach.vaiTro"
-                        [options]="[]"
+                        [options]="lstVaiTro"
                         optionValue="value"
                         optionLabel="text"
                         [showClear]="true"
@@ -206,24 +206,99 @@
                                     {{ rowIndex + 1 }}
                                 </td>
                                 <td class="text-center">
-                                    {{ item.luongXuLy }}
+                                    <button
+                                        *ngIf="item.trangThaiXL != 7"
+                                        pButton
+                                        pTooltip="Luồng dữ liệu"
+                                        pRipple
+                                        (click)="
+                                            LuongDuLieu(
+                                                item.id,
+                                                item.cap,
+                                                item.loai
+                                            )
+                                        "
+                                        icon="pi pi-chart"
+                                        class="p-button-rounded p-button-info mr-2"
+                                    ></button>
                                 </td>
                                 <td class="text-center">
-                                    {{ item.hoSo }}
+                                    <button
+                                        *ngIf="item.trangThaiXL == 1"
+                                        pButton
+                                        pTooltip="Hồ sơ"
+                                        pRipple
+                                        (click)="
+                                            ThemMoiHoSo(
+                                                item.id,
+                                                item.cap,
+                                                item.loai
+                                            )
+                                        "
+                                        icon="pi pi-plus"
+                                        class="p-button-rounded p-button-info mr-2"
+                                    ></button>
+                                </td>
+                                <td class="text-center">
+                                    <button
+                                        *ngIf="
+                                            item.trangThaiXL != 7 &&
+                                            item.loai == 2
+                                        "
+                                        pButton
+                                        pTooltip="Giao việc"
+                                        pRipple
+                                        (click)="GiaoViec(item.id, item.cap)"
+                                        icon="pi pi-chart"
+                                        class="p-button-rounded p-button-info mr-2"
+                                    ></button>
+                                </td>
+                                <td class="text-center">
+                                    <button
+                                        *ngIf="
+                                            item.quyenPhanCap &&
+                                            item.trangThaiXL != 3 && 
+                                            item.trangThaiXL != 8
+                                        "
+                                        pButton
+                                        pTooltip="Thêm mới công việc"
+                                        pRipple
+                                        (click)="
+                                            ThemMoiCongViec(item.id, item.cap)
+                                        "
+                                        icon="pi pi-chart"
+                                        class="p-button-rounded p-button-info mr-2"
+                                    ></button>
+                                    {{ item.Phancap > 0 ? "Đã chuyển" : "" }}
+                                </td>
+                                <td class="text-center">
+                                    <button
+                                        *ngIf="
+                                            item.loai != 4 &&
+                                            item.loai != 5 &&
+                                            item.trangThaiId != 4 &&
+                                            x.trangThaiXL != 7
+                                        "
+                                        pButton
+                                        pTooltip="Báo cáo tiến độ"
+                                        pRipple
+                                        (click)="BaoCaoTD(item.id, item.cap)"
+                                        icon="pi pi-chart"
+                                        class="p-button-rounded p-button-info mr-2"
+                                    ></button>
+                                    {{ item.Phancap > 0 ? "Đã chuyển" : "" }}
+                                </td>
+                                <td >
+                                   <span *ngIf="item.loai == 5; else loaiNotEqual5">
+                                    {{ item.soKiHieu }}
+                                    <ng-template #loaiNotEqual5>
+                                        <a href="javascript:;" *ngIf="item.kiemTraVanBan" (click)="XemVanBan(item.vanBanId, item.cap)">{{item.soKiHieu}}</a>
+                                    </ng-template>
+                                </span>
                                 </td>
                                 <td>
-                                    {{ item.giaoViec }}
+                                   <a href="javascript:;" (click)="ChiTietCongViec(item.id, item.cap, item.loai)">{{item.noiDungCongViec}}</a>
                                 </td>
-                                <td>
-                                    {{ item.baoCao }}
-                                </td>
-                                <td>
-                                    {{ item.vanBan }}
-                                </td>
-                                <td>
-                                    {{ item.noiDungCongViec }}
-                                </td>
-
                                 <td class="text-center">
                                     {{ item.ngayBatDau | date : "dd-MM-yyyy" }}
                                 </td>
@@ -231,24 +306,13 @@
                                     {{ item.ngayKetThuc | date : "dd-MM-yyyy" }}
                                 </td>
                                 <td>
-                                    {{ item.trangThai }}
+                                    {{ item.tenTrangThai }}
                                 </td>
                                 <td>
                                     {{ item.trangThaiHoSo }}
                                 </td>
                                 <td>
-                                    {{ item.vaiTro }}
-                                </td>
-                                <td class="text-center">
-                                    <div class="div-center">
-                                        <button
-                                            pButton
-                                            pRipple
-                                            (click)="PhanPhoi(item.id)"
-                                            icon="pi pi-send"
-                                            class="p-button-rounded p-button-info mr-2"
-                                        ></button>
-                                    </div>
+                                    {{ item.tenVaiTro }}
                                 </td>
                             </tr>
                         </ng-template>

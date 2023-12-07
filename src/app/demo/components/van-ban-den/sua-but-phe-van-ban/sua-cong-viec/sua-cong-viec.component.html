@@ -35,9 +35,11 @@
             <div class="wrapper">
                 <h2>SỬA BÚT PHÊ</h2>
                 <div class="icon-cls">
-                    <button (click)="ThemLich()" pButton pRipple label="Thêm lịch cơ quan" icon="pi pi-plus" class="p-button-success mr-2">
+                    <button (click)="ThemLich()" pButton pRipple label="Thêm lịch cơ quan" icon="pi pi-plus"
+                        class="p-button-success mr-2">
                     </button>
-                    <button (click)="QuayLai()" pButton pRipple label="Quay lại" icon="pi pi-replay" class="p-button-success mr-2">
+                    <button (click)="QuayLai()" pButton pRipple label="Quay lại" icon="pi pi-replay"
+                        class="p-button-success mr-2">
                     </button>
                 </div>
             </div>
@@ -111,39 +113,75 @@
                                                 Chỉ đạo: <span class="tx-user">{{item.tenChiDao}}</span>
 
                                             </div>
-                                            <div
+                                            <div (click)="phoihop.toggle($event)"
                                                 class="congViec__phoiHop_1 dropdownLst pos-relative congViec__xuLy-item">
                                                 Phối hợp <span id="countPhoiHop"
                                                     class="tx-danger tx-bold">{{item.countPhoiHop}}</span> đồng
                                                 chí
-
                                             </div>
-                                            <div
+                                            <p-overlayPanel #phoihop>
+                                                <ul *ngFor="let phoihop of item.lstPhoiHop">
+                                                    <li>
+                                                        {{phoihop.text}} ({{phoihop.value}})
+                                                    </li>
+                                                </ul>
+                                            </p-overlayPanel>
+
+                                            <div (click)="thongbao.toggle($event)"
                                                 class="congViec__thongbao_1 dropdownLst pos-relative congViec__xuLy-item">
                                                 Thông báo <span id="countThongbao"
                                                     class="tx-danger tx-bold">{{item.countThongBao}}</span>
                                                 đồng chí
 
                                             </div>
-                                            <div class="congViec__sms_1 dropdownLst pos-relative congViec__xuLy-item">
+                                            <p-overlayPanel #thongbao>
+                                                <ul *ngFor="let thongbao of item.lstThongBao">
+                                                    <li>
+                                                        {{thongbao.text}} ({{thongbao.value}})
+                                                    </li>
+                                                </ul>
+                                            </p-overlayPanel>
+
+
+                                            <div (click)="sms.toggle($event)" class="congViec__sms_1 dropdownLst pos-relative congViec__xuLy-item">
                                                 TB SMS <span id="countSmS"
                                                     class="tx-danger tx-bold">{{item.countSmS}}</span> đồng chí
 
                                             </div>
-                                            <div class="congViec__VBTL_1 dropdownLst pos-relative congViec__xuLy-item">
+
+                                            <p-overlayPanel #sms>
+                                                <ul *ngFor="let sms of item.lstSmS">
+                                                    <li>
+                                                        {{sms.text}} ({{sms.value}})
+                                                    </li>
+                                                </ul>
+                                            </p-overlayPanel>
+
+                                            <div (click)="vbtl.toggle($event)" class="congViec__VBTL_1 dropdownLst pos-relative congViec__xuLy-item">
                                                 Có VB trả lời <span id="countVBTL"
                                                     class="tx-danger tx-bold">{{item.countVBTL}}</span>
                                                 đồng chí
 
                                             </div>
+
+                                            <p-overlayPanel #vbtl>
+                                                <ul *ngFor="let vbtl of item.lstVBTL">
+                                                    <li>
+                                                        {{vbtl.text}} ({{vbtl.value}})
+                                                    </li>
+                                                </ul>
+                                            </p-overlayPanel>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="congViec__item-action d-flex flex-column align-items-start">
                                     <div class="congViec__cta">
-                                        <button (click)="DeleteParent(item.id)" pButton pRipple icon="pi pi-trash"  class="p-button-danger">
+                                        <button (click)="DeleteParent(item.id)" pButton pRipple icon="pi pi-trash"
+                                            class="p-button-danger">
                                         </button><br><br>
-                                        <button (click)="UpdateParent(item)" pButton pRipple icon="pi pi-pencil" class="p-button-success">
+                                        <button (click)="UpdateParent(item)" pButton pRipple icon="pi pi-pencil"
+                                            class="p-button-success">
                                         </button>
                                     </div>
                                 </div>
@@ -209,39 +247,70 @@
                                                     <div class="congViec__chiDao congViec__xuLy-item pos-relative">
                                                         Chỉ đạo: <span class="tx-user">{{itemChild.tenChiDao}}</span>
                                                     </div>
-                                                    <div
+                                                    <div (click)="phoihopchild.toggle($event)"
                                                         class="congViec__phoiHop_5575 dropdownLst pos-relative congViec__xuLy-item">
                                                         Phối hợp <span
                                                             class="tx-danger tx-bold">{{itemChild.countPhoiHop}}</span>
                                                         đồng chí
                                                     </div>
-                                                    <div
+                                                    <p-overlayPanel #phoihopchild>
+                                                        <ul *ngFor="let phoihopchild of itemChild.lstPhoiHop">
+                                                            <li>
+                                                                {{phoihopchild.text}} ({{phoihopchild.value}})
+                                                            </li>
+                                                        </ul>
+                                                    </p-overlayPanel>
+                                                    <div (click)="thongbaochild.toggle($event)"
                                                         class="congViec__thongbao_5575 dropdownLst pos-relative congViec__xuLy-item">
                                                         Thông báo <span
                                                             class="tx-danger tx-bold">{{itemChild.countThongBao}}</span>
                                                         đồng chí
                                                     </div>
-                                                    <div id=""
+                                                    <p-overlayPanel #thongbaochild>
+                                                        <ul *ngFor="let thongbaochild of itemChild.lstThongBao">
+                                                            <li>
+                                                                {{thongbaochild.text}} ({{thongbaochild.value}})
+                                                            </li>
+                                                        </ul>
+                                                    </p-overlayPanel>
+                                                    <div (click)="smschild.toggle($event)" id=""
                                                         class="congViec__sms_5575 dropdownLst pos-relative congViec__xuLy-item">
                                                         TB SMS <span
                                                             class="tx-danger tx-bold">{{itemChild.countSmS}}</span> đồng
                                                         chí
 
                                                     </div>
-                                                    <div
+                                                    <p-overlayPanel #smschild>
+                                                        <ul *ngFor="let smschild of itemChild.lstSmS">
+                                                            <li>
+                                                                {{smschild.text}} ({{smschild.value}})
+                                                            </li>
+                                                        </ul>
+                                                    </p-overlayPanel>
+                                                    <div (click)="vbtlchild.toggle($event)"
                                                         class="congViec__VBTL_5575 dropdownLst pos-relative congViec__xuLy-item">
                                                         Có VB trả lời <span id="countVBTL"
                                                             class="tx-danger tx-bold">{{itemChild.countVBTL}}</span>
                                                         đồng chí
                                                     </div>
+
+                                                    <p-overlayPanel #vbtlchild>
+                                                        <ul *ngFor="let smschild of itemChild.lstVBTL">
+                                                            <li>
+                                                                {{vbtlchild.text}} ({{vbtlchild.value}})
+                                                            </li>
+                                                        </ul>
+                                                    </p-overlayPanel>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="congViec__item-action d-flex flex-column align-items-start">
                                             <div class="congViec__cta">
-                                                <button (click)="DeleteParent(itemChild.id)" pButton pRipple icon="pi pi-trash"  class="p-button-danger">
+                                                <button (click)="DeleteParent(itemChild.id)" pButton pRipple
+                                                    icon="pi pi-trash" class="p-button-danger">
                                                 </button><br><br>
-                                                <button (click)="UpdateParent(itemChild)" pButton pRipple icon="pi pi-pencil" class="p-button-success">
+                                                <button (click)="UpdateParent(itemChild)" pButton pRipple
+                                                    icon="pi pi-pencil" class="p-button-success">
                                                 </button>
                                             </div>
                                         </div>
@@ -262,10 +331,11 @@
 
             <app-cap-nhat [hienThi]="hienThiCapNhat" [item]="item" (tatPopup)="Thoat($event, 'T')"></app-cap-nhat>
 
-            <app-them-moi [hienThi]="hienThiThemMoi" [idVanBan]="idVanBan" [stt]="stt" (tatPopup)="Thoat($event, 'C')"></app-them-moi>
+            <app-them-moi [hienThi]="hienThiThemMoi" [idVanBan]="idVanBan" [stt]="stt"
+                (tatPopup)="Thoat($event, 'C')"></app-them-moi>
 
             <app-them-lich [hienThi]="hienThiThemLich" (tatPopup)="Thoat($event, 'TL')"></app-them-lich>
-            
+
         </div>
 
         <p-confirmDialog #cd [style]="{width: '30vw'}">

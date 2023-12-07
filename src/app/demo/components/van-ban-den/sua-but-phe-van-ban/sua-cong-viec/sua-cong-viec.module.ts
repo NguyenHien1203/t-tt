@@ -27,7 +27,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { ThemLichComponent } from './them-lich/them-lich.component';
-
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
   declarations: [SuaCongViecComponent, CapNhatComponent, ThemMoiComponent, ThemLichComponent],
@@ -55,7 +55,8 @@ import { ThemLichComponent } from './them-lich/them-lich.component';
     ConfirmDialogModule,
     CheckboxModule,
     CalendarModule,
-    TabViewModule
+    TabViewModule,
+    OverlayPanelModule
   ]
 })
 export class SuaCongViecModule { }

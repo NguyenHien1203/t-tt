@@ -25,7 +25,6 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { ThemMoiComponent } from './them-moi/them-moi.component';
-import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 
 @NgModule({
   declarations: [QlyCviecPsinhComponent],

@@ -129,7 +129,9 @@
                                 <td class="">
                                     <strong>
                                         Phối hợp thực hiện (
-                                            <span class="info">{{ baoCaoTienDo?.countDongChiPhoiHop }}</span>  
+                                        <span class="info">{{
+                                            baoCaoTienDo?.countDongChiPhoiHop
+                                        }}</span>
                                         đ/c)</strong
                                     >
                                 </td>
@@ -180,7 +182,9 @@
                                 <td class="">
                                     <strong>
                                         Thông báo để biết (
-                                            <span class="info">{{ baoCaoTienDo?.countDongChiThongBao }}</span>  
+                                        <span class="info">{{
+                                            baoCaoTienDo?.countDongChiThongBao
+                                        }}</span>
                                         đ/c)
                                     </strong>
                                 </td>
@@ -461,3 +465,7 @@
         </div>
     </ng-template>
 </p-dialog>
+<app-chon-van-ban
+    [show]="hienThiChonVanBan"
+    (tatPopup)="ThoatChonVanBan($event, 'C')"
+></app-chon-van-ban>

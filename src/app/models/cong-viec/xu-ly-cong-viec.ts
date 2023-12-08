@@ -1,3 +1,5 @@
+import { FileModel } from "../file-upload-model";
+
 export interface XuLyCongViec {
     soKiHieu?: string;
     trichYeu?: string;
@@ -20,9 +22,25 @@ export interface XuLyCongViec {
     lstVanBanBaoCao?: [];
 }
 
-export interface ThongTinNguoiXuLy {
-  
+export interface ChiTietCongViec {
+    soKiHieu?: string;
+    trichYeu?: string;
+    noiDungCongViec?: string;
+    nguoiXuLy?: string;
+    tuNgay?: Date;
+    denNgay?: Date;
+    thoiGianDuKien?: string;
+    chiDao?: string;
+    chuTri?: string;
+    lstDongChiPhoiHop?: listDongChiCusTom[];
+    lstDongChiThongBao?: listDongChiCusTom[];
+    ngayXuLy?: Date;
+    lstFileDinhKemVanBan?: FileModel[];
+    lstFileDinhKemCongViec?: FileModel[];
+    lstCaNhanXuLyCongViec?: [];
 }
+
+export interface ThongTinNguoiXuLy {}
 
 export interface TimKiemXuLyCongViec {
     noiDung?: string;
@@ -40,4 +58,10 @@ export interface TimKiemXuLyCongViec {
 interface listDongChiCusTom {
     text?: string;
     trangThai?: string;
+}
+
+export interface TimKiemChonVanBan {
+    soKyHieu?: string;
+    trichYeu?: string;
+    donViId?: number;
 }

@@ -6,7 +6,7 @@
     (onShow)="BindDialogData()"
     [style]="{ width: '1500px' }"
     [modal]="true"
-    header="Báo cáo tiến độ"
+    header="Chi tiết công việc"
 >
     <ng-template pTemplate="content">
         <div class="chiTiet">
@@ -14,22 +14,22 @@
                 <div class="col-12 md:col-9">
                     <p-table
                         styleClass="p-datatable-gridlines"
-                        [value]="[baoCaoTienDos]"
+                        [value]="[chiTietCongViecs]"
                         class="custom-table"
                     >
-                        <ng-template pTemplate="body" let-baoCaoTienDo>
+                        <ng-template pTemplate="body" let-chiTietCongViec>
                             <tr>
                                 <td class="">
                                     <strong>Số kí hiệu:</strong>
                                 </td>
                                 <td class="">
-                                    {{ baoCaoTienDo?.soKiHieu }}
+                                    {{ chiTietCongViec?.soKiHieu }}
                                 </td>
                                 <td class="">
                                     <strong>Trích yếu:</strong>
                                 </td>
                                 <td class="">
-                                    {{ baoCaoTienDo?.trichYeu }}
+                                    {{ chiTietCongViec?.trichYeu }}
                                 </td>
                             </tr>
                             <tr>
@@ -37,13 +37,13 @@
                                     <strong>Nội dung công việc:</strong>
                                 </td>
                                 <td class="">
-                                    {{ baoCaoTienDo?.noiDungCongViec }}
+                                    {{ chiTietCongViec?.noiDungCongViec }}
                                 </td>
                                 <td class="">
                                     <strong>Người xử lý/Phân cấp:</strong>
                                 </td>
                                 <td class="">
-                                    {{ baoCaoTienDo?.nguoiXuLy }}
+                                    {{ chiTietCongViec?.nguoiXuLy }}
                                 </td>
                             </tr>
                             <tr>
@@ -51,12 +51,13 @@
                                     <strong
                                         >Thời gian thực hiện dự kiến:</strong
                                     >
+                                    {{ chiTietCongViec.thoiGianDuKien }}
                                 </td>
                                 <td class="">
                                     <strong>Từ ngày: </strong>
                                     <span class="info">
                                         {{
-                                            baoCaoTienDo?.tuNgay
+                                            chiTietCongViec?.tuNgay
                                                 | date : "dd/MM/yyyy"
                                         }}</span
                                     >
@@ -64,7 +65,7 @@
                                 <td class="" colspan="2">
                                     <strong>Đến ngày: </strong>
                                     {{
-                                        baoCaoTienDo?.denNgay
+                                        chiTietCongViec?.denNgay
                                             | date : "dd/MM/yyyy"
                                     }}
                                 </td>
@@ -74,13 +75,13 @@
                                     <strong> Người chỉ đạo:</strong>
                                 </td>
                                 <td class="">
-                                    {{ baoCaoTienDo?.chiDao }}
+                                    {{ chiTietCongViec?.chiDao }}
                                 </td>
                                 <td class="">
                                     <strong> Người chỉ trì:</strong>
                                 </td>
                                 <td class="">
-                                    {{ baoCaoTienDo?.chuTri }}
+                                    {{ chiTietCongViec?.chuTri }}
                                 </td>
                             </tr>
                             <tr>
@@ -88,7 +89,7 @@
                                     <strong>
                                         Phối hợp thực hiện (
                                         <span class="info">{{
-                                            baoCaoTienDo?.countDongChiPhoiHop
+                                            chiTietCongViec?.countDongChiPhoiHop
                                         }}</span>
                                         đ/c)</strong
                                     >
@@ -97,7 +98,7 @@
                                     <p-table
                                         [paginator]="false"
                                         [value]="
-                                            baoCaoTienDo?.lstDongChiPhoiHop
+                                            chiTietCongViec?.lstDongChiPhoiHop
                                         "
                                         dataKey="id"
                                         [rowHover]="true"
@@ -141,7 +142,7 @@
                                     <strong>
                                         Thông báo để biết (
                                         <span class="info">{{
-                                            baoCaoTienDo?.countDongChiThongBao
+                                            chiTietCongViec?.countDongChiThongBao
                                         }}</span>
                                         đ/c)
                                     </strong>
@@ -150,7 +151,7 @@
                                     <p-table
                                         [paginator]="false"
                                         [value]="
-                                            baoCaoTienDo?.lstDongChiThongBao
+                                            chiTietCongViec?.lstDongChiThongBao
                                         "
                                         dataKey="id"
                                         [rowHover]="true"
@@ -204,10 +205,12 @@
                                 </td>
                                 <td class="">
                                     <ul>
-                                        <li *ngFor="let file of selectedFiles">
-                                            <span
-                                                *ngIf="file.isDelete == false"
-                                            >
+                                        <li
+                                            *ngFor="
+                                                let file of chiTietCongViec.lstFileDinhKemVanBan
+                                            "
+                                        >
+                                            <span>
                                                 <a
                                                     (click)="
                                                         DownloadFile(
@@ -217,15 +220,7 @@
                                                     "
                                                     href="javascript:;"
                                                     >{{ file.fileName }}</a
-                                                ><a
-                                                    href="javascript:;"
-                                                    (click)="
-                                                        XoaFile(file.filePath)
-                                                    "
-                                                    >&nbsp;<i
-                                                        class="pi pi-trash"
-                                                    ></i
-                                                ></a>
+                                                >
                                             </span>
                                         </li>
                                     </ul>
@@ -235,29 +230,21 @@
                                 </td>
                                 <td class="">
                                     <ul>
-                                        <li *ngFor="let file of selectedFiles">
-                                            <span
-                                                *ngIf="file.isDelete == false"
+                                        <li
+                                            *ngFor="
+                                                let file of chiTietCongViec.lstFileDinhKemCongViec
+                                            "
+                                        >
+                                            <a
+                                                (click)="
+                                                    DownloadFile(
+                                                        file.filePath,
+                                                        file.fileName
+                                                    )
+                                                "
+                                                href="javascript:;"
+                                                >{{ file.fileName }}</a
                                             >
-                                                <a
-                                                    (click)="
-                                                        DownloadFile(
-                                                            file.filePath,
-                                                            file.fileName
-                                                        )
-                                                    "
-                                                    href="javascript:;"
-                                                    >{{ file.fileName }}</a
-                                                ><a
-                                                    href="javascript:;"
-                                                    (click)="
-                                                        XoaFile(file.filePath)
-                                                    "
-                                                    >&nbsp;<i
-                                                        class="pi pi-trash"
-                                                    ></i
-                                                ></a>
-                                            </span>
                                         </li>
                                     </ul>
                                 </td>
@@ -273,7 +260,7 @@
                             <td colspan="4">
                                 <p-table
                                     [paginator]="false"
-                                    [value]="lstChonVanBan"
+                                    [value]="chiTietCongViec.lstCaNhanXuLyCongViec"
                                     dataKey="id"
                                     [rowHover]="true"
                                     class="my-drop"
@@ -284,37 +271,58 @@
                                         <tr>
                                             <th style="width: 2%">
                                                 <div
-                                                    class="flex justify-content-between align-baoCaoTienDo?s-center"
+                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
                                                 >
                                                     STT
                                                 </div>
                                             </th>
                                             <th style="min-width: 10rem">
                                                 <div
-                                                    class="flex justify-content-between align-baoCaoTienDo?s-center"
+                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
                                                 >
-                                                    Số ký hiệu
+                                                   Ngày thực hiện
                                                 </div>
                                             </th>
                                             <th style="min-width: 10rem">
                                                 <div
-                                                    class="flex justify-content-between align-baoCaoTienDo?s-center"
+                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
                                                 >
-                                                    Trích yếu
+                                                   Nội dung
                                                 </div>
                                             </th>
                                             <th style="min-width: 10rem">
                                                 <div
-                                                    class="flex justify-content-between align-baoCaoTienDo?s-center"
+                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
                                                 >
-                                                    Xóa
+                                                   Tệp đính kèm
+                                                </div>
+                                            </th>
+                                            <th style="min-width: 10rem">
+                                                <div
+                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
+                                                >
+                                                Người thực hiện
+                                                </div>
+                                            </th>
+                                             <th style="min-width: 10rem">
+                                                <div
+                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
+                                                >
+                                               Vai trò
+                                                </div>
+                                            </th>
+                                            <th style="min-width: 10rem">
+                                                <div
+                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
+                                                >
+                                             Trạng thái
                                                 </div>
                                             </th>
                                         </tr>
                                     </ng-template>
                                     <ng-template
                                         pTemplate="body"
-                                        let-vanBan
+                                        let-caNhanThucHien
                                         let-rowIndex="rowIndex"
                                     >
                                         <tr>
@@ -322,12 +330,40 @@
                                                 {{ rowIndex + 1 }}
                                             </td>
                                             <td>
-                                                {{ vanBan.soKiHieu }}
+                                                {{ caNhanThucHien.ngayThucHien | date : "dd/MM/yyyy" }}
                                             </td>
                                             <td>
-                                                {{ vanBan.trichYeu }}
+                                                {{ caNhanThucHien.noiDung}}
                                             </td>
-                                            <td>Xóa</td>
+                                            <td>
+                                                <ul>
+                                                    <li
+                                                        *ngFor="
+                                                            let file of caNhanThucHien.LstFileDinhKem
+                                                        "
+                                                    >
+                                                        <a
+                                                            (click)="
+                                                                DownloadFile(
+                                                                    file.filePath,
+                                                                    file.fileName
+                                                                )
+                                                            "
+                                                            href="javascript:;"
+                                                            >{{ file.fileName }}</a
+                                                        >
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                {{ caNhanThucHien.nguoiThucHien}}
+                                            </td>
+                                             <td>
+                                                {{ caNhanThucHien.vaiTro}}
+                                            </td>
+                                            <td>
+                                                {{ caNhanThucHien.trangThai}}
+                                            </td>
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="emptymessage">
@@ -351,67 +387,44 @@
                     </p-table>
                 </div>
                 <div class="col-12 md:col-3">
-                  <div class="chat-container">
+                    <div class="chat-container">
                         <!-- Header "Trao đổi" -->
                         <div class="chat-header">
-                          <h3>Trao đổi</h3>
-                          <hr />
+                            <h3>Trao đổi</h3>
+                            <hr />
                         </div>
-                      
+
                         <!-- Container chứa ảnh cá nhân và khung chat -->
                         <div class="chat-content">
-                          <!-- Block chứa icon và khung comment -->
-                          <div class="comment-block">
-                            <!-- Icon hình người (15-20%) -->
-                            <div class="avatar-container">
-                              <!-- Thêm ảnh cá nhân của người dùng -->
-                              {{'Tên tài khoản'}}
-                            </div>
-                      
-                            <!-- Khung comment (80-85%) -->
-                            <div class="comment-frame">
-                              <!-- Nội dung comment -->
-                      
-                              <!-- Input comment -->
-                              <div class="input-container">
-                                <div class="flex-container">
-                                  <textarea placeholder="Nhập comment..."></textarea>
-                                  <button><i class="pi pi-send"></i></button>
+                            <!-- Block chứa icon và khung comment -->
+                            <div class="comment-block">
+                                <!-- Icon hình người (15-20%) -->
+                                <div class="avatar-container">
+                                    <!-- Thêm ảnh cá nhân của người dùng -->
+                                    {{ "Tên tài khoản" }}
                                 </div>
-                              </div>
+
+                                <!-- Khung comment (80-85%) -->
+                                <div class="comment-frame">
+                                    <!-- Nội dung comment -->
+
+                                    <!-- Input comment -->
+                                    <div class="input-container">
+                                        <div class="flex-container">
+                                            <textarea
+                                                placeholder="Nhập comment..."
+                                            ></textarea>
+                                            <button>
+                                                <i class="pi pi-send"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <div class="div-center">
-            <button
-                pbutton=""
-                pripple=""
-                type="submit"
-                label="Info"
-                class="p-element p-ripple p-button-info p-button p-component"
-                ng-reflect-label="Info"
-                (click)="ChonHoSo()"
-            >
-                <span class="p-button-label">Lưu</span
-                ><span class="p-ink"></span></button
-            >&nbsp;
-            <button
-                pbutton=""
-                pripple=""
-                label="Info"
-                class="p-element p-ripple p-button-danger p-button p-component"
-                ng-reflect-label="Info"
-                (click)="Thoat()"
-            >
-                <span class="p-button-label">Thoát</span
-                ><span class="p-ink"></span>
-            </button>
         </div>
     </ng-template>
 </p-dialog>

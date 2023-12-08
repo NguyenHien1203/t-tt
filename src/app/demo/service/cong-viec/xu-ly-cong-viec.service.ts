@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/common/auth.services';
-import { TimKiemXuLyCongViec } from 'src/app/models/thong-ke/xu-ly-cong-viec';
+import { TimKiemChonVanBan, TimKiemXuLyCongViec } from 'src/app/models/cong-viec/xu-ly-cong-viec';
+
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -23,6 +24,18 @@ export class XuLyCongViecService {
             .post<any>(
                 environment.baseUrlApi +
                 '/CongViec/XuLyCongViec/GetDanhSachXuLyCongViec',
+                timKiemDanhSach,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
+    
+    getDanhSachChonVanBan(timKiemDanhSach: TimKiemChonVanBan) {
+        return this.http
+            .post<any>(
+                environment.baseUrlApi +
+                '/CongViec/XuLyCongViec/GetDanhSachChonVanBan',
                 timKiemDanhSach,
                 this.httpOption
             )
@@ -52,6 +65,17 @@ export class XuLyCongViecService {
             .toPromise()
             .then((res) => res.objData);
     }
+    
+    getDataViewChiTiet(id: string, cap : string, loai : string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/CongViec/XuLyCongViec/GetDataViewChiTiet?id=' + id + "&cap=" + cap + "&loai=" + loai,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
 
     public getDataLuongDuLieu(idCap: string, idCongViec: string, loai: string) {
         if (!this.auth.CheckLogin())
@@ -73,7 +97,6 @@ export class XuLyCongViecService {
             .toPromise()
             .then((res) => res.objData);
     }
-
     public UpdateNgayHt(idCongViec: string, ngayHt: string) {
         if (!this.auth.CheckLogin())
             this.router.navigate(['/login']);

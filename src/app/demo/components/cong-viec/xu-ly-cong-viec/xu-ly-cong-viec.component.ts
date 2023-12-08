@@ -102,7 +102,7 @@ export class XuLyCongViecComponent {
         this.cap = cap;
         this.loai = loai;
     }
-    
+
     public BaoCao(id, cap, loai) {
         this.hienThiBaoCao = true;
         this.id = id;

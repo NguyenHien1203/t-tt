@@ -61,7 +61,8 @@ interface listDongChiCusTom {
 }
 
 export interface TimKiemChonVanBan {
-    soKyHieu?: string;
-    trichYeu?: string;
-    donViId?: number;
+    soKyHieu?: string,
+    trichYeu?: string,
+    donViId?: number,
+    cap? : number
 }

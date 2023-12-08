@@ -31,11 +31,13 @@ export class ChonVanBanComponent {
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     userName = this.authService.GetmUserInfo()?.userName;
     userId = this.authService.GetmUserInfo()?.userId;
+    userCap = this.authService.GetmUserInfo()?.cap;
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
     timKiemDanhSach: TimKiemChonVanBan = {
       soKyHieu: '',
       trichYeu: '',
       donViId: Number(this.idDonViLamViec),
+      cap : Number(this.userCap)
   };
   
     public LoadDanhSach() {
@@ -50,7 +52,7 @@ export class ChonVanBanComponent {
 
     public ThoatChonVanBan(): void {
         this.show = false;
-        this.tatPopup.emit(this.show);
+        this.tatPopup.emit(this.show);  
     }
 
     public CheckAll(): void {

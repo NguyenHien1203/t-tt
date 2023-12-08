@@ -1,0 +1,174 @@
+.ldl__giamDoc {
+    width: 250px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    background: #0e74ce;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.ldl__vanBan {
+    width: 250px;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 15px 20px;
+    background: #ccc;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;    
+}
+
+.ldl__congViec {
+    width: 450px;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 0;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    position: relative;
+}
+
+.ldl__congViec::after {
+    content: "";
+    height: 31px;
+    width: 2px;
+    background: #999;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+}
+
+.ldl__congViec h3 {
+    background-color: #ccc;
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.ldl__congViec--main {
+    padding: 15px;
+}
+
+.box__single {
+    position: relative;
+}
+
+.box__single:before {
+    height: 40px;
+    position: absolute;
+    content: "";
+    top: 100%;
+    width: 1px;
+    border-right: 2px solid #999;
+    left: 50%;
+}
+
+.box__single:after {
+    height: 20px;
+    width: 20px;
+    content: "\f0d7";
+    position: absolute;
+    left: calc(50% + 0px);
+    bottom: -41px;
+    font-family: "Font Awesome 5 Free";
+    color: #999;
+    transform: translateX(-50%);
+    font-size: 20px;
+}
+
+.ldl_userXuly {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: flex-start;
+    margin-top: 60px;
+    gap: 30px;
+    position: relative;
+}
+
+.ldl_userXuly::before {
+    content: "";
+    height: 1px;
+    width: calc(100% - ((100% - 90px) / 4));
+    position: absolute;
+    top: -30px;
+    border-top: 2px solid #999;
+}
+
+.ldl_userXuly--group {
+    flex: 1;
+    position: relative;
+}
+
+.ldl_userXuly--group::before {
+    /* height: calc(100% - 61px);*/
+    height: calc(100% - 71px);
+    content: "";
+    width: 1px;
+    background: #ccc;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    border-left: 2px solid #999;
+    top: 42px;
+}
+
+.ldl_userXuly--group .user__group {
+    flex-basis: 200px;
+    text-align: center;
+    border: 1px solid #ccc;
+    background: #ccc;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.ldl_userXuly--group .user__group::before {
+    content: "";
+    position: absolute;
+    height: 30px;
+    width: 1px;
+    border-right: 2px solid #999;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.user__group--item {
+    padding: 10px;
+    margin-top: 20px;
+    background: #eee;
+    text-align: center;
+    width: calc(100% - 30px);
+    align-items: flex-end;
+    display: flex;
+    margin-left: 30px;
+    justify-content: center;
+    position: relative;
+}
+
+.user__group--item:before {
+    content: "";
+    height: 1px;
+    width: 30px;
+    border-top: 2px solid #999;
+    position: absolute;
+    left: -30px;
+    top: 50%;
+}
+
+.user__group--item:after {
+    content: ">";
+    font-family: "Font Awesome 5 Free";
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #999;
+}

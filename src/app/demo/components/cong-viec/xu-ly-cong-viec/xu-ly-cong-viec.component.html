@@ -121,7 +121,6 @@
                         [rowsPerPageOptions]="[10, 20, 30]"
                         [rowHover]="true"
                         styleClass="p-datatable-gridlines"
-                        [paginator]="true"
                         responsiveLayout="scroll"
                     >
                         <ng-template pTemplate="header">
@@ -388,6 +387,13 @@
     [show]="hienThiHoSo"
     (tatPopup)="Thoat($event, 'H')"
 ></app-ho-so>
+<app-chi-tiet-cong-viec
+    [id]="id"
+    [cap]="cap"
+    [loai]="loai"
+    [show]="hienThiChiTietCongViec"
+    (tatPopup)="Thoat($event, 'C')"
+></app-chi-tiet-cong-viec>
 <app-bao-cao
     [id]="id"
     [cap]="cap"

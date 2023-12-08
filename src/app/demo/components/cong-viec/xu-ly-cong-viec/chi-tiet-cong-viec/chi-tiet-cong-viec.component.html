@@ -4,24 +4,23 @@
     [resizable]="false"
     (onHide)="Thoat()"
     (onShow)="BindDialogData()"
-    [style]="{ width: '1350px' }"
+    [style]="{ width: '1500px' }"
     [modal]="true"
     header="Báo cáo tiến độ"
 >
     <ng-template pTemplate="content">
         <div class="chiTiet">
-            <div class="grid">
-                <div class="col-12 md:col-12">
+            <div class="field grid">
+                <div class="col-12 md:col-9">
                     <p-table
                         styleClass="p-datatable-gridlines"
                         [value]="[baoCaoTienDos]"
                         class="custom-table"
-                        responsiveLayout="scroll"
                     >
                         <ng-template pTemplate="body" let-baoCaoTienDo>
                             <tr>
                                 <td class="">
-                                    <strong>Số kí hiệu văn bản:</strong>
+                                    <strong>Số kí hiệu:</strong>
                                 </td>
                                 <td class="">
                                     {{ baoCaoTienDo?.soKiHieu }}
@@ -72,47 +71,6 @@
                             </tr>
                             <tr>
                                 <td class="">
-                                    <strong>
-                                        Đề xuất thời hạn hoàn thành:</strong
-                                    >
-                                </td>
-                                <td class="">
-                                    <p-calendar
-                                        [(ngModel)]="
-                                            baoCaoTienDo.thoiHanHoanThanh
-                                        "
-                                        appendTo="body"
-                                        dateFormat="dd/mm/yy"
-                                        placeholder="Thời hoạn hoàn thành"
-                                        [style]="{ width: '100%' }"
-                                        class="my-drop"
-                                    ></p-calendar>
-                                </td>
-                                <td class="" colspan="2">
-                                    <button
-                                        pbutton=""
-                                        pripple=""
-                                        type="submit"
-                                        label="Info"
-                                        icon="pi pi-check"
-                                        class="p-element p-ripple p-button-warning p-button p-component"
-                                        ng-reflect-label="Info"
-                                        (click)="LuuLai()"
-                                    >
-                                        <span class="p-button-label"
-                                            ><i class="pi pi-check"></i
-                                            >&nbsp;Lưu lại</span
-                                        ><span class="p-ink"></span></button
-                                    >&nbsp;
-                                    <span class="info">
-                                        Đã đề xuất thời hạn hoàn thành</span
-                                    >
-                                    :
-                                    {{ baoCaoTienDo?.trangThaiDeXuat }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="">
                                     <strong> Người chỉ đạo:</strong>
                                 </td>
                                 <td class="">
@@ -129,7 +87,9 @@
                                 <td class="">
                                     <strong>
                                         Phối hợp thực hiện (
-                                            <span class="info">{{ baoCaoTienDo?.countDongChiPhoiHop }}</span>  
+                                        <span class="info">{{
+                                            baoCaoTienDo?.countDongChiPhoiHop
+                                        }}</span>
                                         đ/c)</strong
                                     >
                                 </td>
@@ -180,7 +140,9 @@
                                 <td class="">
                                     <strong>
                                         Thông báo để biết (
-                                            <span class="info">{{ baoCaoTienDo?.countDongChiThongBao }}</span>  
+                                        <span class="info">{{
+                                            baoCaoTienDo?.countDongChiThongBao
+                                        }}</span>
                                         đ/c)
                                     </strong>
                                 </td>
@@ -238,70 +200,9 @@
                             </tr>
                             <tr>
                                 <td class="">
-                                    <strong> Ngày xử lý: </strong>
+                                    <strong>File văn bản:</strong>
                                 </td>
                                 <td class="">
-                                    <p-calendar
-                                        [(ngModel)]="baoCaoTienDo.ngayXuLy"
-                                        appendTo="body"
-                                        dateFormat="dd/mm/yy"
-                                        placeholder="Thời hoạn hoàn thành"
-                                        [style]="{ width: '100%' }"
-                                        class="my-drop"
-                                    ></p-calendar>
-                                </td>
-                                <td class="" rowspan="2">Nội dung xử lý:</td>
-                                <td class="" rowspan="2">
-                                    <textarea
-                                        rows="4"
-                                        cols="30"
-                                        class="my-drop"
-                                        [(ngModel)]="baoCaoTienDo.noiDungXuLy"
-                                        placeholder="Nội dung"
-                                        pInputTextarea
-                                    ></textarea>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="">
-                                    <strong> Chọn trạng thái: </strong>
-                                </td>
-                                <td class="custom-r">
-                                    <p-dropdown
-                                        [options]="lstTrangThai"
-                                        optionValue="value"
-                                        [(ngModel)]="baoCaoTienDo.trangThaiXuLy"
-                                        optionLabel="text"
-                                        [showClear]="true"
-                                        [filter]="false"
-                                        appendTo="body"
-                                        placeholder="Chọn trạng thái"
-                                        [style]="{ width: '100%' }"
-                                        class="my-drop"
-                                    ></p-dropdown>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="">
-                                    <strong>Đính kèm file:</strong>
-                                </td>
-                                <td class="">
-                                    <div>
-                                        <label
-                                            for="fileUpload"
-                                            class="custom-file-upload"
-                                        >
-                                            <i class="pi pi-upload"></i> Chọn
-                                            tệp
-                                        </label>
-                                        <input
-                                            type="file"
-                                            id="fileUpload"
-                                            multiple="multiple"
-                                            (change)="onFileSelected($event)"
-                                            style="display: none"
-                                        />
-                                    </div>
                                     <ul>
                                         <li *ngFor="let file of selectedFiles">
                                             <span
@@ -330,105 +231,158 @@
                                     </ul>
                                 </td>
                                 <td class="">
-                                    <strong
-                                        >Chọn văn bản trong hệ thống:</strong
-                                    >
+                                    <strong>File công việc:</strong>
                                 </td>
-                                <td class="fl-wr">
-                                    <button
-                                        pbutton=""
-                                        pripple=""
-                                        type="submit"
-                                        label="Info"
-                                        icon="pi pi-check"
-                                        class="p-element p-ripple p-button-warning p-button p-component"
-                                        ng-reflect-label="Info"
-                                        (click)="ChonVanBan()"
-                                    >
-                                        <span class="p-button-label"
-                                            ><i class="pi pi-check"></i
-                                            >&nbsp;Chọn văn bản</span
-                                        ><span class="p-ink"></span>
-                                    </button>
-                                    <p-table
-                                        [paginator]="false"
-                                        [value]="lstChonVanBan"
-                                        dataKey="id"
-                                        [rowHover]="true"
-                                        class="my-drop"
-                                        styleClass="p-datatable-gridlines"
-                                        responsiveLayout="scroll"
-                                    >
-                                        <ng-template pTemplate="header">
-                                            <tr>
-                                                <th style="width: 2%">
-                                                    <div
-                                                        class="flex justify-content-between align-baoCaoTienDo?s-center"
-                                                    >
-                                                        STT
-                                                    </div>
-                                                </th>
-                                                <th style="min-width: 10rem">
-                                                    <div
-                                                        class="flex justify-content-between align-baoCaoTienDo?s-center"
-                                                    >
-                                                        Số ký hiệu
-                                                    </div>
-                                                </th>
-                                                <th style="min-width: 10rem">
-                                                    <div
-                                                        class="flex justify-content-between align-baoCaoTienDo?s-center"
-                                                    >
-                                                        Trích yếu
-                                                    </div>
-                                                </th>
-                                                <th style="min-width: 10rem">
-                                                    <div
-                                                        class="flex justify-content-between align-baoCaoTienDo?s-center"
-                                                    >
-                                                        Xóa
-                                                    </div>
-                                                </th>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template
-                                            pTemplate="body"
-                                            let-vanBan
-                                            let-rowIndex="rowIndex"
-                                        >
-                                            <tr>
-                                                <td style="text-align: center">
-                                                    {{ rowIndex + 1 }}
-                                                </td>
-                                                <td>
-                                                    {{ vanBan.soKiHieu }}
-                                                </td>
-                                                <td>
-                                                    {{ vanBan.trichYeu }}
-                                                </td>
-                                                <td>Xóa</td>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="emptymessage">
-                                            <tr>
-                                                <td colspan="15">
-                                                    No record found.
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="loadingbody">
-                                            <tr>
-                                                <td colspan="15">
-                                                    Loading record data. Please
-                                                    wait.
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
+                                <td class="">
+                                    <ul>
+                                        <li *ngFor="let file of selectedFiles">
+                                            <span
+                                                *ngIf="file.isDelete == false"
+                                            >
+                                                <a
+                                                    (click)="
+                                                        DownloadFile(
+                                                            file.filePath,
+                                                            file.fileName
+                                                        )
+                                                    "
+                                                    href="javascript:;"
+                                                    >{{ file.fileName }}</a
+                                                ><a
+                                                    href="javascript:;"
+                                                    (click)="
+                                                        XoaFile(file.filePath)
+                                                    "
+                                                    >&nbsp;<i
+                                                        class="pi pi-trash"
+                                                    ></i
+                                                ></a>
+                                            </span>
+                                        </li>
+                                    </ul>
                                 </td>
                             </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <strong
+                                        >CHI TIẾT KẾT QUẢ THỰC HIỆN CÔNG VIỆC
+                                        CỦA CÁC CÁ NHÂN</strong
+                                    >
+                                </td>
+                            </tr>
+                            <td colspan="4">
+                                <p-table
+                                    [paginator]="false"
+                                    [value]="lstChonVanBan"
+                                    dataKey="id"
+                                    [rowHover]="true"
+                                    class="my-drop"
+                                    styleClass="p-datatable-gridlines"
+                                    responsiveLayout="scroll"
+                                >
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th style="width: 2%">
+                                                <div
+                                                    class="flex justify-content-between align-baoCaoTienDo?s-center"
+                                                >
+                                                    STT
+                                                </div>
+                                            </th>
+                                            <th style="min-width: 10rem">
+                                                <div
+                                                    class="flex justify-content-between align-baoCaoTienDo?s-center"
+                                                >
+                                                    Số ký hiệu
+                                                </div>
+                                            </th>
+                                            <th style="min-width: 10rem">
+                                                <div
+                                                    class="flex justify-content-between align-baoCaoTienDo?s-center"
+                                                >
+                                                    Trích yếu
+                                                </div>
+                                            </th>
+                                            <th style="min-width: 10rem">
+                                                <div
+                                                    class="flex justify-content-between align-baoCaoTienDo?s-center"
+                                                >
+                                                    Xóa
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template
+                                        pTemplate="body"
+                                        let-vanBan
+                                        let-rowIndex="rowIndex"
+                                    >
+                                        <tr>
+                                            <td style="text-align: center">
+                                                {{ rowIndex + 1 }}
+                                            </td>
+                                            <td>
+                                                {{ vanBan.soKiHieu }}
+                                            </td>
+                                            <td>
+                                                {{ vanBan.trichYeu }}
+                                            </td>
+                                            <td>Xóa</td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage">
+                                        <tr>
+                                            <td colspan="15">
+                                                No record found.
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="loadingbody">
+                                        <tr>
+                                            <td colspan="15">
+                                                Loading record data. Please
+                                                wait.
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </td>
                         </ng-template>
                     </p-table>
+                </div>
+                <div class="col-12 md:col-3">
+                  <div class="chat-container">
+                        <!-- Header "Trao đổi" -->
+                        <div class="chat-header">
+                          <h3>Trao đổi</h3>
+                          <hr />
+                        </div>
+                      
+                        <!-- Container chứa ảnh cá nhân và khung chat -->
+                        <div class="chat-content">
+                          <!-- Block chứa icon và khung comment -->
+                          <div class="comment-block">
+                            <!-- Icon hình người (15-20%) -->
+                            <div class="avatar-container">
+                              <!-- Thêm ảnh cá nhân của người dùng -->
+                              {{'Tên tài khoản'}}
+                            </div>
+                      
+                            <!-- Khung comment (80-85%) -->
+                            <div class="comment-frame">
+                              <!-- Nội dung comment -->
+                      
+                              <!-- Input comment -->
+                              <div class="input-container">
+                                <div class="flex-container">
+                                  <textarea placeholder="Nhập comment..."></textarea>
+                                  <button><i class="pi pi-send"></i></button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                 </div>
             </div>
         </div>

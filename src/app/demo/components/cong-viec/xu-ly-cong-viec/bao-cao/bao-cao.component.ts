@@ -25,7 +25,7 @@ export class BaoCaoComponent {
         private authService: AuthService
     ) {}
 
-    baoCaoTienDo: XuLyCongViec = {
+    baoCaoTienDos: XuLyCongViec = {
         soKiHieu: '',
         trichYeu: '',
         noiDungCongViec: '',
@@ -36,19 +36,16 @@ export class BaoCaoComponent {
         trangThaiDeXuat: '',
         chiDao: '',
         chuTri: '',
-        lstPhoiHop: [],
+        lstDongChiPhoiHop: [],
         lstDongChiThongBao: [],
         countDongChiThongBao: 0,
         countDongChiPhoiHop: 0,
-    };
-    
-    thongTinNguoiXuLy: ThongTinNguoiXuLy = {
         ngayXuLy: new Date(),
         noiDungXuLy: '',
-        lstTrangThai: '',
+        trangThaiXuLy: '',
         fileDinhKem: '',
-        lstVanBanBaoCao: '',
     };
+
     loading: boolean = true;
     submitted: boolean = false;
     lstHoSoCongViec: any[] = [];
@@ -71,8 +68,7 @@ export class BaoCaoComponent {
             );
             console.log(data);
             if (data != null) {
-                this.baoCaoTienDo = data.objBaoCaoTienDo;
-                this.thongTinNguoiXuLy = data.objThongTinNguoiXuLy;
+                this.baoCaoTienDos = data;
             }
         } catch (error) {
             console.log(error);

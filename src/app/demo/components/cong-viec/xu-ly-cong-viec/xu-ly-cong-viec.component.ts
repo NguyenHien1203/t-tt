@@ -47,6 +47,7 @@ export class XuLyCongViecComponent {
     public cap: string = '1';
     public loai: string = '1';
     kiemTraQuyenNhomNguoiDung: boolean = false;
+    hienThiChiTietCongViec: boolean = false;
     hienThiLuongXuLy: boolean = false;
     hienThiHoSo: boolean = false;
     hienThiGiaoViec: boolean = false;
@@ -94,6 +95,13 @@ export class XuLyCongViecComponent {
         this.cap = cap;
         this.loai = loai;
     }
+
+    public ChiTietCongViec(id, cap, loai) {
+        this.hienThiChiTietCongViec = true;
+        this.id = id;
+        this.cap = cap;
+        this.loai = loai;
+    }
     
     public BaoCao(id, cap, loai) {
         this.hienThiBaoCao = true;
@@ -126,6 +134,7 @@ export class XuLyCongViecComponent {
         if (loai === 'H') this.hienThiHoSo = false;
         if (loai === 'G') this.hienThiGiaoViec = false;
         if (loai === 'B') this.hienThiBaoCao = false;
+        if (loai === 'C') this.hienThiChiTietCongViec = false;
         this.LoadDanhSach();
     }
 

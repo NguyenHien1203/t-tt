@@ -25,9 +25,10 @@ import { XuLyCongViecComponent } from './xu-ly-cong-viec.component';
 import { LuongXuLyComponent } from './luong-xu-ly/luong-xu-ly.component';
 import { HoSoComponent } from './ho-so/ho-so.component';
 import { BaoCaoComponent } from './bao-cao/bao-cao.component';
+import { ChiTietCongViecComponent } from './chi-tiet-cong-viec/chi-tiet-cong-viec.component';
 
 @NgModule({
-  declarations: [XuLyCongViecComponent, LuongXuLyComponent, HoSoComponent, BaoCaoComponent],
+  declarations: [XuLyCongViecComponent, LuongXuLyComponent, HoSoComponent, BaoCaoComponent, ChiTietCongViecComponent],
   imports: [
     OrganizationChartModule,
     ConfirmDialogModule,

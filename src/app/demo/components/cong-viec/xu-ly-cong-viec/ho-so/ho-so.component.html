@@ -4,16 +4,16 @@
     [resizable]="false"
     (onHide)="Thoat()"
     (onShow)="BindDialogData()"
-    [style]="{ width: '80ev' }"
+    [style]="{ width: '950px' }"
     [modal]="true"
     header="Gán hồ sơ"
 >
     <ng-template pTemplate="content">
         <div class="field grid">
-            <div class="col-12 md:col-2 fl-wr">
+            <div class="col-12 md:col-3 fl-wr">
                 Chọn hồ sơ công việc <span class="p-error">(*)</span>
             </div>
-            <div class="col-12 md:col-2 fl-wr">
+            <div class="col-12 md:col-9 fl-wr">
                 <p-dropdown
                     [(ngModel)]="hoSoId"
                     [options]="hoSoCongViecOptions"
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="field grid">
-            <div class="col-12 md:col-2 fl-wr">
+            <div class="col-12 md:col-12 fl-wr">
                 <p-table
                     [paginator]="true"
                     #dt1

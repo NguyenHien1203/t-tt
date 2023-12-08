@@ -1,0 +1,36 @@
+
+
+.chat-container {
+      height: 100%; /* Đảm bảo chiều cao của phần chat là 100% của phần pop-up */
+      background-color: #f0f0f0; /* Màu nền của phần chat */
+      padding: 10px; /* Thêm padding để nội dung không sát mép */
+      overflow-y: auto; /* Cho phép cuộn nếu nội dung vượt quá chiều cao của phần chat */
+    }
+
+    .comment-block {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    
+    .comment-frame {
+      width: 100%; /* Sửa chiều rộng của comment-frame để chiếm toàn bộ khung */
+    }
+    
+    .flex-container {
+      display: flex;
+    }
+    
+    textarea {
+      flex: 1; /* Tự động mở rộng để chiếm hết phần còn lại của container */
+      resize: none;
+      margin-bottom: 5px;
+    }
+    
+    button {
+      margin-left: 5px; /* Tạo khoảng cách giữa textarea và button */
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }

@@ -9,23 +9,19 @@ export interface XuLyCongViec {
     trangThaiDeXuat?: string;
     chiDao?: string;
     chuTri?: string;
-    lstPhoiHop?: listDongChiCusTom[];
+    lstDongChiPhoiHop?: listDongChiCusTom[];
     lstDongChiThongBao?: listDongChiCusTom[];
     countDongChiThongBao?: number;
     countDongChiPhoiHop?: number;
-    ngayXuLy?: string;
+    ngayXuLy?: Date;
     noiDungXuLy?: string;
-    lstTrangThai?: string;
+    trangThaiXuLy?: string;
     fileDinhKem?: string;
-    lstVanBanBaoCao?: string;
+    lstVanBanBaoCao?: [];
 }
 
 export interface ThongTinNguoiXuLy {
-    ngayXuLy: Date;
-    noiDungXuLy: string;
-    lstTrangThai: string;
-    fileDinhKem: string;
-    lstVanBanBaoCao: string;
+  
 }
 
 export interface TimKiemXuLyCongViec {

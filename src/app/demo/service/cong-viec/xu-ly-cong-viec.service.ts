@@ -72,25 +72,4 @@ export class XuLyCongViecService {
             .toPromise()
             .then((res) => res.objData);
     }
-
-    getDataBaoCaoTienDo(id: string, cap : string, loai : string) {
-        return this.http
-            .get<any>(
-                environment.baseUrlApi +
-                    '/CongViec/XuLyCongViec/GetDataBaoCaoTienDo?id=' + id + "&cap=" + cap + "&loai=" + loai,
-                this.httpOption
-            )
-            .toPromise()
-            .then((res) => res.objData);
-    }
-
-    public getDataLuongDuLieu(idCap: string, idCongViec: string, loai: string) {
-        if (!this.auth.CheckLogin())
-            this.router.navigate(['/login']);
-
-        const idDonViLamViec = this.auth.GetDonViLamViec();
-
-        const url = `${this.baseUrl}/CongViec/XuLyCongViec/GetDataLuongDuLieu?idCongViec=` + idCongViec + "&idCap=" + idCap + "&idDonViLamViec=" + idDonViLamViec + "&loai=" + loai;
-        return this.http.get<any>(url);
-    }
 }

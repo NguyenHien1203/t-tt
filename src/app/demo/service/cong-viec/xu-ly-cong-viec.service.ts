@@ -39,6 +39,17 @@ export class XuLyCongViecService {
             .then((res) => res.objData);
     }
 
+    getDataBaoCaoTienDo(id: string, cap : string, loai : string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/CongViec/XuLyCongViec/GetDataBaoCaoTienDo?id=' + id + "&cap=" + cap + "&loai=" + loai,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
+
     KiemTraUserThuocNhomNguoiDung(idUser : string, idDonVi : string) {
         return this.http
             .get<any>(

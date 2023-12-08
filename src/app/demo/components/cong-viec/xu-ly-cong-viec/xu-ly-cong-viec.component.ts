@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { XuLyCongViecService } from 'src/app/demo/service/cong-viec/xu-ly-cong-viec.service';
-import { TimKiemXuLyCongViec } from 'src/app/models/cong-viec/xu-ly-xong-viec';
+import { TimKiemXuLyCongViec } from 'src/app/models/cong-viec/xu-ly-cong-viec';
 import { modelOptions } from 'src/app/models/option-model';
 
 @Component({
@@ -94,6 +94,13 @@ export class XuLyCongViecComponent {
         this.cap = cap;
         this.loai = loai;
     }
+    
+    public BaoCao(id, cap, loai) {
+        this.hienThiBaoCao = true;
+        this.id = id;
+        this.cap = cap;
+        this.loai = loai;
+    }
 
     public LoadDanhMuc() {
         const currentYear = new Date().getFullYear() + 1;
@@ -110,7 +117,6 @@ export class XuLyCongViecComponent {
         this.service
             .getDanhSachXuLyCongViec(this.timKiemDanhSach)
             .then((data) => {
-                console.log(data);
                 this.lstCongViec = data;
             });
     }

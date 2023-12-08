@@ -303,7 +303,7 @@
                                             pTooltip="Báo cáo tiến độ"
                                             pRipple
                                             (click)="
-                                                BaoCaoTD(item.id, item.cap)
+                                                BaoCao(item.id, item.cap, item.loai)
                                             "
                                             icon="pi pi-check-square"
                                             class="p-button-rounded p-button-info mr-2"
@@ -388,6 +388,13 @@
     [show]="hienThiHoSo"
     (tatPopup)="Thoat($event, 'H')"
 ></app-ho-so>
+<app-bao-cao
+    [id]="id"
+    [cap]="cap"
+    [loai]="loai"
+    [show]="hienThiBaoCao"
+    (tatPopup)="Thoat($event, 'B')"
+></app-bao-cao>
 <p-confirmDialog #cd [style]="{ width: '30vw' }">
     <ng-template pTemplate="header">
         <h3>Xác nhận</h3>

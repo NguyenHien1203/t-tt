@@ -24,9 +24,10 @@ import { XuLyCongViecRoutingModule } from './xu-ly-cong-viec-routing.module';
 import { XuLyCongViecComponent } from './xu-ly-cong-viec.component';
 import { LuongXuLyComponent } from './luong-xu-ly/luong-xu-ly.component';
 import { HoSoComponent } from './ho-so/ho-so.component';
+import { BaoCaoComponent } from './bao-cao/bao-cao.component';
 
 @NgModule({
-  declarations: [XuLyCongViecComponent, LuongXuLyComponent, HoSoComponent],
+  declarations: [XuLyCongViecComponent, LuongXuLyComponent, HoSoComponent, BaoCaoComponent],
   imports: [
     OrganizationChartModule,
     ConfirmDialogModule,

@@ -25,6 +25,7 @@ export class BaoCaoComponent {
         private authService: AuthService
     ) {}
 
+    hienThiChonVanBan: boolean = false;
     baoCaoTienDos: XuLyCongViec = {
         soKiHieu: '',
         trichYeu: '',
@@ -57,6 +58,15 @@ export class BaoCaoComponent {
 
     ngOnInit() {
         this.loading = false;
+    }
+
+    public ThoatChonVanBan(itemHt: any, loai: string): void {
+        if (loai === 'C') this.hienThiChonVanBan = false;
+    }
+
+    public ChonVanBan()
+    {
+        this.hienThiChonVanBan = true;
     }
 
     public async BindDialogData() {

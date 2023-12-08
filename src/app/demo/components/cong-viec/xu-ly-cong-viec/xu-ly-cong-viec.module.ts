@@ -26,9 +26,10 @@ import { LuongXuLyComponent } from './luong-xu-ly/luong-xu-ly.component';
 import { HoSoComponent } from './ho-so/ho-so.component';
 import { BaoCaoComponent } from './bao-cao/bao-cao.component';
 import { ChiTietCongViecComponent } from './chi-tiet-cong-viec/chi-tiet-cong-viec.component';
+import { ChonVanBanComponent } from './bao-cao/chon-van-ban/chon-van-ban.component';
 
 @NgModule({
-  declarations: [XuLyCongViecComponent, LuongXuLyComponent, HoSoComponent, BaoCaoComponent, ChiTietCongViecComponent],
+  declarations: [XuLyCongViecComponent, LuongXuLyComponent, HoSoComponent, BaoCaoComponent, ChiTietCongViecComponent, ChonVanBanComponent],
   imports: [
     OrganizationChartModule,
     ConfirmDialogModule,

@@ -20,9 +20,7 @@ export interface XuLyCongViec {
     lstVanBanBaoCao?: [];
 }
 
-export interface ThongTinNguoiXuLy {
-  
-}
+export interface ThongTinNguoiXuLy {}
 
 export interface TimKiemXuLyCongViec {
     noiDung?: string;
@@ -40,4 +38,10 @@ export interface TimKiemXuLyCongViec {
 interface listDongChiCusTom {
     text?: string;
     trangThai?: string;
+}
+
+export interface TimKiemChonVanBan {
+    soKyHieu?: string;
+    trichYeu?: string;
+    donViId?: number;
 }

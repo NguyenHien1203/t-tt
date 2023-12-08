@@ -381,7 +381,6 @@ export class CapNhatComponent {
 
   public CapNhatCongViec() {
     this.submitted = true;
-    console.log(this.item);
     if (this.ThongTinCongViec.valid) {
       this.congviec = this.ThongTinCongViec.value;
 

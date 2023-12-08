@@ -42,11 +42,11 @@ export class XuLyCongViecService {
             .then((res) => res.objData);
     }
 
-    getDataBaoCaoTienDo(id: string, cap : string, loai : string) {
+    getDataBaoCaoTienDo(id: string, cap: string, loai: string) {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/CongViec/XuLyCongViec/GetDataBaoCaoTienDo?id=' + id + "&cap=" + cap + "&loai=" + loai,
+                '/CongViec/XuLyCongViec/GetDataBaoCaoTienDo?id=' + id + "&cap=" + cap + "&loai=" + loai,
                 this.httpOption
             )
             .toPromise()
@@ -62,6 +62,7 @@ export class XuLyCongViecService {
         const url = `${this.baseUrl}/CongViec/XuLyCongViec/GetDataLuongDuLieu?idCongViec=` + idCongViec + "&idCap=" + idCap + "&idDonViLamViec=" + idDonViLamViec + "&loai=" + loai;
         return this.http.get<any>(url);
     }
+
     KiemTraUserThuocNhomNguoiDung(idUser: string, idDonVi: string) {
         return this.http
             .get<any>(
@@ -71,5 +72,14 @@ export class XuLyCongViecService {
             )
             .toPromise()
             .then((res) => res.objData);
+    }
+
+    public UpdateNgayHt(idCongViec: string, ngayHt: string) {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
+        const url = `${this.baseUrl}/CongViec/XuLyCongViec/UpdateNgayHoanThanh?idCongViec=` + idCongViec + "&ngayHoanThanh=" + ngayHt;
+
+        return this.http.post<any>(url, this.httpOption)
     }
 }

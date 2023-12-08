@@ -23,7 +23,7 @@ export class BaoCaoComponent {
         private service: XuLyCongViecService,
         private messageService: MessageService,
         private authService: AuthService
-    ) {}
+    ) { }
 
     baoCaoTienDos: XuLyCongViec = {
         soKiHieu: '',
@@ -66,16 +66,15 @@ export class BaoCaoComponent {
                 this.cap,
                 this.loai
             );
-            console.log(data);
-            if (data != null) {
-                this.baoCaoTienDos = data;
-            }
+            this.baoCaoTienDos = data;
+            if (this.baoCaoTienDos.ngayXuLy === null)
+                this.baoCaoTienDos.ngayXuLy = new Date();
         } catch (error) {
             console.log(error);
         }
     }
 
-    public ChangeHoSoCongViec(event) {}
+    public ChangeHoSoCongViec(event) { }
 
     public Thoat(): void {
         this.lstHoSoCongViec = [];
@@ -86,5 +85,22 @@ export class BaoCaoComponent {
 
     public ChonHoSo() {
         this.submitted = true;
+    }
+
+    public UpdateNgayHt() {
+        const formattedDate = this.baoCaoTienDos.thoiHanHoanThanh.toLocaleDateString('en-GB');
+
+        this.service.UpdateNgayHt(this.id, formattedDate).subscribe(data => {
+            if (data.isError) {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+            } else {
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+                setTimeout(() => {
+                    this.Thoat();
+                }, 1000);
+            }
+        }, (error) => {
+            console.log('Error', error);
+        })
     }
 }

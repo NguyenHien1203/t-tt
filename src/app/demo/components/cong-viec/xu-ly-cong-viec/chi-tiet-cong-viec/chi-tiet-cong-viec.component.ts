@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { XuLyCongViecService } from 'src/app/demo/service/cong-viec/xu-ly-cong-viec.service';
-import { XuLyCongViec } from 'src/app/models/cong-viec/xu-ly-cong-viec';
+import { ChiTietCongViec } from 'src/app/models/cong-viec/xu-ly-cong-viec';
 
 @Component({
   selector: 'app-chi-tiet-cong-viec',
@@ -22,25 +22,21 @@ export class ChiTietCongViecComponent {
       private authService: AuthService
   ) {}
 
-  baoCaoTienDos: XuLyCongViec = {
+  chiTietCongViecs: ChiTietCongViec = {
       soKiHieu: '',
       trichYeu: '',
       noiDungCongViec: '',
       nguoiXuLy: '',
       tuNgay: new Date(),
       denNgay: new Date(),
-      thoiHanHoanThanh: new Date(),
-      trangThaiDeXuat: '',
+      thoiGianDuKien: '',
       chiDao: '',
       chuTri: '',
       lstDongChiPhoiHop: [],
       lstDongChiThongBao: [],
-      countDongChiThongBao: 0,
-      countDongChiPhoiHop: 0,
-      ngayXuLy: new Date(),
-      noiDungXuLy: '',
-      trangThaiXuLy: '',
-      fileDinhKem: '',
+      lstFileDinhKemVanBan: [],
+      lstFileDinhKemCongViec: [],
+      lstCaNhanXuLyCongViec: [],
   };
 
   loading: boolean = true;
@@ -58,14 +54,14 @@ export class ChiTietCongViecComponent {
 
   public async BindDialogData() {
       try {
-          const data = await this.service.getDataBaoCaoTienDo(
+          const data = await this.service.getDataViewChiTiet(
               this.id,
               this.cap,
               this.loai
           );
           console.log(data);
           if (data != null) {
-              this.baoCaoTienDos = data;
+              this.chiTietCongViecs = data;
           }
       } catch (error) {
           console.log(error);

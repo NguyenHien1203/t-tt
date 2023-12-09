@@ -18,7 +18,7 @@ export class DanhMucHoSoCaNhanComponent {
         private confirmService: ConfirmationService,
         private cd: ChangeDetectorRef
     ) {}
-    node : TreeNode = null;
+    node: TreeNode = null;
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     timChinhXac: boolean = false;
@@ -40,20 +40,18 @@ export class DanhMucHoSoCaNhanComponent {
     }
 
     public LoadDanhSach(): void {
-        this.service
-            .getDanhSachDanhMucHoSoCaNhan(this.idUser)
-            .then((data) => {
-                if (data.isError) {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'error',
-                        detail: data.title,
-                    });
-                } else {
-                    this.lstDmHoSo = data;
-                    this.loading = false;
-                }
-            });
+        this.service.getDanhSachDanhMucHoSoCaNhan(this.idUser).then((data) => {
+            if (data.isError) {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'error',
+                    detail: data.title,
+                });
+            } else {
+                this.lstDmHoSo = data;
+                this.loading = false;
+            }
+        });
     }
 
     public CapNhat(id: string) {
@@ -61,8 +59,8 @@ export class DanhMucHoSoCaNhanComponent {
         this.id = id;
     }
 
-    public ThemMoi(node :TreeNode) {
-      this.node = node;
+    public ThemMoi(node: TreeNode) {
+        this.node = node;
         this.hienThiThemMoi = true;
     }
 

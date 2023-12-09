@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
-import { XuLyCongViecService } from 'src/app/demo/service/cong-viec/xu-ly-cong-viec.service';
-import { TimKiemChonVanBan } from 'src/app/models/cong-viec/xu-ly-cong-viec';
+import { QuanLyHoSoCaNhanService } from 'src/app/demo/service/ho-so-cong-viec/quan-ly-ho-so-ca-nhan.service';
+import { modelOptions } from 'src/app/models/option-model';
 
 @Component({
     selector: 'app-chon-van-ban',
@@ -15,16 +15,21 @@ export class ChonVanBanComponent {
     @Output() chonVanBan: EventEmitter<any> = new EventEmitter();
 
     constructor(
-        private service: XuLyCongViecService,
+        private service: QuanLyHoSoCaNhanService,
         private messageService: MessageService,
         private authService: AuthService
     ) {
         this.LoadDanhSach();
+        this.LoadDanhMuc();
     }
 
-    isCheckAll: boolean = false;
-    lstVanBanDaGui: any[] = [];
-    lstDonViNhan: any[] = [];
+    lstVanBan: any[] = [];
+    lstNam: modelOptions[] = [];
+    lstThang: modelOptions[] = [];
+    lstLoaiDiDen: modelOptions[] = [
+        { text: 'Văn bản đến', value: 0 },
+        { text: 'Văn bản đi', value: 1 },
+    ];
     lstSelectedVanBan: any[] = [];
     submitted: boolean = false;
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
@@ -32,46 +37,51 @@ export class ChonVanBanComponent {
     userId = this.authService.GetmUserInfo()?.userId;
     userCap = this.authService.GetmUserInfo()?.cap;
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
-    timKiemDanhSach: TimKiemChonVanBan = {
-      soKyHieu: '',
-      trichYeu: '',
-      donViId: Number(this.idDonViLamViec),
-      cap : Number(this.userCap)
-  };
-  
+    timKiemDanhSach: any = {
+        keyWord: '',
+        nam: 0,
+        thang: 0,
+        loaiDiDen: 0,
+        donViId: Number(this.idDonViLamViec),
+    };
+
     public LoadDanhSach() {
         this.service
             .getDanhSachChonVanBan(this.timKiemDanhSach)
             .then((data) => {
-                this.lstVanBanDaGui = data.map((dt) => {
+                this.lstVanBan = data.map((dt) => {
                     return { ...dt, checked: false }; //gán checked để khởi tạo giá trị cho checkbox
                 });
             });
     }
 
-    public ThoatChonVanBan(): void {
-        this.show = false;
-        this.tatPopup.emit(this.show);  
+    public LoadDanhMuc() {
+        const year = new Date().getFullYear() + 1;
+        for (let i = year; i >= year - 5; i--) {
+            this.lstNam.push({ text: 'Năm ' + i, value: i });
+        }
+
+        for (let i = 1; i <= 12; i++) {
+            this.lstThang.push({ text: 'Tháng ' + i, value: i });
+        }
     }
 
-    public CheckAll(): void {
-        this.isCheckAll = !this.isCheckAll;
-        this.lstVanBanDaGui = this.lstVanBanDaGui.map((vb) => {
-            return { ...vb, checked: this.isCheckAll };
-        });
+    public Thoat(): void {
+        this.show = false;
+        this.tatPopup.emit(this.show);
     }
 
     public ChonVanBan(): void {
-        this.lstSelectedVanBan = this.lstVanBanDaGui
+        this.lstSelectedVanBan = this.lstVanBan
             .filter((vb) => vb.checked === true)
             .map((vb) => vb);
         this.chonVanBan.emit(this.lstSelectedVanBan);
-        this.ThoatChonVanBan();
+        this.Thoat();
     }
 
     public CheckedItem(checked: boolean, idVanBan: string): void {
         checked = !checked; //checked những giá trị được đánh dấu ngoài danh sách
-        this.lstVanBanDaGui = this.lstVanBanDaGui.map((vb) => {
+        this.lstVanBan = this.lstVanBan.map((vb) => {
             if (vb.id == idVanBan) return { ...vb, checked: checked };
             else {
                 return { ...vb };

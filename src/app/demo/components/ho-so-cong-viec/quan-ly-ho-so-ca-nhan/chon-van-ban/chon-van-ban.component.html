@@ -2,33 +2,68 @@
     [(visible)]="show"
     [draggable]="true"
     [resizable]="false"
-    (onHide)="ThoatChonVanBan()"
+    (onHide)="Thoat()"
     [style]="{ width: '1150px' }"
     [modal]="true"
-    header="Chọn văn bản"
+    header="Gán văn bản"
 >
     <ng-template pTemplate="content">
-        <p-toast></p-toast>
         <div class="field grid">
-            <div class="col-12 md:col-4 fl-wr">
+            <div class="col-12 md:col-3 fl-wr">
                 <input
-                    [(ngModel)]="timKiemDanhSach.soKyHieu"
+                    [(ngModel)]="timKiemDanhSach.keyWord"
                     pInputText
                     type="text"
-                    placeholder="Số ký hiệu"
-                    class="form-control"
-                />
-            </div>
-            <div class="col-12 md:col-4 fl-wr">
-                <input
-                    [(ngModel)]="timKiemDanhSach.trichYeu"
-                    pInputText
-                    type="text"
-                    placeholder="Trích yếu"
+                    placeholder="Thông tin văn bản"
                     class="form-control"
                 />
             </div>
             <div class="col-12 md:col-3 fl-wr">
+                <p-dropdown
+                    [(ngModel)]="timKiemDanhSach.nam"
+                    [options]="lstNam"
+                    optionValue="value"
+                    optionLabel="text"
+                    [showClear]="true"
+                    [filter]="true"
+                    appendTo="body"
+                    placeholder="Chọn năm"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                ></p-dropdown>
+            </div>
+            <div class="col-12 md:col-3 fl-wr">
+                <p-dropdown
+                    [(ngModel)]="timKiemDanhSach.thang"
+                    [options]="lstThang"
+                    optionValue="value"
+                    optionLabel="text"
+                    [showClear]="true"
+                    [filter]="true"
+                    appendTo="body"
+                    placeholder="Chọn tháng"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                ></p-dropdown>
+            </div>
+            <div class="col-12 md:col-3 fl-wr">
+                <p-dropdown
+                    [(ngModel)]="timKiemDanhSach.loaiDiDen"
+                    [options]="lstLoaiDiDen"
+                    optionValue="value"
+                    optionLabel="text"
+                    [showClear]="false"
+                    [filter]="true"
+                    appendTo="body"
+                    placeholder="Chọn loại đi đến"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                ></p-dropdown>
+            </div>
+        </div>
+
+        <div class="field grid">
+            <div class="col-12 md:col-12 div-center">
                 <button
                     pButton
                     pRipple
@@ -47,30 +82,17 @@
                 <p-table
                     [paginator]="true"
                     #dt1
-                    [value]="lstVanBanDaGui"
+                    [value]="lstVanBan"
                     dataKey="id"
                     [rows]="10"
                     [loading]="loading"
-                    [rowsPerPageOptions]="[10,20,30]"
+                    [rowsPerPageOptions]="[10, 20, 30]"
                     [rowHover]="true"
                     styleClass="p-datatable-gridlines"
                     responsiveLayout="scroll"
                 >
                     <ng-template pTemplate="header">
                         <tr>
-                            <th style="width: 2%">
-                                <div
-                                    class="flex justify-content-between align-items-center"
-                                >
-                                    <input
-                                        type="checkbox"
-                                        name=""
-                                        id=""
-                                        [(ngModel)]="isCheckAll"
-                                        (click)="CheckAll()"
-                                    />
-                                </div>
-                            </th>
                             <th style="min-width: 2rem">
                                 <div
                                     class="flex justify-content-between align-items-center"
@@ -148,28 +170,27 @@
         </div>
     </ng-template>
     <ng-template pTemplate="footer">
-      <button
-      pbutton=""
-      pripple=""
-      type="submit"
-      label="Info"
-      class="p-element p-ripple p-button-info p-button p-component"
-      ng-reflect-label="Info"
-      (click)="ChonVanBan()"
-  >
-      <span class="p-button-label">Chọn văn bản</span
-      ><span class="p-ink"></span></button
-  >&nbsp;
-  <button
-      pbutton=""
-      pripple=""
-      label="Info"
-      class="p-element p-ripple p-button-danger p-button p-component"
-      ng-reflect-label="Info"
-      (click)="ThoatChonVanBan()"
-  >
-      <span class="p-button-label">Thoát</span
-      ><span class="p-ink"></span>
-  </button>
-  </ng-template>
+        <button
+            pbutton=""
+            pripple=""
+            type="submit"
+            label="Info"
+            class="p-element p-ripple p-button-info p-button p-component"
+            ng-reflect-label="Info"
+            (click)="ChonVanBan()"
+        >
+            <span class="p-button-label">Chọn văn bản</span
+            ><span class="p-ink"></span></button
+        >&nbsp;
+        <button
+            pbutton=""
+            pripple=""
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            ng-reflect-label="Info"
+            (click)="Thoat()"
+        >
+            <span class="p-button-label">Thoát</span><span class="p-ink"></span>
+        </button>
+    </ng-template>
 </p-dialog>

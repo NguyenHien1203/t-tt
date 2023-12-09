@@ -1,77 +1,74 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
-import { XuLyCongViecService } from 'src/app/demo/service/cong-viec/xu-ly-cong-viec.service';
-import { TimKiemChonVanBan } from 'src/app/models/cong-viec/xu-ly-cong-viec';
+import { QuanLyHoSoCaNhanService } from 'src/app/demo/service/ho-so-cong-viec/quan-ly-ho-so-ca-nhan.service';
+import { modelOptions } from 'src/app/models/option-model';
 
 @Component({
-    selector: 'app-chon-van-ban',
-    templateUrl: './chon-van-ban.component.html',
-    styleUrls: ['./chon-van-ban.component.scss'],
+    selector: 'app-chon-phieu-trinh',
+    templateUrl: './chon-phieu-trinh.component.html',
+    styleUrls: ['./chon-phieu-trinh.component.scss'],
 })
-export class ChonVanBanComponent {
+export class ChonPhieuTrinhComponent {
     @Input() show: boolean = false;
     @Output() tatPopup = new EventEmitter<boolean>();
-    @Output() chonVanBan: EventEmitter<any> = new EventEmitter();
+    @Output() chonPhieuTrinh: EventEmitter<any> = new EventEmitter();
 
     constructor(
-        private service: XuLyCongViecService,
+        private service: QuanLyHoSoCaNhanService,
         private messageService: MessageService,
         private authService: AuthService
     ) {
         this.LoadDanhSach();
     }
 
-    isCheckAll: boolean = false;
-    lstVanBanDaGui: any[] = [];
-    lstDonViNhan: any[] = [];
-    lstSelectedVanBan: any[] = [];
+    lstPhieuTrinh: any[] = [];
+    lstSelectedPhieuTrinh: any[] = [];
+    lstTrangThai: modelOptions[] = [
+        { text: 'Chờ duyệt', value: 0 },
+        { text: 'Đã duyệt', value: 1 },
+        { text: 'Đã ký', value: 2 },
+        { text: 'Trả lại', value: 3 },
+    ];
     submitted: boolean = false;
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     userName = this.authService.GetmUserInfo()?.userName;
     userId = this.authService.GetmUserInfo()?.userId;
     userCap = this.authService.GetmUserInfo()?.cap;
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
-    timKiemDanhSach: TimKiemChonVanBan = {
-      soKyHieu: '',
-      trichYeu: '',
-      donViId: Number(this.idDonViLamViec),
-      cap : Number(this.userCap)
-  };
-  
+    timKiemDanhSach: any = {
+        keyWord: '',
+        ngayTrinh: '',
+        trangThai: 4,
+        donViId: Number(this.idDonViLamViec),
+    };
+
     public LoadDanhSach() {
         this.service
-            .getDanhSachChonVanBan(this.timKiemDanhSach)
+            .getDanhSachChonPhieuTrinh(this.timKiemDanhSach)
             .then((data) => {
-                this.lstVanBanDaGui = data.map((dt) => {
+                this.lstPhieuTrinh = data.map((dt) => {
                     return { ...dt, checked: false }; //gán checked để khởi tạo giá trị cho checkbox
                 });
             });
     }
 
-    public ThoatChonVanBan(): void {
+    public Thoat(): void {
         this.show = false;
-        this.tatPopup.emit(this.show);  
+        this.tatPopup.emit(this.show);
     }
 
-    public CheckAll(): void {
-        this.isCheckAll = !this.isCheckAll;
-        this.lstVanBanDaGui = this.lstVanBanDaGui.map((vb) => {
-            return { ...vb, checked: this.isCheckAll };
-        });
-    }
-
-    public ChonVanBan(): void {
-        this.lstSelectedVanBan = this.lstVanBanDaGui
+    public ChonPhieuTrinh(): void {
+        this.lstSelectedPhieuTrinh = this.lstPhieuTrinh
             .filter((vb) => vb.checked === true)
             .map((vb) => vb);
-        this.chonVanBan.emit(this.lstSelectedVanBan);
-        this.ThoatChonVanBan();
+        this.chonPhieuTrinh.emit(this.lstSelectedPhieuTrinh);
+        this.Thoat();
     }
 
     public CheckedItem(checked: boolean, idVanBan: string): void {
         checked = !checked; //checked những giá trị được đánh dấu ngoài danh sách
-        this.lstVanBanDaGui = this.lstVanBanDaGui.map((vb) => {
+        this.lstPhieuTrinh = this.lstPhieuTrinh.map((vb) => {
             if (vb.id == idVanBan) return { ...vb, checked: checked };
             else {
                 return { ...vb };

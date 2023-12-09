@@ -59,7 +59,7 @@
                                 <th style="text-align: center;">STT</th>
                                 <th>Nội dung</th>
                                 <th>Ngày diễn ra</th>
-                                <th>Gửi</th>
+                                <th style="text-align: center;">Gửi</th>
                                 <th style="text-align: center;">Chức năng
                             </tr>
                         </ng-template>
@@ -69,7 +69,7 @@
                                         class="p-column-title">STT</span>
                                     {{rowIndex + 1}}
                                 </td>
-                                <td style="width:10%; min-width:15rem;">
+                                <td style="width:20%; min-width:15rem;">
                                     <span class="p-column-title">Nội dung</span>
                                     {{hoatDong.noiDung}}
                                 </td>
@@ -77,20 +77,20 @@
                                     <span class="p-column-title">Ngày diễn ra</span>
                                     {{hoatDong.ngayDienRa | date: 'dd/MM/yyyy'}}
                                 </td>
-                                <td style="width:20%; min-width:8rem;">
+                                <td style="width:5%; min-width:5rem; text-align: center;">
                                     <span class="p-column-title">Gửi</span>
                                     <button pButton pRipple icon="pi pi-play"
                                         class="p-button-rounded p-button-info mr-2 my-size-icon"
-                                        (click)="GuiVanBan(hoatDong.id)"></button>
+                                        (click)="Gui(hoatDong.id)"></button>
                                 </td>
-                                <td style="width:10%; min-width:10rem;">
+                                <td style="width:8%; min-width:8rem;">
                                     <div class="flex justify-content-center">
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
-                                            (click)="CapNhatSoVanBan(hoatDong.id)"></button>
+                                            (click)="CapNhat(hoatDong.id)"></button>
                                         <button pButton pRipple icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"
-                                            (click)="XoaSoVanBan(hoatDong.id)"></button>
+                                            (click)="Xoa(hoatDong.id)"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -107,5 +107,21 @@
 
         <app-them-moi [show]="hienThiThemMoi" (close)="TatPopup($event, 'C')"></app-them-moi>
 
+        <app-cap-nhat [show]="hienThiCapNhat" (close)="TatPopup($event, 'U')" [id]="idCapNhat"></app-cap-nhat> 
+
+        <app-gui [show]="hienThiGui" (close)="TatPopup($event, 'S')" [id]="idGui"></app-gui> 
+
+        <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="hoatDong">Bạn muốn xóa bản ghi này ?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"
+                    (click)="XacNhanXoa()"></button>
+                <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
+                    (click)="TamDungXoa()"></button>
+            </ng-template>
+        </p-dialog>
     </div>
 </div>

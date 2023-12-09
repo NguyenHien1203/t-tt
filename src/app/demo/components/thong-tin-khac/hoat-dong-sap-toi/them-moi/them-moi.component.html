@@ -1,20 +1,16 @@
 <p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới tài liệu hướng dẫn" [modal]="true"
-    class="p-fluid" (onHide)="TatPopup()">
+    class="p-fluid" (onHide)="TatPopup()" [formGroup]="formThemMoi">
     <div class="field">
         <label for="noiDung">Nội dung <span class="p-error">*</span></label>
-        <input type="text" pInputText id="noiDung">
+        <input type="text" formControlName="noiDung" pInputText id="noiDung">
     </div>
     <div class="field">
         <label for="ngayDienRa">Ngày diễn ra</label>
-        <p-calendar id="ngayDienRa" appendTo="body" [showIcon]="true"
-                    dateFormat="dd/mm/yy" inputId="icon" [(ngModel)]="todayDate"></p-calendar>
+        <p-calendar id="ngayDienRa" appendTo="body" [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon"
+            [(ngModel)]="todayDate" formControlName="ngayDienRa"></p-calendar>
     </div>
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-info"></button>
+        <button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-info" (click)="ThemMoi()"></button>
         <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="TatPopup()"></button>
     </ng-template>
 </p-dialog>
-
-<style>
-
-</style>

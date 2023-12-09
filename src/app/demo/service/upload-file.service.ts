@@ -46,6 +46,18 @@ export class UploadFileService {
         }
     }
 
+    uploadMutipleFile_XLCV(file: any): any {
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file, file.name);
+            return this.http.post(
+                environment.baseUrlApi +
+                    '/CongViec/XuLyCongViec/UploadMutipleFile',
+                formData
+            );
+        }
+    }
+
     uploadFiles(file: any, urlUpload: string): any {
         if (file) {
             const formData = new FormData();

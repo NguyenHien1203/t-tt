@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { XuLyCongViecService } from 'src/app/demo/service/cong-viec/xu-ly-cong-viec.service';
+import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { TimKiemChonVanBan } from 'src/app/models/cong-viec/xu-ly-cong-viec';
+import { CapNhatMoiService } from 'src/app/demo/service/van-ban-den/cap-nhat-moi/cap-nhat-moi.service';
 
 @Component({
     selector: 'app-chon-van-ban',
@@ -17,11 +19,12 @@ export class ChonVanBanComponent {
     constructor(
         private service: XuLyCongViecService,
         private messageService: MessageService,
-        private authService: AuthService
-    ) {
-        this.LoadDanhSach();
-    }
+        private authService: AuthService,
+       
 
+    ) { }
+
+  
     isCheckAll: boolean = false;
     lstVanBanDaGui: any[] = [];
     lstDonViNhan: any[] = [];
@@ -47,6 +50,10 @@ export class ChonVanBanComponent {
                     return { ...dt, checked: false }; //gán checked để khởi tạo giá trị cho checkbox
                 });
             });
+    }
+
+    public BindData() {
+        this.LoadDanhSach();
     }
 
     public ThoatChonVanBan(): void {
@@ -78,4 +85,6 @@ export class ChonVanBanComponent {
             }
         });
     }
+
+    
 }

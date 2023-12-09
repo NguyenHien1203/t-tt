@@ -2,6 +2,7 @@
     [(visible)]="show"
     [draggable]="true"
     [resizable]="false"
+    (onShow)="BindData()"
     (onHide)="ThoatChonVanBan()"
     [style]="{ width: '1150px' }"
     [modal]="true"

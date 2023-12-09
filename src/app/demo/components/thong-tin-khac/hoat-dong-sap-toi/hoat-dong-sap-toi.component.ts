@@ -47,6 +47,10 @@ export class HoatDongSapToiComponent implements OnInit {
   hienThiCapNhat: boolean = false;
   hienThiGui: boolean = false;
 
+  idXoa: any;
+  idCapNhat: any;
+  idGui: any;
+
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
@@ -138,20 +142,55 @@ export class HoatDongSapToiComponent implements OnInit {
       };
     }, (error) => {
       console.log('Error', error);
-    // console.log(data);
     })
-  }
+  }                                                                                                                                                                                                                 
 
   ThemMoi() {
     this.hienThiThemMoi = true;
+  }
+
+  CapNhat(id: any) {
+    this.hienThiCapNhat = true;
+    this.idCapNhat = id;
+  }
+
+  Gui(id: any) {
+    this.hienThiGui = true;
+    this.idGui = id;
   }
 
   TatPopup(item: any, type: string) {
     if (type === 'C') {
       this.hienThiThemMoi = false;
     } 
-    // else if (type === 'I') {
-    //   this.hienThiChiTiet = false;
-    // }
+    else if (type === 'U') {
+      this.hienThiCapNhat = false;
+    } else if (type === 'S') {
+      this.hienThiGui = false;
+    }
+  }
+
+  Xoa(id: any) {
+    this.deleteProductDialog = true;
+    this.idXoa = id;
+  }
+
+  TamDungXoa() {
+    this.deleteProductDialog = false;
+    this.idXoa = null;
+  }
+
+  XacNhanXoa() {
+    this.deleteProductDialog = false;
+    this.hoatDongSapToiService.xoa(this.idXoa).subscribe(
+      data => {
+        if (data.isError) {
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
+        } else {
+          this.GetDanhSach();
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
+        }
+      }
+    )
   }
 }

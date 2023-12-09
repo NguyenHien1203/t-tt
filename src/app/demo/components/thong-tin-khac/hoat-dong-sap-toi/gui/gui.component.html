@@ -1,1 +1,57 @@
-<p>gui works!</p>
+<p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Gửi thông báo" [modal]="true" class="p-fluid"
+    (onHide)="TatPopup()" (onShow)="BindData()">
+    <div class="p-fluid p-formgrid grid">
+        <div class="field col-12 md:col-6 mb-0">
+            <p-dropdown appendTo="body" [showClear]="true" (ngModelChange)="onChangePhongBan($event)" [filter]="true"
+                [options]="lstPhongBan" [(ngModel)]="phongBan" optionLabel="text" optionValue="value"
+                placeholder="Chọn phòng ban"></p-dropdown>
+        </div>
+    </div>
+    <div class="p-fluid p-formgrid grid">
+        <div class="field col-12 md:col-6 mb-0">
+            <p-dropdown appendTo="body" [(ngModel)]="nhomNguoiDung" (ngModelChange)="onChangeNhomNguoiDung($event)"
+                [showClear]="false" [filter]="true" [options]="lstNhomNguoiDung" optionLabel="tenNhomNguoiDung"
+                optionValue="id" placeholder="Chọn nhóm người dùng"></p-dropdown>
+        </div>
+    </div>
+    
+    <div class="phanPhoi">
+        <div class="grid formgrid">
+            <div class="col-12 row">
+                <div class="col-12 md:col-6 pl-0">
+                    <div class="lstUser selectUser">
+                        <select size="4" name="lstUser" [(ngModel)]="DsCaNhanDaChon" class="form-control" id="lstUser"
+                            multiple="multiple" style="height: 200px; width: 97%; margin-top: 30px"
+                            data-parsley-multiple="lstUser">
+                            <option *ngFor="let obj of lstUserChange" [value]="obj.value">
+                                {{ obj.text }}
+                            </option>
+                        </select>
+                        <a id="btnAddMulti" href="javascript:;" (click)="AddToSelected()" class=""
+                            style="margin-right: 5px; margin-top: 12px">
+                            <i class="pi pi-arrow-right"></i></a>
+                        <a id="btnRemoveMulti" href="javascript:;" (click)="RemoveFromSelected()" class=""
+                            style="margin-right: 5px; margin-top: 12px">
+                            <i class="pi pi-arrow-left"></i></a>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 pr-0">
+                    <label class="form-control-label" for="">Danh sách cá nhân nhận phân phối</label>
+                    <div class="lstUserChoise selectUser mt-2">
+                        <select size="4" name="lstUserChoise" [(ngModel)]="DsCaNhanNhan" class="form-control"
+                            id="lstUserChoise" multiple="multiple" style="height: 200px">
+                            <option *ngFor="let obj of lstUserNhan" [value]="obj.value">
+                                {{ obj.text }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-info" (click)="ThemMoi()"></button>
+        <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="TatPopup()"></button>
+    </ng-template>
+</p-dialog>

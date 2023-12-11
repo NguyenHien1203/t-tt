@@ -16,9 +16,10 @@ import { PhotoService } from './demo/service/photo.service';
 
 // import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TimKiemTheoSoVanBanComponent } from './demo/service/van-ban-den/tim-kiem-theo-so-van-ban/tim-kiem-theo-so-van-ban.component';
 
 @NgModule({
-    declarations: [AppComponent, NotfoundComponent],
+    declarations: [AppComponent, NotfoundComponent, TimKiemTheoSoVanBanComponent],
     imports: [
         AppRoutingModule,
         AppLayoutModule,

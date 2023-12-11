@@ -25,6 +25,7 @@ export class QuanTriVanBanComponent implements OnInit {
     hienthiTuChoi: boolean = false;
     hienthiSuaVanBan: boolean = false;
     hienthiPhanPhoi: boolean = false;
+    
     idVanBan: string = '';
     // end
 
@@ -94,7 +95,8 @@ export class QuanTriVanBanComponent implements OnInit {
         private messageService: MessageService,
         private authService: AuthService,
         private Service: QuanTriVanBanService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private confirmService: ConfirmationService,
     ) {}
 
     ngAfterContentChecked() {
@@ -128,7 +130,6 @@ export class QuanTriVanBanComponent implements OnInit {
         this.timKiemDanhSach.TimChinhXac = this.timChinhXac ? 1 : 0;
         this.Service.getDanhSachvanBan(timkiems).then((data) => {
             this.danhSachVanBanDen = data;
-            console.log(data);
         });
     }
 
@@ -282,7 +283,7 @@ export class QuanTriVanBanComponent implements OnInit {
     }
     //#endregion
 
-     //#region phân phối văn bản
+    //#region phân phối văn bản
     /**
      * SuaVanBan
      */
@@ -290,5 +291,73 @@ export class QuanTriVanBanComponent implements OnInit {
         this.hienthiPhanPhoi = true;
         this.idVanBan = id;
     }
+    //#endregion
+
+    //#region tải văn bản
+    /**
+     * TaiVanBan
+     */
+    public TaiVanBan(id : string): void {
+        this.Service.TaiVanBan(id).subscribe(data => {
+            if (data.isError) {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: data.title,
+                });
+            } else {
+                // this.TimKiem(this.timKiemDanhSach);
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: data.title,
+                });
+            }
+        })
+      }
+      // 
+    //#endregion
+
+    
+    //#region tải văn bản
+    /**
+     * XoaVanBan
+     */
+    public Xoa(id: string) {
+        this.confirmService.confirm({
+            message: 'Bạn có chắc chắn xác nhận xóa văn bản?',
+            header: 'Xác nhận',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.Service.xoaVanBanDi(id, this.idDonViLamViec).subscribe(
+                    (data) => {
+                        if (data.isError) {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: data.title,
+                            });
+                        } else {
+                            this.TimKiem(this.timKiemDanhSach);
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Success',
+                                detail: data.title,
+                            });
+                        }
+                    },
+                    (error) => {
+                        console.log('Error', error);
+                    }
+                );
+            },
+            reject: () => {},
+        });
+    }
+
+    public CheckedHt() {
+        this.timChinhXac = !this.timChinhXac;
+    }
+      // 
     //#endregion
 }

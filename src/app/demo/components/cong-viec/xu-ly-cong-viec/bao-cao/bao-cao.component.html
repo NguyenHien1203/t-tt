@@ -220,7 +220,9 @@
                                     style="display: none" />
                             </div>
                             <ul>
-                                <li *ngFor="let file of selectedFiles"><a (click)="downloadFile(file)" href="javascript:;">{{file.name}}</a><a href="javascript:;" (click)="XoaFile(file.name)">&nbsp;<i class="pi pi-trash"></i></a></li>
+                                <li *ngFor="let file of selectedFiles"><a (click)="downloadFile(file)"
+                                        href="javascript:;">{{file.name}}</a><a href="javascript:;"
+                                        (click)="XoaFile(file.name)">&nbsp;<i class="pi pi-trash"></i></a></li>
                             </ul>
                         </td>
                         <td class="">
@@ -233,7 +235,7 @@
                                 <span class="p-button-label"><i class="pi pi-check"></i>&nbsp;Chọn văn bản</span><span
                                     class="p-ink"></span>
                             </button>
-                            <p-table [paginator]="false" [value]="lstChonVanBan" dataKey="id" [rowHover]="true"
+                            <p-table [paginator]="false" [value]="lstVanBan" dataKey="id" [rowHover]="true"
                                 class="my-drop" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
                                 <ng-template pTemplate="header">
                     <tr>
@@ -270,7 +272,7 @@
             <td>
                 {{ vanBan.trichYeu }}
             </td>
-            <td>Xóa</td>
+            <td style="text-align: center"><a href="javascript:;" (click)="XoaVanBan(vanBan)"><i class="pi pi-times"></i></a></td>
         </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
@@ -297,7 +299,8 @@
     </div>
     </div>
     </ng-template>
-    <app-chon-van-ban [show]="hienThiChonVanBan" (tatPopup)="ThoatChonVanBan($event, 'C')"></app-chon-van-ban>
+    <app-chon-van-ban [show]="hienThiChonVanBan" (chonVanBan)="chonVanBan($event)"
+        (tatPopup)="ThoatChonVanBan($event, 'C')"></app-chon-van-ban>
     <ng-template pTemplate="footer">
         <div class="div-center">
             <button pbutton="" pripple="" type="submit" label="Info"

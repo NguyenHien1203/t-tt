@@ -157,6 +157,7 @@ export class CapNhatMoiComponent implements OnInit {
   }
 
   public updateVanBan(idVanBan: string) {
+    console.log(idVanBan)
     this.hienThiCapNhat = true;
     this.id = idVanBan;
   }

@@ -57,4 +57,19 @@ export class QuanTriVanBanService {
     const url = `${this.baseApiUrl}/DanhMuc/CoQuanBanHanh/DeleteCoQuanBH?id=` + id;
     return this.http.post<any>(url, this.httpOption)
   }
+
+  public TaiVanBan(id: string): Observable<any> {
+    const url = `${this.baseApiUrl}/VanBanDen/QuanTriVanBan/TaiFileZip?idFile=` + id;
+    return this.http.get<any>(url, this.httpOption)
+  }
+
+  xoaVanBanDi(idVanBan: string, idDonViLamViec: string) {
+    return this.http.get<any>(
+        environment.baseUrlApi +
+            '/VanBanDen/QuanTriVanBan/XoaVanBanDen?idVanBan=' +
+            idVanBan +
+            '&idDonViLamViec=' +
+            idDonViLamViec
+    );
+}
 }

@@ -15,13 +15,10 @@ export class ChonVanBanComponent {
     @Input() show: boolean = false;
     @Output() tatPopup = new EventEmitter<boolean>();
     @Output() chonVanBan: EventEmitter<any> = new EventEmitter();
-
     constructor(
         private service: XuLyCongViecService,
         private messageService: MessageService,
         private authService: AuthService,
-       
-
     ) { }
 
   

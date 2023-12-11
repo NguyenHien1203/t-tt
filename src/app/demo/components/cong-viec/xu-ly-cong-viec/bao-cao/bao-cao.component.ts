@@ -54,6 +54,7 @@ export class BaoCaoComponent {
         fileDinhKem: '',
     };
 
+    lstVanBan: any[] = [];
     file: File | null = null; // Variable to store file
     selectedFiles: any[] = [];
     file_fomat: any = [];
@@ -85,7 +86,7 @@ export class BaoCaoComponent {
                 this.cap,
                 this.loai
             );
-            
+
             this.baoCaoTienDos = data;
             this.baoCaoTienDos.thoiHanHoanThanh = new Date(this.baoCaoTienDos.thoiHanHoanThanh);
 
@@ -193,7 +194,7 @@ export class BaoCaoComponent {
     }
 
     public CapNhatTienDo() {
-        console.log("qưdqwd")
+
         this.submitted = true;
         this.baoCaoTienDos.fileDinhKem = JSON.stringify(this.file_fomat);
 
@@ -212,5 +213,30 @@ export class BaoCaoComponent {
         const month = ('0' + (date.getMonth() + 1)).slice(-2);
         const year = date.getFullYear().toString();
         return day + '/' + month + '/' + year;
+    }
+
+    public chonVanBan(itemHt: any[]) {
+        for (let item of itemHt) {
+            let vanban = {
+                id: item.id,
+                soKiHieu: item.soKiHieu,
+                trichYeu: item.trichYeu
+            }
+            if (this.lstVanBan.length > 0) {
+                let doesObjectExist = this.lstVanBan.some(obj => obj.id === vanban.id);
+                if (doesObjectExist === false)
+                    this.lstVanBan.push(vanban);
+
+            } else
+                this.lstVanBan.push(vanban);
+        }
+    }
+
+    public XoaVanBan(vanban: any) {
+        this.lstVanBan.forEach((obj, index) => {
+            if (obj.id === vanban.id) {
+                this.lstVanBan.splice(index, 1);
+            }
+        });
     }
 }

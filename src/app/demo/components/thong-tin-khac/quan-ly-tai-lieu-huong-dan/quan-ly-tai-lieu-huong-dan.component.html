@@ -74,10 +74,10 @@
                                     <div class="flex justify-content-center">
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
-                                            (click)="CapNhatSoVanBan(quanLyTaiLieu.id)"></button>
+                                            (click)="CapNhat(quanLyTaiLieu.id)"></button>
                                         <button pButton pRipple icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"
-                                            (click)="XoaSoVanBan(quanLyTaiLieu.id)"></button>
+                                            (click)="Xoa(quanLyTaiLieu.id)"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -94,14 +94,14 @@
 
         <app-them-moi [show]="hienThiThemMoi" (close)="TatPopup($event, 'C')"></app-them-moi>
 
-        <!--<app-cap-nhat [show]="hienThiCapNhat" (close)="TatPopup($event, 'U')" [id]="idSoVanBan"></app-cap-nhat>  -->
+        <app-cap-nhat [show]="hienThiCapNhat" (close)="TatPopup($event, 'U')" [id]="idCapNhat"></app-cap-nhat> 
 
         <app-chi-tiet [show]="hienThiChiTiet" (close)="TatPopup($event, 'I')" [id]="idChiTiet"></app-chi-tiet>
 
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="">Bạn muốn xóa bản ghi này ?</span>
+                <span *ngIf="quanLyTaiLieu">Bạn muốn xóa bản ghi này ?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"

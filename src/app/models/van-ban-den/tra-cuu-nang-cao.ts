@@ -1,11 +1,11 @@
-export interface TraCuuDonGian {
+export interface TraCuuNangCao {
 }
 
 
 export interface TimKiemDanhSach {
     keyWord?: string,
     nam?: number,
-    LoaiVanBan?: number,
+    idloaivb?: number,
     thang?: number,
     donViId?: number
     phongBanId?: number

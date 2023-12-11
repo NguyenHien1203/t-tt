@@ -1,1 +1,39 @@
-<p>cap-nhat works!</p>
+<p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới tài liệu hướng dẫn" [modal]="true"
+    class="p-fluid" (onHide)="TatPopup()" [formGroup]="formCapNhat" (onShow)="GetTaiLieu()">
+    <div class="field">
+        <label for="tieuDe">Tiêu đề <span class="p-error">*</span></label>
+        <input type="text" pInputText id="tieuDe" formControlName="tieuDe" />
+        <span class="p-error" *ngIf="!formCapNhat.controls.tieuDe.valid &&
+                        (formCapNhat.controls.tieuDe.touched || submitted)
+                    ">Vui lòng nhập tiêu đề</span>
+    </div>
+    <div class="formgrid grid">
+        <div class="field col-12 md:col-8">
+            <label htmlfor="file" class="display-block">File đính kèm<span class="p-error"> (*)</span>:</label>
+            &nbsp;<label for="fileUpload" class="custom-file-upload" *ngIf="!file">
+                <i class="pi pi-upload"></i> Chọn tệp
+            </label>
+            <input type="file" id="fileUpload" class="file-input" (change)="onChange($event)" #fileUpload
+                style="display: none" />
+            <div *ngIf="file">
+                <section class="file-info">
+                    <ul>
+                        <li>
+                            Tên file:
+                            <a (click)="DownloadFile()" href="javascript:;">{{ file.name }}</a><a href="javascript:;"
+                                (click)="XoaFile()">&nbsp;<i class="pi pi-trash"></i></a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label for="noiDung">Nội dung</label>
+        <textarea id="noiDung" pInputTextarea rows="3" cols="20" formControlName="noiDung"></textarea>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" (click)="CapNhat()" icon="pi pi-check" class="p-button-info"></button>
+        <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="TatPopup()"></button>
+    </ng-template>
+</p-dialog>

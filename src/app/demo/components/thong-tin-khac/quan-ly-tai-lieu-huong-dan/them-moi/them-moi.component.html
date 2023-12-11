@@ -1,23 +1,36 @@
 <p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới tài liệu hướng dẫn" [modal]="true"
-    class="p-fluid" (onHide)="TatPopup()">
+    class="p-fluid" (onHide)="TatPopup()" [formGroup]="formThemMoi">
     <div class="field">
-        <label for="tenSo">Tiêu đề <span class="p-error">*</span></label>
-        <input type="text" pInputText id="tenSo">
+        <label for="tieuDe">Tiêu đề <span class="p-error">*</span></label>
+        <input type="text" pInputText id="tieuDe" formControlName="tieuDe" />
+        <span class="p-error" *ngIf="!formThemMoi.controls.tieuDe.valid &&
+                        (formThemMoi.controls.tieuDe.touched || submitted)
+                    ">Vui lòng nhập tiêu đề</span>
     </div>
     <div class="formgrid grid">
         <div class="field col-12 md:col-8">
-            <label for="fileUpload" class="custom-file-upload">
+            <label htmlfor="file" class="display-block">File đính kèm<span class="p-error"> (*)</span>:</label>
+            &nbsp;<label for="fileUpload" class="custom-file-upload" *ngIf="!file">
                 <i class="pi pi-upload"></i> Chọn tệp
             </label>
-            <input type="file" id="fileUpload" multiple="multiple" style="display: none" />
-        </div>
-        <div class="field col-12 md:col-4">
-
+            <input type="file" id="fileUpload" class="file-input" (change)="onChange($event)" #fileUpload
+                style="display: none" />
+            <div *ngIf="file">
+                <section class="file-info">
+                    <ul>
+                        <li>
+                            Tên file:
+                            <a (click)="downloadFile()" href="javascript:;">{{ file.name }}</a><a href="javascript:;"
+                                (click)="XoaFile()">&nbsp;<i class="pi pi-trash"></i></a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
         </div>
     </div>
     <div class="field">
-        <label for="ghiChu">Nội dung</label>
-        <textarea id="noiDung" pInputTextarea rows="3" cols="20"></textarea>
+        <label for="noiDung">Nội dung</label>
+        <textarea id="noiDung" pInputTextarea rows="3" cols="20" formControlName="noiDung"></textarea>
     </div>
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Lưu" (click)="ThemMoi()" icon="pi pi-check" class="p-button-info"></button>

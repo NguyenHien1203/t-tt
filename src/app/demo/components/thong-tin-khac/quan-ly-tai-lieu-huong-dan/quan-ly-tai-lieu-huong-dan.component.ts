@@ -34,7 +34,8 @@ export class QuanLyTaiLieuHuongDanComponent implements OnInit {
   }
 
   idChiTiet: string;
-
+  idCapNhat: string;
+  idTaiLieu: any;
   timchinhXac: boolean = false;
 
   constructor(private messageService: MessageService, private quanLyTaiLieuService: QuanLyTaiLieuHuongDanService, private authService: AuthService,) { }
@@ -43,7 +44,7 @@ export class QuanLyTaiLieuHuongDanComponent implements OnInit {
     this.breadcrumbItems = [];
     this.breadcrumbItems.push({ label: 'Danh mục' });
     this.breadcrumbItems.push({ label: 'Quản lý tài liệu hướng dẫn' });
-    
+
     this.GetDonVi();
     this.TimKiem();
   }
@@ -55,7 +56,7 @@ export class QuanLyTaiLieuHuongDanComponent implements OnInit {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
         } else {
-          this.lstDonVi = data;          
+          this.lstDonVi = data;
         };
       }, (error) => {
         console.log('Error', error);
@@ -65,18 +66,18 @@ export class QuanLyTaiLieuHuongDanComponent implements OnInit {
   TimKiem() {
     this.timKiem.timChinhXac = this.timchinhXac ? 1 : 0;
     console.log(this.timKiem);
-    
+
     this.quanLyTaiLieuService.getDanhSach(this.timKiem)
-    .subscribe(data => {
-      if (data.isError) {
-        this.msgs = [];
-        this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
-      } else {
-        this.danhSachQuanLyTaiLieu = data;
-      };
-    }, (error) => {
-      console.log('Error', error);
-    })
+      .subscribe(data => {
+        if (data.isError) {
+          this.msgs = [];
+          this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
+        } else {
+          this.danhSachQuanLyTaiLieu = data;
+        };
+      }, (error) => {
+        console.log('Error', error);
+      })
   }
 
   ThemMoi() {
@@ -88,12 +89,44 @@ export class QuanLyTaiLieuHuongDanComponent implements OnInit {
     this.idChiTiet = id;
   }
 
+  CapNhat(id: any) {
+    this.hienThiCapNhat = true;
+    this.idCapNhat = id;
+  }
+
   TatPopup(item: any, type: string) {
     if (type === 'C') {
       this.hienThiThemMoi = false;
     } else if (type === 'I') {
       this.hienThiChiTiet = false;
+    } else if (type === 'U') {
+      this.hienThiCapNhat = false;
     }
     this.TimKiem();
+  }
+
+  Xoa(id: any) {
+    this.deleteProductDialog = true;
+    this.idTaiLieu = id;
+    console.log(this.idTaiLieu);
+  }
+
+  TamDungXoa() {
+    this.deleteProductDialog = false;
+    this.idTaiLieu = null;
+  }
+
+  XacNhanXoa() {
+    this.deleteProductDialog = false;
+    this.quanLyTaiLieuService.xoa(this.idTaiLieu).subscribe(
+      data => {
+        if (data.isError) {
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
+        } else {
+          this.TimKiem();
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
+        }
+      }
+    )
   }
 }

@@ -12,6 +12,8 @@ import { RouterModule } from '@angular/router';
     { path: 'sua-but-phe-van-ban', data: { breadcrumb: 'Button' }, loadChildren: () => import('./sua-but-phe-van-ban/sua-but-phe-van-ban.module').then(m => m.SuaButPheVanBanModule) },
     { path: 'sua-cong-viec', data: { breadcrumb: 'Button' }, loadChildren: () => import('./sua-but-phe-van-ban/sua-cong-viec/sua-cong-viec.module').then(m => m.SuaCongViecModule) },
     { path: 'quan-tri-van-ban', data: { breadcrumb: 'Button' }, loadChildren: () => import('./quan-tri-van-ban/quan-tri-van-ban.module').then(m => m.QuanTriVanBanModule) },
+    { path: 'tra-cuu-don-gian', data: { breadcrumb: 'Button' }, loadChildren: () => import('./tra-cuu-don-gian/tra-cuu-don-gian.module').then(m => m.TraCuuDonGianModule) },
+  
   ])],
   exports: [RouterModule]
 })

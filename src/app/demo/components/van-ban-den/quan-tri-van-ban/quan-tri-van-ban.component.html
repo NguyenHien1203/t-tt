@@ -337,9 +337,7 @@
                                             pTooltip="Tải văn bản"
                                             icon="pi pi-arrow-circle-down"
                                             class="p-button-rounded p-button-warning mr-2 my-size-icon"
-                                            (click)="
-                                                TaiVanBan(vanBanDen.id)
-                                            "
+                                            (click)="TaiVanBan(vanBanDen.id)"
                                         ></button>
                                     </div>
                                 </td>
@@ -420,19 +418,26 @@
 
         <!-- <app-chi-tiet-van-ban [show]="hienThiChiTiet" (close)="tatPopup($event, 'C')" [idVb] = "idvanBanDen"></app-chi-tiet-van-ban> -->
 
-        <!--<app-cap-nhat [show]="hienThiCapNhat" (close)="tatPopup($event, 'U')" [id]="idLoaiVanBan"></app-cap-nhat>
+        <!--<app-cap-nhat [show]="hienThiCapNhat" (close)="tatPopup($event, 'U')" [id]="idLoaiVanBan"></app-cap-nhat>-->
 
-        <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="loaiVanBan">Bạn muốn xóa bản ghi này ?</span>
-            </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"
-                    (click)="XacNhanXoa()"></button>
-                <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
-                    (click)="TamDungXoa()"></button>
+        <p-confirmDialog #cd [style]="{width: '30vw'}">
+            <ng-template pTemplate="header">
+                <h3>Xác nhận</h3>
             </ng-template>
-        </p-dialog> -->
+            <ng-template pTemplate="footer">
+                <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark"
+                    class="p-element p-ripple p-button p-component p-button-info">
+                    <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+                    <span class="p-button-label">Đồng ý</span>
+                    <span class="p-ink"></span>
+                </button>
+                <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark"
+                    class="p-element p-ripple p-button p-component p-button-danger">
+                    <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+                    <span class="p-button-label">Hủy</span>
+                    <span class="p-ink"></span>
+                </button>
+            </ng-template>
+        </p-confirmDialog>
     </div>
 </div>

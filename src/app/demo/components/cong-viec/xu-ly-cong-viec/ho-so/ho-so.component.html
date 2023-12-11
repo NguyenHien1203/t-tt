@@ -1,0 +1,169 @@
+<p-dialog
+    [(visible)]="show"
+    [draggable]="true"
+    [resizable]="false"
+    (onHide)="Thoat()"
+    (onShow)="BindDialogData()"
+    [style]="{ width: '950px' }"
+    [modal]="true"
+    header="Gán hồ sơ"
+>
+    <ng-template pTemplate="content">
+        <div class="field grid">
+            <div class="col-12 md:col-3 fl-wr">
+                Chọn hồ sơ công việc <span class="p-error">(*)</span>
+            </div>
+            <div class="col-12 md:col-9 fl-wr">
+                <p-dropdown
+                    [(ngModel)]="hoSoId"
+                    [options]="hoSoCongViecOptions"
+                    optionValue="value"
+                    optionLabel="text"
+                    [showClear]="true"
+                    [filter]="false"
+                    appendTo="body"
+                    (ngModelChange)="ChangeHoSoCongViec($event)"
+                    placeholder="Chọn hồ sơ công việc"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                ></p-dropdown>
+            </div>
+        </div>
+        <div class="field grid">
+            <div class="col-12 md:col-12 fl-wr">
+                <p-table
+                    [paginator]="true"
+                    #dt1
+                    [value]="lstHoSoCongViec"
+                    dataKey="id"
+                    [rows]="10"
+                    [loading]="loading"
+                    [rowsPerPageOptions]="[10, 20, 30]"
+                    [rowHover]="true"
+                    styleClass="p-datatable-gridlines"
+                    [paginator]="true"
+                    responsiveLayout="scroll"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 2%">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    STT
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Luồng xử lý
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Mã hồ sơ
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Tiêu đề
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Người lập
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Loại hồ sơ
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Chức năng
+                                </div>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template
+                        pTemplate="body"
+                        let-item
+                        let-rowIndex="rowIndex"
+                    >
+                        <tr>
+                            <td style="text-align: center">
+                                {{ rowIndex + 1 }}
+                            </td>
+                            <td>
+                                {{ item.maHoSo }}
+                            </td>
+                            <td>
+                                {{ item.tieuDe }}
+                            </td>
+                            <td>
+                                {{ item.nguoiLap }}
+                            </td>
+                            <td>
+                                {{ item.loaiHoSo }}
+                            </td>
+                            <td>
+                                {{ item.chucNang }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="15">No record found.</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="loadingbody">
+                        <tr>
+                            <td colspan="15">
+                                Loading record data. Please wait.
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="div-center">
+            <button
+                pbutton=""
+                pripple=""
+                type="submit"
+                label="Info"
+                class="p-element p-ripple p-button-info p-button p-component"
+                ng-reflect-label="Info"
+                (click)="ChonHoSo()"
+            >
+                <span class="p-button-label">Lưu</span
+                ><span class="p-ink"></span></button
+            >&nbsp;
+            <button
+                pbutton=""
+                pripple=""
+                label="Info"
+                class="p-element p-ripple p-button-danger p-button p-component"
+                ng-reflect-label="Info"
+                (click)="Thoat()"
+            >
+                <span class="p-button-label">Thoát</span
+                ><span class="p-ink"></span>
+            </button>
+        </div>
+    </ng-template>
+</p-dialog>

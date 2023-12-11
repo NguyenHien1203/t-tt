@@ -36,4 +36,15 @@ export class VanBanNhanService {
             .toPromise()
             .then((res) => res.objData);
     }
+    
+    getDanhSachNguoiDung() {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/ThongKe/ThongKeVanBanNhan/GetDanhSachNguoiDung',
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
 }

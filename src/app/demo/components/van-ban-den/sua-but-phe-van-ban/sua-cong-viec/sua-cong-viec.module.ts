@@ -24,10 +24,13 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { SuaCongViecComponent } from './sua-cong-viec.component';
 import { TabViewModule } from 'primeng/tabview';
-
+import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { ThemMoiComponent } from './them-moi/them-moi.component';
+import { ThemLichComponent } from './them-lich/them-lich.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
-  declarations: [SuaCongViecComponent],
+  declarations: [SuaCongViecComponent, CapNhatComponent, ThemMoiComponent, ThemLichComponent],
   imports: [
     CommonModule,
     TableModule,
@@ -52,7 +55,8 @@ import { TabViewModule } from 'primeng/tabview';
     ConfirmDialogModule,
     CheckboxModule,
     CalendarModule,
-    TabViewModule
+    TabViewModule,
+    OverlayPanelModule
   ]
 })
 export class SuaCongViecModule { }

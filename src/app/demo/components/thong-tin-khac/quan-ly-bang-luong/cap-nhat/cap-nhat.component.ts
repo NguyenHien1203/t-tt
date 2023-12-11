@@ -74,6 +74,7 @@ export class CapNhatComponent {
         const file: File = event.target.files[0];
         this.dataFile = file; //lấy dữ liệu file hiện tại chuẩn bị cho việc tải xuống
         if (file) {
+            event.target.value = '';
             let urlUpload = '/ThongTinKhac/QuanLyBangLuong/UploadFile';
             this.fileService.uploadFile(file, urlUpload).subscribe({
                 next: (data) => {
@@ -91,9 +92,9 @@ export class CapNhatComponent {
                             detail: data.title,
                         });
                         this.formCapNhat.patchValue({
-                          fileName: data.objData.fileName,
-                          filePath: data.objData.filePath,
-                      });
+                            fileName: data.objData.fileName,
+                            filePath: data.objData.filePath,
+                        });
                     }
                 },
                 error: (error: any) => {

@@ -1,0 +1,99 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="wrapper">
+                <h2>LUỒNG XỬ LÝ</h2>
+                <div class="icon-cls">
+                    <button pButton pRipple label="Quay lại" icon="pi pi-refresh" class="p-button-info mr-2"
+                        (click)="QuayLai()"></button>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="col-12 ">
+                    <div id="content__luongDuLieu">
+                        <div class="ldl__giamDoc box__single">
+                            {{objLuongDuLieu.tenNguoiGiaoViec}}<br> {{objLuongDuLieu.phongBanNguoiGiaoViec}}
+                        </div>
+                        <div *ngIf="objLuongDuLieu.soKyHieuVanBan!== null" class="ldl__vanBan box__single">
+                            <a (click)="ViewDetailVanBan(objLuongDuLieu.vanBanID,objLuongDuLieu.congViecID)"
+                                href="javascript:;">
+                                {{objLuongDuLieu.soKyHieuVanBan}}
+                            </a>
+                        </div>
+
+                        <div  *ngIf="objLuongDuLieu.soKyHieuVanBan!== null" class="ldl__congViec">
+                            <h3>Công việc</h3>
+                            <div class="ldl__congViec--main">
+                                <a (click)="ViewDetailCongViec(objLuongDuLieu.congviecID,objLuongDuLieu.capId,objLuongDuLieu.loai)"
+                                    href="javascript:;">
+                                    {{objLuongDuLieu.noiDungCongViec}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ldl_userXuly">
+                            <div class="ldl_userXuly--group">
+                                <div class="user__group">
+                                    Chủ trì
+                                </div>
+
+                                <div *ngFor="let itemCT of objLuongDuLieu.userChuTri" class="user__group--item">
+                                    <a onclick="ViewChiTietXuLy(itemCT.UserID + '%' + itemCT.IDPhongBanLamViec, objLuongDuLieu.congViecID,objLuongDuLieu.capId)"
+                                        href="javascript:;">
+                                        {{ itemCT.fullName}}<br>
+                                        {{itemCT.tenPhongBanLamViec}}
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="ldl_userXuly--group">
+                                <div class="user__group">
+                                    Chỉ đạo
+                                </div>
+
+                                <div *ngFor="let itemCD of objLuongDuLieu.userChiDao" class="user__group--item">
+                                    <a onclick="ViewChiTietXuLy(itemCD.UserID + '%' + itemCD.IDPhongBanLamViec, objLuongDuLieu.congViecID,objLuongDuLieu.capId)"
+                                        href="javascript:;">
+                                        {{ itemCD.fullName}}<br>
+                                        {{itemCD.tenPhongBanLamViec}}
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="ldl_userXuly--group">
+                                <div class="user__group">
+                                    Phối hợp
+                                </div>
+
+                                <div *ngFor="let itemPH of objLuongDuLieu.userPhoiHop" class="user__group--item">
+                                    <a onclick="ViewChiTietXuLy(itemPH.UserID + '%' + itemPH.IDPhongBanLamViec, objLuongDuLieu.congViecID,objLuongDuLieu.capId)"
+                                        href="javascript:;">
+                                        {{itemPH.fullName}}<br>
+                                        {{itemPH.tenPhongBanLamViec}}
+                                    </a>
+                                </div>
+
+                                <div *ngFor="let itemTB of objLuongDuLieu.userThongBao" class="user__group--item">
+                                    <a onclick="ViewChiTietXuLy(itemTB.UserID + '%' + itemTB.IDPhongBanLamViec, objLuongDuLieu.congViecID,objLuongDuLieu.capId)"
+                                        href="javascript:;">
+                                        {{itemTB.fullName}}<br>
+                                        {{itemTB.tenPhongBanLamViec}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

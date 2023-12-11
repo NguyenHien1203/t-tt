@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { an } from '@fullcalendar/core/internal-common';
+import { format } from 'date-fns';
 import { MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { LichCaNhanService } from 'src/app/demo/service/lich/lich-ca-nhan.service';
@@ -73,8 +74,14 @@ export class ThemMoiComponent {
                 noiDung: itemData.noiDung,
                 ghiChu: itemData.ghiChu,
                 diaChi: itemData.diaDiem,
-                thoiGianBatDauHop: new Date(itemData.ngayHopBatDau).toLocaleDateString(),
-                thoiGianKetThucHop: new Date(itemData.ngayHopKetThuc).toLocaleDateString(),
+                thoiGianBatDauHop: format(
+                    new Date(itemData.ngayHopBatDau),
+                    'dd/MM/yyyy'
+                ),
+                thoiGianKetThucHop: format(
+                    new Date(itemData.ngayHopKetThuc),
+                    'dd/MM/yyyy'
+                ),
                 UserId: Number(this.idUser),
                 gioBatDau: itemData.gioBatDau,
                 phutBatDau: itemData.phutBatDau,

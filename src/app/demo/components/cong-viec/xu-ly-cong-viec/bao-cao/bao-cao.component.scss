@@ -1,0 +1,20 @@
+.chiTiet {
+    .custom-table {
+        .custom-rb {
+            border-right-width: 0px !important;
+            border-bottom-width: 0px !important;
+        }
+
+        .custom-b {
+            border-bottom-width: 0px !important;
+        }
+
+        .custom-r {
+            border-right-width: 0px !important;
+        }
+    }
+
+    .info{
+        color: var(--primary-color);
+    }
+}

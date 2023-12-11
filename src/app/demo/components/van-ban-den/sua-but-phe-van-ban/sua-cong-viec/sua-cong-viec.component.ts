@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataController } from '@ckeditor/ckeditor5-engine';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { ButPheVanBanService } from 'src/app/demo/service/van-ban-den/but-phe-van-ban/but-phe-van-ban.service';
 import { SuaButPheVanBanService } from 'src/app/demo/service/van-ban-den/sua-but-phe-van-ban/sua-but-phe-van-ban.service';
@@ -11,10 +11,16 @@ import { SuaButPheVanBanService } from 'src/app/demo/service/van-ban-den/sua-but
   selector: 'app-sua-cong-viec',
   templateUrl: './sua-cong-viec.component.html',
   styleUrls: ['./sua-cong-viec.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class SuaCongViecComponent implements OnInit {
+  hienThiCapNhat: boolean = false;
+  hienThiThemMoi: boolean = false;
+  hienThiThemLich: boolean = false;
+
+  item: any = [];
   idVanBan: string = '1';
+  stt: string = '1';
   items: any[] = [];
   home: any;
   loading: boolean = true;
@@ -28,7 +34,9 @@ export class SuaCongViecComponent implements OnInit {
     private route: ActivatedRoute,
     private messageService: MessageService,
     private formBuilder: FormBuilder,
-    private auth: AuthService,
+    private confirmationService: ConfirmationService,
+    private cd: ChangeDetectorRef,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -44,6 +52,11 @@ export class SuaCongViecComponent implements OnInit {
 
     this.GetDataVanBan(this.idVanBan);
     this.LoadDataDefault(this.idVanBan);
+  }
+
+
+  ngAfterContentChecked(): void {
+    this.cd.detectChanges();
   }
 
   /**
@@ -70,15 +83,16 @@ export class SuaCongViecComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
       } else {
         this.ThongTinCongViec = data.objData;
-        console.log(this.ThongTinCongViec);
+        console.log(this.ThongTinCongViec)
       }
     }, (error) => {
 
     })
   }
 
-  public ThemCongViec() {
-
+  public CreateCongViec(stt: string) {
+    this.hienThiThemMoi = true;
+    this.stt = stt;
   }
 
   /**
@@ -91,8 +105,65 @@ export class SuaCongViecComponent implements OnInit {
   /**
    * name
    */
-  public GetDataChild(parentItem: any) : any[] {
+  public GetDataChild(parentItem: any): any[] {
     return this.ThongTinCongViec.filter(s => s.idParent !== "" && s.idParent === parentItem.idChild);
+  }
+
+
+  public UpdateParent(congviec: any) {
+    this.hienThiCapNhat = true;
+    this.item = congviec;
+  }
+
+  /**
+   * DeleteParent
+   */
+  public DeleteParent(idChiTieu: string) {
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn muốn xóa chỉ tiêu công việc?',
+      header: 'Xác nhận',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.service.XoaCongViec(idChiTieu).subscribe(data => {
+          if (data.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+          } else {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+            this.GetDataVanBan(this.idVanBan);
+            this.LoadDataDefault(this.idVanBan);
+          }
+        }, (error) => {
+          console.log('Error', error);
+        })
+      },
+      reject: () => {
+
+      }
+    });
+  }
+
+  public Thoat(itemHt: any, loai: string): void {
+    if (loai === 'T')
+      this.hienThiCapNhat = false;
+
+    if (loai === 'C')
+      this.hienThiThemMoi = false;
+
+    if (loai === 'TL')
+      this.hienThiThemLich = false;
+
+    this.GetDataVanBan(this.idVanBan);
+    this.LoadDataDefault(this.idVanBan);
+  }
+  /**
+   * QuayLai
+   */
+  public QuayLai() {
+    this.router.navigate(['/van-ban-den/sua-but-phe-van-ban']);
+  }
+
+  public ThemLich() {
+    this.hienThiThemLich = true;
   }
 }
 

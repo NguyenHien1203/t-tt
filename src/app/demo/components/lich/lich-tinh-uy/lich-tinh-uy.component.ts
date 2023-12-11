@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { addWeeks, startOfWeek, subWeeks } from 'date-fns';
+import { addWeeks, format, startOfWeek, subWeeks } from 'date-fns';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { LichTinhUyService } from 'src/app/demo/service/lich/lich-tinh-uy.service';
@@ -157,8 +157,9 @@ updateWeek(date: Date, action: 'next' | 'prev' = 'next'): void {
 }
 
 public LoadDanhSach(): void {
-    this.timKiemDanhSach.tuNgay = this.startOfWeekDate.toLocaleDateString();
-    this.timKiemDanhSach.denNgay = this.endOfWeekDate.toLocaleDateString();
+    this.timKiemDanhSach.tuNgay =  format(this.startOfWeekDate, 'dd/MM/yyyy');
+    this.timKiemDanhSach.denNgay =  format(this.endOfWeekDate, 'dd/MM/yyyy');
+    
     this.service
         .getDanhSachLichTinhUy(this.timKiemDanhSach)
         .then((data) => {

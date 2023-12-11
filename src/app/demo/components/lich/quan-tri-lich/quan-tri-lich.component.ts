@@ -160,8 +160,8 @@ export class QuanTriLichComponent {
     }
 
     public LoadDanhSach(): void {
-        this.timKiemDanhSach.tuNgay = this.startOfWeekDate.toLocaleDateString();
-        this.timKiemDanhSach.denNgay = this.endOfWeekDate.toLocaleDateString();
+        this.timKiemDanhSach.tuNgay =  format(this.startOfWeekDate, 'dd/MM/yyyy');
+        this.timKiemDanhSach.denNgay =  format(this.endOfWeekDate, 'dd/MM/yyyy');
         this.service
             .getDanhSachQuanTriLich(this.timKiemDanhSach)
             .then((data) => {

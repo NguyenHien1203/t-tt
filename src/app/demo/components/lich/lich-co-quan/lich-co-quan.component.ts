@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { addWeeks, startOfWeek, subWeeks } from 'date-fns';
+import { addWeeks, format, startOfWeek, subWeeks } from 'date-fns';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { LichCoQuanService } from 'src/app/demo/service/lich/lich-co-quan.service';
@@ -40,7 +40,7 @@ export class LichCoQuanComponent {
     hienThiImport: boolean = false;
     loading: boolean = false;
     lstLichCoQuan: any[] = [];
-    items = [{ label: 'Lịch' }, { label: 'Quản trị lịch' }];
+    items = [{ label: 'Lịch' }, { label: 'Lịch cơ quan' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
     timKiemDanhSach: TimKiemLichCoQuan = {
         tuNgay: '1901-01-01',
@@ -158,8 +158,8 @@ export class LichCoQuanComponent {
     }
 
     public LoadDanhSach(): void {
-        this.timKiemDanhSach.tuNgay = this.startOfWeekDate.toLocaleDateString();
-        this.timKiemDanhSach.denNgay = this.endOfWeekDate.toLocaleDateString();
+        this.timKiemDanhSach.tuNgay = format(this.startOfWeekDate, 'dd/MM/yyyy');
+        this.timKiemDanhSach.denNgay = format(this.endOfWeekDate, 'dd/MM/yyyy');
         this.service
             .getDanhSachLichCoQuan(this.timKiemDanhSach)
             .then((data) => {
@@ -282,3 +282,5 @@ export class LichCoQuanComponent {
         });
     }
 }
+
+

@@ -23,7 +23,6 @@ export class LogoutComponent {
     this.cookieService.delete('mUserInfo');
     this.cookieService.delete('idDonViLamViec');
     this.router.navigate(['/login']);
-
     // localStorage.setItem('isLoggedIn', 'false');
     // localStorage.removeItem('token');
     // this.router.navigate(['/login']);

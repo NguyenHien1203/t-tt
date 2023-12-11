@@ -20,11 +20,13 @@ import { LoginComponent } from './demo/components/auth/login/login.component';
                     { path: 'danh-muc', loadChildren: () => import('./demo/components/danh-muc/danh-muc.module').then(m => m.DanhMucModule) },
                     { path: 'he-thong', loadChildren: () => import('./demo/components/he-thong/he-thong.module').then(m => m.HeThongModule) },
                     { path: 'van-ban-den', loadChildren: () => import('./demo/components/van-ban-den/van-ban-den.module').then(m => m.VanBanDenModule) },
+                    { path: 'cong-viec', loadChildren: () => import('./demo/components/cong-viec/cong-viec.module').then(m => m.CongViecModule) },
                     { path: 'thong-tin-khac', loadChildren: () => import('./demo/components/thong-tin-khac/thong-tin-khac.module').then(m => m.ThongTinKhacModule) },
                     { path: 'van-ban-di', loadChildren: () => import('./demo/components/van-ban-di/van-ban-di.module').then(m => m.VanBanDiModule) },
                     { path: 'trao-doi-thong-tin', loadChildren: () => import('./demo/components/trao-doi-thong-tin/trao-doi-thong-tin.module').then(m => m.TraoDoiThongTinModule) },
                     { path: 'lich', loadChildren: () => import('./demo/components/lich/lich.module').then(m => m.LichModule) },
                     { path: 'thong-ke', loadChildren: () => import('./demo/components/thong-ke/thong-ke.module').then(m => m.ThongKeModule) },
+                    { path: 'ho-so-cong-viec', loadChildren: () => import('./demo/components/ho-so-cong-viec/ho-so-cong-viec.module').then(m => m.HoSoCongViecModule) },
                 ]
             },
             { path: 'in-so-van-ban', loadChildren: () => import('./demo/components/van-ban-di/so-van-ban-di/in-so-van-ban/in-so-van-ban.module').then(m => m.InSoVanBanModule) },

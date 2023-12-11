@@ -14,11 +14,11 @@ export class XuLyCongViecService {
     };
     constructor(private http: HttpClient) {}
 
-    getDanhSachMucDoTruyCap(timKiemDanhSach: TimKiemXuLyCongViec) {
+    getDanhSachXuLyCongViec(timKiemDanhSach: TimKiemXuLyCongViec) {
         return this.http
             .post<any>(
                 environment.baseUrlApi +
-                    '/ThongKe/ThongKeXuLyCongViec/GetDanhSachThongKeXuLyCongViec',
+                    '/ThongKe/ThongKeXuLyCongViec/GetDanhSachXuLyCongViec',
                 timKiemDanhSach,
                 this.httpOption
             )

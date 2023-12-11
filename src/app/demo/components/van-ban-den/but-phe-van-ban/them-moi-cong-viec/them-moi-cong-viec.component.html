@@ -31,12 +31,11 @@
         </div>
 
         <div class="card">
+            <p-toast></p-toast>
             <div class="wrapper">
                 <h2>NHẬP THÔNG TIN CÔNG VIỆC</h2>
                 <div class="icon-cls">
-                    <button pButton pRipple label="Thêm lịch cơ quan" icon="pi pi-plus" class="p-button-success mr-2">
-                    </button>
-                    <button pButton pRipple label="Quay lại" icon="pi pi-replay" class="p-button-success mr-2">
+                    <button pButton pRipple (click)="QuayLai()" label="Quay lại" icon="pi pi-replay" class="p-button-success mr-2">
                     </button>
                 </div>
             </div>

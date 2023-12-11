@@ -49,4 +49,31 @@ export class SuaButPheVanBanService {
     const url = `${this.baseUrl}/VanBanDen/SuaButPheVanBan/GetDanhSachCongViec?idVanBan=` + IdvanBan + "&idDonVi=" + IdDonVi;
     return this.httpClient.get<any>(url);
   }
+
+  public GetDataUpdateCongViec(item: any): Observable<any> {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+
+    const url = `${this.baseUrl}/VanBanDen/SuaButPheVanBan/GetDataUpdateCongViec?idUserCvChiTieu=` + item.id.toString() + "&idCongViec=" + item.congViecId + "&stt=" + item.stt;
+    return this.httpClient.get<any>(url);
+  }
+
+  public CapNhatCongViec(modelVanban: any): Observable<any> {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    return this.httpClient.post<any>(environment.baseUrlApi + '/VanBanDen/SuaButPheVanBan/CapNhatCongViec', modelVanban, this.httpOption)
+  }
+
+  public ThemCongViecCon(modelVanban: any): Observable<any> {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    return this.httpClient.post<any>(environment.baseUrlApi + '/VanBanDen/SuaButPheVanBan/ThemCongViecCon', modelVanban, this.httpOption)
+  }
+
+  public XoaCongViec(idChiTieu: string): Observable<any> {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    const url = `${this.baseUrl}/VanBanDen/SuaButPheVanBan/XoaCongViec?idUserXuLy=` + idChiTieu;
+    return this.httpClient.post<any>(url, this.httpOption)
+  }
 }

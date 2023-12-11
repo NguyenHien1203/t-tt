@@ -84,7 +84,7 @@
 
             <div class="field grid div-center">
                 <label class="col-12 md:col-3 fl-wr">
-                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-success mr-2"></button>
+                    <button (click)="GetDanhSachButPhe()" pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-success mr-2"></button>
                 </label>
             </div>
 
@@ -156,7 +156,10 @@
                                 </td>
 
                                 <td class="text-center">
-                                    {{item.ngayBanHanh}}
+                                    {{
+                                        item.ngayBanHanh
+                                            | date : "dd-MM-yyyy"
+                                    }}
                                 </td>
                                 <td>
                                     {{item.coQuanBH}}

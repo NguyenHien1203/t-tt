@@ -77,6 +77,7 @@ export class ThemMoiComponent {
             itemData.id = 0;
             itemData.donViId = this.idDonViLamViec;
             itemData.createdBy = this.idUser;
+            itemData.created = new Date();
             itemData.parentId =
                 this.selectedNodes != null ? this.selectedNodes.data : 0;
             itemData.noiLuu = this.selectedLuuTru

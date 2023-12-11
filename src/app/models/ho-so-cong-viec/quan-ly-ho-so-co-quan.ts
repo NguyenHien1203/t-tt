@@ -1,2 +1,2 @@
-export interface QuanLyHoSoCoQuan {
-}
+export interface QuanLyHoSoCoQuan {}
+export interface TimKiemQuanLyHoSoCoQuan {}

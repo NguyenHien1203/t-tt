@@ -21,7 +21,7 @@ export class ChonVanBanComponent {
         private authService: AuthService,
     ) { }
 
-    
+  
     isCheckAll: boolean = false;
     lstVanBanDaGui: any[] = [];
     lstDonViNhan: any[] = [];

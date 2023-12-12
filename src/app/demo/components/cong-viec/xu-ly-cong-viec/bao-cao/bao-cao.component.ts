@@ -87,18 +87,17 @@ export class BaoCaoComponent {
                 this.cap,
                 this.loai
             );
-console.log(data)
             this.baoCaoTienDos = data;
-            // this.baoCaoTienDos.thoiHanHoanThanh = new Date(this.baoCaoTienDos.thoiHanHoanThanh);
+            this.baoCaoTienDos.thoiHanHoanThanh = new Date(this.baoCaoTienDos.thoiHanHoanThanh);
 
-            // this.file_fomat = data.fileDinhKem;
-            // this.selectedFiles = this.file_fomat;
-            // if (this.baoCaoTienDos.ngayXuLy === null)
-            //     this.baoCaoTienDos.ngayXuLy = new Date();
-            // else
-            //     this.baoCaoTienDos.ngayXuLy = new Date(data.ngayXuLy);
-            // this.baoCaoTienDos.trangThaiXuLy = data.trangThaiXuLy
-            // this.lstVanBan = data.lstVanBan;
+            this.file_fomat = data.fileDinhKem;
+            this.selectedFiles = this.file_fomat;
+            if (this.baoCaoTienDos.ngayXuLy === null)
+                this.baoCaoTienDos.ngayXuLy = new Date();
+            else
+                this.baoCaoTienDos.ngayXuLy = new Date(data.ngayXuLy);
+            this.baoCaoTienDos.trangThaiXuLy = data.trangThaiXuLy
+            this.lstVanBan = data.lstVanBan;
         } catch (error) {
             console.log(error);
         }

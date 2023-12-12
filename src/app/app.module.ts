@@ -17,9 +17,12 @@ import { PhotoService } from './demo/service/photo.service';
 // import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TimKiemTheoSoVanBanComponent } from './demo/service/van-ban-den/tim-kiem-theo-so-van-ban/tim-kiem-theo-so-van-ban.component';
+import { ChiTietComponent } from './demo/components/ky-so/luong-ky-so/chi-tiet/chi-tiet.component';
+import { ThemMoiComponent } from './demo/components/ky-so/luong-ky-so/them-moi/them-moi.component';
+import { CapNhatComponent } from './demo/components/ky-so/luong-ky-so/cap-nhat/cap-nhat.component';
 
 @NgModule({
-    declarations: [AppComponent, NotfoundComponent, TimKiemTheoSoVanBanComponent],
+    declarations: [AppComponent, NotfoundComponent, TimKiemTheoSoVanBanComponent, ChiTietComponent, ThemMoiComponent, CapNhatComponent],
     imports: [
         AppRoutingModule,
         AppLayoutModule,

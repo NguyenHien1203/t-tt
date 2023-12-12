@@ -105,4 +105,10 @@ export class XuLyCongViecService {
 
         return this.http.post<any>(url, this.httpOption)
     }
+
+    public ThemMoiTienDoCongViec(model: any) {
+        if (!this.auth.CheckLogin())
+          this.router.navigate(['/login']);
+        return this.http.post<any>(environment.baseUrlApi + '/CongViec/XuLyCongViec/ThemBaoCaoTienDo', model, this.httpOption)
+      }
 }

@@ -19,7 +19,7 @@ export interface XuLyCongViec {
     noiDungXuLy?: string;
     trangThaiXuLy?: string;
     fileDinhKem?: string;
-    lstVanBanBaoCao?: [];
+    lstVanBanBaoCao?: string;
 }
 
 export interface ChiTietCongViec {

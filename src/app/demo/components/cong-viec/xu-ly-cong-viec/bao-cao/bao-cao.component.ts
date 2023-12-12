@@ -52,12 +52,13 @@ export class BaoCaoComponent {
         noiDungXuLy: '',
         trangThaiXuLy: '',
         fileDinhKem: '',
+        lstVanBanBaoCao: ''
     };
 
     lstVanBan: any[] = [];
     file: File | null = null; // Variable to store file
     selectedFiles: any[] = [];
-    file_fomat: any = [];
+    file_fomat: any[] = [];
     loading: boolean = true;
     submitted: boolean = false;
     lstHoSoCongViec: any[] = [];
@@ -86,14 +87,18 @@ export class BaoCaoComponent {
                 this.cap,
                 this.loai
             );
-
+console.log(data)
             this.baoCaoTienDos = data;
-            this.baoCaoTienDos.thoiHanHoanThanh = new Date(this.baoCaoTienDos.thoiHanHoanThanh);
+            // this.baoCaoTienDos.thoiHanHoanThanh = new Date(this.baoCaoTienDos.thoiHanHoanThanh);
 
-            this.file_fomat = data.fileDinhKem;
-
-            if (this.baoCaoTienDos.ngayXuLy === null)
-                this.baoCaoTienDos.ngayXuLy = new Date();
+            // this.file_fomat = data.fileDinhKem;
+            // this.selectedFiles = this.file_fomat;
+            // if (this.baoCaoTienDos.ngayXuLy === null)
+            //     this.baoCaoTienDos.ngayXuLy = new Date();
+            // else
+            //     this.baoCaoTienDos.ngayXuLy = new Date(data.ngayXuLy);
+            // this.baoCaoTienDos.trangThaiXuLy = data.trangThaiXuLy
+            // this.lstVanBan = data.lstVanBan;
         } catch (error) {
             console.log(error);
         }
@@ -142,7 +147,9 @@ export class BaoCaoComponent {
                             path: data.objData.filePath,
 
                         };
+
                         this.file_fomat.push(fileReturn);
+
                         this.selectedFiles.push(fileReturn);
                         event.target.value = '';
                     }
@@ -197,15 +204,33 @@ export class BaoCaoComponent {
 
         this.submitted = true;
         this.baoCaoTienDos.fileDinhKem = JSON.stringify(this.file_fomat);
-
+        this.baoCaoTienDos.lstVanBanBaoCao = JSON.stringify(this.lstVanBan);
         let itemData = {
+            cap: this.cap,
+            loai: this.loai.toString(),
+            idCongViec: this.id.toString(),
+            idDonViLamViec: this.authService.GetDonViLamViec().toString(),
+            idNhomQuyenLamViec: this.authService.GetmUserInfo().nhomQuyenId.toString(),
+            idUser: this.authService.GetmUserInfo().userId.toString(),
+            idDonVi: this.authService.GetmUserInfo().donViId.toString(),
+            noiDung: this.baoCaoTienDos.noiDungXuLy,
             ngayXuLy: this.formatDateToDDMMYY(new Date(this.baoCaoTienDos.ngayXuLy)),
-            noiDungXuLy: this.baoCaoTienDos.noiDungXuLy,
-            trangThai: this.baoCaoTienDos.trangThaiXuLy,
-            fileDinhKem: this.baoCaoTienDos.fileDinhKem
+            trangThai: this.baoCaoTienDos.trangThaiXuLy.toString(),
+            fileDinhKem: this.baoCaoTienDos.fileDinhKem,
+            lstVanBanChon: this.baoCaoTienDos.lstVanBanBaoCao
         }
-
-        console.log(itemData);
+        this.service.ThemMoiTienDoCongViec(itemData).subscribe(data => {
+            if (data.isError) {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+            } else {
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+                setTimeout(() => {
+                    this.Thoat();
+                }, 1000);
+            }
+        }, (error) => {
+            console.log('Error', error);
+        })
     }
 
     formatDateToDDMMYY(date): string {

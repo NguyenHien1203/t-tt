@@ -220,7 +220,7 @@
                                     style="display: none" />
                             </div>
                             <ul>
-                                <li *ngFor="let file of selectedFiles"><a (click)="downloadFile(file)"
+                                <li *ngFor="let file of selectedFiles"><a (click)="DownloadFile(file.path, file.name)"
                                         href="javascript:;">{{file.name}}</a><a href="javascript:;"
                                         (click)="XoaFile(file.name)">&nbsp;<i class="pi pi-trash"></i></a></li>
                             </ul>

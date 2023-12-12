@@ -87,6 +87,7 @@ export class BaoCaoComponent {
                 this.cap,
                 this.loai
             );
+            
             this.baoCaoTienDos = data;
             this.baoCaoTienDos.thoiHanHoanThanh = new Date(this.baoCaoTienDos.thoiHanHoanThanh);
 

@@ -23,6 +23,7 @@ export class QuanLyHoSoCoQuanComponent {
 
 idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
 idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
+idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
 lstNam: SelectItem[] = [];
 lstThang: SelectItem[] = [];
 timChinhXac: boolean = false;
@@ -39,7 +40,11 @@ timKiemDanhSach: TimKiemQuanLyHoSoCoQuan = {
     thang : 0, 
     loaiHoSo : 0,
     trangThai : 0,
+    phongBanId : 0,
+    maHoSo : '',
+    nguoiLap : 0,
     userId: Number(this.idUser),
+    phongBanPhanPhoiId: Number(this.idPhongBan),
     timChinhXac: 0,
 };
 
@@ -59,10 +64,10 @@ public LoadDanhMuc() {
 
     const currentYear = new Date().getFullYear() + 1;
     for (let i = currentYear + 1; i >= currentYear - 5; i--) {
-        this.lstNam.push({ label: 'Năm' + i, value: i });
+        this.lstNam.push({ label: 'Năm ' + i, value: i });
     }
 
-    for (let i = 1; i <= 12; i--) {
+    for (let i = 1; i <= 12; i++) {
         this.lstThang.push({ label: 'Tháng ' + i, value: i });
     }
 }

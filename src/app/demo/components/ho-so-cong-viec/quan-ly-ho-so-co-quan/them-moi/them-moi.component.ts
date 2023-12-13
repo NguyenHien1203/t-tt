@@ -5,11 +5,10 @@ import { throwError, filter } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService, TreeNode } from 'primeng/api';
 import { QuanLyHoSoCoQuanService } from 'src/app/demo/service/ho-so-cong-viec/quan-ly-ho-so-co-quan.service';
-import { DanhMucHoSoCaNhanService } from 'src/app/demo/service/ho-so-cong-viec/danh-muc-ho-so-ca-nhan.service';
 import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { AuthService } from 'src/app/common/auth.services';
 import { Router } from '@angular/router';
-import { remove } from '@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers';
+import { DanhMucHoSoCoQuanService } from 'src/app/demo/service/ho-so-cong-viec/danh-muc-ho-so-co-quan.service';
 
 @Component({
     selector: 'app-them-moi',
@@ -21,7 +20,7 @@ export class ThemMoiComponent {
     constructor(
         private formBuilder: FormBuilder,
         private service: QuanLyHoSoCoQuanService,
-        private danhMucHoSoCaNhanService: DanhMucHoSoCaNhanService,
+        private danhMucHoSoCoQuanService: DanhMucHoSoCoQuanService,
         private fileService: UploadFileService,
         private messageService: MessageService,
         private router: Router,
@@ -30,7 +29,7 @@ export class ThemMoiComponent {
 
     items: any[] = [
         { label: 'Hồ sơ công việc' },
-        { label: 'Quản lý hồ sơ công việc cá nhân' },
+        { label: 'Quản lý hồ sơ công việc cơ quan' },
         { label: 'Thêm mới' },
     ];
     home: any = { icon: 'pi pi-home', routerLink: '/' };
@@ -95,8 +94,8 @@ export class ThemMoiComponent {
     }
 
     public LoadDanhMuc() {
-        this.danhMucHoSoCaNhanService
-            .getDanhSachDanhMucHoSoCaNhan(this.idUser)
+        this.danhMucHoSoCoQuanService
+            .getDanhSachDanhMucHoSoCoQuan(this.idDonViLamViec)
             .then((data) => {
                 if (data.isError) {
                     this.messageService.add({
@@ -124,11 +123,9 @@ export class ThemMoiComponent {
                 this.idUser
             )
             .then((data) => (this.lstNhomNguoiDung = data));
-            
-            this.service
-            .getDanhSachChonNhanhNguoiDung(
-                this.idDonViLamViec,
-            )
+
+        this.service
+            .getDanhSachChonNhanhNguoiDung(this.idDonViLamViec, this.idUser)
             .then((data) => (this.lstUserChonNhanh = data));
 
         this.formThemMoi.patchValue({
@@ -150,8 +147,6 @@ export class ThemMoiComponent {
             });
     }
 
-    public ChangeDoiTuong(): void {}
-
     public ChonDoiTuong(): void {
         const sltNguoiDung = this.lstUserNhan
             .filter((data) => this.selectedNguoiDung.includes(data.value))
@@ -170,44 +165,42 @@ export class ThemMoiComponent {
         );
         this.lstUserNhan = lstTmp;
 
-        this.lstPhieuTrinhLienQuan = this.RemoveDuplicates(
-            this.lstPhanQuyen,
-            'value'
-        );
+        this.lstPhanQuyen = this.RemoveDuplicates(this.lstPhanQuyen, 'value');
     }
 
     public ChangePhongBan(event): void {
         if (event != null) {
-            this.service.getDanhSachUserThuocPhongBan(event).then((data) => {
-                this.lstUserNhan = data;
-            });
-        }
-    }
-
-    public ChangeNhomNguoiDung(event): void {
-        if (event != null) {
             this.service
-                .getDanhSachUserThuocNhomNguoiDung(event)
+                .getDanhSachUserThuocPhongBan(event, this.idUser)
                 .then((data) => {
                     this.lstUserNhan = data;
                 });
         }
     }
 
+    public ChangeNhomNguoiDung(event): void {
+        if (event != null) {
+            this.service
+                .getDanhSachUserThuocNhomNguoiDung(event, this.idUser)
+                .then((data) => {
+                    this.lstUserNhan = data;
+                });
+        }
+    }
 
     public ChangeUserChonNhanh(event): void {
-      if(event != null)
-      {
-        let objUser = this.lstUserChonNhanh.filter(data => data.value == event);
-        console.log(objUser);
-        this.lstUserNhan = [];
-        this.lstUserNhan.push(objUser);
-      }
+        if (event != null) {
+            let objUser = this.lstUserChonNhanh.filter(
+                (data) => data.value == event
+            );
+            this.lstUserNhan = [];
+            this.lstUserNhan = this.lstUserNhan.concat(objUser);
+        }
     }
 
     public ChangeSoKyHieu() {
         this.service
-            .getMaHoSoCaNhan(
+            .getMaHoSoCoQuan(
                 this.formThemMoi.value.soKyHieu,
                 this.idDonViLamViec
             )
@@ -299,6 +292,7 @@ export class ThemMoiComponent {
         this.selectedFiles.forEach((obj, index) => {
             if (obj.filePath === filePath) {
                 obj.isDelete = true;
+                obj.isNew = false;
             }
         });
     }
@@ -344,10 +338,9 @@ export class ThemMoiComponent {
                 lstCongViecDinhKem: this.lstCongViecLienQuan.map(
                     (data) => data.id
                 ),
-                lstPhieuTrinhDinhKem: this.lstPhieuTrinhLienQuan.map(
-                    (data) => data.id
-                ),
+                lstPhanPhoi: this.lstPhanQuyen,
             };
+
             this.service.themMoiHoSoCoQuan(hoSoCongViecCaNhan).subscribe(
                 (data) => {
                     if (data.isError) {
@@ -364,13 +357,19 @@ export class ThemMoiComponent {
                         });
                         setTimeout(() => {
                             this.ReturnTrangChu();
-                        });
+                        }, 2000);
                     }
                 },
                 (error) => {
                     console.log('Error', error);
                 }
             );
+        } else {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Lỗi',
+                detail: 'Kiểm tra lại thông tin bắt buộc',
+            });
         }
     }
 

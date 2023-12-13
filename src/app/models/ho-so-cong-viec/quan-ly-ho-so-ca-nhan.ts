@@ -21,22 +21,23 @@ export interface TimKiemVanBanDinhKem {
 }
 
 export interface TimKiemCongViecDinhKem {
-      keyWord: string,
-      nam: number,
-      thang: number,
-      userId: number,
-      trangThai: number,
-      donViId: number,
-      phongBanId: number,
-      vaiTro: number,
+      keyWord?: string,
+      nam?: number,
+      thang?: number,
+      userId?: number,
+      trangThai?: number,
+      donViId?: number,
+      phongBanId?: number,
+      vaiTro?: number,
+      nhomQuyenId?: number,
 }
 
 export interface TimKiemPhieuTrinhDinhKem {
-      keyWord: '',
-      ngayTrinh: string,
-      trangThai: 4,
-      userId: number,
-      donViId: number,
-      phongBanId : number,
-      timChinhXac : number,
+      keyWord?: '',
+      ngayTrinh?: string,
+      trangThai?: 4,
+      userId?: number,
+      donViId?: number,
+      phongBanId?: number,
+      timChinhXac?: number,
 }

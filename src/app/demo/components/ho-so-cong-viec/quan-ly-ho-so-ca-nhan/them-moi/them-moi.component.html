@@ -143,7 +143,7 @@
                                 type="text"
                                 pInputText
                                 pKeyFilter="int"
-                                placeholder="Nhập số năm bảo quản (vĩnh viễn để trống)"
+                                placeholder="Nhập số năm bảo quản"
                                 (blur)="ChangeThoiHanBaoQuan()"
                                 formControlName="thoiHanBaoQuan"
                                 id="thoiHanBaoQuan"
@@ -230,8 +230,8 @@
                         <div class="col-12 md:col-4 fl-wr">
                             <input
                                 type="text"
-                                formControlName="dacDiem"
-                                id="dacDiem"
+                                formControlName="ghiChu"
+                                id="ghiChu"
                                 [style]="{ width: '100%' }"
                                 class="my-drop"
                                 class="p-inputtext p-component p-element"
@@ -327,45 +327,6 @@
                             </ul>
                         </div>
                     </div>
-
-                    <div class="field grid div-center">
-                        <button
-                            pbutton=""
-                            pripple=""
-                            type="submit"
-                            label="Info"
-                            class="p-element p-ripple p-button-primary p-button p-component"
-                            ng-reflect-label="Info"
-                            (click)="ThemMoi()"
-                        >
-                            <span class="p-button-label">Lưu lại</span
-                            ><span class="p-ink"></span></button
-                        >&nbsp;
-                        <button
-                            pbutton=""
-                            pripple=""
-                            type="submit"
-                            label="Info"
-                            class="p-element p-ripple p-button-warning p-button p-component"
-                            ng-reflect-label="Info"
-                            (click)="NhapLai()"
-                        >
-                            <span class="p-button-label">Nhập lại</span
-                            ><span class="p-ink"></span></button
-                        >&nbsp;
-                        <button
-                            pbutton=""
-                            pripple=""
-                            type="button"
-                            label="Info"
-                            class="p-element p-ripple p-button-info p-button p-component"
-                            ng-reflect-label="Danger"
-                            (click)="ReturnTrangChu()"
-                        >
-                            <span class="p-button-label">Trở lại danh sách</span
-                            ><span class="p-ink"></span>
-                        </button>
-                    </div>
                 </form>
             </p-tabPanel>
             <p-tabPanel header="Văn bản">
@@ -458,9 +419,11 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <a href="javascript:;" (click)="XoaVanBan(item.id)"
-                                        ><i class="pi pi-trash"></i
-                                    ></a>
+                                        <a
+                                            href="javascript:;"
+                                            (click)="XoaVanBan(item.id)"
+                                            ><i class="pi pi-trash"></i
+                                        ></a>
                                     </td>
                                 </tr>
                             </ng-template>
@@ -573,7 +536,9 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <a href="javascript:;" (click)="XoaCongViec(item.id)"
+                                        <a
+                                            href="javascript:;"
+                                            (click)="XoaCongViec(item.id)"
                                             ><i class="pi pi-trash"></i
                                         ></a>
                                     </td>
@@ -667,7 +632,9 @@
                                         {{ item.tenPhieu }}
                                     </td>
                                     <td>
-                                        {{ item.ngayTrinh | date : "dd/MM/yyyy" }}
+                                        {{
+                                            item.ngayTrinh | date : "dd/MM/yyyy"
+                                        }}
                                     </td>
 
                                     <td>
@@ -675,7 +642,9 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <a href="javascript:;" (click)="XoaPhieuTrinh(item.id)"
+                                        <a
+                                            href="javascript:;"
+                                            (click)="XoaPhieuTrinh(item.id)"
                                             ><i class="pi pi-trash"></i
                                         ></a>
                                     </td>
@@ -697,6 +666,44 @@
                     </div>
                 </div>
             </p-tabPanel>
+            <div class="field grid div-center">
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="submit"
+                    label="Info"
+                    class="p-element p-ripple p-button-primary p-button p-component"
+                    ng-reflect-label="Info"
+                    (click)="ThemMoi()"
+                >
+                    <span class="p-button-label">Lưu lại</span
+                    ><span class="p-ink"></span></button
+                >&nbsp;
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="submit"
+                    label="Info"
+                    class="p-element p-ripple p-button-warning p-button p-component"
+                    ng-reflect-label="Info"
+                    (click)="NhapLai()"
+                >
+                    <span class="p-button-label">Nhập lại</span
+                    ><span class="p-ink"></span></button
+                >&nbsp;
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="button"
+                    label="Info"
+                    class="p-element p-ripple p-button-info p-button p-component"
+                    ng-reflect-label="Danger"
+                    (click)="ReturnTrangChu()"
+                >
+                    <span class="p-button-label">Trở lại danh sách</span
+                    ><span class="p-ink"></span>
+                </button>
+            </div>
         </p-tabView>
     </div>
 </div>

@@ -214,6 +214,7 @@ export class ThemMoiComponent {
         this.selectedFiles.forEach((obj, index) => {
             if (obj.filePath === filePath) {
                 obj.isDelete = true;
+                obj.isNew = false;
             }
         });
     }
@@ -275,7 +276,7 @@ export class ThemMoiComponent {
                         });
                         setTimeout(() => {
                             this.ReturnTrangChu();
-                        });
+                        }, 2000);
                     }
                 },
                 (error) => {

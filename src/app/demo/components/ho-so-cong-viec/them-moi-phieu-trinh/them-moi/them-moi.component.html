@@ -1,0 +1,63 @@
+<p-dialog [(visible)]="show" [formGroup]="formThemMoi" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
+    [style]="{width: '950px'}" [modal]="true" header="Thêm mới thông báo" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label htmlfor="tieuDe">Tiêu dề<span class="p-error"> (*)</span>:</label>
+            <input pinputtext="" id="tieuDe" type="text" required="" class="p-inputtext p-component p-element"
+                formControlName="tieuDe">
+            <span class="p-error"
+                *ngIf="!formThemMoi.controls.tieuDe.valid && (formThemMoi.controls.tieuDe.touched || submitted)">Vui
+                lòng nhập tiêu đề</span>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-6" for="ngayBatDau">
+                <label htmlfor="ngayBatDau">Từ ngày:</label>
+                <p-calendar id="tuNgay" formControlName="ngayBatDau" appendTo="body" [showIcon]="true"
+                    dateFormat="dd/mm/yy"  inputId="icon"></p-calendar>
+            </div>
+            <div class="col-12 md:col-6" for="ngayKetThuc">
+                <label htmlfor="ngayKetThuc">Đến ngày:</label>
+                <p-calendar id="denNgay" formControlName="ngayKetThuc" appendTo="body" [showIcon]="true"
+                    dateFormat="dd/mm/yy"  inputId="icon"></p-calendar>
+            </div>
+        </div>
+        <div class="grid formgrid">
+            <div class="col-12 md:col-6">
+                <label htmlfor="tieuDe">File đính kèm<span class="p-error"> (*)</span>:</label>
+                &nbsp;<label for="fileUpload" class="custom-file-upload" *ngIf="!file">
+                    <i class="pi pi-upload"></i> Chọn tệp
+                  </label>
+                  <input
+                    type="file"
+                    id="fileUpload"
+                    class="file-input"
+                    (change)="onChange($event)"
+                    #fileUpload
+                    style="display: none;"
+                  />
+                <div *ngIf="file">
+                    <section class="file-info">
+                        <ul>
+                            <li>Tên file: <a (click)="downloadFile()" href="javascript:;">{{file.name}}</a><a href="javascript:;" (click)="XoaFile()">&nbsp;<i class="pi pi-trash"></i></a></li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <p-checkbox name="hienThi" formControlName="hienThi" (click)="CheckedHt()" class="mg-t-25" value="true"
+                    label="Hiển thị"></p-checkbox>
+            </div>
+        </div>
+        <div class="field">
+            <ckeditor #myEditor id="editor" formControlName="noiDung" [editor]="Editor" row [config]="getToolBar()" data=""></ckeditor>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pbutton="" pripple="" type="submit" label="Info"
+            class="p-element p-ripple p-button-info p-button p-component" ng-reflect-label="Info"
+            (click)="ThemMoi()"><span class="p-button-label">Lưu</span><span class="p-ink"></span></button>
+        <button pbutton="" pripple="" type="button" label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component" ng-reflect-label="Danger"
+            (click)="Thoat()"><span class="p-button-label">Hủy</span><span class="p-ink"></span></button>
+    </ng-template>
+</p-dialog>

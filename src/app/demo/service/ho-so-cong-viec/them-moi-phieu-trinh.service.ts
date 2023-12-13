@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TimKiemDanhMucHoSoCaNhan } from 'src/app/models/ho-so-cong-viec/danh-muc-ho-so-ca-nhan';
+import { TimKiemPhieuTrinh } from 'src/app/models/ho-so-cong-viec/them-moi-phieu-trinh';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
     providedIn: 'root',
 })
-export class DanhMucHoSoCaNhanService {
+export class ThemMoiPhieuTrinhService {
     private httpOption = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -14,51 +14,51 @@ export class DanhMucHoSoCaNhanService {
     };
     constructor(private http: HttpClient) {}
 
-    getDanhSachDanhMucHoSoCaNhan(idUser: string) {
+    getDanhSachPhieuTrinh(timKiemDanhSach: TimKiemPhieuTrinh) {
         return this.http
-            .get<any>(
+            .post<any>(
                 environment.baseUrlApi +
-                    '/HoSoCongViec/DanhMucHoSoCaNhan/GetDanhMucHoSoCaNhan/' +
-                    idUser,
+                    '/HoSoCongViec/PhieuTrinh/GetDanhSachPhieuTrinh',
+                timKiemDanhSach,
                 this.httpOption
             )
             .toPromise()
             .then((res) => res.objData);
     }
 
-    getDanhMucHoSoCaNhanId(id: string) {
+    getPhieuTrinhId(id: string) {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/HoSoCongViec/DanhMucHoSoCaNhan/GetDanhMucHoSoCaNhanById/' +
+                    '/HoSoCongViec/PhieuTrinh/GetPhieuTrinhById/' +
                     id
             )
             .toPromise()
             .then((res) => res.objData);
     }
 
-    themMoiDanhMucHoSoCaNhan(itemData: any) {
+    themMoiPhieuTrinh(itemData: any) {
         return this.http.post<any>(
             environment.baseUrlApi +
-                '/HoSoCongViec/DanhMucHoSoCaNhan/ThemMoiDanhMucHoSoCaNhan',
+                '/HoSoCongViec/PhieuTrinh/ThemMoiPhieuTrinh',
             itemData,
             this.httpOption
         );
     }
 
-    capNhatDanhMucHoSoCaNhan(itemData: any) {
+    capNhatPhieuTrinh(itemData: any) {
         return this.http.post<any>(
             environment.baseUrlApi +
-                '/HoSoCongViec/DanhMucHoSoCaNhan/CapNhatDanhMucHoSoCaNhan',
+                '/HoSoCongViec/PhieuTrinh/CapNhatPhieuTrinh',
             itemData,
             this.httpOption
         );
     }
 
-    xoaDanhMucHoSoCaNhan(id: string) {
+    xoaPhieuTrinh(id: string) {
         return this.http.get<any>(
             environment.baseUrlApi +
-                '/HoSoCongViec/DanhMucHoSoCaNhan/XoaDanhMucHoSoCaNhan/' +
+                '/HoSoCongViec/PhieuTrinh/XoaPhieuTrinh/' +
                 id
         );
     }

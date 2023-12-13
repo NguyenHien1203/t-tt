@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { HoSoCongViecRoutingModule } from './ho-so-cong-viec-routing.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     HoSoCongViecRoutingModule

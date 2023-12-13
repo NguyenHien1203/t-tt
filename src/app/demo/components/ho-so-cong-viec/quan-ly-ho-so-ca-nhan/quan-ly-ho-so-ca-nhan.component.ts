@@ -36,6 +36,10 @@ export class QuanLyHoSoCaNhanComponent {
     home = { icon: 'pi pi-home', routerLink: '/' };
     timKiemDanhSach: TimKiemQuanLyHoSoCaNhan = {
         keyWord: '',
+        nam : 0,
+        thang : 0, 
+        loaiHoSo : 0,
+        trangThai : 0,
         userId: Number(this.idUser),
         timChinhXac: 0,
     };

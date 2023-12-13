@@ -7,416 +7,472 @@ import { ButPheVanBanService } from 'src/app/demo/service/van-ban-den/but-phe-va
 import { DoiTuongPhanCong } from 'src/app/models/van-ban-den/but-phe-van-ban';
 
 @Component({
-  selector: 'app-them-moi-cong-viec',
-  templateUrl: './them-moi-cong-viec.component.html',
-  styleUrls: ['./them-moi-cong-viec.component.scss'],
-  providers: [MessageService],
+    selector: 'app-them-moi-cong-viec',
+    templateUrl: './them-moi-cong-viec.component.html',
+    styleUrls: ['./them-moi-cong-viec.component.scss'],
+    providers: [MessageService],
 })
 export class ThemMoiCongViecComponent implements OnInit {
-  idVanBan: string = '1';
-  items: any[] = [];
-  home: any;
-  loading: boolean = true;
-  ThongTinVanBan: any;
-  lstPhongBan: [];
-  lstNhomNguoiDung: [];
-  lstNguoiDung: [];
-  lstUserNhan: any[] = [];
-  PhongBanId: any;
-  NhomNguoiDungId: any;
-  NguoiDungId: any;
-  submitted: boolean = false;
+    idVanBan: string = '1';
+    items: any[] = [];
+    home: any;
+    loading: boolean = true;
+    ThongTinVanBan: any;
+    lstPhongBan: [];
+    lstNhomNguoiDung: [];
+    lstNguoiDung: [];
+    lstUserNhan: any[] = [];
+    PhongBanId: any;
+    NhomNguoiDungId: any;
+    NguoiDungId: any;
+    submitted: boolean = false;
 
-  lstNguoiDungPhanCong: DoiTuongPhanCong[] = [];
-  formThemMoi_fommat: any = [];
+    lstNguoiDungPhanCong: DoiTuongPhanCong[] = [];
+    formThemMoi_fommat: any = [];
 
-  lstPhoiHop: any[] = [];
-  lstThongBao: any[] = [];
-  lstSmS: any[] = [];
-  lstVBTL: any[] = [];
-  lstChiDao: any[] = [];
-  lstChuTri: any[] = [];
+    lstPhoiHop: any[] = [];
+    lstThongBao: any[] = [];
+    lstSmS: any[] = [];
+    lstVBTL: any[] = [];
+    lstChiDao: any[] = [];
+    lstChuTri: any[] = [];
 
-  congviec: any = [];
+    congviec: any = [];
 
-  chkAllPhoiHop: boolean = false;
-  chkAllThongBao: boolean = false;
+    chkAllPhoiHop: boolean = false;
+    chkAllThongBao: boolean = false;
 
-  chkPhoiHop: boolean = false;
-  chkThongBao: boolean = false;
+    chkPhoiHop: boolean = false;
+    chkThongBao: boolean = false;
 
-  constructor(
-    private service: ButPheVanBanService,
-    private route: ActivatedRoute,
-    private messageService: MessageService,
-    private formBuilder: FormBuilder,
-    private auth: AuthService,
-    private router: Router,
-  ) { }
+    constructor(
+        private service: ButPheVanBanService,
+        private route: ActivatedRoute,
+        private messageService: MessageService,
+        private formBuilder: FormBuilder,
+        private auth: AuthService,
+        private router: Router
+    ) {}
 
-  public ThongTinCongViec = this.formBuilder.group({
-    phongBanId: ["", []],
-    nhomNguoiDungId: ["", []],
-    nguoiDungId: ["", []],
-    noiDung: ["", [Validators.required]],
-    soNgay: ["", [Validators.required, Validators.pattern('^[0-9]*$')]],
-    ngayBatDau: [new Date(), [Validators.required]],
-    ngayKetThuc: [new Date(), []],
-    lstDoiTuong: ["", []],
-  });
-
-
-  ngOnInit() {
-    this.loading = false;
-    this.items = [{ label: 'Văn bản đến' }, { label: 'Thêm mới công việc' }];
-    this.home = { icon: 'pi pi-home', routerLink: '/' };
-
-    this.route.queryParams.subscribe((params) => {
-      if (params['idVanBan'] != undefined) {
-        this.idVanBan = params['idVanBan'];
-      }
+    public ThongTinCongViec = this.formBuilder.group({
+        phongBanId: ['', []],
+        nhomNguoiDungId: ['', []],
+        nguoiDungId: ['', []],
+        noiDung: ['', [Validators.required]],
+        soNgay: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+        ngayBatDau: [new Date(), [Validators.required]],
+        ngayKetThuc: [new Date(), []],
+        lstDoiTuong: ['', []],
     });
 
-    this.GetDataVanBan(this.idVanBan);
-    this.LoadPhongBan();
-    this.LoadNhomNguoiDung();
-    this.LoadChonNhanhNguoiDung();
-  }
+    ngOnInit() {
+        this.loading = false;
+        this.items = [
+            { label: 'Văn bản đến' },
+            { label: 'Thêm mới công việc' },
+        ];
+        this.home = { icon: 'pi pi-home', routerLink: '/' };
 
-  /**
-   * GetDataVanBan
-   */
-  public GetDataVanBan(idVanBan: string) {
-    this.service.GetVanBanById(idVanBan).subscribe(data => {
-      if (data.isError) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
-      } else {
-        this.ThongTinVanBan = data.objData;
-      }
-    }, (error) => {
-      console.log('Error', error);
-    })
-  }
-
-  /**
-   * LoadPhongBan
-   */
-  public LoadPhongBan() {
-    this.service.LoadPhongBan().subscribe(data => {
-      if (data.isError) {
-      } else {
-        this.lstPhongBan = data.objData;
-      }
-    })
-  }
-
-  /**
-  * LoadNhomNguoiDung
-  */
-  public LoadNhomNguoiDung() {
-    this.service.LoadNhomNguoiDung().subscribe(data => {
-      if (data.isError) {
-      } else {
-        this.lstNhomNguoiDung = data.objData;
-      }
-    })
-  }
-
-  /**
-  * LoadChonNhanhNguoiDung
-  */
-  public LoadChonNhanhNguoiDung() {
-    this.service.LoadChonNhanhNguoiDung().subscribe(data => {
-      if (data.isError) {
-      } else {
-        this.lstNguoiDung = data.objData;
-      }
-    })
-  }
-
-  /**
-   * ChangePhongBan
-   */
-  public ChangePhongBan(event: any) {
-    this.ThongTinCongViec.patchValue({
-      nhomNguoiDungId: null,
-      nguoiDungId: null
-    });
-    let idPhongBan = event.value;
-    this.service.BindUserByNhomPhongBan(idPhongBan).subscribe(data => {
-      if (data.isError) {
-      } else {
-        this.lstUserNhan = data.objData;
-        this.lstNguoiDungPhanCong.forEach((item: any) => {
-          const newList = this.lstUserNhan.filter(s => s.value !== item.value);
-          this.lstUserNhan = newList;
+        this.route.queryParams.subscribe((params) => {
+            if (params['idVanBan'] != undefined) {
+                this.idVanBan = params['idVanBan'];
+            }
         });
-      }
-    })
-  }
 
-  /**
-  * ChangePhongBan
-  */
-  public ChangeNhomNguoiDung(event: any) {
-    this.ThongTinCongViec.patchValue({
-      phongBanId: null,
-      nguoiDungId: null
-    });
+        this.GetDataVanBan(this.idVanBan);
+        this.LoadPhongBan();
+        this.LoadNhomNguoiDung();
+        this.LoadChonNhanhNguoiDung();
+    }
 
-    let idNhomNguoiDung = event.value;
-    this.service.BindUserByNhomNguoiDung(idNhomNguoiDung).subscribe(data => {
-      if (data.isError) {
-      } else {
-        this.lstUserNhan = data.objData;
-        this.lstNguoiDungPhanCong.forEach((item: any) => {
-          const newList = this.lstUserNhan.filter(s => s.value !== item.value);
-          this.lstUserNhan = newList;
+    /**
+     * GetDataVanBan
+     */
+    public GetDataVanBan(idVanBan: string) {
+        this.service.GetVanBanById(idVanBan).subscribe(
+            (data) => {
+                if (data.isError) {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: data.title,
+                    });
+                } else {
+                    this.ThongTinVanBan = data.objData;
+                }
+            },
+            (error) => {
+                console.log('Error', error);
+            }
+        );
+    }
+
+    /**
+     * LoadPhongBan
+     */
+    public LoadPhongBan() {
+        this.service.LoadPhongBan().subscribe((data) => {
+            if (data.isError) {
+            } else {
+                this.lstPhongBan = data.objData;
+            }
         });
-      }
-    })
-  }
+    }
 
-  /**
-   * Change chọn nhanh người dùng
-   */
-  public ChangeChonNhanhNguoiDung(event: any) {
-    this.ThongTinCongViec.patchValue({
-      phongBanId: null,
-      nhomNguoiDungId: null
-    });
-    let idNguoiDung = event.value;
-    this.service.BindChonNhanhNguoiDung(idNguoiDung).subscribe(data => {
-      if (data.isError) {
-      } else {
-        this.lstUserNhan = data.objData;
-        this.lstNguoiDungPhanCong.forEach((item: any) => {
-          const newList = this.lstUserNhan.filter(s => s.value !== item.value);
-          this.lstUserNhan = newList;
+    /**
+     * LoadNhomNguoiDung
+     */
+    public LoadNhomNguoiDung() {
+        this.service.LoadNhomNguoiDung().subscribe((data) => {
+            if (data.isError) {
+            } else {
+                this.lstNhomNguoiDung = data.objData;
+            }
         });
-      }
-    })
-  }
+    }
 
-  /**
-   * Change ngày kết thúc theo số ngày
-   */
-  public ChangeSoNgay() {
-    let soNgay = this.ThongTinCongViec.value.soNgay;
-    let ngayBatDau = this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayBatDau));
+    /**
+     * LoadChonNhanhNguoiDung
+     */
+    public LoadChonNhanhNguoiDung() {
+        this.service.LoadChonNhanhNguoiDung().subscribe((data) => {
+            if (data.isError) {
+            } else {
+                this.lstNguoiDung = data.objData;
+            }
+        });
+    }
 
-    this.service.GetSoNgayKT(soNgay, ngayBatDau).subscribe(data => {
-      if (data.isError) {
-      } else {
+    /**
+     * ChangePhongBan
+     */
+    public ChangePhongBan(event: any) {
         this.ThongTinCongViec.patchValue({
-          ngayKetThuc: new Date(data.objData),
+            nhomNguoiDungId: null,
+            nguoiDungId: null,
         });
-      }
-    })
-  }
-
-  formatDateToDDMMYY(date): string {
-    const day = ('0' + date.getDate()).slice(-2);
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const year = date.getFullYear().toString();
-    return day + '/' + month + '/' + year;
-  }
-
-  /**
-   * ChangeDoiTuong
-   */
-  public ChangeDoiTuong() {
-    let objNguoiDung = this.ThongTinCongViec.value.lstDoiTuong;
-    const selectedOption = this.lstUserNhan.filter(option => objNguoiDung.includes(option.value));
-
-    let itemData: DoiTuongPhanCong = {
-      HoTen: selectedOption[0].text.toString(),
-      Value: selectedOption[0].value.toString(),
-      ChiDao: false,
-      ChuTri: false,
-      PhoiHop: false,
-      ThongBao: false,
-      SMS: false,
-      VBTL: false,
+        let idPhongBan = event.value;
+        this.service.BindUserByNhomPhongBan(idPhongBan).subscribe((data) => {
+            if (data.isError) {
+            } else {
+                this.lstUserNhan = data.objData;
+                this.lstNguoiDungPhanCong.forEach((item: any) => {
+                    const newList = this.lstUserNhan.filter(
+                        (s) => s.value !== item.value
+                    );
+                    this.lstUserNhan = newList;
+                });
+            }
+        });
     }
 
-    this.lstNguoiDungPhanCong.push(itemData);
+    /**
+     * ChangePhongBan
+     */
+    public ChangeNhomNguoiDung(event: any) {
+        this.ThongTinCongViec.patchValue({
+            phongBanId: null,
+            nguoiDungId: null,
+        });
 
-    this.lstUserNhan.forEach((obj, index) => {
-      if (objNguoiDung.includes(obj.value)) {
-        this.lstUserNhan.splice(index, 1);
-      }
-    });
-
-  }
-  /**
-   * ChonDoiTuong
-   */
-  public ChonDoiTuong(): void {
-    this.formThemMoi_fommat = this.ThongTinCongViec.value;
-    var lstCaNhanSelected = this.formThemMoi_fommat.lstDoiTuong as any[];
-
-    const selectedOption = this.lstUserNhan.filter(option => lstCaNhanSelected.includes(option.value));
-
-    selectedOption.forEach((obj, index) => {
-      let itemData: DoiTuongPhanCong = {
-        HoTen: obj.text.toString(),
-        Value: obj.value.toString(),
-        ChiDao: false,
-        ChuTri: false,
-        PhoiHop: false,
-        ThongBao: false,
-        SMS: false,
-        VBTL: false,
-      }
-      this.lstNguoiDungPhanCong.push(itemData);
-    });
-
-    const lstConLai = this.lstUserNhan.filter(option => !lstCaNhanSelected.includes(option.value));
-
-    this.lstUserNhan = lstConLai;
-
-  }
-
-  /**
-   * XoaDoiTuong
-   */
-  public XoaDoiTuong(nguoidung: any) {
-    let itemData = {
-      value: nguoidung.Value,
-      text: nguoidung.HoTen
-    }
-    this.lstUserNhan = this.lstUserNhan.concat(itemData);
-    this.lstNguoiDungPhanCong = this.lstNguoiDungPhanCong.filter(option => nguoidung.Value !== option.Value);
-  }
-
-  public ckAllPhoiHop() {
-    this.chkAllPhoiHop = !this.chkAllPhoiHop;
-    if (this.chkAllPhoiHop === true) {
-      this.chkAllThongBao = false;
-      this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        obj.PhoiHop = true;
-        obj.ThongBao = false;
-        obj.ChiDao = false;
-        obj.ChuTri = false;
-      });
-    } else {
-      this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        obj.PhoiHop = false;
-      });
-    }
-  }
-
-  public ckAllThongBao() {
-    this.chkAllThongBao = !this.chkAllThongBao;
-
-    if (this.chkAllThongBao === true) {
-      this.chkAllPhoiHop = false;
-      this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        obj.ThongBao = true;
-        obj.PhoiHop = false;
-        obj.ChiDao = false;
-        obj.ChuTri = false;
-      });
-    } else {
-      this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        obj.ThongBao = false;
-      });
-    }
-  }
-
-
-  public chkChiDaoChild(item) {
-    item.ChiDao = !item.ChiDao;
-    if (item.ChiDao === true) {
-      item.ChuTri = !item.ChiDao;
-      item.PhoiHop = !item.ChiDao;
-      item.ThongBao = !item.ChiDao;
-
-      this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        if (obj.Value !== item.Value) {
-          obj.ChiDao = false;
-        }
-      });
+        let idNhomNguoiDung = event.value;
+        this.service
+            .BindUserByNhomNguoiDung(idNhomNguoiDung)
+            .subscribe((data) => {
+                if (data.isError) {
+                } else {
+                    this.lstUserNhan = data.objData;
+                    this.lstNguoiDungPhanCong.forEach((item: any) => {
+                        const newList = this.lstUserNhan.filter(
+                            (s) => s.value !== item.value
+                        );
+                        this.lstUserNhan = newList;
+                    });
+                }
+            });
     }
 
-  }
-
-  public chkChuTriChild(item: DoiTuongPhanCong) {
-    item.ChuTri = !item.ChuTri;
-    if (item.ChuTri === true) {
-      item.ChiDao = !item.ChuTri;
-      item.PhoiHop = !item.ChuTri;
-      item.ThongBao = !item.ChuTri;
-
-      this.lstNguoiDungPhanCong.forEach((obj, index) => {
-        if (obj.Value !== item.Value) {
-          obj.ChuTri = false;
-        }
-      });
+    /**
+     * Change chọn nhanh người dùng
+     */
+    public ChangeChonNhanhNguoiDung(event: any) {
+        this.ThongTinCongViec.patchValue({
+            phongBanId: null,
+            nhomNguoiDungId: null,
+        });
+        let idNguoiDung = event.value;
+        this.service.BindChonNhanhNguoiDung(idNguoiDung).subscribe((data) => {
+            if (data.isError) {
+            } else {
+                this.lstUserNhan = data.objData;
+                this.lstNguoiDungPhanCong.forEach((item: any) => {
+                    const newList = this.lstUserNhan.filter(
+                        (s) => s.value !== item.value
+                    );
+                    this.lstUserNhan = newList;
+                });
+            }
+        });
     }
-  }
 
-  public chkPhoiHopChild(item: DoiTuongPhanCong) {
-    item.PhoiHop = !item.PhoiHop;
-    if (item.PhoiHop === true) {
-      item.ThongBao = !item.PhoiHop;
-      item.ChiDao = !item.PhoiHop;
-      item.ChuTri = !item.PhoiHop;
+    /**
+     * Change ngày kết thúc theo số ngày
+     */
+    public ChangeSoNgay() {
+        let soNgay = this.ThongTinCongViec.value.soNgay;
+        let ngayBatDau = this.formatDateToDDMMYY(
+            new Date(this.ThongTinCongViec.value.ngayBatDau)
+        );
+
+        this.service.GetSoNgayKT(soNgay, ngayBatDau).subscribe((data) => {
+            if (data.isError) {
+            } else {
+                this.ThongTinCongViec.patchValue({
+                    ngayKetThuc: new Date(data.objData),
+                });
+            }
+        });
     }
-  }
 
-  public chkThongBaoChild(item: DoiTuongPhanCong) {
-    item.ThongBao = !item.ThongBao;
-    if (item.ThongBao === true) {
-      item.PhoiHop = !item.ThongBao;
-      item.ChiDao = !item.ThongBao;
-      item.ChuTri = !item.ThongBao;
+    formatDateToDDMMYY(date): string {
+        const day = ('0' + date.getDate()).slice(-2);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const year = date.getFullYear().toString();
+        return day + '/' + month + '/' + year;
     }
-  }
 
-  public chkSmSChild(item: DoiTuongPhanCong) {
-    item.SMS = !item.SMS;
-  }
+    /**
+     * ChangeDoiTuong
+     */
+    public ChangeDoiTuong() {
+        let objNguoiDung = this.ThongTinCongViec.value.lstDoiTuong;
+        const selectedOption = this.lstUserNhan.filter((option) =>
+            objNguoiDung.includes(option.value)
+        );
 
-  public chkVBTLChild(item: DoiTuongPhanCong) {
-    item.VBTL = !item.VBTL;
-  }
+        let itemData: DoiTuongPhanCong = {
+            HoTen: selectedOption[0].text.toString(),
+            Value: selectedOption[0].value.toString(),
+            ChiDao: false,
+            ChuTri: false,
+            PhoiHop: false,
+            ThongBao: false,
+            SMS: false,
+            VBTL: false,
+        };
 
-  public ThemMoiCongViec() {
-    this.submitted = true;
-    if (this.ThongTinCongViec.valid) {
-      this.congviec = this.ThongTinCongViec.value;
+        this.lstNguoiDungPhanCong.push(itemData);
 
-      let data = {
-        ngayBatDau: this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayBatDau)),
-        ngayKetThuc: this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayKetThuc)),
-        lstDoiTuong: JSON.stringify(this.lstNguoiDungPhanCong),
-        soNgay: this.congviec.soNgay,
-        noiDung: this.congviec.noiDung,
-        vanBanId: this.idVanBan,
-        userId: this.auth.GetmUserInfo().userId.toString(),
-        donViLamViecId: this.auth.GetmUserInfo().phongBanLamViecId.toString(),
-        idNhomQuyenLamViec: this.auth.GetmUserInfo().nhomQuyenId.toString(),
-        donViId: this.auth.GetmUserInfo().donViId.toString(),
-      }
+        this.lstUserNhan.forEach((obj, index) => {
+            if (objNguoiDung.includes(obj.value)) {
+                this.lstUserNhan.splice(index, 1);
+            }
+        });
+    }
+    /**
+     * ChonDoiTuong
+     */
+    public ChonDoiTuong(): void {
+        this.formThemMoi_fommat = this.ThongTinCongViec.value;
+        var lstCaNhanSelected = this.formThemMoi_fommat.lstDoiTuong as any[];
 
-      this.service.ThemMoiCongViec(data).subscribe(data => {
-        if (data.isError) {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+        const selectedOption = this.lstUserNhan.filter((option) =>
+            lstCaNhanSelected.includes(option.value)
+        );
+
+        selectedOption.forEach((obj, index) => {
+            let itemData: DoiTuongPhanCong = {
+                HoTen: obj.text.toString(),
+                Value: obj.value.toString(),
+                ChiDao: false,
+                ChuTri: false,
+                PhoiHop: false,
+                ThongBao: false,
+                SMS: false,
+                VBTL: false,
+            };
+            this.lstNguoiDungPhanCong.push(itemData);
+        });
+
+        const lstConLai = this.lstUserNhan.filter(
+            (option) => !lstCaNhanSelected.includes(option.value)
+        );
+
+        this.lstUserNhan = lstConLai;
+    }
+
+    /**
+     * XoaDoiTuong
+     */
+    public XoaDoiTuong(nguoidung: any) {
+        let itemData = {
+            value: nguoidung.Value,
+            text: nguoidung.HoTen,
+        };
+        this.lstUserNhan = this.lstUserNhan.concat(itemData);
+        this.lstNguoiDungPhanCong = this.lstNguoiDungPhanCong.filter(
+            (option) => nguoidung.Value !== option.Value
+        );
+    }
+
+    public ckAllPhoiHop() {
+        this.chkAllPhoiHop = !this.chkAllPhoiHop;
+        if (this.chkAllPhoiHop === true) {
+            this.chkAllThongBao = false;
+            this.lstNguoiDungPhanCong.forEach((obj, index) => {
+                obj.PhoiHop = true;
+                obj.ThongBao = false;
+                obj.ChiDao = false;
+                obj.ChuTri = false;
+            });
         } else {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
-          setTimeout(() => {
-            this.router.navigate(['/van-ban-den/but-phe-van-ban']);
-          }, 1000);
+            this.lstNguoiDungPhanCong.forEach((obj, index) => {
+                obj.PhoiHop = false;
+            });
         }
-      }, (error) => {
-        console.log('Error', error);
-      })
     }
-  }
 
-  public QuayLai() {
-    this.router.navigate(['/van-ban-den/but-phe-van-ban']);
-  }
+    public ckAllThongBao() {
+        this.chkAllThongBao = !this.chkAllThongBao;
+
+        if (this.chkAllThongBao === true) {
+            this.chkAllPhoiHop = false;
+            this.lstNguoiDungPhanCong.forEach((obj, index) => {
+                obj.ThongBao = true;
+                obj.PhoiHop = false;
+                obj.ChiDao = false;
+                obj.ChuTri = false;
+            });
+        } else {
+            this.lstNguoiDungPhanCong.forEach((obj, index) => {
+                obj.ThongBao = false;
+            });
+        }
+    }
+
+    public chkChiDaoChild(item) {
+        item.ChiDao = !item.ChiDao;
+        if (item.ChiDao === true) {
+            item.ChuTri = !item.ChiDao;
+            item.PhoiHop = !item.ChiDao;
+            item.ThongBao = !item.ChiDao;
+
+            this.lstNguoiDungPhanCong.forEach((obj, index) => {
+                if (obj.Value !== item.Value) {
+                    obj.ChiDao = false;
+                }
+            });
+        }
+    }
+
+    public chkChuTriChild(item: DoiTuongPhanCong) {
+        item.ChuTri = !item.ChuTri;
+        if (item.ChuTri === true) {
+            item.ChiDao = !item.ChuTri;
+            item.PhoiHop = !item.ChuTri;
+            item.ThongBao = !item.ChuTri;
+
+            this.lstNguoiDungPhanCong.forEach((obj, index) => {
+                if (obj.Value !== item.Value) {
+                    obj.ChuTri = false;
+                }
+            });
+        }
+    }
+
+    public chkPhoiHopChild(item: DoiTuongPhanCong) {
+        item.PhoiHop = !item.PhoiHop;
+
+        if (item.PhoiHop === true) {
+            item.ThongBao = !item.PhoiHop;
+            item.ChiDao = !item.PhoiHop;
+            item.ChuTri = !item.PhoiHop;
+        }
+
+        if (item.PhoiHop == false) {
+            this.chkAllPhoiHop = false;
+        } else {
+            const countPH = this.lstNguoiDungPhanCong.filter(
+                (s) => s.PhoiHop == true
+            ).length;
+
+            if (countPH == this.lstNguoiDungPhanCong.length)
+                this.chkAllPhoiHop = true;
+        }
+    }
+
+    public chkThongBaoChild(item: DoiTuongPhanCong) {
+        item.ThongBao = !item.ThongBao;
+        if (item.ThongBao === true) {
+            item.PhoiHop = !item.ThongBao;
+            item.ChiDao = !item.ThongBao;
+            item.ChuTri = !item.ThongBao;
+        }
+    }
+
+    public chkSmSChild(item: DoiTuongPhanCong) {
+        item.SMS = !item.SMS;
+    }
+
+    public chkVBTLChild(item: DoiTuongPhanCong) {
+        item.VBTL = !item.VBTL;
+    }
+
+    public ThemMoiCongViec() {
+        this.submitted = true;
+        if (this.ThongTinCongViec.valid) {
+            this.congviec = this.ThongTinCongViec.value;
+
+            let data = {
+                ngayBatDau: this.formatDateToDDMMYY(
+                    new Date(this.ThongTinCongViec.value.ngayBatDau)
+                ),
+                ngayKetThuc: this.formatDateToDDMMYY(
+                    new Date(this.ThongTinCongViec.value.ngayKetThuc)
+                ),
+                lstDoiTuong: JSON.stringify(this.lstNguoiDungPhanCong),
+                soNgay: this.congviec.soNgay,
+                noiDung: this.congviec.noiDung,
+                vanBanId: this.idVanBan,
+                userId: this.auth.GetmUserInfo().userId.toString(),
+                donViLamViecId: this.auth
+                    .GetmUserInfo()
+                    .phongBanLamViecId.toString(),
+                idNhomQuyenLamViec: this.auth
+                    .GetmUserInfo()
+                    .nhomQuyenId.toString(),
+                donViId: this.auth.GetmUserInfo().donViId.toString(),
+            };
+
+            this.service.ThemMoiCongViec(data).subscribe(
+                (data) => {
+                    if (data.isError) {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: data.title,
+                        });
+                    } else {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Success',
+                            detail: data.title,
+                        });
+                        setTimeout(() => {
+                            this.router.navigate([
+                                '/van-ban-den/but-phe-van-ban',
+                            ]);
+                        }, 1000);
+                    }
+                },
+                (error) => {
+                    console.log('Error', error);
+                }
+            );
+        }
+    }
+
+    public QuayLai() {
+        this.router.navigate(['/van-ban-den/but-phe-van-ban']);
+    }
 }

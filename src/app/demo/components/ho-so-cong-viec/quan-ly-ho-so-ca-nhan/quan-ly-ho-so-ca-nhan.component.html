@@ -214,13 +214,13 @@
                                 </td>
 
                                 <td >
-                                    {{ item.tenLoaiHoSo }}
+                                    {{ item.loaiHoSo }}
                                 </td>
                                 <td>
                                     {{ item.trangThai }}
                                 </td>
                                 <td>
-                                    {{ item.thoiHanBaoQuan }}
+                                    {{ item.thoiHanBaoQuan == null ? 'Vĩnh viễn' : (item.thoiHanBaoQuan + ' năm') }}
                                 </td>
                                 <td class="text-center">
                                     <div class="div-center">

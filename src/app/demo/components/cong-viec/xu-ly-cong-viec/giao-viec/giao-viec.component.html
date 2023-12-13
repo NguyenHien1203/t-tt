@@ -1,1 +1,359 @@
-<p>giao-viec works!</p>
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="col-12">
+        <div class="card">
+            <div class="wrapper">
+                <h2>GIAO VIỆC</h2>
+                <div class="icon-cls">
+                    <button pButton pRipple label="Quay lại" icon="pi pi-refresh" class="p-button-info mr-2"
+                        (click)="QuayLai()"></button>
+                </div>
+            </div>
+
+            <p-table styleClass="p-datatable-gridlines" [value]="[ThongTinVanBan]" class="custom-table">
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td class="custom-rb"><strong>Số ký hiệu:</strong></td>
+                        <td class="custom-b">{{item.sokyhieu}}</td>
+                        <td class="custom-rb"><strong>Loại văn bản:</strong></td>
+                        <td class="custom-b">{{item.loaivanban}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="custom-rb"><strong>Trích yếu:</strong></td>
+                        <td class="custom-b" colspan="3">{{item.trichyeu}}</td>
+                    </tr>
+                    <tr>
+                        <td class="custom-rb"><strong>Ý kiến tham mưu:</strong></td>
+                        <td class="custom-b" colspan="3">{{item.ykien}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div class="card">
+            <p-toast></p-toast>
+            <div class="wrapper">
+                <h2>GIAO VIỆC</h2>
+                <div class="icon-cls">
+                    <button (click)="QuayLai()" pButton pRipple label="Quay lại" icon="pi pi-replay"
+                        class="p-button-success mr-2">
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div id="mainLstCongViec" class="lstCongViec pd-10">
+                    <input type="hidden" id="txtIdCongViec" value="1518">
+                    <div *ngFor="let item of GetDataParent()" class="congViec__item" data-stt="1" data-id="1">
+                        <input type="hidden" id="txtIdUserXuLy_1" value="413">
+                        <div class="congViec__item-main d-flex align-items-strecth">
+                            <div class="congViec__item--left tx-center">
+                                <div class="">
+                                    <span class="STT" id="txtStt_1" data-id="1">{{item.stt}}</span>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                </div>
+                                <div class="">
+                                    <a href="javascript:;" (click)="CreateCongViec(item.stt)" class="btn__addCongViec">
+                                        <i class="pi pi-plus-circle"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="congViec__item--right d-flex">
+                                <div class="congViec__item-info">
+                                    <div class="congViec__noiDung tx-bold">
+                                        <span>{{item.noiDungCongViec}}</span>
+                                    </div>
+                                    <div class="congViec__xuLy d-flex justify-content-start">
+                                        <div class="congViec__ngTao congViec__xuLy-item">
+                                            Người tạo: <span class="tx-user">{{item.tenNguoiTao}}</span>
+                                        </div>
+                                        <div class="congViec__status congViec__xuLy-item bg-status">
+                                            <a href="javascript:;" class="">
+                                                {{item.trangThai == 1 ? "Chưa xử lý" : item.trangThai == 2?"Đang xử lý"
+                                                :
+                                                item.trangThai == 3 ?"Xử lý xong" : ""}}
+                                            </a>
+                                        </div>
+                                        <div class="congViec__chuTri congViec__xuLy-item pos-relative">
+                                            Chủ trì: <span data-id="1164" class="tx-user">{{item.tenChuTri}}</span>
+                                        </div>
+                                        <div class="congViec__TimeBatDau congViec__xuLy-item pos-relative">
+                                            <span class="tx-bold">{{item.thoiHan}}</span>
+                                            ngày | Từ:
+                                            {{item.ngayBD| date : "dd/MM/yyyy"}}
+                                            Đến:
+                                            {{item.ngayKT| date : "dd/MM/yyyy"}}
+                                        </div>
+                                        <div class="congViec__TyLeXuLy congViec__xuLy-item pos-relative">
+                                            Tỷ lệ xử lý:
+                                            <span class="tx-bold" id="txtTyLeXuLy">{{item.tyLeXuLy}}</span>
+                                        </div>
+                                        <div class="congViec__ckbVBTL congViec__xuLy-item pos-relative">
+                                            <label class="ckbox pointer mg-0">
+
+                                                <input disabled="disabled" checked="checked"
+                                                    id="congViec__ckbVanBanTraLoi_1" type="checkbox"
+                                                    *ngIf="item.cbVBTL === '1'">
+
+                                                <input disabled="disabled" id="congViec__ckbVanBanTraLoi_1"
+                                                    type="checkbox" *ngIf="item.cbVBTL !== '1'">
+
+                                                <span class="pointer">Có văn bản trả lời</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="info__more">
+                                        <div class="congViec__xuLy d-flex justify-content-start">
+                                            <div class="congViec__chiDao congViec__xuLy-item pos-relative">
+                                                Chỉ đạo: <span class="tx-user">{{item.tenChiDao}}</span>
+
+                                            </div>
+                                            <div (click)="phoihop.toggle($event)"
+                                                class="congViec__phoiHop_1 dropdownLst pos-relative congViec__xuLy-item">
+                                                Phối hợp <span id="countPhoiHop"
+                                                    class="tx-danger tx-bold">{{item.countPhoiHop}}</span> đồng
+                                                chí
+                                            </div>
+                                            <p-overlayPanel #phoihop>
+                                                <ul *ngFor="let phoihop of item.lstPhoiHop">
+                                                    <li>
+                                                        {{phoihop.text}} ({{phoihop.value}})
+                                                    </li>
+                                                </ul>
+                                            </p-overlayPanel>
+
+                                            <div (click)="thongbao.toggle($event)"
+                                                class="congViec__thongbao_1 dropdownLst pos-relative congViec__xuLy-item">
+                                                Thông báo <span id="countThongbao"
+                                                    class="tx-danger tx-bold">{{item.countThongBao}}</span>
+                                                đồng chí
+
+                                            </div>
+                                            <p-overlayPanel #thongbao>
+                                                <ul *ngFor="let thongbao of item.lstThongBao">
+                                                    <li>
+                                                        {{thongbao.text}} ({{thongbao.value}})
+                                                    </li>
+                                                </ul>
+                                            </p-overlayPanel>
+
+
+                                            <div (click)="sms.toggle($event)" class="congViec__sms_1 dropdownLst pos-relative congViec__xuLy-item">
+                                                TB SMS <span id="countSmS"
+                                                    class="tx-danger tx-bold">{{item.countSmS}}</span> đồng chí
+
+                                            </div>
+
+                                            <p-overlayPanel #sms>
+                                                <ul *ngFor="let sms of item.lstSmS">
+                                                    <li>
+                                                        {{sms.text}} ({{sms.value}})
+                                                    </li>
+                                                </ul>
+                                            </p-overlayPanel>
+
+                                            <div (click)="vbtl.toggle($event)" class="congViec__VBTL_1 dropdownLst pos-relative congViec__xuLy-item">
+                                                Có VB trả lời <span id="countVBTL"
+                                                    class="tx-danger tx-bold">{{item.countVBTL}}</span>
+                                                đồng chí
+
+                                            </div>
+
+                                            <p-overlayPanel #vbtl>
+                                                <ul *ngFor="let vbtl of item.lstVBTL">
+                                                    <li>
+                                                        {{vbtl.text}} ({{vbtl.value}})
+                                                    </li>
+                                                </ul>
+                                            </p-overlayPanel>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="congViec__item-action d-flex flex-column align-items-start">
+                                    <!-- <div class="congViec__cta">
+                                        <button (click)="DeleteParent(item.id)" pButton pRipple icon="pi pi-trash"
+                                            class="p-button-danger">
+                                        </button><br><br>
+                                        <button (click)="UpdateParent(item)" pButton pRipple icon="pi pi-pencil"
+                                            class="p-button-success">
+                                        </button>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngFor="let itemChild of GetDataChild(item)" class="lstCongViec__child" data-id="1"
+                            data-parent="1">
+                            <div class="congViec__item item__unsaved" data-id="5575">
+                                <input type="hidden" id="txtIdUserXuLy_5575" value="432">
+                                <div class="congViec__item-main d-flex align-items-strecth">
+                                    <div class="congViec__item--left tx-center">
+                                        <div class="">
+                                            <span class="STT" id="txtStt_5575" data-id="1.1">{{itemChild.stt}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="congViec__item--right d-flex">
+                                        <div class="congViec__item-info">
+                                            <div class="congViec__noiDung tx-bold">
+                                                <span>{{itemChild.noiDungCongViec}}</span>
+                                            </div>
+                                            <div class="congViec__xuLy d-flex justify-content-start">
+                                                <div class="congViec__ngTao congViec__xuLy-item">
+                                                    Người tạo: <span class="tx-user">{{item.tenNguoiTao}}</span>
+                                                </div>
+                                                <div class="congViec__status congViec__xuLy-item bg-status">
+                                                    <a href="javascript:;" class="">
+                                                        {{itemChild.trangThai == 1 ? "Chưa xử lý" : itemChild.trangThai
+                                                        == 2?"Đang xử lý" :
+                                                        itemChild.trangThai == 3 ?"Xử lý xong" : ""}}
+                                                    </a>
+                                                </div>
+                                                <div class="congViec__chuTri congViec__xuLy-item pos-relative">
+                                                    Chủ trì: <span class="tx-user">{{itemChild.tenChuTri}}</span>
+                                                </div>
+                                                <div class="congViec__TimeBatDau congViec__xuLy-item pos-relative">
+                                                    <span class="tx-bold">{{itemChild.thoiHan}}</span>
+                                                    ngày |
+                                                    Từ:
+                                                    {{itemChild.ngayBD| date : "dd/MM/yyyy"}}&nbsp;
+                                                    Đến:
+                                                    {{itemChild.ngayKT| date : "dd/MM/yyyy"}}
+                                                </div>
+                                                <div class="congViec__TyLeXuLy congViec__xuLy-item pos-relative">
+                                                    Tỷ lệ xử lý:
+                                                    <span class="tx-bold"> {{itemChild.tyLeXuLy}}</span>
+                                                </div>
+                                                <div class="congViec__ckbVBTL congViec__xuLy-item pos-relative">
+                                                    <label class="ckbox pointer mg-0">
+                                                        <input disabled="disabled" *ngIf="itemChild.cbVBTL === '1'"
+                                                            id="congViec__ckbVanBanTraLoi_5575" type="checkbox"
+                                                            checked="checked">
+
+                                                        <input disabled="disabled" *ngIf="itemChild.cbVBTL !== '1'"
+                                                            id="congViec__ckbVanBanTraLoi_5575" type="checkbox">
+                                                        <span class="pointer">Có văn bản trả lời</span>
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                            <div class="info__more">
+                                                <div class="congViec__xuLy d-flex justify-content-start">
+                                                    <div class="congViec__chiDao congViec__xuLy-item pos-relative">
+                                                        Chỉ đạo: <span class="tx-user">{{itemChild.tenChiDao}}</span>
+                                                    </div>
+                                                    <div (click)="phoihopchild.toggle($event)"
+                                                        class="congViec__phoiHop_5575 dropdownLst pos-relative congViec__xuLy-item">
+                                                        Phối hợp <span
+                                                            class="tx-danger tx-bold">{{itemChild.countPhoiHop}}</span>
+                                                        đồng chí
+                                                    </div>
+                                                    <p-overlayPanel #phoihopchild>
+                                                        <ul *ngFor="let phoihopchild of itemChild.lstPhoiHop">
+                                                            <li>
+                                                                {{phoihopchild.text}} ({{phoihopchild.value}})
+                                                            </li>
+                                                        </ul>
+                                                    </p-overlayPanel>
+                                                    <div (click)="thongbaochild.toggle($event)"
+                                                        class="congViec__thongbao_5575 dropdownLst pos-relative congViec__xuLy-item">
+                                                        Thông báo <span
+                                                            class="tx-danger tx-bold">{{itemChild.countThongBao}}</span>
+                                                        đồng chí
+                                                    </div>
+                                                    <p-overlayPanel #thongbaochild>
+                                                        <ul *ngFor="let thongbaochild of itemChild.lstThongBao">
+                                                            <li>
+                                                                {{thongbaochild.text}} ({{thongbaochild.value}})
+                                                            </li>
+                                                        </ul>
+                                                    </p-overlayPanel>
+                                                    <div (click)="smschild.toggle($event)" id=""
+                                                        class="congViec__sms_5575 dropdownLst pos-relative congViec__xuLy-item">
+                                                        TB SMS <span
+                                                            class="tx-danger tx-bold">{{itemChild.countSmS}}</span> đồng
+                                                        chí
+
+                                                    </div>
+                                                    <p-overlayPanel #smschild>
+                                                        <ul *ngFor="let smschild of itemChild.lstSmS">
+                                                            <li>
+                                                                {{smschild.text}} ({{smschild.value}})
+                                                            </li>
+                                                        </ul>
+                                                    </p-overlayPanel>
+                                                    <div (click)="vbtlchild.toggle($event)"
+                                                        class="congViec__VBTL_5575 dropdownLst pos-relative congViec__xuLy-item">
+                                                        Có VB trả lời <span id="countVBTL"
+                                                            class="tx-danger tx-bold">{{itemChild.countVBTL}}</span>
+                                                        đồng chí
+                                                    </div>
+
+                                                    <p-overlayPanel #vbtlchild>
+                                                        <ul *ngFor="let smschild of itemChild.lstVBTL">
+                                                            <li>
+                                                                {{vbtlchild.text}} ({{vbtlchild.value}})
+                                                            </li>
+                                                        </ul>
+                                                    </p-overlayPanel>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="congViec__item-action d-flex flex-column align-items-start">
+                                            <div class="congViec__cta">
+                                                <button (click)="DeleteParent(itemChild.id)" pButton pRipple
+                                                    icon="pi pi-trash" class="p-button-danger">
+                                                </button><br><br>
+                                                <button (click)="UpdateParent(itemChild)" pButton pRipple
+                                                    icon="pi pi-pencil" class="p-button-success">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <app-cap-nhat-treecv [show]="hienThiCapNhat" [item]="item" (tatPopup)="Thoat($event, 'T')"></app-cap-nhat-treecv>
+
+            <app-them-moi-treecv [show]="hienThiThemMoi" [idCongViec]="idCongViec" [stt]="stt"
+                (tatPopup)="Thoat($event, 'C')"></app-them-moi-treecv>
+
+        </div>
+
+        <p-confirmDialog #cd [style]="{width: '30vw'}">
+            <ng-template pTemplate="header">
+                <h3>Xác nhận</h3>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark"
+                    class="p-element p-ripple p-button p-component p-button-info">
+                    <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
+                    <span class="p-button-label">Đồng ý</span>
+                    <span class="p-ink"></span>
+                </button>
+                <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark"
+                    class="p-element p-ripple p-button p-component p-button-danger">
+                    <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
+                    <span class="p-button-label">Hủy</span>
+                    <span class="p-ink"></span>
+                </button>
+            </ng-template>
+        </p-confirmDialog>
+    </div>
+</div>

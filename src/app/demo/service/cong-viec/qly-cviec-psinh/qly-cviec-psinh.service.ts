@@ -30,7 +30,7 @@ export class QlyCviecPsinhService {
     modelTimKiem.idUser = this.auth.GetmUserInfo().userId.toString();
     console.log(modelTimKiem);
     const url = `${this.baseUrl}/CongViec/QuanLyCongViecPhatSinh/GetDanhSachCongViec/`;
-    
+
     return this.httpClient.post<any>(url, modelTimKiem, this.httpOption);
   }
 
@@ -69,5 +69,10 @@ export class QlyCviecPsinhService {
     return this.httpClient.post<any>(environment.baseUrlApi + '/CongViec/QuanLyCongViecPhatSinh/CapNhatCongViec', modelVanban, this.httpOption)
   }
 
-
+  public XoaCongViec(idChiTieu: string) {
+    if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
+    const url = `${this.baseUrl}/VanBanDen/SuaButPheVanBan/XoaCongViec?idUserXuLy=` + idChiTieu;
+    return this.httpClient.post<any>(url, this.httpOption)
+  }
 }

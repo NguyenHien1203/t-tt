@@ -8,16 +8,15 @@ import { ButPheVanBanService } from 'src/app/demo/service/van-ban-den/but-phe-va
 import { DoiTuongPhanCong } from 'src/app/models/cong-viec/qly-cviec-psinh';
 
 @Component({
-  selector: 'app-them-moi-treecv',
-  templateUrl: './them-moi-treecv.component.html',
-  styleUrls: ['./them-moi-treecv.component.scss']
+  selector: 'app-cap-nhat-treecv',
+  templateUrl: './cap-nhat-treecv.component.html',
+  styleUrls: ['./cap-nhat-treecv.component.scss']
 })
-export class ThemMoiTreecvComponent {
+export class CapNhatTreecvComponent {
   @Input() show: boolean = false;
   @Output() tatPopup = new EventEmitter<boolean>();
-  @Input() idCongViec: string = "";
-  @Input() stt: string = "";
-  type: string = "";
+  @Input() item: any = [];
+
   submitted: boolean = false;
   lstPhongBan: [];
   lstNhomNguoiDung: [];
@@ -50,7 +49,6 @@ export class ThemMoiTreecvComponent {
     private formBuilder: FormBuilder,
     private auth: AuthService,
     private cv_service: QlyCviecPsinhService,
-
   ) { }
 
   public ThongTinCongViec = this.formBuilder.group({
@@ -68,20 +66,29 @@ export class ThemMoiTreecvComponent {
     this.submitted = false;
     this.show = false;
     this.ThongTinCongViec.reset();
-    this.lstNguoiDungPhanCong = [];
-    this.lstUserNhan = [];
     this.tatPopup.emit(this.show);
   }
 
   public async BindDialogData() {
-    this.ThongTinCongViec.patchValue({
-      ngayBatDau: new Date(),
-      ngayKetThuc: new Date()
-    })
-
     this.LoadPhongBan();
     this.LoadNhomNguoiDung();
     this.LoadChonNhanhNguoiDung();
+    this.GetDataUpdateCongViec();
+  }
+
+  public GetDataUpdateCongViec() {
+    this.cv_service.GetDataUpdateCongViec(this.item).subscribe(data => {
+      if (data.isError) {
+      } else {
+        this.lstNguoiDungPhanCong = data.objData.lstDoiTuongModel;
+        this.ThongTinCongViec.patchValue({
+          noiDung: data.objData.objCongViec.noiDungCongViec,
+          soNgay: data.objData.objCongViec.thoiHan,
+          ngayBatDau: new Date(data.objData.objCongViec.ngayBd),
+          ngayKetThuc: new Date(data.objData.objCongViec.ngayKt),
+        })
+      }
+    })
   }
 
   /**
@@ -133,6 +140,7 @@ export class ThemMoiTreecvComponent {
       if (data.isError) {
       } else {
         this.lstUserNhan = data.objData;
+
         this.lstNguoiDungPhanCong.forEach((item: any) => {
           const newList = this.lstUserNhan.filter(s => s.value !== item.value);
           this.lstUserNhan = newList;
@@ -326,9 +334,8 @@ export class ThemMoiTreecvComponent {
         }
       });
     }
-
   }
-
+  
   public chkChuTriChild(item: DoiTuongPhanCong) {
     item.chuTri = !item.chuTri;
     if (item.chuTri === true) {
@@ -372,13 +379,9 @@ export class ThemMoiTreecvComponent {
 
   public CapNhatCongViec() {
     this.submitted = true;
+    console.log(this.item);
     if (this.ThongTinCongViec.valid) {
       this.congviec = this.ThongTinCongViec.value;
-
-      if (this.stt === '')
-        this.type = 'parent';
-      else
-        this.type = 'child';
 
       let data = {
         ngayBatDau: this.formatDateToDDMMYY(new Date(this.ThongTinCongViec.value.ngayBatDau)),
@@ -386,16 +389,16 @@ export class ThemMoiTreecvComponent {
         lstDoiTuong: JSON.stringify(this.lstNguoiDungPhanCong),
         soNgay: this.congviec.soNgay.toString(),
         noiDung: this.congviec.noiDung.toString(),
-        stt: this.stt !== "" ? this.stt.toString() : "",
-        idCongViec: this.idCongViec.toString(),
-        donViDangNhap: this.auth.GetmUserInfo().donViId.toString(),
-        DonViLamViec: this.auth.GetmUserInfo().phongBanLamViecId.toString(),
+        idCongViec: this.item.congViecId.toString(),
+        idUserXuLy: this.item.id.toString(),
+        stt: this.item.stt.toString(),
         userId: this.auth.GetmUserInfo().userId.toString(),
-        type: this.type,
+        donViLamViecId: this.auth.GetmUserInfo().phongBanLamViecId.toString(),
+        donViId: this.auth.GetmUserInfo().donViId.toString(),
         idNhomQuyenLamViec: this.auth.GetmUserInfo().nhomQuyenId.toString(),
       }
 
-      this.cv_service.ThemCongViecCon(data).subscribe(data => {
+      this.cv_service.CapNhatCongViec(data).subscribe(data => {
         if (data.isError) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
         } else {

@@ -1,7 +1,9 @@
+import { PhongBan } from './../../../../../models/danh-muc/phong-ban';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { QuanLyHoSoCaNhanService } from 'src/app/demo/service/ho-so-cong-viec/quan-ly-ho-so-ca-nhan.service';
+import { TimKiemVanBanDinhKem } from 'src/app/models/ho-so-cong-viec/quan-ly-ho-so-ca-nhan';
 import { modelOptions } from 'src/app/models/option-model';
 
 @Component({
@@ -18,10 +20,7 @@ export class ChonVanBanComponent {
         private service: QuanLyHoSoCaNhanService,
         private messageService: MessageService,
         private authService: AuthService
-    ) {
-        this.LoadDanhSach();
-        this.LoadDanhMuc();
-    }
+    ) {}
 
     lstVanBan: any[] = [];
     lstNam: modelOptions[] = [];
@@ -37,12 +36,14 @@ export class ChonVanBanComponent {
     userId = this.authService.GetmUserInfo()?.userId;
     userCap = this.authService.GetmUserInfo()?.cap;
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
-    timKiemDanhSach: any = {
+    timKiemDanhSach: TimKiemVanBanDinhKem = {
         keyWord: '',
         nam: 0,
         thang: 0,
         loaiDiDen: 0,
         donViId: Number(this.idDonViLamViec),
+        phongBanId: Number(this.idPhongBan),
+        userId: Number(this.userId),
     };
 
     public LoadDanhSach() {
@@ -53,6 +54,11 @@ export class ChonVanBanComponent {
                     return { ...dt, checked: false }; //gán checked để khởi tạo giá trị cho checkbox
                 });
             });
+    }
+
+    public BindDialogData() {
+        this.LoadDanhSach();
+        this.LoadDanhMuc();
     }
 
     public LoadDanhMuc() {

@@ -105,4 +105,36 @@ export class XuLyCongViecService {
 
         return this.http.post<any>(url, this.httpOption)
     }
+
+    public ThemMoiTienDoCongViec(model: any) {
+        if (!this.auth.CheckLogin())
+          this.router.navigate(['/login']);
+        return this.http.post<any>(environment.baseUrlApi + '/CongViec/XuLyCongViec/ThemBaoCaoTienDo', model, this.httpOption)
+      }
+
+      //GiaoViec
+
+      public GetVanBanById(idCongViec: string) {
+        if (!this.auth.CheckLogin())
+          this.router.navigate(['/login']);
+    
+        const url = `${this.baseUrl}/CongViec/XuLyCongViec/GetVanBanById?idCongViec=` + idCongViec;
+        return this.http.get<any>(url);
+      }
+
+      public LoadDataDefault(idCongViec: string, cap:string) {
+        if (!this.auth.CheckLogin())
+          this.router.navigate(['/login']);
+        var IdDonVi = this.auth.GetmUserInfo().donViId.toString();
+        const url = `${this.baseUrl}/CongViec/XuLyCongViec/GetDanhSachCongViec?idCongViec=` + idCongViec + "&cap=" + cap;
+        return this.http.get<any>(url);
+      }
+
+      public XoaCongViec(idChiTieu: string) {
+        if (!this.auth.CheckLogin())
+          this.router.navigate(['/login']);
+        const url = `${this.baseUrl}/VanBanDen/SuaButPheVanBan/XoaCongViec?idUserXuLy=` + idChiTieu;
+        return this.http.post<any>(url, this.httpOption)
+      }
+    
 }

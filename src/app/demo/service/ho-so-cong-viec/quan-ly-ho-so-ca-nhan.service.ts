@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TimKiemQuanLyHoSoCaNhan } from 'src/app/models/ho-so-cong-viec/quan-ly-ho-so-ca-nhan';
+import { TimKiemCongViecDinhKem, TimKiemPhieuTrinhDinhKem, TimKiemQuanLyHoSoCaNhan, TimKiemVanBanDinhKem } from 'src/app/models/ho-so-cong-viec/quan-ly-ho-so-ca-nhan';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -26,6 +26,34 @@ export class QuanLyHoSoCaNhanService {
             .then((res) => res.objData);
     }
 
+    getMaHoSoCaNhan(soKyHieu: string, idDonVi: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/HoSoCongViec/QuanLyHoSoCaNhan/GetMaHoSoCaNhan?soKyHieu=' +
+                    soKyHieu +
+                    '&idDonVi=' +
+                    idDonVi,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.data);
+    }
+    
+    getNgayKetThucHoSo(thoiHanBaoQuan: string, ngayBatDau : string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/HoSoCongViec/QuanLyHoSoCaNhan/GetNgayKetThucHoSo?thoiHanBaoQuan=' +
+                    thoiHanBaoQuan +
+                    '&ngayBatDau=' +
+                    ngayBatDau,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
+
     getDanhSachLoaiHoSo(idDonVi: string) {
         return this.http
             .get<any>(
@@ -38,7 +66,7 @@ export class QuanLyHoSoCaNhanService {
             .then((res) => res.objData);
     }
 
-    getDanhSachChonVanBan(timKiemDanhSach: any) {
+    getDanhSachChonVanBan(timKiemDanhSach: TimKiemVanBanDinhKem) {
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -50,7 +78,7 @@ export class QuanLyHoSoCaNhanService {
             .then((res) => res.objData);
     }
 
-    getDanhSachChonCongViec(timKiemDanhSach: any) {
+    getDanhSachChonCongViec(timKiemDanhSach: TimKiemCongViecDinhKem) {
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -62,7 +90,7 @@ export class QuanLyHoSoCaNhanService {
             .then((res) => res.objData);
     }
 
-    getDanhSachChonPhieuTrinh(timKiemDanhSach: any) {
+    getDanhSachChonPhieuTrinh(timKiemDanhSach: TimKiemPhieuTrinhDinhKem) {
         return this.http
             .post<any>(
                 environment.baseUrlApi +

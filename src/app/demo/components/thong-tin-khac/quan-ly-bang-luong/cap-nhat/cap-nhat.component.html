@@ -1,8 +1,8 @@
 <p-dialog [(visible)]="show" [formGroup]="formCapNhat" (onShow)="BindDataDialog()" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
     [style]="{width: '950px'}" [modal]="true" header="Cập nhật bảng lương" class="p-fluid">
     <ng-template pTemplate="content">
-        <div class="grid formgrid">
-            <div class="col-12 md:col-6">
+        <div class="field grid">
+            <div class="col-12 md:col-6 fl-wr">
                 <label htmlfor="tieuDe">Tiêu đề<span class="p-error"> (*)</span>:</label>
                 <input pinputtext="" id="tieuDe" type="text" required="" class="p-inputtext p-component p-element"
                     formControlName="tieuDe">
@@ -27,12 +27,12 @@
                 </div>
             </div>
         </div>
-        <div class="grid formgrid">
-            <div class="col-12 md:col-6">
+        <div class="field grid">
+            <div class="col-12 md:col-6 fl-wr">
                 <label htmlfor="noiDung">Nội dung:</label>
                 <textarea rows="3" cols="30"  formControlName="noiDung" placeholder="Nội dung" pInputTextarea></textarea>
             </div>
-            <div class="col-12 md:col-6">
+            <div class="col-12 md:col-6 fl-wr">
                 <label htmlfor="ghiChu">Ghi chú:</label>
                 <textarea rows="3" cols="30"  formControlName="ghiChu" placeholder="Nội dung" pInputTextarea></textarea>
             </div>

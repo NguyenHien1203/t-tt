@@ -201,7 +201,7 @@
                             </tr>
                             <tr>
                                 <td class="">
-                                    <strong>File văn bản:</strong>
+                                    <strong>File văn bản đính kèm:</strong>
                                 </td>
                                 <td class="">
                                     <ul>
@@ -226,7 +226,7 @@
                                     </ul>
                                 </td>
                                 <td class="">
-                                    <strong>File công việc:</strong>
+                                    <strong>File đính kèm:</strong>
                                 </td>
                                 <td class="">
                                     <ul>
@@ -339,7 +339,7 @@
                                                 <ul>
                                                     <li
                                                         *ngFor="
-                                                            let file of caNhanThucHien.LstFileDinhKem
+                                                            let file of caNhanThucHien.lstFileDinhKem
                                                         "
                                                     >
                                                         <a
@@ -362,7 +362,8 @@
                                                 {{ caNhanThucHien.vaiTro}}
                                             </td>
                                             <td>
-                                                {{ caNhanThucHien.trangThai}}
+                                                {{caNhanThucHien.trangThai == 1 ? "Chưa xử lý" : caNhanThucHien.trangThai == 2?"Đang xử lý" :
+                                                caNhanThucHien.trangThai == 3 ?"Xử lý xong" : "Không xử lý"}}
                                             </td>
                                         </tr>
                                     </ng-template>
@@ -390,7 +391,7 @@
                     <div class="chat-container">
                         <!-- Header "Trao đổi" -->
                         <div class="chat-header">
-                            <h3>Trao đổi</h3>
+                            <h3><strong>Trao đổi</strong></h3>
                             <hr />
                         </div>
 
@@ -401,26 +402,27 @@
                                 <!-- Icon hình người (15-20%) -->
                                 <div class="avatar-container">
                                     <!-- Thêm ảnh cá nhân của người dùng -->
-                                    {{ "Tên tài khoản" }}
+                                    <strong>{{TenTaiKhoan}}</strong>
                                 </div>
 
                                 <!-- Khung comment (80-85%) -->
                                 <div class="comment-frame">
-                                    <!-- Nội dung comment -->
-
                                     <!-- Input comment -->
                                     <div class="input-container">
                                         <div class="flex-container">
-                                            <textarea
-                                                placeholder="Nhập comment..."
-                                            ></textarea>
-                                            <button>
-                                                <i class="pi pi-send"></i>
-                                            </button>
+                                            <textarea rows="2" cols="10" placeholder="Thêm bình luận" class="my-drop"
+                                            pInputTextarea></textarea>
+                                        </div>
+                                        <div class="right">
+                                            <a href="javascript:;">Gửi</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <hr>
+
+
                         </div>
                     </div>
                 </div>

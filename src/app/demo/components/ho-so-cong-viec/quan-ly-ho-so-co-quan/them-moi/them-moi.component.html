@@ -143,7 +143,7 @@
                                 type="text"
                                 pInputText
                                 pKeyFilter="int"
-                                placeholder="Nhập số năm bảo quản (vĩnh viễn để trống)"
+                                placeholder="Nhập số năm bảo quản"
                                 (blur)="ChangeThoiHanBaoQuan()"
                                 formControlName="thoiHanBaoQuan"
                                 id="thoiHanBaoQuan"
@@ -328,44 +328,7 @@
                         </div>
                     </div>
 
-                    <div class="field grid div-center">
-                        <button
-                            pbutton=""
-                            pripple=""
-                            type="submit"
-                            label="Info"
-                            class="p-element p-ripple p-button-primary p-button p-component"
-                            ng-reflect-label="Info"
-                            (click)="ThemMoi()"
-                        >
-                            <span class="p-button-label">Lưu lại</span
-                            ><span class="p-ink"></span></button
-                        >&nbsp;
-                        <button
-                            pbutton=""
-                            pripple=""
-                            type="submit"
-                            label="Info"
-                            class="p-element p-ripple p-button-warning p-button p-component"
-                            ng-reflect-label="Info"
-                            (click)="NhapLai()"
-                        >
-                            <span class="p-button-label">Nhập lại</span
-                            ><span class="p-ink"></span></button
-                        >&nbsp;
-                        <button
-                            pbutton=""
-                            pripple=""
-                            type="button"
-                            label="Info"
-                            class="p-element p-ripple p-button-info p-button p-component"
-                            ng-reflect-label="Danger"
-                            (click)="ReturnTrangChu()"
-                        >
-                            <span class="p-button-label">Trở lại danh sách</span
-                            ><span class="p-ink"></span>
-                        </button>
-                    </div>
+                   
                 </form>
             </p-tabPanel>
             <p-tabPanel header="Văn bản">
@@ -603,7 +566,7 @@
                 <div class="multiSelect">
                     <div class="field grid">
                         <label class="col-12 md:col-6 fl-wr">
-                            <label for="integeronly">Chọn phòng ban</label>
+                            <label for="">Chọn phòng ban</label>
                             <p-dropdown
                                 [showClear]="true"
                                 [(ngModel)]="phongBanId"
@@ -617,9 +580,7 @@
                                 (ngModelChange)="ChangePhongBan($event)"
                             ></p-dropdown>
 
-                            <label for="integeronly"
-                                >Chọn nhóm người dùng</label
-                            >
+                            <label for="">Chọn nhóm người dùng</label>
                             <p-dropdown
                                 [showClear]="true"
                                 [(ngModel)]="nhomNguoiDungId"
@@ -633,9 +594,7 @@
                                 (ngModelChange)="ChangeNhomNguoiDung($event)"
                             ></p-dropdown>
 
-                            <label for="integeronly"
-                                >Chọn nhanh người dùng</label
-                            >
+                            <label for="">Chọn nhanh người dùng</label>
                             <p-dropdown
                                 [showClear]="true"
                                 [options]="lstUserChonNhanh"
@@ -740,17 +699,34 @@
                                     <tr>
                                         <th style="max-width: 3rem">
                                             <div class="text-center">
-                                                <input type="checkbox" (click)="CheckAllXem()" [checked]="checkAllXem" [(ngModel)]="checkAllXem" />
+                                                <input
+                                                    type="checkbox"
+                                                    (click)="CheckAllXem()"
+                                                    [checked]="checkAllXem"
+                                                    [(ngModel)]="checkAllXem"
+                                                />
                                             </div>
                                         </th>
                                         <th style="max-width: 3rem">
                                             <div class="text-center">
-                                                <input type="checkbox" (click)="CheckAllVanBan()"  [checked]="checkAllVanBan" [(ngModel)]="checkAllVanBan" />
+                                                <input
+                                                    type="checkbox"
+                                                    (click)="CheckAllVanBan()"
+                                                    [checked]="checkAllVanBan"
+                                                    [(ngModel)]="checkAllVanBan"
+                                                />
                                             </div>
                                         </th>
                                         <th style="max-width: 3rem">
                                             <div class="text-center">
-                                                <input type="checkbox" (click)="CheckAllCongViec()" [checked]="checkAllCongViec" [(ngModel)]="checkAllCongViec" />
+                                                <input
+                                                    type="checkbox"
+                                                    (click)="CheckAllCongViec()"
+                                                    [checked]="checkAllCongViec"
+                                                    [(ngModel)]="
+                                                        checkAllCongViec
+                                                    "
+                                                />
                                             </div>
                                         </th>
                                         <th style="max-width: 3rem">
@@ -772,13 +748,30 @@
                                             {{ item.hoVaTen }}
                                         </td>
                                         <td class="text-center">
-                                            <input type="checkbox" (click)="CheckItemXem(item)" [(ngModel)]="item.xem" [checked]="item.xem" />
+                                            <input
+                                                type="checkbox"
+                                                (click)="CheckItemXem(item)"
+                                                [(ngModel)]="item.xem"
+                                                [checked]="item.xem"
+                                            />
                                         </td>
                                         <td class="text-center">
-                                            <input type="checkbox" (click)="CheckItemVanBan(item)" [(ngModel)]="item.vb" [checked]="item.vb" />
+                                            <input
+                                                type="checkbox"
+                                                (click)="CheckItemVanBan(item)"
+                                                [(ngModel)]="item.vb"
+                                                [checked]="item.vb"
+                                            />
                                         </td>
                                         <td class="text-center">
-                                            <input type="checkbox" (click)="CheckItemCongViec(item)" [(ngModel)]="item.cv" [checked]="item.cv" />
+                                            <input
+                                                type="checkbox"
+                                                (click)="
+                                                    CheckItemCongViec(item)
+                                                "
+                                                [(ngModel)]="item.cv"
+                                                [checked]="item.cv"
+                                            />
                                         </td>
 
                                         <td class="text-center">
@@ -807,7 +800,46 @@
                     </div>
                 </div>
             </p-tabPanel>
+            <div class="field grid div-center">
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="submit"
+                    label="Info"
+                    class="p-element p-ripple p-button-primary p-button p-component"
+                    ng-reflect-label="Info"
+                    (click)="ThemMoi()"
+                >
+                    <span class="p-button-label">Lưu lại</span
+                    ><span class="p-ink"></span></button
+                >&nbsp;
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="submit"
+                    label="Info"
+                    class="p-element p-ripple p-button-warning p-button p-component"
+                    ng-reflect-label="Info"
+                    (click)="NhapLai()"
+                >
+                    <span class="p-button-label">Nhập lại</span
+                    ><span class="p-ink"></span></button
+                >&nbsp;
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="button"
+                    label="Info"
+                    class="p-element p-ripple p-button-info p-button p-component"
+                    ng-reflect-label="Danger"
+                    (click)="ReturnTrangChu()"
+                >
+                    <span class="p-button-label">Trở lại danh sách</span
+                    ><span class="p-ink"></span>
+                </button>
+            </div>
         </p-tabView>
+      
     </div>
 </div>
 <app-chon-van-ban

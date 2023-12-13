@@ -30,7 +30,7 @@ export class ThemMoiComponent {
 
     items: any[] = [
         { label: 'Hồ sơ công việc' },
-        { label: 'Quản lý hồ sơ công việc cá nhân' },
+        { label: 'Quản lý hồ sơ công việc cơ quan' },
         { label: 'Thêm mới' },
     ];
     home: any = { icon: 'pi pi-home', routerLink: '/' };
@@ -124,11 +124,9 @@ export class ThemMoiComponent {
                 this.idUser
             )
             .then((data) => (this.lstNhomNguoiDung = data));
-            
-            this.service
-            .getDanhSachChonNhanhNguoiDung(
-                this.idDonViLamViec,
-            )
+
+        this.service
+            .getDanhSachChonNhanhNguoiDung(this.idDonViLamViec, this.idUser)
             .then((data) => (this.lstUserChonNhanh = data));
 
         this.formThemMoi.patchValue({
@@ -150,8 +148,6 @@ export class ThemMoiComponent {
             });
     }
 
-    public ChangeDoiTuong(): void {}
-
     public ChonDoiTuong(): void {
         const sltNguoiDung = this.lstUserNhan
             .filter((data) => this.selectedNguoiDung.includes(data.value))
@@ -170,44 +166,42 @@ export class ThemMoiComponent {
         );
         this.lstUserNhan = lstTmp;
 
-        this.lstPhieuTrinhLienQuan = this.RemoveDuplicates(
-            this.lstPhanQuyen,
-            'value'
-        );
+        this.lstPhanQuyen = this.RemoveDuplicates(this.lstPhanQuyen, 'value');
     }
 
     public ChangePhongBan(event): void {
         if (event != null) {
-            this.service.getDanhSachUserThuocPhongBan(event).then((data) => {
-                this.lstUserNhan = data;
-            });
-        }
-    }
-
-    public ChangeNhomNguoiDung(event): void {
-        if (event != null) {
             this.service
-                .getDanhSachUserThuocNhomNguoiDung(event)
+                .getDanhSachUserThuocPhongBan(event, this.idUser)
                 .then((data) => {
                     this.lstUserNhan = data;
                 });
         }
     }
 
+    public ChangeNhomNguoiDung(event): void {
+        if (event != null) {
+            this.service
+                .getDanhSachUserThuocNhomNguoiDung(event, this.idUser)
+                .then((data) => {
+                    this.lstUserNhan = data;
+                });
+        }
+    }
 
     public ChangeUserChonNhanh(event): void {
-      if(event != null)
-      {
-        let objUser = this.lstUserChonNhanh.filter(data => data.value == event);
-        console.log(objUser);
-        this.lstUserNhan = [];
-        this.lstUserNhan.push(objUser);
-      }
+        if (event != null) {
+            let objUser = this.lstUserChonNhanh.filter(
+                (data) => data.value == event
+            );
+            this.lstUserNhan = [];
+            this.lstUserNhan = this.lstUserNhan.concat(objUser);
+        }
     }
 
     public ChangeSoKyHieu() {
         this.service
-            .getMaHoSoCaNhan(
+            .getMaHoSoCoQuan(
                 this.formThemMoi.value.soKyHieu,
                 this.idDonViLamViec
             )
@@ -299,6 +293,7 @@ export class ThemMoiComponent {
         this.selectedFiles.forEach((obj, index) => {
             if (obj.filePath === filePath) {
                 obj.isDelete = true;
+                obj.isNew = false;
             }
         });
     }
@@ -344,10 +339,9 @@ export class ThemMoiComponent {
                 lstCongViecDinhKem: this.lstCongViecLienQuan.map(
                     (data) => data.id
                 ),
-                lstPhieuTrinhDinhKem: this.lstPhieuTrinhLienQuan.map(
-                    (data) => data.id
-                ),
+                lstPhanPhoi: this.lstPhanQuyen,
             };
+
             this.service.themMoiHoSoCoQuan(hoSoCongViecCaNhan).subscribe(
                 (data) => {
                     if (data.isError) {
@@ -364,13 +358,19 @@ export class ThemMoiComponent {
                         });
                         setTimeout(() => {
                             this.ReturnTrangChu();
-                        });
+                        }, 2000);
                     }
                 },
                 (error) => {
                     console.log('Error', error);
                 }
             );
+        } else {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Lỗi',
+                detail: 'Kiểm tra lại thông tin bắt buộc',
+            });
         }
     }
 

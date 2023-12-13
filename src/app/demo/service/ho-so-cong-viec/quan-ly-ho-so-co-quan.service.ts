@@ -42,11 +42,11 @@ export class QuanLyHoSoCoQuanService {
             .then((data) => data.objData);
     }
 
-    getMaHoSoCaNhan(soKyHieu: string, idDonVi: string) {
+    getMaHoSoCoQuan(soKyHieu: string, idDonVi: string) {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/HoSoCongViec/QuanLyHoSoCoQuan/GetMaHoSoCaNhan?soKyHieu=' +
+                    '/HoSoCongViec/QuanLyHoSoCoQuan/GetMaHoSoCoQuan?soKyHieu=' +
                     soKyHieu +
                     '&idDonVi=' +
                     idDonVi,
@@ -60,7 +60,7 @@ export class QuanLyHoSoCoQuanService {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/HoSoCongViec/QuanLyHoSoCaNhan/GetNgayKetThucHoSo?thoiHanBaoQuan=' +
+                    '/HoSoCongViec/QuanLyHoSoCoQuan/GetNgayKetThucHoSo?thoiHanBaoQuan=' +
                     thoiHanBaoQuan +
                     '&ngayBatDau=' +
                     ngayBatDau,
@@ -93,23 +93,35 @@ export class QuanLyHoSoCoQuanService {
             .toPromise()
             .then((res) => res.objData);
     }
-    
-    getDanhSachNhomNguoiDung(idDonViLamViec: string, idPhongBan : string, idUser : string) {
+
+    getDanhSachNhomNguoiDung(
+        idDonViLamViec: string,
+        idPhongBan: string,
+        idUser: string
+    ) {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/HoSoCongViec/QuanLyHoSoCoQuan/GetDanhSachNhomNguoiDung?idDonViLamViec=' +idDonViLamViec + "&idPhongBan=" + idPhongBan + "&idUser=" + idUser,
+                    '/HoSoCongViec/QuanLyHoSoCoQuan/GetDanhSachNhomNguoiDung?idDonViLamViec=' +
+                    idDonViLamViec +
+                    '&idPhongBan=' +
+                    idPhongBan +
+                    '&idUser=' +
+                    idUser,
                 this.httpOption
             )
             .toPromise()
             .then((res) => res.objData);
     }
-    
-    getDanhSachChonNhanhNguoiDung(idDonViLamViec: string) {
+
+    getDanhSachChonNhanhNguoiDung(idDonViLamViec: string, idUser: string) {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/HoSoCongViec/QuanLyHoSoCoQuan/GetDanhSachUserChonNhanh/' + idDonViLamViec,
+                    '/HoSoCongViec/QuanLyHoSoCoQuan/GetDanhSachUserChonNhanh?idDonViLamViec=' +
+                    idDonViLamViec +
+                    '&idUser=' +
+                    idUser,
                 this.httpOption
             )
             .toPromise()
@@ -178,24 +190,28 @@ export class QuanLyHoSoCoQuanService {
         );
     }
 
-    getDanhSachUserThuocPhongBan(idPhongBan: string) {
+    getDanhSachUserThuocPhongBan(idPhongBan: string, idUser: string) {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/HoSoCongViec/QuanLyHoSoCoQuan/GetDanhSachUserThuocPhongBan/' +
-                    idPhongBan,
+                    '/HoSoCongViec/QuanLyHoSoCoQuan/GetDanhSachUserThuocPhongBan?idPhongBan=' +
+                    idPhongBan +
+                    '&idUser=' +
+                    idUser,
                 this.httpOption
             )
             .toPromise()
             .then((res) => res.objData);
     }
-    
-    getDanhSachUserThuocNhomNguoiDung(idNhomUser: string) {
+
+    getDanhSachUserThuocNhomNguoiDung(idNhomUser: string, idUser: string) {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/HoSoCongViec/QuanLyHoSoCoQuan/GetDanhSachUserThuocNhomNguoiDung/' +
-                    idNhomUser,
+                    '/HoSoCongViec/QuanLyHoSoCoQuan/GetDanhSachUserThuocNhomNguoiDung?idNhomUser=' +
+                    idNhomUser +
+                    '&idUser=' +
+                    idUser,
                 this.httpOption
             )
             .toPromise()

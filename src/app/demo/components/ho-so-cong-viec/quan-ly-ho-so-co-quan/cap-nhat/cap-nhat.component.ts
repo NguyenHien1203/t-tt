@@ -165,7 +165,7 @@ public ChangeThoiHanBaoQuan() {
 
 public ChangeSoKyHieu() {
     this.service
-        .getMaHoSoCaNhan(
+        .getMaHoSoCoQuan(
             this.formCapNhat.value.soKyHieu,
             this.idDonViLamViec
         )

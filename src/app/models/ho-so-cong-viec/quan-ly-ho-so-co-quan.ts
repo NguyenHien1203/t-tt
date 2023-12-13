@@ -8,5 +8,7 @@ export interface TimKiemQuanLyHoSoCoQuan {
       phongBanId? : number,
       loaiHoSo? : number,
       userId? : number,
+      nguoiLap? : number,
       trangThai? : number
+      phongBanPhanPhoiId? : number
 }

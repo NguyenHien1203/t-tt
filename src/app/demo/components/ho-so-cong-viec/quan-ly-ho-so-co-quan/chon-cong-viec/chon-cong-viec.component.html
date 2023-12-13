@@ -148,11 +148,11 @@
                                     Trạng thái
                                 </div>
                             </th>
-                            <th style="min-width: 10rem">
+                            <th style="min-width: 10rem" *ngIf="idNhomQuyen != 3">
                                 <div
                                     class="flex justify-content-between align-items-center"
                                 >
-                                    Vài trò
+                                    Vai trò
                                 </div>
                             </th>
                         </tr>
@@ -188,7 +188,7 @@
                             <td class="text-center">
                                 {{ item.trangThai }}
                             </td>
-                            <td class="text-center">
+                            <td class="text-center"  *ngIf="idNhomQuyen != 3">
                                 {{ item.vaiTro }}
                             </td>
                         </tr>

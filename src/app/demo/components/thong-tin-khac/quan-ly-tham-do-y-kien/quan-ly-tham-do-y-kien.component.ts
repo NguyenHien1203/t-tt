@@ -9,7 +9,7 @@ import { QuanLyThamDoYKien, TimKiemQuanLyThamDoYKien } from 'src/app/models/thon
   selector: 'app-quan-ly-tham-do-y-kien',
   templateUrl: './quan-ly-tham-do-y-kien.component.html',
   styleUrls: ['./quan-ly-tham-do-y-kien.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class QuanLyThamDoYKienComponent implements OnInit {
 

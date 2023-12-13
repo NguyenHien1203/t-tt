@@ -24,7 +24,25 @@ export class LuongKySoService {
     .pipe(map((res:any) => res.objData));
   }
 
+  public getLuongKySo(id: any): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrlApi}` + this.url + `GetLuongKySo/${id}`)
+    .pipe(map((res: any) => res.objData));
+  }
+
+  public danhSachLuongKySo(danhSach: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `GetDanhSach`, danhSach)
+    .pipe(map((res: any) => res.objData));
+  }
+
   public themMoi(luongKySo: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `ThemMoi`, luongKySo, this.httpOptions)
+  }
+
+  public capNhat(luongKySo: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhat/${luongKySo.id}`, luongKySo, this.httpOptions)
+  }
+
+  public xoa(id: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `Xoa/${id}`, this.httpOptions)
   }
 }

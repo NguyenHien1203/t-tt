@@ -7,3 +7,9 @@ export interface TableLuongKySo {
     nhomQuyen: any;
     chucNang: any;
 }
+
+export interface TimKiemLuongKySo {
+    keyWord: string;
+    donViId: number,
+    timChinhXac: number
+}

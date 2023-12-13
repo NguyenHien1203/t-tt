@@ -11,16 +11,18 @@
             <h2>Tìm kiếm</h2>
             <div class="p-fluid p-formgrid grid">
                 <div class="field col-12 md:col-8">
-                    <input id="search-name-title" type="text" pInputText placeholder="Tên cấu hình">
+                    <input id="search-name-title" type="text" pInputText placeholder="Tên cấu hình"
+                        [(ngModel)]="timKiem.keyWord">
                 </div>
                 <div class="field col-12 md:col-2 mt-2">
                     <div class="field-checkbox">
-                        <p-checkbox name="vehicle1" value="Tìm chính xác" id="vehicle1"></p-checkbox>
-                        <label for="vehicle1">Tìm chính xác</label>
+                        <p-checkbox name="timChinhXac" id="timChinhXac" value="true" label="Tìm chính xác"
+                            (click)="CheckCX()" value="false"></p-checkbox>
                     </div>
                 </div>
                 <div class="field col-12 md:col-2">
-                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2"></button>
+                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2"
+                        (click)="GetDanhSach()"></button>
                 </div>
             </div>
         </div>
@@ -29,14 +31,15 @@
             <div class="wrapper">
                 <h2>DANH SÁCH LUỒNG KÝ SỐ</h2>
                 <div class="icon-cls">
-                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success" (click)="ThemMoi()">
+                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success"
+                        (click)="ThemMoi()">
                     </button>
                 </div>
             </div>
             <div class="grid">
                 <div class="col-12">
                     <p-table styleClass="p-datatable-gridlines" #dt [columns]="cols" responsiveLayout="scroll"
-                        [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]">
+                        [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [value]="danhSachs">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="text-align: center;">STT</th>
@@ -47,7 +50,7 @@
                                 <th style="text-align: center;">Chức năng
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-linhVuc let-rowIndex="rowIndex">
+                        <ng-template pTemplate="body" let-danhSach let-rowIndex="rowIndex">
                             <tr>
                                 <td style="width:8%; min-width:8rem; text-align: center;"><span
                                         class="p-column-title">STT</span>
@@ -55,31 +58,28 @@
                                 </td>
                                 <td style="width:13%; min-width:10rem;">
                                     <span class="p-column-title">Tên cấu hình</span>
-                                    {{linhVuc.vietTat}}
+                                    {{danhSach.tenCauHinh}}
                                 </td>
                                 <td style="width:30%; min-width:10rem;">
                                     <span class="p-column-title">Tên đơn vị</span>
-                                    {{linhVuc.tenLinhVuc}}
+                                    {{danhSach.tenDonVi}}
                                 </td>
                                 <td style="width:30%; min-width:8rem;">
                                     <span class="p-column-title">Người tạo</span>
-                                    {{linhVuc.ghiChu}}
+                                    {{danhSach.tenNguoiTao}}
                                 </td>
-                                <td style="width:10%; min-width:8rem; text-align: center;">
+                                <td style="width:10%; min-width:8rem;">
                                     <span class="p-column-title">Ngày tạo</span>
-                                    <!-- <i class="pi" [ngClass]="{
-                                            'true-icon pi-check-circle text-green-500 my-font-size-icon-true': linhVuc.hienThi, 
-                                            'false-icon pi-times-circle text-pink-500 my-font-size-icon-false': !linhVuc.hienThi
-                                            }"></i> -->
+                                    {{danhSach.created | date: 'dd/MM/yyyy'}}
                                 </td>
                                 <td style="width:14%; min-width:10rem;">
                                     <div class="flex justify-content-center">
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
-                                            (click)="editField(linhVuc.id)"></button>
+                                            (click)="CapNhat(danhSach.id)"></button>
                                         <button pButton pRipple icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"
-                                            (click)="deleteField(linhVuc.id)"></button>
+                                            (click)="Xoa(danhSach.id)"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -90,18 +90,20 @@
         </div>
         <app-them-moi [show]="hienThiThemMoi" (close)="TatPopup($event, 'C')"></app-them-moi>
 
-       <!-- <app-cap-nhat [show]="showUpdated" (close)="closePopup($event, 'U')" [id]="idField"></app-cap-nhat> -->
+        <app-cap-nhat [show]="hienThiCapNhat" (close)="TatPopup($event, 'U')" [id]="idCapNhat"></app-cap-nhat>
+
+        <app-chi-tiet [show]="hienThiChiTiet" (close)="TatPopup($event, 'I')" [id]="idChiTiet"></app-chi-tiet>
 
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="">Bạn muốn xóa bản ghi này ?</span>
+                <span *ngIf="danhSachs">Bạn muốn xóa bản ghi này ?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"
-                    (click)="confirmDelete()"></button>
+                    (click)="XacNhanXoa()"></button>
                 <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
-                    (click)="deleteProductDialog = false"></button>
+                    (click)="TamDungXoa()"></button>
             </ng-template>
         </p-dialog>
     </div>

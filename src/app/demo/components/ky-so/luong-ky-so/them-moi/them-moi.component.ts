@@ -43,8 +43,6 @@ export class ThemMoiComponent implements OnInit {
   ngOnInit(): void {
     this.GetNhomQuyen();
     this.GetChuCNang();
-    console.log(this.dataTables);
-    
   }
 
   GetNhomQuyen() {
@@ -79,7 +77,7 @@ export class ThemMoiComponent implements OnInit {
       lstLuongKySo: this.dataTables,
     }
     console.log(luongKySo);
-    
+
     if (this.formThemMoi.valid) {
       this.submitted = true;
       this.luongKySoService.themMoi(luongKySo).subscribe(

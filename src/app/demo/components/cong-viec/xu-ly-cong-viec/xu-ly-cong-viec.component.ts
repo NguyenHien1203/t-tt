@@ -59,7 +59,7 @@ export class XuLyCongViecComponent {
     timKiemDanhSach: TimKiemXuLyCongViec = {
         noiDung: '',
         congViecPhatSinh: 1,
-        nam: 0,
+        nam: new Date().getFullYear(),
         thang: 0,
         userId: Number(this.idUser),
         phongBanId: Number(this.idPhongBan),
@@ -86,6 +86,13 @@ export class XuLyCongViecComponent {
         this.router.navigate(['./cong-viec/xu-ly-cong-viec/luong-xu-ly'], {
             queryParamsHandling: 'merge',
             queryParams: { id: id, cap: cap, loai: loai },
+        });
+    }
+
+    public GiaoViec(id: number, cap: string) {
+        this.router.navigate(['./cong-viec/xu-ly-cong-viec/giao-viec'], {
+            queryParamsHandling: 'merge',
+            queryParams: { id: id, cap: cap },
         });
     }
 

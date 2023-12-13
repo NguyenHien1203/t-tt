@@ -27,9 +27,13 @@ import { HoSoComponent } from './ho-so/ho-so.component';
 import { BaoCaoComponent } from './bao-cao/bao-cao.component';
 import { ChiTietCongViecComponent } from './chi-tiet-cong-viec/chi-tiet-cong-viec.component';
 import { ChonVanBanComponent } from './bao-cao/chon-van-ban/chon-van-ban.component';
+import { GiaoViecComponent } from './giao-viec/giao-viec.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ThemMoiTreecvComponent } from './giao-viec/them-moi-treecv/them-moi-treecv.component';
+import { CapNhatTreecvComponent } from './giao-viec/cap-nhat-treecv/cap-nhat-treecv.component';
 
 @NgModule({
-  declarations: [XuLyCongViecComponent, LuongXuLyComponent, HoSoComponent, BaoCaoComponent, ChiTietCongViecComponent, ChonVanBanComponent],
+  declarations: [XuLyCongViecComponent, LuongXuLyComponent, HoSoComponent, BaoCaoComponent, ChiTietCongViecComponent, ChonVanBanComponent, GiaoViecComponent, ThemMoiTreecvComponent, CapNhatTreecvComponent],
   imports: [
     OrganizationChartModule,
     ConfirmDialogModule,
@@ -51,7 +55,8 @@ import { ChonVanBanComponent } from './bao-cao/chon-van-ban/chon-van-ban.compone
     ToastModule,
     BreadcrumbModule,
     CommonModule,
-    XuLyCongViecRoutingModule
+    XuLyCongViecRoutingModule,
+    OverlayPanelModule
   ]
 })
 export class XuLyCongViecModule { }

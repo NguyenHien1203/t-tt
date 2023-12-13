@@ -103,4 +103,27 @@ export class CapNhatComponent implements OnInit {
 
     this.LoadDataDefault(this.idCongViec);
   }
+
+  public DeleteParent(idChiTieu: string) {
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn muốn xóa chỉ tiêu công việc?',
+      header: 'Xác nhận',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.service.XoaCongViec(idChiTieu).subscribe(data => {
+          if (data.isError) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+          } else {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+            this.LoadDataDefault(this.idCongViec);
+          }
+        }, (error) => {
+          console.log('Error', error);
+        })
+      },
+      reject: () => {
+
+      }
+    });
+  }
 }

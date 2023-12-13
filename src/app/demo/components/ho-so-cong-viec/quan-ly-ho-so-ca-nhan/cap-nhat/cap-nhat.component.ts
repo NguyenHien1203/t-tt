@@ -171,7 +171,6 @@ export class CapNhatComponent {
                 this.idDonViLamViec
             )
             .then((data) => {
-                console.log(data);
                 this.formCapNhat.patchValue({
                     maHoSo: data,
                 });
@@ -274,7 +273,7 @@ export class CapNhatComponent {
         this.hienThiChonPhieuTrinh = true;
     }
 
-    public ThemMoi() {
+    public CapNhat() {
         this.submitted = true;
 
         if (this.formCapNhat.valid) {
@@ -320,7 +319,7 @@ export class CapNhatComponent {
                         });
                         setTimeout(() => {
                             this.ReturnTrangChu();
-                        });
+                        }, 2000);
                     }
                 },
                 (error) => {

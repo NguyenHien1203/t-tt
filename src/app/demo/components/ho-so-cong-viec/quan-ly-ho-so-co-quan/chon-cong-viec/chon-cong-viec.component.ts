@@ -32,13 +32,6 @@ export class ChonCongViecComponent {
         }
     }
 
-    lstVaiTro: modelOptions[] = [
-        { text: 'Tất cả', value: 0 },
-        { text: 'Chỉ đạo', value: 1 },
-        { text: 'Chủ trì', value: 2 },
-        { text: 'Phối hợp', value: 3 },
-        { text: 'Thông báo', value: 4 },
-    ];
     lstTrangThai: modelOptions[] = [
         { text: 'Tất cả', value: 0 },
         { text: 'Đang xử lý', value: 1 },

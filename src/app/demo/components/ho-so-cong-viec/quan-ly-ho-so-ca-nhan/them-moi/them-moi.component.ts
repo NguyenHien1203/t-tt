@@ -276,7 +276,7 @@ export class ThemMoiComponent {
                         });
                         setTimeout(() => {
                             this.ReturnTrangChu();
-                        });
+                        }, 2000);
                     }
                 },
                 (error) => {

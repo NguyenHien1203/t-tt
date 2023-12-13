@@ -5,11 +5,10 @@ import { throwError, filter } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService, TreeNode } from 'primeng/api';
 import { QuanLyHoSoCoQuanService } from 'src/app/demo/service/ho-so-cong-viec/quan-ly-ho-so-co-quan.service';
-import { DanhMucHoSoCaNhanService } from 'src/app/demo/service/ho-so-cong-viec/danh-muc-ho-so-ca-nhan.service';
 import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { AuthService } from 'src/app/common/auth.services';
 import { Router } from '@angular/router';
-import { remove } from '@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers';
+import { DanhMucHoSoCoQuanService } from 'src/app/demo/service/ho-so-cong-viec/danh-muc-ho-so-co-quan.service';
 
 @Component({
     selector: 'app-them-moi',
@@ -21,7 +20,7 @@ export class ThemMoiComponent {
     constructor(
         private formBuilder: FormBuilder,
         private service: QuanLyHoSoCoQuanService,
-        private danhMucHoSoCaNhanService: DanhMucHoSoCaNhanService,
+        private danhMucHoSoCoQuanService: DanhMucHoSoCoQuanService,
         private fileService: UploadFileService,
         private messageService: MessageService,
         private router: Router,
@@ -95,8 +94,8 @@ export class ThemMoiComponent {
     }
 
     public LoadDanhMuc() {
-        this.danhMucHoSoCaNhanService
-            .getDanhSachDanhMucHoSoCaNhan(this.idUser)
+        this.danhMucHoSoCoQuanService
+            .getDanhSachDanhMucHoSoCoQuan(this.idDonViLamViec)
             .then((data) => {
                 if (data.isError) {
                     this.messageService.add({

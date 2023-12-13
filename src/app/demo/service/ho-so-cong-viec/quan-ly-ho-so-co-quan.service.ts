@@ -42,6 +42,20 @@ export class QuanLyHoSoCoQuanService {
             .then((data) => data.objData);
     }
 
+    getDanhSachQuyen(id: string, idUser: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/HoSoCongViec/QuanLyHoSoCoQuan/GetDanhSachQuyen?id=' +
+                    id +
+                    '&idUser=' +
+                    idUser,
+                this.httpOption
+            )
+            .toPromise()
+            .then((data) => data.objData);
+    }
+
     getMaHoSoCoQuan(soKyHieu: string, idDonVi: string) {
         return this.http
             .get<any>(

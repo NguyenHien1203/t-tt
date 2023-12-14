@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { QuanLyHoSoCaNhanService } from 'src/app/demo/service/ho-so-cong-viec/quan-ly-ho-so-ca-nhan.service';
+import { TimKiemPhieuTrinhDinhKem } from 'src/app/models/ho-so-cong-viec/quan-ly-ho-so-ca-nhan';
 import { modelOptions } from 'src/app/models/option-model';
 
 @Component({
@@ -18,9 +19,7 @@ export class ChonPhieuTrinhComponent {
         private service: QuanLyHoSoCaNhanService,
         private messageService: MessageService,
         private authService: AuthService
-    ) {
-        this.LoadDanhSach();
-    }
+    ) {}
 
     lstPhieuTrinh: any[] = [];
     lstSelectedPhieuTrinh: any[] = [];
@@ -36,21 +35,30 @@ export class ChonPhieuTrinhComponent {
     userId = this.authService.GetmUserInfo()?.userId;
     userCap = this.authService.GetmUserInfo()?.cap;
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
-    timKiemDanhSach: any = {
+    timKiemDanhSach: TimKiemPhieuTrinhDinhKem = {
         keyWord: '',
-        ngayTrinh: '',
+        ngayTrinh: '1901-01-01',
         trangThai: 4,
+        userId: Number(this.userId),
         donViId: Number(this.idDonViLamViec),
+        phongBanId: Number(this.idPhongBan),
+        timChinhXac: 0,
     };
 
     public LoadDanhSach() {
         this.service
             .getDanhSachChonPhieuTrinh(this.timKiemDanhSach)
             .then((data) => {
-                this.lstPhieuTrinh = data.map((dt) => {
-                    return { ...dt, checked: false }; //gán checked để khởi tạo giá trị cho checkbox
-                });
+                if (data != null) {
+                    this.lstPhieuTrinh = data.map((dt) => {
+                        return { ...dt, checked: false }; //gán checked để khởi tạo giá trị cho checkbox
+                    });
+                }
             });
+    }
+
+    public BindDialogData() {
+        this.LoadDanhSach();
     }
 
     public Thoat(): void {

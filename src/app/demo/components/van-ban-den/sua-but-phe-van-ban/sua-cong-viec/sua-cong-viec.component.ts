@@ -83,7 +83,6 @@ export class SuaCongViecComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
       } else {
         this.ThongTinCongViec = data.objData;
-        console.log(this.ThongTinCongViec)
       }
     }, (error) => {
 

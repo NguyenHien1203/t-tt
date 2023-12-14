@@ -102,43 +102,43 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Văn bản đã từ chối',
                                 icon: 'pi pi-fw pi-minus',
-                                routerLink: ['/van-ban-den/van-ban-da-tu-choi'],
+                                routerLink: ['/hethong/nhomquyen'],
                                 code: '001007',
                             },
                             {
                                 label: 'Sổ văn bản đến',
                                 icon: 'pi pi-fw pi-book',
-                                routerLink: ['/van-ban-den/so-van-ban-den'],
+                                routerLink: ['/hethong/nhomquyen'],
                                 code: '001008',
                             },
                             {
                                 label: 'Tra cứu nâng cao',
                                 icon: 'pi pi-fw pi-search-plus',
-                                routerLink: ['/van-ban-den/tra-cuu-nang-cao'],
+                                routerLink: ['/van-ban-di/tra-cuu-nang-cao'],
                                 code: '001010',
                             },
                             {
                                 label: 'Tìm kiếm theo sổ văn bản',
                                 icon: 'pi pi-fw pi-search-plus',
-                                routerLink: ['/van-ban-den/tim-kiem-theo-so-van-ban'],
+                                routerLink: ['/hethong/nhomquyen'],
                                 code: '001011',
                             },
                             {
                                 label: 'Văn bản đến liên quan',
                                 icon: 'pi pi-fw pi-arrow-right-arrow-left',
-                                routerLink: ['/van-ban-den/van-ban-den-lien-quan'],
+                                routerLink: ['/hethong/nhomquyen'],
                                 cdoe: '001012',
                             },
                             {
                                 label: 'Văn bản đến liên thông',
                                 icon: 'pi pi-fw pi-arrow-right-arrow-left',
-                                routerLink: ['/van-ban-den/van-ban-den-lien-thong'],
+                                routerLink: ['/hethong/nhomquyen'],
                                 code: '001013',
                             },
                             {
                                 label: 'Văn bản phải báo cáo',
                                 icon: 'pi pi-fw pi-send',
-                                routerLink: ['/van-ban-den/van-ban-phai-bao-cao'],
+                                routerLink: ['/hethong/nhomquyen'],
                                 code: '001014',
                             },
                             {
@@ -1076,7 +1076,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Theo dõi tiến độ',
                                 icon: 'pi pi-fw pi-chevron-circle-right',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/cong-viec/theo-doi-tien-do'],
                                 code: '003003',
                             },
                             {
@@ -1616,7 +1616,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Luồng ký số',
                                 icon: 'pi pi-fw pi-sort-alt-slash',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/ky-so/luong-ky-so'],
                                 code: '011012',
                             },
                         ],

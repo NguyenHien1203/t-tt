@@ -1,1 +1,860 @@
-<p>them-moi works!</p>
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb
+                    class="max-w-full"
+                    [model]="items"
+                    [home]="home"
+                ></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <p-tabView>
+            <p-tabPanel header="Thông tin hồ sơ">
+                <!-- Content for Tab 1 -->
+                <form [formGroup]="formThemMoi">
+                    <div class="field grid">
+                        <div class="col-12 md:col-2 fl-wr">
+                            Danh mục hồ sơ <span class="p-error">(*)</span>:
+                        </div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <p-treeSelect
+                                [showClear]="true"
+                                class="md:w-20rem w-full my-drop"
+                                [style]="{ width: '100%' }"
+                                containerStyleClass="w-full"
+                                [(ngModel)]="selectedNodes"
+                                [options]="lstDmHoSo"
+                                appendTo="body"
+                                required=""
+                                formControlName="danhMucHoSoId"
+                                placeholder="Chọn danh mục hồ sơ"
+                            ></p-treeSelect>
+                            <span
+                                class="p-error"
+                                *ngIf="
+                                    !formThemMoi.controls.danhMucHoSoId.valid &&
+                                    (formThemMoi.controls.danhMucHoSoId
+                                        .touched ||
+                                        submitted)
+                                "
+                                >Yêu cầu nhập chọn danh mục hồ sơ</span
+                            >
+                        </div>
+                        <div class="col-12 md:col-2 fl-wr">
+                            Loại hồ sơ <span class="p-error">(*)</span>:
+                        </div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <p-dropdown
+                                formControlName="loaiHoSoId"
+                                [options]="lstLoaiHoSo"
+                                optionValue="value"
+                                optionLabel="text"
+                                [showClear]="true"
+                                [filter]="true"
+                                appendTo="body"
+                                placeholder="Chọn loại hồ sơ"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                            ></p-dropdown>
+                            <span
+                                class="p-error"
+                                *ngIf="
+                                    !formThemMoi.controls.loaiHoSoId.valid &&
+                                    (formThemMoi.controls.loaiHoSoId.touched ||
+                                        submitted)
+                                "
+                                >Yêu cầu chọn loại hồ sơ</span
+                            >
+                        </div>
+                    </div>
+
+                    <div class="field grid">
+                        <div class="col-12 md:col-2 fl-wr">
+                            Số/ký hiệu hồ sơ <span class="p-error">(*)</span>:
+                        </div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <input
+                                type="text"
+                                formControlName="soKyHieu"
+                                id="soKyHieu"
+                                required=""
+                                [style]="{ width: '100%' }"
+                                (blur)="ChangeSoKyHieu()"
+                                class="my-drop"
+                                class="p-inputtext p-component p-element"
+                            />
+                            <span
+                                class="p-error"
+                                *ngIf="
+                                    !formThemMoi.controls.soKyHieu.valid &&
+                                    (formThemMoi.controls.soKyHieu.touched ||
+                                        submitted)
+                                "
+                                >Yêu cầu nhập số và ký hiệu</span
+                            >
+                        </div>
+
+                        <div class="col-12 md:col-2 fl-wr">Mã hồ sơ:</div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <input
+                                type="text"
+                                formControlName="maHoSo"
+                                id="maHoSo"
+                                readonly=""
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                                class="p-inputtext p-component p-element"
+                            />
+                        </div>
+                    </div>
+                    <div class="field grid">
+                        <div class="col-12 md:col-2 fl-wr">
+                            Tiêu đề <span class="p-error">(*)</span>:
+                        </div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <input
+                                type="text"
+                                formControlName="tieuDe"
+                                id="tieuDe"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                                class="p-inputtext p-component p-element"
+                            />
+                            <span
+                                class="p-error"
+                                *ngIf="
+                                    !formThemMoi.controls.tieuDe.valid &&
+                                    (formThemMoi.controls.tieuDe.touched ||
+                                        submitted)
+                                "
+                                >Yêu cầu nhập tiêu đề</span
+                            >
+                        </div>
+
+                        <div class="col-12 md:col-2 fl-wr">
+                            Thời hạn bảo quản:
+                        </div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <input
+                                type="text"
+                                pInputText
+                                pKeyFilter="int"
+                                placeholder="Nhập số năm bảo quản"
+                                (blur)="ChangeThoiHanBaoQuan()"
+                                formControlName="thoiHanBaoQuan"
+                                id="thoiHanBaoQuan"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                                class="p-inputtext p-component p-element"
+                            />
+                        </div>
+                    </div>
+                    <div class="field grid">
+                        <div class="col-12 md:col-2 fl-wr">Ngày bắt đầu:</div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <p-calendar
+                                formControlName="ngayBatDau"
+                                dateFormat="dd/mm/yy"
+                                [style]="{ width: '100%' }"
+                                (blur)="ChangeThoiHanBaoQuan()"
+                                class="my-drop"
+                            ></p-calendar>
+                        </div>
+                        <div class="col-12 md:col-2 fl-wr">Ngày kết thúc:</div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <p-calendar
+                                formControlName="ngayKetThuc"
+                                dateFormat="dd/mm/yy"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                            ></p-calendar>
+                        </div>
+                    </div>
+                    <div class="field grid">
+                        <div class="col-12 md:col-2 fl-wr">Ngày nhập:</div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <p-calendar
+                                formControlName="ngayNhap"
+                                dateFormat="dd/mm/yy"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                            ></p-calendar>
+                        </div>
+                        <div class="col-12 md:col-2 fl-wr">Người lập:</div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <input
+                                type="text"
+                                [readonly]="true"
+                                formControlName="nguoiLap"
+                                id="nguoiLap"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                                class="p-inputtext p-component p-element"
+                            />
+                        </div>
+                    </div>
+                    <div class="field grid">
+                        <div class="col-12 md:col-2 fl-wr">Đặc điểm :</div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <input
+                                type="text"
+                                formControlName="dacDiem"
+                                id="dacDiem"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                                class="p-inputtext p-component p-element"
+                            />
+                        </div>
+                        <div class="col-12 md:col-2 fl-wr">Trạng thái:</div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <p-dropdown
+                                formControlName="trangThai"
+                                [options]="lstTrangThai"
+                                optionValue="value"
+                                optionLabel="text"
+                                [showClear]="false"
+                                [filter]="true"
+                                appendTo="body"
+                                placeholder="Chọn trạng thái"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                            ></p-dropdown>
+                        </div>
+                    </div>
+                    <div class="field grid">
+                        <div class="col-12 md:col-2 fl-wr">Ghi chú:</div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <input
+                                type="text"
+                                formControlName="ghiChu"
+                                id="ghiChu"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                                class="p-inputtext p-component p-element"
+                            />
+                        </div>
+                        <div class="col-12 md:col-2 fl-wr">
+                            Tổng số văn bản <span class="p-error">(*)</span>:
+                        </div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <input
+                                type="text"
+                                formControlName="tongSoVanBan"
+                                id="tongSoVanBan"
+                                required=""
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                                class="p-inputtext p-component p-element"
+                            />
+                            <span
+                                class="p-error"
+                                *ngIf="
+                                    !formThemMoi.controls.tongSoVanBan.valid &&
+                                    (formThemMoi.controls.tongSoVanBan
+                                        .touched ||
+                                        submitted)
+                                "
+                                >Yêu cầu nhập tổng số văn bản</span
+                            >
+                        </div>
+                    </div>
+                    <div class="field grid">
+                        <div class="col-12 md:col-2 fl-wr">
+                            Tổng số trang <span class="p-error">(*)</span>
+                            :
+                        </div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <input
+                                type="text"
+                                formControlName="tongSoTrang"
+                                id="tongSoTrang"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                                required=""
+                                class="p-inputtext p-component p-element"
+                            />
+                            <span
+                                class="p-error"
+                                *ngIf="
+                                    !formThemMoi.controls.tongSoTrang.valid &&
+                                    (formThemMoi.controls.tongSoTrang.touched ||
+                                        submitted)
+                                "
+                                >Yêu cầu nhập tổng số trang</span
+                            >
+                        </div>
+
+                        <div class="col-12 md:col-2 fl-wr">File đính kèm:</div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <div>
+                                <label
+                                    for="fileUpload"
+                                    class="custom-file-upload"
+                                >
+                                    <i class="pi pi-upload"></i> Chọn tệp
+                                </label>
+                                <input
+                                    type="file"
+                                    id="fileUpload"
+                                    multiple="multiple"
+                                    (change)="onFileSelected($event)"
+                                    style="display: none"
+                                />
+                            </div>
+                            <ul>
+                                <li *ngFor="let file of selectedFiles">
+                                    <span *ngIf="file.isDelete == false">
+                                        <a
+                                            (click)="
+                                                DownloadFile(
+                                                    file.filePath,
+                                                    file.fileName
+                                                )
+                                            "
+                                            href="javascript:;"
+                                            >{{ file.fileName }}</a
+                                        ><a
+                                            href="javascript:;"
+                                            (click)="XoaFile(file.filePath)"
+                                            >&nbsp;<i class="pi pi-trash"></i
+                                        ></a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                   
+                </form>
+            </p-tabPanel>
+            <p-tabPanel header="Văn bản">
+                <div class="field grid">
+                    <div class="col-12 md:col-2 fl-wr">
+                        <button
+                            pButton
+                            pRipple
+                            label="Gắn văn bản"
+                            icon="pi pi-plus"
+                            class="p-button-success mr-2"
+                            (click)="GanVanBan()"
+                        ></button>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-12">
+                        <p-table
+                            [paginator]="true"
+                            #dt1
+                            [value]="lstVanBanLienQuan"
+                            dataKey="id"
+                            [rows]="10"
+                            [loading]="loading"
+                            [rowsPerPageOptions]="[10, 20, 30]"
+                            [rowHover]="true"
+                            styleClass="p-datatable-gridlines"
+                            responsiveLayout="scroll"
+                        >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="min-width: 10rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Số ký hiệu
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Trích yếu
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Ngày ban hành
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Cơ quan ban hành
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 3rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Xóa
+                                        </div>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template
+                                pTemplate="body"
+                                let-item
+                                let-rowIndex="rowIndex"
+                            >
+                                <tr>
+                                    <td>
+                                        {{ item.soKyHieu }}
+                                    </td>
+                                    <td>
+                                        {{ item.trichYeu }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            item.ngayBanHanh
+                                                | date : "dd/MM/yyyy"
+                                        }}
+                                    </td>
+
+                                    <td>
+                                        {{ item.coQuanBanHanh }}
+                                    </td>
+
+                                    <td class="text-center">
+                                        <a
+                                            href="javascript:;"
+                                            (click)="XoaVanBan(item.id)"
+                                            ><i class="pi pi-trash"></i
+                                        ></a>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="10">No record found.</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="loadingbody">
+                                <tr>
+                                    <td colspan="10">
+                                        Loading record data. Please wait.
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Công việc">
+                <div class="field grid">
+                    <div class="col-12 md:col-2 fl-wr">
+                        <button
+                            pButton
+                            pRipple
+                            label="Gắn công việc"
+                            icon="pi pi-plus"
+                            class="p-button-success mr-2"
+                            (click)="GanCongViec()"
+                        ></button>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-12">
+                        <p-table
+                            [paginator]="true"
+                            #dt1
+                            [value]="lstCongViecLienQuan"
+                            dataKey="id"
+                            [rows]="10"
+                            [loading]="loading"
+                            [rowsPerPageOptions]="[10, 20, 30]"
+                            [rowHover]="true"
+                            styleClass="p-datatable-gridlines"
+                            responsiveLayout="scroll"
+                        >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="min-width: 10rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Văn bản
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Nội dung công việc
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Ngày bắt đầu
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Ngày kết thúc
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 3rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Xóa
+                                        </div>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template
+                                pTemplate="body"
+                                let-item
+                                let-rowIndex="rowIndex"
+                            >
+                                <tr>
+                                    <td>
+                                        {{ item.vanBan }}
+                                    </td>
+                                    <td>
+                                        {{ item.noiDungCongViec }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            item.ngayBatDau
+                                                | date : "dd/MM/yyyy"
+                                        }}
+                                    </td>
+
+                                    <td>
+                                        {{
+                                            item.ngayKetThuc
+                                                | date : "dd/MM/yyyy"
+                                        }}
+                                    </td>
+
+                                    <td class="text-center">
+                                        <a
+                                            href="javascript:;"
+                                            (click)="XoaCongViec(item.id)"
+                                            ><i class="pi pi-trash"></i
+                                        ></a>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="10">No record found.</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="loadingbody">
+                                <tr>
+                                    <td colspan="10">
+                                        Loading record data. Please wait.
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Phân quyền">
+                <div class="multiSelect">
+                    <div class="field grid">
+                        <label class="col-12 md:col-6 fl-wr">
+                            <label for="">Chọn phòng ban</label>
+                            <p-dropdown
+                                [showClear]="true"
+                                [(ngModel)]="phongBanId"
+                                [options]="lstPhongBan"
+                                optionValue="value"
+                                optionLabel="text"
+                                [filter]="true"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                                placeholder="Chọn phòng ban"
+                                (ngModelChange)="ChangePhongBan($event)"
+                            ></p-dropdown>
+
+                            <label for="">Chọn nhóm người dùng</label>
+                            <p-dropdown
+                                [showClear]="true"
+                                [(ngModel)]="nhomNguoiDungId"
+                                [options]="lstNhomNguoiDung"
+                                optionValue="value"
+                                optionLabel="text"
+                                [filter]="true"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                                placeholder="Chọn nhóm người dùng"
+                                (ngModelChange)="ChangeNhomNguoiDung($event)"
+                            ></p-dropdown>
+
+                            <label for="">Chọn nhanh người dùng</label>
+                            <p-dropdown
+                                [showClear]="true"
+                                [options]="lstUserChonNhanh"
+                                [(ngModel)]="chonNhanhUser"
+                                optionValue="value"
+                                optionLabel="text"
+                                [filter]="true"
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                                placeholder="Chọn nhanh người dùng"
+                                (ngModelChange)="ChangeUserChonNhanh($event)"
+                            ></p-dropdown>
+                        </label>
+                        <div class="col-12 md:col-6">
+                            <div class="form-control-label" for="">
+                                Chọn người dùng
+                            </div>
+                            <div
+                                class="lstUserChoise selectUser"
+                                [style]="{ 'margin-bottom': '45px' }"
+                            >
+                                <select
+                                    [(ngModel)]="selectedNguoiDung"
+                                    size="4"
+                                    name="lstUserChoise"
+                                    class="form-control"
+                                    id="lstUserChoise"
+                                    multiple="multiple"
+                                    style="height: 170px"
+                                >
+                                    <option
+                                        *ngFor="let obj of lstUserNhan"
+                                        [value]="obj.value"
+                                    >
+                                        {{ obj.text }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div [style]="{ 'margin-bottom': '15px' }">
+                                <button
+                                    (click)="ChonDoiTuong()"
+                                    pButton
+                                    pRipple
+                                    label="Chọn"
+                                    icon="pi pi-plus"
+                                    class="p-button-success mr-2"
+                                ></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-12">
+                            <p-table
+                                #dt1
+                                [value]="lstPhanQuyen"
+                                dataKey="id"
+                                [rows]="10"
+                                styleClass="p-datatable-gridlines"
+                                responsiveLayout="scroll"
+                            >
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            style="min-width: 25rem"
+                                            rowspan="2"
+                                        >
+                                            <div
+                                                class="flex justify-content-between align-items-center"
+                                            >
+                                                Họ và Tên
+                                            </div>
+                                        </th>
+                                        <th style="max-width: 3rem">
+                                            <div
+                                                class="flex justify-content-between align-items-center"
+                                            >
+                                                Xem
+                                            </div>
+                                        </th>
+                                        <th style="max-width: 3rem">
+                                            <div
+                                                class="flex justify-content-between align-items-center"
+                                            >
+                                                Cập nhật VB
+                                            </div>
+                                        </th>
+                                        <th style="max-width: 3rem">
+                                            <div
+                                                class="flex justify-content-between align-items-center"
+                                            >
+                                                Cập nhật CV
+                                            </div>
+                                        </th>
+                                        <th style="max-width: 3rem">
+                                            <div
+                                                class="flex justify-content-between align-items-center"
+                                            >
+                                                Xóa
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th style="max-width: 3rem">
+                                            <div class="text-center">
+                                                <input
+                                                    type="checkbox"
+                                                    (click)="CheckAllXem()"
+                                                    [checked]="checkAllXem"
+                                                    [(ngModel)]="checkAllXem"
+                                                />
+                                            </div>
+                                        </th>
+                                        <th style="max-width: 3rem">
+                                            <div class="text-center">
+                                                <input
+                                                    type="checkbox"
+                                                    (click)="CheckAllVanBan()"
+                                                    [checked]="checkAllVanBan"
+                                                    [(ngModel)]="checkAllVanBan"
+                                                />
+                                            </div>
+                                        </th>
+                                        <th style="max-width: 3rem">
+                                            <div class="text-center">
+                                                <input
+                                                    type="checkbox"
+                                                    (click)="CheckAllCongViec()"
+                                                    [checked]="checkAllCongViec"
+                                                    [(ngModel)]="
+                                                        checkAllCongViec
+                                                    "
+                                                />
+                                            </div>
+                                        </th>
+                                        <th style="max-width: 3rem">
+                                            <div class="text-center">
+                                                <a href="javascrip:;"
+                                                    ><i class="pi pi-trash"></i
+                                                ></a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-item
+                                    let-rowIndex="rowIndex"
+                                >
+                                    <tr>
+                                        <td>
+                                            {{ item.hoVaTen }}
+                                        </td>
+                                        <td class="text-center">
+                                            <input
+                                                type="checkbox"
+                                                (click)="CheckItemXem(item)"
+                                                [(ngModel)]="item.xem"
+                                                [checked]="item.xem"
+                                            />
+                                        </td>
+                                        <td class="text-center">
+                                            <input
+                                                type="checkbox"
+                                                (click)="CheckItemVanBan(item)"
+                                                [(ngModel)]="item.vb"
+                                                [checked]="item.vb"
+                                            />
+                                        </td>
+                                        <td class="text-center">
+                                            <input
+                                                type="checkbox"
+                                                (click)="
+                                                    CheckItemCongViec(item)
+                                                "
+                                                [(ngModel)]="item.cv"
+                                                [checked]="item.cv"
+                                            />
+                                        </td>
+
+                                        <td class="text-center">
+                                            <a
+                                                href="javascript:;"
+                                                (click)="XoaPhanQuyenItem(item)"
+                                                ><i class="pi pi-trash"></i
+                                            ></a>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="10">No record found.</td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="loadingbody">
+                                    <tr>
+                                        <td colspan="10">
+                                            Loading record data. Please wait.
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <div class="field grid div-center">
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="submit"
+                    label="Info"
+                    class="p-element p-ripple p-button-primary p-button p-component"
+                    ng-reflect-label="Info"
+                    (click)="ThemMoi()"
+                >
+                    <span class="p-button-label">Lưu lại</span
+                    ><span class="p-ink"></span></button
+                >&nbsp;
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="submit"
+                    label="Info"
+                    class="p-element p-ripple p-button-warning p-button p-component"
+                    ng-reflect-label="Info"
+                    (click)="NhapLai()"
+                >
+                    <span class="p-button-label">Nhập lại</span
+                    ><span class="p-ink"></span></button
+                >&nbsp;
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="button"
+                    label="Info"
+                    class="p-element p-ripple p-button-info p-button p-component"
+                    ng-reflect-label="Danger"
+                    (click)="ReturnTrangChu()"
+                >
+                    <span class="p-button-label">Trở lại danh sách</span
+                    ><span class="p-ink"></span>
+                </button>
+            </div>
+        </p-tabView>
+      
+    </div>
+</div>
+<app-chon-van-ban
+    [show]="hienThiChonVanBan"
+    (chonVanBan)="ChonVanBan($event)"
+    (tatPopup)="Thoat($event, 'VB')"
+></app-chon-van-ban>
+<app-chon-cong-viec
+    [show]="hienThiChonCongViec"
+    (chonCongViec)="ChonCongViec($event)"
+    (tatPopup)="Thoat($event, 'CV')"
+></app-chon-cong-viec>
+<app-chon-phieu-trinh
+    [show]="hienThiChonPhieuTrinh"
+    (chonPhieuTrinh)="ChonPhieuTrinh($event)"
+    (tatPopup)="Thoat($event, 'PT')"
+></app-chon-phieu-trinh>
+<p-toast></p-toast>

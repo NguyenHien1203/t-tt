@@ -30,7 +30,7 @@ export class XuLyCongViecService {
             .toPromise()
             .then((res) => res.objData);
     }
-    
+
     getDanhSachChonVanBan(timKiemDanhSach: TimKiemChonVanBan) {
         return this.http
             .post<any>(
@@ -65,12 +65,12 @@ export class XuLyCongViecService {
             .toPromise()
             .then((res) => res.objData);
     }
-    
-    getDataViewChiTiet(id: string, cap : string, loai : string) {
+
+    getDataViewChiTiet(id: string, cap: string, loai: string) {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/CongViec/XuLyCongViec/GetDataViewChiTiet?id=' + id + "&cap=" + cap + "&loai=" + loai,
+                '/CongViec/XuLyCongViec/GetDataViewChiTiet?id=' + id + "&cap=" + cap + "&loai=" + loai,
                 this.httpOption
             )
             .toPromise()
@@ -105,4 +105,50 @@ export class XuLyCongViecService {
 
         return this.http.post<any>(url, this.httpOption)
     }
+
+    public ThemMoiTienDoCongViec(model: any) {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+        return this.http.post<any>(environment.baseUrlApi + '/CongViec/XuLyCongViec/ThemBaoCaoTienDo', model, this.httpOption)
+    }
+
+    //GiaoViec
+
+    public GetVanBanById(idCongViec: string) {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+
+        const url = `${this.baseUrl}/CongViec/XuLyCongViec/GetVanBanById?idCongViec=` + idCongViec;
+        return this.http.get<any>(url);
+    }
+
+    public LoadDataDefault(idCongViec: string, cap: string) {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+        var IdDonVi = this.auth.GetmUserInfo().donViId.toString();
+        const url = `${this.baseUrl}/CongViec/XuLyCongViec/GetDanhSachCongViec?idCongViec=` + idCongViec + "&cap=" + cap;
+        return this.http.get<any>(url);
+    }
+
+    public XoaCongViec(idChiTieu: string) {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+        const url = `${this.baseUrl}/VanBanDen/SuaButPheVanBan/XoaCongViec?idUserXuLy=` + idChiTieu;
+        return this.http.post<any>(url, this.httpOption)
+    }
+
+    public GetDataTraoDoi(idCongViec: string, stt: string) {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+        const url = `${this.baseUrl}/CongViec/XuLyCongViec/GetDuLieuTraoDoi?idCongViec=` + idCongViec + "&stt=" + stt;
+        return this.http.get<any>(url);
+    }
+
+    public LuuTraoDoiTheoUser(model: any) {
+        if (!this.auth.CheckLogin())
+            this.router.navigate(['/login']);
+        return this.http.post<any>(environment.baseUrlApi + '/CongViec/XuLyCongViec/LuuTraoDoiTheoUser', model, this.httpOption)
+    }
+
+
 }

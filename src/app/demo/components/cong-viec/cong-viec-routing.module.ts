@@ -21,6 +21,14 @@ import { RouterModule } from '@angular/router';
                     import('./xu-ly-cong-viec/xu-ly-cong-viec.module').then(
                         (m) => m.XuLyCongViecModule
                     ),
+            }, 
+            {
+                path: 'theo-doi-tien-do',
+                data: { breadcrumb: 'Button' },
+                loadChildren: () =>
+                    import('./theo-doi-tien-do/theo-doi-tien-do.module').then(
+                        (m) => m.TheoDoiTienDoModule
+                    ),
             },
         ]),
     ],

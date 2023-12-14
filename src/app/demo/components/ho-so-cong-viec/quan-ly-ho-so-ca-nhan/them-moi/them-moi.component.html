@@ -29,9 +29,20 @@
                                 [(ngModel)]="selectedNodes"
                                 [options]="lstDmHoSo"
                                 appendTo="body"
+                                required=""
                                 formControlName="danhMucHoSoId"
                                 placeholder="Chọn danh mục hồ sơ"
                             ></p-treeSelect>
+                            <span
+                                class="p-error"
+                                *ngIf="
+                                    !formThemMoi.controls.danhMucHoSoId.valid &&
+                                    (formThemMoi.controls.danhMucHoSoId
+                                        .touched ||
+                                        submitted)
+                                "
+                                >Yêu cầu nhập chọn danh mục hồ sơ</span
+                            >
                         </div>
                         <div class="col-12 md:col-2 fl-wr">
                             Loại hồ sơ <span class="p-error">(*)</span>:
@@ -63,27 +74,44 @@
 
                     <div class="field grid">
                         <div class="col-12 md:col-2 fl-wr">
-                            Mã hồ sơ <span class="p-error">(*)</span>:
+                            Số/ký hiệu hồ sơ <span class="p-error">(*)</span>:
                         </div>
                         <div class="col-12 md:col-4 fl-wr">
                             <input
                                 type="text"
-                                formControlName="maHoSo"
-                                id="maHoSo"
+                                formControlName="soKyHieu"
+                                id="soKyHieu"
+                                required=""
                                 [style]="{ width: '100%' }"
+                                (blur)="ChangeSoKyHieu()"
                                 class="my-drop"
                                 class="p-inputtext p-component p-element"
                             />
                             <span
                                 class="p-error"
                                 *ngIf="
-                                    !formThemMoi.controls.maHoSo.valid &&
-                                    (formThemMoi.controls.maHoSo.touched ||
+                                    !formThemMoi.controls.soKyHieu.valid &&
+                                    (formThemMoi.controls.soKyHieu.touched ||
                                         submitted)
                                 "
-                                >Yêu cầu nhập mã hồ sơ</span
+                                >Yêu cầu nhập số và ký hiệu</span
                             >
                         </div>
+
+                        <div class="col-12 md:col-2 fl-wr">Mã hồ sơ:</div>
+                        <div class="col-12 md:col-4 fl-wr">
+                            <input
+                                type="text"
+                                formControlName="maHoSo"
+                                id="maHoSo"
+                                readonly=""
+                                [style]="{ width: '100%' }"
+                                class="my-drop"
+                                class="p-inputtext p-component p-element"
+                            />
+                        </div>
+                    </div>
+                    <div class="field grid">
                         <div class="col-12 md:col-2 fl-wr">
                             Tiêu đề <span class="p-error">(*)</span>:
                         </div>
@@ -106,34 +134,17 @@
                                 >Yêu cầu nhập tiêu đề</span
                             >
                         </div>
-                    </div>
-                    <div class="field grid">
-                        <div class="col-12 md:col-2 fl-wr">
-                            Ngày nhập <span class="p-error">(*)</span>:
-                        </div>
-                        <div class="col-12 md:col-4 fl-wr">
-                            <p-calendar
-                                formControlName="ngayNhap"
-                                dateFormat="dd/mm/yy"
-                                [style]="{ width: '100%' }"
-                                class="my-drop"
-                            ></p-calendar>
-                            <span
-                                class="p-error"
-                                *ngIf="
-                                    !formThemMoi.controls.ngayNhap.valid &&
-                                    (formThemMoi.controls.ngayNhap.touched ||
-                                        submitted)
-                                "
-                                >Yêu cầu nhập ngày nhập</span
-                            >
-                        </div>
+
                         <div class="col-12 md:col-2 fl-wr">
                             Thời hạn bảo quản:
                         </div>
                         <div class="col-12 md:col-4 fl-wr">
                             <input
                                 type="text"
+                                pInputText
+                                pKeyFilter="int"
+                                placeholder="Nhập số năm bảo quản"
+                                (blur)="ChangeThoiHanBaoQuan()"
                                 formControlName="thoiHanBaoQuan"
                                 id="thoiHanBaoQuan"
                                 [style]="{ width: '100%' }"
@@ -143,69 +154,35 @@
                         </div>
                     </div>
                     <div class="field grid">
-                        <div class="col-12 md:col-2 fl-wr">
-                            Ngày bắt đầu <span class="p-error">(*)</span>:
-                        </div>
+                        <div class="col-12 md:col-2 fl-wr">Ngày bắt đầu:</div>
                         <div class="col-12 md:col-4 fl-wr">
                             <p-calendar
                                 formControlName="ngayBatDau"
                                 dateFormat="dd/mm/yy"
                                 [style]="{ width: '100%' }"
+                                (blur)="ChangeThoiHanBaoQuan()"
                                 class="my-drop"
                             ></p-calendar>
-                            <span
-                                class="p-error"
-                                *ngIf="
-                                    !formThemMoi.controls.ngayBatDau.valid &&
-                                    (formThemMoi.controls.ngayBatDau.touched ||
-                                        submitted)
-                                "
-                                >Yêu cầu nhập ngày bắt đầu</span
-                            >
                         </div>
                         <div class="col-12 md:col-2 fl-wr">Ngày kết thúc:</div>
                         <div class="col-12 md:col-4 fl-wr">
-                            <input
-                                type="text"
+                            <p-calendar
                                 formControlName="ngayKetThuc"
-                                id="ngayKetThuc"
+                                dateFormat="dd/mm/yy"
                                 [style]="{ width: '100%' }"
                                 class="my-drop"
-                                class="p-inputtext p-component p-element"
-                            />
-                            <span
-                                class="p-error"
-                                *ngIf="
-                                    !formThemMoi.controls.ngayBatDau.valid &&
-                                    (formThemMoi.controls.ngayBatDau.touched ||
-                                        submitted)
-                                "
-                                >Yêu cầu nhập ngày kết thúc</span
-                            >
+                            ></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
-                        <div class="col-12 md:col-2 fl-wr">
-                            Số và ký hiệu <span class="p-error">(*)</span>:
-                        </div>
+                        <div class="col-12 md:col-2 fl-wr">Ngày nhập:</div>
                         <div class="col-12 md:col-4 fl-wr">
-                            <input
-                                type="text"
-                                formControlName="soKyHieu"
-                                id="soKyHieu"
+                            <p-calendar
+                                formControlName="ngayNhap"
+                                dateFormat="dd/mm/yy"
                                 [style]="{ width: '100%' }"
                                 class="my-drop"
-                                class="p-inputtext p-component p-element"
-                            />
-                            <span
-                                class="p-error"
-                                *ngIf="
-                                    !formThemMoi.controls.soKyHieu.valid &&
-                                    (formThemMoi.controls.soKyHieu.touched ||
-                                        submitted)
-                                "
-                                >Yêu cầu nhập số và ký hiệu</span
-                            >
+                            ></p-calendar>
                         </div>
                         <div class="col-12 md:col-2 fl-wr">Người lập:</div>
                         <div class="col-12 md:col-4 fl-wr">
@@ -239,7 +216,7 @@
                                 [options]="lstTrangThai"
                                 optionValue="value"
                                 optionLabel="text"
-                                [showClear]="true"
+                                [showClear]="false"
                                 [filter]="true"
                                 appendTo="body"
                                 placeholder="Chọn trạng thái"
@@ -253,25 +230,36 @@
                         <div class="col-12 md:col-4 fl-wr">
                             <input
                                 type="text"
-                                formControlName="dacDiem"
-                                id="dacDiem"
+                                formControlName="ghiChu"
+                                id="ghiChu"
                                 [style]="{ width: '100%' }"
                                 class="my-drop"
                                 class="p-inputtext p-component p-element"
                             />
                         </div>
                         <div class="col-12 md:col-2 fl-wr">
-                            Tổng số văn bản <span class="p-error">(*)</span>
+                            Tổng số văn bản <span class="p-error">(*)</span>:
                         </div>
                         <div class="col-12 md:col-4 fl-wr">
                             <input
                                 type="text"
                                 formControlName="tongSoVanBan"
                                 id="tongSoVanBan"
+                                required=""
                                 [style]="{ width: '100%' }"
                                 class="my-drop"
                                 class="p-inputtext p-component p-element"
                             />
+                            <span
+                                class="p-error"
+                                *ngIf="
+                                    !formThemMoi.controls.tongSoVanBan.valid &&
+                                    (formThemMoi.controls.tongSoVanBan
+                                        .touched ||
+                                        submitted)
+                                "
+                                >Yêu cầu nhập tổng số văn bản</span
+                            >
                         </div>
                     </div>
                     <div class="field grid">
@@ -282,16 +270,25 @@
                         <div class="col-12 md:col-4 fl-wr">
                             <input
                                 type="text"
-                                formControlName="dacDiem"
-                                id="dacDiem"
+                                formControlName="tongSoTrang"
+                                id="tongSoTrang"
                                 [style]="{ width: '100%' }"
                                 class="my-drop"
+                                required=""
                                 class="p-inputtext p-component p-element"
                             />
+                            <span
+                                class="p-error"
+                                *ngIf="
+                                    !formThemMoi.controls.tongSoTrang.valid &&
+                                    (formThemMoi.controls.tongSoTrang.touched ||
+                                        submitted)
+                                "
+                                >Yêu cầu nhập tổng số trang</span
+                            >
                         </div>
-                        <div class="col-12 md:col-2 fl-wr">
-                            File đính kèm <span class="p-error">(*)</span>:
-                        </div>
+
+                        <div class="col-12 md:col-2 fl-wr">File đính kèm:</div>
                         <div class="col-12 md:col-4 fl-wr">
                             <div>
                                 <label
@@ -330,45 +327,6 @@
                             </ul>
                         </div>
                     </div>
-
-                    <div class="field grid div-center">
-                        <button
-                            pbutton=""
-                            pripple=""
-                            type="submit"
-                            label="Info"
-                            class="p-element p-ripple p-button-primary p-button p-component"
-                            ng-reflect-label="Info"
-                            (click)="ThemMoi()"
-                        >
-                            <span class="p-button-label">Lưu lại</span
-                            ><span class="p-ink"></span></button
-                        >&nbsp;
-                        <button
-                            pbutton=""
-                            pripple=""
-                            type="submit"
-                            label="Info"
-                            class="p-element p-ripple p-button-warning p-button p-component"
-                            ng-reflect-label="Info"
-                            (click)="NhapLai()"
-                        >
-                            <span class="p-button-label">Nhập lại</span
-                            ><span class="p-ink"></span></button
-                        >&nbsp;
-                        <button
-                            pbutton=""
-                            pripple=""
-                            type="button"
-                            label="Info"
-                            class="p-element p-ripple p-button-info p-button p-component"
-                            ng-reflect-label="Danger"
-                            (click)="ReturnTrangChu()"
-                        >
-                            <span class="p-button-label">Trở lại danh sách</span
-                            ><span class="p-ink"></span>
-                        </button>
-                    </div>
                 </form>
             </p-tabPanel>
             <p-tabPanel header="Văn bản">
@@ -400,13 +358,6 @@
                         >
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th style="width: 2%">
-                                        <div
-                                            class="flex justify-content-between align-items-center"
-                                        >
-                                            STT
-                                        </div>
-                                    </th>
                                     <th style="min-width: 10rem">
                                         <div
                                             class="flex justify-content-between align-items-center"
@@ -435,7 +386,7 @@
                                             Cơ quan ban hành
                                         </div>
                                     </th>
-                                    <th style="min-width: 10rem">
+                                    <th style="min-width: 3rem">
                                         <div
                                             class="flex justify-content-between align-items-center"
                                         >
@@ -450,9 +401,6 @@
                                 let-rowIndex="rowIndex"
                             >
                                 <tr>
-                                    <td style="text-align: center">
-                                        {{ rowIndex + 1 }}
-                                    </td>
                                     <td>
                                         {{ item.soKyHieu }}
                                     </td>
@@ -470,8 +418,10 @@
                                         {{ item.coQuanBanHanh }}
                                     </td>
 
-                                    <td>
-                                        <a href="javascript:;"
+                                    <td class="text-center">
+                                        <a
+                                            href="javascript:;"
+                                            (click)="XoaVanBan(item.id)"
                                             ><i class="pi pi-trash"></i
                                         ></a>
                                     </td>
@@ -540,7 +490,7 @@
                                         <div
                                             class="flex justify-content-between align-items-center"
                                         >
-                                            Ngày ban hành
+                                            Ngày bắt đầu
                                         </div>
                                     </th>
                                     <th style="min-width: 10rem">
@@ -550,7 +500,7 @@
                                             Ngày kết thúc
                                         </div>
                                     </th>
-                                    <th style="min-width: 10rem">
+                                    <th style="min-width: 3rem">
                                         <div
                                             class="flex justify-content-between align-items-center"
                                         >
@@ -566,14 +516,14 @@
                             >
                                 <tr>
                                     <td>
-                                        {{ item.soKyHieu }}
+                                        {{ item.vanBan }}
                                     </td>
                                     <td>
                                         {{ item.noiDungCongViec }}
                                     </td>
                                     <td>
                                         {{
-                                            item.ngayBanHanh
+                                            item.ngayBatDau
                                                 | date : "dd/MM/yyyy"
                                         }}
                                     </td>
@@ -585,8 +535,10 @@
                                         }}
                                     </td>
 
-                                    <td>
-                                        <a href="javascript:;"
+                                    <td class="text-center">
+                                        <a
+                                            href="javascript:;"
+                                            (click)="XoaCongViec(item.id)"
                                             ><i class="pi pi-trash"></i
                                         ></a>
                                     </td>
@@ -658,7 +610,7 @@
                                             Người tạo
                                         </div>
                                     </th>
-                                    <th style="min-width: 10rem">
+                                    <th style="min-width: 3rem">
                                         <div
                                             class="flex justify-content-between align-items-center"
                                         >
@@ -680,15 +632,19 @@
                                         {{ item.tenPhieu }}
                                     </td>
                                     <td>
-                                        {{ item.ngayTao | date : "dd/MM/yyyy" }}
+                                        {{
+                                            item.ngayTrinh | date : "dd/MM/yyyy"
+                                        }}
                                     </td>
 
                                     <td>
                                         {{ item.nguoiGui }}
                                     </td>
 
-                                    <td>
-                                        <a href="javascript:;"
+                                    <td class="text-center">
+                                        <a
+                                            href="javascript:;"
+                                            (click)="XoaPhieuTrinh(item.id)"
                                             ><i class="pi pi-trash"></i
                                         ></a>
                                     </td>
@@ -710,10 +666,60 @@
                     </div>
                 </div>
             </p-tabPanel>
+            <div class="field grid div-center">
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="submit"
+                    label="Info"
+                    class="p-element p-ripple p-button-primary p-button p-component"
+                    ng-reflect-label="Info"
+                    (click)="ThemMoi()"
+                >
+                    <span class="p-button-label">Lưu lại</span
+                    ><span class="p-ink"></span></button
+                >&nbsp;
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="submit"
+                    label="Info"
+                    class="p-element p-ripple p-button-warning p-button p-component"
+                    ng-reflect-label="Info"
+                    (click)="NhapLai()"
+                >
+                    <span class="p-button-label">Nhập lại</span
+                    ><span class="p-ink"></span></button
+                >&nbsp;
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="button"
+                    label="Info"
+                    class="p-element p-ripple p-button-info p-button p-component"
+                    ng-reflect-label="Danger"
+                    (click)="ReturnTrangChu()"
+                >
+                    <span class="p-button-label">Trở lại danh sách</span
+                    ><span class="p-ink"></span>
+                </button>
+            </div>
         </p-tabView>
     </div>
 </div>
-<app-chon-van-ban [show]="hienThiChonVanBan" (chonVanBan)="ChonVanBan()" (tatPopup)="Thoat($event, 'VB')"></app-chon-van-ban>
-<app-chon-cong-viec [show]="hienThiChonCongViec" (chonCongViec)="ChonCongViec()" (tatPopup)="Thoat($event, 'CV')"></app-chon-cong-viec>
-<app-chon-phieu-trinh [show]="hienThiChonPhieuTrinh" (chonPhieuTrinh)="ChonPhieuTrinh()" (tatPopup)="Thoat($event, 'PT')"></app-chon-phieu-trinh>
+<app-chon-van-ban
+    [show]="hienThiChonVanBan"
+    (chonVanBan)="ChonVanBan($event)"
+    (tatPopup)="Thoat($event, 'VB')"
+></app-chon-van-ban>
+<app-chon-cong-viec
+    [show]="hienThiChonCongViec"
+    (chonCongViec)="ChonCongViec($event)"
+    (tatPopup)="Thoat($event, 'CV')"
+></app-chon-cong-viec>
+<app-chon-phieu-trinh
+    [show]="hienThiChonPhieuTrinh"
+    (chonPhieuTrinh)="ChonPhieuTrinh($event)"
+    (tatPopup)="Thoat($event, 'PT')"
+></app-chon-phieu-trinh>
 <p-toast></p-toast>

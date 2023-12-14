@@ -2,6 +2,7 @@
     [(visible)]="show"
     [draggable]="true"
     [resizable]="false"
+    (onShow)="BindDialogData()"
     (onHide)="Thoat()"
     [style]="{ width: '1150px' }"
     [modal]="true"
@@ -10,7 +11,7 @@
     <ng-template pTemplate="content">
         <p-toast></p-toast>
         <div class="field grid">
-            <div class="col-12 md:col-4 fl-wr">
+            <div class="col-12 md:col-3 fl-wr">
                 <input
                     [(ngModel)]="timKiemDanhSach.keyWord"
                     pInputText
@@ -19,14 +20,15 @@
                     class="form-control"
                 />
             </div>
-            <div class="col-12 md:col-4 fl-wr">
-                <input
-                    [(ngModel)]="timKiemDanhSach.ngayTrinh"
-                    pInputText
-                    type="text"
-                    placeholder="Ngày trình"
-                    class="form-control"
-                />
+            <div class="col-12 md:col-3 fl-wr">
+                <p-calendar
+                [(ngModel)]="timKiemDanhSach.ngayTrinh"
+                dateFormat="dd/mm/yy"
+                [style]="{ width: '100%' }"
+                placeholder="Ngày trình"
+                appendTo="body"
+                class="my-drop"
+            ></p-calendar>
             </div>
             <div class="col-12 md:col-3 fl-wr">
                 <p-dropdown
@@ -73,6 +75,13 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="min-width: 2rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                 
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
                                 <div
                                     class="flex justify-content-between align-items-center"
                                 >

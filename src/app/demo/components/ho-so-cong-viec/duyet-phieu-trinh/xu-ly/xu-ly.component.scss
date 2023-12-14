@@ -1,0 +1,53 @@
+.roboto {
+    font-family: "Roboto Condensed";
+    .bold {
+        font-weight: bold;
+    }
+
+    .p-button{
+      padding: 0.5rem;
+    }
+
+    .custom-table {
+        border-collapse: separate; // Use separate instead of collapse
+        border-spacing: 0px;
+        width: 100%;
+        box-sizing: border-box;
+
+        th,
+        td {
+            border: 1px solid #ced4da;
+            padding: 15px;
+        }
+        td {
+            padding: 0.89rem;
+            vertical-align: middle;
+        }
+
+        td.w-10 {
+            width: 30% !important;
+        }
+
+        td.w-50 {
+            width: 50% !important;
+        }
+
+        .custom-rb {
+            border-right-width: 0px;
+            border-bottom-width: 0px;
+        }
+
+        .custom-b {
+            border-bottom-width: 0px;
+        }
+
+        .custom-r {
+            border-right-width: 0px;
+        }
+    }
+}
+
+.my-size-icon {
+    width: 2rem;
+    height: 2rem !important;
+}

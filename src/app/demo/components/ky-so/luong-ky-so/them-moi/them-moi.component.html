@@ -1,0 +1,71 @@
+<p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới tài liệu hướng dẫn" [modal]="true"
+    class="p-fluid" (onHide)="TatPopup()">
+
+    <form [formGroup]="formThemMoi">
+        <div class="formgrid grid">
+            <div class="field col-12 md:col-6">
+                <label for="tenCauHinh">Tên cấu hình <span class="p-error">*</span></label>
+                <input type="text" pInputText id="tenCauHinh" formControlName="tenCauHinh"/>
+                <span class="p-error"
+                    *ngIf="!formThemMoi.controls.tenCauHinh.valid && (formThemMoi.controls.tenCauHinh.touched || submitted)">Vui
+                    lòng nhập tên cấu hình</span>
+            </div>
+            <div class="field col-12 md:col-6">
+                <label for="moTa">Mô tả</label>
+                <input type="text" pInputText id="moTa" formControlName="moTa"/>
+            </div>
+        </div>
+    </form>
+
+    <div class="grid">
+        <div class="col-12">
+            <p-table styleClass="p-datatable-gridlines" #dt [columns]="cols" [value]="dataTables"
+                responsiveLayout="scroll" [rows]="10">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="text-align: center;">STT</th>
+                        <th style="text-align: center;">Nhóm quyền</th>
+                        <th style="text-align: center;">Chức năng</th>
+                        <th>Hành động</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-dataTable>
+                    <tr>
+                        <td style="width:3%; min-width:3rem; text-align: center;"><span
+                                class="p-column-title">STT</span>
+                            {{dataTable.stt}}
+                        </td>
+                        <td style="width:8%; min-width:8rem; text-align: center;"><span class="p-column-title">Nhóm
+                                quyền</span>
+                            <p-dropdown appendTo="body" [showClear]="true" [filter]="true" [options]="lstNhomQuyen"
+                                optionLabel="text" optionValue="value" placeholder="Chọn nhóm quyền"
+                                [(ngModel)]="dataTable.nhomQuyenId"></p-dropdown>
+                        </td>
+                        <td style="width:8%; min-width:8rem; text-align: center;"><span class="p-column-title">Chức năng</span>
+                            <p-dropdown appendTo="body" [showClear]="true" [filter]="true" [options]="lstChucNang"
+                                optionLabel="text" optionValue="value" placeholder="Chọn chức năng"
+                                [(ngModel)]="dataTable.chucNangId"></p-dropdown>
+                        </td>
+                        <td style="width:4%; min-width:4rem; text-align: center;">
+                            <span class="p-column-title">Hành động</span>
+                            <label *ngIf="dataTable.stt == 1 else buttonXoa">
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2" (click)="AddRow()"></button>
+                            </label>
+                            <ng-template #buttonXoa>
+                                <label *ngIf="dataTable.stt > 1">
+                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                                        (click)="DelRow(dataTable.stt)"></button>
+                                </label>
+                            </ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" (click)="ThemMoi()" icon="pi pi-check" class="p-button-info"></button>
+        <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="TatPopup()"></button>
+    </ng-template>
+</p-dialog>

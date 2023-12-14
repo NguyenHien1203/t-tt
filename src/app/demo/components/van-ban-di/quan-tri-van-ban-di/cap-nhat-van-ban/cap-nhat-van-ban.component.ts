@@ -213,6 +213,7 @@ export class CapNhatVanBanComponent implements OnInit {
     this.selectedFiles.forEach((obj, index) => {
         if (obj.filePath === filePath) {                                                      
             obj.isDelete = true;
+            obj.isNew = false;
         }
     });
 }

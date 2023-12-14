@@ -1,63 +1,306 @@
-<p-dialog [(visible)]="show" [formGroup]="formThemMoi" [draggable]="true" [resizable]="false" (onHide)="Thoat()"
-    [style]="{width: '950px'}" [modal]="true" header="Thêm mới thông báo" class="p-fluid">
+<p-dialog
+    [(visible)]="show"
+    [formGroup]="formThemMoi"
+    [draggable]="true"
+    [resizable]="false"
+    (onHide)="Thoat()"
+    [style]="{ width: '950px' }"
+    [modal]="true"
+    header="Thêm mới phiếu trình"
+    class="p-fluid"
+>
     <ng-template pTemplate="content">
-        <div class="field">
-            <label htmlfor="tieuDe">Tiêu dề<span class="p-error"> (*)</span>:</label>
-            <input pinputtext="" id="tieuDe" type="text" required="" class="p-inputtext p-component p-element"
-                formControlName="tieuDe">
-            <span class="p-error"
-                *ngIf="!formThemMoi.controls.tieuDe.valid && (formThemMoi.controls.tieuDe.touched || submitted)">Vui
-                lòng nhập tiêu đề</span>
-        </div>
-        <div class="grid formgrid">
-            <div class="col-12 md:col-6" for="ngayBatDau">
-                <label htmlfor="ngayBatDau">Từ ngày:</label>
-                <p-calendar id="tuNgay" formControlName="ngayBatDau" appendTo="body" [showIcon]="true"
-                    dateFormat="dd/mm/yy"  inputId="icon"></p-calendar>
+        <div class="field grid">
+            <div class="col-12 md:col-6 fl-wr">
+                <label htmlfor="tenPhieuTrinh"
+                    >Tên phiếu trình<span class="p-error"> (*)</span>:</label
+                >
+                <input
+                    pinputtext=""
+                    id="tenPhieuTrinh"
+                    type="text"
+                    required=""
+                    class="p-inputtext p-component p-element"
+                    formControlName="tenPhieuTrinh"
+                />
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.tenPhieuTrinh.valid &&
+                        (formThemMoi.controls.tenPhieuTrinh.touched ||
+                            submitted)
+                    "
+                    >Vui lòng nhập tên phiếu trình</span
+                >
             </div>
-            <div class="col-12 md:col-6" for="ngayKetThuc">
-                <label htmlfor="ngayKetThuc">Đến ngày:</label>
-                <p-calendar id="denNgay" formControlName="ngayKetThuc" appendTo="body" [showIcon]="true"
-                    dateFormat="dd/mm/yy"  inputId="icon"></p-calendar>
+            <div class="col-12 md:col-6 fl-wr">
+                <label htmlfor="kinhGuiId">
+                    Kính gửi <span class="p-error"> (*)</span>:</label
+                >
+                <p-dropdown
+                    [showClear]="true"
+                    [options]="lstlanhDaoKy"
+                    optionValue="value"
+                    optionLabel="text"
+                    appendTo="body"
+                    formControlName="kinhGuiId"
+                    [filter]="true"
+                    placeholder="Chọn lãnh đạo"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                ></p-dropdown>
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.kinhGuiId.valid &&
+                        (formThemMoi.controls.kinhGuiId.touched || submitted)
+                    "
+                    >Vui lòng chọn lãnh đạo</span
+                >
             </div>
         </div>
-        <div class="grid formgrid">
-            <div class="col-12 md:col-6">
-                <label htmlfor="tieuDe">File đính kèm<span class="p-error"> (*)</span>:</label>
-                &nbsp;<label for="fileUpload" class="custom-file-upload" *ngIf="!file">
-                    <i class="pi pi-upload"></i> Chọn tệp
-                  </label>
-                  <input
-                    type="file"
-                    id="fileUpload"
-                    class="file-input"
-                    (change)="onChange($event)"
-                    #fileUpload
-                    style="display: none;"
-                  />
-                <div *ngIf="file">
-                    <section class="file-info">
-                        <ul>
-                            <li>Tên file: <a (click)="downloadFile()" href="javascript:;">{{file.name}}</a><a href="javascript:;" (click)="XoaFile()">&nbsp;<i class="pi pi-trash"></i></a></li>
-                        </ul>
-                    </section>
+        <div class="field grid">
+            <div class="col-12 md:col-6 fl-wr">
+                <label htmlfor="tenNguoiTrinh">Người trình:</label>
+                <input
+                    pinputtext=""
+                    id="tenNguoiTrinh"
+                    readonly
+                    type="text"
+                    class="p-inputtext p-component p-element"
+                    formControlName="tenNguoiTrinh"
+                />
+            </div>
+            <div class="col-12 md:col-6 fl-wr">
+                <label htmlfor="nguoiKyId">
+                    Người ký <span class="p-error"> (*)</span>:</label
+                >
+                <p-dropdown
+                    [showClear]="true"
+                    [options]="lstlanhDaoKy"
+                    formControlName="nguoiKyId"
+                    [filter]="true"
+                    appendTo="body"
+                    optionValue="value"
+                    optionLabel="text"
+                    placeholder="Chọn lãnh đạo ký"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                ></p-dropdown>
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.nguoiKyId.valid &&
+                        (formThemMoi.controls.nguoiKyId.touched || submitted)
+                    "
+                    >Vui lòng chọn lãnh đạo ký</span
+                >
+            </div>
+        </div>
+        <div class="field grid">
+            <div class="col-12 md:col-6 fl-wr">
+                <label htmlfor="nguoiDuyetId">Người duyệt:</label>
+                <p-dropdown
+                    [showClear]="true"
+                    [options]="lstLanhDaoDuyet"
+                    optionValue="value"
+                    appendTo="body"
+                    optionLabel="text"
+                    formControlName="nguoiDuyetId"
+                    [filter]="true"
+                    placeholder="Chọn người duyệt/Ký duyệt"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                ></p-dropdown>
+            </div>
+            <div class="col-12 md:col-6 fl-wr">
+                <label htmlfor="vanBanLienQuanId"> Văn bản liên quan:</label>
+                <p-dropdown
+                    [showClear]="true"
+                    [options]="lstVanBanLienQuan"
+                    formControlName="vanBanLienQuanId"
+                    [filter]="true"
+                    optionValue="value"
+                    appendTo="body"
+                    optionLabel="text"
+                    placeholder="Chọn văn bản liên quan"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                ></p-dropdown>
+            </div>
+        </div>
+        <div class="field grid">
+            <div class="col-12 md:col-12 fl-wr">
+                <label htmlfor="trichYeuVanBanDen">
+                    Trích yếu văn bản đến
+                    <span class="p-error">(*)</span>:</label
+                >
+                <textarea
+                    rows="3"
+                    cols="30"
+                    class="my-drop"
+                    required=""
+                    formControlName="trichYeuVanBanDen"
+                    placeholder="Trích yếu dự thảo văn bản đến"
+                    pInputTextarea
+                ></textarea>
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.trichYeuVanBanDen.valid &&
+                        (formThemMoi.controls.trichYeuVanBanDen
+                            .touched ||
+                            submitted)
+                    "
+                    >Yêu cầu nhập trích yếu văn bản đến</span
+                >
+            </div>
+        </div>
+         <div class="field grid">
+            <div class="col-12 md:col-6 fl-wr">
+                <label htmlfor="vanDeTrinh">
+                    Vấn đề trình
+                    <span class="p-error">(*)</span>:</label
+                >
+                <textarea
+                    rows="3"
+                    cols="30"
+                    class="my-drop"
+                    required=""
+                    formControlName="vanDeTrinh"
+                    placeholder="Vấn đề trình"
+                    pInputTextarea
+                ></textarea>
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.vanDeTrinh.valid &&
+                        (formThemMoi.controls.vanDeTrinh
+                            .touched ||
+                            submitted)
+                    "
+                    >Yêu cầu nhập vấn đề trình</span
+                >
+            </div>
+            <div class="col-12 md:col-6 fl-wr">
+                <label htmlfor="trichYeuDuThaoVanBan">
+                   Trích yếu dự thảo văn bản
+                    <span class="p-error">(*)</span>:</label
+                >
+                <textarea
+                    rows="3"
+                    cols="30"
+                    class="my-drop"
+                    required=""
+                    formControlName="trichYeuDuThaoVanBan"
+                    placeholder="Trích yếu dự thảo văn bản"
+                    pInputTextarea
+                ></textarea>
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.trichYeuDuThaoVanBan.valid &&
+                        (formThemMoi.controls.trichYeuDuThaoVanBan
+                            .touched ||
+                            submitted)
+                    "
+                    >Yêu cầu nhập trích yếu dự thảo văn bản</span
+                >
+            </div>
+        </div>
+        <div class="field grid">
+            <div class="col-12 md:col-2">
+                File VB dự thảo :
+            </div>
+            <div class="col-12 md:col-4">
+                <div>
+                    <label for="fileUploadDuThao" class="custom-file-upload">
+                        <i class="pi pi-upload"></i> Chọn tệp
+                    </label>
+                    <input
+                        type="file"
+                        id="fileUploadDuThao"
+                        multiple="multiple"
+                        (change)="onFileSelected($event, '1')"
+                        style="display: none"
+                    />
                 </div>
+                <ul>
+                    <li *ngFor="let file of lstFileDuThao">
+                        <span *ngIf="file.isDelete == false">
+                            <a
+                                (click)="
+                                    DownloadFile(file.filePath, file.fileName)
+                                "
+                                href="javascript:;"
+                                >{{ file.fileName }}</a
+                            ><a
+                                href="javascript:;"
+                                (click)="XoaFile(file.filePath)"
+                                >&nbsp;<i class="pi pi-trash"></i
+                            ></a>
+                        </span>
+                    </li>
+                </ul>
             </div>
-            <div class="col-12 md:col-6">
-                <p-checkbox name="hienThi" formControlName="hienThi" (click)="CheckedHt()" class="mg-t-25" value="true"
-                    label="Hiển thị"></p-checkbox>
+            <div class="col-12 md:col-2">
+                File VB liên quan :
             </div>
-        </div>
-        <div class="field">
-            <ckeditor #myEditor id="editor" formControlName="noiDung" [editor]="Editor" row [config]="getToolBar()" data=""></ckeditor>
+            <div class="col-12 md:col-4">
+                <div>
+                    <label for="fileUploadLienQuan" class="custom-file-upload">
+                        <i class="pi pi-upload"></i> Chọn tệp
+                    </label>
+                    <input
+                        type="file"
+                        id="fileUploadLienQuan"
+                        multiple="multiple"
+                        (change)="onFileSelected($event, '2')"
+                        style="display: none"
+                    />
+                </div>
+                <ul>
+                    <li *ngFor="let file of lstFileLienQuan">
+                        <span *ngIf="file.isDelete == false">
+                            <a
+                                (click)="
+                                    DownloadFile(file.filePath, file.fileName)
+                                "
+                                href="javascript:;"
+                                >{{ file.fileName }}</a
+                            ><a
+                                href="javascript:;"
+                                (click)="XoaFile(file.filePath)"
+                                >&nbsp;<i class="pi pi-trash"></i
+                            ></a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </ng-template>
     <ng-template pTemplate="footer">
-        <button pbutton="" pripple="" type="submit" label="Info"
-            class="p-element p-ripple p-button-info p-button p-component" ng-reflect-label="Info"
-            (click)="ThemMoi()"><span class="p-button-label">Lưu</span><span class="p-ink"></span></button>
-        <button pbutton="" pripple="" type="button" label="Info"
-            class="p-element p-ripple p-button-danger p-button p-component" ng-reflect-label="Danger"
-            (click)="Thoat()"><span class="p-button-label">Hủy</span><span class="p-ink"></span></button>
+        <button
+            pbutton=""
+            pripple=""
+            type="submit"
+            label="Info"
+            class="p-element p-ripple p-button-info p-button p-component"
+            ng-reflect-label="Info"
+            (click)="ThemMoi()"
+        >
+            <span class="p-button-label">Lưu</span><span class="p-ink"></span>
+        </button>
+        <button
+            pbutton=""
+            pripple=""
+            type="button"
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            ng-reflect-label="Danger"
+            (click)="Thoat()"
+        >
+            <span class="p-button-label">Hủy</span><span class="p-ink"></span>
+        </button>
     </ng-template>
 </p-dialog>

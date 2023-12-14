@@ -69,7 +69,7 @@ export class ThemMoiPhieuTrinhComponent {
 
     public CapNhat(id: string) {
         this.id = id;
-        this.hienThiThemMoi = true;
+        this.hienThiCapNhat = true;
     }
 
     public Thoat(itemHt: any, loai: string): void {

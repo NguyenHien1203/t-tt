@@ -15,8 +15,74 @@ export class ChiTietCongViecComponent {
     @Input() loai: string = '1';
     @Input() show: boolean = false;
     @Output() tatPopup = new EventEmitter<boolean>();
-
+    isShowSearch: boolean = false;
+    lstTraoDoi: any[] = [];
     TenTaiKhoan: string = this.authService.GetmUserInfo().userName;
+
+    NoiDungTraoDoi : string = '';
+
+    comments = [
+        {
+            author: 'User1',
+            text: 'This is the first comment.',
+            timestamp: new Date(),
+            replies: [
+                {
+                    author: 'User2',
+                    text: 'Reply to the first comment.',
+                    timestamp: new Date()
+                },
+                {
+                    author: 'User3',
+                    text: 'Another reply to the first comment.',
+                    timestamp: new Date()
+                }
+            ]
+        },
+        {
+            author: 'User4',
+            text: 'This is the second comment.',
+            timestamp: new Date(),
+            replies: [] // Make sure to initialize replies array
+        }
+    ];
+
+    toggleReply(comment: any) {
+        comment.showReply = !comment.showReply;
+    }
+
+    submitReply(comment: any) {
+        // Add logic to handle submitted reply
+        console.log(comment.newReplyText);
+        console.log(comment.id);
+
+        let itemData = {
+            idCongViec: this.id.toString(),
+            pId: comment.id.toString(),
+            stt: this.cap.toString(),
+            loai: this.loai.toString(),
+            noiDung: comment.newReplyText,
+            userId: this.authService.GetmUserInfo().userId.toString(),
+            donViLamViec: this.authService.GetDonViLamViec()
+        }
+
+        this.service.LuuTraoDoiTheoUser(itemData).subscribe(data => {
+            if (data.isError) {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+            } else {
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+                setTimeout(() => {
+                    this.GetDataTraoDoi();
+                }, 1000);
+            }
+        }, (error) => {
+            console.log('Error', error);
+        })
+
+        comment.showReply = false;
+        comment.newReplyText = '';
+    }
+
 
     constructor(
         private service: XuLyCongViecService,
@@ -65,6 +131,8 @@ export class ChiTietCongViecComponent {
             if (data != null) {
                 this.chiTietCongViecs = data;
             }
+
+            this.GetDataTraoDoi();
         } catch (error) {
             console.log(error);
         }
@@ -81,5 +149,48 @@ export class ChiTietCongViecComponent {
 
     public ChonHoSo() {
         this.submitted = true;
+    }
+
+    public GetDataTraoDoi() {
+        this.service.GetDataTraoDoi(this.id, this.cap).subscribe(data => {
+            if (data.isError) {
+            } else {
+                this.lstTraoDoi = data.objData;
+                console.log(data.objData);
+            }
+        }, (error) => {
+            console.log('Error', error);
+        })
+
+    }
+
+    public ShowSearch() {
+        this.isShowSearch = !this.isShowSearch;
+    }
+
+    public GuiTraoDoi() {
+        let itemData = {
+            idCongViec: this.id.toString(),
+            pId: "",
+            stt: this.cap.toString(),
+            loai: this.loai.toString(),
+            noiDung: this.NoiDungTraoDoi,
+            userId: this.authService.GetmUserInfo().userId.toString(),
+            donViLamViec: this.authService.GetDonViLamViec()
+        }
+
+        this.service.LuuTraoDoiTheoUser(itemData).subscribe(data => {
+            if (data.isError) {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+            } else {
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
+                setTimeout(() => {
+                    this.GetDataTraoDoi();
+                }, 1000);
+                this.NoiDungTraoDoi ="";
+            }
+        }, (error) => {
+            console.log('Error', error);
+        })
     }
 }

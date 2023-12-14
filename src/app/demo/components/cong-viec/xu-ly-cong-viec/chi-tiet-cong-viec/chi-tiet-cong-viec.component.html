@@ -1,22 +1,10 @@
-<p-dialog
-    [(visible)]="show"
-    [draggable]="true"
-    [resizable]="false"
-    (onHide)="Thoat()"
-    (onShow)="BindDialogData()"
-    [style]="{ width: '1500px' }"
-    [modal]="true"
-    header="Chi tiết công việc"
->
+<p-dialog [(visible)]="show" [draggable]="true" [resizable]="false" (onHide)="Thoat()" (onShow)="BindDialogData()"
+    [style]="{ width: '1500px' }" [modal]="true" header="Chi tiết công việc">
     <ng-template pTemplate="content">
         <div class="chiTiet">
             <div class="field grid">
                 <div class="col-12 md:col-9">
-                    <p-table
-                        styleClass="p-datatable-gridlines"
-                        [value]="[chiTietCongViecs]"
-                        class="custom-table"
-                    >
+                    <p-table styleClass="p-datatable-gridlines" [value]="[chiTietCongViecs]" class="custom-table">
                         <ng-template pTemplate="body" let-chiTietCongViec>
                             <tr>
                                 <td class="">
@@ -48,25 +36,22 @@
                             </tr>
                             <tr>
                                 <td class="">
-                                    <strong
-                                        >Thời gian thực hiện dự kiến:</strong
-                                    >
+                                    <strong>Thời gian thực hiện dự kiến:</strong>
                                     {{ chiTietCongViec.thoiGianDuKien }}
                                 </td>
                                 <td class="">
                                     <strong>Từ ngày: </strong>
                                     <span class="info">
                                         {{
-                                            chiTietCongViec?.tuNgay
-                                                | date : "dd/MM/yyyy"
-                                        }}</span
-                                    >
+                                        chiTietCongViec?.tuNgay
+                                        | date : "dd/MM/yyyy"
+                                        }}</span>
                                 </td>
                                 <td class="" colspan="2">
                                     <strong>Đến ngày: </strong>
                                     {{
-                                        chiTietCongViec?.denNgay
-                                            | date : "dd/MM/yyyy"
+                                    chiTietCongViec?.denNgay
+                                    | date : "dd/MM/yyyy"
                                     }}
                                 </td>
                             </tr>
@@ -90,343 +75,298 @@
                                         Phối hợp thực hiện (
                                         <span class="info">{{
                                             chiTietCongViec?.countDongChiPhoiHop
-                                        }}</span>
-                                        đ/c)</strong
-                                    >
+                                            }}</span>
+                                        đ/c)</strong>
                                 </td>
                                 <td class="">
-                                    <p-table
-                                        [paginator]="false"
-                                        [value]="
+                                    <p-table [paginator]="false" [value]="
                                             chiTietCongViec?.lstDongChiPhoiHop
-                                        "
-                                        dataKey="id"
-                                        [rowHover]="true"
-                                        styleClass="p-datatable-gridlines"
-                                        responsiveLayout="scroll"
-                                    >
-                                        <ng-template
-                                            pTemplate="body"
-                                            let-phoiHop
-                                            let-rowIndex="rowIndex"
-                                        >
-                                            <tr>
-                                                <td class="">
-                                                    {{ phoiHop.text }}
-                                                </td>
-                                                <td>
-                                                    <span class="info">
-                                                        {{
-                                                            phoiHop.trangThai
-                                                        }}</span
-                                                    >
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="emptymessage">
-                                            <tr>
-                                                <td colspan="15">0 đ/c</td>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="loadingbody">
-                                            <tr>
-                                                <td colspan="15">
-                                                    Loading record data. Please
-                                                    wait.
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
-                                </td>
+                                        " dataKey="id" [rowHover]="true" styleClass="p-datatable-gridlines"
+                                        responsiveLayout="scroll">
+                                        <ng-template pTemplate="body" let-phoiHop let-rowIndex="rowIndex">
+                            <tr>
                                 <td class="">
-                                    <strong>
-                                        Thông báo để biết (
-                                        <span class="info">{{
-                                            chiTietCongViec?.countDongChiThongBao
+                                    {{ phoiHop.text }}
+                                </td>
+                                <td>
+                                    <span class="info">
+                                        {{
+                                        phoiHop.trangThai
                                         }}</span>
-                                        đ/c)
-                                    </strong>
                                 </td>
-                                <td class="">
-                                    <p-table
-                                        [paginator]="false"
-                                        [value]="
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="15">0 đ/c</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="loadingbody">
+                            <tr>
+                                <td colspan="15">
+                                    Loading record data. Please
+                                    wait.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    </td>
+                    <td class="">
+                        <strong>
+                            Thông báo để biết (
+                            <span class="info">{{
+                                chiTietCongViec?.countDongChiThongBao
+                                }}</span>
+                            đ/c)
+                        </strong>
+                    </td>
+                    <td class="">
+                        <p-table [paginator]="false" [value]="
                                             chiTietCongViec?.lstDongChiThongBao
-                                        "
-                                        dataKey="id"
-                                        [rowHover]="true"
-                                        styleClass="p-datatable-gridlines"
-                                        responsiveLayout="scroll"
-                                    >
-                                        <ng-template
-                                            pTemplate="body"
-                                            let-thongBao
-                                            let-rowIndex="rowIndex"
-                                        >
-                                            <tr>
-                                                <td class="">
-                                                    {{ thongBao.text }}
-                                                </td>
-                                                <td>
-                                                    <span class="info">
-                                                        {{
-                                                            thongBao.trangThai
-                                                        }}</span
-                                                    >
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="emptymessage">
-                                            <tr>
-                                                <td colspan="15">0 đ/c</td>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="loadingbody">
-                                            <tr>
-                                                <td colspan="15">
-                                                    Loading record data. Please
-                                                    wait.
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="" colspan="4">
-                                    <strong>
-                                        NHẬP CÁC THÔNG TIN XỬ LÝ CỦA CÁ NHÂN
-                                    </strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="">
-                                    <strong>File văn bản đính kèm:</strong>
-                                </td>
-                                <td class="">
-                                    <ul>
-                                        <li
-                                            *ngFor="
+                                        " dataKey="id" [rowHover]="true" styleClass="p-datatable-gridlines"
+                            responsiveLayout="scroll">
+                            <ng-template pTemplate="body" let-thongBao let-rowIndex="rowIndex">
+                                <tr>
+                                    <td class="">
+                                        {{ thongBao.text }}
+                                    </td>
+                                    <td>
+                                        <span class="info">
+                                            {{
+                                            thongBao.trangThai
+                                            }}</span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="15">0 đ/c</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="loadingbody">
+                                <tr>
+                                    <td colspan="15">
+                                        Loading record data. Please
+                                        wait.
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td class="" colspan="4">
+                            <strong>
+                                NHẬP CÁC THÔNG TIN XỬ LÝ CỦA CÁ NHÂN
+                            </strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="">
+                            <strong>File văn bản đính kèm:</strong>
+                        </td>
+                        <td class="">
+                            <ul>
+                                <li *ngFor="
                                                 let file of chiTietCongViec.lstFileDinhKemVanBan
-                                            "
-                                        >
-                                            <span>
-                                                <a
-                                                    (click)="
+                                            ">
+                                    <span>
+                                        <a (click)="
                                                         DownloadFile(
                                                             file.filePath,
                                                             file.fileName
                                                         )
-                                                    "
-                                                    href="javascript:;"
-                                                    >{{ file.fileName }}</a
-                                                >
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td class="">
-                                    <strong>File đính kèm:</strong>
-                                </td>
-                                <td class="">
-                                    <ul>
-                                        <li
-                                            *ngFor="
+                                                    " href="javascript:;">{{ file.fileName }}</a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="">
+                            <strong>File đính kèm:</strong>
+                        </td>
+                        <td class="">
+                            <ul>
+                                <li *ngFor="
                                                 let file of chiTietCongViec.lstFileDinhKemCongViec
-                                            "
-                                        >
-                                            <a
-                                                (click)="
+                                            ">
+                                    <a (click)="
                                                     DownloadFile(
                                                         file.filePath,
                                                         file.fileName
                                                     )
-                                                "
-                                                href="javascript:;"
-                                                >{{ file.fileName }}</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <strong
-                                        >CHI TIẾT KẾT QUẢ THỰC HIỆN CÔNG VIỆC
-                                        CỦA CÁC CÁ NHÂN</strong
-                                    >
-                                </td>
-                            </tr>
-                            <td colspan="4">
-                                <p-table
-                                    [paginator]="false"
-                                    [value]="chiTietCongViec.lstCaNhanXuLyCongViec"
-                                    dataKey="id"
-                                    [rowHover]="true"
-                                    class="my-drop"
-                                    styleClass="p-datatable-gridlines"
-                                    responsiveLayout="scroll"
-                                >
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th style="width: 2%">
-                                                <div
-                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
-                                                >
-                                                    STT
-                                                </div>
-                                            </th>
-                                            <th style="min-width: 10rem">
-                                                <div
-                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
-                                                >
-                                                   Ngày thực hiện
-                                                </div>
-                                            </th>
-                                            <th style="min-width: 10rem">
-                                                <div
-                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
-                                                >
-                                                   Nội dung
-                                                </div>
-                                            </th>
-                                            <th style="min-width: 10rem">
-                                                <div
-                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
-                                                >
-                                                   Tệp đính kèm
-                                                </div>
-                                            </th>
-                                            <th style="min-width: 10rem">
-                                                <div
-                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
-                                                >
-                                                Người thực hiện
-                                                </div>
-                                            </th>
-                                             <th style="min-width: 10rem">
-                                                <div
-                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
-                                                >
-                                               Vai trò
-                                                </div>
-                                            </th>
-                                            <th style="min-width: 10rem">
-                                                <div
-                                                    class="flex justify-content-between align-chiTietCongViec?s-center"
-                                                >
-                                             Trạng thái
-                                                </div>
-                                            </th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template
-                                        pTemplate="body"
-                                        let-caNhanThucHien
-                                        let-rowIndex="rowIndex"
-                                    >
-                                        <tr>
-                                            <td style="text-align: center">
-                                                {{ rowIndex + 1 }}
-                                            </td>
-                                            <td>
-                                                {{ caNhanThucHien.ngayThucHien | date : "dd/MM/yyyy" }}
-                                            </td>
-                                            <td>
-                                                {{ caNhanThucHien.noiDung}}
-                                            </td>
-                                            <td>
-                                                <ul>
-                                                    <li
-                                                        *ngFor="
+                                                " href="javascript:;">{{ file.fileName }}</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <strong>CHI TIẾT KẾT QUẢ THỰC HIỆN CÔNG VIỆC
+                                CỦA CÁC CÁ NHÂN</strong>
+                        </td>
+                    </tr>
+                    <td colspan="4">
+                        <p-table [paginator]="false" [value]="chiTietCongViec.lstCaNhanXuLyCongViec" dataKey="id"
+                            [rowHover]="true" class="my-drop" styleClass="p-datatable-gridlines"
+                            responsiveLayout="scroll">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width: 2%">
+                                        <div class="flex justify-content-between align-chiTietCongViec?s-center">
+                                            STT
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div class="flex justify-content-between align-chiTietCongViec?s-center">
+                                            Ngày thực hiện
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div class="flex justify-content-between align-chiTietCongViec?s-center">
+                                            Nội dung
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div class="flex justify-content-between align-chiTietCongViec?s-center">
+                                            Tệp đính kèm
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div class="flex justify-content-between align-chiTietCongViec?s-center">
+                                            Người thực hiện
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div class="flex justify-content-between align-chiTietCongViec?s-center">
+                                            Vai trò
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div class="flex justify-content-between align-chiTietCongViec?s-center">
+                                            Trạng thái
+                                        </div>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-caNhanThucHien let-rowIndex="rowIndex">
+                                <tr>
+                                    <td style="text-align: center">
+                                        {{ rowIndex + 1 }}
+                                    </td>
+                                    <td>
+                                        {{ caNhanThucHien.ngayThucHien | date : "dd/MM/yyyy" }}
+                                    </td>
+                                    <td>
+                                        {{ caNhanThucHien.noiDung}}
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            <li *ngFor="
                                                             let file of caNhanThucHien.lstFileDinhKem
-                                                        "
-                                                    >
-                                                        <a
-                                                            (click)="
+                                                        ">
+                                                <a (click)="
                                                                 DownloadFile(
                                                                     file.filePath,
                                                                     file.fileName
                                                                 )
-                                                            "
-                                                            href="javascript:;"
-                                                            >{{ file.fileName }}</a
-                                                        >
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                {{ caNhanThucHien.nguoiThucHien}}
-                                            </td>
-                                             <td>
-                                                {{ caNhanThucHien.vaiTro}}
-                                            </td>
-                                            <td>
-                                                {{caNhanThucHien.trangThai == 1 ? "Chưa xử lý" : caNhanThucHien.trangThai == 2?"Đang xử lý" :
-                                                caNhanThucHien.trangThai == 3 ?"Xử lý xong" : "Không xử lý"}}
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="emptymessage">
-                                        <tr>
-                                            <td colspan="15">
-                                                No record found.
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="loadingbody">
-                                        <tr>
-                                            <td colspan="15">
-                                                Loading record data. Please
-                                                wait.
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                            </td>
-                        </ng-template>
-                    </p-table>
-                </div>
-                <div class="col-12 md:col-3">
-                    <div class="chat-container">
-                        <!-- Header "Trao đổi" -->
-                        <div class="chat-header">
-                            <h3><strong>Trao đổi</strong></h3>
-                            <hr />
+                                                            " href="javascript:;">{{ file.fileName }}</a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        {{ caNhanThucHien.nguoiThucHien}}
+                                    </td>
+                                    <td>
+                                        {{ caNhanThucHien.vaiTro}}
+                                    </td>
+                                    <td>
+                                        {{caNhanThucHien.trangThai == 1 ? "Chưa xử lý" : caNhanThucHien.trangThai ==
+                                        2?"Đang xử lý" :
+                                        caNhanThucHien.trangThai == 3 ?"Xử lý xong" : "Không xử lý"}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="15">
+                                        No record found.
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="loadingbody">
+                                <tr>
+                                    <td colspan="15">
+                                        Loading record data. Please
+                                        wait.
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </td>
+    </ng-template>
+    </p-table>
+    </div>
+    <div class="col-12 md:col-3">
+        <div class="chat-container">
+            <!-- Header "Trao đổi" -->
+            <h3><strong>Trao đổi</strong></h3>
+            <!-- Container chứa ảnh cá nhân và khung chat -->
+            <div class="comment">
+                <!-- Icon hình người (15-20%) -->
+                <p><strong>{{ TenTaiKhoan }}</strong></p>
+
+                <!-- Khung comment (80-85%) -->
+                <div class="comment-frame">
+                    <!-- Input comment -->
+                    <div class="input-container">
+                        <div class="flex-container">
+                            <textarea [(ngModel)]="NoiDungTraoDoi" rows="1" cols="10" placeholder="Thêm bình luận" class="my-drop"
+                                pInputTextarea></textarea>
                         </div>
-
-                        <!-- Container chứa ảnh cá nhân và khung chat -->
-                        <div class="chat-content">
-                            <!-- Block chứa icon và khung comment -->
-                            <div class="comment-block">
-                                <!-- Icon hình người (15-20%) -->
-                                <div class="avatar-container">
-                                    <!-- Thêm ảnh cá nhân của người dùng -->
-                                    <strong>{{TenTaiKhoan}}</strong>
-                                </div>
-
-                                <!-- Khung comment (80-85%) -->
-                                <div class="comment-frame">
-                                    <!-- Input comment -->
-                                    <div class="input-container">
-                                        <div class="flex-container">
-                                            <textarea rows="2" cols="10" placeholder="Thêm bình luận" class="my-drop"
-                                            pInputTextarea></textarea>
-                                        </div>
-                                        <div class="right">
-                                            <a href="javascript:;">Gửi</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr>
-
-
+                        <div class="right">
+                            <a href="javascript:;" (click)="GuiTraoDoi()"><u>Gửi</u></a>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div *ngFor="let comment of lstTraoDoi" class="comment">
+                <p><strong>{{ comment.fullName }}</strong> <span class="timestamp">{{ comment.createDate | date: 'dd/MM/yyyy HH:mm'
+                        }}</span></p>
+                <p>{{ comment.noiDung }}</p>
+                <a href="javascript:;" (click)="toggleReply(comment)"><u>Trả lời</u></a>
+                <div *ngIf="comment.showReply" class="textarea-container">
+                    <textarea [(ngModel)]="comment.newReplyText"></textarea>
+                    <a href="javascript:;" (click)="submitReply(comment)"><u>Gửi</u></a>
+                </div>
+                <div>
+                    <a class="fontsize" *ngIf="comment.lstReply && comment.lstReply.length > 0" href="javascript:;" (click)="ShowSearch()">{{
+                        !isShowSearch
+                        ? "Hiển thị bình luận"
+                        : "Ẩn bình luận"
+                        }}</a>
+                    <div *ngIf="isShowSearch" >
+                        <div *ngIf="comment.lstReply && comment.lstReply.length > 0">
+                            <div *ngFor="let commentchild of comment.lstReply" class="comment">
+                                <p><strong>{{ commentchild.fullName }}</strong> <span class="timestamp">{{ commentchild.createDate |
+                                        date:
+                                        'dd/MM/yyyy HH:mm' }}</span></p>
+                                <p>{{ commentchild.noiDung }}</p>
+                                <a href="javascript:;" (click)="toggleReply(commentchild)"><u>Trả lời</u></a>
+                                <div *ngIf="commentchild.showReply" class="textarea-container">
+                                    <textarea [(ngModel)]="commentchild.newReplyText"></textarea>
+                                    <a href="javascript:;" (click)="submitReply(commentchild)"><u>Gửi</u></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
+    </div>
+    </div>
+    </div>
     </ng-template>
 </p-dialog>

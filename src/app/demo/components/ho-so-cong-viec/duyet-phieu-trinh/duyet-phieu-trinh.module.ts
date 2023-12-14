@@ -26,10 +26,11 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { DuyetPhieuTrinhRoutingModule } from './duyet-phieu-trinh-routing.module';
 import { DuyetPhieuTrinhComponent } from './duyet-phieu-trinh.component';
+import { XuLyComponent } from './xu-ly/xu-ly.component';
 
 
 @NgModule({
-  declarations: [DuyetPhieuTrinhComponent],
+  declarations: [DuyetPhieuTrinhComponent, XuLyComponent],
   imports: [
     TooltipModule,
     TableModule,

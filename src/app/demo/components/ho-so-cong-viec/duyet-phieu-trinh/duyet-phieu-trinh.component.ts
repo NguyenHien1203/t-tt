@@ -8,6 +8,7 @@ import { TimKiemPhieuTrinh } from 'src/app/models/ho-so-cong-viec/them-moi-phieu
     selector: 'app-duyet-phieu-trinh',
     templateUrl: './duyet-phieu-trinh.component.html',
     styleUrls: ['./duyet-phieu-trinh.component.scss'],
+    providers : [MessageService, ConfirmationService]
 })
 export class DuyetPhieuTrinhComponent {
     constructor(
@@ -24,23 +25,21 @@ export class DuyetPhieuTrinhComponent {
     timChinhXac: boolean = false;
     public id: string = '1';
     loading: boolean = false;
-    hienThiThemMoi: boolean = false;
-    hienThiCapNhat: boolean = false;
+    hienThiXuLy: boolean = false;
     lstTrangThai: any = [];
-    lstLanhDaoKy: any = [];
-    lstLanhDaoDuyet: any = [];
+    lstNguoiTrinh: any = [];
     lstPhieuTrinh: any[] = [];
     items = [{ label: 'Hồ sơ công việc' }, { label: 'Phiếu trình' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
     timKiemDanhSach: TimKiemPhieuTrinh = {
         keyWord: '',
         ngayTrinh: '1901-01-01',
-        lanhDaoDuyet: 0,
+        lanhDaoDuyet: Number(this.idUser),
         lanhDaoKy: 0,
         trangThai: 0,
         donViId: Number(this.idDonViLamViec),
         phongBanId: Number(this.idPhongBan),
-        nguoiTao: Number(this.idUser),
+        nguoiTao: 0,
         timChinhXac: 0,
     };
 
@@ -62,18 +61,14 @@ export class DuyetPhieuTrinhComponent {
             });
     }
 
-    public ThemMoi() {
-        this.hienThiThemMoi = true;
-    }
 
-    public CapNhat(id: string) {
+    public XuLy(id: string) {
         this.id = id;
-        this.hienThiCapNhat = true;
+        this.hienThiXuLy = true;
     }
 
     public Thoat(itemHt: any, loai: string): void {
-        if (loai == 'T') this.hienThiThemMoi = false;
-        if (loai == 'C') this.hienThiCapNhat = false;
+        if (loai == 'X') this.hienThiXuLy = false;
         this.LoadDanhSach();
     }
 

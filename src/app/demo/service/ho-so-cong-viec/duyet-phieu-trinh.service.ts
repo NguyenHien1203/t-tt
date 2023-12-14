@@ -24,7 +24,7 @@ export class DuyetPhieuTrinhService {
         return this.http
             .post<any>(
                 environment.baseUrlApi +
-                    '/HoSoCongViec/PhieuTrinh/GetDanhSachPhieuTrinhChoDuyet',
+                    '/HoSoCongViec/XuLyPhieuTrinh/GetDanhSachPhieuTrinhChoDuyet',
                 timKiemDanhSach,
                 this.httpOption
             )
@@ -36,10 +36,19 @@ export class DuyetPhieuTrinhService {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/HoSoCongViec/PhieuTrinh/GetPhieuTrinhById/' +
+                    '/HoSoCongViec/XuLyPhieuTrinh/GetPhieuTrinhById/' +
                     id
             )
             .toPromise()
             .then((res) => res.objData);
+    }
+
+    xuLyPhieuTrinh(itemData) {
+        return this.http
+            .post<any>(
+                environment.baseUrlApi + '/HoSoCongViec/XuLyPhieuTrinh/DuyetPhieuTrinh',
+                itemData,
+                this.httpOption
+            )
     }
 }

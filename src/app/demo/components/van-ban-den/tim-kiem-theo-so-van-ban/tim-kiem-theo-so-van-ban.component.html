@@ -65,21 +65,21 @@
             </div>
             <div *ngIf="isShowSearch">
                 <div class="field grid">
-                    <label class="col-12 md:col-4 fl-wr">
+                    <label class="col-12 md:col-3 fl-wr">
                         <p-dropdown
-                            [(ngModel)]="timKiemDanhSach.loaiVanBanId"
-                            [options]="lstLoaiVanBan"
+                            [(ngModel)]="timKiemDanhSach.soVanBanId"
+                            [options]="lstSoVanBan"
                             optionValue="value"
                             optionLabel="text"
                             [showClear]="true"
                             [filter]="true"
                             appendTo="body"
-                            placeholder="Chọn loại văn bản"
+                            placeholder="Chọn sổ văn bản"
                             [style]="{ width: '100%' }"
                             class="my-drop"
                         ></p-dropdown>
                     </label>
-                    <label class="col-12 md:col-4 fl-wr">
+                    <label class="col-12 md:col-3 fl-wr">
                         <input
                             [(ngModel)]="timKiemDanhSach.soKyHieu"
                             pInputText
@@ -88,7 +88,21 @@
                             class="form-control"
                         />
                     </label>
-                    <label class="col-12 md:col-4 fl-wr">
+                    <label class="col-12 md:col-3 fl-wr">
+                        <p-dropdown
+                            [(ngModel)]="timKiemDanhSach.cQBHId"
+                            [options]="lstCQBH"
+                            optionValue="value"
+                            optionLabel="text"
+                            [showClear]="true"
+                            [filter]="true"
+                            appendTo="body"
+                            placeholder="Chọn cơ quan ban hành"
+                            [style]="{ width: '100%' }"
+                            class="my-drop"
+                        ></p-dropdown>
+                    </label>
+                    <label class="col-12 md:col-3 fl-wr">
                         <input
                             pInputText
                             type="text"
@@ -226,7 +240,7 @@
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
-                                        Lãnh đạo ký
+                                        Cơ quan ban hành
                                     </div>
                                 </th>
                             </tr>
@@ -259,7 +273,7 @@
                                     {{ item.ngayNhanGui | date : "dd-MM-yyyy" }}
                                 </td>
                                 <td>
-                                    {{ item.nguoiKy }}
+                                    {{ item.tenCQBH }}
                                 </td>
                             </tr>
                         </ng-template>

@@ -34,6 +34,30 @@ const routes: Routes = [
                 (m) => m.QuanLyHoSoCoQuanModule
             ),
     },
+    {
+        path: 'them-moi-phieu-trinh',
+        data: { breadcrumb: 'Thêm mới phiếu trình' },
+        loadChildren: () =>
+            import('./them-moi-phieu-trinh/them-moi-phieu-trinh.module').then(
+                (m) => m.ThemMoiPhieuTrinhModule
+            ),
+    },
+    {
+        path: 'duyet-phieu-trinh',
+        data: { breadcrumb: 'Duyệt phiếu trình' },
+        loadChildren: () =>
+            import('./duyet-phieu-trinh/duyet-phieu-trinh.module').then(
+                (m) => m.DuyetPhieuTrinhModule
+            ),
+    },
+    {
+        path: 'ky-phieu-trinh',
+        data: { breadcrumb: 'Ký phiếu trình' },
+        loadChildren: () =>
+            import('./ky-phieu-trinh/ky-phieu-trinh.module').then(
+                (m) => m.KyPhieuTrinhModule
+            ),
+    },
 ];
 
 @NgModule({

@@ -1,0 +1,110 @@
+<div class="grid">
+
+    <div class="col-12">
+        <p-breadcrumb [model]="breadcrumbItems" [home]="{icon: 'pi pi-home'}" routerLink="/"></p-breadcrumb>
+    </div>
+
+    <div class="col-12 pt-0">
+
+        <p-toast></p-toast>
+        <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
+            <h2>Tìm kiếm</h2>
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-8">
+                    <input id="search-name-title" type="text" pInputText placeholder="Tên cấu hình"
+                        [(ngModel)]="timKiem.keyWord">
+                </div>
+                <div class="field col-12 md:col-2 mt-2">
+                    <div class="field-checkbox">
+                        <p-checkbox name="timChinhXac" id="timChinhXac" value="true" label="Tìm chính xác"
+                            (click)="CheckCX()" value="false"></p-checkbox>
+                    </div>
+                </div>
+                <div class="field col-12 md:col-2">
+                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2"
+                        (click)="GetDanhSach()"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card pb-0 pl-4 pr-4">
+            <div class="wrapper">
+                <h2>DANH SÁCH LUỒNG KÝ SỐ</h2>
+                <div class="icon-cls">
+                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success"
+                        (click)="ThemMoi()">
+                    </button>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-12">
+                    <p-table styleClass="p-datatable-gridlines" #dt [columns]="cols" responsiveLayout="scroll"
+                        [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [value]="danhSachs">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="text-align: center;">STT</th>
+                                <th>Tên cấu hình</th>
+                                <th>Tên đơn vị </th>
+                                <th>Người tạo</th>
+                                <th>Ngày tạo</th>
+                                <th style="text-align: center;">Chức năng
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-danhSach let-rowIndex="rowIndex">
+                            <tr>
+                                <td style="width:8%; min-width:8rem; text-align: center;"><span
+                                        class="p-column-title">STT</span>
+                                    {{rowIndex + 1}}
+                                </td>
+                                <td style="width:13%; min-width:10rem;">
+                                    <span class="p-column-title">Tên cấu hình</span>
+                                    {{danhSach.tenCauHinh}}
+                                </td>
+                                <td style="width:30%; min-width:10rem;">
+                                    <span class="p-column-title">Tên đơn vị</span>
+                                    {{danhSach.tenDonVi}}
+                                </td>
+                                <td style="width:30%; min-width:8rem;">
+                                    <span class="p-column-title">Người tạo</span>
+                                    {{danhSach.tenNguoiTao}}
+                                </td>
+                                <td style="width:10%; min-width:8rem;">
+                                    <span class="p-column-title">Ngày tạo</span>
+                                    {{danhSach.created | date: 'dd/MM/yyyy'}}
+                                </td>
+                                <td style="width:14%; min-width:10rem;">
+                                    <div class="flex justify-content-center">
+                                        <button pButton pRipple icon="pi pi-pencil"
+                                            class="p-button-rounded p-button-success mr-2"
+                                            (click)="CapNhat(danhSach.id)"></button>
+                                        <button pButton pRipple icon="pi pi-trash"
+                                            class="p-button-rounded p-button-warning"
+                                            (click)="Xoa(danhSach.id)"></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+        <app-them-moi [show]="hienThiThemMoi" (close)="TatPopup($event, 'C')"></app-them-moi>
+
+        <app-cap-nhat [show]="hienThiCapNhat" (close)="TatPopup($event, 'U')" [id]="idCapNhat"></app-cap-nhat>
+
+        <app-chi-tiet [show]="hienThiChiTiet" (close)="TatPopup($event, 'I')" [id]="idChiTiet"></app-chi-tiet>
+
+        <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="danhSachs">Bạn muốn xóa bản ghi này ?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"
+                    (click)="XacNhanXoa()"></button>
+                <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
+                    (click)="TamDungXoa()"></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>

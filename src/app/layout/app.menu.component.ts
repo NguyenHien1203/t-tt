@@ -782,7 +782,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Luồng ký số',
                                 icon: 'pi pi-fw pi-sort-alt-slash',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/ky-so/luong-ky-so'],
                                 code: '011012',
                             },
                         ],
@@ -1616,7 +1616,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Luồng ký số',
                                 icon: 'pi pi-fw pi-sort-alt-slash',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/ky-so/luong-ky-so'],
                                 code: '011012',
                             },
                         ],

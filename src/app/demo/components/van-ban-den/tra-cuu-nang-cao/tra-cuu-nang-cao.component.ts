@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { TraCuuNangCaoService } from 'src/app/demo/service/van-ban-den/tra-cuu-nang-cao/tra-cuu-nang-cao.service';
@@ -7,82 +7,111 @@ import { TimKiemDanhSach } from 'src/app/models/van-ban-den/tra-cuu-nang-cao';
 @Component({
   selector: 'app-tra-cuu-nang-cao',
   templateUrl: './tra-cuu-nang-cao.component.html',
-  styleUrls: ['./tra-cuu-nang-cao.component.scss']
+  styleUrls: ['./tra-cuu-nang-cao.component.scss'],
+  providers : [MessageService]
 })
 export class TraCuuNangCaoComponent {
   constructor(
-      private service: TraCuuNangCaoService,
-      private messageService: MessageService,
-      private authService: AuthService
-  ) {}
+    private messageService: MessageService,
+    private service: TraCuuNangCaoService,
+    private authService: AuthService,
+    private cd: ChangeDetectorRef
+) {}
 
-  loaiVanBan: SelectItem[] = [];
-  idDonViLamViec: string = this.authService.GetmUserInfo()?.donViId ?? '0';
-  idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
-  idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
-  yearOptions: SelectItem[] = [];
-  monthOptions: SelectItem[] = [];
-  timChinhXac: boolean = false;
-  public id: string = '1';
-  hienThiPhanPhoi: boolean = false;
-  hienThiCapNhat: boolean = false;
-  hienThiGuiVanBan: boolean = false;
-  loading: boolean = false;
-  traCuuDonGians: any[] = [];
-  public home = { icon: 'pi pi-home', routerLink: '/' };
-  public items = [{ label: 'Văn bản đến' }, { label: 'Tra cứu đơn giản' }];
-  public timKiemDanhSach: TimKiemDanhSach = {
-      keyWord: '',
-      donViId: Number(this.idDonViLamViec),
-      idloaivb: 0,
-      nam: new Date().getFullYear(),
-      thang: 0,
-      phongBanId: Number(this.idPhongBan),
-      userId: Number(this.idUser),
-      timChinhXac: 0,
-  };
+itemMenus = [
+  { label: 'Tab 1', icon: 'pi pi-box', command: () => this.tabClick(0) },
+  { label: 'Tab 2', icon: 'pi pi-box', command: () => this.tabClick(1) },
+  { label: 'Tab 3', icon: 'pi pi-box', command: () => this.tabClick(2) },
+];
 
-  ngOnInit(): void {
-      this.loading = false;
-      this.LoadDanhSach();
-      this.BindNamThang();
-      this.BindLoaiVanBan();
+activeItem = this.itemMenus[0];
+
+tabClick(tabLabel: number): void {
+  this.activeItem= this.itemMenus[tabLabel];
+  console.log(`Clicked on ${tabLabel}`);
+  // Additional logic for tab click
+}
+
+lstChucNang = [
+    { label: 'Thu hồi', icon: 'pi pi-undo', action: 'thuhoi' },
+    { label: 'Lấy lại', icon: 'pi pi-sign-in', action: 'laylai' },
+];
+
+isShowSearch: boolean = false;
+idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
+yearOptions: SelectItem[] = [];
+monthOptions: SelectItem[] = [];
+timChinhXac: boolean = false;
+loading: boolean = false;
+lstLoaiVanBan: any = [];
+lstVanBanDi: any[] = [];
+items = [{ label: 'Văn bản đi' }, { label: 'Tra cứu nâng cao' }];
+home = { icon: 'pi pi-home', routerLink: '/' };
+
+timKiemDanhSach: TimKiemDanhSach = {
+  keyWord: '',
+    soVanBanId: 0,
+    vanBanId: 0,
+    donViId: Number(this.idDonViLamViec),
+    mucDo: 0,
+    loaiVanBanId: 0,
+    lanhDaoKy: '',
+    ngayGuiTuNgay: '1901-01-01',
+    ngayGuiDenNgay: '1901-01-01',
+    banHanhTuNgay: '1901-01-01',
+    banHanhDenNgay: '1901-01-01',
+    nam: new Date().getFullYear(),
+    thang: 0,
+    soKyHieu: '',
+    lanhDaoKyId: 0,
+    soDi: null,
+    pageIndex: 0,
+    pageSize: 0,
+    trichYeu: '',
+    timChinhXac: 0,
+    trangThai : 1,
+};
+
+ngAfterContentChecked(): void {
+    this.cd.detectChanges();
+}
+
+ngOnInit(): void {
+    this.GetDataMonthYear();
+    this.LoadLoaiVanBan();
+    this.loading = false;
+    this.LoadDanhSach();
+}
+
+public GetDataMonthYear() {
+    const currentYear = new Date().getFullYear();
+    for (let i = currentYear + 1; i >= currentYear - 5; i--) {
+        this.yearOptions.push({ label: "Năm " + i.toString(), value: i });
+    }
+
+    for (let i = 1; i <= 12; i++) {
+      this.monthOptions.push({ label: "Tháng " + i.toString(), value: i });
   }
+}
 
-  public LoadDanhSach(): void {
-      this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
-      this.service
-          .getDanhSachTraCuuDonGian(this.timKiemDanhSach)
-          .then((data) => {
-              console.log(data)
-              this.traCuuDonGians = data;
-          });
-  }
+public LoadLoaiVanBan(): void{
+    this.service.getDanhSachLoaiVanBan(this.idDonViLamViec).then((data) => {
+        this.lstLoaiVanBan = data;
+    });
+}
 
-  public CheckedHt(): void {
-      this.timChinhXac = !this.timChinhXac;
-  }
+public LoadDanhSach(): void {
+    this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
+    this.service.getDanhSachTraCuuNangCao(this.timKiemDanhSach).then((data) => {
+        this.lstVanBanDi = data;
+    });
+}
 
-  public BindNamThang() {
-      const currentYear = new Date().getFullYear();
-      for (let i = currentYear + 1; i >= currentYear - 5; i--) {
-          this.yearOptions.push({ label: 'Năm ' + i.toString(), value: i });
-      }
+public CheckedHt() {
+    this.timChinhXac = !this.timChinhXac;
+}
 
-      for (let i = 1; i < 12; i++) {
-          this.monthOptions.push({
-              label: 'Tháng ' + i.toString(),
-              value: i,
-          });
-      }
-  }
-
-  public BindLoaiVanBan(): void {
-      this.service
-          .getLoaiVanBan(this.authService.GetmUserInfo().donViId)
-          .then((data) => {
-              this.loaiVanBan = data;
-              console.log(this.loaiVanBan)
-          });
-  }
+public ShowSearch() {
+    this.isShowSearch = !this.isShowSearch;
+}
 }

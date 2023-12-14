@@ -2,13 +2,26 @@ export interface TraCuuNangCao {
 }
 
 
-export interface TimKiemDanhSach {
-    keyWord?: string,
+export interface TimKiemDanhSach{
+      keyWord?: string,
+    soVanBanId?: number,
+    vanBanId?: number,
+    donViId?: number,
+    mucDo?: number,
+    loaiVanBanId?: number,
+    lanhDaoKy?: string,
+    ngayGuiTuNgay?: string,
+    ngayGuiDenNgay?: string,
+    banHanhTuNgay?: string,
+    banHanhDenNgay?: string,
     nam?: number,
-    idloaivb?: number,
     thang?: number,
-    donViId?: number
-    phongBanId?: number
-    userId?: number
-    timChinhXac?: number
+    trangThai?: number,
+    soKyHieu?: string,
+    lanhDaoKyId?: number,
+    soDi?: number,
+    pageIndex?: number,
+    pageSize?: number,
+    trichYeu?: string,
+    timChinhXac? : number
 }

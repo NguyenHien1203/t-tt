@@ -6,9 +6,9 @@
     (onHide)="Thoat()"
     [style]="{ width: '950px' }"
     [modal]="true"
-    header="Xử lý phiếu trình"
+    header="Chi tiết"
 >
-    <ng-template pTemplate="content">
+    <ng-template pTemplate="content" class="print-dialog">
         <div class="roboto">
             <div class="field grid">
                 <div class="col-12 md:col-12 text-center">
@@ -21,20 +21,6 @@
                         >Ngày trình:
                         {{ phieuTrinh?.ngayTrinh | date : "dd/MM/yyyy" }}</label
                     >
-                </div>
-            </div>
-            <div class="field grid">
-                <div class="col-12 md:col-12 text-left">
-                    <label class="bold"
-                        >- {{ phieuTrinh?.tenNguoiTrinh }}</label
-                    >
-                    đã trình
-                </div>
-                <div class="col-12 md:col-12 text-left">
-                    <label ngClass="bold"
-                        >- {{ phieuTrinh?.tenNguoiDuyet }}</label
-                    >
-                    đang duyệt
                 </div>
             </div>
             <div class="field grid">
@@ -96,10 +82,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="w-10 custom-r">
+                            <td class="w-10 custom-rb">
                                 <b>Tài liệu văn bản liên quan</b>
                             </td>
-                            <td class="">
+                            <td class="custom-b">
                                 <ul>
                                     <li
                                         *ngFor="
@@ -122,6 +108,22 @@
                                 </ul>
                             </td>
                         </tr>
+                        <tr>
+                            <td class="w-10 custom-rb">
+                                <b>Văn bản liên quan</b>
+                            </td>
+                            <td class="custom-b">
+                                {{phieuTrinh?.vanBanLienQuan}}
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td class="w-10 custom-r">
+                                <b>Hồ sơ liên quan</b>
+                            </td>
+                            <td class="">
+                                {{phieuTrinh?.hoSoLienQuan}}
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -137,18 +139,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="w-50 custom-rb">
-                                <textarea
-                                    rows="3"
-                                    cols="30"
-                                    class="my-drop"
-                                    required=""
-                                    [(ngModel)]="yKienLanhDao"
-                                    placeholder="Ý kiến lãnh đạo"
-                                    pInputTextarea
-                                ></textarea>
+                            <td class="w-50 custom-rb text-center">
+                                {{ phieuTrinh?.yKienLanhDaoThongQua }}
                             </td>
-                            <td class="text-center w-50 custom-b"><b> </b></td>
+                            <td class="text-center w-50 custom-b">
+                                {{ phieuTrinh?.yKienLanhDaoKyDuyet }}
+                            </td>
                         </tr>
                         <tr>
                             <td class="text-center w-50 custom-rb">
@@ -166,29 +162,15 @@
                                         | date : "dd/MM/yyyy"
                                 }}
                                 <br />
-                                <p-button
-                                    icon="pi pi-check"
-                                    label="Duyệt"
-                                    class="p-button-info"
-                                    [style]="{ padding: '0.5rem' }"
-                                    [outlined]="true"
-                                    (click)="XuLy('Y')"
-                                ></p-button>
-                                |
-                                <p-button
-                                    icon="pi pi-times"
-                                    label="Từ chối"
-                                    class="p-button-danger"
-                                    [style]="{ padding: '0.5rem' }"
-                                    [outlined]="true"
-                                    (click)="XuLy('N')"
-                                ></p-button>
-                                <br />
                                 {{ phieuTrinh?.tenTrangThai }}
                                 <br />{{ phieuTrinh?.tenNguoiDuyet }}
                             </td>
                             <td class="text-center w-50">
                                 Ngày:
+                                {{
+                                    phieuTrinh?.ngayLanhDaoKyDuyet
+                                        | date : "dd/MM/yyyy"
+                                }}
                                 <br />
                                 {{ phieuTrinh?.tenTrangThai }}
                                 <br />{{ phieuTrinh?.tenNguoiKy }}

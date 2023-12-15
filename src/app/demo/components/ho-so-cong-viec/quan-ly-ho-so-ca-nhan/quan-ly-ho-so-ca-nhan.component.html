@@ -13,7 +13,6 @@
 
     <div class="col-12">
         <div class="card">
-            <p-toast></p-toast>
             <h2>TÌM KIẾM</h2>
             <div class="field grid">
                 <label class="col-12 md:col-2 fl-wr">
@@ -26,7 +25,7 @@
                     />
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
-                <p-dropdown
+                    <p-dropdown
                         [(ngModel)]="timKiemDanhSach.nam"
                         [options]="lstNam"
                         appendTo="body"
@@ -38,9 +37,9 @@
                         [style]="{ width: '100%' }"
                         class="my-drop"
                     ></p-dropdown>
-                  </label>
-                   <label class="col-12 md:col-2 fl-wr">
-                <p-dropdown
+                </label>
+                <label class="col-12 md:col-2 fl-wr">
+                    <p-dropdown
                         [(ngModel)]="timKiemDanhSach.thang"
                         [options]="lstThang"
                         appendTo="body"
@@ -52,7 +51,7 @@
                         [style]="{ width: '100%' }"
                         class="my-drop"
                     ></p-dropdown>
-                  </label>
+                </label>
                 <label class="col-12 md:col-2 fl-wr">
                     <p-dropdown
                         [(ngModel)]="timKiemDanhSach.loaiHoSo"
@@ -203,24 +202,33 @@
                                 <td style="text-align: center">
                                     {{ rowIndex + 1 }}
                                 </td>
-                                <td >
-                                    {{ item.maHoSo }}
+                                <td>
+                                    <a
+                                        href="javascript:;"
+                                        (click)="ChiTiet(item.id)"
+                                    >
+                                        {{ item.maHoSo }}</a
+                                    >
                                 </td>
-                                <td >
+                                <td>
                                     {{ item.tenHoSo }}
                                 </td>
                                 <td>
                                     {{ item.tenNguoiLap }}
                                 </td>
 
-                                <td >
+                                <td>
                                     {{ item.loaiHoSo }}
                                 </td>
                                 <td>
                                     {{ item.trangThai }}
                                 </td>
                                 <td>
-                                    {{ item.thoiHanBaoQuan == null ? 'Vĩnh viễn' : (item.thoiHanBaoQuan + ' năm') }}
+                                    {{
+                                        item.thoiHanBaoQuan == null
+                                            ? "Vĩnh viễn"
+                                            : item.thoiHanBaoQuan + " năm"
+                                    }}
                                 </td>
                                 <td class="text-center">
                                     <div class="div-center">
@@ -297,3 +305,9 @@
         </button>
     </ng-template>
 </p-confirmDialog>
+<app-chi-tiet-ho-so-cong-viec
+    [id]="id"
+    [show]="hienThiChiTiet"
+    (tatPopup)="Thoat($event, 'CT')"
+></app-chi-tiet-ho-so-cong-viec>
+<p-toast></p-toast>

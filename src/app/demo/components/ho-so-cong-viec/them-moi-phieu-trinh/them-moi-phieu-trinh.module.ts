@@ -28,6 +28,7 @@ import { ThemMoiPhieuTrinhRoutingModule } from './them-moi-phieu-trinh-routing.m
 import { ThemMoiPhieuTrinhComponent } from './them-moi-phieu-trinh.component';
 import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { ChiTietPhieuTrinhModule } from '../chi-tiet-phieu-trinh/chi-tiet-phieu-trinh.module';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
     CalendarModule,
     TabViewModule,
     CommonModule,
+    ChiTietPhieuTrinhModule,
     ThemMoiPhieuTrinhRoutingModule
   ]
 })

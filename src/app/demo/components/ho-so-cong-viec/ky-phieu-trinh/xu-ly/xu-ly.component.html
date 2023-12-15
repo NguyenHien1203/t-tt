@@ -1,1 +1,212 @@
-<p>xu-ly works!</p>
+<p-dialog
+    [(visible)]="show"
+    [draggable]="true"
+    [resizable]="false"
+    (onShow)="BindDialogData()"
+    (onHide)="Thoat()"
+    [style]="{ width: '950px' }"
+    [modal]="true"
+    header="Xử lý phiếu trình"
+>
+    <ng-template pTemplate="content">
+        <div class="roboto">
+            <div class="field grid">
+                <div class="col-12 md:col-12 text-center">
+                    <h1>Chi tiết phiếu trình</h1>
+                    <label class="text-uppercase">{{
+                        phieuTrinh?.tenPhieuTrinh
+                    }}</label>
+                    <br />
+                    <label for=""
+                        >Ngày trình:
+                        {{ phieuTrinh?.ngayTrinh | date : "dd/MM/yyyy" }}</label
+                    >
+                </div>
+            </div>
+            <div class="field grid">
+                <div class="col-12 md:col-12 text-left">
+                    <label class="bold"
+                        >- {{ phieuTrinh?.tenNguoiTrinh }}</label
+                    >
+                    đã trình
+                </div>
+                <div class="col-12 md:col-12 text-left">
+                    <label ngClass="bold"
+                        >- {{ phieuTrinh?.tenNguoiDuyet }}</label
+                    >
+                    đã duyệt
+                </div>
+                <div class="col-12 md:col-12 text-left">
+                    <label ngClass="bold">- {{ phieuTrinh?.tenNguoiKy }}</label>
+                    đang ký
+                </div>
+            </div>
+            <div class="field grid">
+                <div class="col-12 md:col-12">
+                    <table class="custom-table">
+                        <tr>
+                            <td class="w-10 custom-rb"><b>Kính gửi</b></td>
+                            <td class="custom-b">
+                                {{ phieuTrinh?.kinhGui }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-10 custom-rb">
+                                <b>Trích yếu văn bản đến</b>
+                            </td>
+                            <td class="custom-b">
+                                {{ phieuTrinh?.trichYeuVanBanDen }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-10 custom-rb"><b>Vấn đề trình</b></td>
+                            <td class="custom-b">
+                                {{ phieuTrinh?.vanDeTrinh }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-10 custom-rb">
+                                <b>Trích yếu dự thảo văn bản</b>
+                            </td>
+                            <td class="custom-b">
+                                {{ phieuTrinh?.trichYeuDuThaoVanBan }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-10 custom-rb">
+                                <b>Tài liệu văn bản dự thảo</b>
+                            </td>
+                            <td class="custom-b">
+                                <ul>
+                                    <li
+                                        *ngFor="
+                                            let file of phieuTrinh?.lstFileVanBanDuThao
+                                        "
+                                    >
+                                        <span>
+                                            <a
+                                                (click)="
+                                                    DownloadFile(
+                                                        file.filePath,
+                                                        file.fileName
+                                                    )
+                                                "
+                                                href="javascript:;"
+                                                >{{ file.fileName }}</a
+                                            >
+                                        </span>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-10 custom-r">
+                                <b>Tài liệu văn bản liên quan</b>
+                            </td>
+                            <td class="">
+                                <ul>
+                                    <li
+                                        *ngFor="
+                                            let file of phieuTrinh?.lstFileVanBanLienQuan
+                                        "
+                                    >
+                                        <span >
+                                            <a
+                                                (click)="
+                                                    DownloadFile(
+                                                        file.filePath,
+                                                        file.fileName
+                                                    )
+                                                "
+                                                href="javascript:;"
+                                                >{{ file.fileName }}</a
+                                            >
+                                        </span>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="field grid">
+                <div class="col-12 md:col-12">
+                    <table class="custom-table">
+                        <tr>
+                            <td class="text-center w-50 custom-rb">
+                                <b>Ý kiến lãnh đạo (thông qua/từ chối)</b>
+                            </td>
+                            <td class="text-center w-50 custom-b">
+                                <b>Ý kiến lãnh đạo ký duyệt (ký/từ chối)</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-50 custom-rb text-center">
+                                {{ phieuTrinh?.yKienLanhDaoThongQua }}
+                            </td>
+                            <td class="text-center w-50 custom-b">
+                                <textarea
+                                    rows="3"
+                                    cols="30"
+                                    class="my-drop"
+                                    required=""
+                                    [(ngModel)]="yKienLanhDao"
+                                    placeholder="Ý kiến lãnh đạo"
+                                    pInputTextarea
+                                ></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center w-50 custom-rb">
+                                <b>Lãnh đạo duyệt </b>
+                            </td>
+                            <td class="text-center w-50 custom-b">
+                                <b>Lãnh đạo ký </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center w-50">
+                                Ngày:
+                                {{
+                                    phieuTrinh?.ngayLanhDaoThongQua
+                                        | date : "dd/MM/yyyy"
+                                }}
+                                <br />
+                                {{ phieuTrinh?.tenTrangThai }}
+                                <br />{{ phieuTrinh?.tenNguoiDuyet }}
+                            </td>
+                            <td class="text-center w-50">
+                                Ngày:
+                                {{
+                                    phieuTrinh?.ngayLanhDaoKyDuyet
+                                        | date : "dd/MM/yyyy"
+                                }}
+                                <br />
+                                <p-button
+                                    icon="pi pi-check"
+                                    label="Ký"
+                                    class="p-button-info"
+                                    [style]="{ padding: '0.5rem' }"
+                                    [outlined]="true"
+                                    (click)="XuLy('Y')"
+                                ></p-button>
+                                |
+                                <p-button
+                                    icon="pi pi-times"
+                                    label="Từ chối"
+                                    class="p-button-danger"
+                                    [style]="{ padding: '0.5rem' }"
+                                    [outlined]="true"
+                                    (click)="XuLy('N')"
+                                ></p-button>
+                                <br />
+                                {{ phieuTrinh?.tenTrangThai }}
+                                <br />{{ phieuTrinh?.tenNguoiKy }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

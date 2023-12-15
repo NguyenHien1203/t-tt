@@ -1,40 +1,32 @@
 import { saveAs } from 'file-saver';
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MessageService } from 'primeng/api';
 import { throwError } from 'rxjs';
-import { AuthService } from 'src/app/common/auth.services';
-import { KyPhieuTrinhService } from 'src/app/demo/service/ho-so-cong-viec/ky-phieu-trinh.service';
-import { FileModel } from 'src/app/models/file-upload-model';
-import { modelOptions } from 'src/app/models/option-model';
 import { UploadFileService } from 'src/app/demo/service/upload-file.service';
+import { AuthService } from 'src/app/common/auth.services';
+import { MessageService } from 'primeng/api';
+import { QuanLyHoSoCoQuanService } from 'src/app/demo/service/ho-so-cong-viec/quan-ly-ho-so-co-quan.service';
+import { FileModel } from 'src/app/models/file-upload-model';
 
 @Component({
-  selector: 'app-xu-ly',
-  templateUrl: './xu-ly.component.html',
-  styleUrls: ['./xu-ly.component.scss']
+  selector: 'app-chi-tiet-ho-so-cong-viec',
+  templateUrl: './chi-tiet-ho-so-cong-viec.component.html',
+  styleUrls: ['./chi-tiet-ho-so-cong-viec.component.scss']
 })
-export class XuLyComponent {
+export class ChiTietHoSoCongViecComponent {
   @Input() show: boolean = false;
   @Input() id: string = '1';
   @Output() tatPopup = new EventEmitter<boolean>();
 
   constructor(
-      private fb: FormBuilder,
-      private service: KyPhieuTrinhService,
+      private service: QuanLyHoSoCoQuanService,
       private messageService: MessageService,
       private authService: AuthService,
       private cd: ChangeDetectorRef,
       private fileService: UploadFileService,
   ) {}
 
-  phieuTrinh: any;
-  yKienLanhDao: string = '';
+  hoSoCongViec: any;
   lstFileDuThao: FileModel[] = [];
-  lstFileLienQuan: FileModel[] = [];
-  lstlanhDaoKy: modelOptions[] = [];
-  lstLanhDaoDuyet: modelOptions[] = [];
-  lstVanBanLienQuan: modelOptions[] = [];
   idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
   idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
   userFullName: string = this.authService.GetmUserInfo()?.fullName ?? '0';
@@ -42,7 +34,7 @@ export class XuLyComponent {
   submitted: boolean = false;
 
   public async BindDialogData() {
-      this.phieuTrinh = await this.service.getPhieuTrinhById(this.id);
+      this.hoSoCongViec = await this.service.getHoSoCoQuanId(this.id);
   }
 
   public Thoat(): void {
@@ -52,32 +44,8 @@ export class XuLyComponent {
       this.cd.detectChanges();
   }
 
-  public XuLy(loai: string) {
-      let itemData = {
-          id: this.id,
-          loai: loai,
-          yKienLanhDaoThongQua: this.yKienLanhDao,
-      };
-      this.service.xuLyPhieuTrinh(itemData).subscribe((data) => {
-          if (data.isError)
-              this.messageService.add({
-                  severity: 'error',
-                  summary: 'Error',
-                  detail: data.title,
-              });
-          else {
-              this.messageService.add({
-                  severity: 'success',
-                  summary: 'success',
-                  detail: data.title,
-              });
-              this.Thoat();
-          }
-      });
-  }
-
   public DownloadFile(filepath: string, filename: string) {
-    let urlDownLoad = '/HoSoCongViec/PhieuTrinh/UpLoadFile';
+    let urlDownLoad = '/HoSoCongViec/HoSoCongViec/UpLoadFile';
     this.fileService
         .downloadFile(filepath, filename, urlDownLoad)
         .subscribe(

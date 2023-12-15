@@ -1,39 +1,136 @@
-
-
 .chat-container {
-      height: 100%; /* Đảm bảo chiều cao của phần chat là 100% của phần pop-up */
-      background-color: #f0f0f0; /* Màu nền của phần chat */
-      padding: 10px; /* Thêm padding để nội dung không sát mép */
-      overflow-y: auto; /* Cho phép cuộn nếu nội dung vượt quá chiều cao của phần chat */
-    }
+  height: 100%;
+  /* Đảm bảo chiều cao của phần chat là 100% của phần pop-up */
+  background-color: #f0f0f0;
+  /* Màu nền của phần chat */
+  padding: 10px;
+  /* Thêm padding để nội dung không sát mép */
+  overflow-y: auto;
+  /* Cho phép cuộn nếu nội dung vượt quá chiều cao của phần chat */
+}
 
-    .comment-block {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    
-    .comment-frame {
-      width: 100%; /* Sửa chiều rộng của comment-frame để chiếm toàn bộ khung */
-    }
-    
-    .flex-container {
-      display: flex;
-    }
-    
-    textarea {
-      flex: 1; /* Tự động mở rộng để chiếm hết phần còn lại của container */
-      resize: none;
-      margin-bottom: 5px;
-    }
-    
-    button {
-      margin-left: 5px; /* Tạo khoảng cách giữa textarea và button */
-      background-color: #3498db;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-    .right{
-      text-align: right;
-    }
+.comment-block {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.comment-frame {
+  width: 100%;
+  /* Sửa chiều rộng của comment-frame để chiếm toàn bộ khung */
+}
+
+.flex-container {
+  display: flex;
+}
+
+textarea {
+  flex: 1;
+  /* Tự động mở rộng để chiếm hết phần còn lại của container */
+  resize: none;
+  margin-bottom: 5px;
+}
+
+button {
+  margin-left: 5px;
+  /* Tạo khoảng cách giữa textarea và button */
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.right {
+  text-align: right;
+}
+
+.comment-container {
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.comment {
+  margin: 0 0 10px 4px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment p {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+}
+
+.reply-btn {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.textarea-container {
+  margin-top: 10px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.submit-btn {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.comment-container .comment:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+/* app.component.css */
+.comment p span.timestamp {
+  color: #888;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+
+.comment-container .comment:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+.textarea-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.textarea-container textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.textarea-container a {
+  align-self: flex-end;
+  margin-bottom: 2px;
+  margin-top: -5px;
+}
+
+.fontsize{
+  font-size: 10px;
+}

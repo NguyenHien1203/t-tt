@@ -157,6 +157,7 @@ export class CapNhatKetQuaComponent {
         this.selectedFiles.forEach((obj, index) => {
             if (obj.fileName === filePath) {
                 obj.isDelete = true; // Xóa đối tượng thỏa mãn điều kiện
+                obj.isNew = false;
             }
         });
     }

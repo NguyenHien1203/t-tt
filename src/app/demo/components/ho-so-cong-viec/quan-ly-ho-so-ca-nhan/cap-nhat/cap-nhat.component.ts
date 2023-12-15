@@ -257,6 +257,7 @@ export class CapNhatComponent {
         this.selectedFiles.forEach((obj, index) => {
             if (obj.filePath === filePath) {
                 obj.isDelete = true;
+                obj.isNew = false;
             }
         });
     }

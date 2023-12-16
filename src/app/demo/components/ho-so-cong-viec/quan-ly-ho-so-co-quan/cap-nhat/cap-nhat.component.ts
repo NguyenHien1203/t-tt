@@ -375,6 +375,10 @@ export class CapNhatComponent {
         });
     }
 
+    public XoaAllUser(): void {
+        this.lstPhanQuyen = [];
+    }
+
     public GanVanBan(): void {
         this.hienThiChonVanBan = true;
     }

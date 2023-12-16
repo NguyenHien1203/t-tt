@@ -309,6 +309,10 @@ export class ThemMoiComponent {
         this.hienThiChonPhieuTrinh = true;
     }
 
+    public XoaAllUser(): void {
+        this.lstPhanQuyen = [];
+    }
+
     public ThemMoi() {
         this.submitted = true;
 

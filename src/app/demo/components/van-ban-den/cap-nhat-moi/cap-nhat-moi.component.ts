@@ -85,6 +85,7 @@ export class CapNhatMoiComponent implements OnInit {
    * lấy dữ liệu bản ghi cập nhật mới
    */
   public GetDanhSachCapNhatMoi() {
+    this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
     this.capnhatmoiService.getDanhSachCapNhatMoi(this.timKiemDanhSach).subscribe(data => {
       if (data.isError) {
 

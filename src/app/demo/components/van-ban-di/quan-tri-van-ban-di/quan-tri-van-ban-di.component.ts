@@ -225,7 +225,7 @@ export class QuanTriVanBanDiComponent implements OnInit {
 
   TatPopup(item: any, type: string) {
     switch (type as any) {
-      case "C": {
+      case "CT": {
         this.hienThiChiTiet = false;
         break;
       }

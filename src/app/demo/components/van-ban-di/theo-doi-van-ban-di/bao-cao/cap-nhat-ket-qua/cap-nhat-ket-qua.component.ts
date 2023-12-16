@@ -45,7 +45,7 @@ export class CapNhatKetQuaComponent {
     });
 
     public async BindDataDialog() {
-      this.donViCaNhanTraLoi = this.authService.GetmUserInfo().tenDonVi ?? '';
+        this.donViCaNhanTraLoi = this.authService.GetmUserInfo().tenDonVi ?? '';
 
         this.service
             .getDanhSachBaoCaoVanBanTraLoi(
@@ -56,7 +56,7 @@ export class CapNhatKetQuaComponent {
             )
             .then((data) => {
                 this.lstVanBanTraLoi = data;
-                console.log(data)
+                console.log(data);
             });
 
         this.service
@@ -81,9 +81,8 @@ export class CapNhatKetQuaComponent {
         const FileInput: File = event.target.files[0];
 
         if (FileInput) {
-            this.file = FileInput;
             let urlSave = '/VanBanDi/TheoDoiVanBanDi/UpLoadFile';
-            this.uploadFileService.uploadFiles(this.file, urlSave).subscribe({
+            this.uploadFileService.uploadFiles(FileInput, urlSave).subscribe({
                 next: (data) => {
                     if (data.isError)
                         this.messageService.add({
@@ -92,6 +91,7 @@ export class CapNhatKetQuaComponent {
                             detail: 'Tải lên thất bại',
                         });
                     else {
+                        this.file = FileInput;
                         this.messageService.add({
                             severity: 'info',
                             summary: 'Info',
@@ -165,7 +165,7 @@ export class CapNhatKetQuaComponent {
     public CapNhatKetQua(): void {
         this.submitted = true;
         let itemData = {
-          idVanBan: this.id,
+            idVanBan: this.id,
             idDonViNhan: this.idDonViNhan?.toString(),
             idVanBanTraLoi: this.idVanBanTraLoi?.toString(),
             lstFile: this.selectedFiles,

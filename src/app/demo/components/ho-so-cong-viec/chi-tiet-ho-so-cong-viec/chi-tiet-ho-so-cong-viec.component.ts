@@ -45,7 +45,7 @@ export class ChiTietHoSoCongViecComponent {
   }
 
   public DownloadFile(filepath: string, filename: string) {
-    let urlDownLoad = '/HoSoCongViec/HoSoCongViec/UpLoadFile';
+    let urlDownLoad = '/HoSoCongViec/HoSoCongViec/DownloadFile';
     this.fileService
         .downloadFile(filepath, filename, urlDownLoad)
         .subscribe(

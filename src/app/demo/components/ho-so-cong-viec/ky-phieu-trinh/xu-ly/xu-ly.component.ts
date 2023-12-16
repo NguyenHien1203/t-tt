@@ -77,7 +77,7 @@ export class XuLyComponent {
   }
 
   public DownloadFile(filepath: string, filename: string) {
-    let urlDownLoad = '/HoSoCongViec/PhieuTrinh/UpLoadFile';
+    let urlDownLoad = '/HoSoCongViec/PhieuTrinh/DownloadFile';
     this.fileService
         .downloadFile(filepath, filename, urlDownLoad)
         .subscribe(

@@ -25,6 +25,7 @@ export class CapNhatMoiComponent implements OnInit {
     yearOptions: SelectItem[] = [];
     timChinhXac: boolean = false;
     public id: string = '1';
+    hienThiChiTiet: boolean = false;
     hienThiPhanPhoi: boolean = false;
     hienThiCapNhat: boolean = false;
     hienThiGuiVanBan: boolean = false;
@@ -110,11 +111,17 @@ export class CapNhatMoiComponent implements OnInit {
         if (loai === 'C') this.hienThiCapNhat = false;
         if (loai === 'G') this.hienThiGuiVanBan = false;
         if (loai === 'P') this.hienThiPhanPhoi = false;
+        if (loai === 'CT') this.hienThiChiTiet = false;
         this.LoadDanhSach();
     }
 
     public PhanPhoi(id: string) {
         this.hienThiPhanPhoi = true;
+        this.id = id;
+    }
+    
+    public ChiTiet(id: string) {
+        this.hienThiChiTiet = true;
         this.id = id;
     }
 

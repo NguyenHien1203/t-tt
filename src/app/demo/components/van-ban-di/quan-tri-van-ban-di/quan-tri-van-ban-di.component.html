@@ -216,7 +216,7 @@
             </div>
         </div>
 
-        <app-chi-tiet-van-ban [show]="hienThiChiTiet" (close)="TatPopup($event, 'C')" [idVb]="idVanBanDi"></app-chi-tiet-van-ban>
+        <app-chi-tiet-van-ban [show]="hienThiChiTiet" (tatPopup)="TatPopup($event, 'CT')" [id]="idVanBanDi"></app-chi-tiet-van-ban>
 
         <app-gui-van-ban [show]="hienThiGuiVanBan" (close)="TatPopup($event, 'G')" [idVb]="idVanBanDi"></app-gui-van-ban>
 

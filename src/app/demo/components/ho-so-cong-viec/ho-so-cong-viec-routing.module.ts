@@ -58,6 +58,22 @@ const routes: Routes = [
                 (m) => m.KyPhieuTrinhModule
             ),
     },
+    {
+        path: 'luu-tru-co-quan',
+        data: { breadcrumb: 'Lưu trữ cơ quan' },
+        loadChildren: () =>
+            import('./luu-tru-co-quan/luu-tru-co-quan.module').then(
+                (m) => m.LuuTruCoQuanModule
+            ),
+    },
+    {
+        path: 'luu-tru-ca-nhan',
+        data: { breadcrumb: 'Lưu trữ cá nhân' },
+        loadChildren: () =>
+            import('./luu-tru-ca-nhan/luu-tru-ca-nhan.module').then(
+                (m) => m.LuuTruCaNhanModule
+            ),
+    },
 ];
 
 @NgModule({

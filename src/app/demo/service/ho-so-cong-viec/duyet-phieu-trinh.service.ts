@@ -42,6 +42,17 @@ export class DuyetPhieuTrinhService {
             .toPromise()
             .then((res) => res.objData);
     }
+    
+    getDanhSachNguoiTrinh(idDonViLamViec: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/HoSoCongViec/XuLyPhieuTrinh/GetDanhSachNguoiTrinh/' +
+                    idDonViLamViec
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
 
     xuLyPhieuTrinh(itemData) {
         return this.http

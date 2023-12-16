@@ -1,0 +1,49 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb
+                    class="max-w-full"
+                    [model]="items"
+                    [home]="home"
+                ></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="wrapper">
+                <h2>LƯU TRỮ HỒ SƠ CÔNG VIỆC CÁ NHÂN</h2>
+            </div>
+            <div class="grid">
+                <div class="col-12">
+                    <p-tree
+                        class="w-full md:w-30rem"
+                        [filter]="true"
+                        [value]="lstDmHoSo"
+                        [loading]="loading"
+                    >
+                        <ng-template let-node pTemplate="default">
+                            <div class="tree-node">
+                                <!-- Hiển thị nút mở rộng/collapse -->
+                                <span
+                                    class="tree-toggler-icon"
+                                    (click)="node.toggleNode()"
+                                    *ngIf="
+                                        node.children && node.children.length
+                                    "
+                                ></span>
+                                <!-- Hiển thị nhãn -->
+                                <span class="tree-node-label">{{
+                                    node.label
+                                }}</span
+                                >&nbsp;
+                            </div> </ng-template
+                    ></p-tree>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>

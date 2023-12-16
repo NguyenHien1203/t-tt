@@ -22,6 +22,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { TreeModule } from 'primeng/tree';
+
 import { DanhMucHoSoCaNhanRoutingModule } from './danh-muc-ho-so-ca-nhan-routing.module';
 import { DanhMucHoSoCaNhanComponent } from './danh-muc-ho-so-ca-nhan.component';
 import { ThemMoiComponent } from './them-moi/them-moi.component';
@@ -57,7 +58,6 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
     CheckboxModule,
     CalendarModule,
     TabViewModule,
-    CommonModule,
     CommonModule,
     DanhMucHoSoCaNhanRoutingModule
   ]

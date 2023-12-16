@@ -24,18 +24,13 @@ import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { QuanLyHoSoCoQuanRoutingModule } from './quan-ly-ho-so-co-quan-routing.module';
-import { QuanLyHoSoCoQuanComponent } from './quan-ly-ho-so-co-quan.component';
-import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
-import { ThemMoiComponent } from './them-moi/them-moi.component';
-import { ChonVanBanComponent } from './chon-van-ban/chon-van-ban.component';
-import { ChonCongViecComponent } from './chon-cong-viec/chon-cong-viec.component';
-import { ChonPhieuTrinhComponent } from './chon-phieu-trinh/chon-phieu-trinh.component';
-import { ChiTietHoSoCongViecModule } from '../chi-tiet-ho-so-cong-viec/chi-tiet-ho-so-cong-viec.module';
+import { ChiTietPhieuTrinhComponent } from './chi-tiet-phieu-trinh.component';
+
 
 
 @NgModule({
-  declarations: [QuanLyHoSoCoQuanComponent, CapNhatComponent, ThemMoiComponent, ChonVanBanComponent, ChonCongViecComponent, ChonPhieuTrinhComponent],
+  exports : [ChiTietPhieuTrinhComponent],
+  declarations: [ChiTietPhieuTrinhComponent],
   imports: [
     TooltipModule,
     TableModule,
@@ -60,9 +55,7 @@ import { ChiTietHoSoCongViecModule } from '../chi-tiet-ho-so-cong-viec/chi-tiet-
     CheckboxModule,
     CalendarModule,
     TabViewModule,
-    CommonModule,
-    ChiTietHoSoCongViecModule,
-    QuanLyHoSoCoQuanRoutingModule
+    CommonModule
   ]
 })
-export class QuanLyHoSoCoQuanModule { }
+export class ChiTietPhieuTrinhModule { }

@@ -10,7 +10,7 @@ import { TimKiemQuanLyHoSoCaNhan } from 'src/app/models/ho-so-cong-viec/quan-ly-
     selector: 'app-quan-ly-ho-so-ca-nhan',
     templateUrl: './quan-ly-ho-so-ca-nhan.component.html',
     styleUrls: ['./quan-ly-ho-so-ca-nhan.component.scss'],
-    providers : [ConfirmationService, MessageService]
+    providers: [ConfirmationService, MessageService],
 })
 export class QuanLyHoSoCaNhanComponent {
     constructor(
@@ -27,19 +27,23 @@ export class QuanLyHoSoCaNhanComponent {
     lstNam: SelectItem[] = [];
     lstThang: SelectItem[] = [];
     timChinhXac: boolean = false;
+    hienThiChiTiet: boolean = false;
     public id: string = '1';
     loading: boolean = false;
     lstTrangThai: any = [];
     lstLoaiHoSo: any = [];
     lstHoSoCaNhan: any[] = [];
-    items = [{ label: 'Hồ sơ công việc' }, { label: 'Quản lý hồ sơ công việc cá nhân' }];
+    items = [
+        { label: 'Hồ sơ công việc' },
+        { label: 'Quản lý hồ sơ công việc cá nhân' },
+    ];
     home = { icon: 'pi pi-home', routerLink: '/' };
     timKiemDanhSach: TimKiemQuanLyHoSoCaNhan = {
         keyWord: '',
-        nam : 0,
-        thang : 0, 
-        loaiHoSo : 0,
-        trangThai : 0,
+        nam: 0,
+        thang: 0,
+        loaiHoSo: 0,
+        trangThai: 0,
         userId: Number(this.idUser),
         timChinhXac: 0,
     };
@@ -50,6 +54,7 @@ export class QuanLyHoSoCaNhanComponent {
 
     ngOnInit(): void {
         this.loading = false;
+        this.LoadDanhMuc();
         this.LoadDanhSach();
     }
 
@@ -63,7 +68,7 @@ export class QuanLyHoSoCaNhanComponent {
             this.lstNam.push({ label: 'Năm' + i, value: i });
         }
 
-        for (let i = 1; i <= 12; i--) {
+        for (let i = 1; i <= 12; i++) {
             this.lstThang.push({ label: 'Tháng ' + i, value: i });
         }
     }
@@ -75,6 +80,11 @@ export class QuanLyHoSoCaNhanComponent {
             .then((data) => {
                 this.lstHoSoCaNhan = data;
             });
+    }
+
+    public ChiTiet(id: string) {
+        this.id = id;
+        this.hienThiChiTiet = true;
     }
 
     public ThemMoi() {
@@ -91,6 +101,7 @@ export class QuanLyHoSoCaNhanComponent {
     }
 
     public Thoat(itemHt: any, loai: string): void {
+        if (loai == 'CT') this.hienThiChiTiet = false;
         this.LoadDanhSach();
     }
 

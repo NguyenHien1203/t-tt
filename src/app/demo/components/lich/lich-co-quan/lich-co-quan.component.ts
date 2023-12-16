@@ -137,6 +137,9 @@ export class LichCoQuanComponent {
     }
 
     updateWeek(date: Date, action: 'next' | 'prev' = 'next'): void {
+
+        console.log(date);
+        
         // Nếu action là 'next', tăng tuần lên 1, ngược lại giảm đi 1
         const newDate =
             action === 'next' ? addWeeks(date, 1) : subWeeks(date, 1); // lấy ngày đầu từ startDay tuần trước
@@ -150,7 +153,6 @@ export class LichCoQuanComponent {
         this.endOfWeekDate = new Date(
             newDate.setDate(newDate.getDate() - newDate.getDay() + 7)
         );
-        console.log(this.endOfWeekDate);
 
         this.firstOfWeek_show = this.formatDateToDDMMYY(this.startOfWeekDate); //Chuyển dạng dd/MM/yyyy ra UI
         this.endOfWeek_show = this.formatDateToDDMMYY(this.endOfWeekDate);

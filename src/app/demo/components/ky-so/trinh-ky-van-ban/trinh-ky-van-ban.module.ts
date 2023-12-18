@@ -25,6 +25,7 @@ import { Select2Module } from 'ng-select2-component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { DialogModule } from 'primeng/dialog';
     TableModule,
     ToastModule,
     BreadcrumbModule,
+    RadioButtonModule,
   ]
 })
 export class TrinhKyVanBanModule { }

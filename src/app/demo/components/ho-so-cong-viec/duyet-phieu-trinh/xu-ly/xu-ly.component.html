@@ -79,7 +79,7 @@
                                             let file of phieuTrinh?.lstFileVanBanDuThao
                                         "
                                     >
-                                        <span *ngIf="file.isDelete == false">
+                                        <span>
                                             <a
                                                 (click)="
                                                     DownloadFile(
@@ -89,13 +89,7 @@
                                                 "
                                                 href="javascript:;"
                                                 >{{ file.fileName }}</a
-                                            ><a
-                                                href="javascript:;"
-                                                (click)="XoaFile(file.filePath)"
-                                                >&nbsp;<i
-                                                    class="pi pi-trash"
-                                                ></i
-                                            ></a>
+                                            >
                                         </span>
                                     </li>
                                 </ul>
@@ -112,7 +106,7 @@
                                             let file of phieuTrinh?.lstFileVanBanLienQuan
                                         "
                                     >
-                                        <span *ngIf="file.isDelete == false">
+                                        <span>
                                             <a
                                                 (click)="
                                                     DownloadFile(
@@ -122,13 +116,7 @@
                                                 "
                                                 href="javascript:;"
                                                 >{{ file.fileName }}</a
-                                            ><a
-                                                href="javascript:;"
-                                                (click)="XoaFile(file.filePath)"
-                                                >&nbsp;<i
-                                                    class="pi pi-trash"
-                                                ></i
-                                            ></a>
+                                            >
                                         </span>
                                     </li>
                                 </ul>
@@ -193,7 +181,7 @@
                                     class="p-button-danger"
                                     [style]="{ padding: '0.5rem' }"
                                     [outlined]="true"
-                                    (click)="XuLy('Nhập')"
+                                    (click)="XuLy('N')"
                                 ></p-button>
                                 <br />
                                 {{ phieuTrinh?.tenTrangThai }}

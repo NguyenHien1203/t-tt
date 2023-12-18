@@ -176,7 +176,7 @@ export class ThemMoiComponent {
     }
 
     public DownloadFile(filepath: string, filename: string) {
-        let urlDownLoad = '/HoSoCongViec/QuanLyHoSoCaNhan/UpLoadFile';
+        let urlDownLoad = '/HoSoCongViec/QuanLyHoSoCaNhan/DownloadFile';
         this.fileService
             .downloadFile(filepath, filename, urlDownLoad)
             .subscribe(

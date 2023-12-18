@@ -334,7 +334,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Lưu trữ HSCV cơ quan',
                                 icon: 'pi pi-fw pi-clone',
-                                routerLink: ['/ho-so-cong-viec/luu-tru-ho-so-co-quan'],
+                                routerLink: ['/ho-so-cong-viec/luu-tru-co-quan'],
                                 code: '010003',
                             },
                             {
@@ -352,7 +352,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Lưu trữ HSCV cá nhân',
                                 icon: 'pi pi-fw pi-clone',
-                                routerLink: ['/ho-so-cong-viec/luu-tru-ho-so-ca-nhan'],
+                                routerLink: ['/ho-so-cong-viec/luu-tru-ca-nhan'],
                                 code: '010007',
                             },
                             {
@@ -1168,7 +1168,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Lưu trữ HSCV cơ quan',
                                 icon: 'pi pi-fw pi-clone',
-                                routerLink: ['/ho-so-cong-viec/luu-tru-ho-so-co-quan'],
+                                routerLink: ['/ho-so-cong-viec/luu-tru-co-quan'],
                                 code: '010003',
                             },
                             {
@@ -1186,7 +1186,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Lưu trữ HSCV cá nhân',
                                 icon: 'pi pi-fw pi-clone',
-                                routerLink: ['/ho-so-cong-viec/luu-tru-ho-so-ca-nhan'],
+                                routerLink: ['/ho-so-cong-viec/luu-tru-ca-nhan'],
                                 code: '010007',
                             },
                             {

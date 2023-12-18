@@ -55,6 +55,7 @@ export class CapNhatComponent {
         donViId: [0, []],
         phongBanId: [0, []],
         vanBanLienQuanId: [0, []],
+        trangThai: [0, []],
         trichYeuVanBanDen: ['', [Validators.required]],
         vanDeTrinh: ['', [Validators.required]],
         trichYeuDuThaoVanBan: ['', [Validators.required]],
@@ -83,6 +84,7 @@ export class CapNhatComponent {
             trichYeuVanBanDen: data.trichYeuVanBanDen,
             tenNguoiTrinh: data.tenNguoiTrinh,
             vanDeTrinh: data.vanDeTrinh,
+            trangThai: data.trangThai,
         });
     }
 
@@ -154,7 +156,7 @@ export class CapNhatComponent {
     }
 
     public DownloadFile(filepath: string, filename: string) {
-        let urlDownLoad = '/HoSoCongViec/QuanLyHoSoCoQuan/UpLoadFile';
+        let urlDownLoad = '/HoSoCongViec/QuanLyHoSoCoQuan/DownloadFile';
         this.fileService
             .downloadFile(filepath, filename, urlDownLoad)
             .subscribe(
@@ -216,6 +218,7 @@ export class CapNhatComponent {
                 kinhGuiId: itemData.kinhGuiId,
                 id: itemData.id,
                 nguoiTrinhId: this.idUser,
+                trangThai: itemData.trangThai,
                 nguoiKyId: itemData.nguoiKyId,
                 nguoiDuyetId: itemData.nguoiDuyetId,
                 vanBanLienQuanId: itemData.vanBanLienQuanId,

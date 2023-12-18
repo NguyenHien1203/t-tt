@@ -3,6 +3,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { ThemMoiPhieuTrinhService } from 'src/app/demo/service/ho-so-cong-viec/them-moi-phieu-trinh.service';
 import { TimKiemPhieuTrinh } from 'src/app/models/ho-so-cong-viec/them-moi-phieu-trinh';
+import { modelOptions } from 'src/app/models/option-model';
 
 @Component({
     selector: 'app-them-moi-phieu-trinh',
@@ -27,10 +28,18 @@ export class ThemMoiPhieuTrinhComponent {
     loading: boolean = false;
     hienThiThemMoi: boolean = false;
     hienThiCapNhat: boolean = false;
-    lstTrangThai: any = [];
-    lstLanhDaoKy: any = [];
-    lstLanhDaoDuyet: any = [];
-    lstPhieuTrinh: any[] = [];
+    hienThiChiTiet: boolean = false;
+    lstTrangThai: modelOptions[] = [
+        { text: 'Chọn trạng thái', value: 4 },
+        { text: 'Chờ duyệt', value: 0 },
+        { text: 'Đã duyệt', value: 1 },
+        { text: 'Đã ký', value: 2 },
+        { text: 'Đã ký', value: 2 },
+        { text: 'Trả lại', value: 3 },
+    ];
+    lstLanhDaoKy: modelOptions[] = [];
+    lstLanhDaoDuyet: modelOptions[] = [];
+    lstPhieuTrinh: modelOptions[] = [];
     items = [{ label: 'Hồ sơ công việc' }, { label: 'Phiếu trình' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
     timKiemDanhSach: TimKiemPhieuTrinh = {
@@ -38,7 +47,7 @@ export class ThemMoiPhieuTrinhComponent {
         ngayTrinh: '1901-01-01',
         lanhDaoDuyet: 0,
         lanhDaoKy: 0,
-        trangThai: 0,
+        trangThai: 4,
         donViId: Number(this.idDonViLamViec),
         phongBanId: Number(this.idPhongBan),
         nguoiTao: Number(this.idUser),
@@ -51,6 +60,15 @@ export class ThemMoiPhieuTrinhComponent {
 
     ngOnInit(): void {
         this.loading = false;
+        this.service
+            .getDanhSachLanhDaoDuyet(this.idDonViLamViec)
+            .then((data) => {
+                this.lstLanhDaoDuyet = data;
+            });
+
+        this.service.getDanhSachLanhDaoKy(this.idDonViLamViec).then((data) => {
+            this.lstLanhDaoKy = data;
+        });
         this.LoadDanhSach();
     }
 
@@ -72,9 +90,15 @@ export class ThemMoiPhieuTrinhComponent {
         this.hienThiCapNhat = true;
     }
 
+    public ChiTiet(id: string) {
+        this.id = id;
+        this.hienThiChiTiet = true;
+    }
+
     public Thoat(itemHt: any, loai: string): void {
         if (loai == 'T') this.hienThiThemMoi = false;
         if (loai == 'C') this.hienThiCapNhat = false;
+        if (loai == 'CT') this.hienThiChiTiet = false;
         this.LoadDanhSach();
     }
 

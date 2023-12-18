@@ -31,6 +31,7 @@ import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { ChonVanBanComponent } from './chon-van-ban/chon-van-ban.component';
 import { ChonCongViecComponent } from './chon-cong-viec/chon-cong-viec.component';
 import { ChonPhieuTrinhComponent } from './chon-phieu-trinh/chon-phieu-trinh.component';
+import { ChiTietHoSoCongViecModule } from '../chi-tiet-ho-so-cong-viec/chi-tiet-ho-so-cong-viec.module';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { ChonPhieuTrinhComponent } from './chon-phieu-trinh/chon-phieu-trinh.com
     CalendarModule,
     TabViewModule,
     CommonModule,
+    ChiTietHoSoCongViecModule,
     QuanLyHoSoCoQuanRoutingModule
   ]
 })

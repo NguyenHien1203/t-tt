@@ -363,7 +363,7 @@
                                     {{ rowIndex + 1 }}
                                 </td>
                                 <td>
-                                    {{ item.soKiHieu }}
+                                  <a href="javascrit:;" (click)="ChiTiet(item.id)">  {{ item.soKiHieu }}</a>
                                 </td>
                                 <td>
                                     {{ item.trichYeu }}
@@ -438,3 +438,9 @@
         </button>
     </ng-template>
 </p-confirmDialog>
+<app-chi-tiet-van-ban
+    [id]="id"
+    [show]="hienThiChiTiet"
+    (tatPopup)="Thoat($event, 'CT')"
+></app-chi-tiet-van-ban>
+

@@ -332,7 +332,7 @@ export class CapNhatComponent {
     }
 
     public DownloadFile(filepath: string, filename: string) {
-        let urlDownLoad = '/HoSoCongViec/QuanLyHoSoCoQuan/UpLoadFile';
+        let urlDownLoad = '/HoSoCongViec/QuanLyHoSoCoQuan/DownloadFile';
         this.fileService
             .downloadFile(filepath, filename, urlDownLoad)
             .subscribe(
@@ -373,6 +373,10 @@ export class CapNhatComponent {
                 obj.isNew = false;
             }
         });
+    }
+
+    public XoaAllUser(): void {
+        this.lstPhanQuyen = [];
     }
 
     public GanVanBan(): void {

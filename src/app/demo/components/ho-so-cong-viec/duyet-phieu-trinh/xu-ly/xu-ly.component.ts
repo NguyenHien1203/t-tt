@@ -1,3 +1,4 @@
+import { saveAs } from 'file-saver';
 import {
     ChangeDetectorRef,
     Component,
@@ -7,10 +8,12 @@ import {
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { throwError } from 'rxjs';
 import { AuthService } from 'src/app/common/auth.services';
 import { DuyetPhieuTrinhService } from 'src/app/demo/service/ho-so-cong-viec/duyet-phieu-trinh.service';
 import { FileModel } from 'src/app/models/file-upload-model';
 import { modelOptions } from 'src/app/models/option-model';
+import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 
 @Component({
     selector: 'app-xu-ly',
@@ -27,7 +30,8 @@ export class XuLyComponent {
         private service: DuyetPhieuTrinhService,
         private messageService: MessageService,
         private authService: AuthService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private fileService: UploadFileService
     ) {}
 
     phieuTrinh: any;
@@ -56,9 +60,60 @@ export class XuLyComponent {
 
     public XuLy(loai: string) {
         let itemData = {
+            id: this.id,
             loai: loai,
-            yKienLanhDao: this.yKienLanhDao,
+            yKienLanhDaoThongQua: this.yKienLanhDao,
         };
-        this.service.xuLyPhieuTrinh(itemData).subscribe((data) => {});
+        this.service.xuLyPhieuTrinh(itemData).subscribe((data) => {
+            if (data.isError)
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: data.title,
+                });
+            else {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'success',
+                    detail: data.title,
+                });
+                this.Thoat();
+            }
+        });
+    }
+
+    public DownloadFile(filepath: string, filename: string) {
+        let urlDownLoad = '/HoSoCongViec/PhieuTrinh/DownloadFile';
+        this.fileService
+            .downloadFile(filepath, filename, urlDownLoad)
+            .subscribe(
+                (data) => {
+                    const blob = new Blob([data], {
+                        type: 'application/octet-stream',
+                    });
+                    saveAs(blob, filename);
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Tải tệp thành công',
+                    });
+                },
+                (error: any) => {
+                    if (error.status === 404) {
+                        // Xử lý lỗi 404 (NotFound)
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Không tìm thấy đường dẫn file',
+                        });
+                        // Ví dụ: Hiển thị thông báo lỗi cho người dùng
+                    } else {
+                        // Xử lý các lỗi khác
+                        console.error('Đã xảy ra lỗi', error);
+                        // Thực hiện các hành động tương ứng
+                    }
+                    return throwError(() => error);
+                }
+            );
     }
 }

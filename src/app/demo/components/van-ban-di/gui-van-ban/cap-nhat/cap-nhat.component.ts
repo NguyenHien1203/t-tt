@@ -5,12 +5,12 @@ import { throwError } from 'rxjs';
 import { AuthService } from 'src/app/common/auth.services';
 import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { CapNhatMoiService } from 'src/app/demo/service/van-ban-di/cap-nhat-moi.service';
-import {saveAs} from 'file-saver';
+import { saveAs } from 'file-saver';
 
 @Component({
-  selector: 'app-cap-nhat',
-  templateUrl: './cap-nhat.component.html',
-  styleUrls: ['./cap-nhat.component.scss']
+    selector: 'app-cap-nhat',
+    templateUrl: './cap-nhat.component.html',
+    styleUrls: ['./cap-nhat.component.scss'],
 })
 export class CapNhatComponent {
     @Input() id: string = '1';
@@ -139,7 +139,7 @@ export class CapNhatComponent {
             this.formThongTinVanBan.patchValue({
                 soKiHieu: soKiHieuData,
             });
-            console.log("form", this.formThongTinVanBan.value);
+            console.log('form', this.formThongTinVanBan.value);
         } catch (error) {
             this.messageService.add({
                 severity: 'error',
@@ -246,9 +246,8 @@ export class CapNhatComponent {
         const FileInput: File = event.target.files[0];
 
         if (FileInput) {
-            this.file = FileInput;
             let urlSave = '/VanBanDi/CapNhatMoi/UpLoadFile';
-            this.uploadfileService.uploadFiles(this.file, urlSave).subscribe({
+            this.uploadfileService.uploadFiles(FileInput, urlSave).subscribe({
                 next: (data) => {
                     if (data.isError)
                         this.messageService.add({
@@ -257,6 +256,8 @@ export class CapNhatComponent {
                             detail: 'Tải lên thất bại',
                         });
                     else {
+                        this.file = FileInput;
+
                         this.messageService.add({
                             severity: 'info',
                             summary: 'Info',

@@ -216,7 +216,7 @@ export class SoanThuComponent implements OnInit {
         if (FileInput) {
             event.target.value = '';
             let urlSave = '/VanBanDi/CapNhatMoi/UpLoadFile';
-            this.uploadfileService.uploadFiles(this.file, urlSave).subscribe({
+            this.uploadfileService.uploadFiles(FileInput, urlSave).subscribe({
                 next: (data) => {
                     if (data.isError)
                         this.messageService.add({

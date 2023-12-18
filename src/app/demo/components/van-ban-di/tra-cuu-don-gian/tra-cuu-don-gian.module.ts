@@ -25,6 +25,7 @@ import { TabViewModule } from 'primeng/tabview';
 
 import { TraCuuDonGianRoutingModule } from './tra-cuu-don-gian-routing.module';
 import { TraCuuDonGianComponent } from './tra-cuu-don-gian.component';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { TraCuuDonGianComponent } from './tra-cuu-don-gian.component';
     CalendarModule,
     TabViewModule,
     CommonModule,
+    ChiTietVanBanModule,
     TraCuuDonGianRoutingModule
   ]
 })

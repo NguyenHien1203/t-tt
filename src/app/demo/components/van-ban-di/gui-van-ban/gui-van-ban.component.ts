@@ -30,6 +30,7 @@ export class GuiVanBanComponent {
     yearOptions: SelectItem[] = [];
     timChinhXac: boolean = false;
     public id: string = '1';
+    hienThiChiTiet : boolean = false;
     hienThiPhanPhoi: boolean = false;
     hienThiCapNhat: boolean = false;
     hienThiGuiVanBan: boolean = false;
@@ -145,12 +146,19 @@ export class GuiVanBanComponent {
         if (loai === 'P') this.hienThiPhanPhoi = false;
         if (loai === 'T') this.hienThiThuHoi = false;
         if (loai === 'L') this.hienThiLayLai = false;
+        if (loai === 'CT') this.hienThiChiTiet = false;
         this.LoadDanhSach();
     }
 
     public PhanPhoi(id: string) {
         this.hienThiPhanPhoi = true;
         this.id = id;
+    }
+
+    public ChiTiet(id: string)
+    {
+        this.id = id;
+        this.hienThiChiTiet = true;
     }
 
     public GuiVanBan(id: string) {

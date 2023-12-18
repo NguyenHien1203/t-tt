@@ -35,6 +35,7 @@ import { TagModule } from 'primeng/tag';
 import { ThuHoiComponent } from './thu-hoi/thu-hoi.component';
 import { LayLaiComponent } from './gui/lay-lai/lay-lai.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { TooltipModule } from 'primeng/tooltip';
     CalendarModule,
     TabViewModule,
     CommonModule,
+    ChiTietVanBanModule,
     GuiVanBanRoutingModule
   ]
 })

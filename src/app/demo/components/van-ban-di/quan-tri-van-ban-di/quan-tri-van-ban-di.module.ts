@@ -27,15 +27,14 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { ChiTietVanBanComponent } from './chi-tiet-van-ban/chi-tiet-van-ban.component';
 import { GuiVanBanComponent } from './gui-van-ban/gui-van-ban.component';
 import { CapNhatVanBanComponent } from './cap-nhat-van-ban/cap-nhat-van-ban.component';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 
 @NgModule({
   declarations: [
     QuanTriVanBanDiComponent,
-    ChiTietVanBanComponent,
     GuiVanBanComponent,
     CapNhatVanBanComponent
   ],
@@ -66,6 +65,7 @@ import { CapNhatVanBanComponent } from './cap-nhat-van-ban/cap-nhat-van-ban.comp
     CalendarModule,
     TabViewModule,
     CommonModule,
+    ChiTietVanBanModule,
     OverlayPanelModule,
   ]
 })

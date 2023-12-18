@@ -22,6 +22,8 @@ export class SoVanBanDiComponent {
         private router: Router
     ) {}
 
+    id: string = "1";
+    hienThiChiTiet : boolean = false;
     strTrichXuat: string = '';
     activeTab: string = 'txThang';
     activeTabItem: string = '';
@@ -144,6 +146,7 @@ export class SoVanBanDiComponent {
     }
 
     public Thoat(itemHt: any, loai: string): void {
+        if(loai == "CT") this.hienThiChiTiet = false;
         this.LoadDanhSach();
     }
 
@@ -268,6 +271,12 @@ export class SoVanBanDiComponent {
             },
             reject: () => {},
         });
+    }
+
+    public ChiTiet(id: string)
+    {
+        this.id = id;
+        this.hienThiChiTiet = true;
     }
 
     formatDateToDDMMYY(date) : string {

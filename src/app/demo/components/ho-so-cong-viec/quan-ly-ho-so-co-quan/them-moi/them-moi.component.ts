@@ -254,7 +254,7 @@ export class ThemMoiComponent {
     }
 
     public DownloadFile(filepath: string, filename: string) {
-        let urlDownLoad = '/HoSoCongViec/QuanLyHoSoCoQuan/UpLoadFile';
+        let urlDownLoad = '/HoSoCongViec/QuanLyHoSoCoQuan/DownloadFile';
         this.fileService
             .downloadFile(filepath, filename, urlDownLoad)
             .subscribe(
@@ -307,6 +307,10 @@ export class ThemMoiComponent {
 
     public GanPhieuTrinh(): void {
         this.hienThiChonPhieuTrinh = true;
+    }
+
+    public XoaAllUser(): void {
+        this.lstPhanQuyen = [];
     }
 
     public ThemMoi() {

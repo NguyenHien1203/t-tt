@@ -116,7 +116,7 @@
                     </label>
                 </div>
                 <div class="field grid">
-                  <label class="col-12 md:col-3 fl-wr">
+                    <label class="col-12 md:col-3 fl-wr">
                         <p-calendar
                             [(ngModel)]="timKiemDanhSach.banHanhTuNgay"
                             dateFormat="dd/mm/yy"
@@ -152,7 +152,6 @@
                             class="my-drop"
                         ></p-calendar>
                     </label>
-                    
                 </div>
             </div>
             <div class="field grid div-center">
@@ -228,7 +227,7 @@
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
-                                      Lãnh đạo ký
+                                        Lãnh đạo ký
                                     </div>
                                 </th>
                                 <th style="min-width: 10rem">
@@ -253,17 +252,14 @@
                                     {{ item.soDiDen }}
                                 </td>
                                 <td class="text-center">
-                                    {{ item.soKiHieu }}
+                                    <a href="javascrit:;" (click)="ChiTiet(item.id)">  {{ item.soKiHieu }}</a>
                                 </td>
                                 <td>
                                     {{ item.trichYeu }}
                                 </td>
 
                                 <td class="text-center">
-                                    {{
-                                        item.ngayBanHanh
-                                            | date : "dd-MM-yyyy"
-                                    }}
+                                    {{ item.ngayBanHanh | date : "dd-MM-yyyy" }}
                                 </td>
                                 <td>
                                     {{ item.nguoiKy }}
@@ -271,7 +267,7 @@
                                 <td class="text-center">
                                     <div class="div-center">
                                         <button
-                                        pTooltip="Theo dõi"
+                                            pTooltip="Theo dõi"
                                             pButton
                                             pRipple
                                             icon="pi pi-check-square"
@@ -279,7 +275,7 @@
                                             class="p-button-rounded p-button-info mr-2"
                                         ></button>
                                         <button
-                                        pTooltip="Báo cáo"
+                                            pTooltip="Báo cáo"
                                             pButton
                                             pRipple
                                             (click)="BaoCao(item.id)"
@@ -309,7 +305,12 @@
     </div>
 </div>
 <app-theo-doi
-      [show]="hienThiTheoDoi"
-      [id]="id"
-      (tatPopup)="Thoat($event, 'T')"
-  ></app-theo-doi>
+    [show]="hienThiTheoDoi"
+    [id]="id"
+    (tatPopup)="Thoat($event, 'T')"
+></app-theo-doi>
+<app-chi-tiet-van-ban
+    [id]="id"
+    [show]="hienThiChiTiet"
+    (tatPopup)="Thoat($event, 'CT')"
+></app-chi-tiet-van-ban>

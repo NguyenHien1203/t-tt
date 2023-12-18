@@ -3,7 +3,7 @@
     <ng-template pTemplate="content">
         <div class="chiTiet">
             <div class="field grid">
-                <div class="col-12 md:col-9">
+                <div class="col-12 md:col-8">
                     <p-table styleClass="p-datatable-gridlines" [value]="[chiTietCongViecs]" class="custom-table">
                         <ng-template pTemplate="body" let-chiTietCongViec>
                             <tr>
@@ -254,7 +254,7 @@
                                         {{ rowIndex + 1 }}
                                     </td>
                                     <td>
-                                        {{ caNhanThucHien.ngayXL | date : "dd/MM/yyyy" }}
+                                        {{ caNhanThucHien.ngayThucHien | date : "dd/MM/yyyy" }}
                                     </td>
                                     <td>
                                         {{ caNhanThucHien.noiDung}}
@@ -262,19 +262,19 @@
                                     <td>
                                         <ul>
                                             <li *ngFor="
-                                                            let file of caNhanThucHien.lstFileCongViecChiTieu
+                                                            let file of caNhanThucHien.lstFileDinhKem
                                                         ">
                                                 <a (click)="
                                                                 DownloadFile(
-                                                                    file.path,
-                                                                    file.name
+                                                                    file.filePath,
+                                                                    file.fileName
                                                                 )
-                                                            " href="javascript:;">{{ file.name }}</a>
+                                                            " href="javascript:;">{{ file.fileName }}</a>
                                             </li>
                                         </ul>
                                     </td>
                                     <td>
-                                        {{ caNhanThucHien.hoTenDem}}
+                                        {{ caNhanThucHien.nguoiThucHien}}
                                     </td>
                                     <td>
                                         {{ caNhanThucHien.vaiTro}}
@@ -306,8 +306,8 @@
     </ng-template>
     </p-table>
     </div>
-    <div class="col-12 md:col-3">
-        <div class="chat-container">
+    <div class="col-12 md:col-4" >
+        <div class="chat-container scrollable-div comment" >
             <!-- Header "Trao đổi" -->
             <h3><strong>Trao đổi</strong></h3>
             <!-- Container chứa ảnh cá nhân và khung chat -->
@@ -366,6 +366,85 @@
                 </div>
 
             </div>
+
+        </div>
+
+        <div class="comment scrollable-div" >
+            <h3><strong>Chọn tiện ích công việc</strong></h3>
+            <div class="field grid">
+                <label class="col-12 md:col-12 fl-wr">
+                    <p-checkbox name="hienThi" (click)="CheckedHt()" 
+                    id="hienThi" value="true" label="Hệ thóng tạo thông báo: Cảnh báo xóa dựa vào ngày kết thúc"></p-checkbox>
+                </label>
+            </div>
+
+            <div class="field grid">
+                <label class="col-12 md:col-12 fl-wr">
+                    <textarea [(ngModel)]="NoiDungThongBao" rows="1" cols="10" placeholder="Thêm nội dung nhắc việc"
+                    class="my-drop" pInputTextarea></textarea>
+                </label>
+            </div>
+
+            <div class="field grid div-center">
+                <button pbutton="" pripple="" type="submit" label="Info"
+                    class="p-element p-ripple p-button-info p-button p-component"
+                    ng-reflect-label="Info" (click)="NhacLai()"><span class="p-button-label">Nhắc lại</span><span
+                        class="p-ink"></span></button>&nbsp;
+                <button pbutton="" pripple="" type="submit" label="Info"
+                    class="p-element p-ripple p-button-warning p-button p-component"
+                    ng-reflect-label="Info" (click)="Thoat()"><span class="p-button-label">Đóng</span><span
+                        class="p-ink"></span></button>&nbsp;
+               
+            </div>
+
+           
+                <div class="wrapper">
+                    <h3>Danh sách thông báo</h3>
+    
+                </div>
+                <div class="grid">
+                    <div class="col-12">
+                        <p-table [paginator]="true" #dt1 [value]="lstThongBao" dataKey="id" [rows]="10" [loading]="loading"
+                            [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+                            responsiveLayout="scroll">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width: 2%;">
+                                        <div class="flex justify-content-between align-items-center">
+                                            STT
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Nội dung thông báo
+                                        </div>
+                                    </th>
+                                    
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        {{ rowIndex + 1 }}
+                                    </td>
+                                    <td>
+                                        {{item.noiDung}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="10">No record found.</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="loadingbody">
+                                <tr>
+                                    <td colspan="2">Loading record data. Please wait.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
 
         </div>
     </div>

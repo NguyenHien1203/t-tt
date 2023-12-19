@@ -24,6 +24,11 @@ export class TrinhKyVanBanService {
     .pipe(map((res: any) => res.objData))
   }
 
+  public getTrinhKy(id: any): Observable<any> {
+    return this.http.get(`${environment.baseUrlApi}` + this.url + `GetTrinhKy/${id}`, this.httpOptions)
+    .pipe(map((res: any) => res.objData))
+  }
+
   public danhSachLuongKySo(donViId: any): Observable<any> {
     return this.http.get<any>(`${environment.baseUrlApi}` + this.url + `GetLuongKySo?donViId=${donViId}`)
     .pipe(map((res: any) => res.objData))
@@ -51,5 +56,13 @@ export class TrinhKyVanBanService {
 
   public themMoi(trinhKy: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'ThemMoi', trinhKy, this.httpOptions);
+  }
+
+  public xoa(id: string): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `Xoa/${id}`, this.httpOptions);
+  }
+
+  public capNhat(trinhKy: any, id: any): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `CapNhat/${id}`, trinhKy, this.httpOptions);
   }
 }

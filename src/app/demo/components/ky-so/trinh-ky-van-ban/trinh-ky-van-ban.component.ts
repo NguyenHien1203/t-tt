@@ -38,6 +38,9 @@ export class TrinhKyVanBanComponent implements OnInit {
   lstLoaiVanBan: any[] = [];
   danhSachs: any[] = [];
 
+  idCapNhat: any;
+  idXoa: any;
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -92,9 +95,39 @@ export class TrinhKyVanBanComponent implements OnInit {
     else if (type === 'U') {
       this.hienThiCapNhat = false;
     }
+    this.GetDanhSach();
   }
 
   ThemMoi() {
     this.hienThiThemMoi = true;
+  }
+
+  CapNhat(id: any) {
+    this.idCapNhat = id;
+    this.hienThiCapNhat = true;
+  }
+
+  Xoa(id: any) {
+    this.deleteProductDialog = true;
+    this.idXoa = id;
+  }
+
+  TamDungXoa() {
+    this.deleteProductDialog = false;
+    this.idXoa = null;
+  }
+
+  XacNhanXoa() {
+    this.deleteProductDialog = false;
+    this.trinhKyVanBanService.xoa(this.idXoa).subscribe(
+      data => {
+        if (data.isError) {
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
+        } else {
+          this.GetDanhSach();
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
+        }
+      }
+    )
   }
 }

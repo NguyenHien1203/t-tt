@@ -117,8 +117,6 @@ export class ThemMoiComponent implements OnInit {
   }
 
   public onFileChinhSelected(event: any) {
-    console.log("CHinh");
-
     const FileInput: File = event.target.files[0];
 
     if (FileInput) {
@@ -209,6 +207,10 @@ export class ThemMoiComponent implements OnInit {
   onChangeLuongKySo(event: any) {
     if (event > 0) {
       this.hienThiForm = false;
+      this.formThemMoi.patchValue({
+        lanhDaoKyId: "",
+        nguoiNhanKyId: 0
+      });
     } else {
       this.hienThiForm = true;
     }
@@ -226,11 +228,6 @@ export class ThemMoiComponent implements OnInit {
     this.valueForm.donViLamViecId = this.authService.GetDonViLamViec();
     this.valueForm.nhomQuyenId = this.authService.GetmUserInfo().nhomQuyenId;
     this.valueForm.lanhDaoKyId = this.formThemMoi.value.lanhDaoKyId.toString();
-    // if (!this.hienThiForm) {
-    //   this.valueForm.lanhDaoKyId = null;
-    //   this.valueForm.nguoiNhanKyId = null;
-    // }
-    console.log(this.formThemMoi.value);
 
     if (this.formThemMoi.valid) {
       this.submitted = true;
@@ -249,11 +246,11 @@ export class ThemMoiComponent implements OnInit {
   }
 
   TatPopup() {
+    this.submitted = false;
     this.show = false;
     this.close.emit(this.show);
     this.formThemMoi.reset();
-    this.submitted = false;
-
+    
     this.chinhFiles = [];
     this.dataFileChinh = null;
     this.fileChinh = null;

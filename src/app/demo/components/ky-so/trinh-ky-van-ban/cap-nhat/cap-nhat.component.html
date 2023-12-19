@@ -1,1 +1,126 @@
-<p>cap-nhat works!</p>
+<p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Thêm mới trình ký" [modal]="true" class="p-fluid"
+    (onHide)="TatPopup()" [formGroup]="formCapNhat" (onShow)="GetTrinhKy()">
+    <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+            <div class="field">
+                <label for="tenCauHinh">Trích yếu <span class="p-error">*</span></label>
+                <textarea id="tenCauHinh" pInputTextarea rows="2" cols="20" placeholder="Trích yếu"
+                    formControlName="trichYeu"></textarea>
+                <span class="p-error"
+                    *ngIf="!formCapNhat.controls.trichYeu.valid && (formCapNhat.controls.trichYeu.touched || submitted)">Vui
+                    lòng nhập trích yêu</span>
+            </div>
+            <div class="field grid">
+                <div class="col-12 md:col-4 fl-wr">
+                    File đính kèm <span class="p-error">(*)</span>
+                </div>
+                <div class="col-12 md:col-8 fl-wr">
+                    <div>
+                        <label for="fileUploadChinh" class="custom-file-upload">
+                            <i class="pi pi-upload"></i> Chọn tệp
+                        </label>
+                        <input type="file" id="fileUploadChinh" multiple="multiple"
+                            (change)="onFileChinhSelected($event)" style="display: none" />
+                    </div>
+                    <ul>
+                        <li *ngFor="let file of chinhFiles">
+                            <a (click)="downloadFileChinh(file)" href="javascript:;">{{ file.name }}</a><a
+                                href="javascript:;" (click)="XoaFileChinh(file.name)">&nbsp;<i
+                                    class="pi pi-trash"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="field grid">
+                <div class="col-12 md:col-4 fl-wr">
+                    File đính kèm
+                    <p>(nếu có)</p>
+                </div>
+                <div class="col-12 md:col-8 fl-wr">
+                    <div>
+                        <label for="fileUploadPhu" class="custom-file-upload">
+                            <i class="pi pi-upload"></i> Chọn tệp
+                        </label>
+                        <input type="file" id="fileUploadPhu" multiple="multiple" (change)="onFilePhuSelected($event)"
+                            style="display: none" />
+                    </div>
+                    <ul>
+                        <li *ngFor="let file of phuFiles">
+                            <a (click)="downloadFilePhu(file)" href="javascript:;">{{ file.name }}</a><a
+                                href="javascript:;" (click)="XoaFilePhu(file.name)">&nbsp;<i
+                                    class="pi pi-trash"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col-12 md:col-4">
+                    <div class="field-radiobutton">
+                        <p-radioButton name="duyetKy" value="1" id="duyetKy" label="Duyệt"
+                            formControlName="duyetKy"></p-radioButton>
+                    </div>
+                </div>
+                <div class="field col-12 md:col-4">
+                    <div class="field-radiobutton">
+                        <p-radioButton name="duyetKy" value="2" id="duyetKy" label="Ký"
+                            formControlName="duyetKy"></p-radioButton>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field col-12 md:col-6">
+            <div class="field">
+                <label for="luongKySo">Cấu hình luồng ký số</label>
+                <p-dropdown appendTo="body" [showClear]="true" [filter]="true" [options]="lstLuongKySo"
+                    optionLabel="text" optionValue="value" (ngModelChange)="onChangeLuongKySo($event)"
+                    formControlName="cauHinhLuongKySoId"></p-dropdown>
+            </div>
+
+            <div class="field">
+                <label for="luongKySo">Loại văn bản <span class="p-error">*</span></label>
+                <p-dropdown appendTo="body" [showClear]="true" [filter]="true" [options]="lstLoaiVanBan"
+                    optionLabel="text" optionValue="value" formControlName="loaiVanBanId"></p-dropdown>
+                <span class="p-error"
+                    *ngIf="!formCapNhat.controls.loaiVanBanId.valid && (formCapNhat.controls.loaiVanBanId.touched || submitted)">Vui
+                    lòng nhập trích yêu</span>
+            </div>
+
+            <div class="field">
+                <label for="luongKySo">Văn bản trả lời</label>
+                <p-dropdown appendTo="body" [showClear]="true" [filter]="true" [options]="lstVanBanTraLoi"
+                    optionLabel="text" optionValue="value" formControlName="vanBanTraLoiId"></p-dropdown>
+            </div>
+
+            <div class="field">
+                <label for="luongKySo">Mức độ văn bản <span class="p-error">*</span></label>
+                <p-dropdown appendTo="body" [showClear]="true" [filter]="true" [options]="lstMucDo" optionLabel="text"
+                    optionValue="value" formControlName="mucDoVanBanId"></p-dropdown>
+                <span class="p-error"
+                    *ngIf="!formCapNhat.controls.mucDoVanBanId.valid && (formCapNhat.controls.mucDoVanBanId.touched || submitted)">Vui
+                    lòng nhập trích yêu</span>
+            </div>
+            <ng-container *ngIf="hienThiForm">
+                <div class="field">
+                    <label for="luongKySo">Lãnh đạo ký <span class="p-error">*</span></label>
+                    <p-dropdown appendTo="body" [showClear]="true" [filter]="true" [options]="lstLanhDaoKy"
+                        optionLabel="text" optionValue="value" formControlName="lanhDaoKyId"></p-dropdown>
+                    <span class="p-error"
+                        *ngIf="!formCapNhat.controls.lanhDaoKyId.valid && (formCapNhat.controls.lanhDaoKyId.touched || submitted)">Vui
+                        lòng nhập trích yêu</span>
+                </div>
+
+                <div class="field">
+                    <label for="luongKySo">Người duyệt/ ký duyệt</label>
+                    <p-dropdown appendTo="body" [showClear]="true" [filter]="true" [options]="lstNguoiNhan"
+                        optionLabel="text" optionValue="value" formControlName="nguoiNhanKyId"></p-dropdown>
+                </div>
+            </ng-container>
+
+        </div>
+    </div>
+    <!-- </form> -->
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" (click)="CapNhat()" icon="pi pi-check" class="p-button-info"></button>
+        <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="TatPopup()"></button>
+    </ng-template>
+</p-dialog>

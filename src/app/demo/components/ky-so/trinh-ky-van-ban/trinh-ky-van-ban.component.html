@@ -37,7 +37,7 @@
 
         <div class="card pb-0 pl-4 pr-4">
             <div class="wrapper">
-                <h2>DANH SÁCH LUỒNG KÝ SỐ</h2>
+                <h2>DANH SÁCH TRÌNH KÝ VĂN BẢN</h2>
                 <div class="icon-cls">
                     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success"
                         (click)="ThemMoi()">
@@ -103,14 +103,14 @@
         </div>
         <app-them-moi [show]="hienThiThemMoi" (close)="TatPopup($event, 'C')"></app-them-moi>
 
-        <!-- <app-cap-nhat [show]="hienThiCapNhat" (close)="TatPopup($event, 'U')" [id]="idCapNhat"></app-cap-nhat>
+        <app-cap-nhat [show]="hienThiCapNhat" (close)="TatPopup($event, 'U')" [id]="idCapNhat"></app-cap-nhat>
 
-        <app-chi-tiet [show]="hienThiChiTiet" (close)="TatPopup($event, 'I')" [id]="idChiTiet"></app-chi-tiet> -->
+        <!-- <app-chi-tiet [show]="hienThiChiTiet" (close)="TatPopup($event, 'I')" [id]="idChiTiet"></app-chi-tiet> -->
 
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="">Bạn muốn xóa bản ghi này ?</span>
+                <span *ngIf="danhSachs">Bạn muốn xóa bản ghi này ?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"

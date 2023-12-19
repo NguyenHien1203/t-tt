@@ -1,10 +1,9 @@
+import { TrinhKyVanBanComponent } from './trinh-ky-van-ban.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LuongKySoRoutingModule } from './luong-ky-so-routing.module';
-import { LuongKySoComponent } from './luong-ky-so.component';
+import { TrinhKyVanBanRoutingModule } from './trinh-ky-van-ban-routing.module';
 import { ThemMoiComponent } from './them-moi/them-moi.component';
-import { ChiTietComponent } from './chi-tiet/chi-tiet.component';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 
 import { BreadcrumbModule } from 'primeng/breadcrumb';
@@ -26,27 +25,17 @@ import { Select2Module } from 'ng-select2-component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
-
-// import { BrowserModule } from '@angular/platform-browser';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { MatTableModule } from '@angular/material/table';
-// import { MatInputModule } from '@angular/material/input';
-// import { MatButtonModule } from '@angular/material/button';
-// import { MatCheckboxModule } from '@angular/material/checkbox';
-// import { MatDatepickerModule } from '@angular/material/datepicker';
-// import { MatDialogModule } from '@angular/material/dialog';
-// import { MatNativeDateModule } from '@angular/material/core';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [
-    LuongKySoComponent,
     ThemMoiComponent,
-    ChiTietComponent,
     CapNhatComponent,
+    TrinhKyVanBanComponent
   ],
   imports: [
     CommonModule,
-    LuongKySoRoutingModule,
+    TrinhKyVanBanRoutingModule,
 
     ConfirmDialogModule,
     FileUploadModule,
@@ -67,17 +56,7 @@ import { DialogModule } from 'primeng/dialog';
     TableModule,
     ToastModule,
     BreadcrumbModule,
-
-    // BrowserModule,
-    // BrowserAnimationsModule,
-    // MatTableModule,
-    // MatInputModule,
-    // MatButtonModule,
-    // MatDatepickerModule,
-    // MatNativeDateModule,
-    // FormsModule,
-    // MatCheckboxModule,
-    // MatDialogModule,
+    RadioButtonModule,
   ]
 })
-export class LuongKySoModule { }
+export class TrinhKyVanBanModule { }

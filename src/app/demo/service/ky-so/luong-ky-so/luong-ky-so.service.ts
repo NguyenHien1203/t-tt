@@ -27,7 +27,7 @@ export class LuongKySoService {
   public getLuongKySo(id: any): Observable<any> {
     return this.http.get<any>(`${environment.baseUrlApi}` + this.url + `GetLuongKySo/${id}`)
     .pipe(map((res: any) => res.objData));
-  }
+  }               
 
   public danhSachLuongKySo(danhSach: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + `GetDanhSach`, danhSach)

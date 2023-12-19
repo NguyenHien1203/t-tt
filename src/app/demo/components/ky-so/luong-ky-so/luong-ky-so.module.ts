@@ -29,13 +29,13 @@ import { DialogModule } from 'primeng/dialog';
 
 // import { BrowserModule } from '@angular/platform-browser';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatNativeDateModule } from '@angular/material/core';
+// import { MatTableModule } from '@angular/material/table';
+// import { MatInputModule } from '@angular/material/input';
+// import { MatButtonModule } from '@angular/material/button';
+// import { MatCheckboxModule } from '@angular/material/checkbox';
+// import { MatDatepickerModule } from '@angular/material/datepicker';
+// import { MatDialogModule } from '@angular/material/dialog';
+// import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -70,14 +70,14 @@ import { MatNativeDateModule } from '@angular/material/core';
 
     // BrowserModule,
     // BrowserAnimationsModule,
-    MatTableModule,
-    MatInputModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    FormsModule,
-    MatCheckboxModule,
-    MatDialogModule,
+    // MatTableModule,
+    // MatInputModule,
+    // MatButtonModule,
+    // MatDatepickerModule,
+    // MatNativeDateModule,
+    // FormsModule,
+    // MatCheckboxModule,
+    // MatDialogModule,
   ]
 })
 export class LuongKySoModule { }

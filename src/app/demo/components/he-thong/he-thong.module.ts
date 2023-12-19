@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeThongRoutingModule } from './he-thong-routing.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    HeThongRoutingModule
-  ]
+    declarations: [],
+    imports: [CommonModule, HeThongRoutingModule],
 })
-export class HeThongModule { }
+export class HeThongModule {}

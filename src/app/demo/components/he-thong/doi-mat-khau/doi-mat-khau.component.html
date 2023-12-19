@@ -1,0 +1,132 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb
+                    class="max-w-full"
+                    [model]="items"
+                    [home]="home"
+                ></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <p-tabView>
+            <p-tabPanel header="Thông tin cơ bản">
+                <form [formGroup]="formThongTin">
+                    <div class="col-12 md:col-12">
+                        <div class="field grid div-center">
+                            <label class="col-12 md:col-2" htmlfor="matKhauCu"
+                                >Mật khẩu cũ&nbsp;
+                                <span class="p-error"> (*)</span>:</label
+                            >
+                            <div class="col-12 md:col-4">
+                                <p-password
+                                    required=""
+                                    id="matKhauCu"
+                                    [toggleMask]="true"
+                                    formControlName="matKhauCu"
+                                    class="form-control"
+                                ></p-password>
+                                <span
+                                    class="p-error"
+                                    *ngIf="
+                                        !formThongTin.controls.matKhauCu
+                                            .valid &&
+                                        (formThongTin.controls.matKhauCu
+                                            .touched ||
+                                            submitted)
+                                    "
+                                    >Vui lòng mật khẩu cũ</span
+                                >
+                            </div>
+                        </div>
+                        <div class="field grid div-center">
+                            <label class="col-12 md:col-2" htmlfor="matKhauMoi"
+                                >Mật khẩu mới&nbsp;
+                                <span class="p-error"> (*)</span>:</label
+                            >
+                            <div class="col-12 md:col-4">
+                                <p-password
+                                    required=""
+                                    (input)="InputMatKhau()"
+                                    id="matKhauMoi"
+                                    class="form-control"
+                                    [toggleMask]="true"
+                                    formControlName="matKhauMoi"
+                                ></p-password>
+
+                                <span
+                                    class="p-error"
+                                    *ngIf="
+                                        !formThongTin.controls.matKhauMoi
+                                            .valid &&
+                                        (formThongTin.controls.matKhauMoi
+                                            .touched ||
+                                            submitted)
+                                    "
+                                    >Vui lòng nhập mật khẩu mới</span
+                                >
+                            </div>
+                        </div>
+                        <div class="field grid div-center">
+                            <label
+                                class="col-12 md:col-2"
+                                htmlfor="nhapLaiMatKhau"
+                                >Nhập lại mật khẩu&nbsp;
+                                <span class="p-error"> (*)</span>:</label
+                            >
+                            <div class="col-12 md:col-4">
+                                <p-password
+                                    required=""
+                                    [toggleMask]="true"
+                                    (input)="InputMatKhau()"
+                                    class="form-control"
+                                    id="nhapLaiMatKhau"
+                                    formControlName="nhapLaiMatKhau"
+                                ></p-password>
+                                <span
+                                    class="p-error"
+                                    *ngIf="
+                                        !formThongTin.controls.nhapLaiMatKhau
+                                            .valid &&
+                                        (formThongTin.controls.nhapLaiMatKhau
+                                            .touched ||
+                                            submitted)
+                                    "
+                                    >Vui lòng xác nhận lại mật khẩu</span
+                                >
+                            </div>
+                        </div>
+                        <div class="field grid div-center">
+                            <div class="col-12 md:col-2"></div>
+                            <div class="col-12 md:col-4">
+                                <span class="p-error" *ngIf="isTrungKhop"
+                                    >Mật khẩu mới không trùng khớp mật khẩu xác
+                                    nhận</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </p-tabPanel>
+            <div class="field grid div-center">
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="submit"
+                    label="Info"
+                    class="p-element p-ripple p-button-primary p-button p-component"
+                    ng-reflect-label="Info"
+                    (click)="ThayDoi()"
+                >
+                    <span class="p-button-label"
+                        ><i class="pi pi-check"></i>&nbsp;Thay đổi</span
+                    ><span class="p-ink"></span>
+                </button>
+            </div>
+        </p-tabView>
+    </div>
+</div>
+<p-toast></p-toast>

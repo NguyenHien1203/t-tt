@@ -1,0 +1,218 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb
+                    class="max-w-full"
+                    [model]="items"
+                    [home]="home"
+                ></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <p-tabView>
+            <p-tabPanel header="Thông tin cơ bản">
+                <!-- Content for Tab 1 -->
+                <form [formGroup]="formThongTin">
+                    <div class="field grid">
+                        <label class="col-12 md:col-2" htmlfor="hoVaTen"
+                            >Họ và tên&nbsp;
+                            <span class="p-error"> (*)</span>:</label
+                        >
+                        <div class="col-12 md:col-4">
+                            <input
+                                pinputtext=""
+                                id="hoVaTen"
+                                type="text"
+                                required=""
+                                class="p-inputtext p-component p-element form-control"
+                                formControlName="hoVaTen"
+                            />
+                            <span
+                                class="p-error"
+                                *ngIf="
+                                    !formThongTin.controls.hoVaTen.valid &&
+                                    (formThongTin.controls.hoVaTen.touched ||
+                                        submitted)
+                                "
+                                >Vui lòng nhập họ và tên</span
+                            >
+                        </div>
+                        <label class="col-12 md:col-2" htmlfor="sdtNhaRieng"
+                            >SĐT nhà riêng :</label
+                        >
+                        <div class="col-12 md:col-4">
+                            <input
+                                pinputtext=""
+                                id="sdtNhaRieng"
+                                type="text"
+                                class="p-inputtext p-component p-element form-control"
+                                formControlName="sdtNhaRieng"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field grid">
+                        <label class="col-12 md:col-2" htmlfor="sdtCoQuan"
+                            >SĐT cơ quan :</label
+                        >
+                        <div class="col-12 md:col-4">
+                            <input
+                                pinputtext=""
+                                id="sdtCoQuan"
+                                type="text"
+                                class="p-inputtext p-component p-element form-control"
+                                formControlName="sdtCoQuan"
+                            />
+                        </div>
+                        <label class="col-12 md:col-2" htmlfor="sdtDiDong"
+                            >SĐT di động :</label
+                        >
+                        <div class="col-12 md:col-4">
+                            <input
+                                pinputtext=""
+                                id="sdtDiDong"
+                                type="text"
+                                class="p-inputtext p-component p-element form-control"
+                                formControlName="sdtDiDong"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field grid">
+                        <label class="col-12 md:col-2" htmlfor="email"
+                            >Địa chỉ Email :</label
+                        >
+                        <div class="col-12 md:col-4">
+                            <input
+                                pinputtext=""
+                                id="email"
+                                type="text"
+                                class="p-inputtext p-component p-element form-control"
+                                formControlName="email"
+                            />
+                        </div>
+                        <label class="col-12 md:col-2" htmlfor=""
+                            >Giới tính :</label
+                        >
+                        <div class="col-12 md:col-4">
+                            <div
+                                *ngFor="let gioiTinh of lstGioiTinh"
+                                class="field-checkbox"
+                            >
+                                <p-radioButton
+                                    [inputId]="gioiTinh.key"
+                                    [value]="gioiTinh.key"
+                                    formControlName="gioiTinh"
+                                ></p-radioButton>
+                                <label [for]="gioiTinh.key" class="ml-2">{{
+                                    gioiTinh.name
+                                }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </p-tabPanel>
+            <p-tabPanel header="Thông tin ký số">
+                <div class="field grid">
+                    <div class="col-12 md:col-6">
+                        <label htmlfor="tieuDe">Ảnh ký nháy:</label>
+                        &nbsp;<label
+                            for="fileUploadKyNhay"
+                            class="custom-file-upload"
+                            *ngIf="!anhKyNhay"
+                        >
+                            <i class="pi pi-upload"></i> Chọn tệp
+                        </label>
+                        <input
+                            type="file"
+                            id="fileUploadKyNhay"
+                            class="file-input"
+                            (change)="onFileSelected($event, 1)"
+                            #fileUploadKyNhay
+                            style="display: none"
+                        />
+                        <div *ngIf="anhKyNhay">
+                            <section class="file-info">
+                                <img
+                                    [src]="anhKyNhayShow"
+                                    alt="Place image title"
+                                    *ngIf="
+                                        !isAnhKyNhayLoading;
+                                        else noImageKyNhayFound
+                                    "
+                                />
+                                <ng-template #noImageKyNhayFound>
+                                    <img
+                                        src="fallbackImage.png"
+                                        alt="Ảnh ký nháy"
+                                    />
+                                </ng-template>
+                                <a href="javascript:;" (click)="XoaFile(1)"
+                                    >&nbsp;<i class="pi pi-trash"></i
+                                ></a>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <label htmlfor="tieuDe">Ảnh con dấu:</label>
+                        &nbsp;<label
+                            for="fileUploadConDau"
+                            class="custom-file-upload"
+                            *ngIf="!anhConDau"
+                        >
+                            <i class="pi pi-upload"></i> Chọn tệp
+                        </label>
+                        <input
+                            type="file"
+                            id="fileUploadConDau"
+                            class="file-input"
+                            (change)="onFileSelected($event, 2)"
+                            #fileUploadConDau
+                            style="display: none"
+                        />
+                        <div *ngIf="anhConDau">
+                            <section class="file-info">
+                                <img
+                                    [src]="anhConDauShow"
+                                    alt="Place image title"
+                                    *ngIf="
+                                        !isAnhConDauLoading;
+                                        else noImageFound
+                                    "
+                                />
+                                <ng-template #noImageFound>
+                                    <img
+                                        src="fallbackImage.png"
+                                        alt="Ảnh con dấu"
+                                    />
+                                </ng-template>
+                                <a href="javascript:;" (click)="XoaFile(2)"
+                                    >&nbsp;<i class="pi pi-trash"></i
+                                ></a>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <div class="field grid div-center">
+                <button
+                    pbutton=""
+                    pripple=""
+                    type="submit"
+                    label="Info"
+                    class="p-element p-ripple p-button-primary p-button p-component"
+                    ng-reflect-label="Info"
+                    (click)="ThayDoi()"
+                >
+                    <span class="p-button-label"
+                        ><i class="pi pi-check"></i>&nbsp;Thay đổi</span
+                    ><span class="p-ink"></span>
+                </button>
+            </div>
+        </p-tabView>
+    </div>
+</div>
+<p-toast></p-toast>

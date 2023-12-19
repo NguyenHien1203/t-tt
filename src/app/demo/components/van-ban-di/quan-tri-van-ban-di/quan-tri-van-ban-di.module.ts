@@ -30,18 +30,29 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { GuiVanBanComponent } from './gui-van-ban/gui-van-ban.component';
 import { CapNhatVanBanComponent } from './cap-nhat-van-ban/cap-nhat-van-ban.component';
 import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
+import { PhanPhoiComponent } from './phan-phoi/phan-phoi.component';
+import { TreeNodeComponent } from './tree-node/tree-node.component';
+import { ChonVanBanComponent } from './gui-van-ban/chon-van-ban/chon-van-ban.component';
+import { ThuHoiComponent } from './thu-hoi/thu-hoi.component';
+import { LayLaiComponent } from './lay-lai/lay-lai.component';
+import { ThayTheComponent } from './thay-the/thay-the.component';
+import { CapNhatVanBanDaGuiComponent } from './cap-nhat-van-ban-da-gui/cap-nhat-van-ban-da-gui.component';
 
 
 @NgModule({
   declarations: [
     QuanTriVanBanDiComponent,
     GuiVanBanComponent,
-    CapNhatVanBanComponent
+    CapNhatVanBanComponent,
+    PhanPhoiComponent,
+    TreeNodeComponent,
+    ChonVanBanComponent,
+    ThuHoiComponent,
+    LayLaiComponent,
+    ThayTheComponent,
+    CapNhatVanBanDaGuiComponent
   ],
   imports: [
-    CommonModule,
-    QuanTriVanBanDiRoutingModule,
-
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -67,6 +78,7 @@ import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.mod
     CommonModule,
     ChiTietVanBanModule,
     OverlayPanelModule,
+    QuanTriVanBanDiRoutingModule
   ]
 })
 export class QuanTriVanBanDiModule { }

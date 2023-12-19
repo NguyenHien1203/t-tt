@@ -45,7 +45,7 @@ export class AppTopBarComponent implements OnInit {
             {
                 label: 'Thông tin tài khoản',
                 icon: 'pi pi-fw pi-user-edit',
-                routerLink: ['/he-thong/thong-tin-nguoi-dung'],
+                routerLink: ['/he-thong/thay-doi-thong-tin'],
             },
             {
                 label: 'Đổi mật khẩu',

@@ -691,19 +691,19 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Thay đổi thông tin',
                                 icon: 'pi pi-fw pi-save',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/he-thong/thay-doi-thong-tin'],
                                 code: '007001',
                             },
                             {
                                 label: 'Đổi mật khẩu',
                                 icon: 'pi pi-fw pi-refresh',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/he-thong/doi-mat-khau'],
                                 code: '007002',
                             },
                             {
                                 label: 'Quản lý reset mật khẩu',
                                 icon: 'pi pi-fw pi-cog',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/he-thong/quan-ly-dat-lai-mat-khau'],
                                 code: '007013',
                             },
                             {
@@ -770,7 +770,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Trình ký',
                                 icon: 'pi pi-fw pi-file-edit',
-                                routerLink: ['/hethong/quantritaikhoan'],
+                                routerLink: ['/ky-so/trinh-ky-van-ban'],
                                 code: '011001',
                             },
                             {

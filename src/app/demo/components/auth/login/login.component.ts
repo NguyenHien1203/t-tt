@@ -12,14 +12,16 @@ import { CookieService } from 'ngx-cookie-service';
     selector: 'app-login',
     templateUrl: './login.component.html',
     providers: [MessageService],
-    styles: [`
-        :host ::ng-deep .pi-eye,
-        :host ::ng-deep .pi-eye-slash {
-            transform:scale(1.6);
-            margin-right: 1rem;
-            color: var(--primary-color) !important;
-        }
-    `]
+    styles: [
+        `
+            :host ::ng-deep .pi-eye,
+            :host ::ng-deep .pi-eye-slash {
+                transform: scale(1.6);
+                margin-right: 1rem;
+                color: var(--primary-color) !important;
+            }
+        `,
+    ],
 })
 export class LoginComponent {
     valCheck: string[] = ['remember'];
@@ -27,15 +29,16 @@ export class LoginComponent {
     nguoidung: NguoiDungLogin = {
         UserName: '',
         Password: '',
-    }
+    };
     msgs: Message[] = [];
     returnUrl: string = '';
     messageRepose: string = '';
     submited = false;
 
+    public hienThiQuenMatKhau: boolean = false;
     public formDangNhap = this.formBuilder.group({
-        userName: ["", [Validators.required]],
-        password: ["", [Validators.required]]
+        userName: ['', [Validators.required]],
+        password: ['', [Validators.required]],
     });
 
     constructor(
@@ -45,14 +48,16 @@ export class LoginComponent {
         private formBuilder: FormBuilder,
         private service: MessageService,
         private cookieService: CookieService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.returnUrl = '/';
-        if (this.authenService.CheckLogin())
-            this.router.navigate(['/']);
-        else
-            this.router.navigate(['/login']);
+        if (this.authenService.CheckLogin()) this.router.navigate(['/']);
+        else this.router.navigate(['/login']);
+    }
+
+    public ForgotPassword() {
+        this.hienThiQuenMatKhau = true;
     }
 
     get dangNhapFormControl() {
@@ -65,22 +70,40 @@ export class LoginComponent {
             this.nguoidung.UserName = this.formDangNhap.value.userName ?? '';
             this.nguoidung.Password = this.formDangNhap.value.password ?? '';
 
-            this.dangNhapService.DangNhap(this.nguoidung).subscribe(data => {
-                if (data.isError) {
-                    this.msgs = [];
-                    this.msgs.push({ severity: 'error', detail: "Thông tin đăng nhập không hợp lệ" });
-                } else {
-                    this.cookieService.set('isLoggedIn', "true");
-                    this.cookieService.set('token', JSON.stringify(data.objData));
-                    this.cookieService.set('mUserInfo', JSON.stringify(data.objNguoiDung));
-                    this.cookieService.set('idDonViLamViec', data.objNguoiDung.phongBanId);
-                   
-                    this.router.navigate([this.returnUrl])
-                }
-            }, (error) => {
-                console.log('Error', error);
-            })
+            this.dangNhapService.DangNhap(this.nguoidung).subscribe(
+                (data) => {
+                    if (data.isError) {
+                        this.msgs = [];
+                        this.msgs.push({
+                            severity: 'error',
+                            detail: 'Thông tin đăng nhập không hợp lệ',
+                        });
+                    } else {
+                        this.cookieService.set('isLoggedIn', 'true');
+                        this.cookieService.set(
+                            'token',
+                            JSON.stringify(data.objData)
+                        );
+                        this.cookieService.set(
+                            'mUserInfo',
+                            JSON.stringify(data.objNguoiDung)
+                        );
+                        this.cookieService.set(
+                            'idDonViLamViec',
+                            data.objNguoiDung.phongBanId
+                        );
 
+                        this.router.navigate([this.returnUrl]);
+                    }
+                },
+                (error) => {
+                    console.log('Error', error);
+                }
+            );
         }
+    }
+
+    public Thoat(itemHt: any, loai: string) {
+        if (loai == 'FG') this.hienThiQuenMatKhau = false;
     }
 }

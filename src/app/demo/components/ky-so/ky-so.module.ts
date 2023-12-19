@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { KySoRoutingModule } from './ky-so-routing.module';
 
-
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     KySoRoutingModule

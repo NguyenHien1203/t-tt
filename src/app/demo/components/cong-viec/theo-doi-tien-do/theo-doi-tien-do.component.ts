@@ -21,6 +21,11 @@ export class TheoDoiTienDoComponent implements OnInit {
   yearOptions: SelectItem[] = [];
   weekOptions: SelectItem[] = [];
   monthOptions: SelectItem[] = [];
+
+  public id: string = '1';
+  public stt: string = '1';
+  hienThiChiTietCongViec: boolean = false;
+
   lstTienDo: any[] = [];
   currentDate = new Date();
   trangThai: SelectItem[] = [
@@ -54,7 +59,7 @@ export class TheoDoiTienDoComponent implements OnInit {
     tatCaCongViec: "",
     timChinhXac: 0
   }
-  
+
 
   public TimKiemNam_Thang: TimKiemNam_Thang = {
     idUser: "",
@@ -225,6 +230,18 @@ export class TheoDoiTienDoComponent implements OnInit {
     return Math.ceil(difference / oneWeek); //chia ra thì ra tương đối số tuần
 
   }
+
+  public openChiTietCv(id: string, stt: string) {
+    this.hienThiChiTietCongViec = true;
+    this.id = id;
+    this.stt = stt;
+  }
+
+  public Thoat(itemHt: any, loai: string): void {
+    if (loai === 'C') this.hienThiChiTietCongViec = false;
+    this.TimKiemTuan();
+  }
+
 
 
 }

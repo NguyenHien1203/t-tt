@@ -68,6 +68,14 @@ export class CapNhatMoiService {
             this.httpOption
         );
     }
+    
+    capNhatVanBanDaGui(modelThongBao: any) {
+        return this.http.post<any>(
+            environment.baseUrlApi + '/VanBanDi/CapNhatMoi/CapNhatVanBanDaGui',
+            modelThongBao,
+            this.httpOption
+        );
+    }
 
     capNhatVanBanDi(modelThongBao: any) {
         return this.http.post<any>(
@@ -321,6 +329,14 @@ export class CapNhatMoiService {
     thuHoiVanBan(model: any) {
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/ThuHoiVanBan',
+            model,
+            this.httpOption
+        );
+    }
+    
+    thayTheVanBan(model: any) {
+        return this.http.post<any>(
+            environment.baseUrlApi + '/VanBanDi/CapNhatMoi/ThayTheVanBan',
             model,
             this.httpOption
         );

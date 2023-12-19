@@ -12,9 +12,16 @@
     </div>
 
     <div class="col-12">
-        <div class="card">
+        <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
             <p-toast></p-toast>
             <h2>TÌM KIẾM</h2>
+            <div class="icon-cls">
+                <a href="javascript:;" (click)="ShowSearch()">{{
+                    !isShowSearch
+                        ? "Hiện tìm kiếm nâng cao"
+                        : "Ẩn tìm kiếm nâng cao"
+                }}</a>
+            </div>
             <div class="field grid">
                 <label class="col-12 md:col-3 fl-wr">
                     <input
@@ -64,66 +71,70 @@
                     ></p-checkbox>
                 </label>
             </div>
-            <div class="field grid">
-                <label class="col-12 md:col-3 fl-wr">
-                    <p-calendar
-                        [(ngModel)]="timKiemDanhSach.ngayGuiVanBan"
-                        dateFormat="dd/mm/yy"
-                        placeholder="Ngày gửi văn bản"
-                        [style]="{ width: '100%' }"
-                        class="my-drop"
-                    ></p-calendar>
-                </label>
-                <label class="col-12 md:col-3 fl-wr">
-                    <p-calendar
-                        [(ngModel)]="timKiemDanhSach.ngayBanHanhVanBan"
-                        dateFormat="dd/mm/yy"
-                        placeholder="Ngày ban hành văn bản"
-                        [style]="{ width: '100%' }"
-                        class="my-drop"
-                    ></p-calendar>
-                </label>
-                <label class="col-12 md:col-3 fl-wr">
-                    <p-dropdown
-                        [showClear]="true"
-                        [(ngModel)]="timKiemDanhSach.nam"
-                        [options]="yearOptions"
-                        [filter]="true"
-                        placeholder="Chọn năm"
-                        [style]="{ width: '100%' }"
-                        class="my-drop"
-                    ></p-dropdown>
-                </label>
-                <label class="col-12 md:col-3 fl-wr">
-                    <p-inputNumber
-                        id="thuTu"
-                        mode="decimal"
-                        [(ngModel)]="timKiemDanhSach.soDi"
-                        class="form-control"
-                        placeholder="Số đi"
-                        [style]="{ width: '100%' }"
-                    ></p-inputNumber>
-                </label>
+            <div *ngIf="isShowSearch">
+                <div class="field grid">
+                    <label class="col-12 md:col-3 fl-wr">
+                        <p-calendar
+                            [(ngModel)]="timKiemDanhSach.ngayGuiVanBan"
+                            dateFormat="dd/mm/yy"
+                            placeholder="Ngày gửi văn bản"
+                            [style]="{ width: '100%' }"
+                            class="my-drop"
+                        ></p-calendar>
+                    </label>
+                    <label class="col-12 md:col-3 fl-wr">
+                        <p-calendar
+                            [(ngModel)]="timKiemDanhSach.ngayBanHanhVanBan"
+                            dateFormat="dd/mm/yy"
+                            placeholder="Ngày ban hành văn bản"
+                            [style]="{ width: '100%' }"
+                            class="my-drop"
+                        ></p-calendar>
+                    </label>
+                    <label class="col-12 md:col-3 fl-wr">
+                        <p-dropdown
+                            [showClear]="true"
+                            [(ngModel)]="timKiemDanhSach.nam"
+                            [options]="yearOptions"
+                            [filter]="true"
+                            placeholder="Chọn năm"
+                            [style]="{ width: '100%' }"
+                            class="my-drop"
+                        ></p-dropdown>
+                    </label>
+                    <label class="col-12 md:col-3 fl-wr">
+                        <p-inputNumber
+                            id="thuTu"
+                            mode="decimal"
+                            [(ngModel)]="timKiemDanhSach.soDi"
+                            class="form-control"
+                            placeholder="Số đi"
+                            [style]="{ width: '100%' }"
+                        ></p-inputNumber>
+                    </label>
+                </div>
+                <div class="field grid">
+                    <label class="col-12 md:col-3 fl-wr">
+                        <input
+                            [(ngModel)]="timKiemDanhSach.soKyHieu"
+                            pInputText
+                            type="text"
+                            placeholder="Số ký hiệu"
+                            class="form-control"
+                        />
+                    </label>
+                    <label class="col-12 md:col-3 fl-wr">
+                        <input
+                            [(ngModel)]="timKiemDanhSach.lanhDaoKy"
+                            pInputText
+                            type="text"
+                            placeholder="Lãnh đạo ký"
+                            class="form-control"
+                        />
+                    </label>
+                </div>
             </div>
-            <div class="field grid">
-                <label class="col-12 md:col-3 fl-wr">
-                    <input
-                        [(ngModel)]="timKiemDanhSach.soKyHieu"
-                        pInputText
-                        type="text"
-                        placeholder="Số ký hiệu"
-                        class="form-control"
-                    />
-                </label>
-                <label class="col-12 md:col-3 fl-wr">
-                    <input
-                        [(ngModel)]="timKiemDanhSach.lanhDaoKy"
-                        pInputText
-                        type="text"
-                        placeholder="Lãnh đạo ký"
-                        class="form-control"
-                    />
-                </label>
+            <div class="field grid div-center">
                 <label class="col-12 md:col-3 fl-wr">
                     <button
                         pButton
@@ -323,7 +334,7 @@
                                             pButton
                                             pRipple
                                             (click)="PhanPhoi(capNhatMoi.id)"
-                                            icon="pi pi-send"
+                                            icon="pi pi-share-alt"
                                             class="p-button-rounded p-button-info mr-2"
                                         ></button>
                                     </div>

@@ -21,6 +21,7 @@ export class CapNhatMoiComponent implements OnInit {
         private cd: ChangeDetectorRef
     ) {}
 
+    isShowSearch: boolean = false;
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     yearOptions: SelectItem[] = [];
     timChinhXac: boolean = false;
@@ -67,10 +68,16 @@ export class CapNhatMoiComponent implements OnInit {
         this.LoadDanhSach();
         this.LoadSoVanBan();
     }
+    
     public LoadSoVanBan() {
         this.service.getSoVanBan(this.idDonViLamViec).then((data) => {
             this.lstSoVanBan = data;
         });
+    }
+
+     // Hiển thị tìm kiếm nâng cao
+     ShowSearch() {
+        this.isShowSearch = !this.isShowSearch;
     }
 
     public changeSoVanBan(event) {

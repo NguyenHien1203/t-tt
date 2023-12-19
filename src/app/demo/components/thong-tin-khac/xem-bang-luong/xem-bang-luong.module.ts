@@ -19,6 +19,7 @@ import { Select2Module } from 'ng-select2-component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
+
 import { XemBangLuongRoutingModule } from './xem-bang-luong-routing.module';
 import { XemBangLuongComponent } from './xem-bang-luong.component';
 

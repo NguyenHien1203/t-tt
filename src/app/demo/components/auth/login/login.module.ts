@@ -11,9 +11,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
     imports: [
+        DialogModule,
         CommonModule,
         LoginRoutingModule,
         ButtonModule,
@@ -26,6 +29,6 @@ import { MessagesModule } from 'primeng/messages';
         MessageModule,  
         MessagesModule, 
     ],
-    declarations: [LoginComponent]
+    declarations: [LoginComponent, ForgotPasswordComponent]
 })
 export class LoginModule { }

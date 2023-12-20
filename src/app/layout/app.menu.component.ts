@@ -776,7 +776,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Ký số trả lại',
                                 icon: 'pi pi-fw pi-replay',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/ky-so/trinh-ky-tra-lai'],
                                 code: '011003',
                             },
                             {

@@ -19,6 +19,14 @@ const routes: Routes = [
         (m) => m.TrinhKyVanBanModule
       ),
   },
+  {
+    path: 'trinh-ky-tra-lai',
+    data: { breadcrumb: 'Trình ký trả lại' },
+    loadChildren: () =>
+      import('./trinh-ky-tra-lai/trinh-ky-tra-lai.module').then(
+        (m) => m.TrinhKyTraLaiModule
+      ),
+  },
 ];
 
 @NgModule({

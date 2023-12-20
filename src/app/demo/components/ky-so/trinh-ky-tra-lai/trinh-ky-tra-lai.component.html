@@ -58,7 +58,7 @@
                                 <th>Ngày tạo</th>
                                 <th>Nội dung</th>
                                 <th>Trạng thái</th>
-                                <th style="text-align: center;">Chức năng
+                                <!-- <th style="text-align: center;">Chức năng -->
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-danhSach let-rowIndex="rowIndex">
@@ -95,7 +95,7 @@
                                     <span class="p-column-title">Trạng thái</span>
                                     {{danhSach.trangThaiId === 0 ? "Duyệt" : "Ký"}}
                                 </td>
-                                <td style="width:14%; min-width:10rem;">
+                                <!-- <td style="width:14%; min-width:10rem;">
                                     <div class="flex justify-content-center">
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
@@ -104,12 +104,12 @@
                                             class="p-button-rounded p-button-warning"
                                             (click)="Xoa(danhSach.id)"></button>
                                     </div>
-                                </td>
+                                </td> -->
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td style="text-align: center; font-weight: 600;" colspan="9">Không có bản ghi.</td>
+                                <td style="text-align: center; font-weight: 600;" colspan="8">Không có bản ghi.</td>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="loadingbody">

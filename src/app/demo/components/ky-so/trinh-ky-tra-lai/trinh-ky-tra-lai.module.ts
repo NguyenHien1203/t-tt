@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TrinhKyTraLaiRoutingModule } from './trinh-ky-tra-lai-routing.module';
+import { TrinhKyTraLaiComponent } from './trinh-ky-tra-lai.component';
 
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TableModule } from 'primeng/table';
@@ -23,7 +24,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { TrinhKyTraLaiComponent } from './trinh-ky-tra-lai.component';
+
 
 @NgModule({
   declarations: [

@@ -782,31 +782,31 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Duyệt văn bản trình ký',
                                 icon: 'pi pi-fw pi-check-square',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/ky-so/duyet-van-ban-trinh-ky'],
                                 code: '011004',
                             },
                             {
                                 label: 'Văn bản ký số đã duyệt',
                                 icon: 'pi pi-fw pi-check-circle',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/ky-so/van-ban-ky-so-da-duyet'],
                                 code: '011005',
                             },
                             {
                                 label: 'Văn bản chờ ký số',
                                 icon: 'pi pi-fw pi-user-edit',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/ky-so/van-ban-cho-ky-so'],
                                 code: '011006',
                             },
                             {
                                 label: 'Văn bản ký số đã ký',
                                 icon: 'pi pi-fw pi-check-circle',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/ky-so/van-ban-ky-so-da-ky'],
                                 code: '011007',
                             },
                             {
                                 label: 'Văn bản chờ phát hành',
                                 icon: 'pi pi-fw pi-upload',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/ky-so/van-ban-cho-phat-hanh'],
                                 code: '011008',
                             },
                             {

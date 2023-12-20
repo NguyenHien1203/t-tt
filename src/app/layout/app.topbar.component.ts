@@ -84,6 +84,17 @@ export class AppTopBarComponent implements OnInit {
                 return {
                     label: tb.tieuDe,
                     createdDate: tb.created,
+                    trangThaiTBX: tb.trangThaiTBX,
+                };
+            });
+        });
+
+        this.topbarService.getDanhSachHopThuDen().then((data) => {
+            this.mails = data.map((tb) => {
+                return {
+                    label: tb.tieuDe,
+                    createdDate: tb.created,
+                    trangThai: tb.trangThai,
                 };
             });
         });

@@ -24,6 +24,12 @@
         display: none; 
     }
 
+    .bold {
+        td{
+            font-weight: bold;
+        }
+    }
+
     .has-notification{
         display: block; /* Hiển thị chấm đỏ khi có thông báo */
     }

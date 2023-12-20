@@ -1,0 +1,112 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <p-toast></p-toast>
+            <h2>THÔNG TIN NHIỆM VỤ</h2>
+            <form [formGroup]="ThongTinNhiemVu">
+                <div class="field grid">
+                    <label class="col-12 md:col-6 fl-wr">
+                        <label for="integeronly">Số/Ký hiệu<span class="p-error">(*) </span></label>
+                        <input type="text" id="soKyHieu" formControlName="soKiHieu" [style]="{'width': '100%'}"
+                            class="my-drop mg-t-55 p-inputtext p-component p-element">
+                        <span class="p-error"
+                            *ngIf="!ThongTinNhiemVu.controls.soKiHieu.valid && (ThongTinNhiemVu.controls.soKiHieu.touched || submitted)">Vui
+                            lòng nhập số ký hiệu</span>
+                    </label>
+                    <label class="col-12 md:col-6 fl-wr">
+                        <label for="integeronly">Ngảy văn bản<span class="p-error">(*) </span></label>
+                        <p-calendar appendTo="body" dateFormat="dd/mm/yy" formControlName="ngayVanBan"
+                            [style]="{'width': '100%'}" class="my-drop mg-t-55"></p-calendar>
+                        <span class="p-error"
+                            *ngIf="!ThongTinNhiemVu.controls.ngayVanBan.valid && (ThongTinNhiemVu.controls.ngayVanBan.touched || submitted)">Vui
+                            lòng chọn ngày văn bản</span>
+                    </label>
+                </div>
+
+                <div class="field grid">
+                    <label class="col-12 md:col-12 fl-wr">
+                        <label for="integeronly">Văn bản liên quan</label>
+                        <textarea rows="2" formControlName="vanBanLienQuan" cols="30" class="my-drop"
+                            pInputTextarea></textarea>
+                    </label>
+                </div>
+
+                <div class="field grid">
+                    <label class="col-12 md:col-12 fl-wr">
+                        <label for="integeronly">Nội dung chính</label>
+                        <textarea rows="2" formControlName="noiDungChinh" cols="30" class="my-drop"
+                            pInputTextarea></textarea>
+                    </label>
+                </div>
+                <div class="field grid">
+                    <label class="col-12 md:col-12 fl-wr">
+                        <label for="integeronly">Mục tiêu cần đạt được</label>
+                        <textarea rows="2" formControlName="mucTieu" cols="30" class="my-drop"
+                            pInputTextarea></textarea>
+                    </label>
+                </div>
+                <div class="field grid">
+                    <label class="col-12 md:col-12 fl-wr">
+                        <label for="integeronly">Các mốc chính</label>
+                        <textarea rows="2" formControlName="cacMocChinh" cols="30" class="my-drop"
+                            pInputTextarea></textarea>
+                    </label>
+                </div>
+
+                <div class="field grid">
+                    <label class="col-12 md:col-6 fl-wr">
+                        <label for="integeronly">Loại nhiệm vụ<span class="p-error">(*) </span></label>
+                        <p-dropdown [showClear]="true" formControlName="loaiNhiemVu" [options]="lstNhiemVu"
+                        optionValue="id" optionLabel="tenNhiemVu" [filter]="true" [style]="{'width': '100%'}" placeholder="Chọn loại nhiệm vụ"
+                        class="my-drop" ></p-dropdown>
+                        <span class="p-error"
+                        *ngIf="!ThongTinNhiemVu.controls.loaiNhiemVu.valid && (ThongTinNhiemVu.controls.loaiNhiemVu.touched || submitted)">Vui
+                        lòng chọn loại nhiệm vụ</span>
+                        
+                    </label>
+
+                    <label class="col-12 md:col-6 fl-wr">
+                        <label for="integeronly">Tính chất nhiệm vụ</label>
+                        <p-dropdown [showClear]="true" formControlName="tinhChatNhiemVu" [options]="lstTinhChatNhiemVu"
+                        optionValue="id" optionLabel="ten" [filter]="true" [style]="{'width': '100%'}" placeholder="Chọn tính chất nhiệm vụ"
+                        class="my-drop" ></p-dropdown>
+                       
+                    </label>
+                </div>
+
+                <div class="field grid">
+                    <label class="col-12 md:col-12 fl-wr">
+                        <label for="integeronly">Nhóm lĩnh vực</label>
+                        <p-dropdown [showClear]="true" formControlName="nhomLinhVuc" [options]="lstLinhVuc"
+                        optionValue="id" optionLabel="tenLinhVuc" [filter]="true" [style]="{'width': '100%'}" placeholder="Chọn lĩnh vực"
+                        class="my-drop" ></p-dropdown>
+                       
+                    </label>
+                </div>
+
+                <div class="field grid">
+                    <label class="col-12 md:col-6 fl-wr">
+                        <label for="integeronly">Chọn đơn vị<span class="p-error">(*) </span></label>
+                        <input disabled="true" type="text" id="soKyHieu" [style]="{'width': '100%'}"
+                            class="my-drop mg-t-55 p-inputtext p-component p-element">
+                    </label>
+
+                    <label class="col-12 md:col-6 fl-wr">
+                        <label for="integeronly">Lãnh đạo đơn vị<span class="p-error">(*) </span></label>
+                        <p-dropdown [showClear]="true" formControlName="nhomLinhVuc" [options]="lstLanhDao"
+                        optionValue="id" optionLabel="tenLinhVuc" [filter]="true" [style]="{'width': '100%'}" placeholder="Chọn lĩnh vực"
+                        class="my-drop" ></p-dropdown>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

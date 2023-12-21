@@ -340,8 +340,6 @@ export class GuiVanBanComponent {
             lstDonViDaChon: this.lstDonViNhan.map((dv) => dv.value),
         };
 
-        console.log(itemData);
-
         this.service.guiVanBan(itemData).subscribe(
             (data) => {
                 if (data.isError) {

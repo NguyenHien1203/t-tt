@@ -1,0 +1,22 @@
+.custom-table {
+    tr {
+        td:first-child {
+            width: 20%;
+        }
+    }
+
+    &:last-of-type {
+        tbody {
+            tr:first-of-type{
+                  td:last-child {
+                      border-bottom-width: 1px;
+                  }
+              }
+            tr:last-of-type {
+                td {
+                    border-bottom-width: 1px;
+                }
+            }
+        }
+    }
+}

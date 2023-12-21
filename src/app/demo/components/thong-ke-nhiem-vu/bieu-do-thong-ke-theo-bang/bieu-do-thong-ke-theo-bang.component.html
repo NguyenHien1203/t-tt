@@ -1,0 +1,125 @@
+<div class="grid">
+    <div class="col-12">
+        <p-breadcrumb
+            class="max-w-full"
+            [model]="items"
+            [home]="home"
+        ></p-breadcrumb>
+    </div>
+    <div class="col-12 pt-0">
+        <p-toast></p-toast>
+        <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
+            <h2>BIỂU ĐỒ THỐNG KÊ THEO DẠNG BẢNG</h2>
+            <div class="field grid">
+                <div class="col-12 md:col-12">
+                    <div class="roboto">
+                        <table class="custom-table">
+                            <tbody>
+                                <tr>
+                                    <td
+                                        rowspan="3"
+                                        class="custom-rb text-center"
+                                        style="width: 25%"
+                                    >
+                                        Đơn vị
+                                    </td>
+                                    <td
+                                        colspan="3"
+                                        class="custom-rb text-center"
+                                    >
+                                        Đã hoàn thành
+                                    </td>
+                                    <td
+                                        colspan="3"
+                                        class="custom-rb text-center"
+                                    >
+                                        Đang xử lý
+                                    </td>
+                                    <td
+                                        rowspan="3"
+                                        class="custom-b text-center"
+                                    >
+                                        Tổng số nhiệm vụ
+                                        <br />
+                                        (Hoàn thành + Đang xử lý)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        class="text-center custom-rb"
+                                        style="min-width: 150px"
+                                        rowspan="2"
+                                    >
+                                        Quá hạn
+                                    </td>
+                                    <td
+                                        class="text-center custom-rb"
+                                        style="min-width: 150px"
+                                        rowspan="2"
+                                    >
+                                        Đúng hạn
+                                    </td>
+                                    <td
+                                        class="text-center custom-rb"
+                                        style="min-width: 150px"
+                                        rowspan="2"
+                                    >
+                                        Tổng số (Đã hoàn thành)
+                                    </td>
+                                    <td
+                                        class="text-center custom-rb"
+                                        style="min-width: 150px"
+                                        rowspan="2"
+                                    >
+                                        Quá hạn
+                                    </td>
+                                    <td
+                                        class="text-center custom-rb"
+                                        style="min-width: 150px"
+                                        rowspan="2"
+                                    >
+                                        Đúng hạn
+                                    </td>
+                                    <td
+                                        class="text-center custom-rb"
+                                        style="min-width: 150px"
+                                        rowspan="2"
+                                    >
+                                        Tổng số (Đang xử lý)
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                                <tr *ngFor="let item of lstData">
+                                    <td class="custom-rb">
+                                        {{ item.tenDonVi }}
+                                    </td>
+                                    <td class="text-center custom-rb">
+                                        {{ item.daHoanThanQuaHan }}
+                                    </td>
+                                    <td class="text-center custom-rb">
+                                        {{ item.daHoanThanhDungHan }}
+                                    </td>
+                                    <td class="text-center custom-rb">
+                                        {{ item.tongSoDaHoanThanh }}
+                                    </td>
+                                    <td class="text-center custom-rb">
+                                        {{ item.dangXuLyQuaHan }}
+                                    </td>
+                                    <td class="text-center custom-rb">
+                                        {{ item.dangXuLyDungHan }}
+                                    </td>
+                                    <td class="text-center custom-rb">
+                                        {{ item.tongSoDangHoanThanh }}
+                                    </td>
+                                    <td class="text-center custom-rb">
+                                        {{ item.tongSo }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="grid">
+    <div class="col-12">
+        <p-breadcrumb
+            class="max-w-full"
+            [model]="items"
+            [home]="home"
+        ></p-breadcrumb>
+    </div>
+    <div class="col-12 pt-0">
+        <p-toast></p-toast>
+        <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
+            <h2>BIỂU ĐỒ THỐNG KÊ THEO LOẠI NHIỆM VỤ</h2>
+            <div class="field grid">
+                <div class="col-12 md:col-12">
+                    <div class="roboto">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                  <th class="">Đơn vị</th>
+                                  <ng-container *ngFor="let tenLoaiNhiemVu of getDanhSachTenLoaiNhiemVu()">
+                                    <th class="">{{ tenLoaiNhiemVu}}</th>
+                                  </ng-container>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                    <ng-container *ngFor="let item of objDataBieuDo?.lstPhongBanTrucThuoc">
+                                        <ng-container *ngFor="let itemPhongBan of getListThongKePhongBan(item.donViChuTriId)">
+                                            <tr>
+                                              <td class="fixedTbody pd-l-10">{{ item.tenDonViChuTri }}</td>
+                                              <ng-container *ngFor="let itemNhiemVu of objDataBieuDo?.lstLoaiNhiemVu">
+                                                <td class="tx-center" style="min-width: 200px"><b>{{ getCountNhiemVu(itemNhiemVu.value, item.donViChuTriId, 1) }}</b></td>
+                                              </ng-container>
+                                            </tr>
+                                          </ng-container>
+                                    <ng-container *ngFor="let itemLinhVuc of getListThongKeLinhVuc(item.donViChuTriId)">
+                                      <tr>
+                                        <td class="fixedTbody pd-l-10">{{ itemLinhVuc.tenLinhVuc }}</td>
+                                        <ng-container *ngFor="let itemNhiemVu of objDataBieuDo?.lstLoaiNhiemVu">
+                                          <td class="tx-center" style="min-width: 200px"><b>{{ getCountNhiemVu(itemNhiemVu.value, item.donViChuTriId, 2) }}</b></td>
+                                        </ng-container>
+                                      </tr>
+                                    </ng-container>
+                                  </ng-container>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

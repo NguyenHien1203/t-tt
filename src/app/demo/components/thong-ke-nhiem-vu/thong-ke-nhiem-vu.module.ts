@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { VanBanDiRoutingModule } from './van-ban-di-routing.module';
+import { ThongKeNhiemVuRoutingModule } from './thong-ke-nhiem-vu-routing.module';
+
 
 @NgModule({
   declarations: [
   ],
   imports: [
     CommonModule,
-    VanBanDiRoutingModule
+    ThongKeNhiemVuRoutingModule
   ]
 })
-export class VanBanDiModule { }
+export class ThongKeNhiemVuModule { }

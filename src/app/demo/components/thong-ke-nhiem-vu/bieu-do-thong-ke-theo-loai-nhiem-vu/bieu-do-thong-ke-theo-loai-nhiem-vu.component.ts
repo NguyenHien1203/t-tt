@@ -22,7 +22,7 @@ export class BieuDoThongKeTheoLoaiNhiemVuComponent {
     idDonVi: string = this.authService.GetmUserInfo()?.donViId ?? '0';
     items: any[] = [
         { label: 'Thống kê nhiệm vụ' },
-        { label: 'Thống kê theo bảng' },
+        { label: 'Thống kê theo loại nhiệm vụ' },
     ];
     home = { icon: 'pi pi-home', routerLink: '/' };
     objDataBieuDo: BieuDoThongKeTheoLoaiNhiemVu = null;

@@ -16,9 +16,9 @@
                         <table class="custom-table">
                             <thead>
                                 <tr>
-                                  <th class="">Đơn vị</th>
+                                  <th class="custom-rb">Đơn vị</th>
                                   <ng-container *ngFor="let tenLoaiNhiemVu of getDanhSachTenLoaiNhiemVu()">
-                                    <th class="">{{ tenLoaiNhiemVu}}</th>
+                                    <th class="custom-rb">{{ tenLoaiNhiemVu}}</th>
                                   </ng-container>
                                 </tr>
                               </thead>
@@ -26,15 +26,15 @@
                                     <ng-container *ngFor="let item of objDataBieuDo?.lstPhongBanTrucThuoc">
                                         <ng-container *ngFor="let itemPhongBan of getListThongKePhongBan(item.donViChuTriId)">
                                             <tr>
-                                              <td class="fixedTbody pd-l-10">{{ item.tenDonViChuTri }}</td>
+                                              <td class="custom-rb">{{ item.tenDonViChuTri }}</td>
                                               <ng-container *ngFor="let itemNhiemVu of objDataBieuDo?.lstLoaiNhiemVu">
-                                                <td class="tx-center" style="min-width: 200px"><b>{{ getCountNhiemVu(itemNhiemVu.value, item.donViChuTriId, 1) }}</b></td>
+                                                <td class="custom-rb tx-center" style="min-width: 200px"><b>{{ getCountNhiemVu(itemNhiemVu.value, item.donViChuTriId, 1) }}</b></td>
                                               </ng-container>
                                             </tr>
                                           </ng-container>
                                     <ng-container *ngFor="let itemLinhVuc of getListThongKeLinhVuc(item.donViChuTriId)">
                                       <tr>
-                                        <td class="fixedTbody pd-l-10">{{ itemLinhVuc.tenLinhVuc }}</td>
+                                        <td class="">{{ itemLinhVuc.tenLinhVuc }}</td>
                                         <ng-container *ngFor="let itemNhiemVu of objDataBieuDo?.lstLoaiNhiemVu">
                                           <td class="tx-center" style="min-width: 200px"><b>{{ getCountNhiemVu(itemNhiemVu.value, item.donViChuTriId, 2) }}</b></td>
                                         </ng-container>

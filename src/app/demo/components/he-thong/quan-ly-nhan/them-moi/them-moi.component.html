@@ -1,0 +1,136 @@
+<p-dialog
+    [(visible)]="show"
+    [formGroup]="formThemMoi"
+    [draggable]="true"
+    [resizable]="false"
+    (onShow)="BindDialogData()"
+    (onHide)="Thoat()"
+    [style]="{ width: '950px' }"
+    [modal]="true"
+    header="Thêm mới nhãn"
+>
+    <ng-template pTemplate="content">
+        <div class="field grid">
+            <div class="col-12 md:col-8 fl-wr">
+                <label for="tenHienThi">
+                    Tên nhãn
+                    <span class="p-error">(*)</span></label
+                >
+                <input
+                    type="text"
+                    formControlName="tenHienThi"
+                    required=""
+                    id="tenHienThi"
+                    [style]="{ width: '100%' }"
+                    class="form-control"
+                    class="p-inputtext p-component p-element"
+                />
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.tenHienThi.valid &&
+                        (formThemMoi.controls.tenHienThi.touched || submitted)
+                    "
+                    >Yêu cầu nhập tên nhãn</span
+                >
+            </div>
+            <div class="col-12 md:col-4 fl-wr">
+                <p-checkbox
+                    name="hienThi"
+                    id="hienThi"
+                    formControlName="hienThi"
+                    binary = true
+                    value="true"
+                    label="Hiển thị"
+                ></p-checkbox>
+            </div>
+        </div>
+        <div class="field grid">
+            <div class="col-12 md:col-6 fl-wr">
+                <label for="phanLoai">
+                    Phân loại
+                    <span class="p-error">(*)</span></label
+                >
+                <p-dropdown
+                    [options]="lstPhanLoai"
+                    appendTo="body"
+                    formControlName="phanLoai"
+                    [filter]="true"
+                    required=""
+                    id="phanLoai"
+                    optionValue="value"
+                    optionLabel="text"
+                    placeholder="Chọn loại"
+                    [showClear]="true"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                ></p-dropdown>
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.phanLoai.valid &&
+                        (formThemMoi.controls.phanLoai.touched || submitted)
+                    "
+                    >Yêu cầu chọn phân loại</span
+                >
+            </div>
+
+            <div class="col-12 md:col-6 fl-wr">
+                <label for="parentId">
+                    Nhãn cha
+                    </label
+                >
+                <p-treeSelect
+                    [showClear]="true"
+                    class="w-full form-control"
+                    containerStyleClass="w-full"
+                    [(ngModel)]="selectedNodes"
+                    [options]="lstNhanParent"
+                    appendTo="body"
+                    id="parentId"
+                    [style]="{ width: '100%' }"
+                    formControlName="parentId"
+                    placeholder="Chọn nhãn cha"
+                ></p-treeSelect>
+            </div>
+        </div>
+        <div class="field grid">
+            <div class="col-12 md:col-12 fl-wr">
+                <label for="ghiChu"> Ghi chú:</label>
+                <textarea
+                    rows="4"
+                    id="ghiChu"
+                    cols="30"
+                    class="form-control"
+                    formControlName="ghiChu"
+                    placeholder="Ghi chú"
+                    pInputTextarea
+                ></textarea>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            type="submit"
+            label="Info"
+            class="p-element p-ripple p-button-info p-button p-component"
+            ng-reflect-label="Info"
+            (click)="ThemMoi()"
+        >
+            <span class="p-button-label">Lưu</span
+            ><span class="p-ink"></span></button
+        >&nbsp;
+        <button
+            pbutton=""
+            pripple=""
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            ng-reflect-label="Info"
+            (click)="Thoat()"
+        >
+            <span class="p-button-label">Thoát</span><span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-dialog>

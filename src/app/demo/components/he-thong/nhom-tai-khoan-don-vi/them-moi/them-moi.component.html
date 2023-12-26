@@ -1,1 +1,89 @@
-<p>them-moi works!</p>
+<p-dialog
+    [(visible)]="show"
+    [formGroup]="formThemMoi"
+    [draggable]="true"
+    [resizable]="false"
+    (onShow)="BindDialogData()"
+    (onHide)="Thoat()"
+    [style]="{ width: '950px' }"
+    [modal]="true"
+    header="Thêm mới nhóm người dùng"
+>
+    <ng-template pTemplate="content">
+        <div class="field grid">
+            <div class="col-12 md:col-8 fl-wr">
+                <label for="tenNhom">
+                    Tên nhóm
+                    <span class="p-error">(*)</span>:</label
+                >
+                <input
+                    type="text"
+                    formControlName="tenNhom"
+                    required=""
+                    id="tenNhom"
+                    [style]="{ width: '100%' }"
+                    class="form-control"
+                    class="p-inputtext p-component p-element"
+                />
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.tenNhom.valid &&
+                        (formThemMoi.controls.tenNhom.touched || submitted)
+                    "
+                    >Yêu cầu nhập tên nhóm người dùng</span
+                >
+            </div>
+
+            <div class="col-12 md:col-4 fl-wr">
+                <label for="thuTu"> Số thứ tự: </label>
+                <p-inputNumber
+                    inputId="integeronly"
+                    [style]="{ width: '100%' }"
+                    class="form-control"
+                    type="text"
+                    formControlName="thuTu"
+                >
+                </p-inputNumber>
+            </div>
+        </div>
+        <div class="field grid">
+            <div class="col-12 md:col-12 fl-wr">
+                <label for="moTa"> Mô tả:</label>
+                <textarea
+                    rows="4"
+                    id="moTa"
+                    cols="30"
+                    class="form-control"
+                    formControlName="moTa"
+                    placeholder="Mô tả"
+                    pInputTextarea
+                ></textarea>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            type="submit"
+            label="Info"
+            class="p-element p-ripple p-button-info p-button p-component"
+            ng-reflect-label="Info"
+            (click)="ThemMoi()"
+        >
+            <span class="p-button-label">Lưu</span
+            ><span class="p-ink"></span></button
+        >&nbsp;
+        <button
+            pbutton=""
+            pripple=""
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            ng-reflect-label="Info"
+            (click)="Thoat()"
+        >
+            <span class="p-button-label">Thoát</span><span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-dialog>

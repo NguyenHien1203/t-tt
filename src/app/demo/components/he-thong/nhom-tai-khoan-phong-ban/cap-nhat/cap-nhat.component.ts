@@ -27,7 +27,7 @@ export class CapNhatComponent {
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
-    public formThemMoi = this.formBuilder.group({
+    public formCapNhat = this.formBuilder.group({
         id: [0, []],
         tenNhom: ['', []],
         moTa: ['', []],
@@ -37,7 +37,7 @@ export class CapNhatComponent {
     });
 
     public Thoat(): void {
-        this.formThemMoi.reset();
+        this.formCapNhat.reset();
         this.submitted = false;
         this.show = false;
         this.tatPopup.emit(this.show);
@@ -45,7 +45,8 @@ export class CapNhatComponent {
 
     public async BindDialogData() {
         const data = await this.service.getTaiKhoanPhongBanById(this.id);
-        this.formThemMoi.patchValue({
+        this.formCapNhat.patchValue({
+            id: data.id,
             tenNhom: data.tenNhom,
             moTa: data.moTa,
             thuTu: data.thuTu,
@@ -55,13 +56,14 @@ export class CapNhatComponent {
     public CapNhat() {
         this.submitted = true;
 
-        if (this.formThemMoi.valid) {
-            let itemData = this.formThemMoi.value;
+        if (this.formCapNhat.valid) {
+            let itemData = this.formCapNhat.value;
             let nhomNguoiDung = {
                 id: itemData.id,
                 phongbanId: this.idPhongBan,
                 tenNhom: itemData.tenNhom,
                 moTa: itemData.moTa,
+                thuTu: itemData.thuTu,
                 created: new Date(),
                 createdBy: this.idUser,
             };

@@ -17,7 +17,8 @@ export class NhomTaiKhoanPhongBanService {
     getDanhSachTaiKhoanPhongBan(timKiemDanhSach: TimKiemNhomTaiKhoan) {
         return this.http
             .post<any>(
-                environment.baseUrlApi + '/HeThong/NhomTaiKhoanPhongBan/GetDanhSachNhomTaiKhoanPhongBan',
+                environment.baseUrlApi +
+                    '/HeThong/NhomTaiKhoanPhongBan/GetDanhSachNhomTaiKhoanPhongBan',
                 timKiemDanhSach,
                 this.httpOption
             )
@@ -29,14 +30,58 @@ export class NhomTaiKhoanPhongBanService {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/HeThong/NhomTaiKhoanPhongBan/GetTaiKhoanPhongBanById/' +
+                    '/HeThong/NhomTaiKhoanPhongBan/GetNhomTaiKhoanPhongBanById/' +
                     id,
                 this.httpOption
             )
             .toPromise()
             .then((data) => data.objData);
     }
-    
+
+    getThongTinPhongBan(idDonViLamViec: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/HeThong/NhomTaiKhoanPhongBan/GetThongTinPhongBan/' +
+                    idDonViLamViec,
+                this.httpOption
+            )
+            .toPromise()
+            .then((data) => data.objData);
+    }
+
+    getDanhSachCaNhanDaThem(id: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/HeThong/NhomTaiKhoanPhongBan/GetDanhSachCaNhanDaThem/' +
+                    id,
+                this.httpOption
+            )
+            .toPromise()
+            .then((data) => data.objData);
+    }
+
+    changePhongBan(idPhongBan: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/HeThong/NhomTaiKhoanPhongBan/GetDanhSachCaNhanThuocPhongBan/' +
+                    idPhongBan,
+                this.httpOption
+            )
+            .toPromise()
+            .then((data) => data.objData);
+    }
+
+    themMoiCaNhan(itemData: any) {
+        return this.http.post<any>(
+            environment.baseUrlApi + '/HeThong/NhomTaiKhoanPhongBan/ThemMoiNguoiDung',
+            itemData,
+            this.httpOption
+        );
+    }
+
     getThuTu(idPhongBan: string) {
         return this.http
             .get<any>(
@@ -51,7 +96,8 @@ export class NhomTaiKhoanPhongBanService {
 
     themMoiTaiKhoanPhongBan(itemData: any) {
         return this.http.post<any>(
-            environment.baseUrlApi + '/HeThong/NhomTaiKhoanPhongBan/ThemMoiNhomTaiKhoanPhongBan',
+            environment.baseUrlApi +
+                '/HeThong/NhomTaiKhoanPhongBan/ThemMoiNhomTaiKhoanPhongBan',
             itemData,
             this.httpOption
         );
@@ -59,7 +105,8 @@ export class NhomTaiKhoanPhongBanService {
 
     capNhatTaiKhoanPhongBan(itemData: any) {
         return this.http.post<any>(
-            environment.baseUrlApi + '/HeThong/NhomTaiKhoanPhongBan/CapNhatNhomTaiKhoanPhongBan',
+            environment.baseUrlApi +
+                '/HeThong/NhomTaiKhoanPhongBan/CapNhatNhomTaiKhoanPhongBan',
             itemData,
             this.httpOption
         );
@@ -67,7 +114,9 @@ export class NhomTaiKhoanPhongBanService {
 
     xoaTaiKhoanPhongBan(id: string) {
         return this.http.get<any>(
-            environment.baseUrlApi + '/HeThong/NhomTaiKhoanPhongBan/XoaNhomTaiKhoanPhongBan/' + id,
+            environment.baseUrlApi +
+                '/HeThong/NhomTaiKhoanPhongBan/XoaNhomTaiKhoanPhongBan/' +
+                id,
             this.httpOption
         );
     }

@@ -1,0 +1,118 @@
+<p-dialog
+    [(visible)]="show"
+    [draggable]="true"
+    [resizable]="false"
+    (onHide)="ThoatChiTiet()"
+    (onShow)="BindDialogData()"
+    [style]="{ width: '950px' }"
+    [modal]="true"
+    header="Chi tiết hộp thư"
+>
+    <ng-template pTemplate="content">
+        <div class="g rid">
+            <div class="col-12">
+                <p-table
+                    [paginator]="true"
+                    #dt1
+                    [value]="lstCaNhanTrongNhom"
+                    dataKey="id"
+                    [rows]="10"
+                    [loading]="loading"
+                    [rowsPerPageOptions]="[10, 20, 30]"
+                    [rowHover]="true"
+                    styleClass="p-datatable-gridlines"
+                    responsiveLayout="scroll"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 2%">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    STT
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Họ và tên
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Tên đăng nhập
+                                </div>
+                            </th>
+                            <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Phòng ban
+                                </div>
+                            </th>
+                             <th style="min-width: 10rem">
+                                <div
+                                    class="flex justify-content-between align-items-center"
+                                >
+                                    Đơn vị
+                                </div>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template
+                        pTemplate="body"
+                        let-item
+                        let-rowIndex="rowIndex"
+                    >
+                        <tr>
+                            <td style="text-align: center">
+                                {{ rowIndex + 1 }}
+                            </td>
+                            <td>
+                                {{ item.hoTenDem }}
+                            </td>
+                            <td>
+                                {{ item.userName }}
+                            </td>
+                            <td>
+                                {{ item.tenPhongBan }}
+                            </td>
+                            <td>
+                                {{ item.tenDonVi }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="10">No record found.</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="loadingbody">
+                        <tr>
+                            <td colspan="10">
+                                Loading record data. Please wait.
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            type="button"
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            ng-reflect-label="Danger"
+            (click)="ThoatChiTiet()"
+        >
+            <span class="p-button-label">Hủy</span><span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-dialog>

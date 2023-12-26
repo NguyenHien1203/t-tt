@@ -24,20 +24,11 @@ import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { NhomTaiKhoanCaNhanRoutingModule } from './nhom-tai-khoan-ca-nhan-routing.module';
-import { ThemNguoiDungComponent } from './them-nguoi-dung/them-nguoi-dung.component';
-import { ThemMoiComponent } from './them-moi/them-moi.component';
-import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
-import { NhomTaiKhoanCaNhanComponent } from './nhom-tai-khoan-ca-nhan.component';
-import { ChiTietNhomTaiKhoanModule } from '../chi-tiet-nhom-tai-khoan/chi-tiet-nhom-tai-khoan.module';
+import { ChiTietNhomTaiKhoanComponent } from './chi-tiet-nhom-tai-khoan.component';
 
 @NgModule({
-    declarations: [
-        ThemNguoiDungComponent,
-        ThemMoiComponent,
-        CapNhatComponent,
-        NhomTaiKhoanCaNhanComponent,
-    ],
+    exports: [ChiTietNhomTaiKhoanComponent],
+    declarations: [ChiTietNhomTaiKhoanComponent],
     imports: [
         TooltipModule,
         TableModule,
@@ -63,8 +54,6 @@ import { ChiTietNhomTaiKhoanModule } from '../chi-tiet-nhom-tai-khoan/chi-tiet-n
         CalendarModule,
         TabViewModule,
         CommonModule,
-        ChiTietNhomTaiKhoanModule,
-        NhomTaiKhoanCaNhanRoutingModule,
     ],
 })
-export class NhomTaiKhoanCaNhanModule {}
+export class ChiTietNhomTaiKhoanModule {}

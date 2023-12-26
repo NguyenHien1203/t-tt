@@ -2,7 +2,10 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { NhomTaiKhoanPhongBanService } from 'src/app/demo/service/he-thong/nhom-tai-khoan-phong-ban.service';
-import { TimKiemNhomTaiKhoan } from 'src/app/models/he-thong/nhom-tai-khoan-phong-ban';
+import {
+    TimKiemNhomTaiKhoan,
+    phanLoaiNhomDonVi,
+} from 'src/app/models/he-thong/nhom-tai-khoan-phong-ban';
 import { modelOptions } from 'src/app/models/option-model';
 
 @Component({
@@ -28,6 +31,7 @@ export class NhomTaiKhoanPhongBanComponent {
     public id: string = '1';
     hienThiCapNhat: boolean = false;
     hienThiThemMoi: boolean = false;
+    hienThiChiTiet: boolean = false;
     hienThiThemNguoiDung: boolean = false;
     loading: boolean = false;
     lstNhomTaiKhoan: any[] = [];
@@ -36,6 +40,7 @@ export class NhomTaiKhoanPhongBanComponent {
     timKiemDanhSach: TimKiemNhomTaiKhoan = {
         keyWord: '',
         moTa: '',
+        phanLoai: phanLoaiNhomDonVi.phongBan,
         phongBanId: Number(this.idPhongBan),
         timChinhXac: 0,
     };
@@ -64,6 +69,11 @@ export class NhomTaiKhoanPhongBanComponent {
         this.hienThiCapNhat = true;
         this.id = id;
     }
+    
+    public ChiTiet(id: string) {
+        this.hienThiChiTiet = true;
+        this.id = id;
+    }
 
     public ThemNguoiDung(id: string) {
         this.hienThiThemNguoiDung = true;
@@ -72,6 +82,7 @@ export class NhomTaiKhoanPhongBanComponent {
 
     public Thoat(itemHt: any, loai: string): void {
         if (loai === 'C') this.hienThiCapNhat = false;
+        if (loai === 'CT') this.hienThiChiTiet = false;
         if (loai === 'T') this.hienThiThemMoi = false;
         if (loai === 'TND') this.hienThiThemNguoiDung = false;
         this.LoadDanhSach();

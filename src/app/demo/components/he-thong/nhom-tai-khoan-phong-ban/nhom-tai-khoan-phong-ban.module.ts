@@ -29,17 +29,17 @@ import { NhomTaiKhoanPhongBanComponent } from './nhom-tai-khoan-phong-ban.compon
 import { ThemMoiComponent } from './them-moi/them-moi.component';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 import { ThemNguoiDungComponent } from './them-nguoi-dung/them-nguoi-dung.component';
-
+import { ChiTietNhomTaiKhoanModule } from '../chi-tiet-nhom-tai-khoan/chi-tiet-nhom-tai-khoan.module';
 
 @NgModule({
-  declarations: [
-    NhomTaiKhoanPhongBanComponent,
-    ThemMoiComponent,
-    CapNhatComponent,
-    ThemNguoiDungComponent
-  ],
-  imports: [
-    TooltipModule,
+    declarations: [
+        NhomTaiKhoanPhongBanComponent,
+        ThemMoiComponent,
+        CapNhatComponent,
+        ThemNguoiDungComponent,
+    ],
+    imports: [
+        TooltipModule,
         TableModule,
         FileUploadModule,
         FormsModule,
@@ -63,7 +63,8 @@ import { ThemNguoiDungComponent } from './them-nguoi-dung/them-nguoi-dung.compon
         CalendarModule,
         TabViewModule,
         CommonModule,
-    NhomTaiKhoanPhongBanRoutingModule
-  ]
+        ChiTietNhomTaiKhoanModule,
+        NhomTaiKhoanPhongBanRoutingModule,
+    ],
 })
-export class NhomTaiKhoanPhongBanModule { }
+export class NhomTaiKhoanPhongBanModule {}

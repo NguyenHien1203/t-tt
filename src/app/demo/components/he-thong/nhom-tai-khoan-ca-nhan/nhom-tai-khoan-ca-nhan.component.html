@@ -57,7 +57,7 @@
 
         <div class="card">
             <div class="wrapper">
-                <h2>DANH SÁCH NHÓM TÀI KHOẢN PHÒNG BAN</h2>
+                <h2>DANH SÁCH NHÓM TÀI KHOẢN CÁ NHÂN</h2>
                 <div class="icon-cls">
                     <button
                         pButton
@@ -132,7 +132,11 @@
                                     {{ rowIndex + 1 }}
                                 </td>
                                 <td>
-                                   <a href="javascript:;" (click)="ChiTiet(item.id)">{{ item.tenNhom }}</a> 
+                                    <a
+                                        href="javascript:;"
+                                        (click)="ChiTiet(item.id)"
+                                        >{{ item.tenNhom }}</a
+                                    >
                                 </td>
                                 <td>
                                     {{ item.moTa }}
@@ -227,16 +231,16 @@
     [show]="hienThiThemMoi"
     (tatPopup)="Thoat($event, 'T')"
 ></app-them-moi>
-<app-cap-nhat
-    [show]="hienThiCapNhat"
-    [id]="id"
-    (tatPopup)="Thoat($event, 'C')"
-></app-cap-nhat>
 <app-chi-tiet-nhom-tai-khoan
     [show]="hienThiChiTiet"
     [id]="id"
     (tatPopup)="Thoat($event, 'CT')"
 ></app-chi-tiet-nhom-tai-khoan>
+<app-cap-nhat
+    [show]="hienThiCapNhat"
+    [id]="id"
+    (tatPopup)="Thoat($event, 'C')"
+></app-cap-nhat>
 <app-them-nguoi-dung
     [show]="hienThiThemNguoiDung"
     [id]="id"

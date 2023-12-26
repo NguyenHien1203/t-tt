@@ -1,1 +1,161 @@
-<p>them-nguoi-dung works!</p>
+<p-dialog
+    appendTo="body"
+    header="Thêm người dùng vào nhóm tài khoản"
+    (onHide)="Thoat()"
+    (onShow)="BindDataDialog()"
+    [(visible)]="show"
+    [modal]="true"
+    [style]="{ width: '1250px' }"
+    [draggable]="true"
+    [resizable]="false"
+>
+    <ng-template pTemplate="content">
+        <div class="field grid">
+            <div class="col-12 md:col-6">
+                <label for="tenNhom"
+                    >Tên nhóm: {{ objNhomTaiKhoanPhongBan?.tenNhom }}</label
+                >
+            </div>
+        </div>
+        <div class="field grid">
+            <div class="col-12 md:col-6">
+                <label for="moTa"
+                    >Mô tả: {{ objNhomTaiKhoanPhongBan?.moTa }}</label
+                >
+            </div>
+        </div>
+        <div class="phanPhoi">
+            <div class="field grid">
+                <div class="col-12 md:col-6">
+                    <p-treeSelect
+                        [showClear]="true"
+                        class=" w-full"
+                        containerStyleClass="w-full"
+                        [(ngModel)]="selectedNodes"
+                        filter="true"
+                        (ngModelChange)="onChangeDonVi($event)"
+                        [options]="lstDonVi"
+                        appendTo="body"
+                        placeholder="Chọn đơn vị"
+                    ></p-treeSelect>
+                </div>
+            </div>
+            <div class="field grid">
+                <div class="col-12 md:col-6">
+                    <p-dropdown
+                        appendTo="body"
+                        [showClear]="true"
+                        (ngModelChange)="onChangePhongBan($event)"
+                        [filter]="true"
+                        [options]="lstPhongBan"
+                        [(ngModel)]="phongBan"
+                        optionLabel="text"
+                        optionValue="value"
+                        class="my-drop"
+                        [style]="{ width: '100%' }"
+                        placeholder="Chọn phòng ban"
+                    ></p-dropdown>
+                </div>
+            </div>
+
+            <div class="grid formgrid">
+                <div class="col-12 row">
+                    <div class="col-12 md:col-6">
+                        <label class="" for=""
+                            >Danh sách cá nhân thuộc phòng ban</label
+                        >
+                        <div class="lstUser selectUser">
+                            <select
+                                size="4"
+                                name="lstUser"
+                                [(ngModel)]="DsCaNhanDaChon"
+                                class="form-control"
+                                id="lstUser"
+                                multiple="multiple"
+                                style="
+                                    height: 200px;
+                                    width: 97%;
+                                    margin-top: 30px;
+                                "
+                                data-parsley-multiple="lstUser"
+                            >
+                                <option
+                                    *ngFor="let obj of lstUserChange"
+                                    [value]="obj.value"
+                                >
+                                    {{ obj.text }}
+                                </option>
+                            </select>
+                            <a
+                                id="btnAddMulti"
+                                href="javascript:;"
+                                (click)="AddToSelected()"
+                                class=""
+                                style="margin-right: 9px; margin-top: 12px"
+                            >
+                                <i class="pi pi-arrow-right"></i
+                            ></a>
+                            <a
+                                id="btnRemoveMulti"
+                                href="javascript:;"
+                                (click)="RemoveFromSelected()"
+                                class=""
+                                style="margin-right: 9px; margin-top: 12px"
+                            >
+                                <i class="pi pi-arrow-left"></i
+                            ></a>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <label class="form-control-label" for=""
+                            >Danh sách cá nhân đã chọn
+                        </label>
+                        <div class="lstUserChoise selectUser">
+                            <select
+                                size="4"
+                                name="lstUserChoise"
+                                [(ngModel)]="DsCaNhanNhan"
+                                class="form-control"
+                                id="lstUserChoise"
+                                multiple="multiple"
+                                style="height: 200px"
+                            >
+                                <option
+                                    *ngFor="let obj of lstUserNhan"
+                                    [value]="obj.value"
+                                >
+                                    {{ obj.text }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            type="submit"
+            label="Info"
+            class="p-element p-ripple p-button-info p-button p-component"
+            ng-reflect-label="Info"
+            (click)="ThemCaNhan()"
+        >
+            <span class="p-button-label">Lưu</span><span class="p-ink"></span>
+        </button>
+        <button
+            pbutton=""
+            pripple=""
+            type="button"
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            (click)="Thoat()"
+            ng-reflect-label="Danger"
+        >
+            <span class="p-button-label">Hủy</span><span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-dialog>

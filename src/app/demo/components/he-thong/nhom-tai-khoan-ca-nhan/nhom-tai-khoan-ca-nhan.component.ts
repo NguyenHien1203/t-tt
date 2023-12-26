@@ -1,22 +1,22 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
-import { NhomTaiKhoanDonViService } from 'src/app/demo/service/he-thong/nhom-tai-khoan-don-vi.service';
+import { NhomTaiKhoanCaNhanService } from 'src/app/demo/service/he-thong/nhom-tai-khoan-ca-nhan.service';
 import {
     TimKiemNhomTaiKhoan,
     phanLoaiNhomDonVi,
 } from 'src/app/models/he-thong/nhom-tai-khoan-phong-ban';
 
 @Component({
-    selector: 'app-nhom-tai-khoan-don-vi',
-    templateUrl: './nhom-tai-khoan-don-vi.component.html',
-    styleUrls: ['./nhom-tai-khoan-don-vi.component.scss'],
+    selector: 'app-nhom-tai-khoan-ca-nhan',
+    templateUrl: './nhom-tai-khoan-ca-nhan.component.html',
+    styleUrls: ['./nhom-tai-khoan-ca-nhan.component.scss'],
     providers: [MessageService, ConfirmationService],
 })
-export class NhomTaiKhoanDonViComponent {
+export class NhomTaiKhoanCaNhanComponent {
     constructor(
         private messageService: MessageService,
-        private service: NhomTaiKhoanDonViService,
+        private service: NhomTaiKhoanCaNhanService,
         private authService: AuthService,
         private confirmService: ConfirmationService,
         private cd: ChangeDetectorRef
@@ -28,19 +28,19 @@ export class NhomTaiKhoanDonViComponent {
     idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
     timChinhXac: boolean = false;
     public id: string = '1';
+    hienThiChiTiet: boolean = false;
     hienThiCapNhat: boolean = false;
     hienThiThemMoi: boolean = false;
-    hienThiChiTiet: boolean = false;
     hienThiThemNguoiDung: boolean = false;
     loading: boolean = false;
     lstNhomTaiKhoan: any[] = [];
-    items = [{ label: 'Hệ thống' }, { label: 'Nhóm tài khoản đơn vị' }];
+    items = [{ label: 'Hệ thống' }, { label: 'Nhóm tài khoản cá nhân' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
     timKiemDanhSach: TimKiemNhomTaiKhoan = {
         keyWord: '',
         moTa: '',
-        phanLoai: phanLoaiNhomDonVi.donVi,
-        donViId: Number(this.idDonViLamViec),
+        phanLoai: phanLoaiNhomDonVi.caNhan,
+        userId: Number(this.idUser),
         timChinhXac: 0,
     };
 
@@ -55,7 +55,7 @@ export class NhomTaiKhoanDonViComponent {
 
     public async LoadDanhSach() {
         this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
-        this.lstNhomTaiKhoan = await this.service.getDanhSachTaiKhoanDonVi(
+        this.lstNhomTaiKhoan = await this.service.getDanhSachTaiKhoanCaNhan(
             this.timKiemDanhSach
         );
     }
@@ -70,9 +70,9 @@ export class NhomTaiKhoanDonViComponent {
     }
 
     public ChiTiet(id: string) {
-        this.hienThiChiTiet = true;
-        this.id = id;
-    }
+      this.hienThiChiTiet = true;
+      this.id = id;
+  }
 
     public ThemNguoiDung(id: string) {
         this.hienThiThemNguoiDung = true;
@@ -93,7 +93,7 @@ export class NhomTaiKhoanDonViComponent {
             header: 'Xác nhận',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.service.xoaTaiKhoanDonVi(id).subscribe(
+                this.service.xoaTaiKhoanCaNhan(id).subscribe(
                     (data) => {
                         if (data.isError) {
                             this.messageService.add({

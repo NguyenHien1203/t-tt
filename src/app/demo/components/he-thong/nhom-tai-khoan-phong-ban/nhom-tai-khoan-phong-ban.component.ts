@@ -69,7 +69,7 @@ export class NhomTaiKhoanPhongBanComponent {
         this.hienThiCapNhat = true;
         this.id = id;
     }
-    
+
     public ChiTiet(id: string) {
         this.hienThiChiTiet = true;
         this.id = id;
@@ -90,7 +90,7 @@ export class NhomTaiKhoanPhongBanComponent {
 
     public Xoa(id: string) {
         this.confirmService.confirm({
-            message: 'Bạn có chắc chắn xác nhận xóa tài khoản phòng ban?',
+            message: 'Bạn có chắc chắn xác nhận xóa nhóm tài khoản?',
             header: 'Xác nhận',
             icon: 'pi pi-info-circle',
             accept: () => {

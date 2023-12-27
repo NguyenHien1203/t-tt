@@ -89,7 +89,7 @@ export class NhomTaiKhoanDonViComponent {
 
     public Xoa(id: string) {
         this.confirmService.confirm({
-            message: 'Bạn có chắc chắn xác nhận xóa tài khoản phòng ban?',
+            message: 'Bạn có chắc chắn xác nhận xóa nhóm tài khoản?',
             header: 'Xác nhận',
             icon: 'pi pi-info-circle',
             accept: () => {

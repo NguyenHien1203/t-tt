@@ -12,7 +12,7 @@ export interface TimKiemNhomTaiKhoan {
 
 export const phanLoaiNhomDonVi = {
     phongBan: 3,
-    donVi: 2,
+    donVi: 5,
     chung: 1,
     caNhan: 4,
 };

@@ -1,0 +1,117 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb
+                    class="max-w-full"
+                    [model]="items"
+                    [home]="home"
+                ></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
+            <div class="wrapper">
+                <h2>THÊM QUYỀN : {{ tenNhomQuyen }}</h2>
+                <div class="icon-cls">
+                    <button
+                        pButton
+                        pRipple
+                        label="Quay lại"
+                        icon="pi pi-replay"
+                        class="p-button-info mr-2"
+                        (click)="QuayLai()"
+                    ></button>
+                </div>
+            </div>
+
+            <table class="custom-table my-drop">
+                <tr>
+                    <td class="custom-rb">QUYỀN CHƯA CẤP</td>
+                    <td rowspan="2" style="width: 65px">
+                        <div class="center">
+                            <a
+                                id="btnAdd"
+                                href="javascript:;"
+                                class="custom-btn"
+                                style="margin-bottom: 2px"
+                                (click)="AddQuyen()"
+                            >
+                                <i class="pi pi-angle-right"></i
+                            ></a>
+                            <a
+                                id="btnAddAll"
+                                href="javascript:;"
+                                class="custom-btn"
+                                (click)="AddAllQuyen()"
+                            >
+                                <i class="pi pi-angle-double-right"></i
+                            ></a>
+                            <a
+                                id="btnRemove"
+                                href="javascript:;"
+                                class="custom-btn"
+                                style="margin-bottom: 2px"
+                                (click)="RemoveQuyen()"
+                            >
+                                <i class="pi pi-angle-left"></i
+                            ></a>
+                            <a
+                                id="btnRemoveAll"
+                                href="javascript:;"
+                                class="custom-btn"
+                                (click)="RemoveAllQuyen()"
+                            >
+                                <i class="pi pi-angle-double-left"></i
+                            ></a>
+                        </div>
+                    </td>
+                    <td class="custom-lb">QUYỀN ĐƯỢC CẤP</td>
+                </tr>
+                <tr>
+                    <td class="calc custom-r">
+                        <div
+                            style="
+                                height: 680px;
+                                overflow: auto;
+                                border: 1px solid;
+                            "
+                        >
+                            <ul style="padding-left: 0px">
+                                <app-tree-node
+                                    (checkNode)="CheckedNode($event)"
+                                    *ngFor="let node of lstQuyenChuaCap"
+                                    [node]="node"
+                                    (expand)="expandNode($event)"
+                                    (collapse)="collapseNode($event)"
+                                ></app-tree-node>
+                            </ul>
+                        </div>
+                    </td>
+                    <td class="calc custom-l">
+                        <div
+                            style="
+                                height: 680px;
+                                overflow: auto;
+                                border: 1px solid;
+                            "
+                        >
+                            <ul style="padding-left: 0px">
+                                <app-tree-node
+                                    (checkNode)="CheckedNode($event)"
+                                    *ngFor="let node of lstQuyenDuocCap"
+                                    [node]="node"
+                                    (expand)="expandNode($event)"
+                                    (collapse)="collapseNode($event)"
+                                ></app-tree-node>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>

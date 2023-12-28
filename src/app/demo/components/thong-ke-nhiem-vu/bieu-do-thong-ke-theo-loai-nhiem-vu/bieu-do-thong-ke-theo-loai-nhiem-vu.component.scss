@@ -1,10 +1,17 @@
 .custom-table {
+    overflow-x: auto;
     tr {
         th:last-child {
             border-right-width: 1px;
         }
     }
     tbody {
+        .fixed-column {
+            position: sticky;
+            left: 0;
+            z-index: 1;
+        }
+
         tr:last-of-type {
             td {
                 border-bottom-width: 1px;

@@ -76,6 +76,14 @@ import { RouterModule } from '@angular/router';
                         './nhom-tai-khoan-phong-ban/nhom-tai-khoan-phong-ban.module'
                     ).then((m) => m.NhomTaiKhoanPhongBanModule),
             },
+            {
+                path: 'nhom-quyen',
+                data: { breadcrumb: 'Nhóm quyền' },
+                loadChildren: () =>
+                    import('./nhom-quyen/nhom-quyen.module').then(
+                        (m) => m.NhomQuyenModule
+                    ),
+            },
         ]),
     ],
     exports: [RouterModule],

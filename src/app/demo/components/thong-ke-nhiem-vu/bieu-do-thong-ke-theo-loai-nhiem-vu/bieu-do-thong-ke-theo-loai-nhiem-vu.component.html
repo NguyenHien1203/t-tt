@@ -26,7 +26,7 @@
                                     <ng-container *ngFor="let item of objDataBieuDo?.lstPhongBanTrucThuoc">
                                         <ng-container *ngFor="let itemPhongBan of getListThongKePhongBan(item.donViChuTriId)">
                                             <tr>
-                                              <td class="custom-rb">{{ item.tenDonViChuTri }}</td>
+                                              <td class="custom-rb fixed-column">{{ item.tenDonViChuTri }}</td>
                                               <ng-container *ngFor="let itemNhiemVu of objDataBieuDo?.lstLoaiNhiemVu">
                                                 <td class="custom-rb tx-center" style="min-width: 200px"><b>{{ getCountNhiemVu(itemNhiemVu.value, item.donViChuTriId, 1) }}</b></td>
                                               </ng-container>

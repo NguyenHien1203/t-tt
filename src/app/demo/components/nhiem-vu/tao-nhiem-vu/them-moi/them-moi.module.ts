@@ -24,11 +24,14 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { ThemMoiComponent } from './them-moi.component';
-
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ThemMoiMocNhiemVuComponent } from './them-moi-moc-nhiem-vu/them-moi-moc-nhiem-vu.component';
+import { CapNhatMocNhiemVuComponent } from './cap-nhat-moc-nhiem-vu/cap-nhat-moc-nhiem-vu.component';
 
 @NgModule({
-  declarations: [ThemMoiComponent],
+  declarations: [ThemMoiComponent, ThemMoiMocNhiemVuComponent, CapNhatMocNhiemVuComponent],
   imports: [
+    MultiSelectModule,
     CommonModule,
     TableModule,
     ThemMoiRoutingModule,

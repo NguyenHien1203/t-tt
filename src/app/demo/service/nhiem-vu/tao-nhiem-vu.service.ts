@@ -31,7 +31,12 @@ export class TaoNhiemVuService {
     if (!this.auth.CheckLogin())
       this.router.navigate(['/login']);
     var DonViId = this.auth.GetmUserInfo().donViId.toString();
-    const url = `${this.baseUrl}/NhiemVu/TaoNhiemVu/GetDataDefaultOption?DonViId=` + DonViId;
+    var phongBanId = this.auth.GetmUserInfo().phongBanId.toString();
+    const url = `${this.baseUrl}/NhiemVu/TaoNhiemVu/GetDataDefaultOption?DonViId=${DonViId}&phongBanId=${phongBanId}`;
     return this.http.get<any>(url);
+  }
+
+  public ThemMoi(TaoNhiemVu: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/NhiemVu/TaoNhiemVu/ThemMoi`, TaoNhiemVu, this.httpOption)
   }
 }

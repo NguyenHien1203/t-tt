@@ -1,0 +1,38 @@
+<p-dialog [(visible)]="show" [style]="{width: '960px'}" header="Thêm mốc nhiệm vụ" [modal]="true" class="p-fluid"
+    (onHide)="TatPopup()">
+    <div class="formgrid grid">
+        <div class="field col-12">
+            <div class="field">
+                <label for="integeronly">Ngày hoàn thành</label>
+                <p-calendar appendTo="body" dateFormat="dd/mm/yy" [style]="{'width': '100%'}"
+                    class="my-drop mg-t-55" [(ngModel)]="mocNhiemVu.thoiHanHoanThanh"></p-calendar>
+            </div>
+            <div class="field">
+                <label for="thoiHanHoanThanh">Kết quả dự kiến</label>
+                <textarea id="thoiHanHoanThanh" pInputTextarea rows="2" cols="20" [(ngModel)]="mocNhiemVu.ketQuaDuKien"></textarea>
+            </div>
+            <div class="field">
+                <label for="thoiHanHoanThanh">Nội dung</label>
+                <textarea id="thoiHanHoanThanh" pInputTextarea rows="2" cols="20" [(ngModel)]="mocNhiemVu.noiDung"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <p-dialog [(visible)]="addProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
+        <div class="flex align-items-center justify-content-center">
+            <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+            <span>Chấp nhận thêm mốc nhiệm vụ !</span>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Lưu"
+                (click)="XacNhan()"></button>
+            <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
+                (click)="TamDung()"></button>
+        </ng-template>
+    </p-dialog>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" (click)="ThemMoiMocNhiemVU()" icon="pi pi-check" class="p-button-info"></button>
+        <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger" (click)="TatPopup()"></button>
+    </ng-template>
+</p-dialog>

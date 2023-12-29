@@ -2,7 +2,7 @@
     <div class="col-12 pb-0">
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-12 mb-0 pb-0">
-                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>>
+                <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
                             lòng nhập số ký hiệu</span>
                     </label>
                     <label class="col-12 md:col-6 fl-wr">
-                        <label for="integeronly">Ngảy văn bản<span class="p-error">(*) </span></label>
+                        <label for="integeronly">Ngày văn bản<span class="p-error">(*) </span></label>
                         <p-calendar appendTo="body" dateFormat="dd/mm/yy" formControlName="ngayVanBan"
                             [style]="{'width': '100%'}" class="my-drop mg-t-55"></p-calendar>
                         <span class="p-error"
@@ -36,6 +36,17 @@
                         <label for="integeronly">Văn bản liên quan</label>
                         <textarea rows="2" formControlName="vanBanLienQuan" cols="30" class="my-drop"
                             pInputTextarea></textarea>
+                    </label>
+                </div>
+
+                <div class="field grid">
+                    <label class="col-12 md:col-12 fl-wr">
+                        <label for="integeronly">Tên nhiệm vụ/ Trích Yếu <span class="p-error">(*) </span></label>
+                        <input type="text" id="trichYeu" formControlName="trichYeu"
+                            class="my-drop mg-t-55 p-inputtext p-component p-element">
+                        <span class="p-error"
+                            *ngIf="!ThongTinNhiemVu.controls.trichYeu.valid && (ThongTinNhiemVu.controls.trichYeu.touched || submitted)">Vui
+                            lòng chọn ngày văn bản</span>
                     </label>
                 </div>
 
@@ -65,20 +76,20 @@
                     <label class="col-12 md:col-6 fl-wr">
                         <label for="integeronly">Loại nhiệm vụ<span class="p-error">(*) </span></label>
                         <p-dropdown [showClear]="true" formControlName="loaiNhiemVu" [options]="lstNhiemVu"
-                        optionValue="id" optionLabel="tenNhiemVu" [filter]="true" [style]="{'width': '100%'}" placeholder="Chọn loại nhiệm vụ"
-                        class="my-drop" ></p-dropdown>
+                            optionValue="value" optionLabel="text" [filter]="true" [style]="{'width': '100%'}"
+                            class="my-drop" (onChange)="valueTextLoaiNhiemVu($event)"></p-dropdown>
                         <span class="p-error"
-                        *ngIf="!ThongTinNhiemVu.controls.loaiNhiemVu.valid && (ThongTinNhiemVu.controls.loaiNhiemVu.touched || submitted)">Vui
-                        lòng chọn loại nhiệm vụ</span>
-                        
+                            *ngIf="!ThongTinNhiemVu.controls.loaiNhiemVu.valid && (ThongTinNhiemVu.controls.loaiNhiemVu.touched || submitted)">Vui
+                            lòng chọn loại nhiệm vụ</span>
+
                     </label>
 
                     <label class="col-12 md:col-6 fl-wr">
                         <label for="integeronly">Tính chất nhiệm vụ</label>
                         <p-dropdown [showClear]="true" formControlName="tinhChatNhiemVu" [options]="lstTinhChatNhiemVu"
-                        optionValue="id" optionLabel="ten" [filter]="true" [style]="{'width': '100%'}" placeholder="Chọn tính chất nhiệm vụ"
-                        class="my-drop" ></p-dropdown>
-                       
+                            optionValue="value" optionLabel="text" [filter]="true" [style]="{'width': '100%'}"
+                            class="my-drop" (onChange)="valueTextTinhChatNhiemVu($event)"></p-dropdown>
+
                     </label>
                 </div>
 
@@ -86,27 +97,195 @@
                     <label class="col-12 md:col-12 fl-wr">
                         <label for="integeronly">Nhóm lĩnh vực</label>
                         <p-dropdown [showClear]="true" formControlName="nhomLinhVuc" [options]="lstLinhVuc"
-                        optionValue="id" optionLabel="tenLinhVuc" [filter]="true" [style]="{'width': '100%'}" placeholder="Chọn lĩnh vực"
-                        class="my-drop" ></p-dropdown>
-                       
+                            optionValue="value" optionLabel="text" [filter]="true" [style]="{'width': '100%'}"
+                            class="my-drop" (onChange)="valueTextLinhVuc($event)"></p-dropdown>
+
                     </label>
                 </div>
 
                 <div class="field grid">
                     <label class="col-12 md:col-6 fl-wr">
                         <label for="integeronly">Chọn đơn vị<span class="p-error">(*) </span></label>
-                        <input disabled="true" type="text" id="soKyHieu" [style]="{'width': '100%'}"
+                        <input readonly="readonly" id="donVi" formControlName="tenDonVi"
                             class="my-drop mg-t-55 p-inputtext p-component p-element">
                     </label>
 
                     <label class="col-12 md:col-6 fl-wr">
                         <label for="integeronly">Lãnh đạo đơn vị<span class="p-error">(*) </span></label>
-                        <p-dropdown [showClear]="true" formControlName="nhomLinhVuc" [options]="lstLanhDao"
-                        optionValue="id" optionLabel="tenLinhVuc" [filter]="true" [style]="{'width': '100%'}" placeholder="Chọn lĩnh vực"
-                        class="my-drop" ></p-dropdown>
+                        <p-dropdown [showClear]="true" formControlName="lanhDaoSo" [options]="lstLanhDaoSo"
+                            optionValue="value" optionLabel="text" [filter]="true" [style]="{'width': '100%'}"
+                            class="my-drop" (onChange)="valueTextLanhDaoDonVi($event)"></p-dropdown>
+                        <span class="p-error"
+                            *ngIf="!ThongTinNhiemVu.controls.lanhDaoSo.valid && (ThongTinNhiemVu.controls.lanhDaoSo.touched || submitted)">Vui
+                            lòng chọn loại nhiệm vụ</span>
                     </label>
+                </div>
+
+                <div class="field grid">
+                    <label class="col-12 md:col-6 fl-wr">
+                        <label for="integeronly">Đơn vị chủ trì<span class="p-error">(*) </span></label>
+                        <p-dropdown [showClear]="true" formControlName="donViChuTri" [options]="lstDonViChuTri"
+                            optionValue="value" optionLabel="text" [filter]="true" [style]="{'width': '100%'}"
+                            class="my-drop" (ngModelChange)="changeDVCT($event)"
+                            (onChange)="valueTextDonViChuTri($event)"></p-dropdown>
+                        <span class="p-error"
+                            *ngIf="!ThongTinNhiemVu.controls.donViChuTri.valid && (ThongTinNhiemVu.controls.donViChuTri.touched || submitted)">Vui
+                            lòng chọn loại nhiệm vụ</span>
+                    </label>
+
+                    <label class="col-12 md:col-6 fl-wr">
+                        <label for="integeronly">Đơn vị phối hợp<span class="p-error">(*) </span></label>
+                        <p-multiSelect [options]="lstDonViPhoiHopChange" optionLabel="name" display="chip"
+                            [showClear]="true" optionValue="value" optionLabel="text" [style]="{'width': '100%'}"
+                            formControlName="donViPhoiHop" class="my-drop multiselect-custom"
+                            (onChange)="valueTextDonViPhoiHop($event)"></p-multiSelect>
+                    </label>
+                </div>
+
+                <div class=" field grid">
+                    <label class="col-12 md:col-12 fl-wr">
+                        <label for="integeronly">Lãnh đạo đơn vị chịu trách nhiệm</label>
+                        <textarea rows="2" formControlName="lanhDaoDonVi" cols="30" class="my-drop"
+                            pInputTextarea></textarea>
+                    </label>
+                </div>
+
+                <div class="field grid">
+                    <label class="col-12 md:col-12 fl-wr">
+                        <label for="integeronly">Ý kiến chỉ đạo</label>
+                        <textarea rows="2" formControlName="yKienChiDao" cols="30" class="my-drop"
+                            pInputTextarea></textarea>
+                    </label>
+                </div>
+
+                <div class="field">
+                    <label for="integeronly">Thời hạn hoàn thành</label>
+                    <div class="field grid">
+                        <label class="col-12 md:col-3 fl-wr">
+                            <div class="field-radiobutton">
+                                <p-radioButton name="thoiGianHoanThanh" value="1" id="thoiGianHoanThanh"
+                                    label="Có thời hạn cụ thể" formControlName="thoiGianHoanThanh"
+                                    (ngModelChange)="changeThoiGianHoanThanh($event)"></p-radioButton>
+                            </div>
+                        </label>
+                        <label class="col-12 md:col-3 fl-wr">
+                            <div class="field-radiobutton">
+                                <p-radioButton name="thoiGianHoanThanh" value="2" id="thoiGianHoanThanh"
+                                    label="Không thời hạn cụ thể" formControlName="thoiGianHoanThanh"
+                                    (ngModelChange)="changeThoiGianHoanThanh($event)"></p-radioButton>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="isHienThiThoiGian">
+                    <div class="field grid">
+                        <label class="col-12 md:col-6 fl-wr">
+                            <label for="integeronly">Thời hạn hoàn thành<span class="p-error">(*) </span></label>
+                            <p-calendar appendTo="body" dateFormat="dd/mm/yy" formControlName="thoiHanHoanThanh"
+                                [style]="{'width': '100%'}" class="my-drop mg-t-55"></p-calendar>
+                        </label>
+
+                        <label class="col-12 md:col-6 fl-wr">
+                            <label for="integeronly">Ngày chuyển văn bản<span class="p-error">(*) </span></label>
+                            <p-calendar appendTo="body" dateFormat="dd/mm/yy" formControlName="ngayChuyenVanBan"
+                                [style]="{'width': '100%'}" class="my-drop mg-t-55"></p-calendar>
+                        </label>
+                    </div>
+                </ng-container>
+
+                <div class="field grid">
+                    <label class="col-12 md:col-3 fl-wr">
+                        <label for="">Các mốc cần đạt được: </label>
+                        <div class="ml-2">
+                            <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2"
+                                (click)="ThemMoiMocNhiemVu()">
+                            </button>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="grid">
+                    <div class="col-12">
+                        <p-table styleClass="p-datatable-gridlines" #dt [columns]="cols" [value]="dataTables"
+                            responsiveLayout="scroll" [rows]="10">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="text-align: center;">STT</th>
+                                    <th style="text-align: center;">Thời hạn hoàn thành</th>
+                                    <th style="text-align: center;">Kết quả dự kiến</th>
+                                    <th style="text-align: center;">Nội dung</th>
+                                    <th style="text-align: center;">Thao tác</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-dataTable let-rowIndex="rowIndex">
+                                <tr>
+                                    <td style="width:3%; min-width:3rem; text-align: center;"><span
+                                            class="p-column-title">STT</span>
+                                        {{dataTable.stt}}
+                                    </td>
+                                    <td style="width:20%; min-width:10rem; text-align: center;"><span
+                                            class="p-column-title">Thời hạn hoàn thành</span>
+                                        {{dataTable.thoiHanHoanThanh | date: 'dd/MM/yyyy'}}
+                                    </td>
+                                    <td style="width:2ch; min-width:10rem; text-align: center;"><span
+                                            class="p-column-title">Kết quả dự kiến</span>
+                                        {{dataTable.ketQuaDuKien}}
+                                    </td>
+                                    <td style="width:30%; min-width:10rem; text-align: center;"><span
+                                            class="p-column-title">Nội dung</span>
+                                        {{dataTable.noiDung}}
+                                    </td>
+                                    <td style="width:10%; min-width:10rem;">
+                                        <div class="flex justify-content-center">
+                                            <button pButton pRipple icon="pi pi-pencil"
+                                                class="p-button-rounded p-button-success mr-2"
+                                                (click)="CapNhat(dataTable.stt)"></button>
+                                            <button pButton pRipple icon="pi pi-trash"
+                                                class="p-button-rounded p-button-warning"
+                                                (click)="Xoa(dataTable.stt)"></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td style="text-align: center; font-weight: 600;" colspan="8">Không có mốc cần đạt
+                                        được nào.</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="loadingbody">
+                                <tr>
+                                    <td colspan="8">Loading record data. Please wait.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+
+                <div class="field grid">
+                    <label class="col-12 md:col-12 fl-wr">
+                        <label for="integeronly">Ghi chú</label>
+                        <textarea rows="2" formControlName="ghiChu" cols="30" class="my-drop" pInputTextarea></textarea>
+                    </label>
+                </div>
+
+                <div class="field grid div-center mt-5">
+                    <button pbutton="" pripple="" type="submit" label="Info"
+                        class="p-element p-ripple p-button-primary p-button p-component" ng-reflect-label="Info"><span
+                            class="p-button-label" (click)="ThemMoi()">Lưu lại</span><span
+                            class="p-ink"></span></button>&nbsp;
+                    <button pbutton="" pripple="" type="submit" label="Info"
+                        class="p-element p-ripple p-button-warning p-button p-component" ng-reflect-label="Info"><span
+                            class="p-button-label">Nhập lại</span><span class="p-ink"></span></button>&nbsp;
+                    <button pbutton="" pripple="" type="button" label="Info"
+                        class="p-element p-ripple p-button-info p-button p-component" ng-reflect-label="Danger"
+                        (click)="QuayLai()"><span class="p-button-label">Trở lại danh sách</span><span
+                            class="p-ink"></span></button>
                 </div>
             </form>
         </div>
+        <app-them-moi-moc-nhiem-vu [show]="hienThiThemMoiMocNhiemVu" (close)="TatPopup($event, 'C')"
+            (dataMocNhiemVu)="ThemMoiItemMocNhiemVu($event)" [stt]="sttDataTables"></app-them-moi-moc-nhiem-vu>
     </div>
 </div>

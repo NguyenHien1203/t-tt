@@ -22,8 +22,7 @@ import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CheckboxModule } from 'primeng/checkbox';
-
-
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [TaoNhiemVuComponent],
@@ -50,6 +49,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     TreeSelectModule,
     ConfirmDialogModule,
     CheckboxModule,
+    MultiSelectModule,
   ]
 })
 export class TaoNhiemVuModule { }

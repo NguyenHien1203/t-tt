@@ -15,22 +15,22 @@
 
     .notification-dot {
         position: relative;
-        top: -10px; 
-        left: 0px; 
+        top: -10px;
+        left: 0px;
         width: 10px;
         height: 10px;
-        background-color: red; 
+        background-color: red;
         border-radius: 50%;
-        display: none; 
+        display: none;
     }
 
     .bold {
-        td{
+        td {
             font-weight: bold;
         }
     }
 
-    .has-notification{
+    .has-notification {
         display: block; /* Hiển thị chấm đỏ khi có thông báo */
     }
 
@@ -176,5 +176,12 @@
                 }
             }
         }
+    }
+}
+
+@media (max-width: 991px) {
+    .i-mg-r-0 {
+        font-size: 1rem;
+        margin-right: 0px !important;
     }
 }

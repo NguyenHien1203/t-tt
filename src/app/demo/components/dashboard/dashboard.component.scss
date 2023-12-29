@@ -1,0 +1,105 @@
+.mh-307 {
+    min-height: 307px;
+}
+
+.custom-table {
+    border-collapse: separate; // Use separate instead of collapse
+    border-spacing: 0px;
+    width:  100%;
+
+    th,
+    td {
+        border: 1px solid #ced4da;
+        padding: 15px;
+    }
+
+    .custom-rb {
+        border-right-width: 0px;
+        border-bottom-width: 0px;
+    }
+
+    .custom-b {
+        border-bottom-width: 0px;
+    }
+
+    .custom-r {
+        border-right-width: 0px;
+    }
+}
+
+.box-notification {
+    .list-group {
+        display: flex;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+    .list-group {
+        li {
+            border: 0 transparent;
+            border-bottom-width: 0px;
+            border-bottom-style: none;
+            border-bottom-color: transparent;
+            border-bottom: 1px solid rgba(238, 238, 238, 0.4);
+            background-color: transparent !important;
+            padding: 10px;
+            position: relative;
+        }
+    }
+
+    .list-group-item {
+        position: relative;
+        display: block;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: -1px;
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+    .list-group-item:first-child {
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+
+    .list-group-item {
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    .list-group-item {
+        position: relative;
+        display: block;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: -1px;
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+    .mg-l-10 {
+        margin-left: 10px;
+    }
+
+    .list-group-item {
+        a {
+            i {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            span.text-500 {
+                display: flex;
+                align-items: baseline;
+            }
+
+            span.text-green-500 {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+    }
+}

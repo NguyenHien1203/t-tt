@@ -1,23 +1,23 @@
 .custom-table {
-      border-collapse: separate; // Use separate instead of collapse
-      border-spacing: 0px;
-    
-      th, td {
+    border-collapse: separate; // Use separate instead of collapse
+    border-spacing: 0px;
+
+    th,
+    td {
         border: 1px solid #ced4da;
         padding: 15px;
-      }
-  
-      .custom-rb{
-          border-right-width: 0px;
-          border-bottom-width: 0px;
-      }
-  
-      .custom-b{
-          border-bottom-width: 0px;
-      }
-  
-      .custom-r{
-          border-right-width: 0px;
-      }
-
     }
+
+    .custom-rb {
+        border-right-width: 0px;
+        border-bottom-width: 0px;
+    }
+
+    .custom-b {
+        border-bottom-width: 0px;
+    }
+
+    .custom-r {
+        border-right-width: 0px;
+    }
+}

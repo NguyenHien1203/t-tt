@@ -34,6 +34,7 @@ import { MenuModule } from 'primeng/menu';
         AppLayoutComponent,
     ],
     imports: [
+        BadgeModule, 
         TableModule,
         OverlayPanelModule,
         DropdownModule,
@@ -45,7 +46,6 @@ import { MenuModule } from 'primeng/menu';
         BrowserAnimationsModule,
         InputTextModule,
         SidebarModule,
-        BadgeModule,
         RadioButtonModule,
         InputSwitchModule,
         RippleModule,

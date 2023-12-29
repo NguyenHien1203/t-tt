@@ -35,7 +35,16 @@
             class="p-link layout-topbar-button"
             (click)="mail.toggle($event)"
         >
-            <i class="pi pi-envelope"></i>
+            <div
+                class="flex align-items-center justify-content-center bg-red-100"
+                [ngStyle]="{
+                    width: '2.5rem',
+                    height: '2.5rem',
+                    'border-radius': '17px'
+                }"
+            >
+                <i class="pi pi-envelope text-red-500 text-xl i-mg-r-0"></i>
+            </div>
             <span>Hộp thư đến</span>
             <p-overlayPanel
                 #mail
@@ -90,11 +99,18 @@
             class="p-link layout-topbar-button"
             (click)="notifi.toggle($event)"
         >
-            <i class="pi pi-bell"></i>
-            <span>Thông báo</span>
-            <div class="notification-dot">
-                <!-- [class]=" notifis.length > 0 ? 'has-notification' : ''" -->
+            <div
+                class="flex align-items-center justify-content-center bg-yellow-100"
+                [ngStyle]="{
+                    width: '2.5rem',
+                    height: '2.5rem',
+                    'border-radius': '17px'
+                }"
+            >
+                <i class="pi pi-bell text-yellow-500 text-xl i-mg-r-0"></i>
             </div>
+
+            <span>Thông báo</span>
             <p-overlayPanel
                 #notifi
                 [showCloseIcon]="false"
@@ -151,7 +167,16 @@
             class="p-link layout-topbar-button"
             (click)="clock.toggle($event)"
         >
-            <i class="pi pi-clock"></i>
+            <div
+                class="flex align-items-center justify-content-center bg-blue-100"
+                [ngStyle]="{
+                    width: '2.5rem',
+                    height: '2.5rem',
+                    'border-radius': '17px'
+                }"
+            >
+                <i class="pi pi-clock text-blue-500 text-xl i-mg-r-0"></i>
+            </div>
             <span>Hoạt động sắp tới</span>
             <p-overlayPanel
                 #clock
@@ -185,7 +210,7 @@
                 </ng-template>
             </p-overlayPanel>
         </button>
-        <button
+        <!-- <button
             class="p-link layout-topbar-button"
             (click)="calender.toggle($event)"
         >
@@ -202,12 +227,21 @@
                     style="width: 100%"
                 />
             </p-overlayPanel>
-        </button>
+        </button> -->
         <button
             class="p-link layout-topbar-button"
             (click)="profile.toggle($event)"
         >
-            <i class="pi pi-user"></i>
+            <div
+                class="flex align-items-center justify-content-center bg-cyan-100"
+                [ngStyle]="{
+                    width: '2.5rem',
+                    height: '2.5rem',
+                    'border-radius': '17px'
+                }"
+            >
+                <i class="pi pi-user text-cyan-500 text-xl i-mg-r-0"></i>
+            </div>
             <span>Thông tin người dùng</span>
             <p-overlayPanel
                 #profile

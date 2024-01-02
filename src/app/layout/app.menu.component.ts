@@ -102,7 +102,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Văn bản đã từ chối',
                                 icon: 'pi pi-fw pi-minus',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-den/van-ban-da-tu-choi'],
                                 code: '001007',
                             },
                             {
@@ -248,7 +248,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Danh sách bàn giao công việc',
                                 icon: 'pi pi-fw pi-book',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/cong-viec/danh-sach-ban-giao-cong-viec'],
                                 code: '003005',
                             },
                             {
@@ -934,7 +934,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Văn bản đã từ chối',
                                 icon: 'pi pi-fw pi-minus',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-den/van-ban-da-tu-choi'],
                                 code: '001007',
                             },
                             {
@@ -1082,7 +1082,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Danh sách bàn giao công việc',
                                 icon: 'pi pi-fw pi-book',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/cong-viec/danh-sach-ban-giao-cong-viec'],
                                 code: '003005',
                             },
                             {

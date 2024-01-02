@@ -74,6 +74,7 @@ export class LoginComponent {
                     this.cookieService.set('token', JSON.stringify(data.objData));
                     this.cookieService.set('mUserInfo', JSON.stringify(data.objNguoiDung));
                     this.cookieService.set('idDonViLamViec', data.objNguoiDung.phongBanId);
+                   console.log(data.objNguoiDung);
                    
                     this.router.navigate([this.returnUrl])
                 }

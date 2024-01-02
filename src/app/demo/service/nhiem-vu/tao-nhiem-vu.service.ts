@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/common/auth.services';
 import { TimKiemDanhSach } from 'src/app/models/nhiem-vu/tao-nhiem-vu';
-import { TimKiemDanhSachVanBan } from 'src/app/models/van-ban-di/gui-van-ban';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -40,9 +39,15 @@ export class TaoNhiemVuService {
     return this.http.post<any>(`${this.baseUrl}/NhiemVu/TaoNhiemVu/ThemMoi`, TaoNhiemVu, this.httpOption)
   }
 
-  public GetTaoNhiemVu(id: string): Observable<any> {
-    // return this.http.get<any>(`${this.baseUrl}/NhiemVu/TaoNhiemVu/GetTaoNhiemVu/${id}`)
-    return this.http.get<any>(`${this.baseUrl}/NhiemVu/TaoNhiemVu/GetTaoNhiemVu/4`)
+  public CapNhat(TaoNhiemVu: any, id: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/NhiemVu/TaoNhiemVu/CapNhat/${id}`, TaoNhiemVu, this.httpOption)
+  }
 
+  public Xoa(id: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/NhiemVu/TaoNhiemVu/Xoa/${id}`, this.httpOption)
+  }
+
+  public GetTaoNhiemVu(id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/NhiemVu/TaoNhiemVu/GetTaoNhiemVu/${id}`)
   }
 }

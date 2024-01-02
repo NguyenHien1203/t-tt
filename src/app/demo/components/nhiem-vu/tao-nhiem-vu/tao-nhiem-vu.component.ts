@@ -18,6 +18,9 @@ export class TaoNhiemVuComponent implements OnInit {
   loading: boolean = true;
   timChinhXac: boolean = false;
   lstNhiemVu: any[] = [];
+  deleteProductDialog: boolean = false;
+  idXoa: any;
+
   ngOnInit(): void {
     this.loading = false;
     this.GetDataNhiemVu();
@@ -60,5 +63,29 @@ export class TaoNhiemVuComponent implements OnInit {
 
   public CapNhat(event: any) {
     this.router.navigate(['/nhiem-vu/cap-nhat-nhiem-vu', {id: event}]);
+  }
+
+  Xoa(id: any) {
+    this.deleteProductDialog = true;
+    this.idXoa = id;
+  }
+
+  TamDungXoa() {
+    this.deleteProductDialog = false;
+    this.idXoa = null;
+  }
+
+  XacNhanXoa() {
+    this.deleteProductDialog = false;
+    this.service.Xoa(this.idXoa).subscribe(
+      data => {
+        if (data.isError) {
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
+        } else {
+          this.GetDataNhiemVu();
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
+        }
+      }
+    )
   }
 }

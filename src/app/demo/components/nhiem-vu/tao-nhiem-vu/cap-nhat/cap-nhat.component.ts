@@ -4,7 +4,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { TaoNhiemVuService } from 'src/app/demo/service/nhiem-vu/tao-nhiem-vu.service';
-import { ar } from 'date-fns/locale';
 
 @Component({
   selector: 'app-cap-nhat',
@@ -38,7 +37,7 @@ export class CapNhatComponent implements OnInit {
 
   public ThongTinNhiemVu = this.formBuilder.group({
     soKiHieu: ["", [Validators.required]],
-    ngayVanBan: ["", [Validators.required]],
+    ngayVanBan: [new Date, [Validators.required]],
     vanBanLienQuan: ["", []],
     noiDungChinh: ["", []],
     mucTieu: ["", []],
@@ -54,8 +53,8 @@ export class CapNhatComponent implements OnInit {
     lanhDaoChiuTrachNhiem: [""],
     yKienChiDao: [""],
     thoiGianHoanThanh: [],
-    thoiHanHoanThanh: [""],
-    ngayChuyenVanBan: [""],
+    thoiHanHoanThanh: [new Date],
+    ngayChuyenVanBan: [new Date],
     ghiChu: [""],
     lanhDaoSo: [, [Validators.required]],
     lanhDaoDonVi: [""],
@@ -204,7 +203,7 @@ export class CapNhatComponent implements OnInit {
 
       this.ThongTinNhiemVu.patchValue({
         soKiHieu: dataForm.soKyHieu,
-        ngayVanBan: dataForm.ngayVanBan,
+        ngayVanBan: new Date(dataForm.ngayVanBan),
         vanBanLienQuan: dataForm.vanBanLienQuan,
         noiDungChinh: dataForm.noiDungChinh,
         mucTieu: dataForm.mucTieuCanDat,
@@ -219,11 +218,65 @@ export class CapNhatComponent implements OnInit {
         lanhDaoChiuTrachNhiem: dataForm.lanhDaoDonVi,
         yKienChiDao: dataForm.ykienChiDao,
         thoiGianHoanThanh: dataForm.thoiHanRdo,
-        thoiHanHoanThanh: dataForm.thoiHanHoanThanh,
-        ngayChuyenVanBan: dataForm.ngayChuyenVanBan,
+        thoiHanHoanThanh: new Date(dataForm.thoiHanHoanThanh),
+        ngayChuyenVanBan: new Date(dataForm.ngayChuyenVanBan),
         ghiChu: dataForm.ghiChu,
         donViPhoiHop: arrayNumber,
       })
     })
+  }
+
+  CapNhat() {
+    this.submitted = true;
+    const itemData = this.ThongTinNhiemVu.value;
+    let taoNhiemVu = {
+      soKyHieu: itemData.soKiHieu,
+      ngayVanBan: itemData.ngayVanBan,
+      vanBanLienQuan: itemData.vanBanLienQuan,
+      tenNhiemVu: itemData.trichYeu,
+      noiDungChinh: itemData.noiDungChinh,
+      mucTieuCanDat: itemData.mucTieu,
+      cacMocChinh: itemData.cacMocChinh,
+      loaiNhiemVuId: itemData.loaiNhiemVu,
+      tinhChatNhiemVuId: itemData.tinhChatNhiemVu,
+      linhVucId: itemData.nhomLinhVuc,
+      soNganhId: this.auth.GetmUserInfo().donViId,
+      tenSoNganh: this.auth.GetmUserInfo().tenDonVi,
+      donViChuTriId: itemData.donViChuTri,
+      donViPhoiHopId: itemData.donViPhoiHop?.toString(),
+      lanhDaoSoId: itemData.lanhDaoSo,
+      lanhDaoDonVi: itemData.lanhDaoChiuTrachNhiem,
+      yKienChiDao: itemData.yKienChiDao,
+      thoiHanRdo: Number(itemData.thoiGianHoanThanh),
+      thoiHanHoanThanh: itemData.thoiHanHoanThanh,
+      ngayChuyenVanBan: itemData.ngayChuyenVanBan,
+      ghiChu: itemData.ghiChu,
+      tenNguoiTao: this.auth.GetmUserInfo().userName,
+      donViLamViecId: this.auth.GetmUserInfo().phongBanLamViecId,
+      createdBy: this.auth.GetmUserInfo().userId,
+      tenNhomLinhVuc: itemData.tenNhomLinhVuc,
+      tenLoaiNhiemVu: itemData.tenLoaiNhiemVu,
+      tenTinhChat: itemData.tenTinhChat,
+      tenLanhDao: itemData.tenLanhDao,
+      tenDonViChuTri: itemData.tenDonViChuTri,
+      tenDonViPhoiHop: itemData.tenDonViPhoiHop,
+      lstMocNhiemVu: this.dataTables,
+    }
+    const id = this.route.snapshot.paramMap.get('id');
+    if (this.ThongTinNhiemVu.valid) {
+      this.submitted = true;
+      this.service.CapNhat(taoNhiemVu, id).subscribe(data => {
+        let resData = data;
+        console.log(data);
+        if (resData.isError) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title, life: 3000 });
+        } else {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title, life: 3000 });
+          setTimeout(() => {
+            this.QuayLai();
+          }, 2000);
+        }
+      })
+    }
   }
 }

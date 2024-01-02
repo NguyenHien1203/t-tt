@@ -225,7 +225,9 @@ export class ThemMoiComponent implements OnInit {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title, life: 3000 });
         } else {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title, life: 3000 });
-          this.QuayLai();
+          setTimeout(() => {
+            this.QuayLai();
+          }, 2000);
         }
       })
     }

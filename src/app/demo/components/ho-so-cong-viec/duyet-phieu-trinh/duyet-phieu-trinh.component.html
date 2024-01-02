@@ -12,7 +12,7 @@
     </div>
 
     <div class="col-12">
-        <div class="card">
+        <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
             <h2>TÌM KIẾM</h2>
             <div class="field grid">
                 <label class="col-12 md:col-3 fl-wr">
@@ -194,13 +194,15 @@
                                 <td class="text-center">
                                     <div class="div-center">
                                         <button
-                                        *ngIf="item.trangThai == 0"
+                                            *ngIf="item.trangThai == 0"
                                             pButton
                                             pRipple
                                             icon="pi pi-check"
                                             (click)="XuLy(item.id)"
                                             class="p-button-rounded p-button-info mr-2"
-                                        >&nbsp; Xử lý</button>
+                                        >
+                                            &nbsp; Xử lý
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -260,5 +262,9 @@
         </button>
     </ng-template>
 </p-confirmDialog>
-<app-xu-ly [id]="id" [show]="hienThiXuLy" (tatPopup)="Thoat($event, 'X')"></app-xu-ly>
+<app-xu-ly
+    [id]="id"
+    [show]="hienThiXuLy"
+    (tatPopup)="Thoat($event, 'X')"
+></app-xu-ly>
 <p-toast></p-toast>

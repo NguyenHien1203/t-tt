@@ -9,9 +9,14 @@ import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { DashboardsRoutingModule } from './dashboard-routing.module';
+import { CalendarModule } from 'primeng/calendar';
+import { TabViewModule } from 'primeng/tabview';
 
 @NgModule({
     imports: [
+        TabViewModule,
+        ButtonModule,
+        CalendarModule,
         CommonModule,
         FormsModule,
         ChartModule,

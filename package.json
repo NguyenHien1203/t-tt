@@ -13,7 +13,7 @@
     "private": true,
     "dependencies": {
         "@angular/animations": "^16.2.10",
-        "@angular/cdk": "^16.2.10",
+        "@angular/cdk": "^16.2.12",
         "@angular/common": "^16.2.10",
         "@angular/compiler": "^16.2.10",
         "@angular/core": "^16.2.10",
@@ -34,6 +34,7 @@
         "@fullcalendar/interaction": "^6.0.3",
         "@fullcalendar/timegrid": "^6.0.3",
         "chart.js": "^3.3.2",
+        "chartjs-plugin-datalabels": "^2.2.0",
         "date-fns": "^2.30.0",
         "file-saver": "^2.0.5",
         "html2canvas": "^1.4.1",

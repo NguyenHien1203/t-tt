@@ -15,11 +15,12 @@ export class TraCuuDonGianComponent {
         private service: TraCuuDonGianService,
         private messageService: MessageService,
         private authService: AuthService
-    ) { }
+    ) {}
 
-    idDonViLamViec: string = this.authService.GetDonViLamViec() ?? "0";
-    idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? "0";
-    idUser: string = this.authService.GetmUserInfo()?.userId ?? "0";
+    hienThiChiTiet: boolean = false;
+    idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
+    idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
+    idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     yearOptions: SelectItem[] = [];
     monthOptions: SelectItem[] = [];
     timChinhXac: boolean = false;
@@ -32,13 +33,13 @@ export class TraCuuDonGianComponent {
     public home = { icon: 'pi pi-home', routerLink: '/' };
     public items = [{ label: 'Văn bản đi' }, { label: 'Tra cứu đơn giản' }];
     public timKiemDanhSach: TimKiemDanhSach = {
-        keyWord: "",
+        keyWord: '',
         donViId: Number(this.idDonViLamViec),
         nam: new Date().getFullYear(),
         thang: 0,
         phongBanId: Number(this.idPhongBan),
         userId: Number(this.idUser),
-        timChinhXac: 0
+        timChinhXac: 0,
     };
 
     ngOnInit(): void {
@@ -56,18 +57,31 @@ export class TraCuuDonGianComponent {
             });
     }
 
+    public ChiTiet(id: string) {
+        this.id = id;
+        this.hienThiChiTiet = true;
+    }
+
     public CheckedHt(): void {
         this.timChinhXac = !this.timChinhXac;
+    }
+
+    public Thoat(itemHt: any, loai: string) {
+        if (loai == 'CT') this.hienThiChiTiet = false;
+        this.LoadDanhSach();
     }
 
     public BindNamThang() {
         const currentYear = new Date().getFullYear();
         for (let i = currentYear + 1; i >= currentYear - 5; i--) {
-            this.yearOptions.push({ label: "Năm " + i.toString(), value: i });
+            this.yearOptions.push({ label: 'Năm ' + i.toString(), value: i });
         }
 
         for (let i = 1; i < 12; i++) {
-            this.monthOptions.push({ label: "Tháng " + i.toString(), value: i });
+            this.monthOptions.push({
+                label: 'Tháng ' + i.toString(),
+                value: i,
+            });
         }
     }
 }

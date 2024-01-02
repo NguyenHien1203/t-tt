@@ -24,9 +24,10 @@ import { TheoDoiTienDoComponent } from './theo-doi-tien-do.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
+import { NoiDungCongViecComponent } from './noi-dung-cong-viec/noi-dung-cong-viec.component';
 
 @NgModule({
-  declarations: [TheoDoiTienDoComponent],
+  declarations: [TheoDoiTienDoComponent, NoiDungCongViecComponent],
   imports: [
     CommonModule,
     TheoDoiTienDoRoutingModule,

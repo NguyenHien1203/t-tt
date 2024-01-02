@@ -14,7 +14,7 @@ export class UploadFileService {
             'Content-Type': 'application/*',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     postFile(file: File): Observable<any> {
         const formData: FormData = new FormData();
@@ -34,13 +34,24 @@ export class UploadFileService {
         }
     }
 
+
+    uploadMultipleFiles(file: any, url: string): any {
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file, file.name);
+            return this.http.post(
+                environment.baseUrlApi + url, formData
+            );
+        }
+    }
+
     uploadMutipleFile(file: any): any {
         if (file) {
             const formData = new FormData();
             formData.append('file', file, file.name);
             return this.http.post(
                 environment.baseUrlApi +
-                    '/VanBanDen/CapNhatMoiVanBanDen/UploadMutipleFile',
+                '/VanBanDen/CapNhatMoiVanBanDen/UploadMutipleFile',
                 formData
             );
         }
@@ -52,7 +63,7 @@ export class UploadFileService {
             formData.append('file', file, file.name);
             return this.http.post(
                 environment.baseUrlApi +
-                    '/CongViec/XuLyCongViec/UploadMutipleFile',
+                '/CongViec/XuLyCongViec/UploadMutipleFile',
                 formData
             );
         }
@@ -66,11 +77,11 @@ export class UploadFileService {
         }
     }
 
-    downloadFile(filePath: string, fileName : string , urlDownLoad){
-      const headers = new HttpHeaders().set('Accept', 'application/octet-stream');
-      return this.http.get(environment.baseUrlApi + urlDownLoad+ "?filePath="+ filePath + "&fileName=" + fileName, {
-        headers,
-        responseType: 'blob', // Xác định responseType là 'blob'.
-      });
+    downloadFile(filePath: string, fileName: string, urlDownLoad) {
+        const headers = new HttpHeaders().set('Accept', 'application/octet-stream');
+        return this.http.get(environment.baseUrlApi + urlDownLoad + "?filePath=" + filePath + "&fileName=" + fileName, {
+            headers,
+            responseType: 'blob', // Xác định responseType là 'blob'.
+        });
     }
 }

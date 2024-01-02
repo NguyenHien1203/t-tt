@@ -30,6 +30,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { GuiVanBanComponent } from './gui-van-ban/gui-van-ban.component';
 import { TreeNodeComponent } from './tree-node/tree-node.component';
 import { ChonVanBanComponent } from './gui-van-ban/chon-van-ban/chon-van-ban.component';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { ChonVanBanComponent } from './gui-van-ban/chon-van-ban/chon-van-ban.com
     CalendarModule,
     TabViewModule,
     CommonModule,
+    ChiTietVanBanModule,
     CapNhatMoiRoutingModule
   ]
 })

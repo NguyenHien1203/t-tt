@@ -1,0 +1,568 @@
+<p-dialog
+    [(visible)]="show"
+    [style]="{ width: '1100px' }"
+    header="Chi tiết văn bản"
+    [modal]="true"
+    class="p-fluid"
+    (onHide)="Thoat()"
+    (onShow)="BindDialogData()"
+>
+    <ng-template pTemplate="content">
+        <p-tabView orientation="left">
+            <p-tabPanel header="Thông tin văn bản" class="line-height-3 m-0">
+                <div class="card my-card">
+                    <div class="flex">
+                        <div class="my-item-flex justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background my-border-radius-tl"
+                            >
+                                Số ký hiệu:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3"
+                            >
+                                <label>{{ objVanBan?.soKyHieu }}</label>
+                            </div>
+                        </div>
+                        <div class="my-item-flex justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background"
+                            >
+                                Loại văn bản:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3 my-border-radius-tr"
+                            >
+                                <label>{{ objVanBan?.tenLoaiVanBan }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="my-item-flex justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background"
+                            >
+                                Ngày ban hành:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3"
+                            >
+                                <label>{{
+                                    objVanBan?.ngayBanHanh | date : "dd/MM/yyyy"
+                                }}</label>
+                            </div>
+                        </div>
+                        <div class="my-item-flex justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background"
+                            >
+                                Ngày nhận/gửi văn bản:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3"
+                            >
+                                <label>{{
+                                    objVanBanNhanGui?.loaiVanBanDiDen == 0
+                                        ? objVanBanNhanGui?.NgayNhan
+                                        : (objVanBanNhanGui?.NgayGui
+                                          | date : "dd/MM/yyyy")
+                                }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="my-item-flex justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background"
+                            >
+                                Sổ văn bản:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3"
+                            >
+                                <label>{{ objVanBan?.tenSoVanBan }}</label>
+                            </div>
+                        </div>
+                        <div class="my-item-flex justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background"
+                            >
+                                Số hiện tại:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3"
+                            >
+                                <label>{{ objVanBanNhanGui?.soHienTai }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="my-item-flex justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background"
+                            >
+                                Trạng thái:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3"
+                            >
+                                <label>{{
+                                    objVanBanNhanGui?.tenTrangThai
+                                }}</label>
+                            </div>
+                        </div>
+                        <div class="my-item-flex justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background"
+                            >
+                                Số ban hành:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3"
+                            >
+                                <label>{{ objVanBan?.soBanHanh }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="my-item-flex justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background"
+                            >
+                                Cơ quan ban hành:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3"
+                            >
+                                <label>{{ objVanBan?.coQuanBanHanh }}</label>
+                            </div>
+                        </div>
+                        <div class="my-item-flex justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background"
+                            >
+                                Mã định danh:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3"
+                            >
+                                <label>{{ objVanBan?.maDinhDanh }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="my-item-flex justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background"
+                            >
+                                Mức độ:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3"
+                            >
+                                <label>{{ objVanBan?.tenMucDo }}</label>
+                            </div>
+                        </div>
+                        <div class="my-item-flex justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background"
+                            >
+                                Số đi/đến:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3"
+                            >
+                                <label>{{ objVanBanNhanGui?.soDiDen }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="my-item-flex-100 justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background"
+                            >
+                                Trích yếu:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3"
+                            >
+                                <label
+                                    *ngIf="
+                                        [2, 5, 35, 36].includes(
+                                            objVanBanNhanGui?.trangThai
+                                        ) &&
+                                            objVanBanNhanGui?.checkCapNhat == 2;
+                                        else trichYeuData
+                                    "
+                                    >{{ objVanBanNhanGui?.trichYeu }}</label
+                                >
+                                <ng-template #trichYeuData>
+                                    <label>{{ objVanBan?.trichYeu }}</label>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="my-item-flex-100 justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background my-border-radius-bl"
+                            >
+                                Nơi nhận khác:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3 my-border-radius-br"
+                            >
+                                <label>{{ objVanBan?.noiNhanKhac }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="flex"
+                        *ngIf="objVanBanNhanGui?.loaiVanBanDiDen == 0"
+                    >
+                        <div class="my-item-flex-100 justify-content-between">
+                            <div
+                                class="my-item-flex-left my-bd-right my-bd-bottom p-3 my-background my-border-radius-bl"
+                            >
+                                Ý kiến tham mưu:
+                            </div>
+                            <div
+                                class="my-item-flex-right my-bd-right my-bd-bottom p-3 my-border-radius-br"
+                            >
+                                <label>{{ objVanBan?.yKienThamMuu }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel
+                header="Thông tin đã gửi"
+                class="line-height-3 m-0"
+                *ngIf="objVanBanNhanGui?.loaiVanBanDiDen == 1"
+            >
+                <div class="field grid">
+                    <div class="col-12 md:col-12">
+                        <b [style]="{ color: '#006699' }">
+                            :: Văn bản được gửi tới
+                            <span [style]="{ color: '#FF3300' }">
+                                {{ countVanBanDaGui }}</span
+                            >
+                            đơn vị :: (Trong đó
+                            <span [style]="{ color: '#FF3300' }">{{
+                                countVanBanPhaiBaoCao
+                            }}</span>
+                            đơn vị phải có báo cáo trả lời)</b
+                        >
+                        <p-table
+                            [value]="lstVanBanDaGui"
+                            styleClass="p-datatable-gridlines"
+                            [columns]="cols"
+                            responsiveLayout="scroll"
+                            [rows]="10"
+                        >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Ngày gửi</th>
+                                    <th>Nơi nhận</th>
+                                    <th>Thời gian nhận</th>
+                                    <th>Tiến độ</th>
+                                    <th>Xem báo cáo</th>
+                                    <th>Báo cáo</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template
+                                pTemplate="body"
+                                let-item
+                                let-rowIndex="rowIndex"
+                            >
+                                <tr>
+                                    <td>
+                                        {{ rowIndex + 1 }}
+                                    </td>
+                                    <td>
+                                        {{ item.ngayGui | date : "dd/MM/yyyy" }}
+                                    </td>
+                                    <td>
+                                        {{ item.noiNhan }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            item.thoiGianNhan
+                                                | date : "dd/MM/yyyy"
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{ item.tienDo }}
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        {{
+                                            item.baoCao
+                                                ? "Phải báo cáo"
+                                                : "Không phải báo cáo"
+                                        }}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="10">No record found.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel
+                header="Thông tin văn bản phân phối"
+                class="line-height-3 m-0"
+            >
+                <div
+                    *ngIf="
+                        objVanBanNhanGui?.publicNoiDung == 1;
+                        else tempPhanPhoiVanBan
+                    "
+                >
+                    <label class="my-font my-font-color"
+                        >Văn bản phân phối toàn cơ quan.</label
+                    >
+                </div>
+
+                <ng-template #tempPhanPhoiVanBan>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-6">
+                            <div class="my-font-size mb-3">
+                                Gửi văn bản tới
+                                <span class="my-font-table-color">{{
+                                    countPhanPhoiCaNhan
+                                }}</span>
+                                cá nhân.
+                            </div>
+                            <p-table
+                                [value]="lstVanBanDaPhanPhoiCaNhan"
+                                styleClass="p-datatable-gridlines"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="10"
+                            >
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên cá nhân</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-item
+                                    let-rowIndex="rowIndex"
+                                >
+                                    <tr>
+                                        <td>
+                                            {{ rowIndex + 1 }}
+                                        </td>
+                                        <td>
+                                            {{ item.tenCaNhan }}
+                                        </td>
+                                        <td>
+                                            {{ item.trangThai }}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="10">No record found.</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+
+                        <div class="field col-12 md:col-6">
+                            <div class="my-font-size mb-3">
+                                Gửi văn bản tới
+                                <span class="my-font-table-color">{{
+                                    countPhanPhoiDonVi
+                                }}</span>
+                                phòng ban.
+                            </div>
+                            <p-table
+                                [value]="lstVanBanDaPhanPhoiDonVi"
+                                styleClass="p-datatable-gridlines"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="10"
+                            >
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên đơn vị</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-item
+                                    let-rowIndex="rowIndex"
+                                >
+                                    <tr>
+                                        <td>
+                                            {{ rowIndex + 1 }}
+                                        </td>
+                                        <td>
+                                            {{ item.tenPhongBan }}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="10">No record found.</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <!-- <ng-template #temp2>
+                <div>
+                    Không có dữ liệu...
+                </div>
+            </ng-template> -->
+            </p-tabPanel>
+            <p-tabPanel header="Chi tiết văn bản" class="line-height-3 m-0">
+                <div class="roboto">
+                    <table class="custom-table">
+                        <tr>
+                            <td class="custom-rb">Trích yếu</td>
+                            <td class="custom-b" colspan="3">
+                                <label
+                                    *ngIf="
+                                        [2, 5, 35, 36].includes(
+                                            objVanBanNhanGui?.trangThai
+                                        ) &&
+                                            objVanBanNhanGui?.checkCapNhat == 2;
+                                        else trichYeuData
+                                    "
+                                    >{{ objVanBanNhanGui?.trichYeu }}</label
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-r">File ký số</td>
+                            <td class="custom-r">
+                                <ul>
+                                    <li *ngFor="let file of lstFileKySo">
+                                        <span>
+                                            <a
+                                                (click)="
+                                                    DownloadFile(
+                                                        file.filePath,
+                                                        file.fileName
+                                                    )
+                                                "
+                                                href="javascript:;"
+                                                >{{ file.fileName }}</a
+                                            >
+                                        </span>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td class="custom-r">File văn bản</td>
+                            <td class="">
+                                <ul>
+                                    <li *ngFor="let file of lstFileVanBan">
+                                        <span>
+                                            <a
+                                                (click)="
+                                                    DownloadFile(
+                                                        file.filePath,
+                                                        file.fileName,
+                                                        objVanBan?.loaiVanBanDiDen
+                                                    )
+                                                "
+                                                href="javascript:;"
+                                                >{{ file.fileName }}</a
+                                            >
+                                        </span>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Văn bản liên quan" class="line-height-3 m-0">
+                <p-table
+                    [value]="lstVanBanLienQuan"
+                    styleClass="p-datatable-gridlines"
+                    [columns]="cols"
+                    responsiveLayout="scroll"
+                    [rows]="10"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>STT</th>
+                            <th>Số ký hiệu</th>
+                            <th>Trích yếu</th>
+                            <th>File văn bản liên quan</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template
+                        pTemplate="body"
+                        let-item
+                        let-rowIndex="rowIndex"
+                    >
+                        <tr>
+                            <td>
+                                {{ rowIndex + 1 }}
+                            </td>
+                            <td>
+                                {{ item.soKyHieu }}
+                            </td>
+                            <td>
+                                {{ item.trichYeu }}
+                            </td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="let file of item.lstFileVanBan">
+                                        <span>
+                                            <a
+                                                (click)="
+                                                    DownloadFile(
+                                                        file.filePath,
+                                                        file.fileName,
+                                                        objVanBan?.loaiVanBanDiDen
+                                                    )
+                                                "
+                                                href="javascript:;"
+                                                >{{ file.fileName }}</a
+                                            >
+                                        </span>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="10">No record found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+        </p-tabView>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            ng-reflect-label="Info"
+            (click)="Thoat()"
+        >
+            <span class="p-button-label"><i class="pi pi-times"></i>&nbsp;Thoát</span
+            ><span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-dialog>

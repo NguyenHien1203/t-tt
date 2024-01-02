@@ -12,7 +12,7 @@
     </div>
 
     <div class="col-12">
-        <div class="card">
+        <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
             <h2>TÌM KIẾM</h2>
             <div class="field grid">
                 <label class="col-12 md:col-2 fl-wr">
@@ -212,7 +212,12 @@
                                     {{ rowIndex + 1 }}
                                 </td>
                                 <td>
-                                    {{ item.tenPhieuTrinh }}
+                                    <a
+                                        href="javascrip:;"
+                                        (click)="ChiTiet(item.id)"
+                                    >
+                                        {{ item.tenPhieuTrinh }}</a
+                                    >
                                 </td>
                                 <td>
                                     {{ item.tenNguoiTrinh }}
@@ -236,6 +241,10 @@
                                 <td class="text-center">
                                     <div class="div-center">
                                         <button
+                                            *ngIf="
+                                                item.trangThai == 0 ||
+                                                item.trangThai == 3
+                                            "
                                             pButton
                                             pRipple
                                             icon="pi pi-pencil"
@@ -243,6 +252,10 @@
                                             class="p-button-rounded p-button-success mr-2"
                                         ></button>
                                         <button
+                                            *ngIf="
+                                                item.trangThai == 0 &&
+                                                item.trangThai == 3
+                                            "
                                             pButton
                                             pRipple
                                             (click)="Xoa(item.id)"
@@ -317,4 +330,9 @@
     [show]="hienThiCapNhat"
     (tatPopup)="Thoat($event, 'C')"
 ></app-cap-nhat>
+<app-chi-tiet-phieu-trinh
+    [id]="id"
+    [show]="hienThiChiTiet"
+    (tatPopup)="Thoat($event, 'CT')"
+></app-chi-tiet-phieu-trinh>
 <p-toast></p-toast>

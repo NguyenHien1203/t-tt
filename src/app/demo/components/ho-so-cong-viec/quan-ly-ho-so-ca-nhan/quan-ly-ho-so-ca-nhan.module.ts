@@ -31,6 +31,7 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
 import { ChonPhieuTrinhComponent } from './chon-phieu-trinh/chon-phieu-trinh.component';
 import { ChonCongViecComponent } from './chon-cong-viec/chon-cong-viec.component';
 import { ChonVanBanComponent } from './chon-van-ban/chon-van-ban.component';
+import { ChiTietHoSoCongViecModule } from '../chi-tiet-ho-so-cong-viec/chi-tiet-ho-so-cong-viec.module';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { ChonVanBanComponent } from './chon-van-ban/chon-van-ban.component';
     CalendarModule,
     TabViewModule,
     CommonModule,
+    ChiTietHoSoCongViecModule,
     QuanLyHoSoCaNhanRoutingModule
   ]
 })

@@ -33,7 +33,7 @@ export class ThemMoiPhieuTrinhService {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/HoSoCongViec/PhieuTrinh/GetPhieuTrinhById/' +
+                    '/HoSoCongViec/XuLyPhieuTrinh/GetPhieuTrinhById/' +
                     id
             )
             .toPromise()

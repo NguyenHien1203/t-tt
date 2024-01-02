@@ -248,9 +248,8 @@ export class CapNhatComponent {
         const FileInput: File = event.target.files[0];
         if (FileInput) {
             event.target.value = '';
-            this.file = FileInput;
             let urlSave = '/VanBanDi/CapNhatMoi/UpLoadFile';
-            this.uploadfileService.uploadFiles(this.file, urlSave).subscribe({
+            this.uploadfileService.uploadFiles(FileInput, urlSave).subscribe({
                 next: (data) => {
                     if (data.isError)
                         this.messageService.add({
@@ -259,6 +258,7 @@ export class CapNhatComponent {
                             detail: 'Tải lên thất bại',
                         });
                     else {
+            this.file = FileInput;
                         this.messageService.add({
                             severity: 'info',
                             summary: 'Info',

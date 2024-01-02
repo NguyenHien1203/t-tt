@@ -28,6 +28,7 @@ import { SoVanBanDiComponent } from './so-van-ban-di.component';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { InSoVanBanComponent } from './in-so-van-ban/in-so-van-ban.component';
 import { ConfirmationService } from 'primeng/api';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { ConfirmationService } from 'primeng/api';
     CalendarModule,
     TabViewModule,
     CommonModule,
+    ChiTietVanBanModule,
     SoVanBanDiRoutingModule
   ]
 })

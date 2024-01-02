@@ -1,0 +1,229 @@
+<p-dialog
+    [(visible)]="show"
+    [draggable]="true"
+    [resizable]="false"
+    (onShow)="BindDialogData()"
+    (onHide)="Thoat()"
+    [style]="{ width: '950px' }"
+    [modal]="true"
+    header="Chi tiết hồ sơ"
+>
+    <ng-template pTemplate="content" class="print-dialog">
+        <div class="roboto">
+            <div class="field grid">
+                <div class="col-12 md:col-12">
+                    <table class="custom-table">
+                        <tr>
+                            <td class="custom-rb"><b>Mã hồ sơ</b></td>
+                            <td class="custom-rb">
+                                {{ hoSoCongViec?.maHoSo }}
+                            </td>
+                            <td class="custom-rb"><b>Trạng thái</b></td>
+                            <td class="custom-b">
+                                {{ hoSoCongViec?.tenTrangThai }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb"><b>Ngày nhập</b></td>
+                            <td class="custom-rb">
+                                {{
+                                    hoSoCongViec?.ngayNhap | date : "dd/MM/yyyy"
+                                }}
+                            </td>
+                            <td class="custom-rb"><b>Người lập</b></td>
+                            <td class="custom-b">
+                                {{ hoSoCongViec?.tenNguoiLap }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb"><b>Đặc điểm</b></td>
+                            <td class="custom-rb">
+                                {{ hoSoCongViec?.dacDiem }}
+                            </td>
+                            <td class="custom-rb"><b>Ghi chú</b></td>
+                            <td class="custom-b">
+                                {{ hoSoCongViec?.ghiChu }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <b>Tiêu đề</b>
+                            </td>
+                            <td class="custom-b" colspan="3">
+                                {{ hoSoCongViec?.tieuDe }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-r"><b>File đính kèm</b></td>
+                            <td class="" colspan="3">
+                                <ul>
+                                    <li
+                                        *ngFor="
+                                            let file of hoSoCongViec?.lstFile
+                                        "
+                                    >
+                                        <span>
+                                            <a
+                                                (click)="
+                                                    DownloadFile(
+                                                        file.filePath,
+                                                        file.fileName
+                                                    )
+                                                "
+                                                href="javascript:;"
+                                                >{{ file.fileName }}</a
+                                            >
+                                        </span>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="field grid">
+                <div class="col-12 md:col-12">
+                    <p-table
+                        #dt1
+                        [value]="hoSoCongViec?.lstVanBanDinhKem"
+                        [rowHover]="true"
+                        styleClass="p-datatable-gridlines"
+                        responsiveLayout="scroll"
+                    >
+                    <ng-template pTemplate="caption"> Văn bản đính kèm </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Số ký hiệu
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Trích yếu
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Ngày ban hành
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Cơ quan ban hành
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template
+                            pTemplate="body"
+                            let-item
+                            let-rowIndex="rowIndex"
+                        >
+                            <tr>
+                                <td>
+                                    {{ item.soKyHieu }}
+                                </td>
+                                <td>
+                                    {{ item.trichYeu }}
+                                </td>
+                                <td>
+                                    {{ item.ngayBanHanh | date : "dd/MM/yyyy" }}
+                                </td>
+
+                                <td>
+                                    {{ item.coQuanBanHanh }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="10">No record found.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+
+            <div class="field grid">
+                <div class="col-12 md:col-12">
+                    <p-table
+                        #dt1
+                        [value]="hoSoCongViec?.lstCongViecDinhKem"
+                        [rowHover]="true"
+                        styleClass="p-datatable-gridlines"
+                        responsiveLayout="scroll"
+                    >
+                        <ng-template pTemplate="caption"> Công việc đính kèm </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Văn bản
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Nội dung công việc
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Ngày bắt đầu
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Ngày kết thúc
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template
+                            pTemplate="body"
+                            let-item
+                            let-rowIndex="rowIndex"
+                        >
+                            <tr>
+                                <td>
+                                    {{ item.vanBan }}
+                                </td>
+                                <td>
+                                    {{ item.noiDungCongViec }}
+                                </td>
+                                <td>
+                                    {{ item.ngayBatDau | date : "dd/MM/yyyy" }}
+                                </td>
+
+                                <td>
+                                    {{ item.ngayKetThuc | date : "dd/MM/yyyy" }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="10">No record found.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

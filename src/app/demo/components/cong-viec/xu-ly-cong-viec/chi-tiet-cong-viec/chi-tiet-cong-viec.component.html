@@ -254,7 +254,7 @@
                                         {{ rowIndex + 1 }}
                                     </td>
                                     <td>
-                                        {{ caNhanThucHien.ngayThucHien | date : "dd/MM/yyyy" }}
+                                        {{ caNhanThucHien.ngayXL | date : "dd/MM/yyyy" }}
                                     </td>
                                     <td>
                                         {{ caNhanThucHien.noiDung}}
@@ -262,19 +262,19 @@
                                     <td>
                                         <ul>
                                             <li *ngFor="
-                                                            let file of caNhanThucHien.lstFileDinhKem
+                                                            let file of caNhanThucHien.lstFileCongViecChiTieu
                                                         ">
                                                 <a (click)="
                                                                 DownloadFile(
-                                                                    file.filePath,
-                                                                    file.fileName
+                                                                    file.path,
+                                                                    file.name
                                                                 )
-                                                            " href="javascript:;">{{ file.fileName }}</a>
+                                                            " href="javascript:;">{{ file.name }}</a>
                                             </li>
                                         </ul>
                                     </td>
                                     <td>
-                                        {{ caNhanThucHien.nguoiThucHien}}
+                                        {{ caNhanThucHien.hoTenDem}}
                                     </td>
                                     <td>
                                         {{ caNhanThucHien.vaiTro}}
@@ -320,8 +320,8 @@
                     <!-- Input comment -->
                     <div class="input-container">
                         <div class="flex-container">
-                            <textarea [(ngModel)]="NoiDungTraoDoi" rows="1" cols="10" placeholder="Thêm bình luận" class="my-drop"
-                                pInputTextarea></textarea>
+                            <textarea [(ngModel)]="NoiDungTraoDoi" rows="1" cols="10" placeholder="Thêm bình luận"
+                                class="my-drop" pInputTextarea></textarea>
                         </div>
                         <div class="right">
                             <a href="javascript:;" (click)="GuiTraoDoi()"><u>Gửi</u></a>
@@ -331,7 +331,8 @@
             </div>
 
             <div *ngFor="let comment of lstTraoDoi" class="comment">
-                <p><strong>{{ comment.fullName }}</strong> <span class="timestamp">{{ comment.createDate | date: 'dd/MM/yyyy HH:mm'
+                <p><strong>{{ comment.fullName }}</strong> <span class="timestamp">{{ comment.createDate | date:
+                        'dd/MM/yyyy HH:mm'
                         }}</span></p>
                 <p>{{ comment.noiDung }}</p>
                 <a href="javascript:;" (click)="toggleReply(comment)"><u>Trả lời</u></a>
@@ -340,15 +341,17 @@
                     <a href="javascript:;" (click)="submitReply(comment)"><u>Gửi</u></a>
                 </div>
                 <div>
-                    <a class="fontsize" *ngIf="comment.lstReply && comment.lstReply.length > 0" href="javascript:;" (click)="ShowSearch()">{{
+                    <a class="fontsize" *ngIf="comment.lstReply && comment.lstReply.length > 0" href="javascript:;"
+                        (click)="ShowSearch()">{{
                         !isShowSearch
                         ? "Hiển thị bình luận"
                         : "Ẩn bình luận"
                         }}</a>
-                    <div *ngIf="isShowSearch" >
+                    <div *ngIf="isShowSearch">
                         <div *ngIf="comment.lstReply && comment.lstReply.length > 0">
                             <div *ngFor="let commentchild of comment.lstReply" class="comment">
-                                <p><strong>{{ commentchild.fullName }}</strong> <span class="timestamp">{{ commentchild.createDate |
+                                <p><strong>{{ commentchild.fullName }}</strong> <span class="timestamp">{{
+                                        commentchild.createDate |
                                         date:
                                         'dd/MM/yyyy HH:mm' }}</span></p>
                                 <p>{{ commentchild.noiDung }}</p>

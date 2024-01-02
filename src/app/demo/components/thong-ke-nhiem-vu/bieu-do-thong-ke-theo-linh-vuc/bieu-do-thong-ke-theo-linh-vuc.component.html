@@ -1,0 +1,123 @@
+<div class="grid">
+    <div class="col-12">
+        <p-breadcrumb
+            class="max-w-full"
+            [model]="items"
+            [home]="home"
+        ></p-breadcrumb>
+    </div>
+    <div class="col-12 pt-0">
+        <p-toast></p-toast>
+        <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
+            <h2>BIỂU ĐỒ THỐNG KÊ THEO LĨNH VỰC</h2>
+            <div class="field grid">
+                <div class="col-12 md:col-12">
+                    <div class="roboto">
+                        <table class="custom-table">
+                            <tbody>
+                                <tr>
+                                    <td
+                                        class="text-center custom-rb"
+                                        rowspan="5"
+                                    >
+                                        Tổng số (
+                                        {{ objDataBieuDo?.countAll }} )
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="custom-rb">
+                                        Hoàn thành đúng hạn
+                                    </td>
+                                    <td class="custom-b" style="color: #02a0ff">
+                                        {{
+                                            objDataBieuDo?.countTongSoLinhVucHTDungHan
+                                        }}
+                                        (
+                                        {{
+                                            objDataBieuDo?.percentLinhVucHTDungHan
+                                        }}
+                                        )
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="custom-rb">
+                                        Hoàn thành quá hạn
+                                    </td>
+                                    <td class="custom-b" style="color: #f7be31">
+                                        {{
+                                            objDataBieuDo?.countTongSoLinhVucHTQuaHan
+                                        }}
+                                        (
+                                        {{
+                                            objDataBieuDo?.percentLinhVucHTQuaHan
+                                        }}
+                                        )
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="custom-rb">
+                                        Đang thực hiện trong hạn
+                                    </td>
+                                    <td class="custom-b" style="color: #23bf08">
+                                        {{
+                                            objDataBieuDo?.countTongSoLinhVucDXLDungHan
+                                        }}
+                                        (
+                                        {{
+                                            objDataBieuDo?.percentLinhVucDXLDungHan
+                                        }}
+                                        )
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="custom-rb">
+                                        Đang thực hiện quá hạn
+                                    </td>
+                                    <td class="custom-b" style="color: #e15360">
+                                        {{
+                                            objDataBieuDo?.countTongSoLinhVucDXLQuaHan
+                                        }}
+                                        (
+                                        {{
+                                            objDataBieuDo?.percentLinhVucDXLQuaHan
+                                        }}
+                                        )
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table
+                            class="custom-table"
+                            *ngFor="let item of objDataBieuDo?.lstData"
+                        >
+                            <tbody>
+                                <tr>
+                                    <td
+                                        class="text-center custom-rb"
+                                        [attr.rowspan]="5"
+                                    >
+                                        {{ item.tenLinhVuc }} ({{
+                                            item.countLinhVuc
+                                        }})
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let status of arrayLabel">
+                                    <td class="custom-rb">{{ status }}</td>
+                                    <td
+                                        class="custom-b"
+                                        [ngStyle]="getCustomStyle(status)"
+                                    >
+                                        {{ getValueByStatus(item, status) }} ({{
+                                            getPercentageByStatus(item, status)
+                                        }})
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,56 +1,89 @@
 <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="">
-        <img src="assets/layout/images/sfb.png" alt="logo" class="layout-t-center">
+        <img
+            src="assets/layout/images/sfb.png"
+            alt="logo"
+            class="layout-t-center"
+        />
     </a>
 
-    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+    <button
+        #menubutton
+        class="p-link layout-menu-button layout-topbar-button"
+        (click)="layoutService.onMenuToggle()"
+    >
         <i class="pi pi-bars"></i>
     </button>
 
-    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
+    <button
+        #topbarmenubutton
+        class="p-link layout-topbar-menu-button layout-topbar-button"
+        (click)="layoutService.showProfileSidebar()"
+    >
         <i class="pi pi-ellipsis-v"></i>
     </button>
 
-    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <button class="p-link layout-topbar-button" (click)="mail.toggle($event)">
-            <i class="pi pi-envelope"></i>
+    <div
+        #topbarmenu
+        class="layout-topbar-menu"
+        [ngClass]="{
+            'layout-topbar-menu-mobile-active':
+                layoutService.state.profileSidebarVisible
+        }"
+    >
+        <button
+            class="p-link layout-topbar-button"
+            (click)="mail.toggle($event)"
+        >
+            <div
+                class="flex align-items-center justify-content-center bg-red-100"
+                [ngStyle]="{
+                    width: '2.5rem',
+                    height: '2.5rem',
+                    'border-radius': '17px'
+                }"
+            >
+                <i class="pi pi-envelope text-red-500 text-xl i-mg-r-0"></i>
+            </div>
             <span>Hộp thư đến</span>
-            <p-overlayPanel #mail [showCloseIcon]="false" [style]="{width: '400px'}">
+            <p-overlayPanel
+                #mail
+                [showCloseIcon]="false"
+                [style]="{ width: '400px' }"
+            >
                 <ng-template pTemplate>
-                    <p-table [value]="mails" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="mail.hide()" responsiveLayout="scroll">
+                    <p-table
+                        [value]="mails"
+                        selectionMode="single"
+                        [(selection)]="selectedProduct"
+                        [paginator]="true"
+                        [rows]="5"
+                        (onRowSelect)="mail.hide()"
+                        responsiveLayout="scroll"
+                    >
                         <ng-template pTemplate="caption">
                             <div class="div-center">
-                               HỘP THƯ ĐẾN
+                                <span
+                                    [style]="{ cursor: 'pointer' }"
+                                    routerLink="/trao-doi-thong-tin/hop-thu-den"
+                                >
+                                    HỘP THƯ ĐẾN ({{
+                                        mails.length > 98
+                                            ? " 99+"
+                                            : mails.length
+                                    }})
+                                </span>
                             </div>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-mail>
-                            <tr [pSelectableRow]="rowData">
-                                <td>{{mail.label}}</td>
-                                <td>{{mail.createdDate |  date:'yyyy-MM-dd '}}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </ng-template>
-            </p-overlayPanel>
-        </button>
-        <button class="p-link layout-topbar-button" (click)="notifi.toggle($event)">
-            <i class="pi pi-bell"></i>  
-            <span>Thông báo</span>
-            <div  class="notification-dot"> 
-                <!-- [class]=" notifis.length > 0 ? 'has-notification' : ''" -->
-            </div>
-            <p-overlayPanel #notifi [showCloseIcon]="false" [style]="{width: '400px'}">
-                <ng-template pTemplate>
-                    <p-table [value]="notifis" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="notifi.hide()" responsiveLayout="scroll">
-                        <ng-template pTemplate="caption">
-                            <div class="div-center">
-                              THÔNG BÁO ({{notifis.length}})
-                            </div>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-notifi>
-                            <tr [pSelectableRow]="rowData">
-                                <td>{{notifi.label}}</td>
-                                <td>{{notifi.createdDate |  date:'dd/MM/yyyy'}}</td>
+                            <tr
+                                [pSelectableRow]="rowData"
+                                [ngClass]="mail.trangThai == 1 ? 'bold' : ''"
+                            >
+                                <td>{{ mail.label }}</td>
+                                <td>
+                                    {{ mail.createdDate | date : "dd/MM/yyyy" }}
+                                </td>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="emptymessage">
@@ -62,48 +95,180 @@
                 </ng-template>
             </p-overlayPanel>
         </button>
-        <button class="p-link layout-topbar-button" (click)="clock.toggle($event)">
-            <i class="pi pi-clock"></i>
-            <span>Hoạt động sắp tới</span>
-            <p-overlayPanel #clock [showCloseIcon]="false" [style]="{width: '400px'}">
+        <button
+            class="p-link layout-topbar-button"
+            (click)="notifi.toggle($event)"
+        >
+            <div
+                class="flex align-items-center justify-content-center bg-yellow-100"
+                [ngStyle]="{
+                    width: '2.5rem',
+                    height: '2.5rem',
+                    'border-radius': '17px'
+                }"
+            >
+                <i class="pi pi-bell text-yellow-500 text-xl i-mg-r-0"></i>
+            </div>
+
+            <span>Thông báo</span>
+            <p-overlayPanel
+                #notifi
+                [showCloseIcon]="false"
+                [style]="{ width: '400px' }"
+            >
                 <ng-template pTemplate>
-                    <p-table [value]="clocks" selectionMode="single" [(selection)]="selectedProduct" [paginator]="true" [rows]="5" (onRowSelect)="clock.hide()" responsiveLayout="scroll">
+                    <p-table
+                        [value]="notifis"
+                        selectionMode="single"
+                        [(selection)]="selectedProduct"
+                        [paginator]="true"
+                        [rows]="5"
+                        (onRowSelect)="notifi.hide()"
+                        responsiveLayout="scroll"
+                    >
                         <ng-template pTemplate="caption">
                             <div class="div-center">
-                               HOẠT ĐỘNG SẮP TỚI
+                                <span
+                                    [style]="{ cursor: 'pointer' }"
+                                    routerLink="/thong-tin-khac/xem-thong-bao"
+                                    >THÔNG BÁO ({{
+                                        notifis.length > 98
+                                            ? " 99+"
+                                            : notifis.length
+                                    }})</span
+                                >
                             </div>
                         </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-clock>
-                            <tr [pSelectableRow]="rowData">
-                                <td>{{clock.label}}</td>
-                                <td>{{clock.createdDate |  date:'yyyy-MM-dd'}}</td>
+                        <ng-template pTemplate="body" let-rowData let-notifi>
+                            <tr
+                                [pSelectableRow]="rowData"
+                                [ngClass]="
+                                    notifi.trangThaiTBX == 0 ? 'bold' : ''
+                                "
+                            >
+                                <td>{{ notifi.label }}</td>
+                                <td>
+                                    {{
+                                        notifi.createdDate | date : "dd/MM/yyyy"
+                                    }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="10">No record found.</td>
                             </tr>
                         </ng-template>
                     </p-table>
                 </ng-template>
             </p-overlayPanel>
         </button>
-        <button class="p-link layout-topbar-button" (click)="calender.toggle($event)">
-            <i class="pi pi-calendar"></i>
-            <span>Lịch họp</span>
-            <p-overlayPanel #calender [showCloseIcon]="false" [style]="{width: '400px'}">
-                <img src="assets/demo/images/nature/nature1.jpg" alt="Nature 1" style="width:100%"/>
+        <button
+            class="p-link layout-topbar-button"
+            (click)="clock.toggle($event)"
+        >
+            <div
+                class="flex align-items-center justify-content-center bg-blue-100"
+                [ngStyle]="{
+                    width: '2.5rem',
+                    height: '2.5rem',
+                    'border-radius': '17px'
+                }"
+            >
+                <i class="pi pi-clock text-blue-500 text-xl i-mg-r-0"></i>
+            </div>
+            <span>Hoạt động sắp tới</span>
+            <p-overlayPanel
+                #clock
+                [showCloseIcon]="false"
+                [style]="{ width: '400px' }"
+            >
+                <ng-template pTemplate>
+                    <p-table
+                        [value]="clocks"
+                        selectionMode="single"
+                        [(selection)]="selectedProduct"
+                        [paginator]="true"
+                        [rows]="5"
+                        (onRowSelect)="clock.hide()"
+                        responsiveLayout="scroll"
+                    >
+                        <ng-template pTemplate="caption">
+                            <div class="div-center">HOẠT ĐỘNG SẮP TỚI</div>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-clock>
+                            <tr [pSelectableRow]="rowData">
+                                <td>{{ clock.label }}</td>
+                                <td>
+                                    {{
+                                        clock.createdDate | date : "yyyy-MM-dd"
+                                    }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </ng-template>
             </p-overlayPanel>
         </button>
-        <button class="p-link layout-topbar-button"  (click)="profile.toggle($event)">
-            <i class="pi pi-user"></i>
+        <!-- <button
+            class="p-link layout-topbar-button"
+            (click)="calender.toggle($event)"
+        >
+            <i class="pi pi-calendar"></i>
+            <span>Lịch họp</span>
+            <p-overlayPanel
+                #calender
+                [showCloseIcon]="false"
+                [style]="{ width: '400px' }"
+            >
+                <img
+                    src="assets/demo/images/nature/nature1.jpg"
+                    alt="Nature 1"
+                    style="width: 100%"
+                />
+            </p-overlayPanel>
+        </button> -->
+        <button
+            class="p-link layout-topbar-button"
+            (click)="profile.toggle($event)"
+        >
+            <div
+                class="flex align-items-center justify-content-center bg-cyan-100"
+                [ngStyle]="{
+                    width: '2.5rem',
+                    height: '2.5rem',
+                    'border-radius': '17px'
+                }"
+            >
+                <i class="pi pi-user text-cyan-500 text-xl i-mg-r-0"></i>
+            </div>
             <span>Thông tin người dùng</span>
-            <p-overlayPanel #profile [showCloseIcon]="false" [style]="{width: '220px'}">
+            <p-overlayPanel
+                #profile
+                [showCloseIcon]="false"
+                [style]="{ width: '220px' }"
+            >
                 <ng-template pTemplate>
-                    <p-table [value]="profiles" selectionMode="single" [(selection)]="selectedProduct" [paginator]="false" [rows]="3" (onRowSelect)="profile.hide()" responsiveLayout="scroll">
+                    <p-table
+                        [value]="profiles"
+                        selectionMode="single"
+                        [(selection)]="selectedProduct"
+                        [paginator]="false"
+                        [rows]="3"
+                        (onRowSelect)="profile.hide()"
+                        responsiveLayout="scroll"
+                    >
                         <ng-template pTemplate="caption">
                             <div class="div-center">
-                               {{fullName}}
+                                {{ fullName }}
                             </div>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-profile>
                             <tr class="pointer">
-                                <td  routerLink={{profile.routerLink}}><i class={{profile.icon}}></i>&nbsp;&nbsp;{{profile.label}}</td>
+                                <td routerLink="{{ profile.routerLink }}">
+                                    <i class="{{ profile.icon }}"></i
+                                    >&nbsp;&nbsp;{{ profile.label }}
+                                </td>
                             </tr>
                         </ng-template>
                     </p-table>

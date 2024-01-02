@@ -12,7 +12,7 @@
     </div>
 
     <div class="col-12">
-        <div class="card">
+        <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
             <p-toast></p-toast>
             <div class="field grid">
                 <div class="col-12"><p-tabMenu
@@ -363,7 +363,7 @@
                                     {{ rowIndex + 1 }}
                                 </td>
                                 <td>
-                                    {{ item.soKiHieu }}
+                                  <a href="javascrit:;" (click)="ChiTiet(item.id)">  {{ item.soKiHieu }}</a>
                                 </td>
                                 <td>
                                     {{ item.trichYeu }}
@@ -438,3 +438,9 @@
         </button>
     </ng-template>
 </p-confirmDialog>
+<app-chi-tiet-van-ban
+    [id]="id"
+    [show]="hienThiChiTiet"
+    (tatPopup)="Thoat($event, 'CT')"
+></app-chi-tiet-van-ban>
+

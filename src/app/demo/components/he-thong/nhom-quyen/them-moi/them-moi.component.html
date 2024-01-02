@@ -1,0 +1,76 @@
+<p-dialog
+    [(visible)]="show"
+    [formGroup]="formThemMoi"
+    [draggable]="true"
+    [resizable]="false"
+    (onHide)="Thoat()"
+    [style]="{ width: '950px' }"
+    [modal]="true"
+    header="Thêm mới nhóm quyền"
+>
+    <ng-template pTemplate="content">
+        <div class="field grid">
+            <div class="col-12 md:col-12 fl-wr">
+                <label for="tenNhomQuyen">
+                    Tên nhóm quyền
+                    <span class="p-error">(*)</span>:</label
+                >
+                <input
+                    type="text"
+                    formControlName="tenNhomQuyen"
+                    required=""
+                    id="tenNhomQuyen"
+                    [style]="{ width: '100%' }"
+                    class="form-control"
+                    class="p-inputtext p-component p-element"
+                />
+                <span
+                    class="p-error"
+                    *ngIf="
+                        !formThemMoi.controls.tenNhomQuyen.valid &&
+                        (formThemMoi.controls.tenNhomQuyen.touched || submitted)
+                    "
+                    >Yêu cầu nhập tên nhóm quyền</span
+                >
+            </div>
+        </div>
+        <div class="field grid">
+            <div class="col-12 md:col-12 fl-wr">
+                <label for="moTa"> Mô tả:</label>
+                <textarea
+                    rows="4"
+                    id="moTa"
+                    cols="30"
+                    class="form-control"
+                    formControlName="moTa"
+                    placeholder="Mô tả"
+                    pInputTextarea
+                ></textarea>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pbutton=""
+            pripple=""
+            type="submit"
+            label="Info"
+            class="p-element p-ripple p-button-info p-button p-component"
+            ng-reflect-label="Info"
+            (click)="ThemMoi()"
+        >
+            <span class="p-button-label">Lưu</span
+            ><span class="p-ink"></span></button
+        >&nbsp;
+        <button
+            pbutton=""
+            pripple=""
+            label="Info"
+            class="p-element p-ripple p-button-danger p-button p-component"
+            ng-reflect-label="Info"
+            (click)="Thoat()"
+        >
+            <span class="p-button-label">Thoát</span><span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-dialog>

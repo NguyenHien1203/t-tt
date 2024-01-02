@@ -1,0 +1,13 @@
+.custom-table {
+          tbody {
+              tr:last-of-type {
+                  td {
+                      border-bottom-width: 1px;
+                  }
+              }
+              td:last-child{
+                  border-right-width: 1px;
+              }
+          }
+  }
+  

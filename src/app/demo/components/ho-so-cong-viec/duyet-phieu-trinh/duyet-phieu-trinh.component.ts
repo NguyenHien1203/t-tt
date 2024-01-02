@@ -1,8 +1,12 @@
+import { saveAs } from 'file-saver';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { throwError } from 'rxjs';
 import { AuthService } from 'src/app/common/auth.services';
 import { DuyetPhieuTrinhService } from 'src/app/demo/service/ho-so-cong-viec/duyet-phieu-trinh.service';
 import { TimKiemPhieuTrinh } from 'src/app/models/ho-so-cong-viec/them-moi-phieu-trinh';
+import { modelOptions } from 'src/app/models/option-model';
+import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 
 @Component({
     selector: 'app-duyet-phieu-trinh',
@@ -16,6 +20,7 @@ export class DuyetPhieuTrinhComponent {
         private service: DuyetPhieuTrinhService,
         private authService: AuthService,
         private confirmService: ConfirmationService,
+        private fileService: UploadFileService,
         private cd: ChangeDetectorRef
     ) {}
 
@@ -26,8 +31,15 @@ export class DuyetPhieuTrinhComponent {
     public id: string = '1';
     loading: boolean = false;
     hienThiXuLy: boolean = false;
-    lstTrangThai: any = [];
-    lstNguoiTrinh: any = [];
+    lstTrangThai: modelOptions[] = [
+        { text: 'Chọn trạng thái', value: 4 },
+        { text: 'Chờ duyệt', value: 0 },
+        { text: 'Đã duyệt', value: 1 },
+        { text: 'Đã ký', value: 2 },
+        { text: 'Đã ký', value: 2 },
+        { text: 'Trả lại', value: 3 },
+    ];
+    lstNguoiTrinh: modelOptions[] = [];
     lstPhieuTrinh: any[] = [];
     items = [{ label: 'Hồ sơ công việc' }, { label: 'Phiếu trình' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
@@ -49,6 +61,9 @@ export class DuyetPhieuTrinhComponent {
 
     ngOnInit(): void {
         this.loading = false;
+        this.service.getDanhSachNguoiTrinh(this.idDonViLamViec).then(data => {
+            this.lstNguoiTrinh = data;
+        })
         this.LoadDanhSach();
     }
 

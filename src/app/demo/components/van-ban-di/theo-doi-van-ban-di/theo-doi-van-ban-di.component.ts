@@ -21,6 +21,7 @@ export class TheoDoiVanBanDiComponent {
         private cd: ChangeDetectorRef
     ) {}
 
+    hienThiChiTiet : boolean = false;
     isShowSearch: boolean = false;
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     yearOptions: SelectItem[] = [];
@@ -104,12 +105,19 @@ export class TheoDoiVanBanDiComponent {
 
     public Thoat(itemHt: any, loai: string): void {
         if (loai === 'T') this.hienThiTheoDoi = false;
+        if(loai == "CT") this.hienThiChiTiet = false;
         this.LoadDanhSach();
     }
 
     public TheoDoi(id: string) {
         this.hienThiTheoDoi = true;
         this.id = id;
+    }
+
+    public ChiTiet(id: string)
+    {
+        this.id = id;
+        this.hienThiChiTiet = true;
     }
 
     public BaoCao(id: string) {

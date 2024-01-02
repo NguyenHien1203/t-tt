@@ -26,6 +26,7 @@ import { TabPanel, TabViewModule } from 'primeng/tabview';
 import { TraCuuNangCaoRoutingModule } from './tra-cuu-nang-cao-routing.module';
 import { TraCuuNangCaoComponent } from './tra-cuu-nang-cao.component';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 @NgModule({
     declarations: [TraCuuNangCaoComponent],
@@ -54,6 +55,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
         CalendarModule,
         TabViewModule,
         CommonModule,
+        ChiTietVanBanModule,
         TraCuuNangCaoRoutingModule,
     ],
 })

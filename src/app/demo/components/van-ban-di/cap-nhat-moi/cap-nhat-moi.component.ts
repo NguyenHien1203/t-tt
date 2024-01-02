@@ -21,10 +21,12 @@ export class CapNhatMoiComponent implements OnInit {
         private cd: ChangeDetectorRef
     ) {}
 
+    isShowSearch: boolean = false;
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     yearOptions: SelectItem[] = [];
     timChinhXac: boolean = false;
     public id: string = '1';
+    hienThiChiTiet: boolean = false;
     hienThiPhanPhoi: boolean = false;
     hienThiCapNhat: boolean = false;
     hienThiGuiVanBan: boolean = false;
@@ -66,10 +68,16 @@ export class CapNhatMoiComponent implements OnInit {
         this.LoadDanhSach();
         this.LoadSoVanBan();
     }
+    
     public LoadSoVanBan() {
         this.service.getSoVanBan(this.idDonViLamViec).then((data) => {
             this.lstSoVanBan = data;
         });
+    }
+
+     // Hiển thị tìm kiếm nâng cao
+     ShowSearch() {
+        this.isShowSearch = !this.isShowSearch;
     }
 
     public changeSoVanBan(event) {
@@ -110,11 +118,17 @@ export class CapNhatMoiComponent implements OnInit {
         if (loai === 'C') this.hienThiCapNhat = false;
         if (loai === 'G') this.hienThiGuiVanBan = false;
         if (loai === 'P') this.hienThiPhanPhoi = false;
+        if (loai === 'CT') this.hienThiChiTiet = false;
         this.LoadDanhSach();
     }
 
     public PhanPhoi(id: string) {
         this.hienThiPhanPhoi = true;
+        this.id = id;
+    }
+    
+    public ChiTiet(id: string) {
+        this.hienThiChiTiet = true;
         this.id = id;
     }
 

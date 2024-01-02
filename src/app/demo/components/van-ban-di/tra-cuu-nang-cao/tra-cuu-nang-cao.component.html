@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="col-12">
-        <div class="card">
+        <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
             <p-toast></p-toast>
             <h2>TÌM KIẾM</h2>
             <div class="icon-cls">
@@ -187,7 +187,7 @@
                                         Số đi
                                     </div>
                                 </th>
-                                <th style="min-width: 3rem">
+                                <th style="min-width: 10rem">
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
@@ -244,7 +244,7 @@
                                     {{ item.soDiDen }}
                                 </td>
                                 <td class="text-center">
-                                    {{ item.soKiHieu }}
+                                    <a href="javascrit:;" (click)="ChiTiet(item.id)">  {{ item.soKiHieu }}</a>
                                 </td>
                                 <td>
                                     {{ item.trichYeu }}
@@ -281,3 +281,8 @@
         </div>
     </div>
 </div>
+<app-chi-tiet-van-ban
+    [id]="id"
+    [show]="hienThiChiTiet"
+    (tatPopup)="Thoat($event, 'CT')"
+></app-chi-tiet-van-ban>

@@ -20,7 +20,19 @@ export class TopbarService {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/Menu/MenuTopBar/GetDanhSach/' +
+                    '/Menu/MenuTopBar/GetDanhSachThongBao/' +
+                    this.userId,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData as any[]);
+    }
+    
+    getDanhSachHopThuDen() {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/Menu/MenuTopBar/GetDanhSachHopThuDen/' +
                     this.userId,
                 this.httpOption
             )

@@ -30,6 +30,7 @@ import { TheoDoiComponent } from './theo-doi/theo-doi.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { CapNhatKetQuaComponent } from './bao-cao/cap-nhat-ket-qua/cap-nhat-ket-qua.component';
 import { GuiCanhBaoComponent } from './bao-cao/gui-canh-bao/gui-canh-bao.component';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import { GuiCanhBaoComponent } from './bao-cao/gui-canh-bao/gui-canh-bao.compone
     CalendarModule,
     TabViewModule,
     CommonModule,
+    ChiTietVanBanModule,
     TheoDoiVanBanDiRoutingModule
   ]
 })

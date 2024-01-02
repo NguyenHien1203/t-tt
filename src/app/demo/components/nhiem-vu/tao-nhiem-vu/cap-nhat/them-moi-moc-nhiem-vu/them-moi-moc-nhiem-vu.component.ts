@@ -16,15 +16,6 @@ export class ThemMoiMocNhiemVuComponent {
   @Input() stt: any;
   @Output() dataMocNhiemVu = new EventEmitter<any>();
 
-  constructor(
-    private messageService: MessageService,
-    private service: TaoNhiemVuService,
-    private confirmationService: ConfirmationService,
-    private auth: AuthService,
-    private router: Router,
-    private formBuilder: FormBuilder,
-  ) { }
-
   mocNhiemVu: any = {
     stt: 0,
     thoiHanHoanThanh: "",
@@ -33,6 +24,10 @@ export class ThemMoiMocNhiemVuComponent {
   }
 
   addProductDialog: boolean = false;
+
+  constructor(
+    private messageService: MessageService,
+  ) { }
 
   ThemMoiMocNhiemVU() {
     this.addProductDialog = true;

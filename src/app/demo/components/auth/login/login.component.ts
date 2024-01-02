@@ -70,36 +70,22 @@ export class LoginComponent {
             this.nguoidung.UserName = this.formDangNhap.value.userName ?? '';
             this.nguoidung.Password = this.formDangNhap.value.password ?? '';
 
-            this.dangNhapService.DangNhap(this.nguoidung).subscribe(
-                (data) => {
-                    if (data.isError) {
-                        this.msgs = [];
-                        this.msgs.push({
-                            severity: 'error',
-                            detail: 'Thông tin đăng nhập không hợp lệ',
-                        });
-                    } else {
-                        this.cookieService.set('isLoggedIn', 'true');
-                        this.cookieService.set(
-                            'token',
-                            JSON.stringify(data.objData)
-                        );
-                        this.cookieService.set(
-                            'mUserInfo',
-                            JSON.stringify(data.objNguoiDung)
-                        );
-                        this.cookieService.set(
-                            'idDonViLamViec',
-                            data.objNguoiDung.phongBanId
-                        );
-
-                        this.router.navigate([this.returnUrl]);
-                    }
-                },
-                (error) => {
-                    console.log('Error', error);
+            this.dangNhapService.DangNhap(this.nguoidung).subscribe(data => {
+                if (data.isError) {
+                    this.msgs = [];
+                    this.msgs.push({ severity: 'error', detail: "Thông tin đăng nhập không hợp lệ" });
+                } else {
+                    this.cookieService.set('isLoggedIn', "true");
+                    this.cookieService.set('token', JSON.stringify(data.objData));
+                    this.cookieService.set('mUserInfo', JSON.stringify(data.objNguoiDung));
+                    this.cookieService.set('idDonViLamViec', data.objNguoiDung.phongBanId);
+                   
+                    this.router.navigate([this.returnUrl])
                 }
-            );
+            }, (error) => {
+                console.log('Error', error);
+            })
+
         }
     }
 

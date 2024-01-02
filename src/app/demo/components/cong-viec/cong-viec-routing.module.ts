@@ -30,6 +30,14 @@ import { RouterModule } from '@angular/router';
                         (m) => m.TheoDoiTienDoModule
                     ),
             },
+            {
+                path: 'danh-sach-ban-giao-cong-viec',
+                data: { breadcrumb: 'Button' },
+                loadChildren: () =>
+                    import('./danh-sach-ban-giao-cong-viec/danh-sach-ban-giao-cong-viec.module').then(
+                        (m) => m.DanhSachBanGiaoCongViecModule
+                    ),
+            },
         ]),
     ],
     exports: [RouterModule],

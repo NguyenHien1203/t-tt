@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaoNhiemVuRoutingModule } from './tao-nhiem-vu-routing.module';
-import { TaoNhiemVuComponent } from './tao-nhiem-vu.component';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -22,12 +20,21 @@ import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CheckboxModule } from 'primeng/checkbox';
+import { CalendarModule } from 'primeng/calendar';
+import { TabViewModule } from 'primeng/tabview';
+import { DanhSachBanGiaoCongViecComponent } from './danh-sach-ban-giao-cong-viec.component';
+import { DanhSachBanGiaoCongViecRoutingModule } from './danh-sach-ban-giao-cong-viec-routing.module';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ThemMoiBanGiaoCongViecComponent } from './them-moi-ban-giao-cong-viec/them-moi-ban-giao-cong-viec.component';
+import { CapNhatBanGiaoCongViecComponent } from './cap-nhat-ban-giao-cong-viec/cap-nhat-ban-giao-cong-viec.component';
+import { BanGiaoCongViecComponent } from './ban-giao-cong-viec/ban-giao-cong-viec.component';
+import { HoSoCongViecCaNhanComponent } from './ban-giao-cong-viec/ho-so-cong-viec-ca-nhan/ho-so-cong-viec-ca-nhan.component';
+
+
 @NgModule({
-  declarations: [TaoNhiemVuComponent],
+  declarations: [DanhSachBanGiaoCongViecComponent, ThemMoiBanGiaoCongViecComponent, CapNhatBanGiaoCongViecComponent, BanGiaoCongViecComponent, HoSoCongViecCaNhanComponent],
   imports: [
-    CommonModule,
-    TaoNhiemVuRoutingModule,
+    MultiSelectModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -48,7 +55,10 @@ import { MultiSelectModule } from 'primeng/multiselect';
     TreeSelectModule,
     ConfirmDialogModule,
     CheckboxModule,
-    MultiSelectModule,
+    CalendarModule,
+    TabViewModule,
+    CommonModule,
+    DanhSachBanGiaoCongViecRoutingModule
   ]
 })
-export class TaoNhiemVuModule { }
+export class DanhSachBanGiaoCongViecModule { }

@@ -119,9 +119,9 @@
                                 <td>
                                     <div *ngIf="item.tienDo === 1 || item.tienDo === 5">
                                         <button pButton pRipple icon="pi pi-pencil"
-                                            class="p-button-rounded p-button-success mr-2"></button>
+                                            class="p-button-rounded p-button-success mr-2" (click)="CapNhat(item.id)"></button>
                                         <button pButton pRipple icon="pi pi-trash"
-                                            class="p-button-rounded p-button-warning"></button>
+                                            class="p-button-rounded p-button-warning" (click)="Xoa(item.id)"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -140,5 +140,17 @@
                 </div>
             </div>
         </div>
+        <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="lstNhiemVu">Bạn muốn xóa bản ghi này ?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"
+                    (click)="XacNhanXoa()"></button>
+                <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
+                    (click)="TamDungXoa()"></button>
+            </ng-template>
+        </p-dialog>
     </div>
 </div>

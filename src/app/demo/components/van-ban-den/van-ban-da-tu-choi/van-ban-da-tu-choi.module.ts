@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaoNhiemVuRoutingModule } from './tao-nhiem-vu-routing.module';
-import { TaoNhiemVuComponent } from './tao-nhiem-vu.component';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -22,12 +20,19 @@ import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CheckboxModule } from 'primeng/checkbox';
+import { CalendarModule } from 'primeng/calendar';
+import { TabViewModule } from 'primeng/tabview';
+import { VanBanDaTuChoiComponent } from './van-ban-da-tu-choi.component';
+import { VanBanDaTuChoiRoutingModule } from './van-ban-da-tu-choi-routing.module';
+import { FormLayoutDemoRoutingModule } from '../../uikit/formlayout/formlayoutdemo-routing.module';
 import { MultiSelectModule } from 'primeng/multiselect';
+
+
+
 @NgModule({
-  declarations: [TaoNhiemVuComponent],
+  declarations: [VanBanDaTuChoiComponent],
   imports: [
-    CommonModule,
-    TaoNhiemVuRoutingModule,
+    MultiSelectModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -48,7 +53,11 @@ import { MultiSelectModule } from 'primeng/multiselect';
     TreeSelectModule,
     ConfirmDialogModule,
     CheckboxModule,
-    MultiSelectModule,
+    CalendarModule,
+    TabViewModule,
+    CommonModule,
+    VanBanDaTuChoiRoutingModule,
+    FormLayoutDemoRoutingModule,
   ]
 })
-export class TaoNhiemVuModule { }
+export class VanBanDaTuChoiModule { }

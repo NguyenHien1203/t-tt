@@ -39,4 +39,10 @@ export class TaoNhiemVuService {
   public ThemMoi(TaoNhiemVu: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/NhiemVu/TaoNhiemVu/ThemMoi`, TaoNhiemVu, this.httpOption)
   }
+
+  public GetTaoNhiemVu(id: string): Observable<any> {
+    // return this.http.get<any>(`${this.baseUrl}/NhiemVu/TaoNhiemVu/GetTaoNhiemVu/${id}`)
+    return this.http.get<any>(`${this.baseUrl}/NhiemVu/TaoNhiemVu/GetTaoNhiemVu/4`)
+
+  }
 }

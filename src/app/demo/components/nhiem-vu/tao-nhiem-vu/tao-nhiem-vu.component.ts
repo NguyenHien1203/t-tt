@@ -58,4 +58,7 @@ export class TaoNhiemVuComponent implements OnInit {
     this.router.navigate(['/nhiem-vu/them-moi-nhiem-vu']);
   }
 
+  public CapNhat(event: any) {
+    this.router.navigate(['/nhiem-vu/cap-nhat-nhiem-vu', {id: event}]);
+  }
 }

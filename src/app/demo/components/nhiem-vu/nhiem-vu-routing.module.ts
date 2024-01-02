@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
           ),
       },
       { path: 'them-moi-nhiem-vu', data: { breadcrumb: 'Button' }, loadChildren: () => import('./tao-nhiem-vu/them-moi/them-moi.module').then(m => m.ThemMoiModule) },
+      { path: 'cap-nhat-nhiem-vu', data: { breadcrumb: 'Button' }, loadChildren: () => import('./tao-nhiem-vu/cap-nhat/cap-nhat.module').then(m => m.CapNhatModule) },
     ]),
   ],
   exports: [RouterModule],

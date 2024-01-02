@@ -1,26 +1,23 @@
-import { tap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { TaoNhiemVuService } from 'src/app/demo/service/nhiem-vu/tao-nhiem-vu.service';
 
 @Component({
-  selector: 'app-them-moi',
-  templateUrl: './them-moi.component.html',
-  styleUrls: ['./them-moi.component.scss'],
+  selector: 'app-cap-nhat',
+  templateUrl: './cap-nhat.component.html',
+  styleUrls: ['./cap-nhat.component.scss'],
   providers: [MessageService, ConfirmationService]
-
 })
-export class ThemMoiComponent implements OnInit {
-  items = [{ label: 'Tạo nhiệm vụ' }, { label: 'Thêm mới nhiệm vụ' }];
+export class CapNhatComponent implements OnInit {
+  items = [{ label: 'Tạo nhiệm vụ' }, { label: 'Cập nhật nhiệm vụ' }];
   home = { icon: 'pi pi-home', routerLink: '/' };
   loading: boolean = true;
   submitted: boolean = false;
   selectedCities: string[] = [];
   isHienThiThoiGian: boolean = false;
-
   hienThiThemMoiMocNhiemVu: boolean = false;
 
   cols: any[] = [];
@@ -37,23 +34,10 @@ export class ThemMoiComponent implements OnInit {
   lstDonViPhoiHopChange: any[];
 
   ngayKetThuc: string = "";
-  ngOnInit(): void {
-    this.loading = false;
-    this.GetDataDefaultOption();
-  }
-
-  constructor(
-    private messageService: MessageService,
-    private service: TaoNhiemVuService,
-    private confirmationService: ConfirmationService,
-    private auth: AuthService,
-    private router: Router,
-    private formBuilder: FormBuilder,
-  ) { }
 
   public ThongTinNhiemVu = this.formBuilder.group({
     soKiHieu: ["", [Validators.required]],
-    ngayVanBan: ["", [Validators.required]],
+    ngayVanBan: [new Date, [Validators.required]],
     vanBanLienQuan: ["", []],
     noiDungChinh: ["", []],
     mucTieu: ["", []],
@@ -69,8 +53,8 @@ export class ThemMoiComponent implements OnInit {
     lanhDaoChiuTrachNhiem: [""],
     yKienChiDao: [""],
     thoiGianHoanThanh: [],
-    thoiHanHoanThanh: [""],
-    ngayChuyenVanBan: [""],
+    thoiHanHoanThanh: [new Date],
+    ngayChuyenVanBan: [new Date],
     ghiChu: [""],
     lanhDaoSo: [, [Validators.required]],
     lanhDaoDonVi: [""],
@@ -83,6 +67,22 @@ export class ThemMoiComponent implements OnInit {
     tenLanhDao: [""],
     createBy: [],
   });
+
+  constructor(
+    private route: ActivatedRoute,
+    private messageService: MessageService,
+    private service: TaoNhiemVuService,
+    private confirmationService: ConfirmationService,
+    private auth: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+  ) { }
+
+  ngOnInit(): void {
+    this.loading = false;
+    this.GetDataDefaultOption();
+    this.GetTaoNhiemVu();
+  }
 
   public GetDataDefaultOption() {
 
@@ -98,9 +98,9 @@ export class ThemMoiComponent implements OnInit {
       }
     })
 
-    this.ThongTinNhiemVu.patchValue({
-      tenDonVi: this.auth.GetmUserInfo().tenDonVi
-    })
+    // this.ThongTinNhiemVu.patchValue({
+    //   tenDonVi: this.auth.GetmUserInfo().tenDonVi
+    // })
   }
 
   changeDVCT(event: any) {
@@ -135,8 +135,6 @@ export class ThemMoiComponent implements OnInit {
 
   valueTextLanhDaoDonVi(event: any) {
     this.ThongTinNhiemVu.controls['tenLanhDao'].setValue(event.originalEvent.srcElement.ariaLabel);
-    console.log(this.ThongTinNhiemVu.value.tenLanhDao);
-    
   }
 
   valueTextDonViChuTri(event: any) {
@@ -180,7 +178,55 @@ export class ThemMoiComponent implements OnInit {
     this.dataTables.splice(this.dataTables.indexOf(stt), stt)
   }
 
-  public ThemMoi() {
+  GetTaoNhiemVu() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.service.GetTaoNhiemVu(id.toString()).subscribe(data => {
+      const dataForm = data.objData.objTaoNhiemVu;
+
+      const arrayLstMNV = data.objData.lstMocNhiemVu;
+      arrayLstMNV.forEach((objLst, index) => {
+        this.dataTables.push({
+          stt: index + 1,
+          thoiHanHoanThanh: objLst.thoiHanHoanThanh,
+          ketQuaDuKien: objLst.ketQuaDuKien,
+          noiDung: objLst.noiDung,
+        });
+      });
+
+      const arrayString = dataForm.donViPhoiHopId;
+      const arrayNumber = arrayString.split(',').reduce((
+        a: [number],
+        i: number) => {
+        a.push(Number(i));
+        return a;
+      }, []);
+
+      this.ThongTinNhiemVu.patchValue({
+        soKiHieu: dataForm.soKyHieu,
+        ngayVanBan: new Date(dataForm.ngayVanBan),
+        vanBanLienQuan: dataForm.vanBanLienQuan,
+        noiDungChinh: dataForm.noiDungChinh,
+        mucTieu: dataForm.mucTieuCanDat,
+        cacMocChinh: dataForm.cacMocChinh,
+        loaiNhiemVu: dataForm.loaiNhiemVuId,
+        tinhChatNhiemVu: dataForm.tinhChatNhiemVuId,
+        nhomLinhVuc: dataForm.linhVucId,
+        trichYeu: dataForm.tenNhiemVu,
+        tenDonVi: dataForm.tenSoNganh,
+        donViChuTri: dataForm.donViChuTriId,
+        lanhDaoSo: dataForm.lanhDaoSoId,
+        lanhDaoChiuTrachNhiem: dataForm.lanhDaoDonVi,
+        yKienChiDao: dataForm.ykienChiDao,
+        thoiGianHoanThanh: dataForm.thoiHanRdo,
+        thoiHanHoanThanh: new Date(dataForm.thoiHanHoanThanh),
+        ngayChuyenVanBan: new Date(dataForm.ngayChuyenVanBan),
+        ghiChu: dataForm.ghiChu,
+        donViPhoiHop: arrayNumber,
+      })
+    })
+  }
+
+  CapNhat() {
     this.submitted = true;
     const itemData = this.ThongTinNhiemVu.value;
     let taoNhiemVu = {
@@ -216,11 +262,12 @@ export class ThemMoiComponent implements OnInit {
       tenDonViPhoiHop: itemData.tenDonViPhoiHop,
       lstMocNhiemVu: this.dataTables,
     }
-    console.log(taoNhiemVu);
+    const id = this.route.snapshot.paramMap.get('id');
     if (this.ThongTinNhiemVu.valid) {
       this.submitted = true;
-      this.service.ThemMoi(taoNhiemVu).subscribe(data => {
+      this.service.CapNhat(taoNhiemVu, id).subscribe(data => {
         let resData = data;
+        console.log(data);
         if (resData.isError) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title, life: 3000 });
         } else {

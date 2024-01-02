@@ -1,0 +1,254 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb
+                    class="max-w-full"
+                    [model]="items"
+                    [home]="home"
+                ></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <p-toast></p-toast>
+            <h2>TÌM KIẾM</h2>
+            <div class="field grid">
+                <div class="col-12 md:col-5 fl-wr">
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="timKiemDanhSach.nguoiBanGiao"
+                        placeholder="Người bàn giao"
+                        class="form-control"
+                    />
+                </div>
+                <div class="col-12 md:col-5 fl-wr">
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="timKiemDanhSach.nguoiNhanBanGiao"
+                        placeholder="Người nhận bàn giao"
+                        class="form-control"
+                    />
+                </div>
+                <label class="col-12 md:col-2 fl-wr">
+                    <p-checkbox
+                        name="hienThi"
+                        (click)="CheckedHt()"
+                        id="hienThi"
+                        value="true"
+                        label="Tìm chính xác"
+                    ></p-checkbox>
+                </label>
+            </div>
+
+            <div class="field grid">
+                <div class="col-12 md:col-4 fl-wr">
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="timKiemDanhSach.keyWord"
+                        placeholder="Nội dung"
+                        class="form-control"
+                    />
+                </div>
+                <label class="col-12 md:col-3 fl-wr">
+                    <p-calendar
+                        [(ngModel)]="timKiemDanhSach.tuNgay"
+                        dateFormat="dd/mm/yy"
+                        placeholder="Từ ngày"
+                        [style]="{ width: '100%' }"
+                        class="my-drop"
+                    ></p-calendar>
+                </label>
+                <label class="col-12 md:col-3 fl-wr">
+                    <p-calendar
+                        [(ngModel)]="timKiemDanhSach.denngay"
+                        dateFormat="dd/mm/yy"
+                        placeholder="Đến ngày"
+                        [style]="{ width: '100%' }"
+                        class="my-drop"
+                    ></p-calendar>
+                </label>
+            </div>
+
+            <div class="field grid div-center">
+                <button
+                    pButton
+                    pRipple
+                    label="Tìm kiếm"
+                    icon="pi pi-search"
+                    class="p-button-info mr-2"
+                    (click)="LoadDanhSach()"
+                ></button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="wrapper">
+                <h2>DANH SÁCH BÀN GIAO CÔNG VIỆC</h2>
+                <div class="icon-cls">
+                    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" (click)="ThemCongViec()" class="p-button-success">
+                    </button>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-12">
+                    <p-table
+                        [paginator]="true"
+                        #dt1
+                        [value]="traCuuDonGians"
+                        dataKey="id"
+                        [rows]="10"
+                        [loading]="loading"
+                        [rowsPerPageOptions]="[10, 20, 30]"
+                        [rowHover]="true"
+                        styleClass="p-datatable-gridlines"
+                        responsiveLayout="scroll"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 2%">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        STT
+                                    </div>
+                                </th>
+                                <th style="min-width: 2rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Nội dung
+                                    </div>
+                                </th>
+                                <th style="min-width: 3rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Người bàn giao
+                                    </div>
+                                </th>
+                                <th style="min-width: 14rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Người nhận bàn giao
+                                    </div>
+                                </th>
+                                <th style="min-width: 14rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Lý do từ chối
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Ngày bàn giao
+                                    </div>
+                                </th>
+
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Trạng thái
+                                    </div>
+                                </th>
+
+                                <th style="min-width: 5rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        #
+                                    </div>
+                                </th>
+
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Chức năng
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template
+                            pTemplate="body"
+                            let-capNhatMoi
+                            let-rowIndex="rowIndex"
+                        >
+                            <tr>
+                                <td style="text-align: center">
+                                    {{ rowIndex + 1 }}
+                                </td>
+                                <td class="text-center">
+                                    {{ capNhatMoi.noiDungBanGiao }}
+                                </td>
+                                <td class="text-center">
+                                    {{ capNhatMoi.tenNguoiGiao }}
+                                </td>
+                                <td>
+                                    {{ capNhatMoi.tenNguoiNhan }}
+                                </td>
+                                <td>
+                                    {{ capNhatMoi.lyDoTuChoi }}
+                                </td>
+
+                                <td class="text-center">
+                                    {{
+                                        capNhatMoi.ngayBanGiao
+                                            | date : "dd-MM-yyyy"
+                                    }}
+                                </td>
+                                <td>
+                                    {{ capNhatMoi.trangThai }}
+                                </td>
+                                <td>
+                                    <div class="div-center">
+                                        <button pButton pRipple icon="pi pi-plus"
+                                            class="p-button-rounded p-button-primary mr-2"
+                                            (click)="BanGiaoCongViec(capNhatMoi.id)"></button>
+                                        
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="div-center">
+                                        <button pButton pRipple icon="pi pi-pencil"
+                                            class="p-button-rounded p-button-primary mr-2"
+                                            (click)="CapNhat(capNhatMoi.id)"></button>
+                                        <button pButton pRipple icon="pi pi-trash"
+                                            class="p-button-rounded p-button-warning"
+                                            (click)="Xoa(capNhatMoi.id)"></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="10">No record found.</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="loadingbody">
+                            <tr>
+                                <td colspan="10">
+                                    Loading record data. Please wait.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-them-moi-ban-giao-cong-viec [show]="hienThiThemMoi" (tatPopup)="Thoat($event, 'T')"></app-them-moi-ban-giao-cong-viec>
+<!-- <app-ban-giao-cong-viec [show]="hienThiBanGiao" (tatPopup)="Thoat($event, 'B')"></app-ban-giao-cong-viec> -->
+

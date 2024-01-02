@@ -831,19 +831,19 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Duyệt nhiệm vụ',
                                 icon: 'pi pi-fw pi-check-square',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/nhiem-vu/duyet-nhiem-vu'],
                                 code: '012002',
                             },
                             {
                                 label: 'Cập nhật tiến độ',
                                 icon: 'pi pi-fw pi-upload',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/nhiem-vu/cap-nhat-tien-do'],
                                 code: '012003',
                             },
                             {
                                 label: 'Duyệt hoàn thành',
                                 icon: 'pi pi-fw pi-user-edit',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/nhiem-vu/duyet-hoan-thanh'],
                                 code: '012004',
                             },
                         ],

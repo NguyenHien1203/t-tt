@@ -1,10 +1,20 @@
 import { Component } from '@angular/core';
-import { LayoutService } from "./service/app.layout.service";
+import { LayoutService } from './service/app.layout.service';
 
 @Component({
     selector: 'app-footer',
-    templateUrl: './app.footer.component.html'
+    templateUrl: './app.footer.component.html',
 })
 export class AppFooterComponent {
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService) {}
+
+    currentYear: string = '0';
+
+    ngOnInit() {
+        if (new Date().getFullYear() === 2023) {
+            this.currentYear = '2023';
+        } else {
+            this.currentYear = '2023 - ' + new Date().getFullYear();
+        }
+    }
 }

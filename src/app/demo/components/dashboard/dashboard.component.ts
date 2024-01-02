@@ -26,13 +26,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         });
     }
 
+    trHTML = '</tr>';
     idNhomQuyen: string = this.authService.GetmUserInfo()?.nhomQuyenId ?? '0';
     idDonVi: string = this.authService.GetmUserInfo()?.donViId ?? '0';
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
     items!: MenuItem[];
     currentDate: Date;
-    soCongViec: number = 0;
     currentDay: string = '';
     lstCongViec: any[] = [];
     lstTienDo: any[] = [];
@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     lstLichCoQuanChieu: any[] = [];
     lstLichCoQuanSangChieu: any[] = [];
     lstLichCoQuanTuanChieu: any[] = [];
+    lstLichCoQuanTuan: any[] = [];
     chartData: any;
     chartOptions: any;
     routerLinkCongViec: string = '';
@@ -93,10 +94,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
         );
         this.lstLichCoQuanSang = data?.lstLichCoQuanSang;
         this.lstLichCoQuanChieu = data?.lstLichCoQuanChieu;
-        this.soCongViec =
-            data?.lstLichCoQuanSang.length + data?.lstLichCoQuanChieu.length;
-            console.log(this.soCongViec);
-            
+        this.lstLichCoQuanTuan = data?.lstLichCoQuanTuan;
+    }
+
+    getSoLichCongTac(a: number, b: number): number {
+        let soLich = 0;
+        soLich = a + b;
+        if (a == 0) soLich += 1;
+        if (b == 0) soLich += 1;
+        return soLich;
     }
 
     async initChart() {

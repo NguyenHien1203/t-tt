@@ -228,7 +228,7 @@ export class CapNhatComponent {
       await this.capnhatmoiService.GetDataLoaiVanBanByIdSoVanBan(itemData.soVbid).subscribe(data => {
         this.LoaiVanBan = data.objData;
       });
-      
+
       this.formThongTinVanBan.patchValue({
         coQuanBanHanhId: itemData.cqbhid,
         soVanBanId: itemData.soVbid,
@@ -274,7 +274,6 @@ export class CapNhatComponent {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
         } else {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: data.title });
-          this.Thoat();
         }
       }, (error) => {
         console.log('Error', error);

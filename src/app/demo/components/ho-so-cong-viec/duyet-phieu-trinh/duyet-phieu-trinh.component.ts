@@ -41,7 +41,7 @@ export class DuyetPhieuTrinhComponent {
     ];
     lstNguoiTrinh: modelOptions[] = [];
     lstPhieuTrinh: any[] = [];
-    items = [{ label: 'Hồ sơ công việc' }, { label: 'Phiếu trình' }];
+    items = [{ label: 'Hồ sơ công việc' }, { label: 'Duyệt phiếu trình' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
     timKiemDanhSach: TimKiemPhieuTrinh = {
         keyWord: '',

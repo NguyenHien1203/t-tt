@@ -21,9 +21,10 @@ export class HoSoCongViecCaNhanComponent {
     ) {}
     //Lấy dữ liệu đầu vào
     @Input() id: string = '';
-    @Input() hienThi: boolean = false;
+    @Input() show: boolean = false;
     @Output() tatPopup = new EventEmitter<boolean>();
     submitted = false;
+    loading: boolean = false;
 
     dsSelectHSCV: any = [];
     public formHSCV = this.formBuilder.group({});
@@ -42,14 +43,10 @@ export class HoSoCongViecCaNhanComponent {
         tieude: '',
         nguoiLap: Number(this.userId),
         donVi: Number(this.donViId),
-        ngaybd: new Date,
-        ngaykt: new Date,
         loaihs: 0,
-        ngaylap: new Date,
         phongban: Number(this.phongBanLamViecId),
         trangthai: 0,
         mahs_pb: '',
-        hoso: '',
         linhvucid: 0,
         timChinhXacSearch: 0,
     };
@@ -58,6 +55,7 @@ export class HoSoCongViecCaNhanComponent {
         this.GetNam();
         this.GetThang();
         this.TimKiem(this.timKiem);
+        this.loading = false;
     }
 
     // Lấy dữ liệu số năm cho phép lựa chọn
@@ -72,8 +70,7 @@ export class HoSoCongViecCaNhanComponent {
     //Lấy dữ liệu số tháng lựa chọn
     GetThang() {
         this.luaChonThang.push({ label: '--Chọn tháng--', value: 0 });
-        const soThang = new Date().getMonth();
-        for (let i = 1; i <= soThang + 2; i++) {
+        for (let i = 1; i <= 12; i++) {
             this.luaChonThang.push({
                 label: 'Tháng ' + i.toString(),
                 value: i,
@@ -90,8 +87,8 @@ export class HoSoCongViecCaNhanComponent {
 
     //Hàm đóng pop up
     public Thoat(): void {
-        this.hienThi = false;
+        this.show = false;
         this.submitted = false;
-        this.tatPopup.emit(this.hienThi);
+        this.tatPopup.emit(this.show);
     }
 }

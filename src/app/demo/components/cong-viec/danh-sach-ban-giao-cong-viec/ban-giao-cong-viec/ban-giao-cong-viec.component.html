@@ -127,6 +127,7 @@
                         pRipple
                         label="Hồ sơ công việc cá nhân"
                         icon="pi pi-plus"
+                        (click)="ThemMoiHSCV()"
                         class="p-button-primary mr-2"
                     ></button>
                 </div>
@@ -508,4 +509,4 @@
     </div>
 </div>
 
-<app-ho-so-cong-viec-ca-nhan [hienThi]="hienThiHSCV" (tatPopup)="Thoat($event, 'T')"></app-ho-so-cong-viec-ca-nhan>
+<app-ho-so-cong-viec-ca-nhan [show]="hienThiHSCV" (tatPopup)="Thoat($event, 'T')"></app-ho-so-cong-viec-ca-nhan>

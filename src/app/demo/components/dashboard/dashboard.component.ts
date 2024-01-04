@@ -32,8 +32,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
     items!: MenuItem[];
-    currentDate: Date;
+    currentDate: string = '';
     currentDay: string = '';
+    startOfWeek: string = '';
+    endOfWeek: string = '';
+    currentWeek: number = 1;
     lstCongViec: any[] = [];
     lstTienDo: any[] = [];
     lstLichCoQuanSang: any[] = [];
@@ -59,7 +62,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
 
     ngOnInit() {
-        this.currentDate = new Date();
+        this.currentDate = format(new Date(), "dd/MM/yyyy");
         var days = [
             'Chủ nhật',
             'Thứ hai',
@@ -79,10 +82,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     async LoadDanhSachLichCoQuan() {
-        let currentWeek = this.getWeek(new Date());
+        this.currentWeek = this.getWeek(new Date());
         const firstDayOfThisWeek = this.getFirstDayOfWeek(
             new Date().getFullYear(),
-            currentWeek
+            this.currentWeek
         );
         this.timKiemLichCoQuanDashBoard.firstDayOfWeek = format(
             firstDayOfThisWeek,
@@ -118,6 +121,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 currentDate.getDate() - currentDate.getDay() + 7
             )
         ); //tính ngày kết thúc
+
         if (this.timKiemCongViecDashBoard.tuNgay === '') {
             this.timKiemCongViecDashBoard.tuNgay = format(
                 startOfWeekDate,
@@ -131,6 +135,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 'dd/MM/yyyy'
             );
         }
+        this.startOfWeek = format(startOfWeekDate, 'dd/MM/yyyy');
+        this.endOfWeek = format(endOfWeekDate, 'dd/MM/yyyy');
         const data = await this.service.getDataCongViec(
             this.timKiemCongViecDashBoard
         );

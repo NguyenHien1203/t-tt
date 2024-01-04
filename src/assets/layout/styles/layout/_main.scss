@@ -2,6 +2,14 @@
     box-sizing: border-box;
 }
 
+//minhtd trao đổi thông tin 
+.tb-nhancanhan { // phân cách overlay gán nhãn
+    td {
+    padding: 0.5rem  0.5rem !important;
+  }
+}
+//
+
 .text-uppercase{
     text-transform: uppercase !important;
 }

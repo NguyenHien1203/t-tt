@@ -61,6 +61,17 @@ export class SoanThuService {
             .toPromise()
             .then((res) => res.objData as any[]);
     }
+    
+    getMenuNhanCaNhan(nguoiTao: number) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/TraoDoiThongTin/NhanCaNhan/GetMenuNhanCaNhan/' + nguoiTao,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData as any[]);
+    }
 
     getDanhSachDonVi() {
         return this.http

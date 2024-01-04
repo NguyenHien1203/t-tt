@@ -385,7 +385,7 @@
     <div class="col-12 md:col-12 xl:col-12">
         <div class="card">
             <p-tabView>
-                <p-tabPanel header="Lịch công tác ngày">
+                <p-tabPanel header="Lịch công tác {{ currentDate }}">
                     <div class="table-container">
                         <table class="custom-table">
                             <thead>
@@ -425,11 +425,7 @@
                                                     "
                                                 >
                                                     {{ currentDay }},
-                                                    {{
-                                                        currentDate
-                                                            | date
-                                                                : "dd/MM/yyyy"
-                                                    }}
+                                                    {{ currentDate }}
                                                 </td>
                                                 <td
                                                     class="valign-middle"
@@ -617,7 +613,11 @@
                     </div>
                 </p-tabPanel>
 
-                <p-tabPanel header="Lịch công tác tuần">
+                <p-tabPanel
+                    header="Lịch công tác tuần {{ currentWeek }} ({{
+                        startOfWeek
+                    }} - {{ endOfWeek }} )"
+                >
                     <div class="table-container">
                         <table class="custom-table">
                             <thead>

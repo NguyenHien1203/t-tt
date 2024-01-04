@@ -290,8 +290,6 @@ li.treeNode {
     margin-top: 25px;
 }
 
-
-
 div.multiSelect {
     .form-control {
         display: block;
@@ -392,15 +390,14 @@ div.multiSelect {
     }
 }
 
-
 .roboto {
     font-family: "Roboto Condensed";
     .bold {
         font-weight: bold;
     }
 
-    .p-button{
-      padding: 0.5rem;
+    .p-button {
+        padding: 0.5rem;
     }
 
     .custom-table {
@@ -447,3 +444,21 @@ div.multiSelect {
     height: 2rem !important;
 }
 
+.table-custom-chi-tiet {
+    border-collapse: collapse; // Use separate instead of collapse
+    border-spacing: 0px;
+    width: 100%;
+
+    th {
+        background: #f8f9fa;
+    }
+    .trNone {
+        display: none;
+    }
+
+    th,
+    td {
+        border: 1px solid #ced4da;
+        padding: 15px;
+    }
+}

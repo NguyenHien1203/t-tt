@@ -311,7 +311,7 @@ export class AppMenuComponent implements OnInit {
                             },
                             {
                                 label: 'Thư nháp',
-                                icon: 'pi pi-fw pi-pause',
+                                icon: 'pi pi-fw pi-clone',
                                 routerLink: [
                                     '/trao-doi-thong-tin/hop-thu-nhap',
                                 ],

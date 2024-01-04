@@ -26,20 +26,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
         });
     }
 
+    trHTML = '</tr>';
     idNhomQuyen: string = this.authService.GetmUserInfo()?.nhomQuyenId ?? '0';
     idDonVi: string = this.authService.GetmUserInfo()?.donViId ?? '0';
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
     items!: MenuItem[];
-    currentDate: Date;
-    soCongViec: number = 0;
+    currentDate: string = '';
     currentDay: string = '';
+    startOfWeek: string = '';
+    endOfWeek: string = '';
+    currentWeek: number = 1;
     lstCongViec: any[] = [];
     lstTienDo: any[] = [];
     lstLichCoQuanSang: any[] = [];
     lstLichCoQuanChieu: any[] = [];
     lstLichCoQuanSangChieu: any[] = [];
     lstLichCoQuanTuanChieu: any[] = [];
+    lstLichCoQuanTuan: any[] = [];
     chartData: any;
     chartOptions: any;
     routerLinkCongViec: string = '';
@@ -58,7 +62,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
 
     ngOnInit() {
-        this.currentDate = new Date();
+        this.currentDate = format(new Date(), "dd/MM/yyyy");
         var days = [
             'Chủ nhật',
             'Thứ hai',
@@ -78,10 +82,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     async LoadDanhSachLichCoQuan() {
-        let currentWeek = this.getWeek(new Date());
+        this.currentWeek = this.getWeek(new Date());
         const firstDayOfThisWeek = this.getFirstDayOfWeek(
             new Date().getFullYear(),
-            currentWeek
+            this.currentWeek
         );
         this.timKiemLichCoQuanDashBoard.firstDayOfWeek = format(
             firstDayOfThisWeek,
@@ -93,10 +97,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
         );
         this.lstLichCoQuanSang = data?.lstLichCoQuanSang;
         this.lstLichCoQuanChieu = data?.lstLichCoQuanChieu;
-        this.soCongViec =
-            data?.lstLichCoQuanSang.length + data?.lstLichCoQuanChieu.length;
-            console.log(this.soCongViec);
-            
+        this.lstLichCoQuanTuan = data?.lstLichCoQuanTuan;
+    }
+
+    getSoLichCongTac(a: number, b: number): number {
+        let soLich = 0;
+        soLich = a + b;
+        if (a == 0) soLich += 1;
+        if (b == 0) soLich += 1;
+        return soLich;
     }
 
     async initChart() {
@@ -112,6 +121,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 currentDate.getDate() - currentDate.getDay() + 7
             )
         ); //tính ngày kết thúc
+
         if (this.timKiemCongViecDashBoard.tuNgay === '') {
             this.timKiemCongViecDashBoard.tuNgay = format(
                 startOfWeekDate,
@@ -125,6 +135,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 'dd/MM/yyyy'
             );
         }
+        this.startOfWeek = format(startOfWeekDate, 'dd/MM/yyyy');
+        this.endOfWeek = format(endOfWeekDate, 'dd/MM/yyyy');
         const data = await this.service.getDataCongViec(
             this.timKiemCongViecDashBoard
         );

@@ -7,6 +7,7 @@ import { Clock } from '../demo/models/clock';
 import { Profile } from '../demo/models/profile';
 import { AuthService } from '../common/auth.services';
 import { TopbarService } from './service/app.topbar.service';
+import { addWeeks, format, startOfWeek } from 'date-fns';
 @Component({
     selector: 'app-topbar',
     templateUrl: './app.topbar.component.html',
@@ -36,11 +37,6 @@ export class AppTopBarComponent implements OnInit {
         this.LoadDanhMuc();
 
         this.fullName = this.authService.GetmUserInfo()?.fullName;
-        this.mails = [
-            { label: 'Nhận thông báo', createdDate: new Date(1901, 10, 10) },
-            { label: 'Nhân viên (Bảo vệ)', createdDate: new Date(1901, 1, 10) },
-        ];
-
         this.profiles = [
             {
                 label: 'Thông tin tài khoản',
@@ -59,44 +55,63 @@ export class AppTopBarComponent implements OnInit {
             },
         ];
 
-        // this.notifis = [
-        //     { label: 'Notifi', createdDate: new Date(1901, 10, 10) },
-        //     {
-        //         label: 'Thông báo tiền lương ',
-        //         createdDate: new Date(1901, 1, 10),
-        //     },
-        // ];
-
-        this.clocks = [
-            { label: 'Sắp họp', createdDate: new Date(1901, 10, 10) },
-            { label: 'Mai họp', createdDate: new Date(1901, 1, 10) },
-        ];
-
         this.DonVi_NhomQuyen = [
             { label: 'Văn thư (CNTT)', icon: '', url: '' },
             { label: 'Nhân viên (Bảo vệ)', icon: '', routerLink: ['/theming'] },
         ];
     }
 
-    public LoadDanhMuc(): void {
-        this.topbarService.getDanhSachThongBao().then((data) => {
-            this.notifis = data.map((tb) => {
-                return {
-                    label: tb.tieuDe,
-                    createdDate: tb.created,
-                    trangThaiTBX: tb.trangThaiTBX,
-                };
-            });
+    public async LoadDanhMuc(): Promise<void> {
+        const dataThongBao = await this.topbarService.getDanhSachThongBao();
+        this.notifis = dataThongBao.map((tb) => {
+            return {
+                label: tb.tieuDe,
+                createdDate: tb.created,
+                trangThaiTBX: tb.trangThaiTBX,
+            };
         });
 
-        this.topbarService.getDanhSachHopThuDen().then((data) => {
-            this.mails = data.map((tb) => {
-                return {
-                    label: tb.tieuDe,
-                    createdDate: tb.created,
-                    trangThai: tb.trangThai,
-                };
-            });
+        const dataHopThuDen = await this.topbarService.getDanhSachHopThuDen();
+
+        this.mails = dataHopThuDen.map((tb) => {
+            return {
+                label: tb.tieuDe,
+                createdDate: tb.created,
+                trangThai: tb.trangThai,
+            };
         });
+
+        let currentWeek = this.getWeek(new Date());
+        const firstDayOfThisWeek = format(
+            this.getFirstDayOfWeek(new Date().getFullYear(), currentWeek),
+            'dd/MM/yyyy'
+        );
+
+        const dataHoatDongSapToi =
+            await this.topbarService.getDanhSachHoatDongSapToi(
+                firstDayOfThisWeek,
+            );
+
+        this.clocks = dataHoatDongSapToi.map((hdst) => {
+            return {
+                label: hdst.noiDung,
+                eventDate: hdst.ngayDienRa,
+            };
+        });
+    }
+
+    getWeek(date: Date): number {
+        const startOfYear = startOfWeek(new Date(date.getFullYear(), 0, 1)); //ngày đầu tiên của năm hiện tại
+        const difference = date.getTime() - startOfYear.getTime(); //lấy ra milliseconds giây(js) từ đầu năm đến hiện tại
+        const oneWeek = 7 * 24 * 60 * 60 * 1000; //1 tuần có bao nhiêu milis
+        return Math.ceil(difference / oneWeek); //chia ra thì ra tương đối số tuần
+    }
+
+    getFirstDayOfWeek(year: number, week: number): Date {
+        // Tính toán ngày đầu tuần của tuần và năm cụ thể
+        const firstDayOfYear = new Date(year, 0, 1); //lấy ngày đầu tuần của năm
+
+        //js quy ước từ 1 đến 53 tuần nhưng chỉ có 52 tuần nên phải -1;
+        return addWeeks(firstDayOfYear, week - 1); // + số tuần đã chọn sẽ ra ngày đầu của tuần
     }
 }

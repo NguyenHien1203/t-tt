@@ -1,0 +1,209 @@
+<p-dialog
+    appendTo="body"
+    header="Cập nhật cơ quan ban hành"
+    (onHide)="Thoat()"
+    [(visible)]="show"
+    [modal]="true"
+    [style]="{ width: '65vw' }"
+    [draggable]="true"
+    [resizable]="false"
+>
+    <div class="grid">
+        <div class="col-12">
+            <div class="card">
+                <h2>TÌM KIẾM</h2>
+                <div class="field grid">
+                    <div class="col-12 md:col-4 fl-wr">
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="timKiem.keyWord"
+                            placeholder="Từ khóa"
+                            class="form-control"
+                        />
+                    </div>
+                    <div class="col-12 md:col-2 fl-wr">
+                        <p-dropdown
+                            [options]="luaChonNam"
+                            placeholder="Chọn năm"
+                            [(ngModel)]="timKiem.nam"
+                        ></p-dropdown>
+                    </div>
+                    <div class="col-12 md:col-2 fl-wr">
+                        <p-dropdown
+                            [options]="luaChonThang"
+                            placeholder="Chọn tháng"
+                            [(ngModel)]="timKiem.thang"
+                        ></p-dropdown>
+                    </div>
+                    <button
+                        pButton
+                        pRipple
+                        type="button"
+                        icon="pi pi-search"
+                        (click)="TimKiem(timKiem)"
+                        label="Tìm kiếm"
+                        class="p-button-info"
+                    ></button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="wrapper">
+                    <h2>DANH SÁCH HỒ SƠ</h2>
+                </div>
+                <div class="grid">
+                    <div class="col-12">
+                        <p-table
+                            [paginator]="true"
+                            #dt1
+                            [value]="dsSelectHSCV"
+                            dataKey="id"
+                            [rows]="10"
+                            [loading]="loading"
+                            [rowsPerPageOptions]="[10, 20, 30]"
+                            [rowHover]="true"
+                            styleClass="p-datatable-gridlines"
+                            responsiveLayout="scroll"
+                        >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width: 2%">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            STT
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 14rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Mã hồ sơ
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 14rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Tiêu đề
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 8rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Người lập
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Loại hồ sơ
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 10rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Chức năng
+                                        </div>
+                                    </th>
+
+                                    <th style="min-width: 5rem">
+                                        <div
+                                            class="flex justify-content-between align-items-center"
+                                        >
+                                            Chức năng
+                                        </div>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template
+                                pTemplate="body"
+                                let-hSCN
+                                let-rowIndex="rowIndex"
+                            >
+                                <tr>
+                                    <td style="text-align: center">
+                                        {{ rowIndex + 1 }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ hSCN.maHoSo }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ hSCN.tieuDe }}
+                                    </td>
+                                    <td>
+                                        {{ hSCN.loaiHoSo }}
+                                    </td>
+                                    <td>
+                                        {{ hSCN.ten }}
+                                    </td>
+                                    <td>
+                                        {{ hSCN.tenLoaiHoSo }}
+                                    </td>
+                                    <td>
+                                        <div class="field-checkbox">
+                                            <p-checkbox
+                                                (click)="CheckHienThi(hSCN.id)"
+                                                class="mg-t-25"
+                                            ></p-checkbox>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="10">No record found.</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="loadingbody">
+                                <tr>
+                                    <td colspan="10">
+                                        Loading record data. Please wait.
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button
+            (click)="CapNhatCoQuan()"
+            type="submit"
+            pbutton=""
+            pripple=""
+            label="Cập nhật"
+            icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component"
+        >
+            <span
+                class="p-button-icon p-button-icon-left pi pi-check"
+                aria-hidden="true"
+            ></span>
+            <span class="p-button-label">Lưu</span>
+            <span class="p-ink"></span>
+        </button>
+        <button
+            pbutton=""
+            pripple=""
+            label="Tìm kiếm"
+            icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component p-button-danger"
+            (click)="Thoat()"
+        >
+            <span
+                class="p-button-icon p-button-icon-left pi pi-times"
+                aria-hidden="true"
+            ></span>
+            <span class="p-button-label">Thoát</span>
+            <span class="p-ink"></span>
+        </button>
+    </ng-template>
+</p-dialog>

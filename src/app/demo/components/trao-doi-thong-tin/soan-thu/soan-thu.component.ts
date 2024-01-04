@@ -79,22 +79,14 @@ export class SoanThuComponent implements OnInit {
     }
 
     async ngOnInit() {
-        await this.service //lấy danh sách nhãn cá nhân
-            .getDanhSachNhanCaNhan(
-                Number(this.authService.GetmUserInfo()?.userId)
-            )
-            .then((data) => {
-                this.lstNhanCaNhan = data.map((ncn) => {
-                    return {
-                        label: ncn.tenNhan,
-                        icon: 'pi pi-tag',
-                        routerLink: [
-                            '/trao-doi-thong-tin/hop-thu-ca-nhan',
-                            ncn.id, // Truyền ID vào đây
-                        ],
-                    };
-                });
-            });
+        const data = await this.service.getMenuNhanCaNhan(
+            Number(this.authService.GetmUserInfo()?.userId ?? '0')
+        );
+        const dataGanNhan = await this.service.getDanhSachNhanCaNhan(
+            Number(this.authService.GetmUserInfo()?.userId ?? '0')
+        );
+
+        this.lstNhanCaNhan = this.BindRouterLinkForTree(data);
 
         this.MenuItems = [
             {
@@ -131,6 +123,21 @@ export class SoanThuComponent implements OnInit {
 
         this.LoadDanhMuc();
         this.XuLySoanThu();
+    }
+
+    public BindRouterLinkForTree(treeData: any[]) {
+        for (const node of treeData) {
+            node.routerLink = [
+                '/trao-doi-thong-tin/hop-thu-ca-nhan',
+                { ncn: node.id },
+            ];
+            if (node.items && node.items.length > 0) {
+                this.BindRouterLinkForTree(node.items);
+            } else {
+                node.items = null;
+            }
+        }
+        return treeData;
     }
 
     public XuLySoanThu(): void {

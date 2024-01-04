@@ -48,6 +48,7 @@ export class GuiComponent {
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
     public async BindDataDialog() {
+        this.lstSelectedVanBan = [];
         this.service.getVanBanById(this.id).then(
             (data) => {
                 if (data.isError) {

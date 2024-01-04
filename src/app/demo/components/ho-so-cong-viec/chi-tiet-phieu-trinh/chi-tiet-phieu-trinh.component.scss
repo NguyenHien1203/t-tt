@@ -1,23 +1,23 @@
-@import 'primeng/resources/primeng.min.css';
+// @import 'primeng/resources/primeng.min.css';
 
-.print-dialog {
-  @media print {
-    position: fixed !important; /* Giữ vị trí của modal khi in */
-    z-index: 1000 !important; /* Đảm bảo modal nằm trên cùng khi in */
+// .print-dialog {
+//   @media print {
+//     position: fixed !important; /* Giữ vị trí của modal khi in */
+//     z-index: 1000 !important; /* Đảm bảo modal nằm trên cùng khi in */
 
-    .ui-dialog {
-      /* Thêm các thuộc tính CSS khác tùy thuộc vào nhu cầu của bạn */
-      border: 1px solid #000;
-      box-shadow: none;
-    }
+//     .ui-dialog {
+//       /* Thêm các thuộc tính CSS khác tùy thuộc vào nhu cầu của bạn */
+//       border: 1px solid #000;
+//       box-shadow: none;
+//     }
 
-    .ui-dialog-titlebar {
-      /* Tùy chỉnh tiêu đề modal */
-      background-color: #f3f3f3;
-      color: #333;
-      border-bottom: 1px solid #ccc;
-    }
+//     .ui-dialog-titlebar {
+//       /* Tùy chỉnh tiêu đề modal */
+//       background-color: #f3f3f3;
+//       color: #333;
+//       border-bottom: 1px solid #ccc;
+//     }
 
-    /* Tùy chỉnh các phần khác của modal nếu cần thiết */
-  }
-}
+//     /* Tùy chỉnh các phần khác của modal nếu cần thiết */
+//   }
+// }

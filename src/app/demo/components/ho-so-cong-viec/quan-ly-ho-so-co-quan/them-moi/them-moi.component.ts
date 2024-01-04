@@ -169,6 +169,8 @@ export class ThemMoiComponent {
     }
 
     public ChangePhongBan(event): void {
+        this.nhomNguoiDungId= null;
+        this.chonNhanhUser = null;
         if (event != null) {
             this.service
                 .getDanhSachUserThuocPhongBan(event, this.idUser)
@@ -179,6 +181,8 @@ export class ThemMoiComponent {
     }
 
     public ChangeNhomNguoiDung(event): void {
+        this.phongBanId= null;
+        this.chonNhanhUser = null;
         if (event != null) {
             this.service
                 .getDanhSachUserThuocNhomNguoiDung(event, this.idUser)
@@ -189,6 +193,8 @@ export class ThemMoiComponent {
     }
 
     public ChangeUserChonNhanh(event): void {
+        this.nhomNguoiDungId= null;
+        this.phongBanId = null;
         if (event != null) {
             let objUser = this.lstUserChonNhanh.filter(
                 (data) => data.value == event

@@ -200,10 +200,13 @@
                             <tr [pSelectableRow]="rowData">
                                 <td>{{ clock.label }}</td>
                                 <td>
-                                    {{
-                                        clock.createdDate | date : "yyyy-MM-dd"
-                                    }}
+                                    {{ clock.eventDate | date : "dd/MM/yyyy" }}
                                 </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="10">No record found.</td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -259,7 +262,7 @@
                         responsiveLayout="scroll"
                     >
                         <ng-template pTemplate="caption">
-                            <div class="div-center">
+                            <div class="text-center">
                                 {{ fullName }}
                             </div>
                         </ng-template>

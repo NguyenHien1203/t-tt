@@ -68,29 +68,24 @@ export class HopThuQuanTrongComponent {
 
     async ngOnInit() {
         this.loading = false;
-        await this.soanThuService
-            .getDanhSachNhanCaNhan(Number(this.authService.GetmUserInfo()?.userId))
-            .then((data) => {
-                this.lstNhanCaNhan = data.map((ncn) => {
-                    return {
-                        label: ncn.tenNhan,
-                        icon: 'pi pi-tag',
-                        routerLink: [
-                            '/trao-doi-thong-tin/hop-thu-ca-nhan',
-                            { ncn: ncn.id },
-                        ],
-                    };
-                });
+        this.loading = false;
+        const data = await this.soanThuService.getMenuNhanCaNhan(
+            Number(this.authService.GetmUserInfo()?.userId ?? '0')
+        );
+        const dataGanNhan = await this.soanThuService.getDanhSachNhanCaNhan(
+            Number(this.authService.GetmUserInfo()?.userId ?? '0')
+        );
 
-                this.lstNhanCaNhanClone = data.map((ncn) => {
-                    //tạo button gán nhãn
-                    return {
-                        label: ncn.tenNhan,
-                        value: ncn.id,
-                        checked: false,
-                    };
-                });
-            });
+        this.lstNhanCaNhan = this.BindRouterLinkForTree(data);
+
+        this.lstNhanCaNhanClone = dataGanNhan.map((ncn) => {
+            //tạo button gán nhãn
+            return {
+                label: ncn.tenNhan,
+                value: ncn.id,
+                checked: false,
+            };
+        });
 
         this.MenuItems = [
             {
@@ -127,6 +122,21 @@ export class HopThuQuanTrongComponent {
 
         this.LoadDanhSach();
         this.GetDataMOnthYear();
+    }
+
+    public BindRouterLinkForTree(treeData: any[]) {
+        for (const node of treeData) {
+            node.routerLink = [
+                '/trao-doi-thong-tin/hop-thu-ca-nhan',
+                { ncn: node.id },
+            ];
+            if (node.items && node.items.length > 0) {
+                this.BindRouterLinkForTree(node.items);
+            } else {
+                node.items = null;
+            }
+        }
+        return treeData;
     }
 
     public LoadDanhSach() {

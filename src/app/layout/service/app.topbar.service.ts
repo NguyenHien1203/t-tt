@@ -27,12 +27,26 @@ export class TopbarService {
             .toPromise()
             .then((res) => res.objData as any[]);
     }
-    
+
     getDanhSachHopThuDen() {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
                     '/Menu/MenuTopBar/GetDanhSachHopThuDen/' +
+                    this.userId,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData as any[]);
+    }
+
+    getDanhSachHoatDongSapToi(tuNgay: string) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/Menu/MenuTopBar/GetDanhSachHoatDongSapToi?tuNgay=' +
+                    tuNgay +
+                    '&userId=' +
                     this.userId,
                 this.httpOption
             )

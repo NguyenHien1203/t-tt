@@ -2,10 +2,42 @@
     min-height: 307px;
 }
 
+.text-500 {
+    color: #343a40;
+}
+
+.table-container {
+    overflow-y: auto; /* Enable vertical scrolling for the container */
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.55em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 15px;
+}
+
+.badge-danger {
+    color: #fff;
+    background-color: #dc3545;
+}
+
 .custom-table {
-    border-collapse: separate; // Use separate instead of collapse
+    border-collapse: collapse; // Use separate instead of collapse
     border-spacing: 0px;
-    width:  100%;
+    width: 100%;
+
+    th {
+        background: #f8f9fa;
+    }
+    .trNone {
+        display: none;
+    }
 
     th,
     td {

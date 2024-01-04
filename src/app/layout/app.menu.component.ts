@@ -33,21 +33,6 @@ export class AppMenuComponent implements OnInit {
         this.GetDataMenu();
         this.GetDataNhomQuyen();
         this.GetOptionNhomQuyen();
-        this.cities = [
-            {
-                label: 'Văn thư (CNTT)',
-                value: { id: 1, name: 'New York', code: 'NY' },
-            },
-            { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
-            { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
-            {
-                label: 'Istanbul',
-                value: { id: 4, name: 'Istanbul', code: 'IST' },
-            },
-            { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } },
-        ];
-
-       
     }
 
     public Submit() {
@@ -130,7 +115,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Văn bản đã từ chối',
                                 icon: 'pi pi-fw pi-minus',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-den/van-ban-da-tu-choi'],
                                 code: '001007',
                             },
                             {
@@ -278,7 +263,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Danh sách bàn giao công việc',
                                 icon: 'pi pi-fw pi-book',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/cong-viec/danh-sach-ban-giao-cong-viec'],
                                 code: '003005',
                             },
                             {
@@ -326,7 +311,7 @@ export class AppMenuComponent implements OnInit {
                             },
                             {
                                 label: 'Thư nháp',
-                                icon: 'pi pi-fw pi-pause',
+                                icon: 'pi pi-fw pi-clone',
                                 routerLink: [
                                     '/trao-doi-thong-tin/hop-thu-nhap',
                                 ],

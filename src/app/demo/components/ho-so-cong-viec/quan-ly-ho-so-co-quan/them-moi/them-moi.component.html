@@ -566,12 +566,13 @@
                 <div class="multiSelect">
                     <div class="field grid">
                         <label class="col-12 md:col-6 fl-wr">
-                            <label for="">Chọn phòng ban</label>
+                            <label for="phongBan">Chọn phòng ban</label>
                             <p-dropdown
                                 [showClear]="true"
                                 [(ngModel)]="phongBanId"
                                 [options]="lstPhongBan"
                                 optionValue="value"
+                                id="phongBan"
                                 optionLabel="text"
                                 [filter]="true"
                                 [style]="{ width: '100%' }"
@@ -580,13 +581,14 @@
                                 (ngModelChange)="ChangePhongBan($event)"
                             ></p-dropdown>
 
-                            <label for="">Chọn nhóm người dùng</label>
+                            <label for="nhomNguoiDung">Chọn nhóm người dùng</label>
                             <p-dropdown
                                 [showClear]="true"
                                 [(ngModel)]="nhomNguoiDungId"
                                 [options]="lstNhomNguoiDung"
                                 optionValue="value"
                                 optionLabel="text"
+                                id="nhomNguoiDung"
                                 [filter]="true"
                                 [style]="{ width: '100%' }"
                                 class="my-drop"
@@ -594,12 +596,13 @@
                                 (ngModelChange)="ChangeNhomNguoiDung($event)"
                             ></p-dropdown>
 
-                            <label for="">Chọn nhanh người dùng</label>
+                            <label for="chonNhanh">Chọn nhanh người dùng</label>
                             <p-dropdown
                                 [showClear]="true"
                                 [options]="lstUserChonNhanh"
                                 [(ngModel)]="chonNhanhUser"
                                 optionValue="value"
+                                id="chonNhanh"
                                 optionLabel="text"
                                 [filter]="true"
                                 [style]="{ width: '100%' }"

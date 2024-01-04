@@ -1,0 +1,103 @@
+<form [formGroup]="formThemMoi">
+    <p-dialog
+        appendTo="body"
+        header="Thêm mới phiếu bàn giao"
+        (onHide)="Thoat()"
+        [(visible)]="show"
+        [modal]="true"
+        [style]="{ width: '65vw' }"
+        [draggable]="true"
+        [resizable]="false"
+    >
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="idNguoiBanGiao">Người bàn giao</label>
+                <input
+                    pinputtext=""
+                    id="idNguoiBanGiao"
+                    [(ngModel)]="tenNguoiNhan"
+                    type="text"
+                    class="p-inputtext p-component p-element"
+                    formControlName="idNguoiBanGiao"
+                />
+            </div>
+
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="idNguoiNhanBanGiao">Người nhận bàn giao</label>
+                <p-dropdown
+                    [options]="lstNguoiNhan"
+                    id="idNguoiNhanBanGiao"
+                    optionValue="value"
+                    optionLabel="text"
+                    [showClear]="true"
+                    [filter]="true"
+                    appendTo="body"
+                    placeholder="Chọn người nhận bàn giao"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                    formControlName="idNguoiNhanBanGiao"
+                ></p-dropdown>
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="ngayBanGiao">Ngày bàn giao</label>
+                <p-calendar
+                    id="ngayBanGiao"
+                    dateFormat="dd/mm/yy"
+                    placeholder="Ban hành đến ngày"
+                    [style]="{ width: '100%' }"
+                    class="my-drop"
+                    formControlName="ngayBanGiao"
+                ></p-calendar>
+            </div>
+            <div class="field col-12 md:col-6 mb-0">
+                <label htmlfor="noiDung"
+                    >Nội dung</label
+                >
+                <input
+                    pinputtext=""
+                    id="noiDung"
+                    type="text"
+                    class="p-inputtext p-component p-element"
+                    formControlName="noiDung"
+                />
+            </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+            <button
+                (click)="ThemMoiCongViec()"
+                type="submit"
+                pbutton=""
+                pripple=""
+                label="Thêm mới"
+                icon="pi pi-bookmark"
+                class="p-element p-ripple p-button p-component"
+            >
+                <span
+                    class="p-button-icon p-button-icon-left pi pi-check"
+                    aria-hidden="true"
+                ></span>
+                <span class="p-button-label">Lưu</span>
+                <span class="p-ink"></span>
+            </button>
+            <button
+                pbutton=""
+                pripple=""
+                label="Tìm kiếm"
+                icon="pi pi-bookmark"
+                class="p-element p-ripple p-button p-component p-button-danger"
+                (click)="Thoat()"
+            >
+                <span
+                    class="p-button-icon p-button-icon-left pi pi-times"
+                    aria-hidden="true"
+                ></span>
+                <span class="p-button-label">Thoát</span>
+                <span class="p-ink"></span>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

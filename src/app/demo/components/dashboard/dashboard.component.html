@@ -25,8 +25,7 @@
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Văn bản liên thông Chính phủ</span
                             >
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -40,8 +39,7 @@
                                 ></i
                                 >&nbsp;Văn bản chờ tiếp nhận</span
                             >
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -55,8 +53,7 @@
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Văn bản chờ thu hồi</span
                             >
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -70,8 +67,7 @@
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Văn bản chờ chỉ đạo</span
                             >
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -85,8 +81,7 @@
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Văn bản đến liên quan</span
                             >
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -121,8 +116,7 @@
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Văn bản chờ duyệt</span
                             >
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -136,8 +130,7 @@
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Văn bản ký số chờ duyệt</span
                             >
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -151,8 +144,7 @@
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Văn bản chờ ký số</span
                             >
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -187,8 +179,7 @@
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Trao đổi đến (chưa xem)</span
                             >
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -202,8 +193,7 @@
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Trao đổi đi</span
                             >
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -235,8 +225,7 @@
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Công việc chỉ đạo</span
                             >
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -247,8 +236,7 @@
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Công việc chủ trì</span
                             >
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -259,8 +247,7 @@
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Công việc phối hợp
                             </span>
-                            <span
-                                class="text-green-500 font-medium align-items-end"
+                            <span class="text-light badge badge-danger"
                                 >24
                             </span></a
                         >
@@ -359,12 +346,8 @@
             ></p-chart>
             <span *ngIf="lstCongViec.length == 0">No record found.</span>
         </div>
-    </div>
-    <div class="col-12 xl:col-4">
         <div class="card">
-            <div class="flex justify-content-between align-items-center mb-5">
-                <h5>Thống kê công việc theo tiến độ</h5>
-            </div>
+            <h5>Thống kê công việc theo tiến độ</h5>
             <span *ngIf="lstTienDo.length == 0">No record found.</span>
             <ul class="list-none p-0 m-0">
                 <li
@@ -399,74 +382,131 @@
             </ul>
         </div>
     </div>
-
-    <div class="col-12 xl:col-8">
+    <div class="col-12 md:col-12 xl:col-12">
         <div class="card">
             <p-tabView>
-                <p-tabPanel header="Lịch công tác ngày">
-                    <table class="custom-table">
-                        <thead>
-                            <tr>
-                                <th>Ngày</th>
-                                <th>Thời gian</th>
-                                <th>Nội dung</th>
-                                <th>Địa điểm</th>
-                                <th>Lãnh đạo chủ trì</th>
-                                <th>Lãnh đạo văn phòng</th>
-                                <th>Đơn vị chuẩn bị</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td
-                                    [attr.rowspan]="soCongViec"
-                                    class="valign-middle"
-                                >
-                                    {{ currentDay }},
-                                    {{ currentDate | date : "dd/MM/yyyy" }}
-                                </td>
+                <p-tabPanel header="Lịch công tác {{ currentDate }}">
+                    <div class="table-container">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Ngày</th>
+                                    <th>Thời gian</th>
+                                    <th>Nội dung</th>
+                                    <th>Địa điểm</th>
+                                    <th>Lãnh đạo chủ trì</th>
+                                    <th>Lãnh đạo văn phòng</th>
+                                    <th>Đơn vị chuẩn bị</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <ng-container
                                     *ngIf="
                                         lstLichCoQuanSang &&
-                                            lstLichCoQuanSang.length > 0;
-                                        else noSang
+                                        lstLichCoQuanSang.length > 0
+                                    "
+                                >
+                                    <ng-container
+                                        *ngFor="
+                                            let objLicPB of lstLichCoQuanSang;
+                                            let i = index
+                                        "
+                                    >
+                                        <ng-container
+                                            *ngIf="i === 0; else lichSang"
+                                        >
+                                            <tr>
+                                                <td
+                                                    [attr.rowspan]="
+                                                        getSoLichCongTac(
+                                                            lstLichCoQuanSang.length,
+                                                            lstLichCoQuanChieu.length
+                                                        )
+                                                    "
+                                                >
+                                                    {{ currentDay }},
+                                                    {{ currentDate }}
+                                                </td>
+                                                <td
+                                                    class="valign-middle"
+                                                    [attr.rowspan]="
+                                                        lstLichCoQuanSang.length
+                                                    "
+                                                >
+                                                    Sáng
+                                                </td>
+                                                <td
+                                                    class="valign-middle"
+                                                    [style]="{
+                                                        'min-width': '25%'
+                                                    }"
+                                                >
+                                                    {{ objLicPB.noiDung }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{ objLicPB.diaDiem }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{ objLicPB.lanhDaoChuTri }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{
+                                                        objLicPB.lanhDaoVanPhong
+                                                    }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{ objLicPB.donViChuanBi }}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                        <ng-template #lichSang>
+                                            <tr>
+                                                <td class="valign-middle">
+                                                    {{ objLicPB.noiDung }}
+                                                </td>
+                                                <td
+                                                    class="valign-middle"
+                                                    [style]="{
+                                                        'min-width': '25%'
+                                                    }"
+                                                >
+                                                    {{ objLicPB.diaDiem }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{ objLicPB.lanhDaoChuTri }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{
+                                                        objLicPB.lanhDaoVanPhong
+                                                    }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{ objLicPB.donViChuanBi }}
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </ng-container>
+                                </ng-container>
+                                <tr
+                                    *ngIf="
+                                        !(
+                                            lstLichCoQuanSang &&
+                                            lstLichCoQuanSang.length > 0
+                                        )
                                     "
                                 >
                                     <td
                                         [attr.rowspan]="
-                                            lstLichCoQuanSang.length
+                                            getSoLichCongTac(
+                                                lstLichCoQuanSang.length,
+                                                lstLichCoQuanChieu.length
+                                            )
                                         "
-                                        class="valign-middle"
                                     >
-                                        Sáng
+                                        {{ currentDay }},
+                                        {{ currentDate | date : "dd/MM/yyyy" }}
                                     </td>
-                                    <ng-container
-                                        *ngFor="
-                                            let objLicPB of lstLichCoQuanSang;
-                                            let j = index
-                                        "
-                                    >
-                                        <tr>
-                                            <td class="valign-middle">
-                                                {{ objLicPB.noiDung }}
-                                            </td>
-                                            <td class="valign-middle">
-                                                {{ objLicPB.diaDiem }}
-                                            </td>
-                                            <td class="valign-middle">
-                                                {{ objLicPB.chuTri }}
-                                            </td>
-                                            <td class="valign-middle">
-                                                {{ objLicPB.ldVanPhong }}
-                                            </td>
-                                            <td class="valign-middle">
-                                                {{ objLicPB.dvcb }}
-                                            </td>
-                                        </tr>
-                                    </ng-container>
-                                </ng-container>
-                                <ng-template #noSang>
-                                    <td class="valign-middle" rowspan="1">
+                                    <td rowspan="1" class="valign-middle">
                                         Sáng
                                     </td>
                                     <td class="valign-middle"></td>
@@ -474,49 +514,92 @@
                                     <td class="valign-middle"></td>
                                     <td class="valign-middle"></td>
                                     <td class="valign-middle"></td>
-                                </ng-template>
-                            </tr>
-                            <tr>
-                                <td
-                                    [attr.rowspan]="lstLichCoQuanChieu.length"
-                                    class="valign-middle"
-                                >
-                                    Chiều
-                                </td>
+                                </tr>
                                 <ng-container
                                     *ngIf="
                                         lstLichCoQuanChieu &&
-                                            lstLichCoQuanChieu.length > 0;
-                                        else noChieu
+                                        lstLichCoQuanChieu.length > 0
                                     "
                                 >
                                     <ng-container
                                         *ngFor="
                                             let objLicPB of lstLichCoQuanChieu;
-                                            let k = index
+                                            let j = index
                                         "
                                     >
-                                        <tr>
-                                            <td class="valign-middle">
-                                                {{ objLicPB.noiDung }}
-                                            </td>
-                                            <td class="valign-middle">
-                                                {{ objLicPB.diaDiem }}
-                                            </td>
-                                            <td class="valign-middle">
-                                                {{ objLicPB.chuTri }}
-                                            </td>
-                                            <td class="valign-middle">
-                                                {{ objLicPB.lDVanPhong }}
-                                            </td>
-                                            <td class="valign-middle">
-                                                {{ objLicPB.dVCB }}
-                                            </td>
-                                        </tr>
+                                        <ng-container
+                                            *ngIf="j === 0; else lichChieu"
+                                        >
+                                            <tr>
+                                                <td
+                                                    class="valign-middle"
+                                                    [attr.rowspan]="
+                                                        lstLichCoQuanChieu.length
+                                                    "
+                                                >
+                                                    Chiều
+                                                </td>
+                                                <td
+                                                    class="valign-middle"
+                                                    [style]="{
+                                                        'min-width': '25%'
+                                                    }"
+                                                >
+                                                    {{ objLicPB.noiDung }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{ objLicPB.diaDiem }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{ objLicPB.lanhDaoChuTri }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{
+                                                        objLicPB.lanhDaoVanPhong
+                                                    }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{ objLicPB.donViChuanBi }}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                        <ng-template #lichChieu>
+                                            <tr>
+                                                <td class="valign-middle">
+                                                    {{ objLicPB.noiDung }}
+                                                </td>
+                                                <td
+                                                    class="valign-middle"
+                                                    [style]="{
+                                                        'min-width': '25%'
+                                                    }"
+                                                >
+                                                    {{ objLicPB.diaDiem }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{ objLicPB.lanhDaoChuTri }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{
+                                                        objLicPB.lanhDaoVanPhong
+                                                    }}
+                                                </td>
+                                                <td class="valign-middle">
+                                                    {{ objLicPB.donViChuanBi }}
+                                                </td>
+                                            </tr>
+                                        </ng-template>
                                     </ng-container>
                                 </ng-container>
-                                <ng-template #noChieu>
-                                    <td class="valign-middle" rowspan="1">
+                                <tr
+                                    *ngIf="
+                                        !(
+                                            lstLichCoQuanChieu &&
+                                            lstLichCoQuanChieu.length > 0
+                                        )
+                                    "
+                                >
+                                    <td rowspan="1" class="valign-middle">
                                         Chiều
                                     </td>
                                     <td class="valign-middle"></td>
@@ -524,25 +607,255 @@
                                     <td class="valign-middle"></td>
                                     <td class="valign-middle"></td>
                                     <td class="valign-middle"></td>
-                                </ng-template>
-                            </tr>
-                        </tbody>
-                    </table>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </p-tabPanel>
-                <p-tabPanel header="Lịch công tác tuần">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th width="150">Ngày</th>
-                                <th width="">Thời gian</th>
-                                <th>Nội dung</th>
-                                <th>Địa điểm</th>
-                                <th>Lãnh đạo chủ trì</th>
-                                <th>Lãnh đạo văn phòng</th>
-                                <th>Đơn vị chuẩn bị</th>
-                            </tr>
-                        </thead>
-                    </table>
+
+                <p-tabPanel
+                    header="Lịch công tác tuần {{ currentWeek }} ({{
+                        startOfWeek
+                    }} - {{ endOfWeek }} )"
+                >
+                    <div class="table-container">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Ngày</th>
+                                    <th>Thời gian</th>
+                                    <th>Nội dung</th>
+                                    <th>Địa điểm</th>
+                                    <th>Lãnh đạo chủ trì</th>
+                                    <th>Lãnh đạo văn phòng</th>
+                                    <th>Đơn vị chuẩn bị</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container
+                                    *ngFor="
+                                        let item of lstLichCoQuanTuan;
+                                        let i = index
+                                    "
+                                >
+                                    <ng-container
+                                        *ngIf="
+                                            item?.lstCoQuanTuanSang &&
+                                            item?.lstCoQuanTuanSang.length > 0
+                                        "
+                                    >
+                                        <ng-container
+                                            *ngFor="
+                                                let objLicPB of item?.lstCoQuanTuanSang;
+                                                let i = index
+                                            "
+                                        >
+                                            <ng-container
+                                                *ngIf="i === 0; else lichSang"
+                                            >
+                                                <tr>
+                                                    <td
+                                                        [attr.rowspan]="
+                                                            getSoLichCongTac(
+                                                                item
+                                                                    .lstCoQuanTuanSang
+                                                                    .length,
+                                                                item
+                                                                    .lstCoQuanTuanChieu
+                                                                    .length
+                                                            )
+                                                        "
+                                                    >
+                                                        {{ item?.thu }}
+                                                    </td>
+                                                    <td
+                                                        class="valign-middle"
+                                                        [attr.rowspan]="
+                                                            item
+                                                                ?.lstCoQuanTuanSang
+                                                                .length
+                                                        "
+                                                    >
+                                                        Sáng
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{ objLicPB.noiDung }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{ objLicPB.diaDiem }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{
+                                                            objLicPB.lanhDaoChuTri
+                                                        }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{
+                                                            objLicPB.lanhDaoVanPhong
+                                                        }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{
+                                                            objLicPB.donViChuanBi
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+                                            <ng-template #lichSang>
+                                                <tr>
+                                                    <td class="valign-middle">
+                                                        {{ objLicPB.noiDung }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{ objLicPB.diaDiem }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{
+                                                            objLicPB.lanhDaoChuTri
+                                                        }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{
+                                                            objLicPB.lanhDaoVanPhong
+                                                        }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{
+                                                            objLicPB.donViChuanBi
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </ng-container>
+                                    </ng-container>
+                                    <tr
+                                        *ngIf="
+                                            !(
+                                                item?.lstCoQuanTuanSang &&
+                                                item?.lstCoQuanTuanSang.length >
+                                                    0
+                                            )
+                                        "
+                                    >
+                                        <td
+                                            [attr.rowspan]="
+                                                getSoLichCongTac(
+                                                    item.lstCoQuanTuanSang
+                                                        .length,
+                                                    item.lstCoQuanTuanChieu
+                                                        .length
+                                                )
+                                            "
+                                        >
+                                            {{ item?.thu }}
+                                        </td>
+                                        <td rowspan="1" class="valign-middle">
+                                            Sáng
+                                        </td>
+                                        <td class="valign-middle"></td>
+                                        <td class="valign-middle"></td>
+                                        <td class="valign-middle"></td>
+                                        <td class="valign-middle"></td>
+                                        <td class="valign-middle"></td>
+                                    </tr>
+                                    <ng-container
+                                        *ngIf="
+                                            item?.lstCoQuanTuanChieu &&
+                                            item?.lstCoQuanTuanChieu.length > 0
+                                        "
+                                    >
+                                        <ng-container
+                                            *ngFor="
+                                                let objLicPB of item?.lstCoQuanTuanChieu;
+                                                let j = index
+                                            "
+                                        >
+                                            <ng-container
+                                                *ngIf="j === 0; else lichChieu"
+                                            >
+                                                <tr>
+                                                    <td
+                                                        class="valign-middle"
+                                                        [attr.rowspan]="
+                                                            item
+                                                                ?.lstCoQuanTuanChieu
+                                                                .length
+                                                        "
+                                                    >
+                                                        Chiều
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{ objLicPB.noiDung }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{ objLicPB.diaDiem }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{
+                                                            objLicPB.lanhDaoChuTri
+                                                        }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{
+                                                            objLicPB.lanhDaoVanPhong
+                                                        }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{
+                                                            objLicPB.donViChuanBi
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+                                            <ng-template #lichChieu>
+                                                <tr>
+                                                    <td class="valign-middle">
+                                                        {{ objLicPB.noiDung }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{ objLicPB.diaDiem }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{
+                                                            objLicPB.lanhDaoChuTri
+                                                        }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{
+                                                            objLicPB.lanhDaoVanPhong
+                                                        }}
+                                                    </td>
+                                                    <td class="valign-middle">
+                                                        {{
+                                                            objLicPB.donViChuanBi
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </ng-container>
+                                    </ng-container>
+                                    <tr
+                                        *ngIf="
+                                            !(
+                                                item?.lstCoQuanTuanChieu &&
+                                                item?.lstCoQuanTuanChieu
+                                                    .length > 0
+                                            )
+                                        "
+                                    >
+                                        <td rowspan="1" class="valign-middle">
+                                            Chiều
+                                        </td>
+                                        <td class="valign-middle"></td>
+                                        <td class="valign-middle"></td>
+                                        <td class="valign-middle"></td>
+                                        <td class="valign-middle"></td>
+                                        <td class="valign-middle"></td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
                 </p-tabPanel>
             </p-tabView>
         </div>

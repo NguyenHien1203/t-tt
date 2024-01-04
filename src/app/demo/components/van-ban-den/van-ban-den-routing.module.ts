@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
     { path: 'tra-cuu-don-gian', data: { breadcrumb: 'Button' }, loadChildren: () => import('./tra-cuu-don-gian/tra-cuu-don-gian.module').then(m => m.TraCuuDonGianModule) },
     { path: 'tra-cuu-nang-cao', data: { breadcrumb: 'Button' }, loadChildren: () => import('./tra-cuu-nang-cao/tra-cuu-nang-cao.module').then(m => m.TraCuuNangCaoModule) },
     { path: 'tim-kiem-theo-so-van-ban', data: { breadcrumb: 'Button' }, loadChildren: () => import('./tim-kiem-theo-so-van-ban/tim-kiem-theo-so-van-ban.module').then(m => m.TimKiemTheoSoVanBanModule) },
+    { path: 'van-ban-da-tu-choi', data: { breadcrumb: 'Button' }, loadChildren: () => import('./van-ban-da-tu-choi/van-ban-da-tu-choi.module').then(m => m.VanBanDaTuChoiModule) },
   ])],
   exports: [RouterModule]
 })

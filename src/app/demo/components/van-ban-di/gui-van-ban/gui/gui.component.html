@@ -13,7 +13,78 @@
         <div class="guiVanBan">
             <div class="grid">
                 <div class="col-12">
-                    <p-table
+                    <table class="table-custom-chi-tiet">
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Số ký hiệu:</strong>
+                            </td>
+                            <td class="custom-b">{{ ThongTinVanBan?.soKiHieu }}</td>
+                            <td class="custom-rb">
+                                <strong>Loại văn bản:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{ ThongTinVanBan?.tenLoaiVanBan }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Ngày ban hành:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{ ThongTinVanBan?.ngayBanHanh | date : "dd/MM/yyyy" }}
+                            </td>
+                            <td class="custom-rb">
+                                <strong>Ngày gửi văn bản:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{ ThongTinVanBan?.ngayNhanVanBan | date : "dd/MM/yyyy" }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Sổ văn bản:</strong>
+                            </td>
+                            <td class="custom-b">{{ ThongTinVanBan?.tenSoVanBan }}</td>
+                            <td class="custom-rb">
+                                <strong>Số đi:</strong>
+                            </td>
+                            <td class="custom-b">{{ ThongTinVanBan?.soDi }}</td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Cơ quan ban hành:</strong>
+                            </td>
+                            <td class="custom-b">{{ ThongTinVanBan?.coQuanBh }}</td>
+                            <td class="custom-rb">
+                                <strong>File đính kèm:</strong>
+                            </td>
+                            <td class="custom-b">
+                                <li
+                                    class="custom-li"
+                                    *ngFor="let file of ThongTinFile"
+                                >
+                                    <a
+                                        (click)="
+                                            DownloadFile(
+                                                file.filePath,
+                                                file.fileName
+                                            )
+                                        "
+                                        >{{ file.fileName }}</a
+                                    >
+                                </li>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Trích yếu:</strong>
+                            </td>
+                            <td class="custom-b" colspan="3">
+                                {{ ThongTinVanBan?.trichYeu }}
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- <p-table
                         styleClass="p-datatable-gridlines"
                         [value]="[ThongTinVanBan]"
                         class="custom-table"
@@ -92,7 +163,7 @@
                                 </td>
                             </tr>
                         </ng-template>
-                    </p-table>
+                    </p-table> -->
                 </div>
             </div>
             <div class="p-fluid p-formgrid grid" *ngIf="isHienThi">

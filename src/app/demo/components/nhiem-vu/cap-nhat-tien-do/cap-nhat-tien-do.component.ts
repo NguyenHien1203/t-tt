@@ -45,7 +45,7 @@ export class CapNhatTienDoComponent implements OnInit {
     { label: 'Hoàn thành quá hạn', value: 4 },
     { label: 'Đang thực hiện đúng hạn', value: 5 },
     { label: 'Đang thực hiện quá hạn', value: 6 },
-];
+  ];
 
   constructor(
     private authService: AuthService,

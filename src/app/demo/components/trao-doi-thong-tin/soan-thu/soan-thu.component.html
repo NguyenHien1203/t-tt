@@ -160,10 +160,11 @@
                     [editor]="Editor"
                     row=""
                     [config]="{
-                        placeholder: 'Nhập nội dung'
+                        placeholder: 'Nhập nội dung',
+                       
                     }"
+                    (ready)="onReady($event)"
                     [(ngModel)]="editConTent"
-                    placeholder="Write your message"
                 ></ckeditor>
             </div>
         </div>
@@ -177,3 +178,10 @@
     (tatPopup)="Thoat($event, 'C')"
 ></app-chon-nguoi-dung>
 <p-toast></p-toast>
+<!-- ckfinder: {
+    uploadUrl:
+        'https://localhost:7077/api/TraoDoiThongTin/SoanThu/UpLoadImageCkeditor',
+    options: {
+        resourceType: 'Images'
+    }
+} -->

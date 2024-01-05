@@ -23,7 +23,6 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 
-
 import { SoanThuRoutingModule } from './soan-thu-routing.module';
 import { SoanThuComponent } from './soan-thu.component';
 import { MenubarModule } from 'primeng/menubar';

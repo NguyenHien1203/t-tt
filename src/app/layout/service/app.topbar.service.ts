@@ -9,45 +9,44 @@ import { environment } from 'src/environments/environment.development';
 export class TopbarService {
     constructor(private http: HttpClient, private authService: AuthService) {}
 
-    userId: string = this.authService.GetmUserInfo()?.userId;
     private httpOption = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
         }),
     };
 
-    getDanhSachThongBao() {
+    getDanhSachThongBao(userId: string) {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
                     '/Menu/MenuTopBar/GetDanhSachThongBao/' +
-                    this.userId,
+                    userId,
                 this.httpOption
             )
             .toPromise()
             .then((res) => res.objData as any[]);
     }
 
-    getDanhSachHopThuDen() {
+    getDanhSachHopThuDen(userId: string) {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
                     '/Menu/MenuTopBar/GetDanhSachHopThuDen/' +
-                    this.userId,
+                    userId,
                 this.httpOption
             )
             .toPromise()
             .then((res) => res.objData as any[]);
     }
 
-    getDanhSachHoatDongSapToi(tuNgay: string) {
+    getDanhSachHoatDongSapToi(tuNgay: string, userId: string) {
         return this.http
             .get<any>(
                 environment.baseUrlApi +
                     '/Menu/MenuTopBar/GetDanhSachHoatDongSapToi?tuNgay=' +
                     tuNgay +
                     '&userId=' +
-                    this.userId,
+                    userId,
                 this.httpOption
             )
             .toPromise()

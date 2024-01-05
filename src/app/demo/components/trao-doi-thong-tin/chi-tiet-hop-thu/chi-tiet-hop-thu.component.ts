@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
     selector: 'app-chi-tiet-hop-thu',
     templateUrl: './chi-tiet-hop-thu.component.html',
     styleUrls: ['./chi-tiet-hop-thu.component.scss'],
+    providers: [MessageService],
 })
 export class ChiTietHopThuComponent {
     @Input() show: boolean = false;

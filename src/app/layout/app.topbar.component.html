@@ -77,10 +77,16 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-mail>
                             <tr
+                                (click)="chiTietHopThuDen(mail.traoDoiId, -1)"
                                 [pSelectableRow]="rowData"
-                                [ngClass]="mail.trangThai == 1 ? 'bold' : ''"
                             >
-                                <td>{{ mail.label }}</td>
+                                <td
+                                    [ngClass]="
+                                        mail.trangThai == 1 ? 'bold' : ''
+                                    "
+                                >
+                                    {{ mail.label }}
+                                </td>
                                 <td>
                                     {{ mail.createdDate | date : "dd/MM/yyyy" }}
                                 </td>
@@ -140,13 +146,14 @@
                             </div>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-notifi>
-                            <tr
-                                [pSelectableRow]="rowData"
-                                [ngClass]="
-                                    notifi.trangThaiTBX == 0 ? 'bold' : ''
-                                "
-                            >
-                                <td>{{ notifi.label }}</td>
+                            <tr [pSelectableRow]="rowData">
+                                <td
+                                    [ngClass]="
+                                        notifi.trangThaiTBX == 0 ? 'bold' : ''
+                                    "
+                                >
+                                    {{ notifi.label }}
+                                </td>
                                 <td>
                                     {{
                                         notifi.createdDate | date : "dd/MM/yyyy"
@@ -284,3 +291,11 @@
         </button> -->
     </div>
 </div>
+<app-chi-tiet-hop-thu
+    [show]="hienThiChiTietHopThu"
+    [idHopThu]="traoDoiId"
+    [idNhanCaNhan]="-1"
+    [checkThuDen]="-1"
+    [checkThuNhap]="-1"
+    (tatPopup)="Thoat($event, 'CTHT')"
+></app-chi-tiet-hop-thu>

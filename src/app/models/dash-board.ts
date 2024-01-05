@@ -9,6 +9,13 @@ export interface TimKiemCongViecDashBoard {
 }
 
 export interface TimKiemLichCoQuanDashBoard {
-      idDonVi?: string;
-      firstDayOfWeek?: string;
-  }
+    idDonVi?: string;
+    firstDayOfWeek?: string;
+}
+
+export interface TimKiemThongKeThongTin {
+    idUser?: string;
+    idPhongBan?: string;
+    idNhomQuyen?: string;
+    idDonViLamViec?: string;
+}

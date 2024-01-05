@@ -4,7 +4,7 @@
     [resizable]="false"
     (onHide)="ThoatChiTiet()"
     (onShow)="BindDialogData()"
-    [style]="{ width: '950px' }"
+    [style]="{ width: '1000px' }"
     [modal]="true"
     header="Chi tiết hộp thư"
 >
@@ -80,7 +80,7 @@
                                 <strong>Ngày gửi:</strong>
                             </td>
                             <td class="custom-b">
-                                {{ item.ngayGui | date : "dd-MM-yyyy hh:mm" }}
+                                {{ item.ngayGui | date : "hh:mm dd/MM/yyyy" }}
                             </td>
                         </tr>
                         <tr>

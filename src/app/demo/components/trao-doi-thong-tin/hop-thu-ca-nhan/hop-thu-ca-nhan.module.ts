@@ -26,10 +26,10 @@ import { MenubarModule } from 'primeng/menubar';
 
 import { HopThuCaNhanRoutingModule } from './hop-thu-ca-nhan-routing.module';
 import { HopThuCaNhanComponent } from './hop-thu-ca-nhan.component';
-import { TraoDoiThongTinModule } from '../trao-doi-thong-tin.module';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ChipModule } from 'primeng/chip';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ChiTietHopThuModule } from '../chi-tiet-hop-thu/chi-tiet-hop-thu.module';
 
 
 @NgModule({
@@ -40,7 +40,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     OverlayPanelModule,
     ChipModule,
     TieredMenuModule,
-    TraoDoiThongTinModule,
+    ChiTietHopThuModule,
     MenubarModule,
     TableModule,
     FileUploadModule,

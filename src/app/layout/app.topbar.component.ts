@@ -19,6 +19,10 @@ export class AppTopBarComponent implements OnInit {
         private topbarService: TopbarService
     ) {}
 
+    userId: string = this.authService.GetmUserInfo()?.userId ?? '0';
+    traoDoiId: string = '1';
+    nhanCaNhanId: number = 1;
+    hienThiChiTietHopThu: boolean = false;
     DonVi_NhomQuyen: MenuItem[] = [];
     products: any[] = [];
     items!: MenuItem[];
@@ -62,7 +66,7 @@ export class AppTopBarComponent implements OnInit {
     }
 
     public async LoadDanhMuc(): Promise<void> {
-        const dataThongBao = await this.topbarService.getDanhSachThongBao();
+        const dataThongBao = await this.topbarService.getDanhSachThongBao(this.userId);
         this.notifis = dataThongBao.map((tb) => {
             return {
                 label: tb.tieuDe,
@@ -71,10 +75,10 @@ export class AppTopBarComponent implements OnInit {
             };
         });
 
-        const dataHopThuDen = await this.topbarService.getDanhSachHopThuDen();
-
+        const dataHopThuDen = await this.topbarService.getDanhSachHopThuDen(this.userId);
         this.mails = dataHopThuDen.map((tb) => {
             return {
+                traoDoiId: tb.traoDoiId,
                 label: tb.tieuDe,
                 createdDate: tb.created,
                 trangThai: tb.trangThai,
@@ -89,7 +93,7 @@ export class AppTopBarComponent implements OnInit {
 
         const dataHoatDongSapToi =
             await this.topbarService.getDanhSachHoatDongSapToi(
-                firstDayOfThisWeek,
+                firstDayOfThisWeek, this.userId
             );
 
         this.clocks = dataHoatDongSapToi.map((hdst) => {
@@ -113,5 +117,15 @@ export class AppTopBarComponent implements OnInit {
 
         //js quy ước từ 1 đến 53 tuần nhưng chỉ có 52 tuần nên phải -1;
         return addWeeks(firstDayOfYear, week - 1); // + số tuần đã chọn sẽ ra ngày đầu của tuần
+    }
+
+    chiTietHopThuDen(traoDoiId: string, ncn: number): void {
+        this.traoDoiId = traoDoiId;
+        this.nhanCaNhanId = ncn;
+        this.hienThiChiTietHopThu = true;
+    }
+
+    Thoat(itemHt: any, loai: string): void {
+        if (loai === 'CTHT') this.hienThiChiTietHopThu = false;
     }
 }

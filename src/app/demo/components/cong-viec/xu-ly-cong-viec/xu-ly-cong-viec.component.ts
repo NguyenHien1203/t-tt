@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { XuLyCongViecService } from 'src/app/demo/service/cong-viec/xu-ly-cong-viec.service';
@@ -19,6 +19,7 @@ export class XuLyCongViecComponent {
         private authService: AuthService,
         private confirmService: ConfirmationService,
         private router: Router,
+        private route: ActivatedRoute,
         private cd: ChangeDetectorRef
     ) {}
 
@@ -128,6 +129,9 @@ export class XuLyCongViecComponent {
     }
 
     public LoadDanhSach(): void {
+        this.route.params.subscribe((params) => {
+            this.timKiemDanhSach.vaiTro = Number(params['type']);
+        });
         this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
         this.service
             .getDanhSachXuLyCongViec(this.timKiemDanhSach)

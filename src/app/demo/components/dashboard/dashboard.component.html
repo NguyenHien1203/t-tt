@@ -26,7 +26,9 @@
                                 >&nbsp;Văn bản liên thông Chính phủ</span
                             >
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{
+                                    thongTinThongKe?.countVanBanDenLienThongChinhPhu
+                                }}
                             </span></a
                         >
                     </li>
@@ -35,12 +37,14 @@
                             <span class="text-500"
                                 ><i
                                     class="pi pi-directions text-green-500"
-                                    routerLink="/van-ban-den/van-ban-cho-tiep-nhan"
+                                    routerLink="/van-ban-den/tiep-nhan-van-ban"
                                 ></i
                                 >&nbsp;Văn bản chờ tiếp nhận</span
                             >
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{
+                                    thongTinThongKe?.countVanBanDenChoTiepNhan
+                                }}
                             </span></a
                         >
                     </li>
@@ -54,7 +58,7 @@
                                 >&nbsp;Văn bản chờ thu hồi</span
                             >
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{ thongTinThongKe?.countVanBanDenChoThuHoi }}
                             </span></a
                         >
                     </li>
@@ -68,21 +72,21 @@
                                 >&nbsp;Văn bản chờ chỉ đạo</span
                             >
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{ thongTinThongKe?.countVanBanDenChoChiDao }}
                             </span></a
                         >
                     </li>
                     <li class="list-group-item">
                         <a
                             href="javascript:;"
-                            routerLink="/van-ban-den/van-ban-lien-quan"
+                            routerLink="/van-ban-den/van-ban-den-lien-quan"
                         >
                             <span class="text-500"
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Văn bản đến liên quan</span
                             >
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{ thongTinThongKe?.countVanBanDenLienQuan }}
                             </span></a
                         >
                     </li>
@@ -110,42 +114,42 @@
                     <li class="list-group-item">
                         <a
                             href="javascript:;"
-                            routerLink="/ky-so/van-ban-cho-duyet"
+                            routerLink="/ky-so/duyet-van-ban-trinh-ky"
                         >
                             <span class="text-500"
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Văn bản chờ duyệt</span
                             >
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{ thongTinThongKe?.countTrinhKyChoDuyet }}
                             </span></a
                         >
                     </li>
                     <li class="list-group-item">
                         <a
                             href="javascript:;"
-                            routerLink="/ky-so/van-ban-cho-duyet"
+                            routerLink="/ky-so/duyet-van-ban-trinh-ky"
                         >
                             <span class="text-500"
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Văn bản ký số chờ duyệt</span
                             >
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{ thongTinThongKe?.countTrinhKyChoDuyet }}
                             </span></a
                         >
                     </li>
                     <li class="list-group-item">
                         <a
                             href="javascript:;"
-                            routerLink="/ky-so/van-ban-cho-ky"
+                            routerLink="/ky-so/van-ban-cho-ky-so"
                         >
                             <span class="text-500"
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Văn bản chờ ký số</span
                             >
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{ thongTinThongKe?.countTrinhKyChoKy }}
                             </span></a
                         >
                     </li>
@@ -180,7 +184,7 @@
                                 >&nbsp;Trao đổi đến (chưa xem)</span
                             >
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{ thongTinThongKe?.countTraoDoiDen }}
                             </span></a
                         >
                     </li>
@@ -194,7 +198,21 @@
                                 >&nbsp;Trao đổi đi</span
                             >
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{ thongTinThongKe?.countTraoDoiDi }}
+                            </span></a
+                        >
+                    </li>
+                    <li class="list-group-item">
+                        <a
+                            href="javascript:;"
+                            routerLink="/trao-doi-thong-tin/hop-thu-nhap"
+                        >
+                            <span class="text-500"
+                                ><i class="pi pi-directions text-green-500"></i
+                                >&nbsp;Thư nháp</span
+                            >
+                            <span class="text-light badge badge-danger"
+                                >{{ thongTinThongKe?.countTraoDoiNhap }}
                             </span></a
                         >
                     </li>
@@ -220,35 +238,35 @@
             <div class="box-notification">
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <a href="javascript:;">
+                        <a href="javascript:;" (click)="navigateToCongViec(1)">
                             <span class="text-500"
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Công việc chỉ đạo</span
                             >
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{ thongTinThongKe?.countCongViecChiDao }}
                             </span></a
                         >
                     </li>
                     <li class="list-group-item">
-                        <a href="javascript:;">
+                        <a href="javascript:;" (click)="navigateToCongViec(2)">
                             <span class="text-500"
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Công việc chủ trì</span
                             >
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{ thongTinThongKe?.countCongViecChuTri }}
                             </span></a
                         >
                     </li>
                     <li class="list-group-item">
-                        <a href="javascript:;">
+                        <a href="javascript:;" (click)="navigateToCongViec(3)">
                             <span class="text-500"
                                 ><i class="pi pi-directions text-green-500"></i
                                 >&nbsp;Công việc phối hợp
                             </span>
                             <span class="text-light badge badge-danger"
-                                >24
+                                >{{ thongTinThongKe?.countCongViecPhoiHop }}
                             </span></a
                         >
                     </li>

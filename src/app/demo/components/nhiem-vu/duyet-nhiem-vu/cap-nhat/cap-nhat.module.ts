@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DuyetNhiemVuRoutingModule } from './duyet-nhiem-vu-routing.module';
-import { DuyetNhiemVuComponent } from './duyet-nhiem-vu.component';
+import { CapNhatRoutingModule } from './cap-nhat-routing.module';
+import { ThemMoiMocNhiemVuComponent } from './them-moi-moc-nhiem-vu/them-moi-moc-nhiem-vu.component';
+import { CapNhatComponent } from './cap-nhat.component';
+
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -23,20 +25,19 @@ import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CheckboxModule } from 'primeng/checkbox';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
-import { ChipsModule } from 'primeng/chips';
-import { InputMaskModule } from 'primeng/inputmask';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
-import { Select2Module } from 'ng-select2-component';
-import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { TabViewModule } from 'primeng/tabview';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
-  declarations: [DuyetNhiemVuComponent],
+  declarations: [
+    ThemMoiMocNhiemVuComponent, CapNhatComponent,
+  ],
   imports: [
     CommonModule,
-    DuyetNhiemVuRoutingModule,
+    CapNhatRoutingModule,
+
+    MultiSelectModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -57,13 +58,8 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
     TreeSelectModule,
     ConfirmDialogModule,
     CheckboxModule,
-    MultiSelectModule,
-    AutoCompleteModule,
     CalendarModule,
-    ChipsModule,
-    InputMaskModule,
-    CascadeSelectModule,
-    Select2Module
+    TabViewModule
   ]
 })
-export class DuyetNhiemVuModule { }
+export class CapNhatModule { }

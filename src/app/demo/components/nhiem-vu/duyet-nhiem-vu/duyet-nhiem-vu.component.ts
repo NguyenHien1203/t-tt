@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { AuthService } from 'src/app/common/auth.services';
 import { DuyetNhiemVuService } from 'src/app/demo/service/nhiem-vu/duyet-nhiem-vu.service';
 import { TimKiemDuyetNhiemVu } from 'src/app/models/nhiem-vu/duyet-nhiem-vu';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-duyet-nhiem-vu',
@@ -29,9 +30,8 @@ export class DuyetNhiemVuComponent implements OnInit {
     iTimChinhXac: 0,
   }
   timChinhXac: boolean = false;
-
-  hienThiThemMoi: boolean = false;
   hienThiCapNhat: boolean = false;
+  idXoa: any;
 
   lstLoaiVanBan: any[] = [];
   danhSachs: any[] = [];
@@ -48,6 +48,7 @@ export class DuyetNhiemVuComponent implements OnInit {
     private authService: AuthService,
     private messageService: MessageService,
     private service: DuyetNhiemVuService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -100,5 +101,33 @@ export class DuyetNhiemVuComponent implements OnInit {
     }, (error) => {
       console.log('Error', error);
     })
+  }
+
+  public CapNhat(event: any) {
+    this.router.navigate(['/nhiem-vu/cap-nhat-duyet-nhiem-vu', {id: event}]);
+  }
+
+  Xoa(id: any) {
+    this.deleteProductDialog = true;
+    this.idXoa = id;
+  }
+
+  TamDungXoa() {
+    this.deleteProductDialog = false;
+    this.idXoa = null;
+  }
+
+  XacNhanXoa() {
+    this.deleteProductDialog = false;
+    this.service.xoa(this.idXoa).subscribe(
+      data => {
+        if (data.isError) {
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
+        } else {
+          this.TimKiem();
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: data.title, life: 3000 });
+        }
+      }
+    )
   }
 }

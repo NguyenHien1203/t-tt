@@ -135,10 +135,12 @@
                                             class="p-button-rounded p-button-danger mr-2 my-size-icon"></button>
 
                                         <button pButton pRipple pTooltip="Chỉnh sửa" icon="pi pi-pencil"
-                                            class="p-button-rounded p-button-primary mr-2 my-size-icon"></button>
+                                            class="p-button-rounded p-button-primary mr-2 my-size-icon"
+                                            (click)="CapNhat(danhSach.id)"></button>
 
                                         <button pButton pRipple pTooltip="Xóa" icon="pi pi-trash"
-                                            class="p-button-rounded p-button-danger mr-2 my-size-icon"></button>
+                                            class="p-button-rounded p-button-danger mr-2 my-size-icon"
+                                            (click)="Xoa(danhSach.id)"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -175,5 +177,17 @@
                     (click)="TamDungXoa()"></button>
             </ng-template>
         </p-dialog> -->
+        <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="danhSachs">Bạn muốn xóa bản ghi này ?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"
+                    (click)="XacNhanXoa()"></button>
+                <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
+                    (click)="TamDungXoa()"></button>
+            </ng-template>
+        </p-dialog>
     </div>
 </div>

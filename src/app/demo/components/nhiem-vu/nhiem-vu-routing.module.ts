@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
       { path: 'cap-nhat-tien-do', data: { breadcrumb: 'Button' }, loadChildren: () => import('./cap-nhat-tien-do/cap-nhat-tien-do.module').then((m) => m.CapNhatTienDoModule) },
       { path: 'duyet-hoan-thanh', data: { breadcrumb: 'Button' }, loadChildren: () => import('./duyet-hoan-thanh/duyet-hoan-thanh.module').then((m) => m.DuyetHoanThanhModule) },
       { path: 'duyet-nhiem-vu', data: { breadcrumb: 'Button' }, loadChildren: () => import('./duyet-nhiem-vu/duyet-nhiem-vu.module').then((m) => m.DuyetNhiemVuModule) },
+      { path: 'cap-nhat-duyet-nhiem-vu', data: { breadcrumb: 'Button' }, loadChildren: () => import('./duyet-nhiem-vu/cap-nhat/cap-nhat.module').then((m) => m.CapNhatModule) },
     ]),
   ],
   exports: [RouterModule],

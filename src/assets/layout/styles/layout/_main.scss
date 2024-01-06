@@ -2,15 +2,24 @@
     box-sizing: border-box;
 }
 
-//minhtd trao đổi thông tin 
-.tb-nhancanhan { // phân cách overlay gán nhãn
+mat-progress-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    z-index: 5;
+}
+
+//minhtd trao đổi thông tin
+.tb-nhancanhan {
+    // phân cách overlay gán nhãn
     td {
-    padding: 0.5rem  0.5rem !important;
-  }
+        padding: 0.5rem 0.5rem !important;
+    }
 }
 //
 
-.text-uppercase{
+.text-uppercase {
     text-transform: uppercase !important;
 }
 
@@ -18,39 +27,41 @@
 .tree-node {
     display: flex;
     align-items: center; /* Đảm bảo các thành phần trong div được căn giữa theo chiều dọc */
-  }
-  
-  .tree-link {
+}
+
+.tree-link {
     position: relative;
     display: flex;
     align-items: center; /* Đảm bảo các thành phần trong div được căn giữa theo chiều dọc */
     cursor: pointer;
-  }
-  
-  .tree-link::before {
-    content: '';
+}
+
+.tree-link::before {
+    content: "";
     position: absolute;
     top: 50%; /* Đặt ở giữa theo chiều dọc */
     left: -10px; /* Điều chỉnh khoảng cách giữa đường liên kết và biểu tượng checkbox */
-    transform: translateY(-50%); /* Đảo ngược lại chiều dọc để đảm bảo đường kẻ chạy qua giữa */
+    transform: translateY(
+        -50%
+    ); /* Đảo ngược lại chiều dọc để đảm bảo đường kẻ chạy qua giữa */
     width: 10px;
     height: 100%;
     border-left: 1px solid #000; /* Màu sắc của đường liên kết */
     z-index: -1;
-  }
+}
 
 .form-control {
     display: block;
     width: 100%;
 }
 
-li{
+li {
     list-style-type: none;
 }
 
 body {
-    font-family: 'Roboto Condensed', sans-serif;
-  }
+    font-family: "Roboto Condensed", sans-serif;
+}
 
 .custom-file-upload {
     display: inline-block;
@@ -60,13 +71,13 @@ body {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
-  }
-  
-  .custom-file-upload i {
-    margin-right: 5px;
-  }
+}
 
-.pointer{
+.custom-file-upload i {
+    margin-right: 5px;
+}
+
+.pointer {
     cursor: pointer;
 }
 
@@ -74,8 +85,8 @@ body {
     width: 100%;
 }
 
-.my-drop{
-    width:  100% !important;
+.my-drop {
+    width: 100% !important;
 }
 
 .wrapper {
@@ -83,7 +94,7 @@ body {
 }
 
 .secondary-text {
-    flex: 1
+    flex: 1;
 }
 
 .icon-cls {
@@ -94,7 +105,6 @@ body {
 .icon-cls .p-button {
     margin-bottom: 15px;
 }
-
 
 .fl-wr {
     display: flex;

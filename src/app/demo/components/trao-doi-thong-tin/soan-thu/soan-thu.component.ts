@@ -6,7 +6,6 @@ import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { saveAs } from 'file-saver';
 import { throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { CKFinder } from '@ckeditor/ckeditor5-ckfinder';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { environment } from 'src/environments/environment.development';
 
@@ -119,8 +118,9 @@ export class SoanThuComponent implements OnInit {
     }
 
     onReady($event) {
+        let urlSave = '/TraoDoiThongTin/SoanThu/UpLoadImageCkeditor';
         $event.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-            return new MyUploadAdapter(loader);
+            return new MyUploadAdapter(loader, urlSave);
         };
     }
 
@@ -455,13 +455,15 @@ export class SoanThuComponent implements OnInit {
     }
 }
 
-class MyUploadAdapter {
+export class MyUploadAdapter {
     xhr: any;
     loader: any;
+    urlSave: any;
 
-    constructor(loader) {
+    constructor(loader, urlSave?) {
         // The file loader instance to use during the upload.
         this.loader = loader;
+        this.urlSave = urlSave;
     }
 
     upload() {
@@ -486,12 +488,7 @@ class MyUploadAdapter {
 
     _initRequest() {
         const xhr = (this.xhr = new XMLHttpRequest());
-        xhr.open(
-            'POST',
-            environment.baseUrlApi +
-                '/TraoDoiThongTin/SoanThu/UpLoadImageCkeditor',
-            true
-        );
+        xhr.open('POST', environment.baseUrlApi + this.urlSave, true);
 
         xhr.responseType = 'json';
     }

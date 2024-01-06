@@ -99,3 +99,8 @@
     [show]="hienThiQuenMatKhau"
     (tatPopup)="Thoat($event, 'FG')"
 ></app-forgot-password>
+<p-progressBar
+    mode="indeterminate"
+    *ngIf="loader$ | async"
+    [style]="{ height: '6px' }"
+></p-progressBar>

@@ -17,6 +17,8 @@ import { throwError } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { saveAs } from 'file-saver';
+import { MyUploadAdapter } from '../../../trao-doi-thong-tin/soan-thu/soan-thu.component';
+import { format } from 'date-fns';
 
 @Component({
     selector: 'app-them-moi',
@@ -116,6 +118,8 @@ export class ThemMoiComponent {
         if (this.formThemMoi.valid) {
             this.quanLyThongBao = this.formThemMoi.value;
             this.quanLyThongBao.id = 0; //tránh trường hợp quản lý thông báo bị null
+            this.quanLyThongBao.ngayBatDau = format(this.quanLyThongBao.ngayBatDau, "dd/MM/yyyy");
+            this.quanLyThongBao.ngayKetThuc = format(this.quanLyThongBao.ngayKetThuc, "dd/MM/yyyy");
             this.quanLyThongBao.donViId = this.authService.GetDonViLamViec();
             this.quanLyThongBao.userId =
                 this.authService.GetmUserInfo()?.userId;
@@ -124,7 +128,6 @@ export class ThemMoiComponent {
                 this.myEditor.editorInstance.getData();
             this.service.themMoiQuanLyThongBao(this.quanLyThongBao).subscribe(
                 (data) => {
-                    console.log('data', data);
                     let resData = data as ResponeMessage;
                     if (resData.isError) {
                         this.messageService.add({
@@ -147,6 +150,13 @@ export class ThemMoiComponent {
                 }
             );
         }
+    }
+
+    onReady($event) {
+        let urlSave = '/ThongTinKhac/QuanLyThongBao/UpLoadImageCkeditor';
+        $event.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new MyUploadAdapter(loader, urlSave);
+        };
     }
 
     public getToolBar(): any {

@@ -127,4 +127,9 @@ export class DanhSachBanGiaoCongViecService {
         .toPromise()
         .then((res) => res.objData as any[]);
     }
+
+    ThemMoiHSCN( lstSelect, idBanGiao: string)
+    {
+        
+    }
 }

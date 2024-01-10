@@ -5,6 +5,7 @@ import { MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { DanhSachBanGiaoCongViecService } from 'src/app/demo/service/cong-viec/danh-sach-ban-giao-cong-viec/danh-sach-ban-giao-cong-viec.service';
 import { TimKiemHSCV } from 'src/app/models/cong-viec/danh-sach-ban-giao-cong-viec';
+import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
 
 @Component({
     selector: 'app-ho-so-cong-viec-ca-nhan',
@@ -17,23 +18,24 @@ export class HoSoCongViecCaNhanComponent {
         private Service: DanhSachBanGiaoCongViecService,
         private formBuilder: FormBuilder,
         private messageService: MessageService,
-        private authService: AuthService,
+        private authService: AuthService
     ) {}
     //Lấy dữ liệu đầu vào
-    @Input() id: string = '';
+    @Input() idBanGiao: string = '';
     @Input() show: boolean = false;
     @Output() tatPopup = new EventEmitter<boolean>();
     submitted = false;
     loading: boolean = false;
 
-    dsSelectHSCV: any = [];
+    dsSelectHSCV: any[] = [];
     public formHSCV = this.formBuilder.group({});
 
     luaChonNam: SelectItem[] = []; // Lựa chọn năm
     luaChonThang: SelectItem[] = []; // Lựa chọn tháng
     userId: string = this.authService.GetmUserInfo().userId ?? '0';
     donViId: string = this.authService.GetmUserInfo().donViId ?? '0';
-    phongBanLamViecId = this.authService.GetmUserInfo().phongBanLamViecId ?? '0';    
+    phongBanLamViecId =
+        this.authService.GetmUserInfo().phongBanLamViecId ?? '0';
 
     timKiem: TimKiemHSCV = {
         keyWord: '',
@@ -90,5 +92,32 @@ export class HoSoCongViecCaNhanComponent {
         this.show = false;
         this.submitted = false;
         this.tatPopup.emit(this.show);
+    }
+
+    lstChecked: any[] = [];
+    public Luu(): void {
+        var lstSelect = this.dsSelectHSCV.filter((s) => s.checkedSlt === true);
+        if (lstSelect.length > 0) {
+            lstSelect.forEach((element) => {
+                this.lstChecked.push(element.id);
+            });
+        }
+
+        this.submitted = true;
+        this.Service.ThemMoiHSCN(lstSelect, this.idBanGiao).subscribe(
+            (data) => {
+                console.log('data', data);
+                let resData = data as ResponeMessage;
+                if (resData.isError) {
+                  this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
+                } else {
+                  this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
+                  this.Thoat();
+                }
+            },
+            (error) => {
+                console.log('Error', error);
+            }
+        );
     }
 }

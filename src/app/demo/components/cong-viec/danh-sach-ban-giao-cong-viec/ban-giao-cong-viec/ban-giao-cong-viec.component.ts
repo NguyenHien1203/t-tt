@@ -24,6 +24,8 @@ export class BanGiaoCongViecComponent {
         private route: ActivatedRoute
     ) {}
 
+    idBanGiao: string = '';
+
     items: any[] = [
         { label: 'Công việc' },
         { label: 'Danh sách bàn giao công việc' },
@@ -47,6 +49,7 @@ export class BanGiaoCongViecComponent {
         try {
             this.route.queryParams.subscribe(async (params) => {
                 let id = params['id'];
+                this.idBanGiao = id;
                 const data = await this.service.getCongViec(id);
                 this.congViec.push(data); // Push the data into the array
             });

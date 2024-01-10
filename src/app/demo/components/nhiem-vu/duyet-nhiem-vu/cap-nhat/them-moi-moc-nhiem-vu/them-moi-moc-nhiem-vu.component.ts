@@ -1,0 +1,58 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MessageService } from 'primeng/api';
+@Component({
+  selector: 'app-them-moi-moc-nhiem-vu',
+  templateUrl: './them-moi-moc-nhiem-vu.component.html',
+  styleUrls: ['./them-moi-moc-nhiem-vu.component.scss']
+})
+export class ThemMoiMocNhiemVuComponent {
+  @Input() show: boolean = false;
+  @Output() close = new EventEmitter<boolean>();
+  @Input() stt: any;
+  @Output() dataMocNhiemVu = new EventEmitter<any>();
+
+  mocNhiemVu: any = {
+    stt: 0,
+    thoiHanHoanThanh: "",
+    ketQuaDuKien: "",
+    noiDung: "",
+  }
+
+  addProductDialog: boolean = false;
+
+  constructor(
+    private messageService: MessageService,
+  ) { }
+
+  ThemMoiMocNhiemVU() {
+    this.addProductDialog = true;
+  }
+
+  XacNhan() {
+    this.mocNhiemVu.stt = this.stt + 1;
+    if (this.mocNhiemVu.thoiHanHoanThanh != "") {
+      this.dataMocNhiemVu.emit(this.mocNhiemVu);
+      this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Thêm mới mốc nhiệm vụ thành công', life: 3000 });
+      this.addProductDialog = false;
+      this.TatPopup();
+    } else {
+      this.addProductDialog = false;
+      this.TatPopup();
+    }
+  }
+
+  TamDung() {
+    this.addProductDialog = false;
+  }
+
+  TatPopup() {
+    this.show = false;
+    this.close.emit(this.show);
+    this.mocNhiemVu = {
+      stt: 0,
+      thoiHanHoanThanh: "",
+      ketQuaDuKien: "",
+      noiDung: "",
+    }
+  }
+}

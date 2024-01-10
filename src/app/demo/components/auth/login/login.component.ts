@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
 import { Message, MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
+import { SpinnerService } from 'src/app/common/spinner.service';
 
 @Component({
     selector: 'app-login',
@@ -24,6 +25,7 @@ import { CookieService } from 'ngx-cookie-service';
     ],
 })
 export class LoginComponent {
+    loader$ = this.spinnerService.loader$;
     valCheck: string[] = ['remember'];
     password!: string;
     nguoidung: NguoiDungLogin = {
@@ -47,7 +49,8 @@ export class LoginComponent {
         private authenService: AuthService,
         private formBuilder: FormBuilder,
         private service: MessageService,
-        private cookieService: CookieService
+        private cookieService: CookieService,
+        private spinnerService: SpinnerService
     ) {}
 
     ngOnInit(): void {
@@ -65,6 +68,7 @@ export class LoginComponent {
     }
 
     public DangNhap() {
+        this.spinnerService.show();
         this.submited = true;
         if (this.formDangNhap.valid) {
             this.nguoidung.UserName = this.formDangNhap.value.userName ?? '';
@@ -85,8 +89,8 @@ export class LoginComponent {
             }, (error) => {
                 console.log('Error', error);
             })
-
         }
+        this.spinnerService.hide();
     }
 
     public Thoat(itemHt: any, loai: string) {

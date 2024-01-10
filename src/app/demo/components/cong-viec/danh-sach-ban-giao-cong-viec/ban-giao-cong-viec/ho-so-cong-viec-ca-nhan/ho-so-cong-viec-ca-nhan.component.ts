@@ -103,21 +103,21 @@ export class HoSoCongViecCaNhanComponent {
             });
         }
 
-        this.submitted = true;
-        this.Service.ThemMoiHSCN(lstSelect, this.idBanGiao).subscribe(
-            (data) => {
-                console.log('data', data);
-                let resData = data as ResponeMessage;
-                if (resData.isError) {
-                  this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
-                } else {
-                  this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
-                  this.Thoat();
-                }
-            },
-            (error) => {
-                console.log('Error', error);
-            }
-        );
+        // this.submitted = true;
+        // this.Service.ThemMoiHSCN(lstSelect, this.idBanGiao).subscribe(
+        //     (data) => {
+        //         console.log('data', data);
+        //         let resData = data as ResponeMessage;
+        //         if (resData.isError) {
+        //           this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
+        //         } else {
+        //           this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
+        //           this.Thoat();
+        //         }
+        //     },
+        //     (error) => {
+        //         console.log('Error', error);
+        //     }
+        // );
     }
 }

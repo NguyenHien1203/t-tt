@@ -269,7 +269,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Duyệt bàn giao công việc',
                                 icon: 'pi pi-fw pi-check-circle',
-                                routerLink: ['/danhmuc/linhvuc'],
+                                routerLink: ['/cong-viec/duyet-ban-giao-cong-viec'],
                                 code: '003008',
                             },
                             {

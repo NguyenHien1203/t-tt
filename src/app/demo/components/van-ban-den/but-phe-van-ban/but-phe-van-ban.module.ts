@@ -24,6 +24,7 @@ import { ButPheVanBanComponent } from './but-phe-van-ban.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { TabViewModule } from 'primeng/tabview';
     ConfirmDialogModule,
     CheckboxModule,
     CalendarModule,
-    TabViewModule
+    TabViewModule,
+    ChiTietVanBanModule
   ]
 })
 export class ButPheVanBanModule { }

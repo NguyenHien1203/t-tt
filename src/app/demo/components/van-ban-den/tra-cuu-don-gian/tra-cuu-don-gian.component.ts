@@ -15,7 +15,7 @@ export class TraCuuDonGianComponent {
         private service: TraCuuDonGianService,
         private messageService: MessageService,
         private authService: AuthService
-    ) {}
+    ) { }
 
     loaiVanBan: SelectItem[] = [];
     idDonViLamViec: string = this.authService.GetmUserInfo()?.donViId ?? '0';
@@ -85,5 +85,21 @@ export class TraCuuDonGianComponent {
                 this.loaiVanBan = data;
                 console.log(this.loaiVanBan)
             });
+    }
+
+    Thoat(item: any, type: string) {
+        if (type === 'CT') {
+            this.hienThiChiTiet = false;
+        }
+        this.BindLoaiVanBan();
+    }
+
+
+    hienThiChiTiet: boolean = false;
+    idVanBanDi: string = '1';
+
+    ChiTietVanBan(id: string) {
+        this.hienThiChiTiet = true;
+        this.idVanBanDi = id;
     }
 }

@@ -416,7 +416,11 @@
             </ng-template>
         </p-confirmDialog>
 
-        <!-- <app-chi-tiet-van-ban [show]="hienThiChiTiet" (close)="tatPopup($event, 'C')" [idVb] = "idvanBanDen"></app-chi-tiet-van-ban> -->
+        <app-chi-tiet-van-ban
+        [show]="hienThiChiTiet"
+        (tatPopup)="Thoat($event, 'CT')"
+        [id]="idVanBanDi"
+    ></app-chi-tiet-van-ban>
 
         <!--<app-cap-nhat [show]="hienThiCapNhat" (close)="tatPopup($event, 'U')" [id]="idLoaiVanBan"></app-cap-nhat>-->
 

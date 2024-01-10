@@ -26,6 +26,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { TiepNhanComponent } from './tiep-nhan/tiep-nhan.component';
 import { TuChoiComponent } from './tu-choi/tu-choi.component';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { TuChoiComponent } from './tu-choi/tu-choi.component';
     ConfirmDialogModule,
     CheckboxModule,
     CalendarModule,
-    TabViewModule
+    TabViewModule,
+    ChiTietVanBanModule
   ]
 })
 export class TiepNhanVanBanModule { }

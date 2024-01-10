@@ -57,6 +57,20 @@ export class ButPheVanBanComponent implements OnInit {
     this.GetDataSoVanBan();
     this.GetDanhSachButPhe();
   }
+  hienThiChiTiet: boolean = false;
+  idVanBanDi: string = '1';
+
+  ChiTietVanBan(id: string) {
+    this.hienThiChiTiet = true;
+    this.idVanBanDi = id;
+  }
+
+  Thoat(item: any, type: string) {
+    if (type === 'CT') {
+      this.hienThiChiTiet = false;
+    }
+    this.GetDanhSachButPhe();
+  }
 
   public GetDataSoVanBan() {
     this.cnmsvice.GetDataSoVanBan().subscribe(data => {

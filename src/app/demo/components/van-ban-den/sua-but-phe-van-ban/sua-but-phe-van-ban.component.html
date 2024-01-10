@@ -84,7 +84,7 @@
 
             <div class="field grid div-center">
                 <label class="col-12 md:col-3 fl-wr">
-                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-success mr-2"></button>
+                    <button pButton pRipple label="Tìm kiếm" (click)="GetDanhSachSuaButPhe()" icon="pi pi-search" class="p-button-success mr-2"></button>
                 </label>
             </div>
 
@@ -149,7 +149,10 @@
                                     {{ rowIndex + 1 }}
                                 </td>
                                 <td>
-                                    {{item.soKiHieu}}
+                                    <a
+                                    href="javascript:;"
+                                    (click)="ChiTietVanBan(item.id)"
+                                    >{{ item.soKiHieu }}</a>
                                 </td>
                                 <td>
                                     {{item.trichYeu}}
@@ -194,3 +197,8 @@
         </div>
     </div>
 </div>
+<app-chi-tiet-van-ban
+[show]="hienThiChiTiet"
+(tatPopup)="Thoat($event, 'CT')"
+[id]="idVanBanDi"
+></app-chi-tiet-van-ban>

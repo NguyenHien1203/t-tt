@@ -6,6 +6,7 @@ import { ChiTietVanBanService } from '../../service/chi-tiet-van-ban.service';
 import { isThisSecond } from 'date-fns';
 import { UploadFileService } from '../../service/upload-file.service';
 import { throwError } from 'rxjs';
+import { SuaButPheVanBanService } from '../../service/van-ban-den/sua-but-phe-van-ban/sua-but-phe-van-ban.service';
 
 @Component({
     selector: 'app-chi-tiet-van-ban',
@@ -34,12 +35,15 @@ export class ChiTietVanBanComponent {
     lstVanBanDaPhanPhoiDonVi: any[] = [];
     lstVanBanLienQuan: any[] = [];
     checkPhanPhoi: boolean = false;
+    ThongTinCongViec: any[] = [];
+
     constructor(
         private messageService: MessageService,
         private authService: AuthService,
         private service: ChiTietVanBanService,
-        private fileService: UploadFileService
-    ) {}
+        private fileService: UploadFileService,
+        private serviceSuaButPhe: SuaButPheVanBanService,
+    ) { }
 
     public async BindDialogData(): Promise<void> {
         try {
@@ -52,6 +56,7 @@ export class ChiTietVanBanComponent {
                     this.id,
                     this.idDonViLamViec
                 );
+
             const dataVanBanDaGui = await this.service.getDanhSachVanBanDaGui(
                 this.id
             );
@@ -82,7 +87,9 @@ export class ChiTietVanBanComponent {
                     this.id,
                     this.idDonViLamViec
                 );
-        } catch (error) {}
+
+            this.LoadDataDefault();
+        } catch (error) { }
     }
 
     Thoat() {
@@ -126,5 +133,29 @@ export class ChiTietVanBanComponent {
                     return throwError(() => error);
                 }
             );
+    }
+
+
+    public LoadDataDefault() {
+        this.serviceSuaButPhe.LoadDataDefault(this.id).subscribe(data => {
+            if (data.isError) {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });
+            } else {
+                this.ThongTinCongViec = data.objData;
+            }
+        }, (error) => {
+
+        })
+    }
+
+    public GetDataParent(): any[] {
+        return this.ThongTinCongViec.filter(s => s.idParent === "" || s.idParent === null);
+    }
+
+    /**
+     * name
+     */
+    public GetDataChild(parentItem: any): any[] {
+        return this.ThongTinCongViec.filter(s => s.idParent !== "" && s.idParent === parentItem.idChild);
     }
 }

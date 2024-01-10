@@ -47,7 +47,7 @@ export class TimKiemTheoSoVanBanComponent {
     lstSoVanBan: any = [];
     lstCQBH: any = [];
     lstVanBanDi: any[] = [];
-    items = [{ label: 'Văn bản đi' }, { label: 'Tra cứu nâng cao' }];
+    items = [{ label: 'Văn bản đi' }, { label: 'Tìm kiếm theo sổ văn bản' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
 
     timKiemDanhSach: TimKiemDanhSachTheoSoVanBan = {
@@ -124,4 +124,20 @@ export class TimKiemTheoSoVanBanComponent {
     public ShowSearch() {
         this.isShowSearch = !this.isShowSearch;
     }
+
+    Thoat(item: any, type: string) {
+        if (type === 'CT') {
+          this.hienThiChiTiet = false;
+        }
+        this.LoadDanhSach();
+      }
+      
+      
+      hienThiChiTiet: boolean = false;
+      idVanBanDi: string = '1';
+    
+      ChiTietVanBan(id: string) {
+        this.hienThiChiTiet = true;
+        this.idVanBanDi = id;
+      }
 }

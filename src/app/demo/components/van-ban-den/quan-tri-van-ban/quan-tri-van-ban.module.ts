@@ -34,6 +34,7 @@ import { SuaVanBanComponent } from './sua-van-ban/sua-van-ban.component';
 import { TuChoiComponent } from './tu-choi/tu-choi.component';
 import { PhanPhoiComponent } from './phan-phoi/phan-phoi.component';
 import { saveAs } from 'file-saver';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 @NgModule({
   declarations: [QuanTriVanBanComponent, TiepNhanVanBanComponent,SuaVanBanComponent, TuChoiComponent, PhanPhoiComponent],
@@ -68,6 +69,7 @@ import { saveAs } from 'file-saver';
     InputTextModule,
     CommonModule,
     QuanTriVanBanRoutingModule,
+    ChiTietVanBanModule
   ]
 })
 export class QuanTriVanBanModule { }

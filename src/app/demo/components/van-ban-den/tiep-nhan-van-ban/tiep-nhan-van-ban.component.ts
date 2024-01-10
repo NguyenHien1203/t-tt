@@ -87,6 +87,19 @@ export class TiepNhanVanBanComponent implements OnInit {
 
       if (loai === 'C')
       this.hienthiTuChoi = false;
+
+      if (loai === 'CT') {
+        this.hienThiChiTiet = false;
+      }
     this.GetDanhSachTiepNhanVanBan();
+  }
+
+  
+  hienThiChiTiet: boolean = false;
+  idVanBanDi: string = '1';
+
+  ChiTietVanBan(id: string) {
+    this.hienThiChiTiet = true;
+    this.idVanBanDi = id;
   }
 }

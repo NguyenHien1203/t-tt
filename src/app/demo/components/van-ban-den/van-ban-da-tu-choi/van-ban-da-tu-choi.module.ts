@@ -26,6 +26,7 @@ import { VanBanDaTuChoiComponent } from './van-ban-da-tu-choi.component';
 import { VanBanDaTuChoiRoutingModule } from './van-ban-da-tu-choi-routing.module';
 import { FormLayoutDemoRoutingModule } from '../../uikit/formlayout/formlayoutdemo-routing.module';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 
 
@@ -58,6 +59,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     CommonModule,
     VanBanDaTuChoiRoutingModule,
     FormLayoutDemoRoutingModule,
+    ChiTietVanBanModule
   ]
 })
 export class VanBanDaTuChoiModule { }

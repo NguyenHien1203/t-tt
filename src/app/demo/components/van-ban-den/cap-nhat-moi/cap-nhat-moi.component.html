@@ -14,7 +14,7 @@
             <div class="field grid">
                 <div class="col-12 md:col-3 fl-wr">
                     <input pInputText type="text" [(ngModel)]="timKiemDanhSach.trichYeu" placeholder="Trích yếu"
-                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
+                        [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
                     <p-dropdown [(ngModel)]="timKiemDanhSach.soVBId" [options]="SoVanBan" appendTo="body"
@@ -48,17 +48,17 @@
                 </div>
                 <label class="col-12 md:col-3 fl-wr">
                     <input [(ngModel)]="timKiemDanhSach.soDen" pInputText type="text" placeholder="Số đến"
-                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
+                        [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
                 </label>
             </div>
             <div class="field grid">
                 <div class="col-12 md:col-3 fl-wr">
                     <input [(ngModel)]="timKiemDanhSach.soKyHieu" pInputText type="text" placeholder="Số ký hiệu"
-                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
+                        [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
                     <input [(ngModel)]="timKiemDanhSach.lanhDaoKy" pInputText type="text" placeholder="Lãnh đạo ký"
-                    [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
+                        [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element" />
                 </div>
                 <div class="col-12 md:col-3 fl-wr">
                     <p-dropdown [showClear]="true" [(ngModel)]="timKiemDanhSach.coQuanBanHanh" [options]="CoQuanBanHanh"
@@ -150,7 +150,7 @@
                                     {{item.soDiDen}}
                                 </td>
                                 <td class="text-center">
-                                    {{item.soKiHieu}}
+                                    <a href="javascript:;" (click)="ChiTietVanBan(item.id)">{{ item.soKiHieu }}</a>
                                 </td>
                                 <td>
                                     {{item.trichYeu}}
@@ -158,8 +158,8 @@
 
                                 <td class="text-center">
                                     {{
-                                        item.ngayBanHanh
-                                            | date : "dd-MM-yyyy"
+                                    item.ngayBanHanh
+                                    | date : "dd-MM-yyyy"
                                     }}
                                 </td>
                                 <td>
@@ -203,6 +203,8 @@
         </div>
         <app-phan-phoi [hienThi]="hienThiPhanPhoi" [id]="id" (tatPopup)="Thoat($event, 'T')"></app-phan-phoi>
         <app-cap-nhat [hienThi]="hienThiCapNhat" [id]="id" (tatPopup)="Thoat($event, 'C')"></app-cap-nhat>
+        <app-chi-tiet-van-ban [show]="hienThiChiTiet" (tatPopup)="Thoat($event, 'CT')"
+            [id]="idVanBanDi"></app-chi-tiet-van-ban>
 
         <p-confirmDialog #cd [style]="{width: '30vw'}">
             <ng-template pTemplate="header">

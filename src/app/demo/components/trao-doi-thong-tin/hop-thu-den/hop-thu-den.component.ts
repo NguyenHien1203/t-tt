@@ -54,7 +54,7 @@ export class HopThuDenComponent {
         timChinhXac: 0,
     };
 
-    public GetDataMOnthYear() {
+    public GetDataMonthYear() {
         const currentYear = new Date().getFullYear();
         for (let i = currentYear + 1; i >= currentYear - 5; i--) {
             this.yearOptions.push({ label: 'Năm ' + i.toString(), value: i });
@@ -77,9 +77,7 @@ export class HopThuDenComponent {
         const dataGanNhan = await this.soanThuService.getDanhSachNhanCaNhan(
             Number(this.authService.GetmUserInfo()?.userId ?? '0')
         );
-
         this.lstNhanCaNhan = this.BindRouterLinkForTree(data);
-
         this.lstNhanCaNhanClone = dataGanNhan.map((ncn) => {
             //tạo button gán nhãn
             return {
@@ -123,7 +121,7 @@ export class HopThuDenComponent {
         ];
 
         this.LoadDanhSach();
-        this.GetDataMOnthYear();
+        this.GetDataMonthYear();
     }
 
     public BindRouterLinkForTree(treeData: any[]) {

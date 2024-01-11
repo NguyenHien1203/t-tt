@@ -133,6 +133,8 @@ export class CapNhatMoiService {
             soDiHienTai: soDiHienTai,
             soDiDenUpdate: soDiHienTaiUpDate,
         };
+        console.log(itemData);
+        
         return this.http
             .post<any>(
                 environment.baseUrlApi + '/VanBanDi/CapNhatMoi/GetSoHienTai',

@@ -25,6 +25,7 @@ import { TabPanel, TabViewModule } from 'primeng/tabview';
 
 import { VanBanDiLienQuanRoutingModule } from './van-ban-di-lien-quan-routing.module';
 import { VanBanDiLienQuanComponent } from './van-ban-di-lien-quan.component';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 @NgModule({
     declarations: [VanBanDiLienQuanComponent],
@@ -53,6 +54,7 @@ import { VanBanDiLienQuanComponent } from './van-ban-di-lien-quan.component';
         TabViewModule,
         CommonModule,
         VanBanDiLienQuanRoutingModule,
+        ChiTietVanBanModule
     ],
 })
 export class VanBanDiLienQuanModule {}

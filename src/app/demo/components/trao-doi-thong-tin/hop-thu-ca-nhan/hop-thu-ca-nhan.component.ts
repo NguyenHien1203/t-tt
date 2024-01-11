@@ -147,11 +147,12 @@ export class HopThuCaNhanComponent {
     public LoadDanhSach() {
         this.route.params.subscribe(params => {
             this.timKiemDanhSach.idNhanCaNhan = params['ncn'];
+            this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
+
+            this.service.getDanhSachHopThuCaNhan(this.timKiemDanhSach).then((data) => {
+                this.lstTraoDoi = data;
+            });
           });
-        this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
-        this.service.getDanhSachHopThuCaNhan(this.timKiemDanhSach).then((data) => {
-            this.lstTraoDoi = data;
-        });
     }
 
     public CheckedHt() {

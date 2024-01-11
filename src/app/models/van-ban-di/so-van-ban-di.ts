@@ -11,7 +11,7 @@ export interface TimKiemDanhSach {
     bHDN?: string;
     bGTN?: string;
     bGDN?: string;
-    DonViId?: number;
+    donViId?: number;
     first?: number;
     rowsPerPage?: number;
 }

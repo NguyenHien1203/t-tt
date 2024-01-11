@@ -135,14 +135,14 @@ export class CapNhatVanBanComponent implements OnInit {
                 fileUpLoad: fileLoad,
             });
 
-            const soKiHieuData = await this.service.getSoKiHieu(
-                this.formThongTinVanBan.value.soVanBanId,
-                this.formThongTinVanBan.value.loaiVanBanId,
-                this.formThongTinVanBan.value.soHienTai
-            );
-            this.formThongTinVanBan.patchValue({
-                soKiHieu: soKiHieuData,
-            });
+            // const soKiHieuData = await this.service.getSoKiHieu(
+            //     this.formThongTinVanBan.value.soVanBanId,
+            //     this.formThongTinVanBan.value.loaiVanBanId,
+            //     this.formThongTinVanBan.value.soHienTai
+            // );
+            // this.formThongTinVanBan.patchValue({
+            //     soKiHieu: soKiHieuData,
+            // });
         } catch (error) {
             this.messageService.add({
                 severity: 'error',

@@ -72,9 +72,7 @@ export class SoVanBanDiComponent {
         bHDN: '1901-01-01',
         bGTN: '1901-01-01',
         bGDN: '1901-01-01',
-        DonViId: 0,
-        first: 0,
-        rowsPerPage: 10,
+        donViId: Number(this.idDonViLamViec),
     };
 
     ngOnInit(): void {

@@ -21,7 +21,7 @@ export class XuLyCongViecComponent {
         private router: Router,
         private route: ActivatedRoute,
         private cd: ChangeDetectorRef
-    ) {}
+    ) { }
 
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
@@ -146,10 +146,23 @@ export class XuLyCongViecComponent {
         if (loai === 'G') this.hienThiGiaoViec = false;
         if (loai === 'B') this.hienThiBaoCao = false;
         if (loai === 'C') this.hienThiChiTietCongViec = false;
+        if (loai === 'CT') {
+            this.hienThiChiTiet = false;
+        }
         this.LoadDanhSach();
+    }
+
+    hienThiChiTiet: boolean = false;
+    idVanBanDi: string = '1';
+
+    ChiTietVanBan(id: string) {
+        this.hienThiChiTiet = true;
+        this.idVanBanDi = id;
     }
 
     public CheckedHt() {
         this.timChinhXac = !this.timChinhXac;
     }
+
+
 }

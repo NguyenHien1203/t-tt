@@ -26,6 +26,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { PhanPhoiComponent } from './phan-phoi/phan-phoi.component';
 import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { CapNhatComponent } from './cap-nhat/cap-nhat.component';
     ConfirmDialogModule,
     CheckboxModule,
     CalendarModule,
-    TabViewModule
+    TabViewModule,
+    ChiTietVanBanModule
   ]
 })
 export class CapNhatMoiModule { }

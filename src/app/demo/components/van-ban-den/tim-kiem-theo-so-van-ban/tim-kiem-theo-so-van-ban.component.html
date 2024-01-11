@@ -258,7 +258,10 @@
                                     {{ item.soDiDen }}
                                 </td>
                                 <td class="text-center">
-                                    {{ item.soKiHieu }}
+                                    <a
+                                    href="javascript:;"
+                                    (click)="ChiTietVanBan(item.id)"
+                                    >{{ item.soKiHieu }}</a>
                                 </td>
                                 <td>
                                     {{ item.trichYeu }}
@@ -295,3 +298,9 @@
         </div>
     </div>
 </div>
+
+<app-chi-tiet-van-ban
+[show]="hienThiChiTiet"
+(tatPopup)="Thoat($event, 'CT')"
+[id]="idVanBanDi"
+></app-chi-tiet-van-ban>

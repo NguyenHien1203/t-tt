@@ -30,6 +30,7 @@ import { ChipsModule } from 'primeng/chips';
 import { InputMaskModule } from 'primeng/inputmask';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 
 
@@ -62,6 +63,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     CommonModule,
     TraCuuNangCaoRoutingModule,
     FormLayoutDemoRoutingModule,
+    ChiTietVanBanModule
   ]
 })
 export class TraCuuNangCaoModule { }

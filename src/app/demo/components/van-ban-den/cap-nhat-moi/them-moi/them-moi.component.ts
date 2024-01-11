@@ -64,7 +64,7 @@ export class ThemMoiComponent implements OnInit {
     lanhDaoKy: ["", []],
     trichYeu: ["", []],
     yKienThamMuu: ["", []],
-    mucDoVanBanId: ["", [Validators.required]],
+    mucDoVanBanId: [this.MucDoVanBan[0].value,[]],
     chkLuuTru: [false, []],
     chkXemTatCa: [false, []],
     IdDonViLamViec: ["", []],
@@ -191,6 +191,9 @@ export class ThemMoiComponent implements OnInit {
       this.formTT_VB_fomat.chkLuuTru = this.checkLuuTru;
       this.formTT_VB_fomat.chkXemTatCa = this.checkXemTatCa;
 
+
+      console.log(this.formTT_VB_fomat.mucDoVanBanId);
+      
       this.capnhatmoiService.ThemMoiVanBan(this.formTT_VB_fomat).subscribe(data => {
         if (data.isError) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.title });

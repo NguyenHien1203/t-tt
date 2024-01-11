@@ -26,6 +26,7 @@ import { TimKiemTheoSoVanBanComponent } from './tim-kiem-theo-so-van-ban.compone
 import { TimKiemTheoSoVanBanRoutingModule } from './tim-kiem-theo-so-van-ban-routing.module';
 import { FormLayoutDemoRoutingModule } from '../../uikit/formlayout/formlayoutdemo-routing.module';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 @NgModule({
   declarations: [TimKiemTheoSoVanBanComponent],
   imports: [
@@ -55,6 +56,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     CommonModule,
     TimKiemTheoSoVanBanRoutingModule,
     FormLayoutDemoRoutingModule,
+    ChiTietVanBanModule
   ]
 })
 export class TimKiemTheoSoVanBanModule { }

@@ -59,6 +59,14 @@ export class SuaButPheVanBanComponent  implements OnInit {
     this.GetDanhSachSuaButPhe();
   }
 
+  hienThiChiTiet: boolean = false;
+  idVanBanDi: string = '1';
+
+  ChiTietVanBan(id: string) {
+    this.hienThiChiTiet = true;
+    this.idVanBanDi = id;
+  }
+
   public GetDataSoVanBan() {
     this.cnmsvice.GetDataSoVanBan().subscribe(data => {
       if (data.isError) {
@@ -136,6 +144,13 @@ export class SuaButPheVanBanComponent  implements OnInit {
       queryParamsHandling: 'merge',
       queryParams: { idVanBan: idVanBan },
     });
+  }
+
+  Thoat(item: any, type: string) {
+    if (type === 'CT') {
+      this.hienThiChiTiet = false;
+    }
+    this.GetDanhSachSuaButPhe();
   }
   
 }

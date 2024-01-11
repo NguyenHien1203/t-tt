@@ -120,8 +120,12 @@
                             Trích yếu
                         </div>
                         <div class="col-12 md:col-4 fl-wr">
-                            <input type="text" formControlName="trichYeu" id="trichYeu" [style]="{'width': '100%'}"
-                                class="my-drop" class="p-inputtext p-component p-element">
+
+                            <textarea type="text" formControlName="trichYeu" id="trichYeu" [style]="{'width': '100%'}"
+                            class="my-drop" class="p-inputtext p-component p-element"></textarea>
+
+                            <!-- <input type="text" formControlName="trichYeu" id="trichYeu" [style]="{'width': '100%'}"
+                                class="my-drop" class="p-inputtext p-component p-element"> -->
                         </div>
 
                         <div class="col-12 md:col-2 fl-wr">
@@ -129,8 +133,11 @@
                             (nếu có)
                         </div>
                         <div class="col-12 md:col-4 fl-wr">
-                            <input type="text" formControlName="yKienThamMuu" id="yKienThamMuu"
-                                [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element">
+                            <textarea type="text" formControlName="yKienThamMuu" id="yKienThamMuu" [style]="{'width': '100%'}"
+                            class="my-drop" class="p-inputtext p-component p-element"></textarea>
+
+                            <!-- <input type="text" formControlName="yKienThamMuu" id="yKienThamMuu"
+                                [style]="{'width': '100%'}" class="my-drop" class="p-inputtext p-component p-element"> -->
                         </div>
                     </div>
 
@@ -141,7 +148,7 @@
                         <div class="col-12 md:col-4 fl-wr">
                             <p-dropdown formControlName="mucDoVanBanId" [options]="MucDoVanBan" optionValue="value"
                                 optionLabel="label" [showClear]="true" [filter]="true" appendTo="body"
-                                placeholder="Chọn loại văn bản" [style]="{'width': '100%'}"
+                                 [style]="{'width': '100%'}"
                                 class="my-drop"></p-dropdown>
 
                         </div>

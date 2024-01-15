@@ -26,8 +26,8 @@ import { MenubarModule } from 'primeng/menubar';
 
 import { HopThuNhapRoutingModule } from './hop-thu-nhap-routing.module';
 import { HopThuNhapComponent } from './hop-thu-nhap.component';
-import { TraoDoiThongTinModule } from '../trao-doi-thong-tin.module';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ChiTietHopThuModule } from '../chi-tiet-hop-thu/chi-tiet-hop-thu.module';
 
 
 @NgModule({
@@ -36,7 +36,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
   ],
   imports: [
     OverlayPanelModule,
-    TraoDoiThongTinModule,
+    ChiTietHopThuModule,
     MenubarModule,
     TableModule,
     FileUploadModule,

@@ -5,10 +5,11 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class SpinnerService {
-  visable: BehaviorSubject<boolean>;
+  visable: BehaviorSubject<boolean> = new BehaviorSubject(false);
+public readonly loader$ = this.visable.asObservable();
 
   constructor() {
-    this.visable = new BehaviorSubject(false);
+    // this.visable = new BehaviorSubject(false);
   }
 
   show() {

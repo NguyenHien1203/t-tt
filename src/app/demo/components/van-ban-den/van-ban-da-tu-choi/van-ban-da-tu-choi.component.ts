@@ -119,4 +119,20 @@ export class VanBanDaTuChoiComponent {
     public ShowSearch() {
         this.isShowSearch = !this.isShowSearch;
     }
+
+    Thoat(item: any, type: string) {
+        if (type === 'CT') {
+          this.hienThiChiTiet = false;
+        }
+        this.LoadDanhSach();
+      }
+      
+      
+      hienThiChiTiet: boolean = false;
+      idVanBanDi: string = '1';
+    
+      ChiTietVanBan(id: string) {
+        this.hienThiChiTiet = true;
+        this.idVanBanDi = id;
+      }
 }

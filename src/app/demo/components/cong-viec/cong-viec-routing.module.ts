@@ -38,6 +38,14 @@ import { RouterModule } from '@angular/router';
                         (m) => m.DanhSachBanGiaoCongViecModule
                     ),
             },
+            {
+                path: 'duyet-ban-giao-cong-viec',
+                data: { breadcrumb: 'Button' },
+                loadChildren: () =>
+                    import('./duyet-ban-giao-cong-viec/duyet-ban-giao-cong-viec.module').then(
+                        (m) => m.DuyetBanGiaoCongViecModule
+                    ),
+            },
         ]),
     ],
     exports: [RouterModule],

@@ -4,13 +4,23 @@
     [resizable]="false"
     (onHide)="ThoatChiTiet()"
     (onShow)="BindDialogData()"
-    [style]="{ width: '950px' }"
+    [style]="{ width: '1000px' }"
     [modal]="true"
     header="Chi tiết hộp thư"
 >
     <ng-template pTemplate="header">
-        <div class="div-center">
-            <button *ngIf="btnPhanHoi"
+        <div
+            class="inline-flex align-items-center justify-content-center gap-2"
+        >
+            <p-avatar
+                image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png"
+                shape="circle"
+            />
+            <span class="font-bold white-space-nowrap">Chi tiết hộp thư</span>
+        </div>
+        <div class="col-12" style="display: flex">
+            <button
+                *ngIf="btnPhanHoi"
                 pbutton=""
                 pripple=""
                 type="submit"
@@ -19,11 +29,17 @@
                 ng-reflect-label="Info"
                 (click)="XuLy(idHopThu)"
             >
-                <span class="p-button-label"><i class="{{typebtn == 1 ? 'pi pi-refresh' : 'pi pi-send'}}"></i> {{lblPhanHoi}}</span
+                <span class="p-button-label"
+                    ><i
+                        class="{{
+                            typebtn == 1 ? 'pi pi-refresh' : 'pi pi-send'
+                        }}"
+                    ></i>
+                    {{ lblPhanHoi }}</span
                 ><span class="p-ink"></span></button
             >&nbsp;
             <button
-            *ngIf="btnChuyenTiep"
+                *ngIf="btnChuyenTiep"
                 pbutton=""
                 pripple=""
                 type="submit"
@@ -32,11 +48,12 @@
                 ng-reflect-label="Info"
                 (click)="XuLy(idHopThu, 2)"
             >
-                <span class="p-button-label"><i class="pi pi-send"></i>&nbsp;Chuyển tiếp</span
+                <span class="p-button-label"
+                    ><i class="pi pi-send"></i>&nbsp;Chuyển tiếp</span
                 ><span class="p-ink"></span></button
             >&nbsp;
             <button
-            *ngIf="btnXemNguoiDoc"
+                *ngIf="btnXemNguoiDoc"
                 pbutton=""
                 pripple=""
                 label="Info"
@@ -44,11 +61,13 @@
                 ng-reflect-label="Info"
                 (click)="XemNguoiDoc(idHopThu)"
             >
-                <span class="p-button-label"><i class="pi pi-check"></i>&nbsp;Xem người nhận đã đọc chưa?</span
+                <span class="p-button-label"
+                    ><i class="pi pi-check"></i>&nbsp;Xem người nhận đã đọc
+                    chưa?</span
                 ><span class="p-ink"></span>
             </button>
         </div>
-        <hr>
+        <hr />
     </ng-template>
     <ng-template pTemplate="content">
         <div class="grid">
@@ -72,15 +91,19 @@
                             <td class="custom-b">{{ item.tieuDe }}</td>
                         </tr>
                         <tr>
-                            <td class="custom-rb"><strong>Nội dung:</strong></td>
-                            <td class="custom-b"><span [innerHTML]="item.noiDung"></span></td>
+                            <td class="custom-rb">
+                                <strong>Nội dung:</strong>
+                            </td>
+                            <td class="custom-b">
+                                <span [innerHTML]="item.noiDung"></span>
+                            </td>
                         </tr>
                         <tr>
                             <td class="custom-rb">
                                 <strong>Ngày gửi:</strong>
                             </td>
                             <td class="custom-b">
-                                {{ item.ngayGui | date : "dd-MM-yyyy hh:mm" }}
+                                {{ item.ngayGui | date : "hh:mm dd/MM/yyyy" }}
                             </td>
                         </tr>
                         <tr>

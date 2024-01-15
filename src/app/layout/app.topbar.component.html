@@ -43,7 +43,11 @@
                     'border-radius': '17px'
                 }"
             >
-                <i class="pi pi-envelope text-red-500 text-xl i-mg-r-0"></i>
+                <i
+                    #mailBadge
+                    class="pi pi-envelope text-red-500 icon-grey text-xl i-mg-r-0"
+                    [ngClass]="mailUnread.length > 0 ? 'badge' : ''"
+                ></i>
             </div>
             <span>Hộp thư đến</span>
             <p-overlayPanel
@@ -77,10 +81,22 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-mail>
                             <tr
+                                (click)="
+                                    chiTietHopThuDen(
+                                        mail.traoDoiId,
+                                        -1,
+                                        mail.id
+                                    )
+                                "
                                 [pSelectableRow]="rowData"
-                                [ngClass]="mail.trangThai == 1 ? 'bold' : ''"
                             >
-                                <td>{{ mail.label }}</td>
+                                <td
+                                    [ngClass]="
+                                        mail.trangThai == 1 ? 'bold' : ''
+                                    "
+                                >
+                                    {{ mail.label }}
+                                </td>
                                 <td>
                                     {{ mail.createdDate | date : "dd/MM/yyyy" }}
                                 </td>
@@ -107,7 +123,11 @@
                     'border-radius': '17px'
                 }"
             >
-                <i class="pi pi-bell text-yellow-500 text-xl i-mg-r-0"></i>
+                <i
+                    #notifiBadge
+                    class="pi pi-bell text-yellow-500 text-xl i-mg-r-0"
+                    [ngClass]="notifiUnread.length > 0 ? 'badge-notifi' : ''"
+                ></i>
             </div>
 
             <span>Thông báo</span>
@@ -142,11 +162,20 @@
                         <ng-template pTemplate="body" let-rowData let-notifi>
                             <tr
                                 [pSelectableRow]="rowData"
-                                [ngClass]="
-                                    notifi.trangThaiTBX == 0 ? 'bold' : ''
+                                (click)="
+                                    chiTietThongBao(
+                                        notifi.id,
+                                        notifi.idThongBaoXem
+                                    )
                                 "
                             >
-                                <td>{{ notifi.label }}</td>
+                                <td
+                                    [ngClass]="
+                                        notifi.trangThaiTBX == 0 ? 'bold' : ''
+                                    "
+                                >
+                                    {{ notifi.label }}
+                                </td>
                                 <td>
                                     {{
                                         notifi.createdDate | date : "dd/MM/yyyy"
@@ -284,3 +313,16 @@
         </button> -->
     </div>
 </div>
+<app-chi-tiet
+    [show]="hienThiChiTietThongBao"
+    [id]="thongBaoId"
+    (tatPopup)="Thoat($event, 'TB')"
+></app-chi-tiet>
+<app-chi-tiet-hop-thu
+    [show]="hienThiChiTietHopThu"
+    [idHopThu]="traoDoiId"
+    [idNhanCaNhan]="-1"
+    [checkThuDen]="-1"
+    [checkThuNhap]="-1"
+    (tatPopup)="Thoat($event, 'CTHT')"
+></app-chi-tiet-hop-thu>

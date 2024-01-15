@@ -133,15 +133,6 @@ export class CapNhatComponent {
                 chkVanBanNoiBo: this.chkNoiBo,
                 fileUpLoad: fileLoad,
             });
-
-            const soKiHieuData = await this.service.getSoKiHieu(
-                this.formThongTinVanBan.value.soVanBanId,
-                this.formThongTinVanBan.value.loaiVanBanId,
-                this.formThongTinVanBan.value.soHienTai
-            );
-            this.formThongTinVanBan.patchValue({
-                soKiHieu: soKiHieuData,
-            });
         } catch (error) {
             this.messageService.add({
                 severity: 'error',
@@ -258,7 +249,7 @@ export class CapNhatComponent {
                             detail: 'Tải lên thất bại',
                         });
                     else {
-            this.file = FileInput;
+                        this.file = FileInput;
                         this.messageService.add({
                             severity: 'info',
                             summary: 'Info',

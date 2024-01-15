@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { XuLyCongViecService } from 'src/app/demo/service/cong-viec/xu-ly-cong-viec.service';
@@ -19,8 +19,9 @@ export class XuLyCongViecComponent {
         private authService: AuthService,
         private confirmService: ConfirmationService,
         private router: Router,
+        private route: ActivatedRoute,
         private cd: ChangeDetectorRef
-    ) {}
+    ) { }
 
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
     idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
@@ -128,6 +129,9 @@ export class XuLyCongViecComponent {
     }
 
     public LoadDanhSach(): void {
+        this.route.params.subscribe((params) => {
+            this.timKiemDanhSach.vaiTro = Number(params['type']);
+        });
         this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
         this.service
             .getDanhSachXuLyCongViec(this.timKiemDanhSach)
@@ -142,10 +146,23 @@ export class XuLyCongViecComponent {
         if (loai === 'G') this.hienThiGiaoViec = false;
         if (loai === 'B') this.hienThiBaoCao = false;
         if (loai === 'C') this.hienThiChiTietCongViec = false;
+        if (loai === 'CT') {
+            this.hienThiChiTiet = false;
+        }
         this.LoadDanhSach();
+    }
+
+    hienThiChiTiet: boolean = false;
+    idVanBanDi: string = '1';
+
+    ChiTietVanBan(id: string) {
+        this.hienThiChiTiet = true;
+        this.idVanBanDi = id;
     }
 
     public CheckedHt() {
         this.timChinhXac = !this.timChinhXac;
     }
+
+
 }

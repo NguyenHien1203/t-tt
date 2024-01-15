@@ -25,6 +25,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { SuaCongViecComponent } from './sua-cong-viec/sua-cong-viec.component';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { SuaCongViecComponent } from './sua-cong-viec/sua-cong-viec.component';
     ConfirmDialogModule,
     CheckboxModule,
     CalendarModule,
-    TabViewModule
+    TabViewModule,
+    ChiTietVanBanModule
   ]
 })
 export class SuaButPheVanBanModule { }

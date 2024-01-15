@@ -26,17 +26,16 @@ import { MenubarModule } from 'primeng/menubar';
 
 import { HopThuDenRoutingModule } from './hop-thu-den-routing.module';
 import { HopThuDenComponent } from './hop-thu-den.component';
-import { HopThuDiModule } from '../hop-thu-di/hop-thu-di.module';
-import { TraoDoiThongTinModule } from '../trao-doi-thong-tin.module';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ChiTietHopThuModule } from '../chi-tiet-hop-thu/chi-tiet-hop-thu.module';
 
 @NgModule({
     declarations: [HopThuDenComponent],
     imports: [
         OverlayPanelModule,
         TieredMenuModule,
-        TraoDoiThongTinModule,
+        ChiTietHopThuModule,
         MenubarModule,
         TableModule,
         FileUploadModule,

@@ -31,6 +31,7 @@ import { GiaoViecComponent } from './giao-viec/giao-viec.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ThemMoiTreecvComponent } from './giao-viec/them-moi-treecv/them-moi-treecv.component';
 import { CapNhatTreecvComponent } from './giao-viec/cap-nhat-treecv/cap-nhat-treecv.component';
+import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
 
 @NgModule({
   declarations: [XuLyCongViecComponent, LuongXuLyComponent, HoSoComponent, BaoCaoComponent, ChiTietCongViecComponent, ChonVanBanComponent, GiaoViecComponent, ThemMoiTreecvComponent, CapNhatTreecvComponent],
@@ -56,7 +57,8 @@ import { CapNhatTreecvComponent } from './giao-viec/cap-nhat-treecv/cap-nhat-tre
     BreadcrumbModule,
     CommonModule,
     XuLyCongViecRoutingModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    ChiTietVanBanModule
   ]
 })
 export class XuLyCongViecModule { }

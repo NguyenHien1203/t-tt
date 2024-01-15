@@ -50,22 +50,29 @@ const routes: Routes = [
                 './quan-ly-chuyen-muc-cau-hoi/quan-ly-chuyen-muc-cau-hoi.module'
             ).then((m) => m.QuanLyChuyenMucCauHoiModule),
     },
-    { path: 'quan-ly-tham-do-y-kien', data: { breadcrumb: 'Quản lý thăm dò ý kiến' }, loadChildren: () => import('./quan-ly-tham-do-y-kien/quan-ly-tham-do-y-kien.module').then(m => m.QuanLyThamDoYKienModule) },
+    {
+        path: 'quan-ly-tham-do-y-kien',
+        data: { breadcrumb: 'Quản lý thăm dò ý kiến' },
+        loadChildren: () =>
+            import(
+                './quan-ly-tham-do-y-kien/quan-ly-tham-do-y-kien.module'
+            ).then((m) => m.QuanLyThamDoYKienModule),
+    },
     {
         path: 'cau-hoi-thuong-gap',
         data: { breadcrumb: 'Câu hỏi thường gặp' },
         loadChildren: () =>
-            import(
-                './cau-hoi-thuong-gap/cau-hoi-thuong-gap.module'
-            ).then((m) => m.CauHoiThuongGapModule),
+            import('./cau-hoi-thuong-gap/cau-hoi-thuong-gap.module').then(
+                (m) => m.CauHoiThuongGapModule
+            ),
     },
     {
         path: 'quan-ly-tai-lieu-huong-dan',
         data: { breadcrumb: 'Quản lý tài liệu hướng dẫn' },
         loadChildren: () =>
-            import('./quan-ly-tai-lieu-huong-dan/quan-ly-tai-lieu-huong-dan.module').then(
-                (m) => m.QuanLyTaiLieuHuongDanModule
-            ),
+            import(
+                './quan-ly-tai-lieu-huong-dan/quan-ly-tai-lieu-huong-dan.module'
+            ).then((m) => m.QuanLyTaiLieuHuongDanModule),
     },
     {
         path: 'tai-lieu-huong-dan',
@@ -81,7 +88,7 @@ const routes: Routes = [
         loadChildren: () =>
             import('./hoat-dong-sap-toi/hoat-dong-sap-toi.module').then(
                 (m) => m.HoatDongSapToiModule
-            )
+            ),
     },
     {
         path: 'tham-do-y-kien',
@@ -97,4 +104,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class ThongTinKhacRoutingModule { }
+export class ThongTinKhacRoutingModule {}

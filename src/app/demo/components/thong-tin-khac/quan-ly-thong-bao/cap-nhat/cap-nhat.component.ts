@@ -18,6 +18,8 @@ import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { ResponeMessage } from 'src/app/models/he-thong/ResponeMessage';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { saveAs } from 'file-saver';
+import { MyUploadAdapter } from '../../../trao-doi-thong-tin/soan-thu/soan-thu.component';
+import { format } from 'date-fns';
 
 @Component({
     selector: 'app-cap-nhat',
@@ -78,6 +80,13 @@ export class CapNhatComponent {
             data.filePath = '';
             this.formCapNhat.setValue(data);
         });
+    }
+
+    onReady($event) {
+        let urlSave = '/ThongTinKhac/QuanLyThongBao/UpLoadImageCkeditor';
+        $event.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new MyUploadAdapter(loader, urlSave);
+        };
     }
 
     //tải xuống tệp
@@ -183,6 +192,10 @@ export class CapNhatComponent {
         if (this.formCapNhat.valid) {
             this.quanLyThongBao = this.formCapNhat.value;
             this.quanLyThongBao.hienThi = this.checkedValue ? 1 : 0;
+            this.quanLyThongBao.ngayBatDau = format(this.formCapNhat.value.ngayBatDau, "dd/MM/yyyy");
+            this.quanLyThongBao.ngayKetThuc = format(this.formCapNhat.value.ngayKetThuc, "dd/MM/yyyy");
+            this.quanLyThongBao.noiDung =
+                this.myEditor.editorInstance.getData();
             this.service.capNhatQuanLyThongBao(this.quanLyThongBao).subscribe(
                 (data) => {
                     let resData = data as ResponeMessage;

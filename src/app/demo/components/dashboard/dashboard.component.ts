@@ -7,9 +7,11 @@ import { DashboardService } from '../../service/dashboard.service';
 import {
     TimKiemCongViecDashBoard,
     TimKiemLichCoQuanDashBoard,
+    TimKiemThongKeThongTin,
 } from 'src/app/models/dash-board';
 import { AuthService } from 'src/app/common/auth.services';
 import 'chartjs-plugin-datalabels';
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -19,7 +21,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     constructor(
         public layoutService: LayoutService,
         private service: DashboardService,
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router
     ) {
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
             this.initChart();
@@ -29,6 +32,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     trHTML = '</tr>';
     idNhomQuyen: string = this.authService.GetmUserInfo()?.nhomQuyenId ?? '0';
     idDonVi: string = this.authService.GetmUserInfo()?.donViId ?? '0';
+    idDonVilamViec: string = this.authService.GetDonViLamViec() ?? '0';
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
     items!: MenuItem[];
@@ -46,6 +50,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     lstLichCoQuanTuan: any[] = [];
     chartData: any;
     chartOptions: any;
+    thongTinThongKe: any;
     routerLinkCongViec: string = '';
     subscription!: Subscription;
     timKiemCongViecDashBoard: TimKiemCongViecDashBoard = {
@@ -61,8 +66,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
         firstDayOfWeek: '',
     };
 
+    timKiemThongTinThongKeDashBoard: TimKiemThongKeThongTin = {
+        idUser: this.idUser,
+        idPhongBan: this.idPhongBan,
+        idNhomQuyen: this.idNhomQuyen,
+        idDonViLamViec: this.idDonVilamViec,
+    };
+
     ngOnInit() {
-        this.currentDate = format(new Date(), "dd/MM/yyyy");
+        this.currentDate = this.formatDateToDDMMYY(new Date());
+        
         var days = [
             'Chủ nhật',
             'Thứ hai',
@@ -79,6 +92,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
             { label: 'Remove', icon: 'pi pi-fw pi-minus' },
         ];
         this.LoadDanhSachLichCoQuan();
+        this.LoadThongTinThongKe();
+    }
+
+    formatDateToDDMMYY(date): string {
+        const day = ('0' + date.getDate()).slice(-2);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const year = date.getFullYear().toString();
+        return day + '/' + month + '/' + year;
+      }
+
+    async LoadThongTinThongKe() {
+        this.thongTinThongKe = await this.service.getThongTinThongKeDashBoard(
+            this.timKiemThongTinThongKeDashBoard
+        );
     }
 
     async LoadDanhSachLichCoQuan() {
@@ -225,5 +252,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (code === 'QH') return cl + '-bluegray-500';
         if (code === 'DH') return cl + '-yellow-500';
         return '';
+    }
+
+    navigateToCongViec(vaiTro: number): void {
+        this.router.navigate(['/cong-viec/xu-ly-cong-viec', { type: vaiTro }]);
     }
 }

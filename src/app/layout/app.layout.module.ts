@@ -23,6 +23,8 @@ import {DropdownModule} from 'primeng/dropdown';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
+import { ChiTietHopThuModule } from '../demo/components/trao-doi-thong-tin/chi-tiet-hop-thu/chi-tiet-hop-thu.module';
+import { ChiTietModule } from '../demo/components/thong-tin-khac/xem-thong-bao/chi-tiet/chi-tiet.module';
 
 @NgModule({
     declarations: [
@@ -51,7 +53,9 @@ import { MenuModule } from 'primeng/menu';
         RippleModule,
         RouterModule,
         AppConfigModule,
-        MenuModule
+        MenuModule,
+        ChiTietHopThuModule,
+        ChiTietModule,//chi tiết thông báo
     ],
     exports: [AppLayoutComponent]
 })

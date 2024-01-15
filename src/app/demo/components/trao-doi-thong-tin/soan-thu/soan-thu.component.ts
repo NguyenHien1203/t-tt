@@ -1,19 +1,13 @@
-import {
-    ChangeDetectorRef,
-    Component,
-    Inject,
-    OnInit,
-    ViewChild,
-} from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { SoanThuService } from 'src/app/demo/service/trao-doi-thong-tin/soan-thu.service';
 import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { saveAs } from 'file-saver';
 import { throwError } from 'rxjs';
-import { DOCUMENT } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
     selector: 'app-soan-thu',
@@ -60,6 +54,7 @@ export class SoanThuComponent implements OnInit {
     idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     Editor = ClassicEditor;
+
     filterItems(event: any) {
         //tìm kiếm người dùng
         const lstNguoiDungSelected = this.lstSelectedNguoiDung.map(
@@ -80,9 +75,6 @@ export class SoanThuComponent implements OnInit {
 
     async ngOnInit() {
         const data = await this.service.getMenuNhanCaNhan(
-            Number(this.authService.GetmUserInfo()?.userId ?? '0')
-        );
-        const dataGanNhan = await this.service.getDanhSachNhanCaNhan(
             Number(this.authService.GetmUserInfo()?.userId ?? '0')
         );
 
@@ -123,6 +115,13 @@ export class SoanThuComponent implements OnInit {
 
         this.LoadDanhMuc();
         this.XuLySoanThu();
+    }
+
+    onReady($event) {
+        let urlSave = '/TraoDoiThongTin/SoanThu/UpLoadImageCkeditor';
+        $event.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new MyUploadAdapter(loader, urlSave);
+        };
     }
 
     public BindRouterLinkForTree(treeData: any[]) {
@@ -222,14 +221,14 @@ export class SoanThuComponent implements OnInit {
 
         if (FileInput) {
             event.target.value = '';
-            let urlSave = '/VanBanDi/CapNhatMoi/UpLoadFile';
+            let urlSave = '/TraoDoiThongTin/SoanThu/UploadFile';
             this.uploadfileService.uploadFiles(FileInput, urlSave).subscribe({
                 next: (data) => {
                     if (data.isError)
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Error',
-                            detail: 'Tải lên thất bại',
+                            detail: data.title,
                         });
                     else {
                         this.file = FileInput;
@@ -453,6 +452,82 @@ export class SoanThuComponent implements OnInit {
         this.editConTent = '';
         this.lstSelectedNguoiDung = [];
         this.selectedFiles = [];
+    }
+}
+
+export class MyUploadAdapter {
+    xhr: any;
+    loader: any;
+    urlSave: any;
+
+    constructor(loader, urlSave?) {
+        // The file loader instance to use during the upload.
+        this.loader = loader;
+        this.urlSave = urlSave;
+    }
+
+    upload() {
+        return this.loader.file.then(
+            (file) =>
+                new Promise((resolve, reject) => {
+                    this._initRequest();
+
+                    this._initListeners(resolve, reject, file);
+
+                    this._sendRequest(file);
+                })
+        );
+    }
+
+    // Aborts the upload process.
+    abort() {
+        if (this.xhr) {
+            this.xhr.abort();
+        }
+    }
+
+    _initRequest() {
+        const xhr = (this.xhr = new XMLHttpRequest());
+        xhr.open('POST', environment.baseUrlApi + this.urlSave, true);
+
+        xhr.responseType = 'json';
+    }
+
+    _initListeners(resolve, reject, file) {
+        const xhr = this.xhr;
+        const loader = this.loader;
+        const genericErrorText = `Couldn't upload file: ${file.name}.`;
+        xhr.addEventListener('error', () => reject(genericErrorText));
+        xhr.addEventListener('abort', () => reject());
+        xhr.addEventListener('load', () => {
+            const response = xhr.response;
+            if (!response || response.error) {
+                return reject(
+                    response && response.error
+                        ? response.error.message
+                        : genericErrorText
+                );
+            }
+
+            resolve({
+                default: response.url,
+            });
+        });
+
+        if (xhr.upload) {
+            xhr.upload.addEventListener('progress', (evt) => {
+                if (evt.lengthComputable) {
+                    loader.uploadTotal = evt.total;
+                    loader.uploaded = evt.loaded;
+                }
+            });
+        }
+    }
+
+    _sendRequest(file) {
+        const data = new FormData();
+        data.append('upload', file);
+        this.xhr.send(data);
     }
 }
 

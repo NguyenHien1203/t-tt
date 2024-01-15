@@ -13,9 +13,11 @@ import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { DialogModule } from 'primeng/dialog';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
     imports: [
+        ProgressBarModule,
         DialogModule,
         CommonModule,
         LoginRoutingModule,

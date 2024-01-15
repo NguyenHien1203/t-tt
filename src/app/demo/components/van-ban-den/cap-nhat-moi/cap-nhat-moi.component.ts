@@ -194,6 +194,9 @@ export class CapNhatMoiComponent implements OnInit {
       this.hienThiCapNhat = false;
     if (loai === 'P')
       this.hienThiPhanPhoi = false;
+      if (loai === 'CT') {
+        this.hienThiChiTiet = false;
+      }
     this.GetDanhSachCapNhatMoi();
   }
 
@@ -203,5 +206,13 @@ export class CapNhatMoiComponent implements OnInit {
   public phanphoiVanBan(idVanBan: string) {
     this.hienThiPhanPhoi = true;
     this.id = idVanBan;
+  }
+  
+  hienThiChiTiet: boolean = false;
+  idVanBanDi: string = '1';
+
+  ChiTietVanBan(id: string) {
+    this.hienThiChiTiet = true;
+    this.idVanBanDi = id;
   }
 }

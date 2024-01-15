@@ -148,15 +148,15 @@ export class CapNhatVanBanDaGuiComponent {
                         fileUpLoad: fileLoad,
                     });
 
-                    const soKiHieuData = await this.service.getSoKiHieu(
-                        this.formThongTinVanBan.value.soVanBanId,
-                        this.formThongTinVanBan.value.loaiVanBanId,
-                        this.formThongTinVanBan.value.soHienTai
-                    );
+                    // const soKiHieuData = await this.service.getSoKiHieu(
+                    //     this.formThongTinVanBan.value.soVanBanId,
+                    //     this.formThongTinVanBan.value.loaiVanBanId,
+                    //     this.formThongTinVanBan.value.soHienTai
+                    // );
 
-                    this.formThongTinVanBan.patchValue({
-                        soKiHieu: soKiHieuData,
-                    });
+                    // this.formThongTinVanBan.patchValue({
+                    //     soKiHieu: soKiHieuData,
+                    // });
 
                     this.lstDonViNhan =
                         await this.quanTriVanBanDiService.getDanhSachDonViDaGui(

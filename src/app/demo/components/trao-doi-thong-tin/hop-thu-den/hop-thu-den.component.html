@@ -89,7 +89,7 @@
         <div class="card">
             <div class="wrapper">
                 <h2>DANH SÁCH HỘP THƯ ĐẾN</h2>
-                <div class="icon-cls"  *ngIf="isShowMenuBar">
+                <div class="icon-cls" *ngIf="isShowMenuBar">
                     <button
                         pButton
                         pRipple
@@ -283,7 +283,14 @@
                                             pButton
                                             pRipple
                                             icon="pi pi-eye"
-                                           (click)="ChiTiet(item.traoDoiId, 9, item.chkThuDen, item.chkThuNhap)" 
+                                            (click)="
+                                                ChiTiet(
+                                                    item.traoDoiId,
+                                                    9,
+                                                    item.chkThuDen,
+                                                    item.chkThuNhap
+                                                )
+                                            "
                                             class="p-button-rounded p-button-info mr-2"
                                         ></button>
                                         <button
@@ -315,29 +322,49 @@
         </div>
     </div>
 </div>
-<p-confirmDialog #cd [style]="{width: '30vw'}">
+<p-confirmDialog #cd [style]="{ width: '30vw' }">
     <ng-template pTemplate="header">
-      <h3>Xác nhận</h3>
+        <h3>Xác nhận</h3>
     </ng-template>
     <ng-template pTemplate="footer">
-      <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-info">
-        <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
-        <span class="p-button-label">Đồng ý</span>
-        <span class="p-ink"></span>
-      </button>
-      <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-danger">
-        <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
-        <span class="p-button-label">Hủy</span>
-        <span class="p-ink"></span>
-      </button>
+        <button
+            pbutton=""
+            pripple=""
+            (click)="cd.accept()"
+            label="Đồng ý"
+            icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component p-button-info"
+        >
+            <span
+                class="p-button-icon p-button-icon-left pi pi-check"
+                aria-hidden="true"
+            ></span>
+            <span class="p-button-label">Đồng ý</span>
+            <span class="p-ink"></span>
+        </button>
+        <button
+            pbutton=""
+            pripple=""
+            (click)="cd.reject()"
+            label="Hủy"
+            icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component p-button-danger"
+        >
+            <span
+                class="p-button-icon p-button-icon-left pi pi-times"
+                aria-hidden="true"
+            ></span>
+            <span class="p-button-label">Hủy</span>
+            <span class="p-ink"></span>
+        </button>
     </ng-template>
-  </p-confirmDialog>
-  <app-chi-tiet-hop-thu
-  [show]="hienThiChiTiet"
-  [idHopThu]="id"
-  [idNhanCaNhan]="ncn"
-  [checkThuDen]="checkThuDen"
-  [checkThuNhap]="checkThuNhap"
-  (tatPopup)="Thoat($event, 'C')"
+</p-confirmDialog>
+<app-chi-tiet-hop-thu
+    [show]="hienThiChiTiet"
+    [idHopThu]="id"
+    [idNhanCaNhan]="ncn"
+    [checkThuDen]="checkThuDen"
+    [checkThuNhap]="checkThuNhap"
+    (tatPopup)="Thoat($event, 'C')"
 ></app-chi-tiet-hop-thu>
 <p-toast></p-toast>

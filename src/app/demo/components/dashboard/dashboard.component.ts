@@ -74,7 +74,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
 
     ngOnInit() {
-        this.currentDate = format(new Date(), 'dd/MM/yyyy');
+        this.currentDate = this.formatDateToDDMMYY(new Date());
+        
         var days = [
             'Chủ nhật',
             'Thứ hai',
@@ -93,6 +94,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.LoadDanhSachLichCoQuan();
         this.LoadThongTinThongKe();
     }
+
+    formatDateToDDMMYY(date): string {
+        const day = ('0' + date.getDate()).slice(-2);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const year = date.getFullYear().toString();
+        return day + '/' + month + '/' + year;
+      }
 
     async LoadThongTinThongKe() {
         this.thongTinThongKe = await this.service.getThongTinThongKeDashBoard(

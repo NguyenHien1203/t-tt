@@ -52,4 +52,24 @@ export class TopbarService {
             .toPromise()
             .then((res) => res.objData as any[]);
     }
+
+    chuyenTrangThaiHopThu(idHopThu: string) {
+        console.log(idHopThu);
+        
+        return this.http.get<any>(
+            environment.baseUrlApi +
+                '/Menu/MenuTopBar/ChuyenTrangThaiHopThu/' +
+                idHopThu,
+            this.httpOption
+        );
+    }
+
+    chuyenTrangThaiThongBao(idThongBao: string) {
+        return this.http.get<any>(
+            environment.baseUrlApi +
+                '/Menu/MenuTopBar/ChuyenTrangThaiThongBao/' +
+                idThongBao,
+            this.httpOption
+        );
+    }
 }

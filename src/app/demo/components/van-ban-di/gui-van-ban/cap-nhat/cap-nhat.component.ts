@@ -131,15 +131,15 @@ export class CapNhatComponent {
                 fileUpLoad: fileLoad,
             });
 
-            const soKiHieuData = await this.service.getSoKiHieu(
-                this.formThongTinVanBan.value.soVanBanId,
-                this.formThongTinVanBan.value.loaiVanBanId,
-                this.formThongTinVanBan.value.soHienTai
-            );
-            this.formThongTinVanBan.patchValue({
-                soKiHieu: soKiHieuData,
-            });
-            console.log('form', this.formThongTinVanBan.value);
+            // const soKiHieuData = await this.service.getSoKiHieu(
+            //     this.formThongTinVanBan.value.soVanBanId,
+            //     this.formThongTinVanBan.value.loaiVanBanId,
+            //     this.formThongTinVanBan.value.soHienTai
+            // );
+            // this.formThongTinVanBan.patchValue({
+            //     soKiHieu: soKiHieuData,
+            // });
+            // console.log('form', this.formThongTinVanBan.value);
         } catch (error) {
             this.messageService.add({
                 severity: 'error',

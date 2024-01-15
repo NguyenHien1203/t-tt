@@ -68,7 +68,7 @@ export class HopThuDiComponent {
         timChinhXac: 0,
     };
 
-    public GetDataMOnthYear() {
+    public GetDataMonthYear() {
         const currentYear = new Date().getFullYear();
         for (let i = currentYear + 1; i >= currentYear - 5; i--) {
             this.yearOptions.push({ label: 'Năm ' + i.toString(), value: i });
@@ -136,7 +136,7 @@ export class HopThuDiComponent {
         ];
 
         this.LoadDanhSach();
-        this.GetDataMOnthYear();
+        this.GetDataMonthYear();
     }
 
     public BindRouterLinkForTree(treeData: any[]) {

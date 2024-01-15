@@ -37,10 +37,6 @@ export class ThemMoiComponent implements OnInit {
   lstDonViPhoiHopChange: any[];
 
   ngayKetThuc: string = "";
-  ngOnInit(): void {
-    this.loading = false;
-    this.GetDataDefaultOption();
-  }
 
   constructor(
     private messageService: MessageService,
@@ -83,6 +79,11 @@ export class ThemMoiComponent implements OnInit {
     tenLanhDao: [""],
     createBy: [],
   });
+
+  ngOnInit(): void {
+    this.loading = false;
+    this.GetDataDefaultOption();
+  }
 
   public GetDataDefaultOption() {
 
@@ -136,7 +137,7 @@ export class ThemMoiComponent implements OnInit {
   valueTextLanhDaoDonVi(event: any) {
     this.ThongTinNhiemVu.controls['tenLanhDao'].setValue(event.originalEvent.srcElement.ariaLabel);
     console.log(this.ThongTinNhiemVu.value.tenLanhDao);
-    
+
   }
 
   valueTextDonViChuTri(event: any) {

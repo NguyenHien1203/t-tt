@@ -66,6 +66,7 @@ export class CapNhatComponent implements OnInit {
     tenDonViPhoiHop: [""],
     tenLanhDao: [""],
     createBy: [],
+    id: [],
   });
 
   constructor(
@@ -82,6 +83,9 @@ export class CapNhatComponent implements OnInit {
     this.loading = false;
     this.GetDataDefaultOption();
     this.GetTaoNhiemVu();
+
+    console.log(this.auth.GetmUserInfo());
+    console.log(this.auth.GetDonViLamViec());
   }
 
   public GetDataDefaultOption() {
@@ -228,6 +232,7 @@ export class CapNhatComponent implements OnInit {
 
   CapNhat() {
     this.submitted = true;
+    const id = this.route.snapshot.paramMap.get('id');
     const itemData = this.ThongTinNhiemVu.value;
     let taoNhiemVu = {
       soKyHieu: itemData.soKiHieu,
@@ -242,8 +247,8 @@ export class CapNhatComponent implements OnInit {
       linhVucId: itemData.nhomLinhVuc,
       soNganhId: this.auth.GetmUserInfo().donViId,
       tenSoNganh: this.auth.GetmUserInfo().tenDonVi,
-      donViChuTriId: itemData.donViChuTri,
-      donViPhoiHopId: itemData.donViPhoiHop?.toString(),
+      donViChuTriId: itemData.donViChuTri == 0 ? Number(this.auth.GetDonViLamViec()) : itemData.donViChuTri,
+      donViPhoiHopId: itemData.donViPhoiHop?.toString(),  
       lanhDaoSoId: itemData.lanhDaoSo,
       lanhDaoDonVi: itemData.lanhDaoChiuTrachNhiem,
       yKienChiDao: itemData.yKienChiDao,
@@ -261,22 +266,24 @@ export class CapNhatComponent implements OnInit {
       tenDonViChuTri: itemData.tenDonViChuTri,
       tenDonViPhoiHop: itemData.tenDonViPhoiHop,
       lstMocNhiemVu: this.dataTables,
+      id: id,
     }
-    const id = this.route.snapshot.paramMap.get('id');
-    if (this.ThongTinNhiemVu.valid) {
-      this.submitted = true;
-      this.service.CapNhat(taoNhiemVu, id).subscribe(data => {
-        let resData = data;
-        console.log(data);
-        if (resData.isError) {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title, life: 3000 });
-        } else {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title, life: 3000 });
-          setTimeout(() => {
-            this.QuayLai();
-          }, 2000);
-        }
-      })
-    }
+    console.log(taoNhiemVu);
+    
+    // if (this.ThongTinNhiemVu.valid) {
+    //   this.submitted = true;
+    //   this.service.CapNhat(taoNhiemVu, id).subscribe(data => {
+    //     let resData = data;
+    //     console.log(data);
+    //     if (resData.isError) {
+    //       this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title, life: 3000 });
+    //     } else {
+    //       this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title, life: 3000 });
+    //       setTimeout(() => {
+    //         this.QuayLai();
+    //       }, 2000);
+    //     }
+    //   })
+    // }
   }
 }

@@ -100,6 +100,6 @@ export class DapAnComponent implements OnInit {
     this.submitted = false;
     this.show = false;
     this.close.emit(this.show);
-    // this.formCapNhat.reset();
+    this.formThemMoiCauHoi.reset();
   }
 }

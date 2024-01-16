@@ -49,7 +49,6 @@ export class TaoNhiemVuComponent implements OnInit {
     this.service.GetDanhSachNhiemVu(this.timKiemDanhSach).subscribe(data => {
       if (data.isError) {
       } else {
-        console.log(data.objData);
         this.lstNhiemVu = data.objData;
       }
     }, (error) => {

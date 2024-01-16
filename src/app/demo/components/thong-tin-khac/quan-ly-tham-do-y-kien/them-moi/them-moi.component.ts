@@ -16,7 +16,6 @@ export class ThemMoiComponent implements OnInit {
 
   submitted = false;
   public formThemMoi = this.formBuilder.group({
-    id: [0, []],
     noiDung: ["", [Validators.required]],
     thuTu: [0, []],
     donViId: [0, []],
@@ -70,10 +69,10 @@ export class ThemMoiComponent implements OnInit {
         data => {
           let resData = data;
           if (resData.isError) {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title });
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: resData.title, life: 3000 });
           } else {
             this.TatPopup();
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: resData.title, life: 3000 });
           }
         },
         error => {

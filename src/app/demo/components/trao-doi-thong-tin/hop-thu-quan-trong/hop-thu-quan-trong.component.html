@@ -71,7 +71,7 @@
                         label="Tìm chính xác"
                     ></p-checkbox>
                 </label>
-            </div>
+            </div> 
             <label class="field grid div-center">
                 <label class="col-12 md:col-3 fl-wr">
                     <button
@@ -89,7 +89,7 @@
         <div class="card">
             <div class="wrapper">
                 <h2>DANH SÁCH HỘP THƯ QUAN TRỌNG</h2>
-                <div class="icon-cls"  *ngIf="isShowMenuBar">
+                <div class="icon-cls" *ngIf="isShowMenuBar">
                     <button
                         pButton
                         pRipple
@@ -118,6 +118,7 @@
                                 <ng-template pTemplate="caption">
                                     <div class="flex">
                                         <input
+                                            [style]="{ width: '100%' }"
                                             pInputText
                                             type="text"
                                             (input)="
@@ -315,23 +316,43 @@
         </div>
     </div>
 </div>
-<p-confirmDialog #cd [style]="{width: '30vw'}">
+<p-confirmDialog #cd [style]="{ width: '30vw' }">
     <ng-template pTemplate="header">
-      <h3>Xác nhận</h3>
+        <h3>Xác nhận</h3>
     </ng-template>
     <ng-template pTemplate="footer">
-      <button pbutton="" pripple="" (click)="cd.accept()" label="Đồng ý" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-info">
-        <span class="p-button-icon p-button-icon-left pi pi-check" aria-hidden="true"></span>
-        <span class="p-button-label">Đồng ý</span>
-        <span class="p-ink"></span>
-      </button>
-      <button pbutton="" pripple="" (click)="cd.reject()" label="Hủy" icon="pi pi-bookmark" class="p-element p-ripple p-button p-component p-button-danger">
-        <span class="p-button-icon p-button-icon-left pi pi-times" aria-hidden="true"></span>
-        <span class="p-button-label">Hủy</span>
-        <span class="p-ink"></span>
-      </button>
+        <button
+            pbutton=""
+            pripple=""
+            (click)="cd.accept()"
+            label="Đồng ý"
+            icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component p-button-info"
+        >
+            <span
+                class="p-button-icon p-button-icon-left pi pi-check"
+                aria-hidden="true"
+            ></span>
+            <span class="p-button-label">Đồng ý</span>
+            <span class="p-ink"></span>
+        </button>
+        <button
+            pbutton=""
+            pripple=""
+            (click)="cd.reject()"
+            label="Hủy"
+            icon="pi pi-bookmark"
+            class="p-element p-ripple p-button p-component p-button-danger"
+        >
+            <span
+                class="p-button-icon p-button-icon-left pi pi-times"
+                aria-hidden="true"
+            ></span>
+            <span class="p-button-label">Hủy</span>
+            <span class="p-ink"></span>
+        </button>
     </ng-template>
-  </p-confirmDialog>
+</p-confirmDialog>
 <app-chi-tiet-hop-thu
     [show]="hienThiChiTiet"
     [idHopThu]="id"

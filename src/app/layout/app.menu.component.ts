@@ -45,14 +45,11 @@ export class AppMenuComponent implements OnInit {
             objUser.phongBanLamViecId = PhongBanId.toString();
             objUser.nhomQuyenId = NhomQuyenId.toString();
         }
-
         this.cookieService.set('mUserInfo', JSON.stringify(objUser));
         this.cookieService.set('idDonViLamViec', objUser?.phongBanLamViecId);
         this.GetDataMenu();
         this.GetDataNhomQuyen();
-
         this.display = false;
-
         this.router.navigate(['/']);
     }
 

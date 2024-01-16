@@ -274,7 +274,7 @@ export class GuiVanBanComponent {
             this.messageService.add({
                 severity: 'error',
                 summary: 'Lỗi',
-                detail: 'Yêu cầu chọn cá nhân',
+                detail: 'Yêu cầu chọn đơn vị',
             });
             return;
             //trả ra toast lỗi nếu chưa chọn cá nhân

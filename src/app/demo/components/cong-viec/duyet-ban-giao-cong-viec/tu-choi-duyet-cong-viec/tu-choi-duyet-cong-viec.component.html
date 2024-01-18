@@ -1,0 +1,20 @@
+<form [formGroup]="formTuChoi">
+    <p-dialog [(visible)]="hienThi" [style]="{width: '960px'}" header="Thêm mới lĩnh vực" [modal]="true" class="p-fluid"
+        (onHide)="closePopup()">
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="tenLinhVuc">Lý do từ chối <span class="p-error">*</span></label>
+                <input type="text" pInputText id="tenLinhVuc" formControlName="tenLinhVuc">
+                <span class="p-error"
+                    *ngIf="!formTuChoi.controls.noiDung.valid && (formTuChoi.controls.noiDung.touched || submitted)">Vui
+                    lòng nhập tên lĩnh vực</span>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Lưu" (click)="luuLyDoTuChoi()" icon="pi pi-check"
+                class="p-button-info"></button>
+            <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger"
+                (click)="closePopup()"></button>
+        </ng-template>
+    </p-dialog>
+</form>

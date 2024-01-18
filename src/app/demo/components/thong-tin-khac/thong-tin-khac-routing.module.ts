@@ -90,6 +90,14 @@ const routes: Routes = [
                 (m) => m.HoatDongSapToiModule
             ),
     },
+    {
+        path: 'tham-do-y-kien',
+        data: { breadcrumb: 'Thăm dò ý kiến' },
+        loadChildren: () =>
+            import('./tham-do-y-kien/tham-do-y-kien.module').then(
+                (m) => m.ThamDoYKienModule
+            )
+    },
 ];
 
 @NgModule({

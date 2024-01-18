@@ -45,14 +45,11 @@ export class AppMenuComponent implements OnInit {
             objUser.phongBanLamViecId = PhongBanId.toString();
             objUser.nhomQuyenId = NhomQuyenId.toString();
         }
-
         this.cookieService.set('mUserInfo', JSON.stringify(objUser));
         this.cookieService.set('idDonViLamViec', objUser?.phongBanLamViecId);
         this.GetDataMenu();
         this.GetDataNhomQuyen();
-
         this.display = false;
-
         this.router.navigate(['/']);
     }
 
@@ -535,7 +532,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Thăm dò ý kiến',
                                 icon: 'pi pi-fw pi-share-alt',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/thong-tin-khac/tham-do-y-kien'],
                                 code: '006013',
                             },
                         ],

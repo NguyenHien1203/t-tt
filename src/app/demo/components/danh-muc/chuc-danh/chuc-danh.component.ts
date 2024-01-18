@@ -103,7 +103,6 @@ export class ChucDanhComponent implements OnInit {
         this.duLieuNhapChucDanh.lastModified = new Date();
         this.duLieuNhapChucDanh.lastModifiedBy = Number(this.authService.GetDonViLamViec());
         this.chucDanhService.capNhat(this.duLieuNhapChucDanh, this.chucDanh.id).subscribe(data => {
-          console.log(data);
           this.TaiDuLieuCacChucDanh();
           if (data.isError) {
             this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
@@ -145,7 +144,6 @@ export class ChucDanhComponent implements OnInit {
   XacNhanXoaChucDanh() {
     this.deleteProductDialog = false;
     this.chucDanhService.xoa(this.idChucDanh).subscribe(data => {
-      console.log(data)
       this.TaiDuLieuCacChucDanh();
       if (data.isError) {
         this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });

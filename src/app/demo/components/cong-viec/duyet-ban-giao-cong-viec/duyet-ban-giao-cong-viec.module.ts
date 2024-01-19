@@ -26,11 +26,12 @@ import { DuyetBanGiaoCongViecComponent } from './duyet-ban-giao-cong-viec.compon
 import { DuyetBanGiaoCongViecRoutingModule } from './duyet-ban-giao-cong-viec-routing.module';
 import { FormLayoutDemoRoutingModule } from '../../uikit/formlayout/formlayoutdemo-routing.module';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { TuChoiDuyetCongViecComponent } from './tu-choi-duyet-cong-viec/tu-choi-duyet-cong-viec.component';
 
 
 
 @NgModule({
-  declarations: [DuyetBanGiaoCongViecComponent],
+  declarations: [DuyetBanGiaoCongViecComponent, TuChoiDuyetCongViecComponent],
   imports: [
     MultiSelectModule,
     TableModule,

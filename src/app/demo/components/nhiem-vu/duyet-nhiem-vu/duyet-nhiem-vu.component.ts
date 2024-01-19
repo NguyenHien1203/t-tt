@@ -34,7 +34,7 @@ export class DuyetNhiemVuComponent implements OnInit {
   idXoa: any;
 
   lstLoaiVanBan: any[] = [];
-  danhSachs: any[] = [];
+  danhSach: any[] = [];
 
   lstHienThi: SelectItem[] = [
     { label: 'Chọn trạng thái', value: 0 },
@@ -75,8 +75,8 @@ export class DuyetNhiemVuComponent implements OnInit {
         this.msgs = [];
         this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });
       } else {
-        this.danhSachs = data;
-        this.danhSachs.forEach((item) => {
+        this.danhSach = data;
+        this.danhSach.forEach((item) => {
           switch (item.tienDo) {
             case 1: {
               item.trangThai = "Chờ xử lý";
@@ -96,7 +96,7 @@ export class DuyetNhiemVuComponent implements OnInit {
             }
           }
         });
-        console.log(this.danhSachs);
+        console.log(this.danhSach);
       };
     }, (error) => {
       console.log('Error', error);

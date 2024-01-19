@@ -37,17 +37,21 @@ export class ThemNguoiDungComponent {
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
     public async BindDataDialog() {
-        this.lstUserChange = [];
-        this.phongBan = null;
-        this.objNhomTaiKhoanPhongBan =
-            await this.service.getTaiKhoanPhongBanById(this.id);
-        const data = await this.service.getThongTinPhongBan(
-            this.idDonViLamViec
-        );
-        this.tenDonVi = data?.tenDonViLamViec;
-        this.lstPhongBan = data?.lstPhongBanTrucThuoc;
-        this.lstUserNhan =
-            (await this.service.getDanhSachCaNhanDaThem(this.id)) ?? []; //bind cá nhân phòng ban đã gửi từ db
+        try {
+            this.lstUserChange = [];
+            this.phongBan = null;
+            this.objNhomTaiKhoanPhongBan =
+                await this.service.getTaiKhoanPhongBanById(this.id);
+            const data = await this.service.getThongTinPhongBan(
+                this.idDonViLamViec
+            );
+            this.tenDonVi = data?.tenDonViLamViec;
+            this.lstPhongBan = data?.lstPhongBanTrucThuoc;
+            this.lstUserNhan =
+                (await this.service.getDanhSachCaNhanDaThem(this.id)) ?? []; //bind cá nhân phòng ban đã gửi từ db
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public Thoat(): void {

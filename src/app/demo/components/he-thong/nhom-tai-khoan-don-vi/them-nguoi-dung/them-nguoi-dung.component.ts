@@ -41,14 +41,17 @@ export class ThemNguoiDungComponent {
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
     public async BindDataDialog() {
-        this.lstUserChange = [];
-        this.phongBan = null;
-        this.lstDonVi = await this.service.getDanhSachDonVi();
-        this.objNhomTaiKhoanPhongBan = await this.service.getTaiKhoanDonViById(
-            this.id
-        );
-        this.lstUserNhan =
-            (await this.service.getDanhSachCaNhanDaThem(this.id)) ?? []; //bind cá nhân phòng ban đã gửi từ db
+        try {
+            this.lstUserChange = [];
+            this.phongBan = null;
+            this.lstDonVi = await this.service.getDanhSachDonVi();
+            this.objNhomTaiKhoanPhongBan =
+                await this.service.getTaiKhoanDonViById(this.id);
+            this.lstUserNhan =
+                (await this.service.getDanhSachCaNhanDaThem(this.id)) ?? []; //bind cá nhân phòng ban đã gửi từ db
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public Thoat(): void {
@@ -118,9 +121,15 @@ export class ThemNguoiDungComponent {
     }
 
     public async onChangeDonVi(event): Promise<void> {
-        this.lstPhongBan = [];
-        if (event != null) {
-            this.lstPhongBan = await this.service.getThongTinDonVi(event.data);
+        try {
+            this.lstPhongBan = [];
+            if (event != null) {
+                this.lstPhongBan = await this.service.getThongTinDonVi(
+                    event.data
+                );
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 

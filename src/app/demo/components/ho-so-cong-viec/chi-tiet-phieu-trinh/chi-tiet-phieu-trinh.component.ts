@@ -41,7 +41,11 @@ export class ChiTietPhieuTrinhComponent {
     submitted: boolean = false;
 
     public async BindDialogData() {
-        this.phieuTrinh = await this.service.getPhieuTrinhById(this.id);
+        try {
+            this.phieuTrinh = await this.service.getPhieuTrinhById(this.id);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public Thoat(): void {

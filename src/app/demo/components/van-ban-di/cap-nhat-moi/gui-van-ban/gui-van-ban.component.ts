@@ -52,25 +52,29 @@ export class GuiVanBanComponent {
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
     public async BindDataDialog() {
-        this.lstSelectedVanBan = [];
-        this.GetTreeDonVi(); //vào đây thì load khi mở popup nhưng khá chậm
-        this.service.getVanBanById(this.id).then(
-            (data) => {
-                if (data.isError) {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: data.title,
-                    });
-                } else {
-                    this.ThongTinVanBan = data.objVanBan;
-                    this.ThongTinFile = data.lstFile;
+        try {
+            this.lstSelectedVanBan = [];
+            this.GetTreeDonVi(); //vào đây thì load khi mở popup nhưng khá chậm
+            this.service.getVanBanById(this.id).then(
+                (data) => {
+                    if (data.isError) {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: data.title,
+                        });
+                    } else {
+                        this.ThongTinVanBan = data.objVanBan;
+                        this.ThongTinFile = data.lstFile;
+                    }
+                },
+                (error) => {
+                    console.log('Error', error);
                 }
-            },
-            (error) => {
-                console.log('Error', error);
-            }
-        );
+            );
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     //Chặn hành động click vào input sẽ cle hoặc exp

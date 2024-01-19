@@ -8,7 +8,7 @@ import { BieuDoThongKeTheoBang } from 'src/app/models/thong-ke-nhiem-vu/bieu-do-
     selector: 'app-bieu-do-thong-ke-theo-bang',
     templateUrl: './bieu-do-thong-ke-theo-bang.component.html',
     styleUrls: ['./bieu-do-thong-ke-theo-bang.component.scss'],
-    providers : [MessageService]
+    providers: [MessageService],
 })
 export class BieuDoThongKeTheoBangComponent {
     constructor(
@@ -32,12 +32,20 @@ export class BieuDoThongKeTheoBangComponent {
         this.cd.detectChanges();
     }
 
-    async ngOnInit() {
-        await this.LoadDanhSach();
+    async ngOnInit(): Promise<void> {
+        try {
+            await this.LoadDanhSach();
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     // Tìm kiếm danh sách
-    public async LoadDanhSach() {
-        this.lstData = await this.service.getDaTaBieuDo(this.idDonVi);
+    public async LoadDanhSach() : Promise<void> {
+        try {
+            this.lstData = await this.service.getDaTaBieuDo(this.idDonVi);
+        } catch (error) {
+            console.log(error);
+        }
     }
 }

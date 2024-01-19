@@ -54,8 +54,6 @@ export class TopbarService {
     }
 
     chuyenTrangThaiHopThu(idHopThu: string) {
-        console.log(idHopThu);
-        
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Menu/MenuTopBar/ChuyenTrangThaiHopThu/' +

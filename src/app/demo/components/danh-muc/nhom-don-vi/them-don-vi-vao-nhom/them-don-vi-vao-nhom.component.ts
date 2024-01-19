@@ -56,7 +56,7 @@ export class ThemDonViVaoNhomComponent {
   userId = this.authService.GetmUserInfo()?.userId;
   idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
-  public async BindDataDialog() {
+  public BindDataDialog() {
     this.serviceNDV.GetTenDonViById(this.id).then(
         (data) => {
             if (data.isError) {

@@ -22,8 +22,8 @@ export class SoVanBanDiComponent {
         private router: Router
     ) {}
 
-    id: string = "1";
-    hienThiChiTiet : boolean = false;
+    id: string = '1';
+    hienThiChiTiet: boolean = false;
     strTrichXuat: string = '';
     activeTab: string = 'txThang';
     activeTabItem: string = '';
@@ -144,7 +144,7 @@ export class SoVanBanDiComponent {
     }
 
     public Thoat(itemHt: any, loai: string): void {
-        if(loai == "CT") this.hienThiChiTiet = false;
+        if (loai == 'CT') this.hienThiChiTiet = false;
         this.LoadDanhSach();
     }
 
@@ -182,60 +182,80 @@ export class SoVanBanDiComponent {
     }
 
     public async In() {
-       await this.service // phải thực hiện cùng lúc tác vụ search + in 
-        .getDanhSachSoVanBanDi(this.timKiemDanhSach)
-        .then((data) => {
-            this.lstSoVanBanDi = data;
-        });
+        try {
+            await this.service // phải thực hiện cùng lúc tác vụ search + in
+                .getDanhSachSoVanBanDi(this.timKiemDanhSach)
+                .then((data) => {
+                    this.lstSoVanBanDi = data;
+                });
 
-        if (this.timKiemDanhSach.loaiTrichXuat == 1) {
-            const thang = this.timKiemDanhSach.thang
-                ? 'Tháng ' + this.timKiemDanhSach.thang
-                : '';
-            const nam = this.timKiemDanhSach.nam
-                ? ' Năm ' + this.timKiemDanhSach.nam
-                : '';
-            this.strTrichXuat = thang + nam;
+            if (this.timKiemDanhSach.loaiTrichXuat == 1) {
+                const thang = this.timKiemDanhSach.thang
+                    ? 'Tháng ' + this.timKiemDanhSach.thang
+                    : '';
+                const nam = this.timKiemDanhSach.nam
+                    ? ' Năm ' + this.timKiemDanhSach.nam
+                    : '';
+                this.strTrichXuat = thang + nam;
+            }
+
+            if (this.timKiemDanhSach.loaiTrichXuat == 2) {
+                const quy = this.timKiemDanhSach.quy
+                    ? 'Quý ' + this.timKiemDanhSach.quy
+                    : '';
+                const nam = this.timKiemDanhSach.nam
+                    ? ' Năm ' + this.timKiemDanhSach.nam
+                    : '';
+                this.strTrichXuat = quy + nam;
+            }
+
+            if (this.timKiemDanhSach.loaiTrichXuat == 3) {
+                const nam = this.timKiemDanhSach.nam
+                    ? ' Năm ' + this.timKiemDanhSach.nam
+                    : '';
+                this.strTrichXuat = nam;
+            }
+
+            if (this.timKiemDanhSach.loaiTrichXuat == 4) {
+                const banHanhTu =
+                    this.formatDateToDDMMYY(
+                        new Date(this.timKiemDanhSach.bHTN)
+                    ) != '01/01/1901'
+                        ? this.formatDateToDDMMYY(
+                              new Date(this.timKiemDanhSach.bHTN)
+                          )
+                        : '';
+                const banHanhDen =
+                    this.formatDateToDDMMYY(
+                        new Date(this.timKiemDanhSach.bHDN)
+                    ) != '01/01/1901'
+                        ? ' - ' +
+                          this.formatDateToDDMMYY(
+                              new Date(this.timKiemDanhSach.bHDN)
+                          )
+                        : '';
+                this.strTrichXuat = banHanhTu + banHanhDen;
+            }
+
+            let listInSoVanBan = this.lstSoVanBanDi.slice(
+                this.timKiemDanhSach.first,
+                this.timKiemDanhSach.rowsPerPage
+            );
+            const encodedList = encodeURIComponent(
+                JSON.stringify(listInSoVanBan)
+            );
+
+            // const encodedData = btoa(JSON.stringify(listInSoVanBan));
+            await this.router.navigate(['/in-so-van-ban'], {
+                queryParamsHandling: 'merge',
+                queryParams: {
+                    list: encodedList,
+                    strTrichXuat: this.strTrichXuat,
+                },
+            });
+        } catch (error) {
+            console.log(error);
         }
-
-        if (this.timKiemDanhSach.loaiTrichXuat == 2) {
-            const quy = this.timKiemDanhSach.quy
-                ? 'Quý ' + this.timKiemDanhSach.quy
-                : '';
-            const nam = this.timKiemDanhSach.nam
-                ? ' Năm ' + this.timKiemDanhSach.nam
-                : '';
-            this.strTrichXuat = quy + nam;
-        }
-
-        if (this.timKiemDanhSach.loaiTrichXuat == 3) {
-            const nam = this.timKiemDanhSach.nam
-                ? ' Năm ' + this.timKiemDanhSach.nam
-                : '';
-            this.strTrichXuat = nam;
-        }
-
-        if (this.timKiemDanhSach.loaiTrichXuat == 4) {
-            const banHanhTu = this.formatDateToDDMMYY(new Date(this.timKiemDanhSach.bHTN)) != "01/01/1901"
-                ? this.formatDateToDDMMYY(new Date(this.timKiemDanhSach.bHTN))
-                : '';
-            const banHanhDen = this.formatDateToDDMMYY(new Date(this.timKiemDanhSach.bHDN)) != "01/01/1901"
-                ? ' - ' + this.formatDateToDDMMYY(new Date(this.timKiemDanhSach.bHDN))
-                : '';
-            this.strTrichXuat = banHanhTu + banHanhDen;
-        }
-
-        let listInSoVanBan = this.lstSoVanBanDi.slice(
-            this.timKiemDanhSach.first,
-            this.timKiemDanhSach.rowsPerPage
-        );
-        const encodedList = encodeURIComponent(JSON.stringify(listInSoVanBan));
-
-        // const encodedData = btoa(JSON.stringify(listInSoVanBan));
-        await this.router.navigate(['/in-so-van-ban'], {
-            queryParamsHandling: 'merge',
-            queryParams: { list: encodedList, strTrichXuat: this.strTrichXuat },
-        });
     }
 
     public ExportWord() {
@@ -271,13 +291,12 @@ export class SoVanBanDiComponent {
         });
     }
 
-    public ChiTiet(id: string)
-    {
+    public ChiTiet(id: string) {
         this.id = id;
         this.hienThiChiTiet = true;
     }
 
-    formatDateToDDMMYY(date) : string {
+    formatDateToDDMMYY(date): string {
         const day = ('0' + date.getDate()).slice(-2);
         const month = ('0' + (date.getMonth() + 1)).slice(-2);
         const year = date.getFullYear().toString();

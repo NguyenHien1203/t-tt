@@ -54,10 +54,14 @@ export class NhomTaiKhoanCaNhanComponent {
     }
 
     public async LoadDanhSach() {
-        this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
-        this.lstNhomTaiKhoan = await this.service.getDanhSachTaiKhoanCaNhan(
-            this.timKiemDanhSach
-        );
+        try {
+            this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
+            this.lstNhomTaiKhoan = await this.service.getDanhSachTaiKhoanCaNhan(
+                this.timKiemDanhSach
+            );
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public ThemMoi() {
@@ -70,9 +74,9 @@ export class NhomTaiKhoanCaNhanComponent {
     }
 
     public ChiTiet(id: string) {
-      this.hienThiChiTiet = true;
-      this.id = id;
-  }
+        this.hienThiChiTiet = true;
+        this.id = id;
+    }
 
     public ThemNguoiDung(id: string) {
         this.hienThiThemNguoiDung = true;

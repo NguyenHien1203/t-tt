@@ -37,15 +37,19 @@ export class XuLyComponent {
     ];
 
     public async BindDialogData() {
-        const data = await this.service.kiemTraTaiKhoan(this.userName);
-        console.log(data)
-        this.isTonTai = data != null;
+        try {
+            const data = await this.service.kiemTraTaiKhoan(this.userName);
+            console.log(data);
+            this.isTonTai = data != null;
 
-        this.formXuLy.patchValue({
-            xacNhan: this.isTonTai ? 0 : 1,
-        });
+            this.formXuLy.patchValue({
+                xacNhan: this.isTonTai ? 0 : 1,
+            });
 
-        this.HandleRadio();
+            this.HandleRadio();
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public HandleRadio() {

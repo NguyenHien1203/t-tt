@@ -47,25 +47,26 @@ export class GuiComponent {
     userId = this.authService.GetmUserInfo()?.userId;
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
-    public async BindDataDialog() {
-        this.lstSelectedVanBan = [];
-        this.service.getVanBanById(this.id).then(
-            (data) => {
-                if (data.isError) {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: data.title,
-                    });
-                } else {
-                    this.ThongTinVanBan = data.objVanBan;
-                    this.ThongTinFile = data.lstFile;
+    public BindDataDialog() {
+        
+            this.lstSelectedVanBan = [];
+            this.service.getVanBanById(this.id).then(
+                (data) => {
+                    if (data.isError) {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: data.title,
+                        });
+                    } else {
+                        this.ThongTinVanBan = data.objVanBan;
+                        this.ThongTinFile = data.lstFile;
+                    }
+                },
+                (error) => {
+                    console.log('Error', error);
                 }
-            },
-            (error) => {
-                console.log('Error', error);
-            }
-        );
+            );
     }
 
     //Chặn hành động click vào input sẽ cle hoặc exp

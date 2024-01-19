@@ -30,7 +30,13 @@ export class ChiTietComponent {
     dataFile: any = {};
 
     public async BindDataDialog() {
-        this.cauHoiThuongGap = await this.service.getCauHoiThuongGap(this.id);
+        try {
+            this.cauHoiThuongGap = await this.service.getCauHoiThuongGap(
+                this.id
+            );
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public Thoat(): void {

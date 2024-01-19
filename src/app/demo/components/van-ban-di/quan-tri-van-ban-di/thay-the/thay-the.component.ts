@@ -36,7 +36,7 @@ export class ThayTheComponent {
     userId = this.authService.GetmUserInfo()?.userId;
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
-    public async BindDataDialog() {
+    public BindDataDialog() {
         this.lstSelectedVanBan = [];
         this.lyDoThayThe = '';
         this.service.getVanBanById(this.id).then(

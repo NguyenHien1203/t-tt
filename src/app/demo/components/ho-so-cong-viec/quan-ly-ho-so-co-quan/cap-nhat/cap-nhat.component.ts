@@ -148,7 +148,7 @@ export class CapNhatComponent {
                     if (arrQuyen.length > 0) this.lstQuyen = arrQuyen;
                 }
 
-                this.isDataReady = true;//flag để tab đầu tiên active
+                this.isDataReady = true; //flag để tab đầu tiên active
             });
         } catch (error) {
             console.log(error);
@@ -182,35 +182,40 @@ export class CapNhatComponent {
     }
 
     public async LoadDanhMuc() {
-        const danhMucData =
-            await this.danhMucHoSoCoQuanService.getDanhSachDanhMucHoSoCoQuan(
+        try {
+            const danhMucData =
+                await this.danhMucHoSoCoQuanService.getDanhSachDanhMucHoSoCoQuan(
+                    this.idDonViLamViec
+                );
+            this.lstDmHoSo = danhMucData;
+
+            const loaiHoSoData = await this.service.getDanhSachLoaiHoSo(
                 this.idDonViLamViec
             );
-        this.lstDmHoSo = danhMucData;
+            this.lstLoaiHoSo = loaiHoSoData;
 
-        const loaiHoSoData = await this.service.getDanhSachLoaiHoSo(
-            this.idDonViLamViec
-        );
-        this.lstLoaiHoSo = loaiHoSoData;
-
-        const phongBanData = await this.service.getDanhSachPhongBan(
-            this.idDonViLamViec
-        );
-        this.lstPhongBan = phongBanData;
-
-        const nhomNguoiDungData = await this.service.getDanhSachNhomNguoiDung(
-            this.idDonViLamViec,
-            this.idPhongBan,
-            this.idUser
-        );
-        this.lstNhomNguoiDung = nhomNguoiDungData;
-
-        const nhomNguoiDungChonNhanhData =
-            await this.service.getDanhSachChonNhanhNguoiDung(
-                this.idDonViLamViec,
-                this.idUser
+            const phongBanData = await this.service.getDanhSachPhongBan(
+                this.idDonViLamViec
             );
-        this.lstUserChonNhanh = nhomNguoiDungChonNhanhData;
+            this.lstPhongBan = phongBanData;
+
+            const nhomNguoiDungData =
+                await this.service.getDanhSachNhomNguoiDung(
+                    this.idDonViLamViec,
+                    this.idPhongBan,
+                    this.idUser
+                );
+            this.lstNhomNguoiDung = nhomNguoiDungData;
+
+            const nhomNguoiDungChonNhanhData =
+                await this.service.getDanhSachChonNhanhNguoiDung(
+                    this.idDonViLamViec,
+                    this.idUser
+                );
+            this.lstUserChonNhanh = nhomNguoiDungChonNhanhData;
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public ChangeThoiHanBaoQuan() {

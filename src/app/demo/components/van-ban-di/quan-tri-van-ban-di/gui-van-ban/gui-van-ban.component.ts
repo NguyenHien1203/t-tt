@@ -51,7 +51,7 @@ export class GuiVanBanComponent {
     userId = this.authService.GetmUserInfo()?.userId;
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
-    public async BindDataDialog() {
+    public BindDataDialog() {
         this.lstSelectedVanBan = [];
         this.GetTreeDonVi(); //vào đây thì load khi mở popup nhưng khá chậm
         this.service.getVanBanById(this.id).then(

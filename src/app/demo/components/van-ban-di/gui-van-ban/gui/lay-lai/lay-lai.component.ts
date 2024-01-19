@@ -31,7 +31,7 @@ export class LayLaiComponent {
     userId = this.authService.GetmUserInfo()?.userId;
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
-    public async BindDataDialog() {
+    public BindDataDialog() {
         this.service.GetVanBanById(this.id).then(
             (data) => {
                 if (data.isError) {

@@ -64,43 +64,49 @@ export class ThemMoiComponent {
     });
 
     public async LoadThu() {
-        this.lstThu = [];
-        const data = await this.service.getDanhSachLichThuDaThem(
-            this.formatDateToDDMMYY(this.tuNgay),
-            this.formatDateToDDMMYY(this.denNgay)
-        );
+        try {
+            this.lstThu = [];
+            const data = await this.service.getDanhSachLichThuDaThem(
+                this.formatDateToDDMMYY(this.tuNgay),
+                this.formatDateToDDMMYY(this.denNgay)
+            );
 
-        this.lstLichDaThem = data;
-        let idx = 0;
-        const dayOfWeek = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
-        const dayOfWeekFull = [
-            'Thứ 2',
-            'Thứ 3',
-            'Thứ 4',
-            'Thứ 5',
-            'Thứ 6',
-            'Thứ 7',
-            'Chủ nhật',
-        ];
-        for (
-            let date = new Date(this.tuNgay);
-            date <= new Date(this.denNgay);
-            date.setDate(date.getDate() + 1)
-        ) {
-            if (!this.lstLichDaThem.includes(this.formatDateToDDMMYY(date))) {
-                // kiểm tra ngày đã thêm có trong danh sách chưa
-                this.lstThu.push({
-                    label:
-                        dayOfWeek[idx] +
-                        ' (' +
-                        this.formatDateToDDMMYY(date) +
-                        ') ',
-                    value: new Date(date),
-                    title: dayOfWeekFull[idx],
-                });
+            this.lstLichDaThem = data;
+            let idx = 0;
+            const dayOfWeek = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+            const dayOfWeekFull = [
+                'Thứ 2',
+                'Thứ 3',
+                'Thứ 4',
+                'Thứ 5',
+                'Thứ 6',
+                'Thứ 7',
+                'Chủ nhật',
+            ];
+            for (
+                let date = new Date(this.tuNgay);
+                date <= new Date(this.denNgay);
+                date.setDate(date.getDate() + 1)
+            ) {
+                if (
+                    !this.lstLichDaThem.includes(this.formatDateToDDMMYY(date))
+                ) {
+                    // kiểm tra ngày đã thêm có trong danh sách chưa
+                    this.lstThu.push({
+                        label:
+                            dayOfWeek[idx] +
+                            ' (' +
+                            this.formatDateToDDMMYY(date) +
+                            ') ',
+                        value: new Date(date),
+                        title: dayOfWeekFull[idx],
+                    });
+                }
+
+                idx++;
             }
-
-            idx++;
+        } catch (error) {
+            console.log(error);
         }
     }
 

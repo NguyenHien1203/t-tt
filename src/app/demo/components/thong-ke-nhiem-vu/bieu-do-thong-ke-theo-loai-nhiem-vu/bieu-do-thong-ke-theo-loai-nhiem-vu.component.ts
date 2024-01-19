@@ -42,8 +42,11 @@ export class BieuDoThongKeTheoLoaiNhiemVuComponent {
 
     // Tìm kiếm danh sách
     public async LoadDanhSach() {
-        this.objDataBieuDo = await this.service.getDaTaBieuDo(this.idDonVi);
-        console.log(this.objDataBieuDo);
+        try {
+            this.objDataBieuDo = await this.service.getDaTaBieuDo(this.idDonVi);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     getCountNhiemVu(nhiemVuId: number, donViId: number, loai: number): number {

@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.currentDate = this.formatDateToDDMMYY(new Date());
-        
+
         var days = [
             'Chủ nhật',
             'Thứ hai',
@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         const month = ('0' + (date.getMonth() + 1)).slice(-2);
         const year = date.getFullYear().toString();
         return day + '/' + month + '/' + year;
-      }
+    }
 
     async LoadThongTinThongKe() {
         this.thongTinThongKe = await this.service.getThongTinThongKeDashBoard(
@@ -109,22 +109,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     async LoadDanhSachLichCoQuan() {
-        this.currentWeek = this.getWeek(new Date());
-        const firstDayOfThisWeek = this.getFirstDayOfWeek(
-            new Date().getFullYear(),
-            this.currentWeek
-        );
-        this.timKiemLichCoQuanDashBoard.firstDayOfWeek = format(
-            firstDayOfThisWeek,
-            'dd/MM/yyyy'
-        );
+        try {
+            this.currentWeek = this.getWeek(new Date());
+            const firstDayOfThisWeek = this.getFirstDayOfWeek(
+                new Date().getFullYear(),
+                this.currentWeek
+            );
+            this.timKiemLichCoQuanDashBoard.firstDayOfWeek = format(
+                firstDayOfThisWeek,
+                'dd/MM/yyyy'
+            );
 
-        const data = await this.service.getDanhSachLichCoQuan(
-            this.timKiemLichCoQuanDashBoard
-        );
-        this.lstLichCoQuanSang = data?.lstLichCoQuanSang;
-        this.lstLichCoQuanChieu = data?.lstLichCoQuanChieu;
-        this.lstLichCoQuanTuan = data?.lstLichCoQuanTuan;
+            const data = await this.service.getDanhSachLichCoQuan(
+                this.timKiemLichCoQuanDashBoard
+            );
+            this.lstLichCoQuanSang = data?.lstLichCoQuanSang;
+            this.lstLichCoQuanChieu = data?.lstLichCoQuanChieu;
+            this.lstLichCoQuanTuan = data?.lstLichCoQuanTuan;
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     getSoLichCongTac(a: number, b: number): number {
@@ -136,92 +140,95 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     async initChart() {
-        let currentDate = new Date();
+        try {
+            let currentDate = new Date();
+            const startOfWeekDate = new Date(
+                currentDate.setDate(
+                    currentDate.getDate() - currentDate.getDay() + 1
+                )
+            ); //tính ngày bắt đầu
+            const endOfWeekDate = new Date(
+                currentDate.setDate(
+                    currentDate.getDate() - currentDate.getDay() + 7
+                )
+            ); //tính ngày kết thúc
 
-        const startOfWeekDate = new Date(
-            currentDate.setDate(
-                currentDate.getDate() - currentDate.getDay() + 1
-            )
-        ); //tính ngày bắt đầu
-        const endOfWeekDate = new Date(
-            currentDate.setDate(
-                currentDate.getDate() - currentDate.getDay() + 7
-            )
-        ); //tính ngày kết thúc
+            if (this.timKiemCongViecDashBoard.tuNgay === '') {
+                this.timKiemCongViecDashBoard.tuNgay = format(
+                    startOfWeekDate,
+                    'dd/MM/yyyy'
+                ); //Chuyển dạng dd/MM/yyyy ra UI
+            }
 
-        if (this.timKiemCongViecDashBoard.tuNgay === '') {
-            this.timKiemCongViecDashBoard.tuNgay = format(
-                startOfWeekDate,
-                'dd/MM/yyyy'
-            ); //Chuyển dạng dd/MM/yyyy ra UI
-        }
-
-        if (this.timKiemCongViecDashBoard.denNgay === '') {
-            this.timKiemCongViecDashBoard.denNgay = format(
-                endOfWeekDate,
-                'dd/MM/yyyy'
+            if (this.timKiemCongViecDashBoard.denNgay === '') {
+                this.timKiemCongViecDashBoard.denNgay = format(
+                    endOfWeekDate,
+                    'dd/MM/yyyy'
+                );
+            }
+            this.startOfWeek = format(startOfWeekDate, 'dd/MM/yyyy');
+            this.endOfWeek = format(endOfWeekDate, 'dd/MM/yyyy');
+            const data = await this.service.getDataCongViec(
+                this.timKiemCongViecDashBoard
             );
-        }
-        this.startOfWeek = format(startOfWeekDate, 'dd/MM/yyyy');
-        this.endOfWeek = format(endOfWeekDate, 'dd/MM/yyyy');
-        const data = await this.service.getDataCongViec(
-            this.timKiemCongViecDashBoard
-        );
-        this.lstCongViec = data?.lstTheoDoiTienDo || [];
-        this.lstTienDo = data?.lstTienDoXuLy || [];
-        this.routerLinkCongViec =
-            this.idNhomQuyen == '3'
-                ? '/cong-viec/theo-doi-tien-do'
-                : 'cong-viec/xu-ly-cong-viec';
+            this.lstCongViec = data?.lstTheoDoiTienDo || [];
+            this.lstTienDo = data?.lstTienDoXuLy || [];
+            this.routerLinkCongViec =
+                this.idNhomQuyen == '3'
+                    ? '/cong-viec/theo-doi-tien-do'
+                    : 'cong-viec/xu-ly-cong-viec';
 
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const surfaceBorder =
-            documentStyle.getPropertyValue('--surface-border');
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--text-color');
+            const surfaceBorder =
+                documentStyle.getPropertyValue('--surface-border');
 
-        this.chartData = {
-            datasets: [
-                {
-                    data: data?.dataBieuDo,
-                    backgroundColor: [
-                        documentStyle.getPropertyValue('--red-500'),
-                        documentStyle.getPropertyValue('--green-500'),
-                        documentStyle.getPropertyValue('--yellow-500'),
-                        documentStyle.getPropertyValue('--bluegray-500'),
-                        documentStyle.getPropertyValue('--blue-500'),
-                    ],
-                    label: 'My dataset',
-                },
-            ],
-            labels: [
-                'Chưa xử lý',
-                'Đang xử lý',
-                'Đến hạn',
-                'Quá hạn',
-                'Xử lý xong',
-            ],
-        };
+            this.chartData = {
+                datasets: [
+                    {
+                        data: data?.dataBieuDo,
+                        backgroundColor: [
+                            documentStyle.getPropertyValue('--red-500'),
+                            documentStyle.getPropertyValue('--green-500'),
+                            documentStyle.getPropertyValue('--yellow-500'),
+                            documentStyle.getPropertyValue('--bluegray-500'),
+                            documentStyle.getPropertyValue('--blue-500'),
+                        ],
+                        label: 'My dataset',
+                    },
+                ],
+                labels: [
+                    'Chưa xử lý',
+                    'Đang xử lý',
+                    'Đến hạn',
+                    'Quá hạn',
+                    'Xử lý xong',
+                ],
+            };
 
-        this.chartOptions = {
-            plugins: {
-                datalabels: {
-                    color: textColor,
-                    display: true,
-                },
-                legend: {
-                    labels: {
+            this.chartOptions = {
+                plugins: {
+                    datalabels: {
                         color: textColor,
+                        display: true,
+                    },
+                    legend: {
+                        labels: {
+                            color: textColor,
+                        },
                     },
                 },
-            },
-            scales: {
-                r: {
-                    grid: {
-                        color: surfaceBorder,
+                scales: {
+                    r: {
+                        grid: {
+                            color: surfaceBorder,
+                        },
                     },
                 },
-            },
-        };
+            };
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     getWeek(date: Date): number {

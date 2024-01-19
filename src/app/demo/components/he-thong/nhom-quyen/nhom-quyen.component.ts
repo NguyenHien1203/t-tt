@@ -45,14 +45,18 @@ export class NhomQuyenComponent {
     }
 
     public async LoadDanhSach() {
-        this.lstNhomQuyen = await this.service.getDanhSachNhomQuyen(
-            this.timKiemDanhSach
-        );
+        try {
+            this.lstNhomQuyen = await this.service.getDanhSachNhomQuyen(
+                this.timKiemDanhSach
+            );
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    public GanQuyen(id: string, tenQuyen : string) {
+    public GanQuyen(id: string, tenQuyen: string) {
         this.router.navigate(['/he-thong/nhom-quyen/gan-quyen'], {
-            queryParams: { id: id, tenQuyen : tenQuyen },
+            queryParams: { id: id, tenQuyen: tenQuyen },
             queryParamsHandling: 'merge',
         });
     }

@@ -69,7 +69,7 @@ export class CapNhatTreecvComponent {
     this.tatPopup.emit(this.show);
   }
 
-  public async BindDialogData() {
+  public BindDialogData() {
     this.LoadPhongBan();
     this.LoadNhomNguoiDung();
     this.LoadChonNhanhNguoiDung();

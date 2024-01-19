@@ -19,9 +19,9 @@ export class QuanLyNhanComponent {
         private service: QuanLyNhanService,
         private authService: AuthService,
         private confirmService: ConfirmationService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
-    
+
     lstPhanLoai: modelOptions[] = [
         { text: 'Trao đổi thông tin', value: 0 },
         { text: 'Văn bản', value: 1 },
@@ -58,8 +58,14 @@ export class QuanLyNhanComponent {
     }
     //
     public async LoadDanhSach() {
-        this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
-        this.lstNhan = await this.service.getDanhSachNhan(this.timKiemDanhSach);
+        try {
+            this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
+            this.lstNhan = await this.service.getDanhSachNhan(
+                this.timKiemDanhSach
+            );
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public ThemMoi() {

@@ -41,6 +41,7 @@ export class LoginComponent {
     public formDangNhap = this.formBuilder.group({
         userName: ['', [Validators.required]],
         password: ['', [Validators.required]],
+        remember: [false, []],
     });
 
     constructor(
@@ -55,6 +56,16 @@ export class LoginComponent {
 
     ngOnInit(): void {
         this.returnUrl = '/';
+        const rememberedUser = localStorage.getItem('rememberedUser');
+
+        if (rememberedUser) {
+            const { userName, passWord } = JSON.parse(rememberedUser);
+            this.formDangNhap.setValue({
+                userName: userName ?? '',
+                password: passWord  ?? '',
+                remember: true,
+            });
+        }
         if (this.authenService.CheckLogin()) this.router.navigate(['/']);
         else this.router.navigate(['/login']);
     }
@@ -74,21 +85,50 @@ export class LoginComponent {
             this.nguoidung.UserName = this.formDangNhap.value.userName ?? '';
             this.nguoidung.Password = this.formDangNhap.value.password ?? '';
 
-            this.dangNhapService.DangNhap(this.nguoidung).subscribe(data => {
-                if (data.isError) {
-                    this.msgs = [];
-                    this.msgs.push({ severity: 'error', detail: "Thông tin đăng nhập không hợp lệ" });
-                } else {
-                    this.cookieService.set('isLoggedIn', "true");
-                    this.cookieService.set('token', JSON.stringify(data.objData));
-                    this.cookieService.set('mUserInfo', JSON.stringify(data.objNguoiDung));
-                    this.cookieService.set('idDonViLamViec', data.objNguoiDung.phongBanId);
-                   
-                    this.router.navigate([this.returnUrl])
+            this.dangNhapService.DangNhap(this.nguoidung).subscribe(
+                (data) => {
+                    if (data.isError) {
+                        this.msgs = [];
+                        this.msgs.push({
+                            severity: 'error',
+                            detail: 'Thông tin đăng nhập không hợp lệ',
+                        });
+                    } else {
+                        if (this.formDangNhap.value.remember) {
+                            let user = this.nguoidung.UserName;
+                            let pass = this.nguoidung.Password;
+                            
+                            // Lưu thông tin đăng nhập vào localStorage
+                            localStorage.setItem(
+                                'rememberedUser',
+                                JSON.stringify({ userName : user, passWord : pass })
+                            );
+                        } else {
+                            // Xóa thông tin đăng nhập từ localStorage (nếu có)
+                            localStorage.removeItem('rememberedUser');
+                        }
+
+                        this.cookieService.set('isLoggedIn', 'true');
+                        this.cookieService.set(
+                            'token',
+                            JSON.stringify(data.objData)
+                        );
+                        this.cookieService.set(
+                            'mUserInfo',
+                            JSON.stringify(data.objNguoiDung)
+                        );
+                        this.cookieService.set(
+                            'idDonViLamViec',
+                            data.objNguoiDung.phongBanId
+                        );
+
+                        this.router.navigate([this.returnUrl]);
+                    }
+                },
+                (error) => {
+                    console.log('Error', error);
                 }
-            }, (error) => {
-                console.log('Error', error);
-            })
+            );
         }
         this.spinnerService.hide();
     }

@@ -9,6 +9,8 @@ import {
     TimKiemDanhSach,
     TimKiemDanhSachVanBan,
 } from 'src/app/models/van-ban-di/cap-nhat-moi';
+import { AuthService } from 'src/app/common/auth.services';
+import { Router } from '@angular/router';
 @Injectable({
     providedIn: 'root',
 })
@@ -18,9 +20,11 @@ export class CapNhatMoiService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private auth: AuthService, private router : Router ) {}
 
     getDanhSachVanBanDi(timKiemDanhSach: TimKiemDanhSach) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -32,6 +36,8 @@ export class CapNhatMoiService {
             .then((res) => res.objData as CapNhatMoi[]);
     }
     getVanBanById(id: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return (
             this.http
                 .get<any>(
@@ -48,6 +54,8 @@ export class CapNhatMoiService {
     }
 
     getFile(id: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         const headers = new HttpHeaders().set(
             'Accept',
             'application/octet-stream'
@@ -62,6 +70,8 @@ export class CapNhatMoiService {
     }
 
     themMoiVanBanDi(modelThongBao: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/ThemMoiVanBanDi',
             modelThongBao,
@@ -70,6 +80,8 @@ export class CapNhatMoiService {
     }
     
     capNhatVanBanDaGui(modelThongBao: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/CapNhatVanBanDaGui',
             modelThongBao,
@@ -78,6 +90,8 @@ export class CapNhatMoiService {
     }
 
     capNhatVanBanDi(modelThongBao: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/CapNhatVanBanDi',
             modelThongBao,
@@ -86,6 +100,8 @@ export class CapNhatMoiService {
     }
 
     xoaVanBanDi(idVanBan: string, idDonViLamViec: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/VanBanDi/CapNhatMoi/XoaVanBanDi?idVanBan=' +
@@ -96,6 +112,8 @@ export class CapNhatMoiService {
     }
 
     getSoVanBan(idDonViLamViec: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -107,6 +125,8 @@ export class CapNhatMoiService {
     }
 
     changeSoVanBan(idSoVanBan: string, idDonViLamViec: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -126,6 +146,8 @@ export class CapNhatMoiService {
         soDiHienTai: string,
         soDiHienTaiUpDate: string
     ) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         let itemData = {
             idSoVanBan: idSoVanBan,
             ngayBanHanh: ngayBanHanh,
@@ -133,8 +155,6 @@ export class CapNhatMoiService {
             soDiHienTai: soDiHienTai,
             soDiDenUpdate: soDiHienTaiUpDate,
         };
-        console.log(itemData);
-        
         return this.http
             .post<any>(
                 environment.baseUrlApi + '/VanBanDi/CapNhatMoi/GetSoHienTai',
@@ -146,6 +166,8 @@ export class CapNhatMoiService {
     }
 
     getSoKiHieu(idSoVanBan: string, loaiVanBanId: string, soHienTai: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -162,6 +184,8 @@ export class CapNhatMoiService {
     }
 
     getDanhSachPhongBan(donViId: string, userName: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -180,6 +204,8 @@ export class CapNhatMoiService {
         phongBanId: string,
         userId: string
     ) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -196,6 +222,8 @@ export class CapNhatMoiService {
     }
 
     getDanhSachLanhDaoKy(idDonViLamViec: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -208,6 +236,8 @@ export class CapNhatMoiService {
     }
 
     changePhongBan(phongBanId: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -219,6 +249,8 @@ export class CapNhatMoiService {
     }
 
     changeNhomNguoiDung(nhomNguoiDungId: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -230,6 +262,8 @@ export class CapNhatMoiService {
     }
 
     getPhongBanSelected(idVanBan: string, idDonViLamViec: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -243,6 +277,8 @@ export class CapNhatMoiService {
     }
 
     getDanhSachCaNhanDaPhanPhoi(idVanBan: string, idDonViLamViec: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -256,6 +292,8 @@ export class CapNhatMoiService {
     }
 
     phanPhoi(model: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/PhanPhoi',
             model,
@@ -264,6 +302,8 @@ export class CapNhatMoiService {
     }
 
     getNhomDonViTheoDinhNghia(userId: string, idDonViLamViec: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -278,6 +318,8 @@ export class CapNhatMoiService {
     }
 
     getTreeDonVi(tenDonVi?: string, donViDaChon?: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -295,6 +337,8 @@ export class CapNhatMoiService {
         idNhomNguoiDung?: string,
         idDonViLamViec?: string
     ) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -309,6 +353,8 @@ export class CapNhatMoiService {
     }
 
     getDanhSachChonVanBan(modelTimKiem: TimKiemDanhSachVanBan) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -321,6 +367,8 @@ export class CapNhatMoiService {
     }
 
     guiVanBan(model: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/GuiVanBan',
             model,
@@ -329,6 +377,8 @@ export class CapNhatMoiService {
     }
 
     thuHoiVanBan(model: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/ThuHoiVanBan',
             model,
@@ -337,6 +387,8 @@ export class CapNhatMoiService {
     }
     
     thayTheVanBan(model: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/ThayTheVanBan',
             model,

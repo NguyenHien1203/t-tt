@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/common/auth.services';
 import {
     TimKiemCongViecDinhKem,
     TimKiemPhieuTrinhDinhKem,
@@ -17,9 +19,14 @@ export class QuanLyHoSoCoQuanService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {}
 
     getDanhSachHoSoCoQuan(timKiemDanhSach: TimKiemQuanLyHoSoCoQuan) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -32,6 +39,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     getHoSoCoQuanId(id: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -43,6 +51,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     getDanhSachQuyen(id: string, idUser: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -57,6 +66,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     getMaHoSoCoQuan(soKyHieu: string, idDonVi: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -71,6 +81,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     getNgayKetThucHoSo(thoiHanBaoQuan: string, ngayBatDau: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -85,6 +96,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     getDanhSachLoaiHoSo(idDonVi: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -97,6 +109,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     getDanhSachPhongBan(idDonViLamViec: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -113,6 +126,7 @@ export class QuanLyHoSoCoQuanService {
         idPhongBan: string,
         idUser: string
     ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -129,6 +143,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     getDanhSachChonNhanhNguoiDung(idDonViLamViec: string, idUser: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -143,6 +158,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     getDanhSachChonVanBan(timKiemDanhSach: TimKiemVanBanDinhKem) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -155,6 +171,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     getDanhSachChonCongViec(timKiemDanhSach: TimKiemCongViecDinhKem) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -167,6 +184,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     getDanhSachChonPhieuTrinh(timKiemDanhSach: TimKiemPhieuTrinhDinhKem) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -179,6 +197,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     themMoiHoSoCoQuan(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/HoSoCongViec/QuanLyHoSoCoQuan/ThemMoiHoSoCoQuan',
@@ -188,6 +207,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     capNhatHoSoCoQuan(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/HoSoCongViec/QuanLyHoSoCoQuan/CapNhatHoSoCoQuan',
@@ -197,6 +217,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     xoaHoSoCoQuan(id: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/HoSoCongViec/QuanLyHoSoCoQuan/XoaHoSoCoQuan/' +
@@ -205,6 +226,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     getDanhSachUserThuocPhongBan(idPhongBan: string, idUser: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -219,6 +241,7 @@ export class QuanLyHoSoCoQuanService {
     }
 
     getDanhSachUserThuocNhomNguoiDung(idNhomUser: string, idUser: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +

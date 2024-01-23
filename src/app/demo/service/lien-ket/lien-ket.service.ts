@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { LienKet } from 'src/app/models/danh-muc/lien-ket/lien-ket';
 import { TimKiemDanhSach } from 'src/app/models/danh-muc/lien-ket/lien-ket';
+import { AuthService } from 'src/app/common/auth.services';
+import { Router } from '@angular/router';
 @Injectable({
     providedIn: 'root',
 })
@@ -13,9 +15,11 @@ export class LienKetService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
 
     getDanhSachDmLienKet(timKiemDanhSach: TimKiemDanhSach) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/GetDanhSach',
@@ -26,6 +30,8 @@ export class LienKetService {
             .then((res) => res.objData.listDanhSach as LienKet[]);
     }
     getDmLienKetById(id: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return (
             this.http
                 .get<any>(
@@ -42,6 +48,8 @@ export class LienKetService {
     }
 
     themMoiLienKet(modelLienKet: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/DanhMuc/DanhMucLienKet/ThemMoiDanhMucLienKet',
@@ -51,6 +59,8 @@ export class LienKetService {
     }
 
     capNhatLienKet(modelLienKet: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/DanhMuc/DanhMucLienKet/CapNhatDanhMucLienKet',
@@ -60,6 +70,8 @@ export class LienKetService {
     }
 
     xoaLienKet(id: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/DanhMuc/DanhMucLienKet/DeleteDanhMucLienKet/' +

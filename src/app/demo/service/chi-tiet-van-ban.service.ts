@@ -1,6 +1,8 @@
 import { DonVi } from './../../models/danh-muc/don-vi';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/common/auth.services';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -12,9 +14,14 @@ export class ChiTietVanBanService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {}
 
     getVanBanById(id: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi + '/ChiTietVanBan/GetVanBanById/' + id,
@@ -25,6 +32,7 @@ export class ChiTietVanBanService {
     }
 
     getVanBanNhanGuiByVanBanId(idVanBan: string, idDonViLamViec: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -39,6 +47,7 @@ export class ChiTietVanBanService {
     }
 
     getDanhSachVanBanDaGui(idVanBan: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -51,6 +60,7 @@ export class ChiTietVanBanService {
     }
 
     getDanhSachVanBanPhanPhoiDonVi(idVanBan: string, idDonViLamViec: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -67,6 +77,7 @@ export class ChiTietVanBanService {
     }
 
     getDanhSachVanBanPhanPhoiCaNhan(idVanBan: string, idDonViLamViec: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -89,6 +100,7 @@ export class ChiTietVanBanService {
         idNhomQuyen: string,
         idPhongBan: string
     ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -109,6 +121,7 @@ export class ChiTietVanBanService {
     }
 
     GetDanhSachVanBanLienQuan(idVanBan: string, idDonViLamViec: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +

@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/common/auth.services';
 import { TimKiemNhomTaiKhoan } from 'src/app/models/he-thong/nhom-tai-khoan-phong-ban';
 import { environment } from 'src/environments/environment.development';
 
@@ -12,9 +14,14 @@ export class NhomTaiKhoanChungService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {}
 
     getDanhSachTaiKhoanChung(timKiemDanhSach: TimKiemNhomTaiKhoan) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -27,6 +34,7 @@ export class NhomTaiKhoanChungService {
     }
 
     getTaiKhoanChungById(id: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -39,6 +47,7 @@ export class NhomTaiKhoanChungService {
     }
 
     getThongTinDonVi(idDonViLamViec: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -51,6 +60,7 @@ export class NhomTaiKhoanChungService {
     }
 
     getDanhSachCaNhanDaThem(id: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -63,6 +73,7 @@ export class NhomTaiKhoanChungService {
     }
 
     changePhongBan(idDonVi: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -75,6 +86,7 @@ export class NhomTaiKhoanChungService {
     }
 
     getDanhSachDonVi() {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -86,6 +98,7 @@ export class NhomTaiKhoanChungService {
     }
 
     themMoiCaNhan(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/HeThong/NhomTaiKhoanChung/ThemMoiNguoiDung',
@@ -95,6 +108,7 @@ export class NhomTaiKhoanChungService {
     }
 
     getThuTu(idDonVi: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -107,6 +121,7 @@ export class NhomTaiKhoanChungService {
     }
 
     themMoiTaiKhoanChung(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/HeThong/NhomTaiKhoanChung/ThemMoiNhomTaiKhoanChung',
@@ -116,6 +131,7 @@ export class NhomTaiKhoanChungService {
     }
 
     capNhatTaiKhoanChung(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/HeThong/NhomTaiKhoanChung/CapNhatNhomTaiKhoanChung',
@@ -125,6 +141,7 @@ export class NhomTaiKhoanChungService {
     }
 
     xoaTaiKhoanChung(id: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/HeThong/NhomTaiKhoanChung/XoaNhomTaiKhoanChung/' +

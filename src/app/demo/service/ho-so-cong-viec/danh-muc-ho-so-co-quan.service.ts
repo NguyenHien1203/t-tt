@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/common/auth.services';
 import { TimKiemDanhMucHoSoCoQuan } from 'src/app/models/ho-so-cong-viec/danh-muc-ho-so-co-quan';
 import { environment } from 'src/environments/environment.development';
 
@@ -12,9 +14,14 @@ export class DanhMucHoSoCoQuanService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {}
 
     getDanhSachDanhMucHoSoCoQuan(idDonVi: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -27,6 +34,7 @@ export class DanhMucHoSoCoQuanService {
     }
 
     getDanhMucHoSoCoQuanId(id: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -38,6 +46,7 @@ export class DanhMucHoSoCoQuanService {
     }
 
     themMoiDanhMucHoSoCoQuan(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/HoSoCongViec/DanhMucHoSoCoQuan/ThemMoiDanhMucHoSoCoQuan',
@@ -47,6 +56,7 @@ export class DanhMucHoSoCoQuanService {
     }
 
     capNhatDanhMucHoSoCoQuan(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/HoSoCongViec/DanhMucHoSoCoQuan/CapNhatDanhMucHoSoCoQuan',
@@ -56,6 +66,7 @@ export class DanhMucHoSoCoQuanService {
     }
 
     xoaDanhMucHoSoCoQuan(id: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/HoSoCongViec/DanhMucHoSoCoQuan/XoaDanhMucHoSoCoQuan/' +

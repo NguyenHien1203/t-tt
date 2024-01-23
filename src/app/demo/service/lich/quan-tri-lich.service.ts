@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/common/auth.services';
 import { TimKiemQuanTriLich } from 'src/app/models/thong-tin-khac/lich/quan-tri-lich';
 import { environment } from 'src/environments/environment.development';
 
@@ -12,9 +14,14 @@ export class QuanTriLichService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {}
 
     getDanhSachQuanTriLich(timKiemDanhSach: TimKiemQuanTriLich) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -27,6 +34,7 @@ export class QuanTriLichService {
     }
 
     getCurrentWeekAndYear(tuan: number, nam: number) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -41,6 +49,7 @@ export class QuanTriLichService {
     }
 
     getQuanTriLichById(idQuanTriLich: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -53,6 +62,7 @@ export class QuanTriLichService {
     }
 
     capNhatQuanTriLich(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/Lich/QuanTriLich/CapNhatQuanTriLich',
             itemData,
@@ -61,6 +71,7 @@ export class QuanTriLichService {
     }
 
     themMoiQuanTriLich(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/Lich/QuanTriLich/ThemMoiQuanTriLich',
             itemData,
@@ -69,6 +80,7 @@ export class QuanTriLichService {
     }
 
     xoaQuanTriLich(idQuanTriLich: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Lich/QuanTriLich/XoaQuanTriLich/' +
@@ -78,6 +90,7 @@ export class QuanTriLichService {
     }
 
     xuLyQuanTriLich(idQuanTriLich: string, action: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Lich/QuanTriLich/XuLyQuanTriLich?idQuanTriLich=' +

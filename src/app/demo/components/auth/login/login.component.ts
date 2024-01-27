@@ -54,7 +54,7 @@ export class LoginComponent {
         private spinnerService: SpinnerService
     ) {}
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
         this.returnUrl = '/';
         const rememberedUser = localStorage.getItem('rememberedUser');
 
@@ -62,11 +62,12 @@ export class LoginComponent {
             const { userName, passWord } = JSON.parse(rememberedUser);
             this.formDangNhap.setValue({
                 userName: userName ?? '',
-                password: passWord  ?? '',
+                password: passWord ?? '',
                 remember: true,
             });
         }
-        if (this.authenService.CheckLogin()) this.router.navigate(['/']);
+        const status = await this.authenService.CheckLogin();
+        if (status) this.router.navigate(['/']);
         else this.router.navigate(['/login']);
     }
 
@@ -97,11 +98,14 @@ export class LoginComponent {
                         if (this.formDangNhap.value.remember) {
                             let user = this.nguoidung.UserName;
                             let pass = this.nguoidung.Password;
-                            
+
                             // Lưu thông tin đăng nhập vào localStorage
                             localStorage.setItem(
                                 'rememberedUser',
-                                JSON.stringify({ userName : user, passWord : pass })
+                                JSON.stringify({
+                                    userName: user,
+                                    passWord: pass,
+                                })
                             );
                         } else {
                             // Xóa thông tin đăng nhập từ localStorage (nếu có)
@@ -112,7 +116,7 @@ export class LoginComponent {
                         this.cookieService.set(
                             'token',
                             JSON.stringify(data.objData)
-                        );
+                        );                                                                            
                         this.cookieService.set(
                             'mUserInfo',
                             JSON.stringify(data.objNguoiDung)

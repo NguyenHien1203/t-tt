@@ -1,9 +1,10 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { mUserInfo } from '../models/common/mUserInfo';
 import { DangNhapService } from '../demo/service/he-thong/dang-nhap.service';
+import { environment } from 'src/environments/environment.development';
 @Injectable({
     providedIn: 'root',
 })
@@ -11,33 +12,39 @@ export class AuthService {
     constructor(
         private router: Router,
         private cookieService: CookieService,
-        private dangNhapService: DangNhapService
+        private dangNhapService: DangNhapService,
+        private httpClient: HttpClient
     ) {}
 
-    public CheckLogin(): boolean {
+    public async CheckLogin(): Promise<boolean> {
         let status = false;
         if (this.cookieService.get('isLoggedIn') == 'true') {
-            if (this.CheckTokenExpired(this.GetToken())) {//false
-                const uid = this.GetmUserInfo()?.userId ?? '0';
-                const refreshToken =
-                    this.GetmUserInfo()?.tokensUser?.refreshToken ?? '0';
-                const itemData = {
-                    userId: uid.toString(),
-                    refreshToken: refreshToken,
+            if (this.CheckTokenExpired(this.GetToken())) {
+                const refreshThreshold = 1 * 30 * 1000; //30 second
+                const tokenExpirationDate = this.GetTokenExpirationDate(
+                    this.GetToken()
+                );
+                if (
+                    tokenExpirationDate &&
+                    tokenExpirationDate - new Date().getTime() <
+                        refreshThreshold
+                ) {
+                }
+
+                let itemData = {
+                    userId: (this.GetmUserInfo()?.userId ?? '0').toString(),
+                    refreshToken: this.GetmUserInfo()?.tokensUser?.refreshToken ?? '',
                 };
-                this.dangNhapService.RefreshToken(itemData).then((data) => {
-                    // Làm mới token thành công, lưu token mới và thiết lập trạng thái đăng nhập
-                    if (!data.isError) {
-                        this.cookieService.set('token', data.objData);
-                        status = true;
-                    } else {
-                        status = false;
-                        this.cookieService.set('isLoggedIn', 'false');
-                        this.cookieService.delete('token');
-                        this.cookieService.delete('mUserInfo');
-                        this.cookieService.delete('idDonViLamViec');
-                    }
-                });
+                const response = await this.dangNhapService.RefreshToken(
+                    itemData
+                );
+                if (!response.isError) {
+                    status = true;
+                    this.cookieService.set('token', response.objData);
+                } else {
+                    status = false;
+                    this.DeleteCokie();
+                }
             } else {
                 status = true;
             }
@@ -47,9 +54,33 @@ export class AuthService {
         return status;
     }
 
+    public DeleteCokie() {
+        this.cookieService.set('isLoggedIn', 'false');
+        this.cookieService.delete('token');
+        this.cookieService.delete('mUserInfo');
+        this.cookieService.delete('idDonViLamViec');
+    }
+
+    public RefreshToken() {
+        let itemData = {
+            userId: (this.GetmUserInfo()?.userId ?? '0').toString(),
+            refreshToken: this.GetmUserInfo()?.tokensUser?.refreshToken ?? '0',
+        };
+        const url = environment.baseUrlApi + '/Membership/RefreshToken';
+        return this.httpClient.post<any>(url, itemData, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        });
+    }
+
     public CheckTokenExpired(token: string) {
         const expiry = JSON.parse(atob(token.split('.')[1])).exp;
         return Math.floor(new Date().getTime() / 1000) >= expiry;
+    }
+
+    public GetTokenExpirationDate(token: string) {
+        return JSON.parse(atob(token.split('.')[1])).exp;
     }
 
     public GetToken(): string {

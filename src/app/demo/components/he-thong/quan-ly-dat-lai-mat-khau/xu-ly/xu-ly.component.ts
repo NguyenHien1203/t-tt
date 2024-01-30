@@ -39,7 +39,6 @@ export class XuLyComponent {
     public async BindDialogData() {
         try {
             const data = await this.service.kiemTraTaiKhoan(this.userName);
-            console.log(data);
             this.isTonTai = data != null;
 
             this.formXuLy.patchValue({
@@ -88,6 +87,7 @@ export class XuLyComponent {
                             summary: 'Success',
                             detail: data.title,
                         });
+                        this.Thoat();
                     }
                 },
                 (error) => {

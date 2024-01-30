@@ -73,7 +73,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         idDonViLamViec: this.idDonVilamViec,
     };
 
-    ngOnInit() {
+    async ngOnInit() {
+        let status = await this.authService.CheckLogin();
+        if (!status) {
+            this.router.navigate(['/login']);
+        }
         this.currentDate = this.formatDateToDDMMYY(new Date());
 
         var days = [

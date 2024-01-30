@@ -16,19 +16,20 @@ export class LogoutComponent {
         private authService: AuthService
     ) {}
 
-    ngOnInit(): void {
-        this.DangXuat();
+    async ngOnInit(): Promise<void> {
+        await this.DangXuat();
     }
 
-    public DangXuat(): void {
-        this.dangNhapService // thu hồi refreshtoken
-            .RefreshTokenRevoke(this.authService.GetmUserInfo()?.userId ?? '0')
-            .then((data) => data);
-        this.cookieService.set('isLoggedIn', 'false');
-        this.cookieService.delete('token');
-        this.cookieService.delete('mUserInfo');
-        this.cookieService.delete('idDonViLamViec');
-        this.router.navigate(['/login']);
+    public async DangXuat(): Promise<void> {
+        const data = await this.dangNhapService // thu hồi refreshtoken
+            .RefreshTokenRevoke(this.authService.GetmUserInfo()?.userId ?? '0');
+        if (!data.IsError) {
+            this.cookieService.set('isLoggedIn', 'false');
+            this.cookieService.delete('token');
+            this.cookieService.delete('mUserInfo');
+            this.cookieService.delete('idDonViLamViec');
+            this.router.navigate(['/login']);
+        }
         // localStorage.setItem('isLoggedIn', 'false');
         // localStorage.removeItem('token');
         // this.router.navigate(['/login']);

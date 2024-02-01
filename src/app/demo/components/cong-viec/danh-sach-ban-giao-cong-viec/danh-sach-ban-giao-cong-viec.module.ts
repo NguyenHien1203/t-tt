@@ -30,35 +30,40 @@ import { CapNhatBanGiaoCongViecComponent } from './cap-nhat-ban-giao-cong-viec/c
 import { BanGiaoCongViecComponent } from './ban-giao-cong-viec/ban-giao-cong-viec.component';
 import { HoSoCongViecCaNhanComponent } from './ban-giao-cong-viec/ho-so-cong-viec-ca-nhan/ho-so-cong-viec-ca-nhan.component';
 
-
 @NgModule({
-  declarations: [DanhSachBanGiaoCongViecComponent, ThemMoiBanGiaoCongViecComponent, CapNhatBanGiaoCongViecComponent, BanGiaoCongViecComponent, HoSoCongViecCaNhanComponent],
-  imports: [
-    MultiSelectModule,
-    TableModule,
-    FileUploadModule,
-    FormsModule,
-    ButtonModule,
-    RippleModule,
-    ToastModule,
-    ToolbarModule,
-    RatingModule,
-    InputTextModule,
-    InputTextareaModule,
-    DropdownModule,
-    RadioButtonModule,
-    InputNumberModule,
-    DialogModule,
-    ReactiveFormsModule,
-    BreadcrumbModule,
-    TreeModule,
-    TreeSelectModule,
-    ConfirmDialogModule,
-    CheckboxModule,
-    CalendarModule,
-    TabViewModule,
-    CommonModule,
-    DanhSachBanGiaoCongViecRoutingModule
-  ]
+    declarations: [
+        DanhSachBanGiaoCongViecComponent,
+        ThemMoiBanGiaoCongViecComponent,
+        CapNhatBanGiaoCongViecComponent,
+        BanGiaoCongViecComponent,
+        HoSoCongViecCaNhanComponent,
+    ],
+    imports: [
+        MultiSelectModule,
+        TableModule,
+        FileUploadModule,
+        FormsModule,
+        ButtonModule,
+        RippleModule,
+        ToastModule,
+        ToolbarModule,
+        RatingModule,
+        InputTextModule,
+        InputTextareaModule,
+        DropdownModule,
+        RadioButtonModule,
+        InputNumberModule,
+        DialogModule,
+        ReactiveFormsModule,
+        BreadcrumbModule,
+        TreeModule,
+        TreeSelectModule,
+        ConfirmDialogModule,
+        CheckboxModule,
+        CalendarModule,
+        TabViewModule,
+        CommonModule,
+        DanhSachBanGiaoCongViecRoutingModule,
+    ],
 })
-export class DanhSachBanGiaoCongViecModule { }
+export class DanhSachBanGiaoCongViecModule {}

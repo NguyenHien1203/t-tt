@@ -127,65 +127,72 @@ export class AppTopBarComponent implements OnInit {
     }
 
     public async LoadDanhMuc(): Promise<void> {
-        const dataThongBao = await this.topbarService.getDanhSachThongBao(
-            this.userId
-        );
-        this.notifis = dataThongBao.map((tb) => {
-            return {
-                label: tb.tieuDe,
-                createdDate: tb.created,
-                trangThaiTBX: tb.trangThaiTBX,
-                idThongBaoXem: tb.idThongBaoXem,
-                id: tb.id,
-            };
-        });
-
-        const notifiIcon = this.notifiBadge.nativeElement;
-        this.notifiUnread = (this.notifis ?? []).filter(
-            (dt) => dt.trangThaiTBX == 0
-        );
-        // Đặt nội dung vào badge:after
-        notifiIcon.style.setProperty(
-            '--content',
-            `"${this.notifiUnread.length}"`
-        );
-
-        const dataHopThuDen = await this.topbarService.getDanhSachHopThuDen(
-            this.userId
-        );
-        this.mails = dataHopThuDen.map((tb) => {
-            return {
-                traoDoiId: tb.traoDoiId,
-                label: tb.tieuDe,
-                createdDate: tb.created,
-                trangThai: tb.trangThai,
-                id: tb.id,
-            };
-        });
-
-        const badgeIcon = this.mailBadge.nativeElement;
-        this.mailUnread = this.mails.filter((dt) => dt.trangThai == 1);
-        // Đặt nội dung vào badge:after
-        badgeIcon.style.setProperty('--content', `"${this.mailUnread.length}"`);
-
-        let currentWeek = this.getWeek(new Date());
-        const firstDayOfThisWeek = format(
-            this.getFirstDayOfWeek(new Date().getFullYear(), currentWeek),
-            'dd/MM/yyyy'
-        );
-
-        const dataHoatDongSapToi =
-            await this.topbarService.getDanhSachHoatDongSapToi(
-                firstDayOfThisWeek,
+        try {
+            const dataThongBao = await this.topbarService.getDanhSachThongBao(
                 this.userId
             );
+            this.notifis = dataThongBao.map((tb) => {
+                return {
+                    label: tb.tieuDe,
+                    createdDate: tb.created,
+                    trangThaiTBX: tb.trangThaiTBX,
+                    idThongBaoXem: tb.idThongBaoXem,
+                    id: tb.id,
+                };
+            });
 
-        this.clocks = dataHoatDongSapToi.map((hdst) => {
-            return {
-                label: hdst.noiDung,
-                eventDate: hdst.ngayDienRa,
-            };
-        });
+            const notifiIcon = this.notifiBadge.nativeElement;
+            this.notifiUnread = (this.notifis ?? []).filter(
+                (dt) => dt.trangThaiTBX == 0
+            );
+            // Đặt nội dung vào badge:after
+            notifiIcon.style.setProperty(
+                '--content',
+                `"${this.notifiUnread.length}"`
+            );
+
+            const dataHopThuDen = await this.topbarService.getDanhSachHopThuDen(
+                this.userId
+            );
+            this.mails = dataHopThuDen.map((tb) => {
+                return {
+                    traoDoiId: tb.traoDoiId,
+                    label: tb.tieuDe,
+                    createdDate: tb.created,
+                    trangThai: tb.trangThai,
+                    id: tb.id,
+                };
+            });
+
+            const badgeIcon = this.mailBadge.nativeElement;
+            this.mailUnread = this.mails.filter((dt) => dt.trangThai == 1);
+            // Đặt nội dung vào badge:after
+            badgeIcon.style.setProperty(
+                '--content',
+                `"${this.mailUnread.length}"`
+            );
+
+            let currentWeek = this.getWeek(new Date());
+            const firstDayOfThisWeek = format(
+                this.getFirstDayOfWeek(new Date().getFullYear(), currentWeek),
+                'dd/MM/yyyy'
+            );
+
+            const dataHoatDongSapToi =
+                await this.topbarService.getDanhSachHoatDongSapToi(
+                    firstDayOfThisWeek,
+                    this.userId
+                );
+
+            this.clocks = dataHoatDongSapToi.map((hdst) => {
+                return {
+                    label: hdst.noiDung,
+                    eventDate: hdst.ngayDienRa,
+                };
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     getWeek(date: Date): number {

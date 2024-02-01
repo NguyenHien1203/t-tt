@@ -43,12 +43,16 @@ export class CapNhatComponent {
     }
 
     public async BindDialogData() {
-        const data = await this.service.getNhomQuyenById(this.id);
-        this.formCapNhat.patchValue({
-            id: data.id,
-            tenNhomQuyen: data.tenNhomQuyen,
-            moTa: data.moTa,
-        });
+        try {
+            const data = await this.service.getNhomQuyenById(this.id);
+            this.formCapNhat.patchValue({
+                id: data.id,
+                tenNhomQuyen: data.tenNhomQuyen,
+                moTa: data.moTa,
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public CapNhat() {

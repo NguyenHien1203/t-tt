@@ -60,29 +60,33 @@ export class ThayDoiThongTinComponent {
     }
 
     public async LoadThongTinNguoiDung() {
-        const data = await this.service.getThongTinNguoiDung(this.idUser);
-        this.formThongTin.patchValue({
-            id: data.id,
-            hoVaTen: data.hoVaTen,
-            sdtNhaRieng: data.sdtNhaRieng,
-            sdtCoQuan: data.sdtCoQuan,
-            sdtDiDong: data.sdtDiDong,
-            email: data.email,
-            gioiTinh: data.gioiTinh,
-        });
-        if (data?.anhKyNhay != null) {
-            const dataAnhKyNhay = {
-                filePath: data.anhKyNhay,
-            };
-            this.anhKyNhay = dataAnhKyNhay;
-            this.GetImage(1);
-        }
-        if (data?.anhConDau != null) {
-            const dataAnhConDau = {
-                filePath: data.anhConDau,
-            };
-            this.anhConDau = dataAnhConDau;
-            this.GetImage(2);
+        try {
+            const data = await this.service.getThongTinNguoiDung(this.idUser);
+            this.formThongTin.patchValue({
+                id: data.id,
+                hoVaTen: data.hoVaTen,
+                sdtNhaRieng: data.sdtNhaRieng,
+                sdtCoQuan: data.sdtCoQuan,
+                sdtDiDong: data.sdtDiDong,
+                email: data.email,
+                gioiTinh: data.gioiTinh,
+            });
+            if (data?.anhKyNhay != null) {
+                const dataAnhKyNhay = {
+                    filePath: data.anhKyNhay,
+                };
+                this.anhKyNhay = dataAnhKyNhay;
+                this.GetImage(1);
+            }
+            if (data?.anhConDau != null) {
+                const dataAnhConDau = {
+                    filePath: data.anhConDau,
+                };
+                this.anhConDau = dataAnhConDau;
+                this.GetImage(2);
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 

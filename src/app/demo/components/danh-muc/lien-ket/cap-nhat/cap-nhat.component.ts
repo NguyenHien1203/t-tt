@@ -32,8 +32,12 @@ export class CapNhatComponent {
     });
 
     public async BindDataDialog() {
-        const data = await this.service.getDmLienKetById(this.id);
+        try {
+            const data = await this.service.getDmLienKetById(this.id);
         this.formCapNhat.setValue(data);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public Thoat(): void {

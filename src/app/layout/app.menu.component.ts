@@ -730,18 +730,18 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/he-thong/nhom-quyen'],
                                 code: '007015',
                             },
-                            {
-                                label: 'Nhật ký hệ thống',
-                                icon: 'pi pi-fw pi-history',
-                                routerLink: ['/he-thong/nhat-ky-he-thong'],
-                                code: '007016',
-                            },
-                            {
-                                label: 'Cài đặt hệ thống',
-                                icon: 'pi pi-fw pi-cog',
-                                routerLink: ['/he-thong/cai-dat-he-thong'],
-                                code: '007017',
-                            },
+                            // {
+                            //     label: 'Nhật ký hệ thống',
+                            //     icon: 'pi pi-fw pi-history',
+                            //     routerLink: ['/he-thong/nhat-ky-he-thong'],
+                            //     code: '007016',
+                            // },
+                            // {
+                            //     label: 'Cài đặt hệ thống',
+                            //     icon: 'pi pi-fw pi-cog',
+                            //     routerLink: ['/he-thong/cai-dat-he-thong'],
+                            //     code: '007017',
+                            // },
                         ],
                     },
                     {

@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/common/auth.services';
 import { TimKiemLichCaNhan } from 'src/app/models/thong-tin-khac/lich/lich-ca-nhan';
 import { environment } from 'src/environments/environment.development';
 
@@ -12,9 +14,11 @@ export class LichCaNhanService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
 
     getDanhSachLichCaNhan(timKiemDanhSach: TimKiemLichCaNhan) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -27,6 +31,8 @@ export class LichCaNhanService {
     }
 
     getLichCaNhanById(idLichCaNhan: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -39,6 +45,8 @@ export class LichCaNhanService {
     }
 
     capNhatLichCaNhan(itemData: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi + '/Lich/LichCaNhan/CapNhatLichCaNhan',
@@ -48,6 +56,8 @@ export class LichCaNhanService {
     }
     
     themMoiLichCaNhan(itemData: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi + '/Lich/LichCaNhan/ThemMoiLichCaNhan',
@@ -57,6 +67,8 @@ export class LichCaNhanService {
     }
 
     xoaLichCaNhan(idLichCaNhan: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Lich/LichCaNhan/XoaLichCaNhan/' +

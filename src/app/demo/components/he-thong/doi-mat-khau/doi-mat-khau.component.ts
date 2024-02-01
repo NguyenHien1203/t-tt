@@ -34,8 +34,6 @@ export class DoiMatKhauComponent {
 
     public ThayDoi() {
         this.submitted = true;
-console.log(this.formThongTin.valid)
-console.log(this.isTrungKhop)
         if (this.formThongTin.valid && !this.isTrungKhop) {
             let itemData = this.formThongTin.value;
             let doiMatKhau = {

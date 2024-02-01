@@ -10,27 +10,29 @@
         <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
             <h2>Tìm kiếm</h2>
             <div class="p-fluid p-formgrid grid">
-                <div class="field col-12 md:col-4">
+                <div class="field col-12 md:col-3">
                     <input id="search-name-title" type="text" pInputText placeholder="Nhập trích yếu">
                 </div>
-                <!-- <div class="field col-12 md:col-3">
-                    <p-dropdown appendTo="body" [showClear]="true" [filter]="true" 
-                        optionLabel="text" optionValue="value" ></p-dropdown>
-                </div> -->
-                <label class="field col-12 md:col-2">
-                    <p-dropdown [options]="lstNam" placeholder="--Chọn năm--"></p-dropdown>
+                <label class="field col-12 md:col-3">
+                    <p-dropdown appendTo="body" [showClear]="true" [options]="lstLoaiVanBan" optionLabel="text"
+                        optionValue="value" [(ngModel)]="timKiem.loaiVanBanId"></p-dropdown>
                 </label>
                 <label class="field col-12 md:col-2">
-                    <p-dropdown [options]="lstThang" placeholder="--Chọn tháng--"></p-dropdown>
+                    <p-dropdown [options]="lstNam" placeholder="--Chọn năm--" [(ngModel)]="timKiem.nam"></p-dropdown>
+                </label>
+                <label class="field col-12 md:col-2">
+                    <p-dropdown [options]="lstThang" placeholder="--Chọn tháng--"
+                        [(ngModel)]="timKiem.thang"></p-dropdown>
                 </label>
                 <div class="field col-12 md:col-2 mt-2">
                     <div class="field-checkbox">
-                        <p-checkbox name="timChinhXac" id="timChinhXac" value="true" label="Tìm chính xác"
-                            value="false"></p-checkbox>
+                        <p-checkbox name="timChinhXac" id="timChinhXac" value="true" label="Tìm chính xác" value="false"
+                            (click)="CheckCX()"></p-checkbox>
                     </div>
                 </div>
                 <div class="field col-12 md:col-2">
-                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2"></button>
+                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2"
+                        (click)="GetDanhSach()"></button>
                 </div>
             </div>
         </div>
@@ -47,7 +49,7 @@
             <div class="grid">
                 <div class="col-12">
                     <p-table styleClass="p-datatable-gridlines" #dt [columns]="cols" responsiveLayout="scroll"
-                        [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [value]="">
+                        [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [value]="danhSach">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="text-align: center;">STT</th>

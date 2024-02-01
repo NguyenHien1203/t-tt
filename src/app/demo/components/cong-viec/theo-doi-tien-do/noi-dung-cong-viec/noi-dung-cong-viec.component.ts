@@ -63,7 +63,7 @@ export class NoiDungCongViecComponent {
     private authService: AuthService
   ) { }
 
-  public async BindDialogData() {
+  public BindDialogData() {
     try {
       this.loading = false;
       this.service.GetChiTietNoiDungCongViec(this.id, this.stt).subscribe(data => {

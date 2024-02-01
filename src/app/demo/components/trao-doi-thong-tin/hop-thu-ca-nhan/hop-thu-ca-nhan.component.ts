@@ -6,7 +6,6 @@ import { HopThuCaNhanService } from 'src/app/demo/service/trao-doi-thong-tin/hop
 import { SoanThuService } from 'src/app/demo/service/trao-doi-thong-tin/soan-thu.service';
 import { TimKiemDanhSach } from 'src/app/models/trao-doi-thong-tin/hop-thu-ca-nhan';
 
-
 @Component({
     selector: 'app-hop-thu-ca-nhan',
     templateUrl: './hop-thu-ca-nhan.component.html',
@@ -20,8 +19,8 @@ export class HopThuCaNhanComponent {
         private soanThuService: SoanThuService,
         private authService: AuthService,
         private cd: ChangeDetectorRef,
-        private confirmationService : ConfirmationService,
-        private route: ActivatedRoute,
+        private confirmationService: ConfirmationService,
+        private route: ActivatedRoute
     ) {}
 
     items = [{ label: 'Trao đổi thông tin' }, { label: 'Hộp thư cá nhân' }];
@@ -72,61 +71,64 @@ export class HopThuCaNhanComponent {
     }
 
     async ngOnInit() {
-        this.loading = false;
-        this.loading = false;
-        const data = await this.soanThuService.getMenuNhanCaNhan(
-            Number(this.authService.GetmUserInfo()?.userId ?? '0')
-        );
-        const dataGanNhan = await this.soanThuService.getDanhSachNhanCaNhan(
-            Number(this.authService.GetmUserInfo()?.userId ?? '0')
-        );
+        try {
+            this.loading = false;
+            const data = await this.soanThuService.getMenuNhanCaNhan(
+                Number(this.authService.GetmUserInfo()?.userId ?? '0')
+            );
+            const dataGanNhan = await this.soanThuService.getDanhSachNhanCaNhan(
+                Number(this.authService.GetmUserInfo()?.userId ?? '0')
+            );
 
-        this.lstNhanCaNhan = this.BindRouterLinkForTree(data);
+            this.lstNhanCaNhan = this.BindRouterLinkForTree(data);
 
-        this.lstNhanCaNhanClone = dataGanNhan.map((ncn) => {
-            //tạo button gán nhãn
-            return {
-                label: ncn.tenNhan,
-                value: ncn.id,
-                checked: false,
-            };
-        });
+            this.lstNhanCaNhanClone = dataGanNhan.map((ncn) => {
+                //tạo button gán nhãn
+                return {
+                    label: ncn.tenNhan,
+                    value: ncn.id,
+                    checked: false,
+                };
+            });
 
-        this.MenuItems = [
-            {
-                label: 'Soạn thư',
-                icon: 'pi pi-file-edit',
-                routerLink: ['/trao-doi-thong-tin/soan-thu'],
-            },
-            {
-                label: 'Hộp thư đến',
-                icon: 'pi pi-envelope',
-                routerLink: ['/trao-doi-thong-tin/hop-thu-den'],
-            },
-            {
-                label: 'Hộp thư đi',
-                icon: 'pi pi-send',
-                routerLink: ['/trao-doi-thong-tin/hop-thu-di'],
-            },
-            {
-                label: 'Thư nháp',
-                icon: 'pi pi-clone',
-                routerLink: ['/trao-doi-thong-tin/hop-thu-nhap'],
-            },
-            {
-                label: 'Thư quan trọng',
-                icon: 'pi pi-flag-fill',
-                routerLink: ['/trao-doi-thong-tin/hop-thu-quan-trong'],
-            },
-            {
-                label: 'Nhãn trao đổi cá nhân',
-                icon: 'pi pi-tags',
-                items: this.lstNhanCaNhan,
-            },
-        ];
+            this.MenuItems = [
+                {
+                    label: 'Soạn thư',
+                    icon: 'pi pi-file-edit',
+                    routerLink: ['/trao-doi-thong-tin/soan-thu'],
+                },
+                {
+                    label: 'Hộp thư đến',
+                    icon: 'pi pi-envelope',
+                    routerLink: ['/trao-doi-thong-tin/hop-thu-den'],
+                },
+                {
+                    label: 'Hộp thư đi',
+                    icon: 'pi pi-send',
+                    routerLink: ['/trao-doi-thong-tin/hop-thu-di'],
+                },
+                {
+                    label: 'Thư nháp',
+                    icon: 'pi pi-clone',
+                    routerLink: ['/trao-doi-thong-tin/hop-thu-nhap'],
+                },
+                {
+                    label: 'Thư quan trọng',
+                    icon: 'pi pi-flag-fill',
+                    routerLink: ['/trao-doi-thong-tin/hop-thu-quan-trong'],
+                },
+                {
+                    label: 'Nhãn trao đổi cá nhân',
+                    icon: 'pi pi-tags',
+                    items: this.lstNhanCaNhan,
+                },
+            ];
 
-        this.LoadDanhSach();
-        this.GetDataMOnthYear();
+            this.LoadDanhSach();
+            this.GetDataMOnthYear();
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public BindRouterLinkForTree(treeData: any[]) {
@@ -143,16 +145,18 @@ export class HopThuCaNhanComponent {
         }
         return treeData;
     }
-    
+
     public LoadDanhSach() {
-        this.route.params.subscribe(params => {
+        this.route.params.subscribe((params) => {
             this.timKiemDanhSach.idNhanCaNhan = params['ncn'];
             this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
 
-            this.service.getDanhSachHopThuCaNhan(this.timKiemDanhSach).then((data) => {
-                this.lstTraoDoi = data;
-            });
-          });
+            this.service
+                .getDanhSachHopThuCaNhan(this.timKiemDanhSach)
+                .then((data) => {
+                    this.lstTraoDoi = data;
+                });
+        });
     }
 
     public CheckedHt() {
@@ -285,33 +289,35 @@ export class HopThuCaNhanComponent {
         const lstHopThuSelected = this.lstTraoDoi
             .filter((x) => x.checked == true)
             .map((x) => x.id);
-            
+
         this.confirmationService.confirm({
             message: 'Bạn có chắc chắn xác nhận đánh dấu quan trọng?',
             header: 'Xác nhận',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.soanThuService.danhDauQuanTrong(lstHopThuSelected).subscribe(
-                    (data) => {
-                        if (data.isError) {
-                            this.messageService.add({
-                                severity: 'error',
-                                summary: 'Error',
-                                detail: data.title,
-                            });
-                        } else {
-                            this.LoadDanhSach();
-                            this.messageService.add({
-                                severity: 'success',
-                                summary: 'Success',
-                                detail: data.title,
-                            });
+                this.soanThuService
+                    .danhDauQuanTrong(lstHopThuSelected)
+                    .subscribe(
+                        (data) => {
+                            if (data.isError) {
+                                this.messageService.add({
+                                    severity: 'error',
+                                    summary: 'Error',
+                                    detail: data.title,
+                                });
+                            } else {
+                                this.LoadDanhSach();
+                                this.messageService.add({
+                                    severity: 'success',
+                                    summary: 'Success',
+                                    detail: data.title,
+                                });
+                            }
+                        },
+                        (error) => {
+                            console.log('Error', error);
                         }
-                    },
-                    (error) => {
-                        console.log('Error', error);
-                    }
-                );
+                    );
             },
             reject: () => {},
         });

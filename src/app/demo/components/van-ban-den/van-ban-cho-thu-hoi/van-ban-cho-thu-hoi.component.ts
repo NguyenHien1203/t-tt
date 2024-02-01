@@ -7,7 +7,8 @@ import { TimKiemDanhSachVBTC } from 'src/app/models/van-ban-den/van-ban-da-tu-ch
 @Component({
   selector: 'app-van-ban-cho-thu-hoi',
   templateUrl: './van-ban-cho-thu-hoi.component.html',
-  styleUrls: ['./van-ban-cho-thu-hoi.component.scss']
+  styleUrls: ['./van-ban-cho-thu-hoi.component.scss'],
+  providers : [MessageService]
 })
 export class VanBanChoThuHoiComponent {
     constructor(

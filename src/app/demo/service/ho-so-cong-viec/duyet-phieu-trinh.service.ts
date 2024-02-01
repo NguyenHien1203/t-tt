@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { format } from 'date-fns';
+import { AuthService } from 'src/app/common/auth.services';
 import { TimKiemPhieuTrinh } from 'src/app/models/ho-so-cong-viec/them-moi-phieu-trinh';
 import { environment } from 'src/environments/environment.development';
 
@@ -13,9 +15,11 @@ export class DuyetPhieuTrinhService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
 
     getDanhSachPhieuTrinhChoXuLy(timKiemDanhSach: TimKiemPhieuTrinh) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         timKiemDanhSach.ngayTrinh = format(
             new Date(timKiemDanhSach.ngayTrinh),
             'yyyy-MM-dd'
@@ -33,6 +37,8 @@ export class DuyetPhieuTrinhService {
     }
 
     getPhieuTrinhById(id: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -44,6 +50,8 @@ export class DuyetPhieuTrinhService {
     }
     
     getDanhSachNguoiTrinh(idDonViLamViec: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -54,7 +62,9 @@ export class DuyetPhieuTrinhService {
             .then((res) => res.objData);
     }
 
-    xuLyPhieuTrinh(itemData) {
+    xuLyPhieuTrinh(itemData : any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi + '/HoSoCongViec/XuLyPhieuTrinh/DuyetPhieuTrinh',

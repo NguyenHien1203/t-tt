@@ -50,7 +50,13 @@ export class ThemMoiComponent {
     });
 
     public async BindDialogData() {
-        this.lstNhanParent = await this.service.getDanhSachNhanCha(this.idUser);
+        try {
+            this.lstNhanParent = await this.service.getDanhSachNhanCha(
+                this.idUser
+            );
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public Thoat(): void {
@@ -71,7 +77,8 @@ export class ThemMoiComponent {
                 tenHienThi: itemData.tenHienThi,
                 hienThi: itemData.hienThi,
                 phanLoai: itemData.phanLoai,
-                parentId: this.selectedNodes != null ? this.selectedNodes.data : 0,
+                parentId:
+                    this.selectedNodes != null ? this.selectedNodes.data : 0,
                 ghiChu: itemData.ghiChu,
                 created: new Date(),
                 createdBy: this.idUser,

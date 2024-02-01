@@ -67,7 +67,7 @@
             <div class="grid">
                 <div class="col-12">
                     <p-table styleClass="p-datatable-gridlines" #dt [columns]="cols" responsiveLayout="scroll"
-                        [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [value]="danhSachs">
+                        [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [value]="danhSach">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="text-align: center;">STT</th>
@@ -180,7 +180,7 @@
         <p-dialog [(visible)]="deleteProductDialog" header="Xác nhận" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="danhSachs">Bạn muốn xóa bản ghi này ?</span>
+                <span *ngIf="danhSach">Bạn muốn xóa bản ghi này ?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"

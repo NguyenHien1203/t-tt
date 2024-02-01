@@ -44,14 +44,18 @@ export class CapNhatComponent {
     });
 
     public async BindDataDialog() {
-        const data = await this.service.getChuyenMucCauHoiById(this.id);
-        this.formCapNhat.patchValue({
-          id : data.id,
-          tenDanhMucCauHoi : data.tenDanhMucCauHoi,
-          donViId : data.donViId,
-          hienThi : data.hienThi,
-          thuTu : data.thuTu
-        })
+        try {
+            const data = await this.service.getChuyenMucCauHoiById(this.id);
+            this.formCapNhat.patchValue({
+                id: data.id,
+                tenDanhMucCauHoi: data.tenDanhMucCauHoi,
+                donViId: data.donViId,
+                hienThi: data.hienThi,
+                thuTu: data.thuTu,
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public Thoat(): void {
@@ -66,28 +70,30 @@ export class CapNhatComponent {
         this.submitted = true;
         if (this.formCapNhat.valid) {
             this.quanLyChuyenMucCauHoi = this.formCapNhat.value;
-            this.service.capNhatChuyenMucCauHoi(this.quanLyChuyenMucCauHoi).subscribe(
-                (data) => {
-                    let resData = data as ResponeMessage;
-                    if (resData.isError) {
-                        this.messageService.add({
-                            severity: 'error',
-                            summary: 'Error',
-                            detail: resData.title,
-                        });
-                    } else {
-                        this.messageService.add({
-                            severity: 'success',
-                            summary: 'Success',
-                            detail: resData.title,
-                        });
-                        this.Thoat();
+            this.service
+                .capNhatChuyenMucCauHoi(this.quanLyChuyenMucCauHoi)
+                .subscribe(
+                    (data) => {
+                        let resData = data as ResponeMessage;
+                        if (resData.isError) {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: resData.title,
+                            });
+                        } else {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Success',
+                                detail: resData.title,
+                            });
+                            this.Thoat();
+                        }
+                    },
+                    (error) => {
+                        console.log('Error', error);
                     }
-                },
-                (error) => {
-                    console.log('Error', error);
-                }
-            );
+                );
         }
     }
 }

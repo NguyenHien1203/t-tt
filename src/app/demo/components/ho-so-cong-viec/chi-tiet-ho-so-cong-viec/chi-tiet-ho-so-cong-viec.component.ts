@@ -1,5 +1,11 @@
 import { saveAs } from 'file-saver';
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+} from '@angular/core';
 import { throwError } from 'rxjs';
 import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { AuthService } from 'src/app/common/auth.services';
@@ -8,74 +14,78 @@ import { QuanLyHoSoCoQuanService } from 'src/app/demo/service/ho-so-cong-viec/qu
 import { FileModel } from 'src/app/models/file-upload-model';
 
 @Component({
-  selector: 'app-chi-tiet-ho-so-cong-viec',
-  templateUrl: './chi-tiet-ho-so-cong-viec.component.html',
-  styleUrls: ['./chi-tiet-ho-so-cong-viec.component.scss']
+    selector: 'app-chi-tiet-ho-so-cong-viec',
+    templateUrl: './chi-tiet-ho-so-cong-viec.component.html',
+    styleUrls: ['./chi-tiet-ho-so-cong-viec.component.scss'],
 })
 export class ChiTietHoSoCongViecComponent {
-  @Input() show: boolean = false;
-  @Input() id: string = '1';
-  @Output() tatPopup = new EventEmitter<boolean>();
+    @Input() show: boolean = false;
+    @Input() id: string = '1';
+    @Output() tatPopup = new EventEmitter<boolean>();
 
-  constructor(
-      private service: QuanLyHoSoCoQuanService,
-      private messageService: MessageService,
-      private authService: AuthService,
-      private cd: ChangeDetectorRef,
-      private fileService: UploadFileService,
-  ) {}
+    constructor(
+        private service: QuanLyHoSoCoQuanService,
+        private messageService: MessageService,
+        private authService: AuthService,
+        private cd: ChangeDetectorRef,
+        private fileService: UploadFileService
+    ) {}
 
-  hoSoCongViec: any;
-  lstFileDuThao: FileModel[] = [];
-  idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
-  idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
-  userFullName: string = this.authService.GetmUserInfo()?.fullName ?? '0';
-  idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
-  submitted: boolean = false;
+    hoSoCongViec: any;
+    lstFileDuThao: FileModel[] = [];
+    idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
+    idPhongBan: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
+    userFullName: string = this.authService.GetmUserInfo()?.fullName ?? '0';
+    idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
+    submitted: boolean = false;
 
-  public async BindDialogData() {
-      this.hoSoCongViec = await this.service.getHoSoCoQuanId(this.id);
-  }
+    public async BindDialogData() {
+        try {
+            this.hoSoCongViec = await this.service.getHoSoCoQuanId(this.id);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-  public Thoat(): void {
-      this.submitted = false;
-      this.show = false;
-      this.tatPopup.emit(this.show);
-      this.cd.detectChanges();
-  }
+    public Thoat(): void {
+        this.submitted = false;
+        this.show = false;
+        this.tatPopup.emit(this.show);
+        this.cd.detectChanges();
+    }
 
-  public DownloadFile(filepath: string, filename: string) {
-    let urlDownLoad = '/HoSoCongViec/HoSoCongViec/DownloadFile';
-    this.fileService
-        .downloadFile(filepath, filename, urlDownLoad)
-        .subscribe(
-            (data) => {
-                const blob = new Blob([data], {
-                    type: 'application/octet-stream',
-                });
-                saveAs(blob, filename);
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Success',
-                    detail: 'Tải tệp thành công',
-                });
-            },
-            (error: any) => {
-                if (error.status === 404) {
-                    // Xử lý lỗi 404 (NotFound)
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: 'Không tìm thấy đường dẫn file',
+    public DownloadFile(filepath: string, filename: string) {
+        let urlDownLoad = '/HoSoCongViec/HoSoCongViec/DownloadFile';
+        this.fileService
+            .downloadFile(filepath, filename, urlDownLoad)
+            .subscribe(
+                (data) => {
+                    const blob = new Blob([data], {
+                        type: 'application/octet-stream',
                     });
-                    // Ví dụ: Hiển thị thông báo lỗi cho người dùng
-                } else {
-                    // Xử lý các lỗi khác
-                    console.error('Đã xảy ra lỗi', error);
-                    // Thực hiện các hành động tương ứng
+                    saveAs(blob, filename);
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Tải tệp thành công',
+                    });
+                },
+                (error: any) => {
+                    if (error.status === 404) {
+                        // Xử lý lỗi 404 (NotFound)
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Không tìm thấy đường dẫn file',
+                        });
+                        // Ví dụ: Hiển thị thông báo lỗi cho người dùng
+                    } else {
+                        // Xử lý các lỗi khác
+                        console.error('Đã xảy ra lỗi', error);
+                        // Thực hiện các hành động tương ứng
+                    }
+                    return throwError(() => error);
                 }
-                return throwError(() => error);
-            }
-        );
-}
+            );
+    }
 }

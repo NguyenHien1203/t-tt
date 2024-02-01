@@ -174,18 +174,24 @@ export class CapNhatVanBanDaGuiComponent {
     }
 
     public async LoadDanhMuc() {
-        this.lstLanhDaoKy = await this.service.getDanhSachLanhDaoKy(
-            this.idDonViLamViec
-        );
-        this.lstPhongBan = await this.service.getDanhSachPhongBan(
-            this.idDonViLamViec,
-            this.authService.GetmUserInfo()?.userName ?? ''
-        );
-        this.lstSoVanBan = await this.service.getSoVanBan(this.idDonViLamViec);
-        this.lstNhomDonVi = await this.service.getNhomDonViTheoDinhNghia(
-            this.idUser,
-            this.idDonViLamViec
-        );
+        try {
+            this.lstLanhDaoKy = await this.service.getDanhSachLanhDaoKy(
+                this.idDonViLamViec
+            );
+            this.lstPhongBan = await this.service.getDanhSachPhongBan(
+                this.idDonViLamViec,
+                this.authService.GetmUserInfo()?.userName ?? ''
+            );
+            this.lstSoVanBan = await this.service.getSoVanBan(
+                this.idDonViLamViec
+            );
+            this.lstNhomDonVi = await this.service.getNhomDonViTheoDinhNghia(
+                this.idUser,
+                this.idDonViLamViec
+            );
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public async ChangeSoVanBan(event) {

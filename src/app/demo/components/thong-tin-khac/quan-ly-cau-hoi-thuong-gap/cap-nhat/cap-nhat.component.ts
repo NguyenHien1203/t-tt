@@ -49,18 +49,24 @@ export class CapNhatComponent {
     });
 
     public async BindDataDialog() {
-        this.lstChuyenMuc = await this.service.getChuyenMucCauHoi(this.idDonViLamViec);
-        const data = await this.service.getCauHoiThuongGapById(this.id);
-        this.formCapNhat.patchValue({
-            id: data.id,
-            chuyenMucId: data.chuyenMucId,
-            donViId: data.donViId,
-            hienThi: data.hienThi,
-            thuTu: data.thuTu,
-            cauHoi: data.cauHoi,
-            traLoi: data.traLoi,
-            tieuDe: data.tieuDe,
-        });
+        try {
+            this.lstChuyenMuc = await this.service.getChuyenMucCauHoi(
+                this.idDonViLamViec
+            );
+            const data = await this.service.getCauHoiThuongGapById(this.id);
+            this.formCapNhat.patchValue({
+                id: data.id,
+                chuyenMucId: data.chuyenMucId,
+                donViId: data.donViId,
+                hienThi: data.hienThi,
+                thuTu: data.thuTu,
+                cauHoi: data.cauHoi,
+                traLoi: data.traLoi,
+                tieuDe: data.tieuDe,
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public Thoat(): void {

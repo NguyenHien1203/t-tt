@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/common/auth.services';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -11,9 +13,11 @@ export class NhanCaNhanService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
 
     getDanhSachNhanCaNhan(timKiemDanhSach: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -26,6 +30,8 @@ export class NhanCaNhanService {
     }
 
     themMoiNhanCaNhan(itemData: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/TraoDoiThongTin/NhanCaNhan/ThemMoiNhanCaNhan',
@@ -35,6 +41,8 @@ export class NhanCaNhanService {
     }
 
     capNhatNhanCaNhan(itemData: any) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/TraoDoiThongTin/NhanCaNhan/CapNhatNhanCaNhan',
@@ -44,6 +52,8 @@ export class NhanCaNhanService {
     }
 
     getNhanCaNhanById(id: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -56,6 +66,8 @@ export class NhanCaNhanService {
     }
 
     xoaNhanCaNhan(id: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/TraoDoiThongTin/NhanCaNhan/DeleteNhanCaNhan/' +

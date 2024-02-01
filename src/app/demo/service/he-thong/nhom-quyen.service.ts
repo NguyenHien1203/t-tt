@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/common/auth.services';
 import { TimKiemNhomQuyen } from 'src/app/models/he-thong/nhom-quyen';
 import { environment } from 'src/environments/environment.development';
 
@@ -12,9 +14,14 @@ export class NhomQuyenService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {}
 
     getDanhSachNhomQuyen(timKiemDanhSach: TimKiemNhomQuyen) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -27,6 +34,7 @@ export class NhomQuyenService {
     }
 
     getNhomQuyenById(id?: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -39,6 +47,7 @@ export class NhomQuyenService {
     }
 
     getDanhSachQuyenChuaCap(idNhomQuyen?: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -51,6 +60,7 @@ export class NhomQuyenService {
     }
 
     getDanhSachQuyenDuocCap(idNhomQuyen?: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -63,6 +73,7 @@ export class NhomQuyenService {
     }
 
     themMoiNhomQuyen(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/HeThong/NhomQuyen/ThemMoiNhomQuyen',
             itemData,
@@ -71,6 +82,7 @@ export class NhomQuyenService {
     }
 
     capNhatNhomQuyen(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/HeThong/NhomQuyen/CapNhatNhomQuyen',
             itemData,
@@ -79,6 +91,7 @@ export class NhomQuyenService {
     }
 
     xoaNhomQuyen(id: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi + '/HeThong/NhomQuyen/XoaNhomQuyen/' + id,
             this.httpOption
@@ -86,6 +99,7 @@ export class NhomQuyenService {
     }
 
     themToanQuyen(idNhomQuyen: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/HeThong/NhomQuyen/ThemToanQuyen/' +
@@ -93,17 +107,18 @@ export class NhomQuyenService {
             this.httpOption
         );
     }
-    
-    themQuyen(itemData : any) {
+
+    themQuyen(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
-            environment.baseUrlApi +
-                '/HeThong/NhomQuyen/ThemQuyen' ,
-                itemData,
+            environment.baseUrlApi + '/HeThong/NhomQuyen/ThemQuyen',
+            itemData,
             this.httpOption
         );
     }
 
     xoaToanQuyen(idNhomQuyen: string) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/HeThong/NhomQuyen/XoaToanQuyen/' +
@@ -112,11 +127,11 @@ export class NhomQuyenService {
         );
     }
 
-    xoaQuyen(itemData : any) {
+    xoaQuyen(itemData: any) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
-            environment.baseUrlApi +
-                '/HeThong/NhomQuyen/XoaQuyen' ,
-                itemData,
+            environment.baseUrlApi + '/HeThong/NhomQuyen/XoaQuyen',
+            itemData,
             this.httpOption
         );
     }

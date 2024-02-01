@@ -36,10 +36,15 @@ export class HoSoComponent {
     }
 
     public async BindDialogData() {
-        const timKiemDanhSach = {};
-        this.lstHoSoCongViec = await this.service.getDanhSachHoSoCongViec(
-            timKiemDanhSach
-        );
+        try {
+            const timKiemDanhSach = {};
+            this.lstHoSoCongViec = await this.service.getDanhSachHoSoCongViec(
+                timKiemDanhSach
+            );
+        } catch (error) {
+            console.log(error);
+            
+        }
     }
 
     public ChangeHoSoCongViec(event) {}

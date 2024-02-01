@@ -64,7 +64,7 @@ export class TaiKhoanService {
         if (!this.auth.CheckLogin())
             this.router.navigate(['/login']);
 
-        const url = this.baseUrl + '/Membership/Membership/GetDataMenu?Userid=' + UserId + "&NhomQuyenId=" + NhomQuyenId + "&PhongBanId=" + PhongBanId;
+        const url = this.baseUrl + '/Membership/GetDataMenu?Userid=' + UserId + "&NhomQuyenId=" + NhomQuyenId + "&PhongBanId=" + PhongBanId;
         return this.httpClient.get<any>(url);
     }
 

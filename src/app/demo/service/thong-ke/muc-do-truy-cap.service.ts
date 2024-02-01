@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/common/auth.services';
 import { TimKiemMucDoTruyCap } from 'src/app/models/thong-ke/muc-do-truy-cap';
 import { environment } from 'src/environments/environment.development';
 
@@ -12,9 +14,11 @@ export class MucDoTruyCapService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
 
     getDanhSachMucDoTruyCap(timKiemDanhSach: TimKiemMucDoTruyCap) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -27,6 +31,8 @@ export class MucDoTruyCapService {
     }
     
     getDanhSachPhongBan(idDonVi: string) {
+       if (!this.auth.CheckLogin())
+      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +

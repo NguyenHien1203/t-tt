@@ -32,8 +32,12 @@ export class ChiTietNhomTaiKhoanComponent {
     lstCaNhanTrongNhom: any[] = [];
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     public async BindDialogData() {
-        this.lstCaNhanTrongNhom =
-            await this.service.getDanhSachNguoiDungTrongNhom(this.id);
+        try {
+            this.lstCaNhanTrongNhom =
+                await this.service.getDanhSachNguoiDungTrongNhom(this.id);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public ThoatChiTiet(): void {

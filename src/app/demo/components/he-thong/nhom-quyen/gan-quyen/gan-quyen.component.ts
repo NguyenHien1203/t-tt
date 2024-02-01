@@ -224,50 +224,52 @@ export class GanQuyenComponent {
     }
 
     public async LoadDanhSach() {
-        this.route.queryParams.subscribe(async (params) => {
-            let idNhomQuyen = params['id'];
-            this.id = idNhomQuyen;
-            this.tenNhomQuyen = params['tenQuyen'];
-            const dataQuyenChuaCap = await this.service.getDanhSachQuyenChuaCap(
-                idNhomQuyen
-            );
-            this.lstQuyenChuaCap = dataQuyenChuaCap.map((dt) => {
-                if (dt.children) {
-                    // Nếu là node cha có children
-                    return {
-                        ...dt,
-                        expanded: true,
-                        children: dt.children.map((child) => {
-                            // Cập nhật checked nếu node con cần cập nhật
-                            return { ...child, expanded: true };
-                        }),
-                    };
-                } else {
-                    // Nếu không có children
-                    return { ...dt, expanded: true };
-                }
-            });
+        try {
+            this.route.queryParams.subscribe(async (params) => {
+                let idNhomQuyen = params['id'];
+                this.id = idNhomQuyen;
+                this.tenNhomQuyen = params['tenQuyen'];
+                const dataQuyenChuaCap =
+                    await this.service.getDanhSachQuyenChuaCap(idNhomQuyen);
+                this.lstQuyenChuaCap = dataQuyenChuaCap.map((dt) => {
+                    if (dt.children) {
+                        // Nếu là node cha có children
+                        return {
+                            ...dt,
+                            expanded: true,
+                            children: dt.children.map((child) => {
+                                // Cập nhật checked nếu node con cần cập nhật
+                                return { ...child, expanded: true };
+                            }),
+                        };
+                    } else {
+                        // Nếu không có children
+                        return { ...dt, expanded: true };
+                    }
+                });
 
-            const dataQuyenDuocCap = await this.service.getDanhSachQuyenDuocCap(
-                idNhomQuyen
-            );
-            this.lstQuyenDuocCap = dataQuyenDuocCap.map((dt) => {
-                if (dt.children) {
-                    // Nếu là node cha có children
-                    return {
-                        ...dt,
-                        expanded: true,
-                        children: dt.children.map((child) => {
-                            // Cập nhật checked nếu node con cần cập nhật
-                            return { ...child, expanded: true };
-                        }),
-                    };
-                } else {
-                    // Nếu không có children
-                    return { ...dt, expanded: true };
-                }
+                const dataQuyenDuocCap =
+                    await this.service.getDanhSachQuyenDuocCap(idNhomQuyen);
+                this.lstQuyenDuocCap = dataQuyenDuocCap.map((dt) => {
+                    if (dt.children) {
+                        // Nếu là node cha có children
+                        return {
+                            ...dt,
+                            expanded: true,
+                            children: dt.children.map((child) => {
+                                // Cập nhật checked nếu node con cần cập nhật
+                                return { ...child, expanded: true };
+                            }),
+                        };
+                    } else {
+                        // Nếu không có children
+                        return { ...dt, expanded: true };
+                    }
+                });
             });
-        });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public QuayLai() {

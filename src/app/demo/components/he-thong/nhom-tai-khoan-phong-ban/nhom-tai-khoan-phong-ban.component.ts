@@ -55,10 +55,15 @@ export class NhomTaiKhoanPhongBanComponent {
     }
 
     public async LoadDanhSach() {
-        this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
-        this.lstNhomTaiKhoan = await this.service.getDanhSachTaiKhoanPhongBan(
-            this.timKiemDanhSach
-        );
+        try {
+            this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
+            this.lstNhomTaiKhoan =
+                await this.service.getDanhSachTaiKhoanPhongBan(
+                    this.timKiemDanhSach
+                );
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public ThemMoi() {

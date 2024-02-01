@@ -44,26 +44,30 @@ export class ChiTietHopThuComponent {
     selectedFiles: any[] = [];
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     public async BindDialogData() {
-        const data = await this.service.getChiTietHopThuById(
-            this.idHopThu,
-            this.idUser
-        );
-        if (data != null) {
-            let itemData = data.objHopThu;
-            if (itemData != null) {
-                itemData.ngayGui = new Date(itemData.ngayGui);
-                this.xemHopThu = {
-                    thongTinNguoiGui: itemData.thongTinNguoiGui,
-                    guiToi: itemData.usersTraoDoi,
-                    tieuDe: itemData.tieuDe,
-                    noiDung: itemData.noiDung,
-                    ngayGui: itemData.ngayGui,
-                };
-            }
+        try {
+            const data = await this.service.getChiTietHopThuById(
+                this.idHopThu,
+                this.idUser
+            );
+            if (data != null) {
+                let itemData = data.objHopThu;
+                if (itemData != null) {
+                    itemData.ngayGui = new Date(itemData.ngayGui);
+                    this.xemHopThu = {
+                        thongTinNguoiGui: itemData.thongTinNguoiGui,
+                        guiToi: itemData.usersTraoDoi,
+                        tieuDe: itemData.tieuDe,
+                        noiDung: itemData.noiDung,
+                        ngayGui: itemData.ngayGui,
+                    };
+                }
 
-            this.selectedFiles = data.lstFile;
+                this.selectedFiles = data.lstFile;
+            }
+            this.AllowAction();
+        } catch (error) {
+            console.log(error);
         }
-        this.AllowAction();
     }
 
     public DownloadFile(filepath: string, filename: string) {

@@ -49,20 +49,29 @@ export class CapNhatComponent {
     });
 
     public async BindDialogData() {
-        this.lstNhanParent = await this.service.getDanhSachNhanCha(this.idUser);
-        const data = await this.service.getNhanById(this.id);
-        this.formCapNhat.patchValue({
-            id : data.id,
-            tenHienThi : data.tenHienThi,
-            hienThi : data.hienThi,
-            phanLoai : data.phanLoai,
-            parentId : data.parentId,
-            ghiChu : data.ghiChu,
-            created : new Date(),
-            createdBy : '0',
-        });
+        try {
+            this.lstNhanParent = await this.service.getDanhSachNhanCha(
+                this.idUser
+            );
+            const data = await this.service.getNhanById(this.id);
+            this.formCapNhat.patchValue({
+                id: data.id,
+                tenHienThi: data.tenHienThi,
+                hienThi: data.hienThi,
+                phanLoai: data.phanLoai,
+                parentId: data.parentId,
+                ghiChu: data.ghiChu,
+                created: new Date(),
+                createdBy: '0',
+            });
 
-        this.selectedNodes = this.findNodeByData(this.lstNhanParent, data.parentId);
+            this.selectedNodes = this.findNodeByData(
+                this.lstNhanParent,
+                data.parentId
+            );
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     findNodeByData(tree, searchData) {

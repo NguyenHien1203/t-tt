@@ -43,8 +43,12 @@ export class BieuDoThongKeTheoLinhVucComponent {
     }
 
     // Tìm kiếm danh sách
-    public async LoadDanhSach() {
-        this.objDataBieuDo = await this.service.getDaTaBieuDo(this.idDonVi);
+    public async LoadDanhSach(): Promise<void> {
+        try {
+            this.objDataBieuDo = await this.service.getDaTaBieuDo(this.idDonVi);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     getCustomStyle(status: string): any {

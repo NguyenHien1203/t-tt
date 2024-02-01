@@ -44,7 +44,7 @@ export class CapNhatKetQuaComponent {
         ngayKetThuc: ['', []],
     });
 
-    public async BindDataDialog() {
+    public BindDataDialog() {
         this.donViCaNhanTraLoi = this.authService.GetmUserInfo().tenDonVi ?? '';
 
         this.service

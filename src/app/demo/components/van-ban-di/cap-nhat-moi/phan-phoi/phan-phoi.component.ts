@@ -53,42 +53,46 @@ export class PhanPhoiComponent {
     });
 
     public async BindDataDialog() {
-        this.service.getVanBanById(this.id).then(
-            (data) => {
-                if (data.isError) {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: data.title,
-                    });
-                } else {
-                    this.ThongTinVanBan = data.objVanBan;
-                    this.ThongTinFile = data.lstFile;
+        try {
+            this.service.getVanBanById(this.id).then(
+                (data) => {
+                    if (data.isError) {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: data.title,
+                        });
+                    } else {
+                        this.ThongTinVanBan = data.objVanBan;
+                        this.ThongTinFile = data.lstFile;
+                    }
+                },
+                (error) => {
+                    console.log('Error', error);
                 }
-            },
-            (error) => {
-                console.log('Error', error);
-            }
-        );
+            );
 
-        const selectedPhongBans = await this.service.getPhongBanSelected(
-            this.id,
-            this.idDonViLamViec
-        );
+            const selectedPhongBans = await this.service.getPhongBanSelected(
+                this.id,
+                this.idDonViLamViec
+            );
 
-        this.phongBans = this.phongBans.map((phongBan) => ({
-            ...phongBan,
-            check: selectedPhongBans.includes(Number(phongBan.value)),
-        }));
-        this.isCheckedAll =
-            this.phongBans.filter((x) => x.check == true).length ===
-            this.phongBans.length;
+            this.phongBans = this.phongBans.map((phongBan) => ({
+                ...phongBan,
+                check: selectedPhongBans.includes(Number(phongBan.value)),
+            }));
+            this.isCheckedAll =
+                this.phongBans.filter((x) => x.check == true).length ===
+                this.phongBans.length;
 
-        this.service
-            .getDanhSachCaNhanDaPhanPhoi(this.id, this.idDonViLamViec) //bind cá nhân phòng ban đã gửi từ db
-            .then((data) => {
-                this.lstUserNhan = data;
-            });
+            this.service
+                .getDanhSachCaNhanDaPhanPhoi(this.id, this.idDonViLamViec) //bind cá nhân phòng ban đã gửi từ db
+                .then((data) => {
+                    this.lstUserNhan = data;
+                });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public Thoat(): void {

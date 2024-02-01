@@ -62,47 +62,56 @@ export class CapNhatComponent {
     });
 
     public async BindDialogData() {
-        await this.LoadDanhMuc();
+        try {
+            await this.LoadDanhMuc();
 
-        const objData = await this.service.getPhieuTrinhById(this.id);
-        let data = objData?.objPhieuTrinh;
-        this.lstFileDuThao = objData?.listFileDuThao.map((data) => {
-            return { ...data, isNew: false, isDelete: false };
-        });
-        this.lstFileLienQuan = objData?.listFileLienQuan.map((data) => {
-            return { ...data, isNew: false, isDelete: false };
-        });
-        this.formCapNhat.patchValue({
-            id: data.id,
-            tenPhieuTrinh: data.tenPhieuTrinh,
-            kinhGuiId: data.kinhGuiId,
-            nguoiTrinhId: data.nguoiTrinhId,
-            nguoiDuyetId: data.nguoiDuyetId,
-            nguoiKyId: data.nguoiKyId,
-            vanBanLienQuanId: data.vanBanLienQuanId,
-            trichYeuDuThaoVanBan: data.trichYeuDuThaoVanBan,
-            trichYeuVanBanDen: data.trichYeuVanBanDen,
-            tenNguoiTrinh: data.tenNguoiTrinh,
-            vanDeTrinh: data.vanDeTrinh,
-            trangThai: data.trangThai,
-        });
+            const objData = await this.service.getPhieuTrinhById(this.id);
+            let data = objData?.objPhieuTrinh;
+            this.lstFileDuThao = objData?.listFileDuThao.map((data) => {
+                return { ...data, isNew: false, isDelete: false };
+            });
+            this.lstFileLienQuan = objData?.listFileLienQuan.map((data) => {
+                return { ...data, isNew: false, isDelete: false };
+            });
+            this.formCapNhat.patchValue({
+                id: data.id,
+                tenPhieuTrinh: data.tenPhieuTrinh,
+                kinhGuiId: data.kinhGuiId,
+                nguoiTrinhId: data.nguoiTrinhId,
+                nguoiDuyetId: data.nguoiDuyetId,
+                nguoiKyId: data.nguoiKyId,
+                vanBanLienQuanId: data.vanBanLienQuanId,
+                trichYeuDuThaoVanBan: data.trichYeuDuThaoVanBan,
+                trichYeuVanBanDen: data.trichYeuVanBanDen,
+                tenNguoiTrinh: data.tenNguoiTrinh,
+                vanDeTrinh: data.vanDeTrinh,
+                trangThai: data.trangThai,
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public async LoadDanhMuc() {
-        const lanhDaoKyData = await this.service.getDanhSachLanhDaoKy(
-            this.idDonViLamViec
-        );
-        this.lstlanhDaoKy = lanhDaoKyData;
+        try {
+            const lanhDaoKyData = await this.service.getDanhSachLanhDaoKy(
+                this.idDonViLamViec
+            );
+            this.lstlanhDaoKy = lanhDaoKyData;
 
-        const lanhDaoDuyetData = await this.service.getDanhSachLanhDaoDuyet(
-            this.idDonViLamViec
-        );
-        this.lstLanhDaoDuyet = lanhDaoDuyetData;
+            const lanhDaoDuyetData = await this.service.getDanhSachLanhDaoDuyet(
+                this.idDonViLamViec
+            );
+            this.lstLanhDaoDuyet = lanhDaoDuyetData;
 
-        const vanBanLienQuanData = await this.service.getDanhSachVanBanLienQuan(
-            this.idDonViLamViec
-        );
-        this.lstVanBanLienQuan = vanBanLienQuanData;
+            const vanBanLienQuanData =
+                await this.service.getDanhSachVanBanLienQuan(
+                    this.idDonViLamViec
+                );
+            this.lstVanBanLienQuan = vanBanLienQuanData;
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public Thoat(): void {

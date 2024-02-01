@@ -48,7 +48,7 @@ export class ThuHoiComponent {
   userId = this.authService.GetmUserInfo()?.userId;
   idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
-  public async BindDataDialog() {
+  public BindDataDialog() {
     this.lyDoThuHoi = "";
     this.lstSelectedVanBan = [];
       this.service.getVanBanById(this.id).then(

@@ -54,10 +54,14 @@ export class NhomTaiKhoanDonViComponent {
     }
 
     public async LoadDanhSach() {
-        this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
-        this.lstNhomTaiKhoan = await this.service.getDanhSachTaiKhoanDonVi(
-            this.timKiemDanhSach
-        );
+        try {
+            this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
+            this.lstNhomTaiKhoan = await this.service.getDanhSachTaiKhoanDonVi(
+                this.timKiemDanhSach
+            );
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     public ThemMoi() {

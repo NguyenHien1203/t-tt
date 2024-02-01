@@ -74,47 +74,51 @@ export class SoanThuComponent implements OnInit {
     }
 
     async ngOnInit() {
-        const data = await this.service.getMenuNhanCaNhan(
-            Number(this.authService.GetmUserInfo()?.userId ?? '0')
-        );
+        try {
+            const data = await this.service.getMenuNhanCaNhan(
+                Number(this.authService.GetmUserInfo()?.userId ?? '0')
+            );
 
-        this.lstNhanCaNhan = this.BindRouterLinkForTree(data);
+            this.lstNhanCaNhan = this.BindRouterLinkForTree(data);
 
-        this.MenuItems = [
-            {
-                label: 'Soạn thư',
-                icon: 'pi pi-file-edit',
-                routerLink: ['/trao-doi-thong-tin/soan-thu'],
-            },
-            {
-                label: 'Hộp thư đến',
-                icon: 'pi pi-envelope',
-                routerLink: ['/trao-doi-thong-tin/hop-thu-den'],
-            },
-            {
-                label: 'Hộp thư đi',
-                icon: 'pi pi-send',
-                routerLink: ['/trao-doi-thong-tin/hop-thu-di'],
-            },
-            {
-                label: 'Thư nháp',
-                icon: 'pi pi-clone',
-                routerLink: ['/trao-doi-thong-tin/hop-thu-nhap'],
-            },
-            {
-                label: 'Thư quan trọng',
-                icon: 'pi pi-flag-fill',
-                routerLink: ['/trao-doi-thong-tin/hop-thu-quan-trong'],
-            },
-            {
-                label: 'Nhãn trao đổi cá nhân',
-                icon: 'pi pi-tags',
-                items: this.lstNhanCaNhan,
-            },
-        ];
+            this.MenuItems = [
+                {
+                    label: 'Soạn thư',
+                    icon: 'pi pi-file-edit',
+                    routerLink: ['/trao-doi-thong-tin/soan-thu'],
+                },
+                {
+                    label: 'Hộp thư đến',
+                    icon: 'pi pi-envelope',
+                    routerLink: ['/trao-doi-thong-tin/hop-thu-den'],
+                },
+                {
+                    label: 'Hộp thư đi',
+                    icon: 'pi pi-send',
+                    routerLink: ['/trao-doi-thong-tin/hop-thu-di'],
+                },
+                {
+                    label: 'Thư nháp',
+                    icon: 'pi pi-clone',
+                    routerLink: ['/trao-doi-thong-tin/hop-thu-nhap'],
+                },
+                {
+                    label: 'Thư quan trọng',
+                    icon: 'pi pi-flag-fill',
+                    routerLink: ['/trao-doi-thong-tin/hop-thu-quan-trong'],
+                },
+                {
+                    label: 'Nhãn trao đổi cá nhân',
+                    icon: 'pi pi-tags',
+                    items: this.lstNhanCaNhan,
+                },
+            ];
 
-        this.LoadDanhMuc();
-        this.XuLySoanThu();
+            this.LoadDanhMuc();
+            this.XuLySoanThu();
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     onReady($event) {

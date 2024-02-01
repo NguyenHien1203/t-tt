@@ -10,7 +10,7 @@ import { TimKiemDanhSachDBGCV } from 'src/app/models/cong-viec/duyet-ban-giao-co
     templateUrl: './duyet-ban-giao-cong-viec.component.html',
     styleUrls: ['./duyet-ban-giao-cong-viec.component.scss'],
     providers: [MessageService, ConfirmationService],
-})
+}) 
 export class DuyetBanGiaoCongViecComponent {
     constructor(
         private service: DuyetBanGiaoCongViecService,

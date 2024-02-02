@@ -10,7 +10,7 @@ import { DuyetBanGiaoCongViecService } from 'src/app/demo/service/cong-viec/duye
     styleUrls: ['./tu-choi-duyet-cong-viec.component.scss'],
 })
 export class TuChoiDuyetCongViecComponent {
-    @Input() hienThi: boolean = false;
+    @Input() hienThi: boolean = false; 
     @Output() close = new EventEmitter<boolean>();
     @Input() id: string = '';
 
@@ -34,4 +34,5 @@ export class TuChoiDuyetCongViecComponent {
       this.close.emit(this.hienThi);
       this.formTuChoi.reset();
     }
+    
 }

@@ -1,0 +1,186 @@
+<div class="grid">
+    <div class="col-12 pb-0">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12 mb-0 pb-0">
+                <p-breadcrumb
+                    class="max-w-full"
+                    [model]="items"
+                    [home]="home"
+                ></p-breadcrumb>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="wrapper">
+                <h2>DANH SÁCH BÀN GIAO CÔNG VIỆC</h2>
+                <div class="icon-cls">
+                    <button
+                        pButton
+                        pRipple
+                        label="Thêm mới"
+                        icon="pi pi-plus"
+                        (click)="ThemCongViec()"
+                        class="p-button-success"
+                    ></button>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-12">
+                    <p-table
+                        [paginator]="true"
+                        #dt1
+                        [value]="traCuuDonGians"
+                        dataKey="id"
+                        [rows]="10"
+                        [loading]="loading"
+                        [rowsPerPageOptions]="[10, 20, 30]"
+                        [rowHover]="true"
+                        styleClass="p-datatable-gridlines"
+                        responsiveLayout="scroll"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 2%">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        STT
+                                    </div>
+                                </th>
+                                <th style="min-width: 2rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Văn bản
+                                    </div>
+                                </th>
+                                <th style="min-width: 3rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Nội dung công việc
+                                    </div>
+                                </th>
+                                <th style="min-width: 14rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Ngày bắt đầu
+                                    </div>
+                                </th>
+                                <th style="min-width: 14rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Ngày kết thúc
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Trạng thái công việc
+                                    </div>
+                                </th>
+
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Trạng thái đề xuất
+                                    </div>
+                                </th>
+
+                                <th style="min-width: 5rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Vai trò
+                                    </div>
+                                </th>
+
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Chức năng
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template
+                            pTemplate="body"
+                            let-capNhatMoi
+                            let-rowIndex="rowIndex"
+                        >
+                            <tr>
+                                <td style="text-align: center">
+                                    {{ rowIndex + 1 }}
+                                </td>
+                                <td class="text-center">
+                                    {{ capNhatMoi.soKiHieu }}
+                                </td>
+                                <td class="text-center">
+                                    {{ capNhatMoi.trichYeu }}
+                                </td>
+                                <td class="text-center">
+                                    {{
+                                        capNhatMoi.NgayBD
+                                            | date : "dd-MM-yyyy"
+                                    }}
+                                </td>
+                                <td class="text-center">
+                                    {{
+                                        capNhatMoi.NgayKT
+                                            | date : "dd-MM-yyyy"
+                                    }}
+                                </td>
+                                <td>
+                                    {{ capNhatMoi.trangThai }}
+                                </td>
+                              
+                                <td>
+                                    {{ capNhatMoi.trangThai }}
+                                </td>
+                                <td>
+                                    <div class="div-center">
+                                        <button pButton pRipple icon="pi pi-plus"
+                                            class="p-button-rounded p-button-primary mr-2"
+                                            (click)="BanGiaoCongViec(capNhatMoi.id)"></button>
+                                        
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="div-center">
+                                        <button pButton pRipple icon="pi pi-pencil"
+                                            class="p-button-rounded p-button-primary mr-2"
+                                            (click)="CapNhat(capNhatMoi.id)"></button>
+                                        <button pButton pRipple icon="pi pi-trash"
+                                            class="p-button-rounded p-button-warning"
+                                            (click)="Xoa(capNhatMoi.id)"></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="10">No record found.</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="loadingbody">
+                            <tr>
+                                <td colspan="10">
+                                    Loading record data. Please wait.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <app-ban-giao-cong-viec [show]="hienThiBanGiao" (tatPopup)="Thoat($event, 'B')"></app-ban-giao-cong-viec> -->

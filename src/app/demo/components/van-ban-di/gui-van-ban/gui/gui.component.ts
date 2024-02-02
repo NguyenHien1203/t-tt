@@ -48,25 +48,24 @@ export class GuiComponent {
     idPhongBan = this.authService.GetmUserInfo()?.phongBanId;
 
     public BindDataDialog() {
-        
-            this.lstSelectedVanBan = [];
-            this.service.getVanBanById(this.id).then(
-                (data) => {
-                    if (data.isError) {
-                        this.messageService.add({
-                            severity: 'error',
-                            summary: 'Error',
-                            detail: data.title,
-                        });
-                    } else {
-                        this.ThongTinVanBan = data.objVanBan;
-                        this.ThongTinFile = data.lstFile;
-                    }
-                },
-                (error) => {
-                    console.log('Error', error);
+        this.lstSelectedVanBan = [];
+        this.service.getVanBanById(this.id).then(
+            (data) => {
+                if (data.isError) {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: data.title,
+                    });
+                } else {
+                    this.ThongTinVanBan = data.objVanBan;
+                    this.ThongTinFile = data.lstFile;
                 }
-            );
+            },
+            (error) => {
+                console.log('Error', error);
+            }
+        );
     }
 
     //Chặn hành động click vào input sẽ cle hoặc exp
@@ -209,6 +208,7 @@ export class GuiComponent {
             .getTreeDonVi(this.keyWord ?? '', JSON.stringify(this.DsCaNhanNhan))
             .then((data) => {
                 this.treeData = data;
+                setTimeout(() => (this.loading = false), 300);
             });
     }
 
@@ -265,7 +265,7 @@ export class GuiComponent {
             .map((dt) => this.getAllCheckedNodes(dt))
             .flat();
 
-        var lstSelectedOpts = this.DsCaNhanNhan as any[]; //Lấy cá nhân đã selected
+        let lstSelectedOpts = this.DsCaNhanNhan as any[]; //Lấy cá nhân đã selected
         if (lstSelectedOpts === undefined || lstSelectedOpts.length === 0) {
             this.messageService.add({
                 severity: 'error',
@@ -276,29 +276,34 @@ export class GuiComponent {
             //trả ra toast lỗi nếu chưa chọn cá nhân
         }
 
+        let lstCurrentSelected = this.lstDonViNhan.filter(
+            (x) => !lstSelectedOpts.includes(x.value)
+        );
+        
         this.treeData = this.treeData.map((dt) => {
             return {
                 ...dt,
-                checked: lstSelectedOpts.includes(Number(dt.id)),
-                children: dt.children.map((child) => {
+                checked: (
+                    lstCurrentSelected.map((x) => x.value) ?? []
+                ).includes(Number(dt.id)),
+                children: dt.children.map((child: any) => {
                     // Cập nhật checked nếu node con cần cập nhật
                     return {
                         ...child,
-                        checked: lstSelectedOpts.includes(Number(child.id)),
+                        checked: (
+                            lstCurrentSelected.map((x) => x.value) ?? []
+                        ).includes(Number(child.id)),
                     };
                 }),
             };
         });
 
-        this.lstDonViNhan = this.lstDonViNhan.filter((dt) => {
-            if (!lstSelectedOpts.includes(dt.value)) return { ...dt };
-        });
+        this.lstDonViNhan = lstCurrentSelected;
     }
 
     public SearchTreeDonVi(event) {
         if (event.keyCode === 13 || event.type == 'click') {
             this.loading = true;
-            setTimeout(() => (this.loading = false), 1000);
             this.GetTreeDonVi();
         }
     }

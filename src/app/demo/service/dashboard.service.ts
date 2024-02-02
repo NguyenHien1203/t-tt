@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/common/auth.services';
 import {
     TimKiemCongViecDashBoard,
     TimKiemLichCoQuanDashBoard,
@@ -16,7 +18,13 @@ export class DashboardService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDataCongViec(timKiemDanhSach: TimKiemCongViecDashBoard) {
         return this.http
@@ -41,7 +49,6 @@ export class DashboardService {
             .then((res) => res.objData);
     }
 
-    
     getThongTinThongKeDashBoard(timKiemDanhSach: TimKiemThongKeThongTin) {
         return this.http
             .post<any>(

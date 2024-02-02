@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/common/auth.services';
 import {
-    TimKiemDanhSach,
+    TimKiemDanhSachGuiVanBan,
     TimKiemDanhSachVanBan,
 } from 'src/app/models/van-ban-di/gui-van-ban';
 import { environment } from 'src/environments/environment.development';
@@ -21,10 +21,11 @@ export class GuiVanBanService {
         private http: HttpClient,
         private auth: AuthService,
         private router: Router
-    ) {}
-
-    getDanhSachVanBanDi(timKiemDanhSach: TimKiemDanhSach) {
+    ) {
         if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
+
+    getDanhSachVanBanDi(timKiemDanhSach: TimKiemDanhSachGuiVanBan) {
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -35,8 +36,8 @@ export class GuiVanBanService {
             .toPromise()
             .then((res) => res.objData as any[]);
     }
+    
     GetVanBanById(id: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -52,7 +53,7 @@ export class GuiVanBanService {
             'Accept',
             'application/octet-stream'
         );
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+
         return this.http.get(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/GetFile/' + id,
             {
@@ -63,7 +64,6 @@ export class GuiVanBanService {
     }
 
     capNhatVanBanDi(modelThongBao: any) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/CapNhatVanBanDi',
             modelThongBao,
@@ -72,7 +72,6 @@ export class GuiVanBanService {
     }
 
     xoaVanBanDi(idVanBan: string, idDonViLamViec: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/VanBanDi/CapNhatMoi/XoaVanBanDi?idVanBan=' +
@@ -83,7 +82,6 @@ export class GuiVanBanService {
     }
 
     getSoVanBan(idDonViLamViec: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -95,7 +93,6 @@ export class GuiVanBanService {
     }
 
     changeSoVanBan(idSoVanBan: string, idDonViLamViec: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -115,7 +112,6 @@ export class GuiVanBanService {
         soDiHienTai: string,
         soDiHienTaiUpDate: string
     ) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         let itemData = {
             idSoVanBan: idSoVanBan,
             ngayBanHanh: ngayBanHanh,
@@ -134,7 +130,6 @@ export class GuiVanBanService {
     }
 
     getSoKiHieu(idSoVanBan: string, loaiVanBanId: string, soHienTai: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -151,7 +146,6 @@ export class GuiVanBanService {
     }
 
     getDanhSachPhongBan(donViId: string, userName: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -170,7 +164,6 @@ export class GuiVanBanService {
         phongBanId: string,
         userId: string
     ) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -187,7 +180,6 @@ export class GuiVanBanService {
     }
 
     getDanhSachLanhDaoKy(idDonViLamViec: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -200,7 +192,6 @@ export class GuiVanBanService {
     }
 
     changePhongBan(phongBanId: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -212,7 +203,6 @@ export class GuiVanBanService {
     }
 
     changeNhomNguoiDung(nhomNguoiDungId: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -224,7 +214,6 @@ export class GuiVanBanService {
     }
 
     getPhongBanSelected(idVanBan: string, idDonViLamViec: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -238,7 +227,6 @@ export class GuiVanBanService {
     }
 
     getDanhSachCaNhanDaPhanPhoi(idVanBan: string, idDonViLamViec: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -252,7 +240,6 @@ export class GuiVanBanService {
     }
 
     phanPhoi(model: any) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/PhanPhoi',
             model,
@@ -261,7 +248,6 @@ export class GuiVanBanService {
     }
 
     getNhomDonViTheoDinhNghia(userId: string, idDonViLamViec: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -276,7 +262,6 @@ export class GuiVanBanService {
     }
 
     getTreeDonVi(tenDonVi?: string, donViDaChon?: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -294,7 +279,6 @@ export class GuiVanBanService {
         idNhomNguoiDung?: string,
         idDonViLamViec?: string
     ) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -309,7 +293,6 @@ export class GuiVanBanService {
     }
 
     getDanhSachChonVanBan(modelTimKiem: TimKiemDanhSachVanBan) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -322,7 +305,6 @@ export class GuiVanBanService {
     }
 
     guiVanBan(model: any) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/CapNhatMoi/GuiVanBan',
             model,
@@ -335,7 +317,6 @@ export class GuiVanBanService {
         idDonViLamViec: string,
         lyDoLayLai: string
     ) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/VanBanDi/CapNhatMoi/LayLaiVanBan?idVanBan=' +

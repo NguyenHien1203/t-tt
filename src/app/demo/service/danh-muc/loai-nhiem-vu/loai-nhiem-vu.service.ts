@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
     LoaiNhiemVu,
-    TimKiemDanhSach,
+    TimKiemDanhSachLoaiNhiemVu,
 } from 'src/app/models/danh-muc/loai-nhiem-vu/loai-nhiem-vu';
 import { environment } from 'src/environments/environment.development';
 import { map } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class LoaiNhiemVuService {
     };
     constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
 
-    getDanhSachLoaiNhiemVu(timKiemDanhSach: TimKiemDanhSach) {
+    getDanhSachLoaiNhiemVu(timKiemDanhSach: TimKiemDanhSachLoaiNhiemVu) {
        if (!this.auth.CheckLogin())
       this.router.navigate(['/login']);
         return this.http

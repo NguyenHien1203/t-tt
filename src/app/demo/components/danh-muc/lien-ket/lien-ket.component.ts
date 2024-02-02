@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LienKetService } from 'src/app/demo/service/lien-ket/lien-ket.service';
 import {
     LienKet,
-    TimKiemDanhSach,
+    TimKiemDanhSachLienKet,
 } from 'src/app/models/danh-muc/lien-ket/lien-ket';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
@@ -25,7 +25,7 @@ export class LienKetComponent implements OnInit {
     id: any = '';
     home: any = { icon: 'pi pi-home', routerLink: '/' };
     lienKetDialog: boolean = false;
-    timKiemDanhSach: TimKiemDanhSach = {
+    timKiemDanhSach: TimKiemDanhSachLienKet = {
         keyWord: '',
         tuNgay: new Date(),
         denNgay: new Date(),

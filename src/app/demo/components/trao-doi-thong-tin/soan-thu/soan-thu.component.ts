@@ -161,15 +161,17 @@ export class SoanThuComponent implements OnInit {
                                 };
                             }); //bind file
                             if (itemData != null) {
+                                console.log(itemData);
+
                                 if (this.type == LoaiHinhTraoDoi.Reply) {
                                     this.tieuDe = 'Reply: ' + itemData.tieuDe;
-                                    this.lstSelectedNguoiDung = (
-                                        itemData.usersTraoDoi as string
-                                    )
-                                        .split(',')
-                                        .filter((us) => us !== '')
-                                        .map((us) => {
-                                            return { text: us };
+                                    this.lstSelectedNguoiDung = this.lstNguoiDungFilter
+                                        .filter(
+                                            (dt) =>
+                                                dt.id == itemData?.nguoiGuiId
+                                        )
+                                        .map((dt) => {
+                                            return { text: dt.userName };
                                         });
                                 }
 

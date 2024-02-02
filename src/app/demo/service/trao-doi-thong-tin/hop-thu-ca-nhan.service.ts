@@ -6,27 +6,31 @@ import { TimKiemDanhSach } from 'src/app/models/trao-doi-thong-tin/hop-thu-ca-nh
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class HopThuCaNhanService {
-  private httpOption = {
-    headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-    }),
-};
-constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    private httpOption = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+        }),
+    };
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
-getDanhSachHopThuCaNhan(timKiemDanhSach: TimKiemDanhSach) {
-   if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
-    return this.http
-        .post<any>(
-            environment.baseUrlApi +
-                '/TraoDoiThongTin/HopThuCaNhan/GetDanhSachHopThuCaNhan',
-            timKiemDanhSach,
-            this.httpOption
-        )
-        .toPromise()
-        .then((res) => res.objData as any[]);
-}
+    getDanhSachHopThuCaNhan(timKiemDanhSach: TimKiemDanhSach) {
+        return this.http
+            .post<any>(
+                environment.baseUrlApi +
+                    '/TraoDoiThongTin/HopThuCaNhan/GetDanhSachHopThuCaNhan',
+                timKiemDanhSach,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData as any[]);
+    }
 }

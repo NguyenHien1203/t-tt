@@ -6,7 +6,7 @@ export interface LoaiNhiemVu {
 }
 
 
-export interface TimKiemDanhSach {
+export interface TimKiemDanhSachLoaiNhiemVu {
     keyWord?: string,
     moTa?: string,
     timChinhXac? : number,

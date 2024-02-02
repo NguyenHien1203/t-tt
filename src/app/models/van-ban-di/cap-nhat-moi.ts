@@ -1,7 +1,7 @@
 export interface CapNhatMoi {
 }
 
-export interface TimKiemDanhSach {
+export interface TimKiemDanhSachCapNhatMoi {
     keyWord?: string,
     soVanBanId?: number,
     vanBanId?: number,

@@ -258,6 +258,16 @@
                                         label="Hộp thư đến"
                                         icon="pi pi-envelope"
                                     ></p-chip>
+                                    <p-chip
+                                        *ngIf="item.chkThuDi == 1"
+                                        label="Hộp thư đến"
+                                        icon="pi pi-send"
+                                    ></p-chip>
+                                    <p-chip
+                                        *ngIf="item.chkThuNhap == 1"
+                                        label="Hộp thư nháp"
+                                        icon="pi pi-clone"
+                                    ></p-chip>
                                     &nbsp; {{ item.tieuDe }}
                                 </td>
                                 <td>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { LoaiNhiemVuService } from 'src/app/demo/service/danh-muc/loai-nhiem-vu/loai-nhiem-vu.service';
-import { TimKiemDanhSach } from 'src/app/models/danh-muc/loai-nhiem-vu/loai-nhiem-vu';
+import { TimKiemDanhSachLoaiNhiemVu } from 'src/app/models/danh-muc/loai-nhiem-vu/loai-nhiem-vu';
 
 @Component({
   selector: 'app-loai-nhiem-vu',
@@ -20,7 +20,7 @@ export class LoaiNhiemVuComponent implements OnInit {
   }
 
   timChinhXac: boolean = false;
-  timKiemDanhSach: TimKiemDanhSach = {
+  timKiemDanhSach: TimKiemDanhSachLoaiNhiemVu = {
     keyWord: "",
     moTa: "",
     timChinhXac: 0,
@@ -34,7 +34,7 @@ export class LoaiNhiemVuComponent implements OnInit {
   items: any[] = [{ label: 'Danh mục' }, { label: 'Loại nhiệm vụ' }];
   id: string = "";
 
-  LoadDanhSach(timKiemDanhSach: TimKiemDanhSach) {
+  LoadDanhSach(timKiemDanhSach: TimKiemDanhSachLoaiNhiemVu) {
     this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
     this.service.getDanhSachLoaiNhiemVu(timKiemDanhSach).then(data => { this.loaiNhiemVus = data })
   }

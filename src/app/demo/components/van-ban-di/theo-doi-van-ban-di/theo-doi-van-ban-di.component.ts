@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { TheoDoiVanBanDiService } from 'src/app/demo/service/van-ban-di/theo-doi-van-ban-di.service';
-import { TimKiemDanhSach } from 'src/app/models/van-ban-di/theo-doi-van-ban-di';
+import { TimKiemDanhSachTheoDoiVanBan } from 'src/app/models/van-ban-di/theo-doi-van-ban-di';
 
 @Component({
     selector: 'app-theo-doi-van-ban-di',
@@ -35,7 +35,7 @@ export class TheoDoiVanBanDiComponent {
     lstTheoDoiVanBanDi: any[] = [];
     items = [{ label: 'Văn bản đi' }, { label: 'Theo dõi văn bản đi' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
-    timKiemDanhSach: TimKiemDanhSach = {
+    timKiemDanhSach: TimKiemDanhSachTheoDoiVanBan = {
         keyWord: '',
         soVanBanId: 0,
         vanBanId: 0,

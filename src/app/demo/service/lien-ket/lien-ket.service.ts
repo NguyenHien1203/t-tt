@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { LienKet } from 'src/app/models/danh-muc/lien-ket/lien-ket';
-import { TimKiemDanhSach } from 'src/app/models/danh-muc/lien-ket/lien-ket';
+import { TimKiemDanhSachLienKet } from 'src/app/models/danh-muc/lien-ket/lien-ket';
 import { AuthService } from 'src/app/common/auth.services';
 import { Router } from '@angular/router';
 @Injectable({
@@ -17,7 +17,7 @@ export class LienKetService {
     };
     constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
 
-    getDanhSachDmLienKet(timKiemDanhSach: TimKiemDanhSach) {
+    getDanhSachDmLienKet(timKiemDanhSach: TimKiemDanhSachLienKet) {
        if (!this.auth.CheckLogin())
       this.router.navigate(['/login']);
         return this.http

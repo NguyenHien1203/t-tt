@@ -23,10 +23,10 @@ export class QuanLyNhanComponent {
     ) {}
 
     lstPhanLoai: modelOptions[] = [
-        { text: 'Trao đổi thông tin', value: 0 },
-        { text: 'Văn bản', value: 1 },
-        { text: 'Hồ sơ', value: 2 },
-        { text: 'Công việc', value: 3 },
+        { text: 'Trao đổi thông tin', value: 1 },
+        { text: 'Văn bản', value: 2 },
+        { text: 'Hồ sơ', value: 3 },
+        { text: 'Công việc', value: 4 },
     ];
     isShowSearch: boolean = false;
     idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';

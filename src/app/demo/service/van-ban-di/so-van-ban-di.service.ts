@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/common/auth.services';
 import {
     SoVanBanDi,
-    TimKiemDanhSach,
+    TimKiemDanhSachSoVanBanDi,
 } from 'src/app/models/van-ban-di/so-van-ban-di';
 import { environment } from 'src/environments/environment.development';
 
@@ -24,11 +24,15 @@ export class SoVanBanDiService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
-    getDanhSachSoVanBanDi(timKiemDanhSach: TimKiemDanhSach) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
+    getDanhSachSoVanBanDi(timKiemDanhSach: TimKiemDanhSachSoVanBanDi) {
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -41,8 +45,6 @@ export class SoVanBanDiService {
     }
 
     getSoVanBan(idDonViLamViec: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -54,8 +56,6 @@ export class SoVanBanDiService {
     }
 
     changeSoVanBan(idSoVanBan: string, idDonViLamViec: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -68,19 +68,15 @@ export class SoVanBanDiService {
             .then((data) => data.objData as any[]);
     }
 
-    exportWord(timKiemDanhSach: TimKiemDanhSach) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
+    exportWord(timKiemDanhSach: TimKiemDanhSachSoVanBanDi) {
         return this.http.post<any>(
-          environment.baseUrlApi + '/VanBanDi/SoVanBanDi/ExportWord',
-          timKiemDanhSach,
-          this.httpOptionFile
+            environment.baseUrlApi + '/VanBanDi/SoVanBanDi/ExportWord',
+            timKiemDanhSach,
+            this.httpOptionFile
         );
     }
 
-    exportExcel(timKiemDanhSach: TimKiemDanhSach) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
+    exportExcel(timKiemDanhSach: TimKiemDanhSachSoVanBanDi) {
         return this.http.post(
             environment.baseUrlApi + '/VanBanDi/SoVanBanDi/ExportExcel',
             timKiemDanhSach,

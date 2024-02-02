@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         private authService: AuthService,
         private router: Router
     ) {
+        if (!this.authService.CheckLogin()) this.router.navigate(['/login']);
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
             this.initChart();
         });

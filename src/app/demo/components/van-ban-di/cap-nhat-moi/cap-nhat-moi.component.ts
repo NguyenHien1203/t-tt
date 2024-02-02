@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { CapNhatMoiService } from 'src/app/demo/service/van-ban-di/cap-nhat-moi.service';
-import { TimKiemDanhSach } from 'src/app/models/van-ban-di/cap-nhat-moi';
+import { TimKiemDanhSachCapNhatMoi } from 'src/app/models/van-ban-di/cap-nhat-moi';
 
 @Component({
     selector: 'app-cap-nhat-moi',
@@ -36,7 +36,7 @@ export class CapNhatMoiComponent implements OnInit {
     capNhatMois: any[] = [];
     items = [{ label: 'Văn bản đi' }, { label: 'Cập nhật mới' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
-    timKiemDanhSach: TimKiemDanhSach = {
+    timKiemDanhSach: TimKiemDanhSachCapNhatMoi = {
         keyWord: '',
         soVanBanId: 0,
         vanBanId: 0,

@@ -2,6 +2,8 @@
     min-height: 333px;
 }
 
+
+
 .text-500 {
     color: #343a40;
 }
@@ -31,6 +33,10 @@
     border-collapse: collapse; // Use separate instead of collapse
     border-spacing: 0px;
     width: 100%;
+
+    tr.hightlight{
+        background:#a8adb1;
+    }
 
     th {
         background: #f8f9fa;

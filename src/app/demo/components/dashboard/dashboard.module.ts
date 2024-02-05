@@ -11,9 +11,13 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { DashboardsRoutingModule } from './dashboard-routing.module';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
     imports: [
+        DialogModule,
+        FullCalendarModule,
         TabViewModule,
         ButtonModule,
         CalendarModule,

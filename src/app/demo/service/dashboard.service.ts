@@ -48,6 +48,18 @@ export class DashboardService {
             .toPromise()
             .then((res) => res.objData);
     }
+    
+    getDanhSachLichCoQuanFullCalendar(timKiemDanhSach: TimKiemLichCoQuanDashBoard) {
+        return this.http
+            .post<any>(
+                environment.baseUrlApi +
+                    '/Menu/DashBoard/GetLichCoQuanFullCalendar',
+                timKiemDanhSach,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData);
+    }
 
     getThongTinThongKeDashBoard(timKiemDanhSach: TimKiemThongKeThongTin) {
         return this.http

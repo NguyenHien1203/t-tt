@@ -402,7 +402,7 @@
     </div>
     <div class="col-12 md:col-12 xl:col-12">
         <div class="card">
-            <p-tabView>
+            <p-tabView (onChange)="clickCalendar($event)">
                 <p-tabPanel header="Lịch công tác {{ currentDate }}">
                     <div class="table-container">
                         <table class="custom-table">
@@ -875,7 +875,29 @@
                         </table>
                     </div>
                 </p-tabPanel>
+                <p-tabPanel header="Lịch công tác {{ headerCalendar }}">
+                    <div class="card">
+                        <full-calendar
+                            #fullcalendar
+                            [options]="calendarOptions"
+                        ></full-calendar>
+                    </div>
+                </p-tabPanel>
             </p-tabView>
         </div>
     </div>
 </div>
+<p-dialog
+    header="Chi tiết cuộc họp"
+    [(visible)]="displayDialog"
+    [modal]="true"
+    [closable]="true"
+    [resizable]="false"
+    [dismissableMask]="true"
+>
+    <div *ngIf="eventDetails">
+        <h3>{{ eventDetails.title }}</h3>
+        <p>Thời gian: {{ eventDetails.start | date : "dd/MM/yyyy hh:mm a" }}</p>
+        <!-- Thêm các chi tiết khác bạn muốn hiển thị -->
+    </div>
+</p-dialog>

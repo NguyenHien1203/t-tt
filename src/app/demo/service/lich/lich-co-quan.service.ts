@@ -113,7 +113,7 @@ export class LichCoQuanService {
       this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
-                '/Lich/LichCoQuan/XuLyLichCoQuan?idLichCoQuan=' +
+                '/Lich/QuanTriLich/XuLyQuanTriLich?idQuanTriLich=' +
                 idLichCoQuan +
                 '&action=' +
                 action,

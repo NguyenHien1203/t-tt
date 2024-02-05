@@ -14,13 +14,17 @@ export class QuanTriLichPhongBanService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachQuanTriLichPhongBan(
         timKiemDanhSach: TimKiemQuanTriLichPhongBan
     ) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -33,8 +37,6 @@ export class QuanTriLichPhongBanService {
     }
 
     getCurrentWeekAndYear(tuan: number, nam: number) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -49,8 +51,6 @@ export class QuanTriLichPhongBanService {
     }
 
     getQuanTriLichPhongBanById(idQuanTriLichPhongBan: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -63,8 +63,6 @@ export class QuanTriLichPhongBanService {
     }
 
     capNhatQuanTriLichPhongBan(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/Lich/QuanTriLichPhongBan/CapNhatQuanTriLichPhongBan',
@@ -74,8 +72,6 @@ export class QuanTriLichPhongBanService {
     }
 
     themMoiQuanTriLichPhongBan(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/Lich/QuanTriLichPhongBan/ThemMoiQuanTriLichPhongBan',
@@ -85,8 +81,6 @@ export class QuanTriLichPhongBanService {
     }
 
     xoaQuanTriLichPhongBan(idQuanTriLichPhongBan: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Lich/QuanTriLichPhongBan/XoaQuanTriLichPhongBan/' +
@@ -96,8 +90,6 @@ export class QuanTriLichPhongBanService {
     }
 
     getDanhSachLichThuDaThem(tuNgay: string, denNgay: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +

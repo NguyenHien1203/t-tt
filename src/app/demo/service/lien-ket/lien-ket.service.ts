@@ -15,11 +15,15 @@ export class LienKetService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachDmLienKet(timKiemDanhSach: TimKiemDanhSachLienKet) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi + '/DanhMuc/DanhMucLienKet/GetDanhSach',
@@ -30,8 +34,6 @@ export class LienKetService {
             .then((res) => res.objData.listDanhSach as LienKet[]);
     }
     getDmLienKetById(id: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return (
             this.http
                 .get<any>(
@@ -48,8 +50,6 @@ export class LienKetService {
     }
 
     themMoiLienKet(modelLienKet: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/DanhMuc/DanhMucLienKet/ThemMoiDanhMucLienKet',
@@ -59,8 +59,6 @@ export class LienKetService {
     }
 
     capNhatLienKet(modelLienKet: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/DanhMuc/DanhMucLienKet/CapNhatDanhMucLienKet',
@@ -70,8 +68,6 @@ export class LienKetService {
     }
 
     xoaLienKet(id: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/DanhMuc/DanhMucLienKet/DeleteDanhMucLienKet/' +

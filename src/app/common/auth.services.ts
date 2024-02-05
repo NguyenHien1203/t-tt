@@ -19,34 +19,32 @@ export class AuthService {
     public async CheckLogin(): Promise<boolean> {
         let status = false;
         if (this.cookieService.get('isLoggedIn') == 'true') {
-            if (this.CheckTokenExpired(this.GetToken())) {
-                const refreshThreshold = 1 * 30 * 1000; //30 second
-                const tokenExpirationDate = this.GetTokenExpirationDate(
-                    this.GetToken()
-                );
-                if (
-                    tokenExpirationDate &&
-                    tokenExpirationDate - new Date().getTime() <
-                        refreshThreshold
-                ) {
-                }
+            const token = this.GetToken();
+            if (token && !this.CheckTokenExpired(token)) {
+                return true;
+            }
+            const refreshThreshold = 1 * 30 * 1000; //30 second
+            const tokenExpirationDate = this.GetTokenExpirationDate(
+                this.GetToken()
+            );
+            if (
+                tokenExpirationDate &&
+                tokenExpirationDate - new Date().getTime() < refreshThreshold
+            ) {
+            }
 
-                let itemData = {
-                    userId: (this.GetmUserInfo()?.userId ?? '0').toString(),
-                    refreshToken: this.GetmUserInfo()?.tokensUser?.refreshToken ?? '',
-                };
-                const response = await this.dangNhapService.RefreshToken(
-                    itemData
-                );
-                if (!response.isError) {
-                    status = true;
-                    this.cookieService.set('token', response.objData);
-                } else {
-                    status = false;
-                    this.DeleteCokie();
-                }
-            } else {
+            let itemData = {
+                userId: (this.GetmUserInfo()?.userId ?? '0').toString(),
+                refreshToken:
+                    this.GetmUserInfo()?.tokensUser?.refreshToken ?? '',
+            };
+            const response = await this.dangNhapService.RefreshToken(itemData);
+            if (!response.isError) {
                 status = true;
+                this.cookieService.set('token', response.objData);
+            } else {
+                status = false;
+                this.DeleteCokie();
             }
         } else {
             status = false;

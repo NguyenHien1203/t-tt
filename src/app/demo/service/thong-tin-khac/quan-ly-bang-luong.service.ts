@@ -21,10 +21,11 @@ export class QuanLyBangLuongService {
         private http: HttpClient,
         private auth: AuthService,
         private router: Router
-    ) {}
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachQuanLyBangLuong(timKiemDanhSach: TimKiemDanhSach) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -37,7 +38,6 @@ export class QuanLyBangLuongService {
     }
 
     getQuanLyBangLuongId(id: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -48,7 +48,6 @@ export class QuanLyBangLuongService {
     }
 
     getFile(id: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         const headers = new HttpHeaders().set(
             'Accept',
             'application/octet-stream'
@@ -65,7 +64,6 @@ export class QuanLyBangLuongService {
     }
 
     themMoiQuanLyBangLuong(modelBangLuong: any) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/ThongTinKhac/QuanLyBangLuong/ThemMoiBangLuong',
@@ -75,7 +73,6 @@ export class QuanLyBangLuongService {
     }
 
     capNhatQuanLyBangLuong(modelBangLuong: any) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/ThongTinKhac/QuanLyBangLuong/CapNhatBangLuong',
@@ -85,7 +82,6 @@ export class QuanLyBangLuongService {
     }
 
     xoaQuanLyBangLuong(id: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/ThongTinKhac/QuanLyBangLuong/DeleteBangLuong/' +

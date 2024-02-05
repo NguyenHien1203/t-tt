@@ -4,7 +4,7 @@
         <div class="formgrid grid">
             <div class="field col md:col-5">
                 <label htmlfor="tenLienKet">Tên liên kết <span class="p-error">(*)</span>:</label>
-                <input pinputtext="" id="tenLienKet" type="text" class="p-inputtext p-component p-element" formControlName="tenLienKet">
+                <input pinputtext="" id="tenLienKet"  type="text" class="p-inputtext p-component p-element" formControlName="tenLienKet">
                 <span class="p-error" *ngIf="!formThemMoi.controls.tenLienKet.valid && (formThemMoi.controls.tenLienKet.touched || submitted)">Vui lòng nhập tên liên kết</span>
             </div>
             <div class="field col">

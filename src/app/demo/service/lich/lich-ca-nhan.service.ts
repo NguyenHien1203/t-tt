@@ -14,11 +14,15 @@ export class LichCaNhanService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachLichCaNhan(timKiemDanhSach: TimKiemLichCaNhan) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -31,8 +35,7 @@ export class LichCaNhanService {
     }
 
     getLichCaNhanById(idLichCaNhan: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -45,30 +48,25 @@ export class LichCaNhanService {
     }
 
     capNhatLichCaNhan(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
-        return this.http
-            .post<any>(
-                environment.baseUrlApi + '/Lich/LichCaNhan/CapNhatLichCaNhan',
-                itemData,
-                this.httpOption
-            )
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+        return this.http.post<any>(
+            environment.baseUrlApi + '/Lich/LichCaNhan/CapNhatLichCaNhan',
+            itemData,
+            this.httpOption
+        );
     }
-    
+
     themMoiLichCaNhan(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
-        return this.http
-            .post<any>(
-                environment.baseUrlApi + '/Lich/LichCaNhan/ThemMoiLichCaNhan',
-                itemData,
-                this.httpOption
-            )
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+        return this.http.post<any>(
+            environment.baseUrlApi + '/Lich/LichCaNhan/ThemMoiLichCaNhan',
+            itemData,
+            this.httpOption
+        );
     }
 
     xoaLichCaNhan(idLichCaNhan: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Lich/LichCaNhan/XoaLichCaNhan/' +

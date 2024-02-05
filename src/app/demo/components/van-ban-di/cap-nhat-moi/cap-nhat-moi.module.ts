@@ -31,9 +31,11 @@ import { GuiVanBanComponent } from './gui-van-ban/gui-van-ban.component';
 import { TreeNodeComponent } from './tree-node/tree-node.component';
 import { ChonVanBanComponent } from './gui-van-ban/chon-van-ban/chon-van-ban.component';
 import { ChiTietVanBanModule } from '../../chi-tiet-van-ban/chi-tiet-van-ban.module';
+import { AutofocusDirective } from 'src/app/autofocus.directive';
 
 @NgModule({
   declarations: [
+    AutofocusDirective,
     CapNhatMoiComponent,
     ThemMoiComponent,
     CapNhatComponent,

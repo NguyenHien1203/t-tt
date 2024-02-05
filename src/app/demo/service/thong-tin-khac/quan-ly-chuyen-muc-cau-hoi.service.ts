@@ -14,11 +14,15 @@ export class QuanLyChuyenMucCauHoiService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachChuyenMucCauHoi(timKiemDanhSach: TimKiemChuyenMucCauHoi) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -30,8 +34,6 @@ export class QuanLyChuyenMucCauHoiService {
             .then((res) => res.objData);
     }
     getChuyenMucCauHoiById(id: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -43,8 +45,6 @@ export class QuanLyChuyenMucCauHoiService {
     }
 
     themMoiChuyenMucCauHoi(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/ThongTinKhac/QuanLyChuyenMucCauHoi/ThemMoiChuyenMucCauHoi',
@@ -54,8 +54,6 @@ export class QuanLyChuyenMucCauHoiService {
     }
 
     capNhatChuyenMucCauHoi(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/ThongTinKhac/QuanLyChuyenMucCauHoi/CapNhatChuyenMucCauHoi',
@@ -65,8 +63,6 @@ export class QuanLyChuyenMucCauHoiService {
     }
 
     xoaChuyenMucCauHoi(id: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/ThongTinKhac/QuanLyChuyenMucCauHoi/XoaChuyenMucCauHoi/' +

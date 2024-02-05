@@ -14,11 +14,15 @@ export class LichUbndTinhService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachLichUBNDTinh(timKiemDanhSach: TimKiemLichUBNDTinh) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -31,8 +35,6 @@ export class LichUbndTinhService {
     }
 
     getLichUBNDTinhById(idLichUBNDTinh: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -45,8 +47,6 @@ export class LichUbndTinhService {
     }
 
     capNhatLichUBNDTinh(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/Lich/LichUBNDTinh/CapNhatLichUBNDTinh',
             itemData,
@@ -55,8 +55,6 @@ export class LichUbndTinhService {
     }
 
     themMoiLichUBNDTinh(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/Lich/LichUBNDTinh/ThemMoiLichUBNDTinh',
             itemData,
@@ -65,8 +63,6 @@ export class LichUbndTinhService {
     }
 
     themMoiLichUBNDTinhTuImportFile(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/Lich/LichUBNDTinh/ThemMoiLichUBNDTinhTuImportFile',
@@ -76,8 +72,6 @@ export class LichUbndTinhService {
     }
 
     xoaLichUBNDTinh(idLichUBNDTinh: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Lich/LichUBNDTinh/XoaLichUBNDTinh/' +

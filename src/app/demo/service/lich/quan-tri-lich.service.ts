@@ -18,10 +18,11 @@ export class QuanTriLichService {
         private http: HttpClient,
         private auth: AuthService,
         private router: Router
-    ) {}
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachQuanTriLich(timKiemDanhSach: TimKiemQuanTriLich) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -34,7 +35,6 @@ export class QuanTriLichService {
     }
 
     getCurrentWeekAndYear(tuan: number, nam: number) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -49,7 +49,6 @@ export class QuanTriLichService {
     }
 
     getQuanTriLichById(idQuanTriLich: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -62,7 +61,6 @@ export class QuanTriLichService {
     }
 
     capNhatQuanTriLich(itemData: any) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/Lich/QuanTriLich/CapNhatQuanTriLich',
             itemData,
@@ -71,7 +69,6 @@ export class QuanTriLichService {
     }
 
     themMoiQuanTriLich(itemData: any) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/Lich/QuanTriLich/ThemMoiQuanTriLich',
             itemData,
@@ -80,7 +77,6 @@ export class QuanTriLichService {
     }
 
     xoaQuanTriLich(idQuanTriLich: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Lich/QuanTriLich/XoaQuanTriLich/' +
@@ -90,7 +86,6 @@ export class QuanTriLichService {
     }
 
     xuLyQuanTriLich(idQuanTriLich: string, action: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Lich/QuanTriLich/XuLyQuanTriLich?idQuanTriLich=' +

@@ -14,11 +14,15 @@ export class LichCoQuanService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachLichCoQuan(timKiemDanhSach: TimKiemLichCoQuan) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -31,8 +35,6 @@ export class LichCoQuanService {
     }
 
     getLichCoQuanById(idLichCoQuan: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -45,8 +47,6 @@ export class LichCoQuanService {
     }
 
     capNhatLichCoQuan(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/Lich/LichCoQuan/CapNhatLichCoQuan',
             itemData,
@@ -55,8 +55,6 @@ export class LichCoQuanService {
     }
 
     themMoiLichCoQuan(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/Lich/LichCoQuan/ThemMoiLichCoQuan',
             itemData,
@@ -65,8 +63,6 @@ export class LichCoQuanService {
     }
 
     themMoiLichCoQuanTuImportFile(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/Lich/LichCoQuan/ThemMoiLichCoQuanTuImportFile',
@@ -76,8 +72,6 @@ export class LichCoQuanService {
     }
 
     taiMauExcel(urlDownLoad: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         const headers = new HttpHeaders().set(
             'Accept',
             'application/octet-stream'
@@ -89,8 +83,6 @@ export class LichCoQuanService {
     }
 
     xoaLichCoQuan(idLichCoQuan: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Lich/LichCoQuan/XoaLichCoQuan/' +
@@ -100,8 +92,6 @@ export class LichCoQuanService {
     }
 
     xuatBanLichCoQuan(idLichCoQuan: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi + '/Lich/LichCoQuan/XuatBan/' + idLichCoQuan,
             this.httpOption
@@ -109,8 +99,6 @@ export class LichCoQuanService {
     }
 
     xuLyLichCoQuan(idLichCoQuan: string, action: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Lich/QuanTriLich/XuLyQuanTriLich?idQuanTriLich=' +

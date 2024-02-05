@@ -17,11 +17,15 @@ export class LoaiNhiemVuService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachLoaiNhiemVu(timKiemDanhSach: TimKiemDanhSachLoaiNhiemVu) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi + '/DanhMuc/LoaiNhiemVu/GetDanhSach',
@@ -32,8 +36,6 @@ export class LoaiNhiemVuService {
             .then((res) => res.objData as LoaiNhiemVu[]);
     }
     getLoaiNhiemVuId(id: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -44,8 +46,6 @@ export class LoaiNhiemVuService {
     }
 
     themMoiLoaiNhiemVu(modelLienKet: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/DanhMuc/LoaiNhiemVu/ThemMoiLoaiNhiemVu',
             modelLienKet,
@@ -54,8 +54,6 @@ export class LoaiNhiemVuService {
     }
 
     capNhatLoaiNhiemVu(modelLienKet: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/DanhMuc/LoaiNhiemVu/CapNhatLoaiNhiemVu',
             modelLienKet,
@@ -64,8 +62,6 @@ export class LoaiNhiemVuService {
     }
 
     xoaLoaiNhiemVu(id: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/DanhMuc/LoaiNhiemVu/DeleteLoaiNhiemVu/' +

@@ -14,11 +14,15 @@ export class MucDoTruyCapService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachMucDoTruyCap(timKiemDanhSach: TimKiemMucDoTruyCap) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -29,14 +33,13 @@ export class MucDoTruyCapService {
             .toPromise()
             .then((res) => res.objData);
     }
-    
+
     getDanhSachPhongBan(idDonVi: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
-                    '/ThongKe/ThongKeMucDoTruyCap/ChangeDonVi/' + idDonVi,
+                    '/ThongKe/ThongKeMucDoTruyCap/ChangeDonVi/' +
+                    idDonVi,
                 this.httpOption
             )
             .toPromise()

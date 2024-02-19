@@ -2,9 +2,8 @@ import { ChucDanhService } from './../../../service/danh-muc/chuc-danh/chuc-danh
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
-import { ChucDanh } from 'src/app/models/danh-muc/chuc-danh';
-import { Search } from 'src/app/models/danh-muc/search.model';
 import { AuthService } from 'src/app/common/auth.services';
+import { ChucDanh, TimKiemChucDanh } from 'src/app/models/danh-muc/chuc-danh/chuc-danh';
 
 @Component({
   templateUrl: './chuc-danh.component.html',
@@ -20,24 +19,18 @@ export class ChucDanhComponent implements OnInit {
   chucDanh: ChucDanh = {};
   cacChucDanh: ChucDanh[] = [];
 
-  timKiem: Search = {};
-  dauVaoTimKiem = {
-    "keyWord": "",
-    "nam": 0,
-    "tuNgay": new Date(),
-    "denNgay": new Date()
-  };
+  timKiemChucDanh: TimKiemChucDanh = {
+    keyWord: "",
+    nam: 0,
+  }
 
   duLieuNhapChucDanh = {
     "id": 0,
     "tenChucDanh": "",
     "thuTu": 0,
     "ghiChu": "",
-    "hienThi": true,
     "donViId": 0,
-    "created": new Date(),
     "createdBy": 0,
-    "lastModified": new Date(),
     "lastModifiedBy": 0,
   }
 
@@ -57,11 +50,11 @@ export class ChucDanhComponent implements OnInit {
     this.breadcrumbItems.push({ label: 'Danh mục' });
     this.breadcrumbItems.push({ label: 'Quản trị chức danh' });
 
-    this.TaiDuLieuCacChucDanh();
+    this.layCacChucDanh();
   }
 
-  TaiDuLieuCacChucDanh() {
-    this.chucDanhService.layCacBanGhi(this.dauVaoTimKiem)
+  layCacChucDanh() {
+    this.chucDanhService.layCacBanGhi(this.timKiemChucDanh)
       .subscribe(data => {
         if (data.isError) {
           this.msgs = [];
@@ -74,24 +67,25 @@ export class ChucDanhComponent implements OnInit {
       })
   }
 
-  TimKiemChucDanh() {
-    this.dauVaoTimKiem.keyWord = this.timKiem.keyWord ?? "";
-    this.TaiDuLieuCacChucDanh();
+  enterSearchRecord(event: any) {
+    if (event.key === "Enter") {
+      this.layCacChucDanh();
+    }
   }
 
-  ThemMoiChucDanh() {
+  themMoiChucDanh() {
     this.chucDanh = {};
     this.submitted = false;
     this.productDialog = true;
     this.header = "Thêm mới chức danh";
   }
 
-  TatPopup() {
+  tatPopup() {
     this.productDialog = false;
     this.submitted = false;
   }
 
-  LuuDuLieuChucDanh() {
+  luuDuLieuChucDanh() {
     this.submitted = true;
 
     if (this.chucDanh.tenChucDanh?.trim()) {
@@ -100,10 +94,9 @@ export class ChucDanhComponent implements OnInit {
       this.duLieuNhapChucDanh.ghiChu = this.chucDanh.ghiChu;
 
       if (this.chucDanh.id) {
-        this.duLieuNhapChucDanh.lastModified = new Date();
         this.duLieuNhapChucDanh.lastModifiedBy = Number(this.authService.GetDonViLamViec());
         this.chucDanhService.capNhat(this.duLieuNhapChucDanh, this.chucDanh.id).subscribe(data => {
-          this.TaiDuLieuCacChucDanh();
+          this.layCacChucDanh();
           if (data.isError) {
             this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
           } else {
@@ -114,7 +107,7 @@ export class ChucDanhComponent implements OnInit {
         this.duLieuNhapChucDanh.donViId = Number(this.authService.GetDonViLamViec());
         this.duLieuNhapChucDanh.createdBy = Number(this.authService.GetDonViLamViec());
         this.chucDanhService.themMoi(this.duLieuNhapChucDanh).subscribe(data => {
-          this.TaiDuLieuCacChucDanh();
+          this.layCacChucDanh();
           if (data.isError) {
             this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
           } else {
@@ -127,7 +120,7 @@ export class ChucDanhComponent implements OnInit {
     }
   }
 
-  CapNhatChucDanh(id: number) {
+  capNhatChucDanh(id: number) {
     this.header = "Cập nhật chức danh"
     this.submitted = false;
     this.productDialog = true;
@@ -136,15 +129,15 @@ export class ChucDanhComponent implements OnInit {
     });
   }
 
-  XoaChucDanh(id: number) {
+  xoaChucDanh(id: number) {
     this.deleteProductDialog = true;
     this.idChucDanh = id;
   }
 
-  XacNhanXoaChucDanh() {
+  xacNhanXoaChucDanh() {
     this.deleteProductDialog = false;
     this.chucDanhService.xoa(this.idChucDanh).subscribe(data => {
-      this.TaiDuLieuCacChucDanh();
+      this.layCacChucDanh();
       if (data.isError) {
         this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
       } else {

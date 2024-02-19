@@ -9,8 +9,8 @@
             <h2>Tìm kiếm</h2>
             <div class="p-fluid p-formgrid grid">
                 <div class="field col-12 md:col-8">
-                    <input id="search-name-title" type="text" pInputText [(ngModel)]="timKiem.keyWord"
-                        placeholder="Tên chức danh">
+                    <input id="search-name-title" type="text" pInputText [(ngModel)]="timKiemChucDanh.keyWord"
+                        (keydown)="enterSearchRecord($event)" placeholder="Tên chức danh">
                 </div>
                 <div class="field col-12 md:col-2 mt-2">
                     <div class="field-checkbox">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="field col-12 md:col-2">
                     <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2"
-                        (click)="TimKiemChucDanh()"></button>
+                        (click)="layCacChucDanh()"></button>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                 <h2>DANH SÁCH CHỨC DANH</h2>
                 <div class="icon-cls">
                     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-success"
-                        (click)="ThemMoiChucDanh()">
+                        (click)="themMoiChucDanh()">
                     </button>
                 </div>
             </div>
@@ -73,10 +73,10 @@
                                     <div class="flex justify-content-center">
                                         <button pButton pRipple icon="pi pi-pencil"
                                             class="p-button-rounded p-button-success mr-2"
-                                            (click)="CapNhatChucDanh(chucDanh.id)"></button>
+                                            (click)="capNhatChucDanh(chucDanh.id)"></button>
                                         <button pButton pRipple icon="pi pi-trash"
                                             class="p-button-rounded p-button-warning"
-                                            (click)="XoaChucDanh(chucDanh.id)"></button>
+                                            (click)="xoaChucDanh(chucDanh.id)"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -116,9 +116,9 @@
 
                     <ng-template pTemplate="footer">
                         <button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-info"
-                            (click)="LuuDuLieuChucDanh()"></button>
+                            (click)="luuDuLieuChucDanh()"></button>
                         <button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-danger"
-                            (click)="TatPopup()"></button>
+                            (click)="tatPopup()"></button>
                     </ng-template>
                 </p-dialog>
 
@@ -129,7 +129,7 @@
                     </div>
                     <ng-template pTemplate="footer">
                         <button pButton pRipple icon="pi pi-check" class="p-button-info" label="Xóa"
-                            (click)="XacNhanXoaChucDanh()"></button>
+                            (click)="xacNhanXoaChucDanh()"></button>
                         <button pButton pRipple icon="pi pi-times" class="p-button-danger" label="Hủy"
                             (click)="deleteProductDialog = false"></button>
                     </ng-template>

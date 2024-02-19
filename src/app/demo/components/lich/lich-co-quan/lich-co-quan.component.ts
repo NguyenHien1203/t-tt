@@ -31,7 +31,7 @@ export class LichCoQuanComponent {
     endOfWeekDate: Date;
     lstTuan: SelectItem[] = [];
     lstNam: SelectItem[] = [];
-    idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
+    idDonViLamViec: string = this.authService.GetmUserInfo()?.donViId ?? '0';
     idNhomQuyen: string = this.authService.GetmUserInfo()?.nhomQuyenId ?? '0';
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     public id: string = '1';

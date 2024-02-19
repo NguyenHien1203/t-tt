@@ -39,7 +39,7 @@ export class ThemMoiComponent {
         { label: 'Buổi chiều', value: '2' },
     ];
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
-    idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
+    idDonViLamViec: string = this.authService.GetmUserInfo()?.donViId ?? '0';
     submitted: boolean = false;
     formThemMoi = this.fb.group({
         id: [0, []],

@@ -34,7 +34,7 @@ export class ImportExcelComponent {
     lstLichImport: any[] = [];
     idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     idNhomQuyen: string = this.authService.GetmUserInfo()?.nhomQuyenId ?? '0';
-    idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
+    idDonViLamViec: string = this.authService.GetmUserInfo()?.donViId ?? '0';
     submitted: boolean = false;
     checkXuatBan: boolean = false;
 

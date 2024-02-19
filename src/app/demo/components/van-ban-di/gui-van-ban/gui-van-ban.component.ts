@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
-import { SpinnerService } from 'src/app/common/spinner.service';
 import { GuiVanBanService } from 'src/app/demo/service/van-ban-di/gui-van-ban.service';
-import { TimKiemDanhSach } from 'src/app/models/van-ban-di/gui-van-ban';
+import { TimKiemDanhSachGuiVanBan } from 'src/app/models/van-ban-di/gui-van-ban';
 
 @Component({
     selector: 'app-gui-van-ban',
@@ -56,7 +55,7 @@ export class GuiVanBanComponent {
         { text: 'VB tuyệt mật', value: '4' },
         { text: 'VB tối mật', value: '5' },
     ];
-    timKiemDanhSach: TimKiemDanhSach = {
+    timKiemDanhSach: TimKiemDanhSachGuiVanBan = {
         keyWord: '',
         soVanBanId: 0,
         vanBanId: 0,

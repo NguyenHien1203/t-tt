@@ -14,11 +14,14 @@ export class XuLyCongViecService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {}
 
     getDanhSachXuLyCongViec(timKiemDanhSach: TimKiemXuLyCongViec) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +

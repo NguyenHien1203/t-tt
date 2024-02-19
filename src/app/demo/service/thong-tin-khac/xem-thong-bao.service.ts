@@ -22,10 +22,11 @@ export class XemThongBaoService {
         private http: HttpClient,
         private auth: AuthService,
         private router: Router
-    ) {}
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getXemThongBaoId(id: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -36,7 +37,6 @@ export class XemThongBaoService {
     }
 
     getFile(id: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         const headers = new HttpHeaders().set(
             'Accept',
             'application/octet-stream'
@@ -51,7 +51,6 @@ export class XemThongBaoService {
     }
 
     getDanhSachXemThongBao(modelTimKiem: TimKiemDanhSach) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +

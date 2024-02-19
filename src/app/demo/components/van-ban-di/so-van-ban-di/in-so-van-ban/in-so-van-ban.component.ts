@@ -22,7 +22,7 @@ export class InSoVanBanComponent {
     lstSoVanBanDi: any[] = [];
     fullName = this.authService.GetmUserInfo()?.fullName;
 
-    ngOnInit(): void {
+     ngOnInit(): void {
         this.route.queryParams.subscribe((params) => {
             if (params['strTrichXuat'] != undefined) {
                 this.strTrichXuat = params['strTrichXuat'];

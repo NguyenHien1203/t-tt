@@ -20,11 +20,15 @@ export class QuanLyThongBaoService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachQuanLyThongBao(timKiemDanhSach: TimKiemDanhSach) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -37,8 +41,6 @@ export class QuanLyThongBaoService {
     }
 
     getQuanLyThongBaoId(id: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -49,8 +51,6 @@ export class QuanLyThongBaoService {
     }
 
     getFile(id: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         const headers = new HttpHeaders().set(
             'Accept',
             'application/octet-stream'
@@ -67,8 +67,6 @@ export class QuanLyThongBaoService {
     }
 
     themMoiQuanLyThongBao(modelThongBao: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/ThongTinKhac/QuanLyThongBao/ThemMoiThongBao',
@@ -78,8 +76,6 @@ export class QuanLyThongBaoService {
     }
 
     guiThongBao(modelThongBao: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/ThongTinKhac/QuanLyThongBao/GuiThongBao',
             modelThongBao,
@@ -88,8 +84,6 @@ export class QuanLyThongBaoService {
     }
 
     getDanhSachDonViDaGui(thongBaoId: string, donViId: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -103,8 +97,6 @@ export class QuanLyThongBaoService {
     }
 
     capNhatQuanLyThongBao(modelThongBao: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/ThongTinKhac/QuanLyThongBao/CapNhatThongBao',
@@ -114,8 +106,6 @@ export class QuanLyThongBaoService {
     }
 
     xoaQuanLyThongBao(id: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/ThongTinKhac/QuanLyThongBao/DeleteThongBao/' +
@@ -124,8 +114,6 @@ export class QuanLyThongBaoService {
     }
 
     getDanhSachPhongBan(donViId: string, userName: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -143,8 +131,6 @@ export class QuanLyThongBaoService {
         phongBanId: string,
         userId: string
     ) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -160,8 +146,6 @@ export class QuanLyThongBaoService {
     }
 
     changePhongBan(phongBanId: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -173,8 +157,6 @@ export class QuanLyThongBaoService {
     }
 
     changeNhomNguoiDung(nhomNguoiDungId: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +

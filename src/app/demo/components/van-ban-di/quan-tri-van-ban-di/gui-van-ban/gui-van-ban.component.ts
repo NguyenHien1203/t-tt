@@ -213,6 +213,7 @@ export class GuiVanBanComponent {
             .getTreeDonVi(this.keyWord ?? '', JSON.stringify(this.DsCaNhanNhan))
             .then((data) => {
                 this.treeData = data;
+                setTimeout(() => (this.loading = false), 300);
             });
     }
 
@@ -280,29 +281,34 @@ export class GuiVanBanComponent {
             //trả ra toast lỗi nếu chưa chọn cá nhân
         }
 
+        let lstCurrentSelected = this.lstDonViNhan.filter(
+            (x) => !lstSelectedOpts.includes(x.value)
+        );
+
         this.treeData = this.treeData.map((dt) => {
             return {
                 ...dt,
-                checked: lstSelectedOpts.includes(Number(dt.id)),
+                checked: (
+                    lstCurrentSelected.map((x) => x.value) ?? []
+                ).includes(Number(dt.id)),
                 children: dt.children.map((child) => {
                     // Cập nhật checked nếu node con cần cập nhật
                     return {
                         ...child,
-                        checked: lstSelectedOpts.includes(Number(child.id)),
+                        checked: (
+                            lstCurrentSelected.map((x) => x.value) ?? []
+                        ).includes(Number(child.id)),
                     };
                 }),
             };
         });
 
-        this.lstDonViNhan = this.lstDonViNhan.filter((dt) => {
-            if (!lstSelectedOpts.includes(dt.value)) return { ...dt };
-        });
+        this.lstDonViNhan = lstCurrentSelected;
     }
 
     public SearchTreeDonVi(event) {
         if (event.keyCode === 13 || event.type == 'click') {
             this.loading = true;
-            setTimeout(() => (this.loading = false), 1000);
             this.GetTreeDonVi();
         }
     }

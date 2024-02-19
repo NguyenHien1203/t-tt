@@ -1,7 +1,7 @@
 export interface TheoDoiVanBanDi {
 }
 
-export interface TimKiemDanhSach {
+export interface TimKiemDanhSachTheoDoiVanBan {
       keyWord?: string,
       soVanBanId?: number,
       vanBanId?: number,

@@ -18,10 +18,11 @@ export class ChiTietVanBanService {
         private http: HttpClient,
         private auth: AuthService,
         private router: Router
-    ) {}
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getVanBanById(id: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi + '/ChiTietVanBan/GetVanBanById/' + id,
@@ -32,7 +33,6 @@ export class ChiTietVanBanService {
     }
 
     getVanBanNhanGuiByVanBanId(idVanBan: string, idDonViLamViec: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -47,7 +47,6 @@ export class ChiTietVanBanService {
     }
 
     getDanhSachVanBanDaGui(idVanBan: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -60,7 +59,6 @@ export class ChiTietVanBanService {
     }
 
     getDanhSachVanBanPhanPhoiDonVi(idVanBan: string, idDonViLamViec: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -77,7 +75,6 @@ export class ChiTietVanBanService {
     }
 
     getDanhSachVanBanPhanPhoiCaNhan(idVanBan: string, idDonViLamViec: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -100,7 +97,6 @@ export class ChiTietVanBanService {
         idNhomQuyen: string,
         idPhongBan: string
     ) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -121,7 +117,6 @@ export class ChiTietVanBanService {
     }
 
     GetDanhSachVanBanLienQuan(idVanBan: string, idDonViLamViec: string) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +

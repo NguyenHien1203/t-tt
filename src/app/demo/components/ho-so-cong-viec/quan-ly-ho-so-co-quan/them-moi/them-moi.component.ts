@@ -140,7 +140,6 @@ export class ThemMoiComponent {
                 format(this.formThemMoi.value.ngayBatDau, 'dd/MM/yyyy')
             )
             .then((data) => {
-                console.log(data);
                 this.formThemMoi.patchValue({
                     ngayKetThuc: new Date(data),
                 });

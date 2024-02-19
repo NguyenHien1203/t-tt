@@ -1,5 +1,5 @@
 import { addWeeks, format, startOfWeek } from 'date-fns';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
@@ -12,22 +12,40 @@ import {
 import { AuthService } from 'src/app/common/auth.services';
 import 'chartjs-plugin-datalabels';
 import { Router } from '@angular/router';
+import {
+    CalendarOptions,
+    DateSelectArg,
+    EventApi,
+    EventClickArg,
+} from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import viLocale from '@fullcalendar/core/locales/vi';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 
 @Component({
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
+    @ViewChild('fullcalendar') calendarComponent: FullCalendarComponent;
     constructor(
         public layoutService: LayoutService,
         private service: DashboardService,
         private authService: AuthService,
         private router: Router
     ) {
+        if (!this.authService.CheckLogin()) this.router.navigate(['/login']);
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
             this.initChart();
         });
     }
+
+    headerCalendar =
+        '(tháng ' +
+        (new Date().getMonth() + 1) +
+        ' năm ' +
+        new Date().getFullYear() +
+        ')';
 
     trHTML = '</tr>';
     idNhomQuyen: string = this.authService.GetmUserInfo()?.nhomQuyenId ?? '0';
@@ -50,9 +68,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     lstLichCoQuanTuan: any[] = [];
     chartData: any;
     chartOptions: any;
+    dataFullCalendar: any = null;
     thongTinThongKe: any;
     routerLinkCongViec: string = '';
     subscription!: Subscription;
+    currentEvents: EventApi[] = [];
+    displayDialog: boolean = false;
+    eventDetails: any;
     timKiemCongViecDashBoard: TimKiemCongViecDashBoard = {
         idNhomQuyen: Number(this.idNhomQuyen),
         idUser: Number(this.idUser),
@@ -60,12 +82,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         tuNgay: '',
         denNgay: '',
     };
-
     timKiemLichCoQuanDashBoard: TimKiemLichCoQuanDashBoard = {
         idDonVi: this.idDonVi?.toString(),
         firstDayOfWeek: '',
     };
-
     timKiemThongTinThongKeDashBoard: TimKiemThongKeThongTin = {
         idUser: this.idUser,
         idPhongBan: this.idPhongBan,
@@ -127,6 +147,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
             const data = await this.service.getDanhSachLichCoQuan(
                 this.timKiemLichCoQuanDashBoard
             );
+
+            const dataFullCalendar =
+                await this.service.getDanhSachLichCoQuanFullCalendar(
+                    this.timKiemLichCoQuanDashBoard
+                );
+
+            this.calendarOptions.events = dataFullCalendar;
+
             this.lstLichCoQuanSang = data?.lstLichCoQuanSang;
             this.lstLichCoQuanChieu = data?.lstLichCoQuanChieu;
             this.lstLichCoQuanTuan = data?.lstLichCoQuanTuan;
@@ -175,6 +203,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             const data = await this.service.getDataCongViec(
                 this.timKiemCongViecDashBoard
             );
+
             this.lstCongViec = data?.lstTheoDoiTienDo || [];
             this.lstTienDo = data?.lstTienDoXuLy || [];
             this.routerLinkCongViec =
@@ -235,6 +264,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
     }
 
+    calendarOptions: CalendarOptions = {
+        plugins: [dayGridPlugin],
+        initialView: 'dayGridMonth',
+        weekends: true,
+        editable: true,
+        selectable: true,
+        selectMirror: true,
+        dayMaxEvents: true,
+        events: [],
+        headerToolbar: {
+            start: 'prev,next today',
+            center: 'title',
+            end: 'dayGridMonth,dayGridWeek,dayGridDay',
+        },
+
+        eventColor: '#378006',
+        locale: viLocale,
+        eventClick: this.handleEventClick.bind(this),
+        eventsSet: this.handleEvents.bind(this),
+    };
+
+    clickCalendar(tabNumber: any): void {
+        if (tabNumber.index === 2) {
+            this.calendarComponent.getApi().render();
+            setTimeout(() => {
+                this.calendarComponent.getApi().updateSize();
+            }, 100); // Sử dụng setTimeout để đảm bảo rằng updateSize được gọi sau khi render hoàn tất
+        }
+    }
+
     getWeek(date: Date): number {
         const startOfYear = startOfWeek(new Date(date.getFullYear(), 0, 1)); //ngày đầu tiên của năm hiện tại
         const difference = date.getTime() - startOfYear.getTime(); //lấy ra milliseconds giây(js) từ đầu năm đến hiện tại
@@ -263,6 +322,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (code === 'QH') return cl + '-bluegray-500';
         if (code === 'DH') return cl + '-yellow-500';
         return '';
+    }
+
+    handleEvents(events: EventApi[]) {
+        this.currentEvents = events;
+    }
+
+    handleEventClick(clickInfo: EventClickArg) {
+        this.eventDetails = clickInfo.event; // Lưu trữ thông tin sự kiện
+        this.displayDialog = true; // Hiển thị dialog
     }
 
     navigateToCongViec(vaiTro: number): void {

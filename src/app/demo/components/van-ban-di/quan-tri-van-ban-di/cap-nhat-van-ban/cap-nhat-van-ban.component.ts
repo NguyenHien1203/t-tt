@@ -7,7 +7,6 @@ import { AuthService } from 'src/app/common/auth.services';
 import { UploadFileService } from 'src/app/demo/service/upload-file.service';
 import { CapNhatMoiService } from 'src/app/demo/service/van-ban-di/cap-nhat-moi.service';
 import { saveAs } from 'file-saver';
-import { TimKiemDanhSach } from 'src/app/models/van-ban-di/cap-nhat-moi';
 
 @Component({
     selector: 'app-cap-nhat-van-ban',

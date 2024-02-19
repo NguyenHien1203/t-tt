@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment.development';
 import { Observable, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { QuanTriVanBanDi } from 'src/app/models/van-ban-di/quan-tri-van-ban-di';
+import { AuthService } from 'src/app/common/auth.services';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -17,7 +19,13 @@ export class QuanTriVanBanDiService {
         }),
     };
 
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     public getLoaiVanBan(id: string) {
         return this.http
@@ -31,7 +39,10 @@ export class QuanTriVanBanDiService {
     getDanhSachDonViDaGui(id: string) {
         return this.http
             .get<any>(
-                `${environment.baseUrlApi}` + this.url + 'GetDanhSachDonViDaGui/' + id
+                `${environment.baseUrlApi}` +
+                    this.url +
+                    'GetDanhSachDonViDaGui/' +
+                    id
             )
             .toPromise()
             .then((data) => data.objData);

@@ -14,11 +14,15 @@ export class LichHdndVaDbqhService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachLichHDNDVaDBQH(timKiemDanhSach: TimKiemLichHDNDVaDBQH) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -31,8 +35,6 @@ export class LichHdndVaDbqhService {
     }
 
     getLichHDNDVaDBQHById(idLichHDNDVaDBQH: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -45,8 +47,6 @@ export class LichHdndVaDbqhService {
     }
 
     capNhatLichHDNDVaDBQH(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/Lich/LichHDNDVaDBQH/CapNhatLichHDNDVaDBQH',
@@ -56,8 +56,6 @@ export class LichHdndVaDbqhService {
     }
 
     themMoiLichHDNDVaDBQH(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/Lich/LichHDNDVaDBQH/ThemMoiLichHDNDVaDBQH',
@@ -67,8 +65,6 @@ export class LichHdndVaDbqhService {
     }
 
     themMoiLichHDNDVaDBQHTuImportFile(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/Lich/LichHDNDVaDBQH/ThemMoiLichHDNDVaDBQHTuImportFile',
@@ -78,8 +74,6 @@ export class LichHdndVaDbqhService {
     }
 
     xoaLichHDNDVaDBQH(idLichHDNDVaDBQH: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Lich/LichHDNDVaDBQH/XoaLichHDNDVaDBQH/' +

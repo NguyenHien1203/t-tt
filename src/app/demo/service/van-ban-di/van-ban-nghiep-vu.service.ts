@@ -18,10 +18,11 @@ export class VanBanNghiepVuService {
         private http: HttpClient,
         private auth: AuthService,
         private router: Router
-    ) {}
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachVanBanDiNghiepVu(timKiemDanhSach: TimKiemDanhSach) {
-        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
         return this.http
             .post<any>(
                 environment.baseUrlApi +

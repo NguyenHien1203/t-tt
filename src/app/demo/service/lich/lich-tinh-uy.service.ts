@@ -14,7 +14,13 @@ export class LichTinhUyService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
     getDanhSachLichTinhUy(timKiemDanhSach: TimKiemLichTinhUy) {
         return this.http
@@ -29,8 +35,6 @@ export class LichTinhUyService {
     }
 
     getLichTinhUyById(idLichTinhUy: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -43,8 +47,6 @@ export class LichTinhUyService {
     }
 
     capNhatLichTinhUy(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/Lich/LichTinhUy/CapNhatLichTinhUy',
             itemData,
@@ -53,8 +55,6 @@ export class LichTinhUyService {
     }
 
     themMoiLichTinhUy(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/Lich/LichTinhUy/ThemMoiLichTinhUy',
             itemData,
@@ -63,8 +63,6 @@ export class LichTinhUyService {
     }
 
     themMoiLichTinhUyTuImportFile(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/Lich/LichTinhUy/ThemMoiLichTinhUyTuImportFile',
@@ -74,8 +72,6 @@ export class LichTinhUyService {
     }
 
     xoaLichTinhUy(idLichTinhUy: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.get<any>(
             environment.baseUrlApi +
                 '/Lich/LichTinhUy/XoaLichTinhUy/' +

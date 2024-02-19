@@ -10,7 +10,7 @@ export interface LienKet {
     thuTu?: number
 }
 
-export interface TimKiemDanhSach {
+export interface TimKiemDanhSachLienKet {
     keyWord?: string,
     nam?: number,
     tuNgay?: Date,

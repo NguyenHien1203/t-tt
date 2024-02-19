@@ -1,10 +1,9 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
-import { first } from 'rxjs';
 import { AuthService } from 'src/app/common/auth.services';
 import { SoVanBanDiService } from 'src/app/demo/service/van-ban-di/so-van-ban-di.service';
-import { TimKiemDanhSach } from 'src/app/models/van-ban-di/so-van-ban-di';
+import { TimKiemDanhSachSoVanBanDi } from 'src/app/models/van-ban-di/so-van-ban-di';
 
 @Component({
     selector: 'app-so-van-ban-di',
@@ -61,7 +60,7 @@ export class SoVanBanDiComponent {
         },
     ];
 
-    timKiemDanhSach: TimKiemDanhSach = {
+    timKiemDanhSach: TimKiemDanhSachSoVanBanDi = {
         loaiTrichXuat: 1,
         nam: new Date().getFullYear(),
         thang: 0,

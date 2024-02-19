@@ -215,9 +215,9 @@ export class AppTopBarComponent implements OnInit {
         ncn: number,
         idTraoDoiUser: string
     ): void {
-        this.topbarService
-            .chuyenTrangThaiHopThu(idTraoDoiUser)
-            .subscribe((data) => {});
+        // this.topbarService
+        //     .chuyenTrangThaiHopThu(idTraoDoiUser)
+        //     .subscribe((data) => {});
         this.traoDoiId = traoDoiId;
         this.nhanCaNhanId = ncn;
         this.hienThiChiTietHopThu = true;

@@ -1,6 +1,6 @@
 export interface SoVanBanDi {}
 
-export interface TimKiemDanhSach {
+export interface TimKiemDanhSachSoVanBanDi {
     loaiTrichXuat?: number;
     nam?: number;
     thang?: number;

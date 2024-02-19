@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnyComponent } from '@fullcalendar/core/preact';
 import { AuthService } from 'src/app/common/auth.services';
-import { TimKiemDanhSach } from 'src/app/models/van-ban-di/theo-doi-van-ban-di';
+import { TimKiemDanhSachTheoDoiVanBan } from 'src/app/models/van-ban-di/theo-doi-van-ban-di';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -15,11 +15,15 @@ export class TheoDoiVanBanDiService {
             'Content-Type': 'application/json',
         }),
     };
-    constructor(private http: HttpClient, private auth: AuthService, private router : Router) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthService,
+        private router: Router
+    ) {
+        if (!this.auth.CheckLogin()) this.router.navigate(['/login']);
+    }
 
-    getDanhSachVanBanDi(timKiemDanhSach: TimKiemDanhSach) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
+    getDanhSachVanBanDi(timKiemDanhSach: TimKiemDanhSachTheoDoiVanBan) {
         return this.http
             .post<any>(
                 environment.baseUrlApi +
@@ -32,8 +36,6 @@ export class TheoDoiVanBanDiService {
     }
 
     getDanhSachBaoCaoVanBanDi(idVanban: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -46,8 +48,6 @@ export class TheoDoiVanBanDiService {
     }
 
     getDonViDaBaoCao(idVanban: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -60,8 +60,6 @@ export class TheoDoiVanBanDiService {
     }
 
     getVanBanById(id: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -73,8 +71,6 @@ export class TheoDoiVanBanDiService {
     }
 
     getFile(id: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         const headers = new HttpHeaders().set(
             'Accept',
             'application/octet-stream'
@@ -89,8 +85,6 @@ export class TheoDoiVanBanDiService {
     }
 
     getSoVanBan(idDonViLamViec: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -102,8 +96,6 @@ export class TheoDoiVanBanDiService {
     }
 
     changeSoVanBan(idSoVanBan: string, idDonViLamViec: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -117,8 +109,6 @@ export class TheoDoiVanBanDiService {
     }
 
     theoDoiVanBanDi(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/TheoDoiVanBanDi/DangKy',
             itemData,
@@ -127,8 +117,6 @@ export class TheoDoiVanBanDiService {
     }
 
     capNhatKetQuaBaoCao(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/TheoDoiVanBanDi/CapNhatKQBC',
             itemData,
@@ -137,8 +125,6 @@ export class TheoDoiVanBanDiService {
     }
 
     guiCanhBao(idVanBan: string, idDonVi: string, noiDungCanhBao: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi +
                 '/VanBanDi/TheoDoiVanBanDi/GuiCanhBao?idVanBan=' +
@@ -152,8 +138,6 @@ export class TheoDoiVanBanDiService {
     }
 
     getDonViDaGui(idDonViNhan: string, idDonViGui: string, idVanBan: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -169,8 +153,6 @@ export class TheoDoiVanBanDiService {
     }
 
     getDanhSachPhongBanSelected(idDonViLamViec: string, idVanBan: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -184,8 +166,6 @@ export class TheoDoiVanBanDiService {
     }
 
     getDanhSachBaoCaoSelected(idVanBan: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -197,8 +177,6 @@ export class TheoDoiVanBanDiService {
     }
 
     getFileKetQuaBaoCao(idVanBan: string, idDonViNhan: string) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -217,8 +195,6 @@ export class TheoDoiVanBanDiService {
         idDonViNhan: string,
         loaiBaoCao: number
     ) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http
             .get<any>(
                 environment.baseUrlApi +
@@ -237,8 +213,6 @@ export class TheoDoiVanBanDiService {
     }
 
     capNhatKetQua(itemData: any) {
-       if (!this.auth.CheckLogin())
-      this.router.navigate(['/login']);
         return this.http.post<any>(
             environment.baseUrlApi + '/VanBanDi/TheoDoiVanBanDi/capNhatKetQua',
             itemData,

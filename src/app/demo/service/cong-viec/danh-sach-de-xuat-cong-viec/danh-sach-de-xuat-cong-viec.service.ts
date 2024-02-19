@@ -2,11 +2,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import {
-    GiaoCongViec,
     TimKiemDanhSachDXCV,
-    TimKiemHSCV,
 } from 'src/app/models/cong-viec/danh-sach-de-xuat-cong-viec';
 import { environment } from 'src/environments/environment.development';
+@Injectable({
+    providedIn: 'root'
+  })
 export class DanhSachDeXuatCongViecService  {
   private httpOption = {
       headers: new HttpHeaders({
@@ -42,15 +43,6 @@ export class DanhSachDeXuatCongViecService  {
           .then((res) => res.objData as any[]);
   }
 
-  //Thêm CV
-  addCoQuan(CQBH: GiaoCongViec): Observable<any> {
-      return this.http.post<any>(
-          environment.baseUrlApi +
-              '/CongViec/DanhSachDeXuatCongViec/ThemMoiBGCV/',
-          CQBH,
-          this.httpOption
-      );
-  }
 
   /**
    * Lấy dữ liệu CV
@@ -110,17 +102,5 @@ export class DanhSachDeXuatCongViecService  {
           )
           .toPromise()
           .then((res) => res.objData);
-  }
-
-  getLstSelectHSCV(timkiem: TimKiemHSCV) {
-      return this.http
-      .post<any>(
-          environment.baseUrlApi +
-              '/CongViec/DanhSachBanGiaoCongViec/GetLstSelectHSCV',
-              timkiem,
-          this.httpOption
-      )
-      .toPromise()
-      .then((res) => res.objData as any[]);
   }
 }

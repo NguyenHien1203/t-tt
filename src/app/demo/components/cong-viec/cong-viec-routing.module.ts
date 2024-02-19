@@ -46,6 +46,14 @@ import { RouterModule } from '@angular/router';
                         (m) => m.DuyetBanGiaoCongViecModule
                     ),
             },
+            {
+                path: 'danh-sach-de-xuat-cong-viec',
+                data: { breadcrumb: 'Button' },
+                loadChildren: () =>
+                    import('./danh-sach-de-xuat-cong-viec/danh-sach-de-xuat-cong-viec.module').then(
+                        (m) => m.DanhSachDeXuatCongViecModule
+                    ),
+            },
         ]),
     ],
     exports: [RouterModule],

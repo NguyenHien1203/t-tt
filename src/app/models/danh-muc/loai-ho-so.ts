@@ -22,3 +22,8 @@ export interface LoaiHoSo {
     lastModified?: string,
     lastModifiedBy?: number
 }
+
+export interface TimKiemLoaiHoSo {
+    keyWord: string;
+    nam: 0;
+}

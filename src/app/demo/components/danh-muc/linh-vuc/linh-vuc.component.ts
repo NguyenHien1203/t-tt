@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LinhVucService } from 'src/app/demo/service/danh-muc/linh-vuc/linh-vuc.service';
-import { LinhVuc } from 'src/app/models/danh-muc/linh-vuc';
+import { LinhVuc, TimKiemLinhVuc } from 'src/app/models/danh-muc/linh-vuc';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
-import { Search } from 'src/app/models/danh-muc/search.model';
 
 @Component({
   selector: 'app-linh-vuc',
@@ -21,12 +20,10 @@ export class LinhVucComponent implements OnInit {
   linhVuc: LinhVuc = {};
   cacLinhVuc: LinhVuc[] = [];
 
-  timKiem: Search = {};
-  dataSearch = {
-    "keyWord": "",
-    "nam": 0,
-    "tuNgay": new Date(),
-    "denNgay": new Date()
+  timKiemLinhVuc: TimKiemLinhVuc = {
+    keyWord: "",
+    ma: "",
+    timChinhXac: 0
   };
 
   submitted: boolean = false;
@@ -35,7 +32,7 @@ export class LinhVucComponent implements OnInit {
   idDelete: Number;
   header: string;
 
-  valCheck: string[] = [];
+  timChinhXac: boolean = false;
   msgs: Message[] = [];
   showCreated: boolean = false;
   showUpdated: boolean = false;
@@ -47,11 +44,12 @@ export class LinhVucComponent implements OnInit {
     this.breadcrumbItems.push({ label: 'Danh mục' });
     this.breadcrumbItems.push({ label: 'Quản trị lĩnh vực' });
 
-    this.GetDanhSachLinhVuc();
+    this.getDanhSachLinhVuc();
   }
 
-  GetDanhSachLinhVuc() {
-    this.linhVucService.getDanhSachLinhVuc(this.dataSearch)
+  getDanhSachLinhVuc() {
+    this.timKiemLinhVuc.timChinhXac = this.timChinhXac ? 1 : 0;
+    this.linhVucService.getDanhSachLinhVuc(this.timKiemLinhVuc)
       .subscribe(data => {
         if (data.isError) {
           this.msgs = [];
@@ -64,9 +62,14 @@ export class LinhVucComponent implements OnInit {
       })
   }
 
-  TimKiemLinhVuc() {
-    this.dataSearch.keyWord = this.timKiem.keyWord ?? "";
-    this.GetDanhSachLinhVuc();
+  CheckCX() {
+    this.timChinhXac = !this.timChinhXac;
+  }
+
+  enterSearchRecord(event: any) {
+    if (event.key === "Enter") {
+      this.getDanhSachLinhVuc();
+    }
   }
 
   openNew() {
@@ -83,7 +86,7 @@ export class LinhVucComponent implements OnInit {
       this.showCreated = false;
     else
       this.showUpdated = false;
-    this.GetDanhSachLinhVuc();
+    this.getDanhSachLinhVuc();
   }
 
   deleteField(id: number) {
@@ -94,7 +97,7 @@ export class LinhVucComponent implements OnInit {
   confirmDelete() {
     this.deleteProductDialog = false;
     this.linhVucService.xoa(this.idDelete).subscribe(data => {
-      this.GetDanhSachLinhVuc();
+      this.getDanhSachLinhVuc();
       if (data.isError) {
         this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: data.title, life: 3000 });
       } else {

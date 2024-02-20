@@ -21,3 +21,9 @@ export interface LinhVuc {
     lastModifiedBy?: string,
     donViIdPhongban?: number,
 }
+
+export interface TimKiemLinhVuc {
+    keyWord: string,
+    ma: string,
+    timChinhXac: number
+}

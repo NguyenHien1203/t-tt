@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
 import { LoaiHoSoService } from 'src/app/demo/service/danh-muc/loai-ho-so/loai-ho-so.service';
-import { LoaiHoSo } from 'src/app/models/danh-muc/loai-ho-so';
-import { Search } from 'src/app/models/danh-muc/search.model';
+import { LoaiHoSo, TimKiemLoaiHoSo } from 'src/app/models/danh-muc/loai-ho-so';
 
 @Component({
   selector: 'app-loai-ho-so',
@@ -18,12 +17,9 @@ export class LoaiHoSoComponent implements OnInit {
   cols: any[] = [];
   rowsPerPageOptions = [5, 10, 20];
 
-  search: Search = {};
-  dataSearch = {
-    "keyWord": "",
-    "nam": 0,
-    "tuNgay": new Date(),
-    "denNgay": new Date()
+  search: TimKiemLoaiHoSo = {
+    keyWord: "",
+    nam: 0
   };
 
   listRecords: LoaiHoSo[] = [];
@@ -64,7 +60,7 @@ export class LoaiHoSoComponent implements OnInit {
   }
 
   searchRecord() {
-    this.dataSearch.keyWord = this.search.keyWord ?? "";
+    this.search.keyWord = this.search.keyWord ?? "";
     this.ListRecords();
   }
 
@@ -102,7 +98,7 @@ export class LoaiHoSoComponent implements OnInit {
   }
 
   ListRecords() {
-    this.loaiHoSoService.getDanhSachLoaiHoSo(this.dataSearch)
+    this.loaiHoSoService.getDanhSachLoaiHoSo(this.search)
       .subscribe(data => {
         if (data.isError) {
           this.msgs = [];

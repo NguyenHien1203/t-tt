@@ -10,20 +10,23 @@
         <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
             <h2>Tìm kiếm</h2>
             <div class="p-fluid p-formgrid grid">
-                <div class="field col-12 md:col-8">
-                    <input id="search-name-title" type="text" pInputText [(ngModel)]="timKiem.keyWord"
-                        placeholder="Tên lĩnh vực">
+                <div class="field col-12 md:col-4">
+                    <input id="search-name-title" type="text" pInputText [(ngModel)]="timKiemLinhVuc.keyWord"
+                        (keydown)="enterSearchRecord($event)" placeholder="Tên lĩnh vực">
+                </div>
+                <div class="field col-12 md:col-4">
+                    <input id="search-name-title" type="text" pInputText [(ngModel)]="timKiemLinhVuc.ma"
+                        (keydown)="enterSearchRecord($event)" placeholder="Mã lĩnh vực">
                 </div>
                 <div class="field col-12 md:col-2 mt-2">
                     <div class="field-checkbox">
-                        <p-checkbox name="vehicle1" value="Tìm chính xác" [(ngModel)]="valCheck"
-                            id="vehicle1"></p-checkbox>
-                        <label for="vehicle1">Tìm chính xác</label>
+                        <p-checkbox name="timChinhXac" id="timChinhXac" value="true" label="Tìm chính xác"
+                            (click)="CheckCX()" value="false"></p-checkbox>
                     </div>
                 </div>
                 <div class="field col-12 md:col-2">
                     <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-info mr-2"
-                        (click)="TimKiemLinhVuc()"></button>
+                        (click)="getDanhSachLinhVuc()"></button>
                 </div>
             </div>
         </div>

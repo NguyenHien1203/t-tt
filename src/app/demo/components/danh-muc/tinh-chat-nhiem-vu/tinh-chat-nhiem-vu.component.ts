@@ -2,8 +2,7 @@ import { TinhChatNhiemVuService } from './../../../service/danh-muc/tinh-chat-nh
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
-import { Search } from 'src/app/models/danh-muc/search.model';
-import { TinhChatNhiemVu } from 'src/app/models/danh-muc/tinh-chat-nhiem-vu';
+import { TimKiemTinhChatNV, TinhChatNhiemVu } from 'src/app/models/danh-muc/tinh-chat-nhiem-vu';
 
 @Component({
   selector: 'app-tinh-chat-nhiem-vu',
@@ -17,13 +16,10 @@ export class TinhChatNhiemVuComponent implements OnInit {
   cols: any[] = [];
   rowsPerPageOptions = [5, 10, 20];
 
-  timKiem: Search = {};
-  dataTimKiem = {
-    "keyWord": "",
-    "nam": 0,
-    "tuNgay": new Date(),
-    "denNgay": new Date()
-  };
+  timKiemTinhChatNV: TimKiemTinhChatNV = {
+    keyWord: "",
+    nam: 0
+  }
 
   danhSachTinhChat: TinhChatNhiemVu[] = [];
   tinhChat: TinhChatNhiemVu = {};
@@ -48,7 +44,7 @@ export class TinhChatNhiemVuComponent implements OnInit {
   constructor(private messageService: MessageService, private tinhChatNhiemService: TinhChatNhiemVuService) { }
 
   DanhSachTinhChat() {
-    this.tinhChatNhiemService.getDanhSachTinhChatNhiemVU(this.dataTimKiem)
+    this.tinhChatNhiemService.getDanhSachTinhChatNhiemVU(this.timKiemTinhChatNV)
       .subscribe(data => {
         if (data.isError) {
           this.msgs = [];
@@ -62,7 +58,7 @@ export class TinhChatNhiemVuComponent implements OnInit {
   }
 
   TimKiem() {
-    this.dataTimKiem.keyWord = this.timKiem.keyWord ?? "";
+    this.timKiemTinhChatNV.keyWord = this.timKiemTinhChatNV.keyWord ?? "";
     this.DanhSachTinhChat();
   }
 

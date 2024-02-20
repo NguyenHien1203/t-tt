@@ -62,7 +62,7 @@ export class LinhVucComponent implements OnInit {
       })
   }
 
-  CheckCX() {
+  checkCX() {
     this.timChinhXac = !this.timChinhXac;
   }
 

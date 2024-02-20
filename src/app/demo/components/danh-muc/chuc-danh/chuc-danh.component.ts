@@ -40,7 +40,7 @@ export class ChucDanhComponent implements OnInit {
 
   idChucDanh: number;
   header: string;
-  valCheck: string[] = [];
+  timChinhXac: boolean = false;
   msgs: Message[] = [];
 
   constructor(private messageService: MessageService, private chucDanhService: ChucDanhService, private authService: AuthService) { }
@@ -65,6 +65,10 @@ export class ChucDanhComponent implements OnInit {
       }, (error) => {
         console.log('Error', error);
       })
+  }
+
+  checkCX() {
+    this.timChinhXac = !this.timChinhXac;
   }
 
   enterSearchRecord(event: any) {

@@ -14,9 +14,8 @@
                 </div>
                 <div class="field col-12 md:col-2 mt-2">
                     <div class="field-checkbox">
-                        <p-checkbox name="vehicle1" value="Tìm chính xác" [(ngModel)]="valCheck"
-                            id="vehicle1"></p-checkbox>
-                        <label for="vehicle1">Tìm chính xác</label>
+                        <p-checkbox name="timChinhXac" id="timChinhXac" value="true" label="Tìm chính xác"
+                            (click)="checkCX()" value="false"></p-checkbox>
                     </div>
                 </div>
                 <div class="field col-12 md:col-2">

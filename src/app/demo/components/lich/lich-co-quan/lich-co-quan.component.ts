@@ -137,9 +137,6 @@ export class LichCoQuanComponent {
     }
 
     updateWeek(date: Date, action: 'next' | 'prev' = 'next'): void {
-
-        console.log(date);
-        
         // Nếu action là 'next', tăng tuần lên 1, ngược lại giảm đi 1
         const newDate =
             action === 'next' ? addWeeks(date, 1) : subWeeks(date, 1); // lấy ngày đầu từ startDay tuần trước
@@ -160,7 +157,10 @@ export class LichCoQuanComponent {
     }
 
     public LoadDanhSach(): void {
-        this.timKiemDanhSach.tuNgay = format(this.startOfWeekDate, 'dd/MM/yyyy');
+        this.timKiemDanhSach.tuNgay = format(
+            this.startOfWeekDate,
+            'dd/MM/yyyy'
+        );
         this.timKiemDanhSach.denNgay = format(this.endOfWeekDate, 'dd/MM/yyyy');
         this.service
             .getDanhSachLichCoQuan(this.timKiemDanhSach)
@@ -174,8 +174,8 @@ export class LichCoQuanComponent {
     }
 
     public ImportExcel(): void {
-      this.hienThiImport = true;
-  }
+        this.hienThiImport = true;
+    }
     public CapNhat(id: string): void {
         this.id = id;
         this.hienThiCapNhat = true;
@@ -220,36 +220,36 @@ export class LichCoQuanComponent {
         this.LoadDanhSach();
     }
 
-    public XuatBan(id : string){
-      this.confirmService.confirm({
-        message: 'Bạn có chắc chắn xác nhận xuất bản lịch?',
-        header: 'Xác nhận',
-        icon: 'pi pi-info-circle',
-        accept: () => {
-            this.service.xuatBanLichCoQuan(id).subscribe(
-                (data) => {
-                    if (data.isError) {
-                        this.messageService.add({
-                            severity: 'error',
-                            summary: 'Error',
-                            detail: data.title,
-                        });
-                    } else {
-                        this.LoadDanhSach();
-                        this.messageService.add({
-                            severity: 'success',
-                            summary: 'Success',
-                            detail: data.title,
-                        });
+    public XuatBan(id: string) {
+        this.confirmService.confirm({
+            message: 'Bạn có chắc chắn xác nhận xuất bản lịch?',
+            header: 'Xác nhận',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.service.xuatBanLichCoQuan(id).subscribe(
+                    (data) => {
+                        if (data.isError) {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: data.title,
+                            });
+                        } else {
+                            this.LoadDanhSach();
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Success',
+                                detail: data.title,
+                            });
+                        }
+                    },
+                    (error) => {
+                        console.log('Error', error);
                     }
-                },
-                (error) => {
-                    console.log('Error', error);
-                }
-            );
-        },
-        reject: () => {},
-    });
+                );
+            },
+            reject: () => {},
+        });
     }
 
     public Xoa(id: string) {
@@ -284,5 +284,3 @@ export class LichCoQuanComponent {
         });
     }
 }
-
-

@@ -199,7 +199,7 @@
                                                 icon="pi pi-play"
                                                 (click)="
                                                     GuiVanBan(capNhatMoi.id)
-                                                " class="p-button-rounded p-button-info mr-2"></button>
+                                                " class="p-button-rounded p-button-info mr-2 size-sm-icon"></button>
                                         </span>
                                         <span *ngIf="
                                                 capNhatMoi.dieuKienGui ==
@@ -219,7 +219,7 @@
                                             pTooltip="Phân phối"
                                             (click)="PhanPhoi(capNhatMoi.id)"
                                             icon="pi pi-share-alt"
-                                            class="p-button-rounded p-button-info mr-2"
+                                            class="p-button-rounded p-button-info mr-2 size-sm-icon"
                                         ></button>
                                     </div>
                                 </td>
@@ -231,7 +231,7 @@
                                             icon="pi pi-plus"
                                             pTooltip="Thu hồi/Lấy lại"
                                             (click)="mail.toggle($event)"
-                                            class="p-button-rounded p-button-success mr-2"
+                                            class="p-button-rounded p-button-success mr-2 size-sm-icon"
                                         >
                                             <p-overlayPanel
                                                 #mail
@@ -261,7 +261,7 @@
                                             pTooltip="Cập nhật"
                                             icon="pi pi-pencil"
                                             (click)="CapNhat(capNhatMoi.id)"
-                                            class="p-button-rounded p-button-success mr-2"
+                                            class="p-button-rounded p-button-success mr-2 size-sm-icon"
                                         ></button>
                                         <button
                                             pButton
@@ -269,7 +269,7 @@
                                             pTooltip="Xóa"
                                             (click)="Xoa(capNhatMoi.id)"
                                             icon="pi pi-trash"
-                                            class="p-button-rounded p-button-warning"
+                                            class="p-button-rounded p-button-warning size-sm-icon"
                                         ></button>
                                     </div>
                                 </td>

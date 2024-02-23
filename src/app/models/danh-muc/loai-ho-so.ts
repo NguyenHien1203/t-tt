@@ -25,5 +25,6 @@ export interface LoaiHoSo {
 
 export interface TimKiemLoaiHoSo {
     keyWord: string;
-    nam: 0;
+    ma: string;
+    timChinhXac: number
 }

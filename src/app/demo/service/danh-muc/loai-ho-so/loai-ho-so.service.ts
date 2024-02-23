@@ -22,7 +22,7 @@ export class LoaiHoSoService {
 
   public getDanhSachLoaiHoSo(records: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrlApi}` + this.url + 'GetDanhSachLoaiHoSo', records).pipe(
-      map((response: any) => response.objData.listLoaiHoSo as LoaiHoSo[])
+      map((response: any) => response.objData)
     )
   }
 

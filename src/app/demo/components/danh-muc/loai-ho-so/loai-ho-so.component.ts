@@ -19,7 +19,8 @@ export class LoaiHoSoComponent implements OnInit {
 
   search: TimKiemLoaiHoSo = {
     keyWord: "",
-    nam: 0
+    ma: "",
+    timChinhXac: 0
   };
 
   listRecords: LoaiHoSo[] = [];
@@ -27,14 +28,12 @@ export class LoaiHoSoComponent implements OnInit {
 
   idRecord: any;
 
-  valCheck: String[] = [];
+  timChinhXac: boolean = false;
   deleteProductDialog: boolean = false;
   msgs: Message[] = [];
 
   showCreated: boolean = false;
-
   hienThiCapNhat: boolean = false;
-
   idLoaiHoSo: string = '1';
 
   constructor(private messageService: MessageService, private loaiHoSoService: LoaiHoSoService) { }
@@ -48,6 +47,10 @@ export class LoaiHoSoComponent implements OnInit {
 
   openNew() {
     this.showCreated = true;
+  }
+
+  checkCX() {
+    this.timChinhXac = !this.timChinhXac;
   }
 
   closePopup(item: any, type: string) {
@@ -98,8 +101,13 @@ export class LoaiHoSoComponent implements OnInit {
   }
 
   ListRecords() {
+    this.search.timChinhXac = this.timChinhXac ? 1 : 0;
+    console.log(this.search);
+    
     this.loaiHoSoService.getDanhSachLoaiHoSo(this.search)
       .subscribe(data => {
+        console.log(data);
+        
         if (data.isError) {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });

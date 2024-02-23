@@ -8,4 +8,7 @@ export interface TinhChatNhiemVu {
     donViId?: number,
     tenNguoiTao?: string
 }
-
+export interface TimKiemTinhChatNV {
+    keyWord: string,
+    nam: number,
+}

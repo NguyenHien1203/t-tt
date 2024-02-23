@@ -7,15 +7,18 @@
         <div class="card pt-4 pb-0 pl-4 pr-4 mb-3">
             <h2>Tìm kiếm</h2>
             <div class="p-fluid p-formgrid grid">
-                <div class="field col-12 md:col-8">
+                <div class="field col-12 md:col-4">
                     <input id="search-name-title" type="text" pInputText [(ngModel)]="search.keyWord"
                         (keydown)="enterSearchRecord($event)" placeholder="Tên loại hồ sơ">
                 </div>
+                <div class="field col-12 md:col-4">
+                    <input id="search-name-title" type="text" pInputText [(ngModel)]="search.ma"
+                        (keydown)="enterSearchRecord($event)" placeholder="Mã loại hồ sơ">
+                </div>
                 <div class="field col-12 md:col-2 mt-2">
                     <div class="field-checkbox">
-                        <p-checkbox name="vehicle1" value="Tìm chính xác" [(ngModel)]="valCheck"
-                            id="vehicle1"></p-checkbox>
-                        <label for="vehicle1">Tìm chính xác</label>
+                        <p-checkbox name="timChinhXac" id="timChinhXac" value="true" label="Tìm chính xác"
+                            (click)="checkCX()" value="false"></p-checkbox>
                     </div>
                 </div>
                 <div class="field col-12 md:col-2">
@@ -64,11 +67,11 @@
                                 </td>
                                 <td style="width:30%; min-width:8rem; text-align: center;">
                                     <span class="p-column-title">Số hiện tại</span>
-                                    {{listRecord.soHshienTai}}
+                                    {{listRecord.soHSHienTai}}
                                 </td>
                                 <td style="width:10%; min-width:10rem; text-align: center;">
                                     <span class="p-column-title">Số năm trước</span>
-                                    {{listRecord.soHstruoc}}
+                                    {{listRecord.soHSTruoc}}
                                 </td>
                                 <td style="width:14%; min-width:10rem;">
                                     <div class="flex justify-content-center">

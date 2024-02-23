@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ChucDanh } from 'src/app/models/danh-muc/chuc-danh';
+import { ChucDanh } from 'src/app/models/danh-muc/chuc-danh/chuc-danh';
 
 @Injectable({
   providedIn: 'root'

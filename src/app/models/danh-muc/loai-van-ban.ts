@@ -12,3 +12,11 @@ export interface LoaiVanBan {
     lastModified?: string,
     lastModifiedBy?: number
 }
+
+export interface TimKiemLoaiVanBan {
+    keyWord: string,
+    nam: number,
+    ma: string,
+    phanLoai: number,
+    timChinhXac: number,
+}

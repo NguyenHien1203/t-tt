@@ -3,6 +3,7 @@ import { LichCaNhanService } from 'src/app/demo/service/lich/lich-ca-nhan.servic
 import { AuthService } from 'src/app/common/auth.services';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TimKiemLichCaNhan } from 'src/app/models/thong-tin-khac/lich/lich-ca-nhan';
+import { format } from 'date-fns';
 @Component({
     selector: 'app-lich-ca-nhan',
     templateUrl: './lich-ca-nhan.component.html',

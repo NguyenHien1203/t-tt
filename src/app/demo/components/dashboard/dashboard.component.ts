@@ -41,9 +41,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     headerCalendar =
-        '(tháng ' +
+        'tháng ' +
         (new Date().getMonth() + 1) +
-        ' năm ' +
+        ' ( năm ' +
         new Date().getFullYear() +
         ')';
 
@@ -154,7 +154,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 );
 
             this.calendarOptions.events = dataFullCalendar;
-
             this.lstLichCoQuanSang = data?.lstLichCoQuanSang;
             this.lstLichCoQuanChieu = data?.lstLichCoQuanChieu;
             this.lstLichCoQuanTuan = data?.lstLichCoQuanTuan;

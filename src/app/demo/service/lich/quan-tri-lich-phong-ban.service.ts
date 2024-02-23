@@ -83,7 +83,7 @@ export class QuanTriLichPhongBanService {
     xoaQuanTriLichPhongBan(idQuanTriLichPhongBan: string) {
         return this.http.get<any>(
             environment.baseUrlApi +
-                '/Lich/QuanTriLichPhongBan/XoaQuanTriLichPhongBan/' +
+                '/Lich/QuanTriLichPhongBan/XoaQuanTriLich/' +
                 idQuanTriLichPhongBan,
             this.httpOption
         );

@@ -28,7 +28,7 @@
                         Đăng nhập hệ thống
                     </div>
                     <span class="text-600 font-medium"
-                        >Sign in to continue</span
+                        >Đăng nhập để tiếp tục</span
                     >
                     <p-messages [value]="msgs"></p-messages>
                 </div>
@@ -54,12 +54,12 @@
                         <label
                             for="password1"
                             class="block text-900 font-medium text-xl mb-2"
-                            >Password</label
+                            >Mật khẩu</label
                         >
                         <p-password
                             formControlName="password"
                             id="password1"
-                            placeholder="Password"
+                            placeholder="Mật khẩu"
                             [toggleMask]="true"
                             styleClass="mb-5"
                             inputStyleClass="w-full p-3 md:w-30rem"
@@ -75,13 +75,13 @@
                                     styleClass="mr-2"
                                     formControlName="remember"
                                 ></p-checkbox>
-                                <label for="rememberme1">Remember me</label>
+                                <label for="rememberme1">Nhớ mật khẩu</label>
                             </div>
                             <a
                                 (click)="ForgotPassword()"
                                 class="font-medium no-underline ml-2 text-right cursor-pointer"
                                 style="color: var(--primary-color)"
-                                >Forgot password?</a
+                                >Quên mật khẩu?</a
                             >
                         </div>
                         <button

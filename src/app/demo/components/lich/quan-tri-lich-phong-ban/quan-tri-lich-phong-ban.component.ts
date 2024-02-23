@@ -191,7 +191,7 @@ public Thoat(itemHt: any, loai: string): void {
 
 public Xoa(id: string) {
     this.confirmService.confirm({
-        message: 'Bạn có chắc chắn xác nhận xóa quản trị lịch?',
+        message: 'Bạn có chắc chắn xác nhận xóa quản trị lịch phòng ban?',
         header: 'Xác nhận',
         icon: 'pi pi-info-circle',
         accept: () => {

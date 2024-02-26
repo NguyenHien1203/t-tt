@@ -106,10 +106,10 @@ export class CapNhatVanBanDaGuiComponent {
                     this.oldSoVanBanId = itemData.soVanBanId;
                     this.oldLoaiVanBanId = itemData.loaiVanBanId;
                     this.chkHeThong =
-                        itemData.chkVanBanHeThong == 2 ? true : false;
+                        itemData.chkVanBanHeThong == 2;
                     this.chkLienThong =
-                        itemData.chkVanBanLienThong == 3 ? true : false;
-                    this.chkNoiBo = itemData.chkVanBanNoiBo == 1 ? true : false;
+                        itemData.chkVanBanLienThong == 3;
+                    this.chkNoiBo = itemData.chkVanBanNoiBo;
                     this.formThongTinVanBan.patchValue({
                         id: itemData.id,
                         soVanBanId: itemData.soVanBanId,
@@ -343,12 +343,14 @@ export class CapNhatVanBanDaGuiComponent {
 
     public onChangeNhomDonVi(event) {
         this.lstDonViChange = [];
-        // lấy ra những trường đã thêm từ nhóm đơn vị
-        this.service
-            .changeNhomDonViTuDinhNghia(this.nhomDonVi, this.idDonViLamViec)
-            .then((data) => {
-                this.lstDonViChange = data;
-            });
+        if (event != null) {
+            // lấy ra những trường đã thêm từ nhóm đơn vị
+            this.service
+                .changeNhomDonViTuDinhNghia(event, this.idDonViLamViec)
+                .then((data) => {
+                    this.lstDonViChange = data;
+                });
+        }
     }
 
     public AddToSelected(): void {

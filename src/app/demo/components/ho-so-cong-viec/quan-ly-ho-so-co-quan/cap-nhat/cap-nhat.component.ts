@@ -257,7 +257,7 @@ export class CapNhatComponent {
             this.service
                 .getDanhSachUserThuocPhongBan(event, this.idUser)
                 .then((data) => {
-                    this.lstUserNhan = data;
+                    this.lstUserNhan = data ?? [];
                 });
         }
     }
@@ -267,7 +267,7 @@ export class CapNhatComponent {
             this.service
                 .getDanhSachUserThuocNhomNguoiDung(event, this.idUser)
                 .then((data) => {
-                    this.lstUserNhan = data;
+                    this.lstUserNhan = data ?? [];
                 });
         }
     }

@@ -897,7 +897,6 @@
 >
     <div *ngIf="eventDetails">
         <h3>{{ eventDetails.title }}</h3>
-        <p>Thời gian: {{ eventDetails.start | date : "dd/MM/yyyy hh:mm a" }}</p>
-        <!-- Thêm các chi tiết khác bạn muốn hiển thị -->
+        <p><b>Thời gian:</b> {{ eventDetails.start | date : "dd/MM/yyyy hh:mm a" }}</p>
     </div>
 </p-dialog>

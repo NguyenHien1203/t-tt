@@ -38,8 +38,8 @@ export class TheoDoiComponent {
     submitted: boolean = false;
     idDonViLamViec = this.authService.GetDonViLamViec() ?? '0';
     formTheoDoiVanBan = this.fb.group({
-        ngayBaoCao:  ['', [Validators.required]],
-        ngayBatDau:  ['', [Validators.required]],
+        ngayBaoCao: ['', [Validators.required]],
+        ngayBatDau: ['', [Validators.required]],
         ngayKetThuc: ['', [Validators.required]],
     });
 
@@ -76,11 +76,12 @@ export class TheoDoiComponent {
 
         this.isCheckedAllGuiVb =
             this.lstDonViDaGui.filter((dv) => dv.checkedPhongBan == true)
-                .length == lstPhongBanSelectedId.length;
+                .length == lstPhongBanSelectedId.length &&
+            lstPhongBanSelectedId.length > 0;
         this.isCheckedAllVbTraLoi =
             this.lstDonViDaGui.filter((dv) => dv.checkedBaoCao == true)
-                .length == lstBaoCaoSelected.length;
-                console.log(this.submitted)
+                .length == lstBaoCaoSelected.length &&
+            lstBaoCaoSelected.length > 0;
     }
 
     public Thoat(): void {
@@ -176,7 +177,9 @@ export class TheoDoiComponent {
         });
     }
 
-    public CheckItem(event){
-        this.isCheckedAllVbTraLoi = this.lstDonViDaGui.filter(dv=> dv.checkedBaoCao == true).length == this.lstDonViDaGui.length;
+    public CheckItem(event) {
+        this.isCheckedAllVbTraLoi =
+            this.lstDonViDaGui.filter((dv) => dv.checkedBaoCao == true)
+                .length == this.lstDonViDaGui.length;
     }
 }

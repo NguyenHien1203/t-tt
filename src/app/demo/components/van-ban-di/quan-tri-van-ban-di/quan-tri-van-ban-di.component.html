@@ -250,6 +250,7 @@
                                                 icon="pi pi-play"
                                                 class="p-button-rounded p-button-info mr-2 my-size-icon"
                                                 (click)="GuiVanBan(vanBanDi.id)"
+                                                pTooltip="Gửi văn bản"
                                             ></button>
                                         </span>
                                         <span
@@ -276,6 +277,7 @@
                                             icon="pi pi-plus"
                                             class="p-button-rounded p-button-info mr-2 my-size-icon"
                                             (click)="chucNang.toggle($event)"
+                                            pTooltip="Chỉnh sửa"
                                         >
                                             <p-overlayPanel
                                                 #chucNang
@@ -326,6 +328,7 @@
                                         </button>
                                         <button
                                             (click)="CapNhat(vanBanDi.id)"
+                                            pTooltip="Cập nhật"
                                             pButton
                                             pRipple
                                             icon="pi pi-pencil"
@@ -333,6 +336,7 @@
                                         ></button>
                                         <button
                                             (click)="Xoa(vanBanDi.id)"
+                                            pTooltip="Xóa"
                                             pButton
                                             pRipple
                                             icon="pi pi-trash"
@@ -340,6 +344,7 @@
                                         ></button>
                                         <button
                                             (click)="PhanPhoi(vanBanDi.id)"
+                                            pTooltip="Phân phối"
                                             pButton
                                             pRipple
                                             icon="pi pi-share-alt"

@@ -227,7 +227,7 @@ export class PhanPhoiComponent {
         this.lstUserChange = [];
         let phongBanId: string = event;
         this.service.changePhongBan(phongBanId).then((data) => {
-            this.lstUserChange = data;
+            this.lstUserChange = data ?? [];
             const lstUseNhanClone = this.lstUserNhan;
             var lstUserClone = lstUseNhanClone.map((x) => x.value); //tương tự như nhóm ngd
             this.lstUserChange = this.lstUserChange
@@ -243,7 +243,7 @@ export class PhanPhoiComponent {
         this.lstUserChange = []; //tránh trường hợp undefine
         let nhomNguoiDungId: string = event; //tránh trường hợp undefine
         this.service.changeNhomNguoiDung(nhomNguoiDungId).then((data) => {
-            this.lstUserChange = data;
+            this.lstUserChange = data ?? [];
             const lstUseNhanClone = this.lstUserNhan;
             var lstUserClone = lstUseNhanClone.map((x) => x.value); //lọc ra những cá nhân không tồn tại bên ds cá nhân nhận
             this.lstUserChange = this.lstUserChange

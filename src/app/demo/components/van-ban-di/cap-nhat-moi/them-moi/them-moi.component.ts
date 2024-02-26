@@ -250,7 +250,7 @@ export class ThemMoiComponent {
                         });
                         setTimeout(() => {
                             this.router.navigate(['/van-ban-di/cap-nhat-moi']);
-                        });
+                        }, 2000);
                     }
                 },
                 (error) => {

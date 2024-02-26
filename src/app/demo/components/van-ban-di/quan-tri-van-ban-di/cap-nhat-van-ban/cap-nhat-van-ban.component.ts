@@ -94,9 +94,9 @@ export class CapNhatVanBanComponent implements OnInit {
             this.oldSoDi = itemData.soDi;
             this.oldSoVanBanId = itemData.soVanBanId;
             this.oldLoaiVanBanId = itemData.loaiVanBanId;
-            this.chkHeThong = itemData.chkVanBanHeThong == 2 ? true : false;
-            this.chkLienThong = itemData.chkVanBanLienThong == 3 ? true : false;
-            this.chkNoiBo = itemData.chkVanBanNoiBo == 1 ? true : false;
+            this.chkHeThong = itemData.chkVanBanHeThong == 2;
+            this.chkLienThong = itemData.chkVanBanLienThong == 3;
+            this.chkNoiBo = itemData.chkVanBanNoiBo == 1;
             this.formThongTinVanBan.patchValue({
                 id: itemData.id,
                 soVanBanId: itemData.soVanBanId,

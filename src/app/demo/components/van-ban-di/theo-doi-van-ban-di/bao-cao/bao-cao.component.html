@@ -13,21 +13,20 @@
 <div class="col-12">
     <div class="card">
         <div class="guiVanBan">
-            <div class="guiVanBan">
-                <div class="grid">
-                    <div class="col-12">
-                        <div class="wrapper">
-                            <b>Thông tin văn bản:</b>
-                            <div class="icon-cls">
-                                <button
-                                    pButton
-                                    pRipple
-                                    label="Quay lại"
-                                    icon="pi pi-refresh"
-                                    class="p-button-info mr-2"
-                                    (click)="QuayLai()"
-                                ></button>
-                                <!-- <a
+            <div class="grid">
+                <div class="col-12">
+                    <div class="wrapper">
+                        <b>Thông tin văn bản:</b>
+                        <div class="icon-cls">
+                            <button
+                                pButton
+                                pRipple
+                                label="Quay lại"
+                                icon="pi pi-refresh"
+                                class="p-button-info mr-2"
+                                (click)="QuayLai()"
+                            ></button>
+                            <!-- <a
                                     href="javascript:;"
                                     pButton
                                     [style]="{
@@ -39,14 +38,99 @@
                                     ><i class="pi pi-refresh"></i>&nbsp;QUAY
                                     LẠI</a
                                 > -->
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="grid">
-                    <div class="col-12">
-                        <p-table
+            <div class="grid">
+                <div class="col-12">
+                    <table class="table-custom-chi-tiet">
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Số ký hiệu:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{ ThongTinVanBan?.soKiHieu }}
+                            </td>
+                            <td class="custom-rb">
+                                <strong>Loại văn bản:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{ ThongTinVanBan?.tenLoaiVanBan }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Ngày ban hành:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{
+                                    ThongTinVanBan?.ngayBanHanh
+                                        | date : "dd/MM/yyyy"
+                                }}
+                            </td>
+                            <td class="custom-rb">
+                                <strong>Ngày gửi văn bản:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{
+                                    ThongTinVanBan?.ngayNhanVanBan
+                                        | date : "dd/MM/yyyy"
+                                }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Sổ văn bản:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{ ThongTinVanBan?.tenSoVanBan }}
+                            </td>
+                            <td class="custom-rb">
+                                <strong>Số đi:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{ ThongTinVanBan?.soDi }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Cơ quan ban hành:</strong>
+                            </td>
+                            <td class="custom-b">
+                                {{ ThongTinVanBan?.coQuanBh }}
+                            </td>
+                            <td class="custom-rb">
+                                <strong>File đính kèm:</strong>
+                            </td>
+                            <td class="custom-b">
+                                <li
+                                    class="custom-li"
+                                    *ngFor="let file of ThongTinFile"
+                                >
+                                    <a
+                                        (click)="
+                                            DownloadFile(
+                                                file.filePath,
+                                                file.fileName
+                                            )
+                                        "
+                                        >{{ file.fileName }}</a
+                                    >
+                                </li>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-rb">
+                                <strong>Trích yếu:</strong>
+                            </td>
+                            <td class="custom-b" colspan="3">
+                                {{ ThongTinVanBan?.trichYeu }}
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- <p-table
                             styleClass="p-datatable-gridlines"
                             [value]="[ThongTinVanBan]"
                             class="custom-table"
@@ -134,221 +218,208 @@
                                     </td>
                                 </tr>
                             </ng-template>
-                        </p-table>
-                    </div>
+                        </p-table> -->
                 </div>
             </div>
         </div>
+    </div>
 
-        <hr />
-        <div class="grid">
-            <div class="col-12">
-                <b [style]="{ color: '#006699' }">
-                    :: Gửi
-                    <span [style]="{ color: '#FF3300' }">{{
-                        countBaoCao
-                    }}</span>
-                    đơn vị :: Trong đó có
-                    <span [style]="{ color: '#FF3300' }">{{
-                        countDaBaoCao
-                    }}</span>
-                    phải có báo cáo trả lời:</b
-                >
-                &nbsp;
-                <a
-                    href="javascript:;"
-                    pTooltip="Cập nhật kết quả ngoài hệ thống liên thông"
-                    (click)="CapNhatBaoCao('0', 0)"
-                    ><i class="pi pi-arrow-right-arrow-left"></i> Cập nhật báo
-                    cáo cho các đơn bị ngoài hệ thống liên thông</a
-                >
-            </div>
+    <hr />
+    <div class="grid">
+        <div class="col-12">
+            <b [style]="{ color: '#006699' }">
+                :: Gửi
+                <span [style]="{ color: '#FF3300' }">{{ countBaoCao }}</span>
+                đơn vị :: Trong đó có
+                <span [style]="{ color: '#FF3300' }">{{ countDaBaoCao }}</span>
+                phải có báo cáo trả lời:</b
+            >
+            &nbsp;
+            <a
+                href="javascript:;"
+                pTooltip="Cập nhật kết quả ngoài hệ thống liên thông"
+                (click)="CapNhatBaoCao('0', 0)"
+                ><i class="pi pi-arrow-right-arrow-left"></i> Cập nhật báo cáo
+                cho các đơn bị ngoài hệ thống liên thông</a
+            >
         </div>
+    </div>
 
-        <div class="grid">
-            <div class="col-12">
-                <p-table
-                    [paginator]="true"
-                    #dt1
-                    [value]="lstBaoCaoVanBanDi"
-                    dataKey="id"
-                    [rows]="10"
-                    [loading]="loading"
-                    [rowsPerPageOptions]="[10, 20, 30]"
-                    [rowHover]="true"
-                    styleClass="p-datatable-gridlines"
-                    [paginator]="true"
-                    responsiveLayout="scroll"
-                >
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th style="width: 2%">
-                                <div
-                                    class="flex justify-content-between align-items-center"
-                                >
-                                    STT
-                                </div>
-                            </th>
-                            <th style="min-width: 3rem">
-                                <div
-                                    class="flex justify-content-between align-items-center"
-                                >
-                                    Ngày gửi
-                                </div>
-                            </th>
-                            <th style="min-width: 14rem">
-                                <div
-                                    class="flex justify-content-between align-items-center"
-                                >
-                                    Nơi nhận
-                                </div>
-                            </th>
-                            <th style="min-width: 10rem">
-                                <div
-                                    class="flex justify-content-between align-items-center"
-                                >
-                                    Thời gian nhận
-                                </div>
-                            </th>
-                            <th style="min-width: 10rem">
-                                <div
-                                    class="flex justify-content-between align-items-center"
-                                >
-                                    Văn bản trả lời
-                                </div>
-                            </th>
-                            <th style="min-width: 10rem">
-                                <div
-                                    class="flex justify-content-between align-items-center"
-                                >
-                                    Trạng thái văn bản
-                                </div>
-                            </th>
-                            <th style="min-width: 10rem">
-                                <div
-                                    class="flex justify-content-between align-items-center"
-                                >
-                                    Kết quả
-                                </div>
-                            </th>
-                            <th style="min-width: 10rem">
-                                <div
-                                    class="flex justify-content-between align-items-center"
-                                >
-                                    Văn bản kết quả
-                                </div>
-                            </th>
-                            <th style="min-width: 10rem">
-                                <div
-                                    class="flex justify-content-between align-items-center"
-                                >
-                                    Cập nhật kết quả
-                                </div>
-                            </th>
+    <div class="grid">
+        <div class="col-12">
+            <p-table
+                [paginator]="true"
+                #dt1
+                [value]="lstBaoCaoVanBanDi"
+                dataKey="id"
+                [rows]="10"
+                [loading]="loading"
+                [rowsPerPageOptions]="[10, 20, 30]"
+                [rowHover]="true"
+                styleClass="p-datatable-gridlines"
+                [paginator]="true"
+                responsiveLayout="scroll"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 2%">
+                            <div
+                                class="flex justify-content-between align-items-center"
+                            >
+                                STT
+                            </div>
+                        </th>
+                        <th style="min-width: 3rem">
+                            <div
+                                class="flex justify-content-between align-items-center"
+                            >
+                                Ngày gửi
+                            </div>
+                        </th>
+                        <th style="min-width: 14rem">
+                            <div
+                                class="flex justify-content-between align-items-center"
+                            >
+                                Nơi nhận
+                            </div>
+                        </th>
+                        <th style="min-width: 10rem">
+                            <div
+                                class="flex justify-content-between align-items-center"
+                            >
+                                Thời gian nhận
+                            </div>
+                        </th>
+                        <th style="min-width: 10rem">
+                            <div
+                                class="flex justify-content-between align-items-center"
+                            >
+                                Văn bản trả lời
+                            </div>
+                        </th>
+                        <th style="min-width: 10rem">
+                            <div
+                                class="flex justify-content-between align-items-center"
+                            >
+                                Trạng thái văn bản
+                            </div>
+                        </th>
+                        <th style="min-width: 10rem">
+                            <div
+                                class="flex justify-content-between align-items-center"
+                            >
+                                Kết quả
+                            </div>
+                        </th>
+                        <th style="min-width: 10rem">
+                            <div
+                                class="flex justify-content-between align-items-center"
+                            >
+                                Văn bản kết quả
+                            </div>
+                        </th>
+                        <th style="min-width: 10rem">
+                            <div
+                                class="flex justify-content-between align-items-center"
+                            >
+                                Cập nhật kết quả
+                            </div>
+                        </th>
 
-                            <th style="min-width: 10rem">
-                                <div
-                                    class="flex justify-content-between align-items-center"
-                                >
-                                    Cảnh báo
-                                </div>
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template
-                        pTemplate="body"
-                        let-item
-                        let-rowIndex="rowIndex"
-                    >
-                        <tr>
-                            <td style="text-align: center">
-                                {{ rowIndex + 1 }}
-                            </td>
-                            <td class="text-center">
-                                {{ item.ngayGui | date : "dd-MM-yyyy" }}
-                            </td>
-                            <td class="text-center">
-                                {{ item.tenDonVi }}
-                            </td>
-                            <td>
-                                {{ item.ngayNhan | date : "dd-MM-yyyy" }}
-                            </td>
+                        <th style="min-width: 10rem">
+                            <div
+                                class="flex justify-content-between align-items-center"
+                            >
+                                Cảnh báo
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center">
+                            {{ rowIndex + 1 }}
+                        </td>
+                        <td class="text-center">
+                            {{ item.ngayGui | date : "dd-MM-yyyy" }}
+                        </td>
+                        <td class="text-center">
+                            {{ item.tenDonVi }}
+                        </td>
+                        <td>
+                            {{ item.ngayNhan | date : "dd-MM-yyyy" }}
+                        </td>
 
-                            <td class="text-center">
-                                {{ item.ketQuaXuLy }}
-                            </td>
-                            <td>
-                                {{ item.ketQuaBaoCao }}
-                            </td>
-                            <td>
-                                <a
-                                    href="javascript:;"
-                                    (click)="XemChiTiet(item.iDVBDenKQ)"
-                                    >{{ item.soKiHieu }}</a
-                                >
-                            </td>
-                            <td>
-                                <ul>
-                                    <li *ngFor="let file of item.lstFile">
-                                        <a
-                                            (click)="
-                                                DownloadFile(
-                                                    file.filePath,
-                                                    file.fileName
-                                                )
-                                            "
-                                            href="javascript:;"
-                                            >{{ file.fileName }}</a
-                                        >
-                                    </li>
-                                </ul>
-                            </td>
-                            <td>
-                                <div class="div-center">
-                                    <button
-                                        *ngIf="item.baoCaoId == 1"
-                                        pTooltip="Cập nhật báo cáo"
-                                        pButton
-                                        pRipple
-                                        (click)="CapNhatBaoCao(item.nhanId, 0)"
-                                        icon="pi pi-arrow-right-arrow-left"
-                                        class="p-button-rounded p-button-info"
-                                    ></button>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div
-                                    *ngIf="item.iDVBDenKQ == null"
-                                    class="div-center"
-                                >
-                                    <button
-                                        pTooltip="Gửi cảnh báo"
-                                        pButton
-                                        pRipple
+                        <td class="text-center">
+                            {{ item.ketQuaXuLy }}
+                        </td>
+                        <td>
+                            {{ item.ketQuaBaoCao }}
+                        </td>
+                        <td>
+                            <a
+                                href="javascript:;"
+                                (click)="XemChiTiet(item.iDVBDenKQ)"
+                                >{{ item.soKiHieu }}</a
+                            >
+                        </td>
+                        <td>
+                            <ul>
+                                <li *ngFor="let file of item.lstFile">
+                                    <a
                                         (click)="
-                                            GuiCanhBao(item.id, item.donViId)
+                                            DownloadFile(
+                                                file.filePath,
+                                                file.fileName
+                                            )
                                         "
-                                        icon="pi pi-exclamation-triangle"
-                                        class="p-button-rounded p-button-warning"
-                                    ></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="emptymessage">
-                        <tr>
-                            <td colspan="10">No record found.</td>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="loadingbody">
-                        <tr>
-                            <td colspan="10">
-                                Loading record data. Please wait.
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
+                                        href="javascript:;"
+                                        >{{ file.fileName }}</a
+                                    >
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <div class="div-center">
+                                <button
+                                    *ngIf="item.baoCaoId == 1"
+                                    pTooltip="Cập nhật báo cáo"
+                                    pButton
+                                    pRipple
+                                    (click)="CapNhatBaoCao(item.nhanId, 0)"
+                                    icon="pi pi-arrow-right-arrow-left"
+                                    class="p-button-rounded p-button-info"
+                                ></button>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div
+                                *ngIf="item.iDVBDenKQ == null"
+                                class="div-center"
+                            >
+                                <button
+                                    pTooltip="Gửi cảnh báo"
+                                    pButton
+                                    pRipple
+                                    (click)="GuiCanhBao(item.id, item.donViId)"
+                                    icon="pi pi-exclamation-triangle"
+                                    class="p-button-rounded p-button-warning"
+                                ></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="10">No record found.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="10">Loading record data. Please wait.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
 .custom-table {
-    border-collapse: separate; // Use separate instead of collapse
+    border-collapse: collapse; // Use separate instead of collapse
     border-spacing: 0px;
 
     th,
@@ -9,6 +9,7 @@
     }
 
     .custom-rb {
+        width: 20%;
         border-right-width: 0px;
         border-bottom-width: 0px;
     }

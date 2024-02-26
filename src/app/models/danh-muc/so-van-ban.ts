@@ -13,3 +13,11 @@ export interface SoVanBan {
     lastModified?: string,
     lastModifiedBy?: number
 }
+
+export interface TimKiemSoVanBan {
+    keyWord: string;
+    nam: 0;
+    ma: string,
+    phanLoai: number,
+    timChinhXac: number,
+}

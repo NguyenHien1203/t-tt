@@ -1,9 +1,8 @@
-import { LoaiVanBan } from './../../../../models/danh-muc/loai-van-ban';
+import { LoaiVanBan, TimKiemLoaiVanBan } from './../../../../models/danh-muc/loai-van-ban';
 import { LoaiVanBanService } from './../../../service/danh-muc/loai-van-ban/loai-van-ban.service';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
-import { SearchTheoMa } from 'src/app/models/danh-muc/search.model';
 
 @Component({
   selector: 'app-loai-van-ban',
@@ -17,13 +16,14 @@ export class LoaiVanBanComponent implements OnInit {
   cols: any[] = [];
   rowsPerPageOptions = [5, 10, 20];
 
-  timKiem: SearchTheoMa = {};
-  dataSearch = {
-    "keyWord": "",
-    "ma": "",
-    "phanLoai": 2,
-    "timChinhXac": 0
+  timKiem: TimKiemLoaiVanBan = {
+    keyWord: "",
+    nam: 0,
+    ma: "",
+    phanLoai: 0,
+    timChinhXac: 0,
   };
+  
   public timChinhXac: boolean = false;
 
   danhSachLoaiVanBan: LoaiVanBan[] = [];
@@ -47,7 +47,7 @@ export class LoaiVanBanComponent implements OnInit {
   }
 
   DanhSachLoaiVanBan() {
-    this.loaiVanBanService.getDanhSachLoaiVanBan(this.dataSearch)
+    this.loaiVanBanService.getDanhSachLoaiVanBan(this.timKiem)
       .subscribe(data => {
         if (data.isError) {
           this.msgs = [];
@@ -61,10 +61,10 @@ export class LoaiVanBanComponent implements OnInit {
   }
 
   TimKiemLoaiVanBan() {
-    this.dataSearch.keyWord = this.timKiem.keyWord ?? "";
-    this.dataSearch.ma = this.timKiem.ma ?? "";
-    this.dataSearch.phanLoai = this.timKiem.phanLoai ?? 2;
-    this.dataSearch.timChinhXac = this.timChinhXac ? 1 : 0;
+    this.timKiem.keyWord = this.timKiem.keyWord ?? "";
+    this.timKiem.ma = this.timKiem.ma ?? "";
+    this.timKiem.phanLoai = this.timKiem.phanLoai ?? 2;
+    this.timKiem.timChinhXac = this.timChinhXac ? 1 : 0;
     this.DanhSachLoaiVanBan();
   }
 

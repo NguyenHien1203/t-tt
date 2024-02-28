@@ -311,7 +311,9 @@
             <p-table
                 [value]="lstCongViec"
                 [paginator]="true"
+                styleClass="p-datatable-gridlines"
                 [rows]="5"
+                [rowsPerPageOptions]="[5, 10, 20, 30]"
                 responsiveLayout="scroll"
             >
                 <ng-template pTemplate="header">

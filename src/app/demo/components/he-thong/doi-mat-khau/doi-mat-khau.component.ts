@@ -29,8 +29,7 @@ export class DoiMatKhauComponent {
         nhapLaiMatKhau: ['', [Validators.required]],
     });
 
-    ngOnInit() {console.log(this.formThongTin.value);
-    }
+    ngOnInit() {}
 
     public ThayDoi() {
         this.submitted = true;

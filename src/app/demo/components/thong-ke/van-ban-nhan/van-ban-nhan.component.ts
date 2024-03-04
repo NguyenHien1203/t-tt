@@ -32,7 +32,7 @@ export class VanBanNhanComponent {
     items = [{ label: 'Thống kê' }, { label: 'Thống kê văn bản nhận' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
     timKiemDanhSach: TimKiemVanBanNhan = {
-        donViId: Number(this.idDonViLamViec),
+        donViId: 0,
         userId: 0,
         nam: 0,
         thang: 0,

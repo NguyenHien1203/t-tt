@@ -16,6 +16,10 @@ export class AuthService {
         private httpClient: HttpClient
     ) {}
 
+    userId: string = this.GetmUserInfo()?.userId ?? '0';
+    refreshToken: string = this.GetmUserInfo()?.tokensUser?.refreshToken ?? '';
+    private isRefreshingToken: boolean = false;
+
     public async CheckLogin(): Promise<boolean> {
         let status = false;
         if (this.cookieService.get('isLoggedIn') == 'true') {
@@ -23,28 +27,29 @@ export class AuthService {
             if (token && !this.CheckTokenExpired(token)) {
                 return true;
             }
-            const refreshThreshold = 1 * 30 * 1000; //30 second
-            const tokenExpirationDate = this.GetTokenExpirationDate(
-                this.GetToken()
-            );
-            if (
-                tokenExpirationDate &&
-                tokenExpirationDate - new Date().getTime() < refreshThreshold
-            ) {
-            }
-
             let itemData = {
                 userId: (this.GetmUserInfo()?.userId ?? '0').toString(),
                 refreshToken:
                     this.GetmUserInfo()?.tokensUser?.refreshToken ?? '',
             };
-            const response = await this.dangNhapService.RefreshToken(itemData);
-            if (!response.isError) {
-                status = true;
-                this.cookieService.set('token', response.objData);
-            } else {
-                status = false;
-                this.DeleteCokie();
+            // Kiểm tra xem RefreshToken đã được gọi hay chưa
+            if (!this.isRefreshingToken) {
+                this.isRefreshingToken = true; 
+                // Đánh dấu là đang gọi RefreshToken
+                //Chỉ gọi một lần mỗi lần gọi service
+                const response = await this.dangNhapService.RefreshToken(
+                    itemData
+                );
+                if (!response.isError) {
+                    status = true;
+                    this.cookieService.set('token', response.objData);
+                } else {
+                    status = false;
+                    this.DeleteCokie();
+                }
+                this.isRefreshingToken = false; 
+                // Đặt lại cờ sau khi xử lý xong
+                // Trả lại trạng thái để gọi lại refresh token khi token hết hạn
             }
         } else {
             status = false;

@@ -33,4 +33,24 @@ export class VanBanDiLienQuanService {
             .toPromise()
             .then((res) => res.objData as any[]);
     }
+
+    ChuyenTrangThaiVanBan(
+        idVanBan: string,
+        idUser: string,
+        idPhongBan: string
+    ) {
+        return this.http
+            .get<any>(
+                environment.baseUrlApi +
+                    '/ChiTietVanBan/ChuyenTrangThaiVanBan?idVanBan=' +
+                    idVanBan +
+                    '&idUser=' +
+                    idUser +
+                    '&idPhongBan=' +
+                    idPhongBan,
+                this.httpOption
+            )
+            .toPromise()
+            .then((res) => res.objData as any[]);
+    }
 }

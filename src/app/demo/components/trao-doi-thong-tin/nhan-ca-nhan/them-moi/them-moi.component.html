@@ -2,7 +2,7 @@
     class="p-fluid">
     <ng-template pTemplate="content">
         <div class="formgrid grid">
-            <div class="field col md:col-5">
+            <div class="field col md:col-8">
                 <label htmlfor="tenHienThi">Tên nhãn <span class="p-error">(*)</span>:</label>
                 <input pinputtext="" id="tenHienThi" type="text" class="p-inputtext p-component p-element" formControlName="tenHienThi">
                 <span class="p-error" *ngIf="!formThemMoi.controls.tenHienThi.valid && (formThemMoi.controls.tenHienThi.touched || submitted)">Vui lòng nhập tên nhãn</span>

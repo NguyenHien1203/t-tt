@@ -174,7 +174,7 @@ export class ThemMoiComponent {
             this.service
                 .getDanhSachUserThuocPhongBan(event, this.idUser)
                 .then((data) => {
-                    this.lstUserNhan = data;
+                    this.lstUserNhan = data ?? [];
                 });
         }
     }
@@ -186,7 +186,7 @@ export class ThemMoiComponent {
             this.service
                 .getDanhSachUserThuocNhomNguoiDung(event, this.idUser)
                 .then((data) => {
-                    this.lstUserNhan = data;
+                    this.lstUserNhan = data ?? [];
                 });
         }
     }
@@ -210,7 +210,6 @@ export class ThemMoiComponent {
                 this.idDonViLamViec
             )
             .then((data) => {
-                console.log(data);
                 this.formThemMoi.patchValue({
                     maHoSo: data,
                 });

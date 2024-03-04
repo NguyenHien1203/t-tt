@@ -37,6 +37,7 @@ import { ThuHoiComponent } from './thu-hoi/thu-hoi.component';
 import { LayLaiComponent } from './lay-lai/lay-lai.component';
 import { ThayTheComponent } from './thay-the/thay-the.component';
 import { CapNhatVanBanDaGuiComponent } from './cap-nhat-van-ban-da-gui/cap-nhat-van-ban-da-gui.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { CapNhatVanBanDaGuiComponent } from './cap-nhat-van-ban-da-gui/cap-nhat-
     CapNhatVanBanDaGuiComponent
   ],
   imports: [
+    TooltipModule,
     TableModule,
     FileUploadModule,
     FormsModule,

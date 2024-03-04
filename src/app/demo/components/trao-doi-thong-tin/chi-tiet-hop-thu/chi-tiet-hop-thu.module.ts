@@ -7,12 +7,14 @@ import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ChiTietHopThuComponent } from './chi-tiet-hop-thu.component';
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
-  exports: [ChiTietHopThuComponent],
-  declarations: [ChiTietHopThuComponent],
-  imports: [
-    InputTextareaModule,
+    exports: [ChiTietHopThuComponent],
+    declarations: [ChiTietHopThuComponent],
+    imports: [
+        AvatarModule,
+        InputTextareaModule,
         InputTextModule,
         ReactiveFormsModule,
         DialogModule,
@@ -20,6 +22,6 @@ import { ChiTietHopThuComponent } from './chi-tiet-hop-thu.component';
         FormsModule,
         TableModule,
         CommonModule,
-  ]
+    ],
 })
-export class ChiTietHopThuModule { }
+export class ChiTietHopThuModule {}

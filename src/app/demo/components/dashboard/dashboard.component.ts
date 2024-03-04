@@ -41,9 +41,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     headerCalendar =
-        '(tháng ' +
+        'tháng ' +
         (new Date().getMonth() + 1) +
-        ' năm ' +
+        ' ( năm ' +
         new Date().getFullYear() +
         ')';
 
@@ -154,7 +154,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 );
 
             this.calendarOptions.events = dataFullCalendar;
-
             this.lstLichCoQuanSang = data?.lstLichCoQuanSang;
             this.lstLichCoQuanChieu = data?.lstLichCoQuanChieu;
             this.lstLichCoQuanTuan = data?.lstLichCoQuanTuan;
@@ -267,16 +266,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
     calendarOptions: CalendarOptions = {
         plugins: [dayGridPlugin],
         initialView: 'dayGridMonth',
-        weekends: true,
         editable: true,
         selectable: true,
         selectMirror: true,
         dayMaxEvents: true,
         events: [],
+        customButtons: {
+            addEvents: {
+              text: 'Thêm sự kiện',
+              click: () => {
+                // Navigate to the desired route
+                this.router.navigate(['/lich/lich-co-quan']);
+              }
+            }
+          },
         headerToolbar: {
-            start: 'prev,next today',
+            start: 'prev,next today addEvents',
             center: 'title',
-            end: 'dayGridMonth,dayGridWeek,dayGridDay',
+            end: 'dayGridMonth dayGridWeek dayGridDay',
         },
 
         eventColor: '#378006',
@@ -284,6 +291,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         eventClick: this.handleEventClick.bind(this),
         eventsSet: this.handleEvents.bind(this),
     };
+
+    navigateAddEvent(){
+        this.router.navigate(['/lich/lich-co-quan']);
+    }
 
     clickCalendar(tabNumber: any): void {
         if (tabNumber.index === 2) {

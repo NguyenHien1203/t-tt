@@ -82,7 +82,7 @@ export class UploadFileService {
         }
     }
 
-    downloadFile(filePath: string, fileName: string, urlDownLoad) {
+    downloadFile(filePath: string, fileName: string, urlDownLoad: string) {
         const headers = new HttpHeaders().set(
             'Accept',
             'application/octet-stream'

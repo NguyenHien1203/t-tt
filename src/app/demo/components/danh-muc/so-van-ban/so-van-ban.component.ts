@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
 import { SoVanBanService } from 'src/app/demo/service/danh-muc/so-van-ban/so-van-ban.service';
-import { SearchTheoMa } from 'src/app/models/danh-muc/search.model';
-import { SoVanBan } from 'src/app/models/danh-muc/so-van-ban';
+import { SoVanBan, TimKiemSoVanBan } from 'src/app/models/danh-muc/so-van-ban';
 
 @Component({
   selector: 'app-so-van-ban',
@@ -17,13 +16,14 @@ export class SoVanBanComponent implements OnInit {
   cols: any[] = [];
   rowsPerPageOptions = [5, 10, 20];
 
-  timKiem: SearchTheoMa = {};
-  dataSearch = {
-    "keyWord": "",
-    "ma": "",
-    "phanLoai": 2,
-    "timChinhXac": 0
+  timKiem: TimKiemSoVanBan = {
+    keyWord: "",
+    nam: 0,
+    ma: "",
+    phanLoai: 0,
+    timChinhXac: 0,
   };
+  
   public timChinhXac: boolean = false;
 
   danhSachSoVanBan: SoVanBan[] = [];
@@ -61,10 +61,10 @@ export class SoVanBanComponent implements OnInit {
   }
 
   TimKiemLoaiVanBan() {
-    this.dataSearch.keyWord = this.timKiem.keyWord ?? "";
-    this.dataSearch.ma = this.timKiem.ma ?? "";
-    this.dataSearch.phanLoai = this.timKiem.phanLoai ?? 2;
-    this.dataSearch.timChinhXac = this.timChinhXac ? 1 : 0;
+    this.timKiem.keyWord = this.timKiem.keyWord ?? "";
+    this.timKiem.ma = this.timKiem.ma ?? "";
+    this.timKiem.phanLoai = this.timKiem.phanLoai ?? 2;
+    this.timKiem.timChinhXac = this.timChinhXac ? 1 : 0;
     this.DanhSachSoVanBan();
   }
 
@@ -100,7 +100,7 @@ export class SoVanBanComponent implements OnInit {
   }
 
   DanhSachSoVanBan() {
-    this.soVanBanService.getDanhSachSoVanBan(this.dataSearch)
+    this.soVanBanService.getDanhSachSoVanBan(this.timKiem)
       .subscribe(data => {
         if (data.isError) {
           this.msgs = [];

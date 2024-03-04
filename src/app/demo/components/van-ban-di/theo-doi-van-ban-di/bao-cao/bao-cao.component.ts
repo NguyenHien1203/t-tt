@@ -41,7 +41,7 @@ export class BaoCaoComponent implements OnInit {
     idDonVi: string = '0';
     loaiBaoCao: number = 0;
     nhanId: string = '0';
-    ThongTinVanBan: any[] = [];
+    ThongTinVanBan: any = null;
     lstBaoCaoVanBanDi: any[] = [];
     fullName = this.authService.GetmUserInfo()?.fullName;
 

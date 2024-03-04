@@ -135,7 +135,7 @@
                                                 item.cap,
                                                 item.loai
                                             )
-                                        " icon="pi pi-chart-bar" class="p-button-rounded p-button-info mr-2"></button>
+                                        " icon="pi pi-chart-bar" class="p-button-rounded p-button-info mr-2 size-sm-icon"></button>
                                 </td>
                                 <td class="text-center">
                                     <button *ngIf="item.trangThaiXuLy == 1" pButton pTooltip="Hồ sơ" pRipple (click)="
@@ -144,14 +144,14 @@
                                                 item.cap,
                                                 item.loai
                                             )
-                                        " icon="pi pi-plus" class="p-button-rounded p-button-info mr-2"></button>
+                                        " icon="pi pi-plus" class="p-button-rounded p-button-info mr-2 size-sm-icon"></button>
                                 </td>
                                 <td class="text-center">
                                     <button *ngIf="
                                             item.trangThaiXuLy != 7 &&
                                             item.loai == 2
                                         " pButton pTooltip="Giao việc" pRipple (click)="GiaoViec(item.id, item.cap)"
-                                        icon="pi pi-sitemap" class="p-button-rounded p-button-info mr-2"></button>
+                                        icon="pi pi-sitemap" class="p-button-rounded p-button-info mr-2 size-sm-icon"></button>
                                 </td>
                                 <td class="text-center" *ngIf="kiemTraQuyenNhomNguoiDung">
                                     <button *ngIf="
@@ -159,11 +159,11 @@
                                             item.trangThaiXuLy != 8
                                         " pButton pTooltip="Thêm mới công việc" pRipple (click)="
                                             ThemMoiCongViec(item.id, item.cap)
-                                        " icon="pi pi-chart" class="p-button-rounded p-button-info mr-2"></button>
+                                        " icon="pi pi-chart" class="p-button-rounded p-button-info mr-2 size-sm-icon"></button>
                                     {{ item.Phancap > 0 ? "Đã chuyển" : "" }}
                                 </td>
                                 <td class="text-center">
-                                    <span *ngIf="
+                                    <span *ngIf=" 
                                             item.loai != 4 &&
                                             item.loai != 5 &&
                                             item.trangThaiId != 4 &&
@@ -172,7 +172,7 @@
                                         <button pButton pTooltip="Báo cáo tiến độ" pRipple (click)="
                                                 BaoCao(item.id, item.cap, item.loai)
                                             " icon="pi pi-check-square"
-                                            class="p-button-rounded p-button-info mr-2"></button>
+                                            class="p-button-rounded p-button-info mr-2 size-sm-icon" ></button>
                                         {{
                                         item.Phancap > 0 ? "Đã chuyển" : ""
                                         }}

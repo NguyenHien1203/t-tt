@@ -2,9 +2,8 @@ import { ChucDanhService } from './../../../service/danh-muc/chuc-danh/chuc-danh
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
-import { ChucDanh } from 'src/app/models/danh-muc/chuc-danh';
-import { Search } from 'src/app/models/danh-muc/search.model';
 import { AuthService } from 'src/app/common/auth.services';
+import { ChucDanh, TimKiemChucDanh } from 'src/app/models/danh-muc/chuc-danh/chuc-danh';
 
 @Component({
     templateUrl: './chuc-danh.component.html',
@@ -177,28 +176,5 @@ export class ChucDanhComponent implements OnInit {
     XoaChucDanh(id: number) {
         this.deleteProductDialog = true;
         this.idChucDanh = id;
-    }
-
-    XacNhanXoaChucDanh() {
-        this.deleteProductDialog = false;
-        this.chucDanhService.xoa(this.idChucDanh).subscribe((data) => {
-            this.TaiDuLieuCacChucDanh();
-            if (data.isError) {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Lỗi',
-                    detail: data.title,
-                    life: 3000,
-                });
-            } else {
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Thành công',
-                    detail: data.title,
-                    life: 3000,
-                });
-            }
-        });
-        this.chucDanh = {};
     }
 }

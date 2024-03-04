@@ -59,7 +59,6 @@ export class CapNhatComponent {
     public async BindDataDialog() {
         try {
             const data = await this.service.getLichCaNhanById(this.id);
-            console.log(new Date(data.thoiGianBatDauHop).getMinutes());
             if (data != null) {
                 this.formCapNhat.patchValue({
                     id: data.id,

@@ -41,6 +41,7 @@ export class VanBanDiLienQuanComponent {
     isShowSearch: boolean = false;
     idPhongBan: string = this.authService.GetDonViLamViec() ?? '0';
     idDonViLamViec: string = this.authService.GetmUserInfo()?.phongBanId ?? '0';
+    idUser: string = this.authService.GetmUserInfo()?.userId ?? '0';
     timChinhXac: boolean = false;
     loading: boolean = false;
     lstLoaiVanBan: any = [];
@@ -82,6 +83,9 @@ export class VanBanDiLienQuanComponent {
     }
 
     public ChiTiet(id: string) {
+        this.service
+            .ChuyenTrangThaiVanBan(id, this.idUser, this.idPhongBan)
+            .then((data) => {});
         this.hienThiChiTiet = true;
         this.id = id;
     }

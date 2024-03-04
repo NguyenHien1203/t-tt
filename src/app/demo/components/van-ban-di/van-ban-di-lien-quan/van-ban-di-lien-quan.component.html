@@ -217,7 +217,7 @@
                                     {{ item.trangThai }}
                                 </td>
                                 <td>
-                                    {{ item.lastTimeView }}
+                                    {{ item.lastTimeView | date : "dd-MM-yyyy" }}
                                 </td>
                             </tr>
                         </ng-template>

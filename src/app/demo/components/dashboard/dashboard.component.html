@@ -311,7 +311,9 @@
             <p-table
                 [value]="lstCongViec"
                 [paginator]="true"
+                styleClass="p-datatable-gridlines"
                 [rows]="5"
+                [rowsPerPageOptions]="[5, 10, 20, 30]"
                 responsiveLayout="scroll"
             >
                 <ng-template pTemplate="header">
@@ -403,7 +405,7 @@
     <div class="col-12 md:col-12 xl:col-12">
         <div class="card">
             <p-tabView (onChange)="clickCalendar($event)">
-                <p-tabPanel header="Lịch công tác {{ currentDate }}">
+                <p-tabPanel header="Lịch công tác ngày {{ currentDate }}">
                     <div class="table-container">
                         <table class="custom-table">
                             <thead>
@@ -897,7 +899,6 @@
 >
     <div *ngIf="eventDetails">
         <h3>{{ eventDetails.title }}</h3>
-        <p>Thời gian: {{ eventDetails.start | date : "dd/MM/yyyy hh:mm a" }}</p>
-        <!-- Thêm các chi tiết khác bạn muốn hiển thị -->
+        <p><b>Thời gian:</b> {{ eventDetails.start | date : "dd/MM/yyyy hh:mm a" }}</p>
     </div>
 </p-dialog>

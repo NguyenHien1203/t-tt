@@ -6,8 +6,6 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class UploadImageService {
-    private apiUrl = 'https://your-backend-api-url/api/image/upload';
-
     constructor(private http: HttpClient) {}
 
     uploadImage(file: File): Observable<any> {

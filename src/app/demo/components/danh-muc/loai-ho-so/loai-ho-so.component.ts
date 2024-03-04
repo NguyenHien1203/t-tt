@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
 import { LoaiHoSoService } from 'src/app/demo/service/danh-muc/loai-ho-so/loai-ho-so.service';
-import { LoaiHoSo } from 'src/app/models/danh-muc/loai-ho-so';
-import { Search } from 'src/app/models/danh-muc/search.model';
+import { LoaiHoSo, TimKiemLoaiHoSo } from 'src/app/models/danh-muc/loai-ho-so';
 
 @Component({
   selector: 'app-loai-ho-so',
@@ -18,12 +17,10 @@ export class LoaiHoSoComponent implements OnInit {
   cols: any[] = [];
   rowsPerPageOptions = [5, 10, 20];
 
-  search: Search = {};
-  dataSearch = {
-    "keyWord": "",
-    "nam": 0,
-    "tuNgay": new Date(),
-    "denNgay": new Date()
+  search: TimKiemLoaiHoSo = {
+    keyWord: "",
+    ma: "",
+    timChinhXac: 0
   };
 
   listRecords: LoaiHoSo[] = [];
@@ -31,14 +28,12 @@ export class LoaiHoSoComponent implements OnInit {
 
   idRecord: any;
 
-  valCheck: String[] = [];
+  timChinhXac: boolean = false;
   deleteProductDialog: boolean = false;
   msgs: Message[] = [];
 
   showCreated: boolean = false;
-
   hienThiCapNhat: boolean = false;
-
   idLoaiHoSo: string = '1';
 
   constructor(private messageService: MessageService, private loaiHoSoService: LoaiHoSoService) { }
@@ -54,6 +49,10 @@ export class LoaiHoSoComponent implements OnInit {
     this.showCreated = true;
   }
 
+  checkCX() {
+    this.timChinhXac = !this.timChinhXac;
+  }
+
   closePopup(item: any, type: string) {
     if (type === 'C') {
       this.showCreated = false;
@@ -64,7 +63,7 @@ export class LoaiHoSoComponent implements OnInit {
   }
 
   searchRecord() {
-    this.dataSearch.keyWord = this.search.keyWord ?? "";
+    this.search.keyWord = this.search.keyWord ?? "";
     this.ListRecords();
   }
 
@@ -102,8 +101,13 @@ export class LoaiHoSoComponent implements OnInit {
   }
 
   ListRecords() {
-    this.loaiHoSoService.getDanhSachLoaiHoSo(this.dataSearch)
+    this.search.timChinhXac = this.timChinhXac ? 1 : 0;
+    console.log(this.search);
+    
+    this.loaiHoSoService.getDanhSachLoaiHoSo(this.search)
       .subscribe(data => {
+        console.log(data);
+        
         if (data.isError) {
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: "Dữ liệu không hợp lệ" });

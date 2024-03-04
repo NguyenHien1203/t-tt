@@ -154,13 +154,13 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Văn bản chờ thu hồi',
                                 icon: 'pi pi-fw pi-spinner',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-den/van-ban-cho-thu-hoi'],
                                 code: '001016',
                             },
                             {
                                 label: 'Văn bản thu hồi',
                                 icon: 'pi pi-fw  pi-replay',
-                                routerLink: ['/hethong/nhomquyen'],
+                                routerLink: ['/van-ban-den/van-ban-da-thu-hoi'],
                                 code: '001015',
                             },
                         ],

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { VanBanDaTuChoiService } from 'src/app/demo/service/van-ban-den/van-ban-da-tu-choi/van-ban-da-tu-choi.service';
-import { TimKiemDanhSachVBTC } from 'src/app/models/van-ban-den/van-ban-da-tu-choi';
+import { TimKiemDanhSachVBTC, TimKiemDanhSachVTC } from 'src/app/models/van-ban-den/van-ban-da-tu-choi';
 
 @Component({
     selector: 'app-van-ban-da-tu-choi',
@@ -38,38 +38,26 @@ export class VanBanDaTuChoiComponent {
     ];
 
     isShowSearch: boolean = false;
-    idDonViLamViec: string = this.authService.GetDonViLamViec() ?? '0';
+    idDonViLamViec: string = this.authService.GetmUserInfo()?.donViId ?? '0';
     yearOptions: SelectItem[] = [];
     monthOptions: SelectItem[] = [];
     timChinhXac: boolean = false;
     loading: boolean = false;
     lstLoaiVanBan: any = [];
-    lstVanBanDi: any[] = [];
+    lstVanBanTuChoi: any[] = [];
     items = [{ label: 'Văn bản đi' }, { label: 'Tra cứu nâng cao' }];
     home = { icon: 'pi pi-home', routerLink: '/' };
 
-    timKiemDanhSach: TimKiemDanhSachVBTC = {
+    timKiemDanhSach: TimKiemDanhSachVTC = {
         keyWord: '',
-        soVanBanId: 0,
-        vanBanId: 0,
         donViId: Number(this.idDonViLamViec),
-        mucDo: 0,
-        loaiVanBanId: 0,
-        lanhDaoKy: '',
-        ngayGuiTuNgay: '1901-01-01',
-        ngayGuiDenNgay: '1901-01-01',
-        banHanhTuNgay: '1901-01-01',
-        banHanhDenNgay: '1901-01-01',
-        nam: new Date().getFullYear(),
+        NgayNhanVanBan: '1901-01-01',
+        ngayBanHanh: '1901-01-01',
+        nam: 0,
         thang: 0,
         soKyHieu: '',
-        lanhDaoKyId: 0,
-        soDi: null,
-        pageIndex: 0,
-        pageSize: 0,
         trichYeu: '',
         timChinhXac: 0,
-        trangThai: 1,
     };
 
     ngAfterContentChecked(): void {
@@ -106,9 +94,10 @@ export class VanBanDaTuChoiComponent {
     public LoadDanhSach(): void {
         this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
         this.service
-            .getDanhSachTraCuuNangCao(this.timKiemDanhSach)
+            .getDanhSachTuChoi(this.timKiemDanhSach)
             .then((data) => {
-                this.lstVanBanDi = data;
+                this.lstVanBanTuChoi = data;
+                console.log(this.lstVanBanTuChoi)
             });
     }
 

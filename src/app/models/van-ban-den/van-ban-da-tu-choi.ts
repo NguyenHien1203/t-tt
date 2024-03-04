@@ -25,3 +25,16 @@ export interface TimKiemDanhSachVBTC{
     trichYeu?: string,
     timChinhXac? : number
 }
+
+
+export interface TimKiemDanhSachVTC{
+  keyWord?: string,
+  donViId?: number,
+  NgayNhanVanBan?: string,
+  ngayBanHanh?: string,
+  nam?: number,
+  thang?: number,
+  soKyHieu?: string,
+  trichYeu?: string,
+  timChinhXac? : number,
+}

@@ -22,7 +22,7 @@
                 }}</a>
             </div>
             <div class="field grid">
-                <label class="col-12 md:col-3 fl-wr">
+                <label class="col-12 md:col-6 fl-wr">
                     <input
                         pInputText
                         type="text"
@@ -33,62 +33,97 @@
                 </label>
                 <label class="col-12 md:col-3 fl-wr">
                     <p-dropdown
+                        [(ngModel)]="timKiemDanhSach.loaiVanBanId"
+                        [options]="lstLoaiVanBan"
+                        optionValue="value"
+                        optionLabel="text"
                         [showClear]="true"
-                        [(ngModel)]="timKiemDanhSach.thang"
-                        [options]="monthOptions"
                         [filter]="true"
-                        placeholder="Chọn tháng"
+                        appendTo="body"
+                        placeholder="Chọn loại văn bản"
                         [style]="{ width: '100%' }"
                         class="my-drop"
                     ></p-dropdown>
                 </label>
                 <label class="col-12 md:col-3 fl-wr">
                     <p-dropdown
+                        [(ngModel)]="timKiemDanhSach.soVanBanId"
+                        [options]="lstSoVanBan"
+                        optionValue="value"
+                        optionLabel="text"
                         [showClear]="true"
-                        [(ngModel)]="timKiemDanhSach.nam"
-                        [options]="yearOptions"
                         [filter]="true"
-                        placeholder="Chọn năm"
+                        appendTo="body"
+                        placeholder="Chọn sổ văn bản"
                         [style]="{ width: '100%' }"
                         class="my-drop"
                     ></p-dropdown>
                 </label>
-                <label class="col-12 md:col-3 fl-wr">
-                    <p-checkbox
-                        name="hienThi"
-                        (click)="CheckedHt()"
-                        id="hienThi"
-                        value="true"
-                        label="Tìm chính xác"
-                    ></p-checkbox>
-                </label>
             </div>
             <div *ngIf="isShowSearch">
                 <div class="field grid">
-                    <label class="col-12 md:col-4 fl-wr">
+                    <div class="field col-12 md:col-3">
+                        <p-calendar
+                            [(ngModel)]="timKiemDanhSach.ngayBanHanh"
+                            dateFormat="dd/mm/yy"
+                            placeholder="Ngày ban hành"
+                            [style]="{ width: '100%' }"
+                            class="my-drop"
+                        ></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <p-calendar
+                            [(ngModel)]="timKiemDanhSach.NgayNhanVanBan"
+                            dateFormat="dd/mm/yy"
+                            placeholder="Ngày nhận văn bản"
+                            [style]="{ width: '100%' }"
+                            class="my-drop"
+                        ></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-3">
                         <p-dropdown
-                            [(ngModel)]="timKiemDanhSach.loaiVanBanId"
-                            [options]="lstLoaiVanBan"
+                            [options]="yearOptions"
+                            placeholder="Chọn năm"
+                            [(ngModel)]="timKiemDanhSach.nam"
+                            [style]="{ width: '100%' }"
+                            class="my-drop"
+                        ></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <p-dropdown
+                            [options]="monthOptions"
+                            placeholder="Chọn tháng"
+                            [(ngModel)]="timKiemDanhSach.thang"
+                            [style]="{ width: '100%' }"
+                            class="my-drop"
+                        ></p-dropdown>
+                    </div>
+                </div>
+                <div class="field grid">
+                    <label class="col-12 md:col-3 fl-wr">
+                        <p-dropdown
+                            [(ngModel)]="timKiemDanhSach.cQBHId"
+                            [options]="lstCoQuan"
                             optionValue="value"
                             optionLabel="text"
                             [showClear]="true"
                             [filter]="true"
                             appendTo="body"
-                            placeholder="Chọn loại văn bản"
+                            placeholder="Chọn cơ quan ban hành"
                             [style]="{ width: '100%' }"
                             class="my-drop"
                         ></p-dropdown>
                     </label>
-                    <label class="col-12 md:col-4 fl-wr">
+                    <label class="col-12 md:col-3 fl-wr">
                         <input
                             [(ngModel)]="timKiemDanhSach.soKyHieu"
-                            pInputText
+                            pInputText   
                             type="text"
                             placeholder="Số ký hiệu"
                             class="form-control"
                         />
                     </label>
-                    <label class="col-12 md:col-4 fl-wr">
+                    <label class="col-12 md:col-3 fl-wr">
                         <input
                             pInputText
                             type="text"
@@ -97,44 +132,14 @@
                             class="form-control"
                         />
                     </label>
-                </div>
-                <div class="field grid">
                     <label class="col-12 md:col-3 fl-wr">
-                        <p-calendar
-                            [(ngModel)]="timKiemDanhSach.banHanhTuNgay"
-                            dateFormat="dd/mm/yy"
-                            placeholder="Ban hành từ ngày"
-                            [style]="{ width: '100%' }"
-                            class="my-drop"
-                        ></p-calendar>
-                    </label>
-                    <label class="col-12 md:col-3 fl-wr">
-                        <p-calendar
-                            [(ngModel)]="timKiemDanhSach.banHanhDenNgay"
-                            dateFormat="dd/mm/yy"
-                            placeholder="Ban hành đến ngày"
-                            [style]="{ width: '100%' }"
-                            class="my-drop"
-                        ></p-calendar>
-                    </label>
-                    <label class="col-12 md:col-3 fl-wr">
-                        <p-calendar
-                            [(ngModel)]="timKiemDanhSach.ngayGuiTuNgay"
-                            dateFormat="dd/mm/yy"
-                            placeholder="Ngày nhận từ ngày"
-                            [style]="{ width: '100%' }"
-                            class="my-drop"
-                        ></p-calendar>
-                    </label>
-
-                    <label class="col-12 md:col-3 fl-wr">
-                        <p-calendar
-                            [(ngModel)]="timKiemDanhSach.ngayGuiDenNgay"
-                            dateFormat="dd/mm/yy"
-                            placeholder="Ngày nhận đến ngày"
-                            [style]="{ width: '100%' }"
-                            class="my-drop"
-                        ></p-calendar>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="timKiemDanhSach.soDi"
+                            placeholder="Số đến"
+                            class="form-control"
+                        />
                     </label>
                 </div>
             </div>
@@ -184,7 +189,7 @@
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
-                                        Số đi
+                                        Số đến
                                     </div>
                                 </th>
                                 <th style="min-width: 3rem">
@@ -205,13 +210,6 @@
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
-                                        Loại văn bản
-                                    </div>
-                                </th>
-                                <th style="min-width: 10rem">
-                                    <div
-                                        class="flex justify-content-between align-items-center"
-                                    >
                                         Ngày ban hành
                                     </div>
                                 </th>
@@ -219,14 +217,21 @@
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
-                                        Ngày nhận gửi
+                                        Cơ quan ban hành
                                     </div>
                                 </th>
                                 <th style="min-width: 10rem">
                                     <div
                                         class="flex justify-content-between align-items-center"
                                     >
-                                        Lãnh đạo ký
+                                        Trạng thái
+                                    </div>
+                                </th>
+                                <th style="min-width: 10rem">
+                                    <div
+                                        class="flex justify-content-between align-items-center"
+                                    >
+                                        Trạng thái phân phối
                                     </div>
                                 </th>
                             </tr>
@@ -249,17 +254,17 @@
                                 <td>
                                     {{ item.trichYeu }}
                                 </td>
-                                <td>
-                                    {{ item.tenLoaiVanBan }}
-                                </td>
                                 <td class="text-center">
                                     {{ item.ngayBanHanh | date : "dd-MM-yyyy" }}
                                 </td>
                                 <td class="text-center">
-                                    {{ item.ngayNhanGui | date : "dd-MM-yyyy" }}
+                                    {{ item.coQuanBH }}
                                 </td>
                                 <td>
-                                    {{ item.nguoiKy }}
+                                    {{ item.noiDung }}
+                                </td>
+                                <td>
+                                    {{ item.trichYeuNhanGui }}
                                 </td>
                             </tr>
                         </ng-template>

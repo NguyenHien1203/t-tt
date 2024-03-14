@@ -105,7 +105,7 @@ export class VanBanDenLienQuanComponent {
   public LoadDanhSach(): void {
       this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
       this.service
-          .getDanhSachTraCuuNangCao(this.timKiemDanhSach)
+          .getDanhSachTuChoi(this.timKiemDanhSach)
           .then((data) => {
               this.lstVanBanDi = data;
           });

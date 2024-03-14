@@ -12,3 +12,15 @@ export interface TimKiemDanhSach {
     userId?: number
     timChinhXac?: number
 }
+
+export interface VbPhaiBaoCao {
+    donViId?: number,
+    thang?: number,
+    nam?: number,
+    trangThai?: number,
+    NgayGuiVanBan?: string,
+    NgayBanHanhVanBan?: string,
+    keyWord?: string,
+    idCQBH?: number,
+    iTimChinhXac?: number
+}

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/common/auth.services';
 import { VanBanDaTuChoiService } from 'src/app/demo/service/van-ban-den/van-ban-da-tu-choi/van-ban-da-tu-choi.service';
+import { VbPhaiBaoCao } from 'src/app/models/van-ban-den/tra-cuu-don-gian';
 import { TimKiemDanhSachVBTC } from 'src/app/models/van-ban-den/van-ban-da-tu-choi';
 
 @Component({
@@ -47,28 +48,16 @@ export class VanBanPhaiBaoCaoComponent {
   items = [{ label: 'Văn bản đi' }, { label: 'Tra cứu nâng cao' }];
   home = { icon: 'pi pi-home', routerLink: '/' };
 
-  timKiemDanhSach: TimKiemDanhSachVBTC = {
+  timKiemDanhSach: VbPhaiBaoCao = {
       keyWord: '',
-      soVanBanId: 0,
-      vanBanId: 0,
       donViId: Number(this.idDonViLamViec),
-      mucDo: 0,
-      loaiVanBanId: 0,
-      lanhDaoKy: '',
-      ngayGuiTuNgay: '1901-01-01',
-      ngayGuiDenNgay: '1901-01-01',
-      banHanhTuNgay: '1901-01-01',
-      banHanhDenNgay: '1901-01-01',
       nam: new Date().getFullYear(),
       thang: 0,
-      soKyHieu: '',
-      lanhDaoKyId: 0,
-      soDi: null,
-      pageIndex: 0,
-      pageSize: 0,
-      trichYeu: '',
-      timChinhXac: 0,
-      trangThai: 1,
+      trangThai: 0,
+      NgayGuiVanBan: '1901-01-01',
+      NgayBanHanhVanBan: '1901-01-01',
+      idCQBH: 0,
+      iTimChinhXac: 0,
   };
 
   ngAfterContentChecked(): void {
@@ -103,9 +92,9 @@ export class VanBanPhaiBaoCaoComponent {
   }
 
   public LoadDanhSach(): void {
-      this.timKiemDanhSach.timChinhXac = this.timChinhXac ? 1 : 0;
+      this.timKiemDanhSach.iTimChinhXac = this.timChinhXac ? 1 : 0;
       this.service
-          .getDanhSachTraCuuNangCao(this.timKiemDanhSach)
+          .getDanhSachTuChoi(this.timKiemDanhSach)
           .then((data) => {
               this.lstVanBanDi = data;
           });

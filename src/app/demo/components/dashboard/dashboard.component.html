@@ -298,14 +298,12 @@
                     ></p-calendar>
                 </label>
                 <label class="col-12 md:col-2 fl-wr">
-                    <button
-                        pButton
-                        pRipple
-                        label=""
+                    <p-button
                         icon="pi pi-search"
-                        class="p-button-info mr-2"
+                        [loading]="loading"
                         (click)="initChart()"
-                    ></button>
+                        [style]="{'background-color' : '#3b82f6', 'border-color' : '#3b82f6'}"
+                    ></p-button>
                 </label>
             </div>
             <p-table
@@ -899,6 +897,9 @@
 >
     <div *ngIf="eventDetails">
         <h3>{{ eventDetails.title }}</h3>
-        <p><b>Thời gian:</b> {{ eventDetails.start | date : "dd/MM/yyyy hh:mm a" }}</p>
+        <p>
+            <b>Thời gian:</b>
+            {{ eventDetails.start | date : "dd/MM/yyyy hh:mm a" }}
+        </p>
     </div>
 </p-dialog>

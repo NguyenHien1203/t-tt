@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         });
     }
 
+    loading: boolean = false;
     headerCalendar =
         'tháng ' +
         (new Date().getMonth() + 1) +
@@ -172,6 +173,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     async initChart() {
         try {
+            this.loading = true;
             let currentDate = new Date();
             const startOfWeekDate = new Date(
                 currentDate.setDate(
@@ -258,6 +260,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
                     },
                 },
             };
+            clearTimeout(1000);
+            setTimeout(() => {
+                this.loading = false;
+            }, 1000);
         } catch (error) {
             console.log(error);
         }
@@ -273,13 +279,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         events: [],
         customButtons: {
             addEvents: {
-              text: 'Thêm sự kiện',
-              click: () => {
-                // Navigate to the desired route
-                this.router.navigate(['/lich/lich-co-quan']);
-              }
-            }
-          },
+                text: 'Thêm sự kiện',
+                click: () => {
+                    // Navigate to the desired route
+                    this.router.navigate(['/lich/lich-co-quan']);
+                },
+            },
+        },
         headerToolbar: {
             start: 'prev,next today addEvents',
             center: 'title',
@@ -292,7 +298,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         eventsSet: this.handleEvents.bind(this),
     };
 
-    navigateAddEvent(){
+    navigateAddEvent() {
         this.router.navigate(['/lich/lich-co-quan']);
     }
 

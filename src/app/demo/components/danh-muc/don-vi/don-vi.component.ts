@@ -49,7 +49,7 @@ export class DonViComponent  implements OnInit {
 
   ngOnInit(): void {
 
-    this.items = [{ label: 'Danh mục' }, { label: 'đơn vị' }];
+    this.items = [{ label: 'Danh mục' }, { label: 'Quản trị đơn vị' }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.loading = false;
     //Trỏ đến get danh sách

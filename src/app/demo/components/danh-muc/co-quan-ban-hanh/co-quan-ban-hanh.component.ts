@@ -37,7 +37,7 @@ export class CoQuanBanHanhComponent implements OnInit {
   loading: boolean = true;
 
   ngOnInit(): void {
-    this.items = [{ label: 'Danh mục' }, { label: 'đơn vị' }];
+    this.items = [{ label: 'Danh mục' }, { label: 'Đơn vị' }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.loading = false;
     //Trỏ đến get danh sách
